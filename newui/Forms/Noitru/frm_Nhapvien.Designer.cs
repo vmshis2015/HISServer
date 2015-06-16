@@ -103,7 +103,7 @@
             this.txtKhoanoitru.splitChar = '@';
             this.txtKhoanoitru.splitCharIDAndCode = '#';
             this.txtKhoanoitru.TabIndex = 2;
-            this.txtKhoanoitru.TakeCode = true;
+            this.txtKhoanoitru.TakeCode = false;
             this.txtKhoanoitru.txtMyCode = null;
             this.txtKhoanoitru.txtMyCode_Edit = null;
             this.txtKhoanoitru.txtMyID = null;
