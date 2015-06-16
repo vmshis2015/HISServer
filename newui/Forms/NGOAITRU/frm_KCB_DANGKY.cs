@@ -36,7 +36,9 @@ namespace VNS.HIS.UI.NGOAITRU
     public delegate void SetParameterValueDelegate(string value, int IsUuTien);
 
     public delegate void SetParameterValueDelegateColose(Form frm);
-
+    /// <summary>
+    /// Đẩy thử code=Github
+    /// </summary>
     public partial class frm_KCB_DANGKY : Form
     {
         public delegate void OnActionSuccess();
