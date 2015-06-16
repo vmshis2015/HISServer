@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConfigProperties xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Min>0</Min>
+  <Max>1000</Max>
+  <MaDvi>HIS</MaDvi>
+  <MaKhoa>KKB</MaKhoa>
+  <Maphong>101</Maphong>
+  <Somayle>12345678</Somayle>
+  <DataBaseServer>.\sql2k8</DataBaseServer>
+  <DataBaseName>qlbv_tv</DataBaseName>
+  <UID>sa</UID>
+  <PWD>123456</PWD>
+  <ORM>ORM</ORM>
+</ConfigProperties>

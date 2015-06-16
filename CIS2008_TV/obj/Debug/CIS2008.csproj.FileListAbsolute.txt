@@ -1,0 +1,15 @@
+D:\VBITProjects\HIS_CODE\CIS2008\obj\Debug\ResolveAssemblyReference.cache
+D:\VBITProjects\HIS_CODE\CIS2008\obj\Debug\CIS.ControlPanel.resources
+D:\VBITProjects\HIS_CODE\CIS2008\obj\Debug\VietBaIT.CoreApp.FormScreen.resources
+D:\VBITProjects\HIS_CODE\CIS2008\obj\Debug\CIS.CoreApp.frm_ChangePass.resources
+D:\VBITProjects\HIS_CODE\CIS2008\obj\Debug\CIS.CoreApp.frm_DonVi_LamViec.resources
+D:\VBITProjects\HIS_CODE\CIS2008\obj\Debug\CIS.CoreApp.frm_Login.resources
+D:\VBITProjects\HIS_CODE\CIS2008\obj\Debug\CIS.CoreApp.frm_MainForm.resources
+D:\VBITProjects\HIS_CODE\CIS2008\obj\Debug\CIS.CoreApp.frm_Profile.resources
+D:\VBITProjects\HIS_CODE\CIS2008\obj\Debug\CIS2008.Properties.Resources.resources
+D:\VBITProjects\HIS_CODE\CIS2008\obj\Debug\CIS2008.csproj.GenerateResource.Cache
+D:\VBITProjects\HIS_CODE\Running\CIS2008.exe
+D:\VBITProjects\HIS_CODE\Running\CIS2008.pdb
+D:\VBITProjects\HIS_CODE\CIS2008\obj\Debug\CIS2008.exe
+D:\VBITProjects\HIS_CODE\CIS2008\obj\Debug\CIS2008.pdb
+D:\VBITProjects\HIS_CODE\CIS2008\obj\Debug\CIS2008.exe.licenses

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="HISLINK">
+</Property><Property Name="Solution File" Value="D:\VBITProjects\MyHIS\CIS2008\HISLINK.sln">
+</Property><Property Name="Date" Value="14/05/2014">
+</Property><Property Name="Time" Value="23:06:40 PM">
+</Property><Property Name="Log Number" Value="2">
+</Property></Properties><Event ErrorLevel="4" Project="reports" Source="http://go.microsoft.com/fwlink/?LinkId=159919" Description="Warning: this project requires Crystal Reports, which is no longer included with Visual Studio. Please click here for more information.">
+</Event><Event ErrorLevel="0" Project="reports" Source="..\myreports\reports.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="reports" Source="..\myreports\reports.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="reports" Source="..\myreports\reports.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

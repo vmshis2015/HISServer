@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="HISLINK">
+</Property><Property Name="Solution File" Value="D:\VBITProjects\MyHIS\CIS2008\HISLINK.sln">
+</Property><Property Name="Date" Value="14/05/2014">
+</Property><Property Name="Time" Value="22:55 PM">
+</Property></Properties><Event ErrorLevel="0" Project="HISLINK" Source="HISLINK.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="HISLINK" Source="HISLINK.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Dal" Source="..\Dal\Dal.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Dal" Source="..\Dal\Dal.csproj" Description="Converted">
+</Event><Event ErrorLevel="4" Project="libs" Source="http://go.microsoft.com/fwlink/?LinkId=159919" Description="Warning: this project requires Crystal Reports, which is no longer included with Visual Studio. Please click here for more information.">
+</Event><Event ErrorLevel="0" Project="libs" Source="..\libs\libs.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="libs" Source="..\libs\libs.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="bus" Source="..\bus\bus.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="bus" Source="..\bus\bus.csproj" Description="Converted">
+</Event><Event ErrorLevel="4" Project="ui" Source="http://go.microsoft.com/fwlink/?LinkId=159919" Description="Warning: this project requires Crystal Reports, which is no longer included with Visual Studio. Please click here for more information.">
+</Event><Event ErrorLevel="0" Project="ui" Source="..\ui\ui.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="ui" Source="..\ui\ui.csproj" Description="Converted">
+</Event><Event ErrorLevel="2" Project="reportsfull" Source="..\reports\reportsfull.csproj" Description="Unable to open project file to perform upgrade.  ">
+</Event><Event ErrorLevel="0" Project="ucs" Source="..\ucs\ucs.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="ucs" Source="..\ucs\ucs.csproj" Description="Converted">
+</Event><Event ErrorLevel="2" Project="ConfigXML" Source="..\ConfigXML\ConfigXML.vbproj" Description="Unable to open project file to perform upgrade.  ">
+</Event><Event ErrorLevel="2" Project="VietBaIT.HISLink.SystemManagement" Source="..\VietBaIT.HISLink.SystemManagement\VietBaIT.HISLink.SystemManagement.vbproj" Description="Unable to open project file to perform upgrade.  ">
+</Event><Event ErrorLevel="4" Project="QMS" Source="http://go.microsoft.com/fwlink/?LinkId=159919" Description="Warning: this project requires Crystal Reports, which is no longer included with Visual Studio. Please click here for more information.">
+</Event><Event ErrorLevel="0" Project="QMS" Source="..\QMS\QMS.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="QMS" Source="..\QMS\QMS.csproj" Description="Converted">
+</Event><Event ErrorLevel="4" Project="reports" Source="http://go.microsoft.com/fwlink/?LinkId=159919" Description="Warning: this project requires Crystal Reports, which is no longer included with Visual Studio. Please click here for more information.">
+</Event><Event ErrorLevel="0" Project="reports" Source="..\..\HIS_CODE_Bophanthua\myreports\reports.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="reports" Source="..\..\HIS_CODE_Bophanthua\myreports\reports.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="HISLINK.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="HISLINK.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="HISLINK" Source="HISLINK.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Dal" Source="..\Dal\Dal.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="libs" Source="..\libs\libs.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="bus" Source="..\bus\bus.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="ui" Source="..\ui\ui.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="ucs" Source="..\ucs\ucs.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="QMS" Source="..\QMS\QMS.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="reports" Source="..\..\HIS_CODE_Bophanthua\myreports\reports.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

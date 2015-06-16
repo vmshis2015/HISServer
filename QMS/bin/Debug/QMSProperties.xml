@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<QMSProperties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <mySize>
+    <Width>300</Width>
+    <Height>250</Height>
+  </mySize>
+  <NumberHeigh>90</NumberHeigh>
+  <ButtonHeigh>90</ButtonHeigh>
+  <NumberFName>Arial</NumberFName>
+  <NumberFsize>15.25</NumberFsize>
+  <NumberFstyle>Bold</NumberFstyle>
+  <ButtonFName>Arial</ButtonFName>
+  <ButtonFsize>60.25</ButtonFsize>
+  <ButtonFstyle>Bold</ButtonFstyle>
+  <TenBenhVien>BỆNH VIỆN NỘI TIẾT TW CƠ SỞ 2</TenBenhVien>
+  <MaQuay>QUAYSO_1</MaQuay>
+  <TenQuay>Quầy thu ngân số 1</TenQuay>
+  <MaKhoaThuchien>KKB</MaKhoaThuchien>
+  <FontSize>400</FontSize>
+  <PrinterName>doPDF v7</PrinterName>
+  <PrintStatus>false</PrintStatus>
+  <MaKhoaKhamBenh>KKB</MaKhoaKhamBenh>
+  <Chilaysouutien>false</Chilaysouutien>
+  <Chopheplaysouutien>false</Chopheplaysouutien>
+  <MaDoituongKCB>ALL</MaDoituongKCB>
+  <MaKhoaYeuCau>KYC</MaKhoaYeuCau>
+  <TenKhoaKhamBenh>KHOA KHÁM CHỮA BỆNH (TẦNG 1)</TenKhoaKhamBenh>
+  <TenKhoaYeuCau>KHOA KHÁM YÊU CẦU (TẦNG 2 PHÒNG A-205)</TenKhoaYeuCau>
+  <MauB1>Control</MauB1>
+  <MauF1>Black</MauF1>
+  <MauB2>ffe0e0e0</MauB2>
+  <MauF2>Black</MauF2>
+  <MauB3>Green</MauB3>
+  <MauF3>Navy</MauF3>
+  <SleepTime>50</SleepTime>
+</QMSProperties>

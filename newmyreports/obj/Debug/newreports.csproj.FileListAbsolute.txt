@@ -1,0 +1,6 @@
+D:\VMS\HIS\newmyreports\obj\Debug\newreports.csprojResolveAssemblyReference.cache
+D:\VMS\HIS\newmyreports\obj\Debug\reports.Properties.Resources.resources
+D:\VMS\HIS\newmyreports\obj\Debug\newreports.csproj.GenerateResource.Cache
+D:\Projects\VMSTEST\newmyreports\obj\Debug\newreports.csprojResolveAssemblyReference.cache
+D:\Projects\VMSTEST\newmyreports\obj\Debug\reports.Properties.Resources.resources
+D:\Projects\VMSTEST\newmyreports\obj\Debug\newreports.csproj.GenerateResource.Cache

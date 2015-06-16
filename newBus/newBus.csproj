@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A99E7072-450C-430D-AC3D-63CBB74C01AD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>newBus</RootNamespace>
+    <AssemblyName>VNS.Bus</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\MyHIS\Running\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Running\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Running\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.2.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Running\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="SubSonic, Version=2.2.0.0, Culture=neutral, PublicKeyToken=eadb47849839a332, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Running\SubSonic.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Baocao\BAOCAO_THUOC.cs" />
+    <Compile Include="Baocao\BAOCAO_NGOAITRU.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Cls\clsHinhanh.cs" />
+    <Compile Include="CommonLibs\CommonLoadDuoc.cs" />
+    <Compile Include="CommonLibs\ChuyenDoituongKCB.cs" />
+    <Compile Include="CommonLibs\ChuyenPhongkham.cs" />
+    <Compile Include="CommonLibs\TinhCLS.cs" />
+    <Compile Include="CommonLibs\TinhGiaThuoc.cs" />
+    <Compile Include="CommonLibs\TinhToanPtramBHYT.cs" />
+    <Compile Include="danhmuc\dmuckieukham_busrule.cs" />
+    <Compile Include="danhmuc\DMUC_CHUNG_BUSRULE.cs" />
+    <Compile Include="danhmuc\DMUC_KIEUDMUC_BUSRULE.cs" />
+    <Compile Include="CommonLibs\THU_VIEN_CHUNG.cs" />
+    <Compile Include="Ngoaitru\BAOCAO_BHYT.cs" />
+    <Compile Include="Ngoaitru\DMUC_CHUNG.cs" />
+    <Compile Include="Ngoaitru\KCB_HOADONDO.cs" />
+    <Compile Include="Ngoaitru\KCB_CHIDINH_CANLAMSANG.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Ngoaitru\KCB_DANGKY.cs" />
+    <Compile Include="Ngoaitru\KCB_KEDONTHUOC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Ngoaitru\KCB_PHIEUTHU.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Ngoaitru\KCB_QMS.cs" />
+    <Compile Include="Ngoaitru\KCB_THAMKHAM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Ngoaitru\KCB_THANHTOAN.cs" />
+    <Compile Include="Ngoaitru\KCB_HinhAnh.cs" />
+    <Compile Include="Noitru\noitru_tonghopchiphi.cs" />
+    <Compile Include="Noitru\noitru_phieudieutri.cs" />
+    <Compile Include="Noitru\noitru_nhapvien.cs" />
+    <Compile Include="Noitru\noitru_TamungHoanung.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Thuoc\ChotThuoc\ChotThuoc.cs" />
+    <Compile Include="Thuoc\DanhMuc\QuanHeDoiTuongKho.cs" />
+    <Compile Include="Thuoc\NhapKho\THUOC_NHAPKHO.cs" />
+    <Compile Include="Thuoc\Quaythuoc\Quaythuoc.cs" />
+    <Compile Include="Thuoc\TraLaiKho\PhieuTraLai.cs" />
+    <Compile Include="Thuoc\TraLaiKho\PhieuTralaiThuocKhoaVeKho.cs" />
+    <Compile Include="Thuoc\XuatThuoc\CapphatThuocKhoa.cs" />
+    <Compile Include="Thuoc\XuatThuoc\XuatThuoc.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Thuoc\BanThuoc\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\newdal\newdal.csproj">
+      <Project>{cd0be8e8-b7d8-41ca-95f7-ea03675cfe0d}</Project>
+      <Name>newdal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\newLib\newLib.csproj">
+      <Project>{0400ff7a-0d53-45aa-bbe5-09eedeb50d4e}</Project>
+      <Name>newLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
