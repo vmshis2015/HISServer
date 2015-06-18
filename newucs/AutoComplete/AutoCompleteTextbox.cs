@@ -188,7 +188,11 @@ namespace VNS.HIS.UCs
             get;
             set;
         }
-
+        public HorizontalAlignment _TextAlign
+        {
+            get { return this.TextAlign; }
+            set{this.TextAlign=value;}
+        }
         // minimum characters to be typed before suggestions are displayed
         public int MinTypedCharacters
         {
@@ -353,7 +357,7 @@ namespace VNS.HIS.UCs
                             select Utility.sDbnull(p[lstIdCodeName[0]], "") + "#" + Utility.sDbnull(p[lstIdCodeName[1]], "") + "@" + Utility.sDbnull(p[lstIdCodeName[2]], "") + "@" + p.Field<string>("shortcut").ToString();
                 source = query.ToList();
                 this.AutoCompleteList = source;
-                this.TextAlign = HorizontalAlignment.Center;
+                this.TextAlign = _TextAlign;
                 this.CaseSensitive = false;
                 this.MinTypedCharacters = 1;
 
@@ -402,7 +406,7 @@ namespace VNS.HIS.UCs
                             select Utility.sDbnull(p["ID"], "") + "#" + Utility.sDbnull(p["MA"], "") + "@" + Utility.sDbnull(p["TEN"], "") + "@" + p.Field<string>("shortcut").ToString();
                 source = query.ToList();
                 this.AutoCompleteList = source;
-                this.TextAlign = HorizontalAlignment.Center;
+                this.TextAlign = this._TextAlign;
                 this.CaseSensitive = false;
                 this.MinTypedCharacters = 1;
 
