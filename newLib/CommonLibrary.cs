@@ -163,8 +163,11 @@ namespace VNS.Libs
     {
         NgoaiTru = 0,
         NoiTru = 1,
-        ChoRaVien = 2,
-        DaRaVien = 3
+        Dangdieutri=2,
+        Lapphieuravien=3,
+        Xacnhandulieunoitru=4,
+        Taichinhduyet = 5,
+        Thanhtoanravien = 6
     } ;
     public enum KieuThanhToan
     {
