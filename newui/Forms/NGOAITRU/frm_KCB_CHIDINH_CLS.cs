@@ -69,7 +69,6 @@ namespace VNS.HIS.UI.NGOAITRU
             dtRegDate.Value = globalVariables.SysDate;
             chkChiDinhNhanh.Visible = globalVariables.IsAdmin;
             if (globalVariables.gv_UserAcceptDeleted) FormatUserNhapChiDinh();
-            dtRegDate.Value = globalVariables.SysDate;
             CauHinh();
         }
 
@@ -202,6 +201,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
+               
                 LaydanhsachbacsiChidinh();
                 BHYT_PTRAM_TRAITUYENNOITRU =Utility.DecimaltoDbnull( THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false),0m);
                 DataBinding.BindDataCombobox(cboDichVu, THU_VIEN_CHUNG.LayThongTinDichVuCLS(nhomchidinh),
@@ -433,6 +433,15 @@ namespace VNS.HIS.UI.NGOAITRU
                 Utility.SetMsg(uiStatusBar1.Panels["lblStatus"], "Bạn cần chọn bác sĩ chỉ định trước khi thực hiện lưu chỉ định", true);
                 cbobacSyChiDinh.Focus();
                 return false;
+            }
+            if (objPhieudieutriNoitru != null)
+            {
+                if (dtRegDate.Value.Date > objPhieudieutriNoitru.NgayDieutri.Value.Date)
+                {
+                    Utility.ShowMsg("Ngày kê đơn phải <= " + objPhieudieutriNoitru.NgayDieutri.Value.ToString("dd/MM/yyyy"));
+                    dtRegDate.Focus();
+                    return false;
+                }
             }
             if (grdAssignDetail.RowCount <= 0)
             {
@@ -1590,7 +1599,10 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             else
             {
-                dtRegDate.Value = globalVariables.SysDate;
+                if (objPhieudieutriNoitru != null)
+                    dtRegDate.Value = objPhieudieutriNoitru.NgayDieutri.Value;
+                else
+                    dtRegDate.Value = globalVariables.SysDate;
                 txtAssignCode.Text = THU_VIEN_CHUNG.SinhMaChidinhCLS();
                 barcode1.Data = Utility.sDbnull(txtAssignCode.Text);
             }

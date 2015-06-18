@@ -754,6 +754,14 @@ namespace VNS.HIS.UI.NGOAITRU
                 cbobacSyChiDinh.Focus();
                 return;
             }
+            if (objPhieudieutriNoitru != null)
+            {
+                if (dtpCreatedDate.Value.Date > objPhieudieutriNoitru.NgayDieutri.Value.Date)
+                {
+                    Utility.ShowMsg("Ngày kê đơn phải <= " + objPhieudieutriNoitru.NgayDieutri.Value.ToString("dd/MM/yyyy"));
+                    return;
+                }
+            }
             this.AddPreDetail();
             this.Manual = true;
         }
@@ -854,6 +862,22 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 this.cmdSavePres.Enabled = false;
                 this.isSaved = true;
+                if (Utility.Int32Dbnull(cbobacSyChiDinh.SelectedValue, -1) <= 0)
+                {
+                    Utility.SetMsg(lblMsg, "Bạn cần chọn bác sĩ chỉ định trước khi thực hiện kê đơn thuốc", true);
+                    cbobacSyChiDinh.Focus();
+                    return;
+                }
+                if (objPhieudieutriNoitru != null)
+                {
+                    if (dtpCreatedDate.Value.Date > objPhieudieutriNoitru.NgayDieutri.Value.Date)
+                    {
+                        Utility.ShowMsg("Ngày kê đơn phải <= " + objPhieudieutriNoitru.NgayDieutri.Value.ToString("dd/MM/yyyy"));
+                        dtpCreatedDate.Focus();
+                        return;
+                    }
+                }
+               
                 if (this.grdPresDetail.RowCount <= 0)
                 {
                     this.setMsg(this.lblMsg, "Hiện chưa Có bản ghi nào để thực hiện  lưu lại", true);
@@ -1636,11 +1660,19 @@ namespace VNS.HIS.UI.NGOAITRU
                 this.barcode.Data = Utility.sDbnull(this.IdDonthuoc);
                 this.txtLoiDanBS.Text = Utility.sDbnull(donthuoc.LoidanBacsi);
                 this.txtKhamLai.Text = Utility.sDbnull(donthuoc.TaiKham);
-                if (!string.IsNullOrEmpty(Utility.sDbnull(donthuoc.NgayTaikham)))
+                dtpCreatedDate.Value = donthuoc.NgayKedon;
+                if (donthuoc.NgayTaikham != null)
                 {
                     this.chkNgayTaiKham.Checked = true;
-                    this.dtNgayKhamLai.Value = Convert.ToDateTime(donthuoc.NgayTaikham);
+                    this.dtNgayKhamLai.Value = donthuoc.NgayTaikham.Value;
                 }
+            }
+            else
+            {
+                if (objPhieudieutriNoitru != null)
+                    dtpCreatedDate.Value = objPhieudieutriNoitru.NgayDieutri.Value;
+                else
+                    dtpCreatedDate.Value = globalVariables.SysDate;
             }
             this.m_dtDonthuocChitiet = this._KEDONTHUOC.Laythongtinchitietdonthuoc(this.IdDonthuoc);
             this.CreateViewTable();
@@ -2367,7 +2399,9 @@ namespace VNS.HIS.UI.NGOAITRU
         private void PerformAction(KcbDonthuocChitiet[] arrPresDetail)
         {
             this.isSaved = true;
+            
             this.Create_ChandoanKetluan();
+
             switch (this.em_Action)
             {
                 case action.Insert:
