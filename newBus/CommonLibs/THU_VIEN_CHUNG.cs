@@ -1786,6 +1786,14 @@ namespace VNS.Libs
 
            return SoBenhAn;
        }
+       public static string Laysoravien()
+       {
+           string Soravien = "";
+           DataTable dataTable = SPs.NoitruTaosoravien().GetDataSet().Tables[0];
+           if (dataTable.Rows.Count > 0) Soravien = Utility.sDbnull(dataTable.Rows[0]["Soravien"], string.Empty);
+
+           return Soravien;
+       }
        public static string KCB_SINH_MALANKHAM()
        {
            string MaxPatientCode = "";
