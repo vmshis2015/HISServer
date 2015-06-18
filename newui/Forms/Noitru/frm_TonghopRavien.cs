@@ -152,6 +152,8 @@ namespace VNS.HIS.UI.NOITRU
             grdVTTH.SelectionChanged += grdVTTH_SelectionChanged;
             grdChiphithem.SelectionChanged += grdChiphithem_SelectionChanged;
             cmdChuyengoi.Click += cmdChuyengoi_Click;
+
+            grdBuongGiuong.UpdatingCell += grdBuongGiuong_UpdatingCell;
             lnkSize.Click += lnkSize_Click;
 
             cmdXacnhan.Click += cmdXacnhan_Click;
@@ -167,6 +169,43 @@ namespace VNS.HIS.UI.NOITRU
             mnuCancel.Click += mnuCancel_Click;
 
         }
+
+        void grdBuongGiuong_UpdatingCell(object sender, UpdatingCellEventArgs e)
+        {
+             try
+            {
+                long id = Utility.Int64Dbnull(Utility.getValueOfGridCell(grdBuongGiuong, NoitruPhanbuonggiuong.Columns.Id));
+                if (e.Column.Key == "don_gia")
+                {
+                    noitru_nhapvien.Capnhatgia(id, Utility.DecimaltoDbnull(e.Value, 0), (byte)1);
+                    DataRow[] arrDr = m_dtBuongGiuong.Select(NoitruPhanbuonggiuong.Columns.Id + "=" + id.ToString());
+                    if (arrDr.Length > 0)
+                    {
+                        arrDr[0][NoitruPhanbuonggiuong.Columns.DonGia] = e.Value;
+                        arrDr[0]["thanh_tien"] = Utility.DecimaltoDbnull(arrDr[0][NoitruPhanbuonggiuong.Columns.DonGia], 0) * Utility.Int32Dbnull(arrDr[0][NoitruPhanbuonggiuong.Columns.SoLuong], 0);
+                    }
+                    m_dtBuongGiuong.AcceptChanges();
+                }
+                else if (e.Column.Key == "so_luong")
+                {
+                    noitru_nhapvien.CapnhatSoluong(id, Utility.Int32Dbnull(e.Value, 0), (byte)1);
+                    DataRow[] arrDr = m_dtBuongGiuong.Select(NoitruPhanbuonggiuong.Columns.Id + "=" + id.ToString());
+                    if (arrDr.Length > 0)
+                    {
+                        arrDr[0][NoitruPhanbuonggiuong.Columns.SoLuong] = e.Value;
+                        arrDr[0]["thanh_tien"] = Utility.DecimaltoDbnull(arrDr[0][NoitruPhanbuonggiuong.Columns.DonGia], 0) * Utility.Int32Dbnull(arrDr[0][NoitruPhanbuonggiuong.Columns.SoLuong], 0);
+                    }
+                    m_dtBuongGiuong.AcceptChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Utility.CatchException(ex);
+            }
+        }
+
+      
         //0=Mới chỉ định;1=Đã chuyển CLS;2=Đang thực hiện;3= Đã có kết quả CLS;4=Đã xác nhận kết quả
         void mnuCancel_Click(object sender, EventArgs e)
         {
@@ -365,6 +404,7 @@ namespace VNS.HIS.UI.NOITRU
                         grdAssignDetail.CurrentRow.BeginEdit();
                         grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TuTuc].Value = 1;
                         grdAssignDetail.CurrentRow.EndEdit();
+                        ChangeMenu(grdAssignDetail.CurrentRow);
                     }
                     else if (ctrlName == grdPresDetail.Name)
                     {
@@ -381,6 +421,7 @@ namespace VNS.HIS.UI.NOITRU
                         grdPresDetail.CurrentRow.BeginEdit();
                         grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.TuTuc].Value = 1;
                         grdPresDetail.CurrentRow.EndEdit();
+                        ChangeMenu(grdPresDetail.CurrentRow);
                     }
                     else//VTTH
                     {
@@ -397,6 +438,7 @@ namespace VNS.HIS.UI.NOITRU
                         grdVTTH.CurrentRow.BeginEdit();
                         grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.TuTuc].Value = 1;
                         grdVTTH.CurrentRow.EndEdit();
+                        ChangeMenu(grdVTTH.CurrentRow);
                     }
                 }
                 else//Không tự túc
@@ -415,6 +457,7 @@ namespace VNS.HIS.UI.NOITRU
                         grdAssignDetail.CurrentRow.BeginEdit();
                         grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TuTuc].Value = 0;
                         grdAssignDetail.CurrentRow.EndEdit();
+                        ChangeMenu(grdAssignDetail.CurrentRow);
                     }
                     else if (ctrlName == grdPresDetail.Name)
                     {
@@ -430,6 +473,7 @@ namespace VNS.HIS.UI.NOITRU
                         grdPresDetail.CurrentRow.BeginEdit();
                         grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.TuTuc].Value = 0;
                         grdPresDetail.CurrentRow.EndEdit();
+                        ChangeMenu(grdPresDetail.CurrentRow);
                     }
                     else//VTTH
                     {
@@ -446,6 +490,7 @@ namespace VNS.HIS.UI.NOITRU
                         grdVTTH.CurrentRow.BeginEdit();
                         grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.TuTuc].Value = 0;
                         grdVTTH.CurrentRow.EndEdit();
+                        ChangeMenu(grdVTTH.CurrentRow);
                     }
                 }
 
@@ -474,7 +519,7 @@ namespace VNS.HIS.UI.NOITRU
                 }
 
                 string ctrlName = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl.Name;
-                if (mnuCancel.Tag.ToString() == "0")//Đưa vào trong gói
+                if (mnuTronggoi.Tag.ToString() == "0")//Đưa vào trong gói
                 {
                     if (ctrlName == grdAssignDetail.Name)
                     {
@@ -491,6 +536,8 @@ namespace VNS.HIS.UI.NOITRU
                         grdAssignDetail.CurrentRow.BeginEdit();
                         grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrongGoi].Value = 1;
                         grdAssignDetail.CurrentRow.EndEdit();
+                        grdAssignDetail.Refresh();
+                        ChangeMenu(grdAssignDetail.CurrentRow);
                     }
                     else if (ctrlName == grdPresDetail.Name)
                     {
@@ -507,6 +554,8 @@ namespace VNS.HIS.UI.NOITRU
                         grdPresDetail.CurrentRow.BeginEdit();
                         grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.TrongGoi].Value = 1;
                         grdPresDetail.CurrentRow.EndEdit();
+                        grdPresDetail.Refresh();
+                        ChangeMenu(grdPresDetail.CurrentRow);
                     }
                     else//VTTH
                     {
@@ -522,6 +571,8 @@ namespace VNS.HIS.UI.NOITRU
                         grdVTTH.CurrentRow.BeginEdit();
                         grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.TrongGoi].Value = 1;
                         grdVTTH.CurrentRow.EndEdit();
+                        grdVTTH.Refresh();
+                        ChangeMenu(grdVTTH.CurrentRow);
                     }
                 }
                 else//Ngoài gói
@@ -542,6 +593,8 @@ namespace VNS.HIS.UI.NOITRU
                         grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrongGoi].Value = 0;
                         grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.IdGoi].Value = -1;
                         grdAssignDetail.CurrentRow.EndEdit();
+                        grdAssignDetail.Refresh();
+                        ChangeMenu(grdAssignDetail.CurrentRow);
                     }
                     else if (ctrlName == grdPresDetail.Name)
                     {
@@ -559,6 +612,8 @@ namespace VNS.HIS.UI.NOITRU
                         grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.TrongGoi].Value = 0;
                         grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdGoi].Value = -1;
                         grdPresDetail.CurrentRow.EndEdit();
+                        grdPresDetail.Refresh();
+                        ChangeMenu(grdPresDetail.CurrentRow);
                     }
                     else//VTTH
                     {
@@ -577,6 +632,8 @@ namespace VNS.HIS.UI.NOITRU
                         grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.TrongGoi].Value = 0;
                         grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdGoi].Value = -1;
                         grdVTTH.CurrentRow.EndEdit();
+                        grdVTTH.Refresh();
+                        ChangeMenu(grdVTTH.CurrentRow);
                     }
                 }
 
@@ -680,10 +737,31 @@ namespace VNS.HIS.UI.NOITRU
        
         void cmdRavien_Click(object sender, EventArgs e)
         {
+            if (objLuotkham == null)
+            {
+                Utility.ShowMsg("Bạn cần chọn bệnh nhân trước khi thực hiện hủy chuyển viện");
+                return;
+            }
+            if (objLuotkham.TrangthaiNoitru == 4)
+            {
+                Utility.ShowMsg( "Bệnh nhân đã được xác nhận dữ liệu nội trú để ra viện nên bạn không thể điều chỉnh phiếu ra viện");
+                return;
+            }
+            if (objLuotkham.TrangthaiNoitru == 5)
+            {
+                Utility.ShowMsg( "Bệnh nhân đã được duyệt thanh toán nội trú để ra viện nên bạn không thể điều chỉnh phiếu ra viện");
+                return;
+            }
+            if (objLuotkham.TrangthaiNoitru == 6)
+            {
+                Utility.ShowMsg( "Bệnh nhân đã kết thúc điều trị nội trú(Đã thanh toán xong) nên bạn không thể điều chỉnh phiếu ra viện");
+                return;
+            }
+
             frm_Phieuravien _Phieuravien = new frm_Phieuravien();
             _Phieuravien.objLuotkham = this.objLuotkham;
             _Phieuravien.ShowDialog();
-            cmdXacnhan.Enabled = _Phieuravien.objLuotkham.TrangthaiNoitru >= 3;
+            cmdXacnhan.Enabled = _Phieuravien.objLuotkham.TrangthaiNoitru >= 3 && _Phieuravien.objLuotkham.TrangthaiNoitru<=4;
             //Tính toán lại thông tin buồng giường cuối cùng
 
         }
@@ -745,27 +823,32 @@ namespace VNS.HIS.UI.NOITRU
             if (!IsValidData())
                 return;
             objLuotkham.TthaiThopNoitru = Utility.Bool2byte(chkXacnhan.Checked);
-            //objLuotkham.TrangthaiNoitru = (byte)(objLuotkham.TthaiThopNoitru == 0 ? 2 : 3);//Rem dòng này để TrangthaiNoitru=3
+            objLuotkham.TrangthaiNoitru = (byte)(chkXacnhan.Checked ? 4 : 3);
             if (noitru_tonghopchiphi.TongHopChiPhi(objLuotkham) == ActionResult.Success)
             {
-                //cmdRavien.Enabled = Utility.Byte2Bool(objLuotkham.TthaiThopNoitru);
+                cmdRavien.Enabled = objLuotkham != null && objLuotkham.TrangthaiNoitru <= 3;
             }
         }
         bool IsValidData()
         {
+            if (objLuotkham == null)
+            {
+                Utility.ShowMsg( "Bạn cần chọn bệnh nhân trước khi thực hiện xác nhận dữ liệu nội trú");
+                return false;
+            }
             if (objLuotkham.TrangthaiNoitru ==0)
             {
                 Utility.ShowMsg("Bệnh nhân chưa nhập viện nội trú nên bạn không thể lập phiếu ra viện được. Đề nghị bạn kiểm tra lại");
                 return false;
             }
-            if (objLuotkham.TrangthaiNoitru >= 5)
+            if (objLuotkham.TrangthaiNoitru == 5)
             {
-                Utility.ShowMsg("Bệnh nhân đã được duyệt thanh toán nội trú nên bạn không thể sửa lại trạng thái tổng hợp nội trú");
+                Utility.ShowMsg("Bệnh nhân đã được duyệt thanh toán nội trú nên bạn không thể sửa lại trạng thái xác nhận dữ liệu nội trú");
                 return false;
             }
-            if (Utility.Byte2Bool(objLuotkham.TthaiThanhtoannoitru) || objLuotkham.TrangthaiNoitru>=5)
+            if (Utility.Byte2Bool(objLuotkham.TthaiThanhtoannoitru) || objLuotkham.TrangthaiNoitru==6)
             {
-                Utility.ShowMsg("Bệnh nhân đã được thanh toán nội trú nên bạn không thể sửa lại trạng thái tổng hợp nội trú");
+                Utility.ShowMsg("Bệnh nhân đã được thanh toán nội trú nên bạn không thể sửa lại trạng thái xác nhận dữ liệu nội trú");
                 return false;
             }
             //Kiểm tra cấp phát thuốc nội trú
@@ -775,7 +858,7 @@ namespace VNS.HIS.UI.NOITRU
             reval = Utility.Int32Dbnull(sp.OutputValues[0], -1);
             if (reval == 1)
             {
-                Utility.ShowMsg("Bệnh nhân này còn một số đơn thuốc nội trú chưa được tổng hợp và lĩnh thuốc nên không được phép tổng hợp. Đề nghị bạn kiểm tra lại");
+                Utility.ShowMsg("Bệnh nhân này còn một số đơn thuốc nội trú chưa được tổng hợp và lĩnh thuốc nên không được phép sửa lại trạng thái xác nhận dữ liệu nội trú. Đề nghị bạn kiểm tra lại");
                 return false;
             }
             return true;
@@ -1058,7 +1141,7 @@ namespace VNS.HIS.UI.NOITRU
             string NOITRU_HIENTHI_PHIEUVTTH_THEOPHIEUDIEUTRI = THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_HIENTHI_PHIEUVTTH_THEOPHIEUDIEUTRI","1", false);
             try
             {
-                cmdTonghop.Enabled = objLuotkham != null && objLuotkham.TrangthaiNoitru == 3;//Phải ra viện mới được tổng hợp
+                cmdXacnhan.Enabled = objLuotkham != null && objLuotkham.TrangthaiNoitru == 3;//Phải ra viện mới được tổng hợp
                 cmdRavien.Enabled = objLuotkham != null && objLuotkham.TrangthaiNoitru <= 3;
                 cmdIngoiDV.Enabled = objLuotkham != null && grdGoidichvu.RowCount > 0 && objPhieudieutri != null;
 
@@ -1360,6 +1443,20 @@ namespace VNS.HIS.UI.NOITRU
             {
 
                 m_dtBuongGiuong = _KCB_THAMKHAM.NoitruTimkiemlichsuBuonggiuong(objLuotkham.MaLuotkham, (int)objLuotkham.IdBenhnhan);
+                //Tính số lượng ngày nằm khoa cuối cùng nếu chưa xuất viện
+                    foreach (DataRow dr in m_dtBuongGiuong.Rows)
+                    {
+                        if (Utility.Int32Dbnull(dr[NoitruPhanbuonggiuong.Columns.Id], 0) == Utility.Int32Dbnull(objLuotkham.IdRavien, 0))
+                        {
+                           NoitruPhanbuonggiuong objNoitruPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(Utility.Int64Dbnull(dr[NoitruPhanbuonggiuong.Columns.Id], 0));
+                            if (objNoitruPhanbuonggiuong.NgayKetthuc == null)
+                            {
+                                dr[NoitruPhanbuonggiuong.Columns.SoLuong] = THU_VIEN_CHUNG.Songay(objNoitruPhanbuonggiuong.NgayVaokhoa, globalVariables.SysDate);
+                                dr["thanh_tien"] = Utility.DecimaltoDbnull(dr[NoitruPhanbuonggiuong.Columns.DonGia], 0) * Utility.Int32Dbnull(dr[NoitruPhanbuonggiuong.Columns.SoLuong], 0);
+                            }
+                        }
+                    }
+                    m_dtBuongGiuong.AcceptChanges();
                 Utility.SetDataSourceForDataGridEx_Basic(grdBuongGiuong, m_dtBuongGiuong, false, true, "1=1", NoitruPhanbuonggiuong.Columns.NgayVaokhoa + " desc");
                 grdBuongGiuong.MoveFirst();
             }

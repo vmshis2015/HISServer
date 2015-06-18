@@ -108,8 +108,9 @@ namespace VNS.HIS.UI.NOITRU
                                                 THU_VIEN_CHUNG.LaydanhsachKhoanoitruTheoBacsi(globalVariables.UserName, Utility.Bool2byte(globalVariables.IsAdmin), (byte)1),
                                                 DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
                                                 "---Chọn khoa nội trú---", false);
-            cboKhoaHientai.SelectedIndex = Utility.GetSelectedIndex(cboKhoaHientai, globalVariables.idKhoatheoMay.ToString());
-
+            //Khoa hiên tại để mặc định là khoa nội trú Bn đang điều trị
+            cboKhoaHientai.SelectedIndex = Utility.GetSelectedIndex(cboKhoaHientai, Utility.sDbnull(objLuotkham.IdKhoanoitru, "0"));
+            cboKhoaHientai.Enabled = globalVariables.IsAdmin || Utility.Int32Dbnull(cboKhoaHientai.SelectedValue, -1) <= 0;
             mv_blnHasLoaded = true;
             LaydanhsachPhieudieutri();
             Modifycommands();
@@ -297,19 +298,19 @@ namespace VNS.HIS.UI.NOITRU
         {
             if (!Utility.isValidGrid(grdPhieudieutrigoc))
             {
-                Utility.ShowMsg("Bạn cần chọn phiếu điều trị gốc để thực hiện sao chép","Thông báo",MessageBoxIcon.Error);
+                Utility.ShowMsg("Bạn cần chọn phiếu điều trị gốc để thực hiện sao chép", "Thông báo", MessageBoxIcon.Error);
                 grdPhieudieutrigoc.Focus();
                 return;
 
             }
-            if (grdDichvuSaochep.GetCheckedRows().Length<=0)
+            if (grdDichvuSaochep.GetCheckedRows().Length <= 0)
             {
                 Utility.ShowMsg("Bạn cần chọn ít nhất 1 dịch vụ cần sao chép", "Thông báo", MessageBoxIcon.Error);
                 grdDichvuSaochep.Focus();
                 return;
 
             }
-            if (Utility.Int16Dbnull(cboKhoaHientai.SelectedValue,-1)<0)
+            if (Utility.Int16Dbnull(cboKhoaHientai.SelectedValue, -1) < 0)
             {
                 Utility.ShowMsg("Bạn cần chọn khoa nội trú hiện tại đang lập phiếu điều trị cho bệnh nhân", "Thông báo", MessageBoxIcon.Error);
                 cboKhoaHientai.Focus();
@@ -321,26 +322,39 @@ namespace VNS.HIS.UI.NOITRU
                 cmdAddNgay.Focus();
                 return;
             }
-            if (Utility.AcceptQuestion("Bạn đã chắc chắn muốn sao chép phiếu điều trị cho các ngày bạn đang chọn không?","Thông báo", true))
+            bool moreAsk = true;
+            if (Utility.Int16Dbnull(cboKhoaHientai.SelectedValue, -1) != Utility.Int16Dbnull(objLuotkham.IdKhoanoitru, -1))
             {
-                NoitruPhieudieutri[] objPhieudieutri = TaoPhieudieutriNoitru();
-                ActionResult actionResult = new noitru_phieudieutri().SaoChepPhieuDieuTri(objPhieudieutri, objLuotkham,  CreateChiDinhCLS(), CreatePresDetail());
-                switch (actionResult)
+                if (!Utility.AcceptQuestion("Bệnh nhân đang nằm ở khoa nội trú khác với khoa Hiện tại bạn đang chọn. Bạn có chắc chắn đang tạo các phiếu điều trị cho khoa " + cboKhoaHientai.Text + " hay không?", "Thông báo", true))
                 {
-                    case ActionResult.Success:
-                        b_Cancel = true;
-                        if (_OnCopyComplete != null)
-                        {
-                            _OnCopyComplete();
-                        }
-                        Utility.ShowMsg("Bạn sao chép thành công. Nhấn OK để kết thúc", "Thông báo");
-                        break;
-                    case ActionResult.Error:
-                        Utility.ShowMsg("Lỗi trong quá trình sao chép", "Thông báo");
-                        break;
+                    moreAsk = false;
+                    cboKhoaHientai.Focus();
+                    return;
                 }
             }
-          
+            if(moreAsk)
+                if (!Utility.AcceptQuestion("Bạn đã chắc chắn muốn sao chép phiếu điều trị cho các ngày bạn đang chọn không?", "Thông báo", true))
+                {
+                    return;
+                }
+            NoitruPhieudieutri[] objPhieudieutri = TaoPhieudieutriNoitru();
+            ActionResult actionResult = new noitru_phieudieutri().SaoChepPhieuDieuTri(objPhieudieutri, objLuotkham, CreateChiDinhCLS(), CreatePresDetail());
+            switch (actionResult)
+            {
+                case ActionResult.Success:
+                    b_Cancel = true;
+                    if (_OnCopyComplete != null)
+                    {
+                        _OnCopyComplete();
+                    }
+                    Utility.ShowMsg("Bạn sao chép thành công. Nhấn OK để kết thúc", "Thông báo");
+                    break;
+                case ActionResult.Error:
+                    Utility.ShowMsg("Lỗi trong quá trình sao chép", "Thông báo");
+                    break;
+            }
+
+
         }
        
 

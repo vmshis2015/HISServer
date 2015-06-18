@@ -8,19 +8,19 @@ using VNS.HIS.DAL;
 using VNS.Properties;
 using VNS.HIS.BusRule.Classes;
 using SubSonic;
+using System.Collections.Generic;
 
 
 namespace VNS.HIS.UI.NOITRU
 {
     public partial class frm_TimKiem_BN : Form
     {
-        public TrangthaiNoitru _TrangthaiNoitru = TrangthaiNoitru.NoiTru;
-        public bool b_Cancel = false;
+        public bool m_blnCancel = true;
         public DataTable p_mdtDataTimKiem = new DataTable();
-        public string SoHSBA { get; set; }
         public string ten_benhnhan { get; set; }
         public string MaLuotkham { get; set; }
         public int IdBenhnhan { get; set; }
+        public bool SearchByDate { get{return chkByDate.Checked;} set{chkByDate.Checked=value;} }
         public frm_TimKiem_BN()
         {
             InitializeComponent();
@@ -28,8 +28,27 @@ namespace VNS.HIS.UI.NOITRU
             {
                 gridExColumn.EditType = EditType.NoEdit;
             }
+            this.KeyDown += frm_TimKiem_BN_KeyDown;
             dtDenNgay.Value = dtTuNgay.Value = globalVariables.SysDate;
+            grdList.DoubleClick+=grdList_DoubleClick;
+            grdList.KeyDown += grdList_KeyDown;
+            cmdTimKiem.Click+=cmdTimKiem_Click;
+            
             CauHinh();
+        }
+
+        void grdList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Utility.isValidGrid(grdList) && e.KeyCode == Keys.Enter)
+            {
+                AcceptData();
+            }
+        }
+
+        void frm_TimKiem_BN_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) ProcessTabKey(true);
+            if (e.KeyCode == Keys.Escape) this.Close();
         }
 
         private void CauHinh()
@@ -47,24 +66,15 @@ namespace VNS.HIS.UI.NOITRU
         {
             txtPatientCode.Text = MaLuotkham;
             txtPatientName.Text = ten_benhnhan;
-             if (globalVariables.IsAdmin)
+            if (globalVariables.IsAdmin)
             {
                 m_dtKhoaNoiTru = THU_VIEN_CHUNG.Laydanhmuckhoa("NOI", 0);
-                DataBinding.BindDataCombobox(cboKhoaNoiTru, m_dtKhoaNoiTru, DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,"Chọn khoa",true);
+                txtKhoanoitru.Init(m_dtKhoaNoiTru, new List<string>() { DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong });
             }
             else
             {
-                //if (!globalVariables._HinhPhanBuongGiuongProperties.IsKeHoachTongHop)
-                //{
-                //    m_dtKhoaNoiTru = LoadDataCommon.CommonBusiness.LayThongTin_KhoaNoiTruTheoKhoa(globalVariables.DepartmentID);
-                //    DataBinding.BindDataCombobox(cboKhoaNoiTru, m_dtKhoaNoiTru, DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong, "Chọn khoa", true);
-                //}
-                //else
-                //{
-                    m_dtKhoaNoiTru = THU_VIEN_CHUNG.Laydanhmuckhoa("NOI", 0);
-                    DataBinding.BindDataCombobox(cboKhoaNoiTru, m_dtKhoaNoiTru, DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong, "Chọn khoa", true);
-                //}
-               
+                m_dtKhoaNoiTru = THU_VIEN_CHUNG.LaydanhsachKhoanoitruTheoBacsi(globalVariables.UserName, Utility.Bool2byte(globalVariables.IsAdmin), (byte)1);
+                txtKhoanoitru.Init(m_dtKhoaNoiTru, new List<string>() { DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong });
             }
             
             TimKiem();
@@ -72,13 +82,11 @@ namespace VNS.HIS.UI.NOITRU
 
         private void TimKiem()
         {
-
-           
             p_mdtDataTimKiem =
-                SPs.NoitruTimkiembenhnhan(Utility.Int32Dbnull(cboKhoaNoiTru.SelectedValue), txtPatientCode.Text,-1,
+                SPs.NoitruTimkiembenhnhan(Utility.Int32Dbnull(txtKhoanoitru.MyID), txtPatientCode.Text, -1,
                     chkByDate.Checked ? dtTuNgay.Value.ToString("dd/MM/yyyy") : "01/01/1900",
                     chkByDate.Checked ? dtDenNgay.Value.ToString("dd/MM/yyyy") : "01/01/1900", txtPatientName.Text,
-                    (int?) _TrangthaiNoitru,-1).
+                    1,-1,0).
                     GetDataSet().Tables[0];
             Utility.SetDataSourceForDataGridEx(grdList, p_mdtDataTimKiem, true, true, "1=1", "");
         }
@@ -92,36 +100,12 @@ namespace VNS.HIS.UI.NOITRU
         /// </summary>
         private void AcceptData()
         {
-            if (grdList.CurrentRow != null && grdList.CurrentRow.RowType == RowType.Record)
+            if (Utility.isValidGrid(grdList))
             {
-                SoHSBA = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
+                ten_benhnhan = Utility.sDbnull(grdList.GetValue(KcbDanhsachBenhnhan.Columns.TenBenhnhan));
                 MaLuotkham = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
                 IdBenhnhan = Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan), -1);
-                if (_TrangthaiNoitru == TrangthaiNoitru.ChoRaVien)
-                {
-                    SqlQuery sqlQuery = new Select().From<KcbLuotkham>()
-                        .Where(KcbLuotkham.Columns.MaLuotkham)
-                        .IsEqualTo(MaLuotkham)
-                        .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(IdBenhnhan)
-                        .And(KcbLuotkham.Columns.TrangthaiNoitru).IsEqualTo(3);
-                    if (sqlQuery.GetRecordCount() > 0)
-                    {
-                        Utility.ShowMsg("Bệnh nhân đã hoàn tất thủ tục ra viện \n Mời bạn xem lại hoặc hủy thanh toán","Thông báo",MessageBoxIcon.Error);
-                        return;
-                    }
-                    sqlQuery = new Select().From<KcbThanhtoan>()
-                        .Where(KcbThanhtoan.Columns.MaLuotkham)
-                        .IsEqualTo(MaLuotkham)
-                        .And(KcbThanhtoan.Columns.IdBenhnhan).IsEqualTo(IdBenhnhan)
-                        .And(KcbThanhtoan.Columns.KieuThanhtoan).IsEqualTo(1);
-                    if (sqlQuery.GetRecordCount() > 0)
-                    {
-                        Utility.ShowMsg("Bệnh nhân đã thanh toán \n Mời bạn xem lại hoặc hủy thanh toán","Thông báo",MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                b_Cancel = true;
-                
+                m_blnCancel = false;
                 Close();
             }
         }

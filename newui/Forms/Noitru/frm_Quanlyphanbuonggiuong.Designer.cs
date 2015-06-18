@@ -236,7 +236,7 @@
             this.cmdTimKiem.Name = "cmdTimKiem";
             this.cmdTimKiem.Size = new System.Drawing.Size(147, 59);
             this.cmdTimKiem.TabIndex = 18;
-            this.cmdTimKiem.Text = "&Tìm kiếm(F3)";
+            this.cmdTimKiem.Text = "Tìm kiếm(F3)";
             this.cmdTimKiem.Click += new System.EventHandler(this.cmdTimKiem_Click);
             // 
             // label11
@@ -255,12 +255,12 @@
             this.cboKhoaChuyenDen.Name = "cboKhoaChuyenDen";
             this.cboKhoaChuyenDen.Size = new System.Drawing.Size(349, 21);
             this.cboKhoaChuyenDen.TabIndex = 16;
-            this.cboKhoaChuyenDen.Text = "Khoa chuyển đến";
+            this.cboKhoaChuyenDen.Text = "Khoa nội trú";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(373, 36);
+            this.label2.Location = new System.Drawing.Point(373, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 15);
             this.label2.TabIndex = 6;
@@ -276,19 +276,21 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 36);
+            this.label1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(7, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 15);
+            this.label1.Size = new System.Drawing.Size(90, 15);
             this.label1.TabIndex = 4;
             this.label1.Text = "Mã lượt khám:";
             // 
             // txtPatientCode
             // 
-            this.txtPatientCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.txtPatientCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPatientCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtPatientCode.ButtonFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+            this.txtPatientCode.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.txtPatientCode.Location = new System.Drawing.Point(99, 28);
             this.txtPatientCode.Name = "txtPatientCode";
-            this.txtPatientCode.Size = new System.Drawing.Size(133, 26);
+            this.txtPatientCode.Size = new System.Drawing.Size(133, 21);
             this.txtPatientCode.TabIndex = 3;
             this.txtPatientCode.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center;
             this.txtPatientCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPatientCode_KeyDown);

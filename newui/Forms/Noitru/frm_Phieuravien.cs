@@ -22,7 +22,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
     {
         bool AllowTextChanged = false;
         NoitruPhieuravien objRavien = null;
-        public bool mv_blnLoadData = false;
+        public bool mv_blnCancel = true;
         public KcbLuotkham objLuotkham = null;
         action m_enAct = action.Insert;
         public frm_Phieuravien()
@@ -57,6 +57,13 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             cmdPrint.Click += new EventHandler(cmdPrint_Click);
 
             chkChuyenvien.CheckedChanged += chkChuyenvien_CheckedChanged;
+            dtpNgayravien.ValueChanged += dtpNgayravien_ValueChanged;
+        }
+
+        void dtpNgayravien_ValueChanged(object sender, EventArgs e)
+        {
+            if (!AllowTextChanged) return;
+            txtTongSoNgayDtri.Text = THU_VIEN_CHUNG.Songay(objLuotkham.NgayNhapvien.Value, new DateTime(dtpNgayravien.Value.Year, dtpNgayravien.Value.Month, dtpNgayravien.Value.Day, Utility.Int32Dbnull(txtGioRaVien.Text, 0), Utility.Int32Dbnull(txtPhuRaVien.Text, 0), 0)).ToString();
         }
 
         void chkChuyenvien_CheckedChanged(object sender, EventArgs e)
@@ -137,7 +144,22 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 Utility.SetMsg(lblMsg,"Bạn cần chọn bệnh nhân trước khi thực hiện hủy chuyển viện",true);
                 return;
             }
-            if (Utility.AcceptQuestion(string.Format("Bạn có chắc chắn muốn hủy chuyển viện cho bệnh nhân {0} hay không?", txtTenBN.Text), "Xác nhận hủy chuyển viện", true))
+            if (objLuotkham.TrangthaiNoitru==4)
+            {
+                Utility.SetMsg(lblMsg, "Bệnh nhân đã được xác nhận dữ liệu nội trú để ra viện nên bạn không thể hủy ra viện", true);
+                return;
+            }
+            if (objLuotkham.TrangthaiNoitru == 5)
+            {
+                Utility.SetMsg(lblMsg, "Bệnh nhân đã được duyệt thanh toán nội trú để ra viện nên bạn không thể hủy ra viện", true);
+                return;
+            }
+            if (objLuotkham.TrangthaiNoitru == 6)
+            {
+                Utility.SetMsg(lblMsg, "Bệnh nhân đã kết thúc điều trị nội trú(Đã thanh toán xong) nên bạn không thể hủy ra viện", true);
+                return;
+            }
+            if (Utility.AcceptQuestion(string.Format("Bạn có chắc chắn muốn hủy ra viện cho bệnh nhân {0} hay không?", txtTenBN.Text), "Xác nhận hủy ra viện", true))
             {
                 try
                 {
@@ -150,13 +172,24 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                             objLuotkham.IdBacsiChuyenvien = -1;
                             objLuotkham.TrangthaiNoitru = 2;
                             objLuotkham.NgayRavien = null;
+                            objLuotkham.SoRavien = 0;
                             objLuotkham.IsNew=false;
                             objLuotkham.MarkOld();
                             objLuotkham.Save();
                             new Delete().From(NoitruPhieuravien.Schema).Where(NoitruPhieuravien.Columns.IdRavien).IsEqualTo(Utility.Int32Dbnull(txtId.Text, -1)).Execute();
-                           
+                            NoitruPhanbuonggiuong objNoitruPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(objLuotkham.IdRavien.Value);
+                            if (objNoitruPhanbuonggiuong != null)
+                            {
+                                objNoitruPhanbuonggiuong.MarkOld();
+                                objNoitruPhanbuonggiuong.IsNew = false;
+                                objNoitruPhanbuonggiuong.SoLuong = 0;
+                                objNoitruPhanbuonggiuong.SoluongGio = 0;
+                                objNoitruPhanbuonggiuong.NgayKetthuc = null;
+                                objNoitruPhanbuonggiuong.Save();
+                            }
                         }
                         scope.Complete();
+                        mv_blnCancel = false;
                         Utility.SetMsg(lblMsg,string.Format( "Hủy chuyển viện cho bệnh nhân {0} thành công",txtTenBN.Text), true);
                     }
                 }
@@ -176,9 +209,21 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 txtGioRaVien.Focus();
                 return;
             }
+            if (Utility.Int32Dbnull(txtGioRaVien.Text,0) >=24)
+            {
+                Utility.SetMsg(lblMsg, "Giờ ra viện nằm trong khoảng giá trị từ 0 đến 23", true);
+                txtGioRaVien.Focus();
+                return;
+            }
             if (Utility.DoTrim(txtPhuRaVien.Text) == "")
             {
                 Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin phút ra viện", true);
+                txtPhuRaVien.Focus();
+                return;
+            }
+            if (Utility.Int32Dbnull(txtPhuRaVien.Text, 0) >= 60)
+            {
+                Utility.SetMsg(lblMsg, "Phút ra viện nằm trong khoảng giá trị từ 0 đến 59", true);
                 txtPhuRaVien.Focus();
                 return;
             }
@@ -228,7 +273,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                     objRavien.IsNew = false;
                     objRavien.MarkOld();
                 }
-                objRavien.NgayRavien=dtpNgayravien.Value ;
+               objRavien.NgayRavien = new DateTime(dtpNgayravien.Value.Year, dtpNgayravien.Value.Month, dtpNgayravien.Value.Day, Utility.Int32Dbnull(txtGioRaVien.Text, 0), Utility.Int32Dbnull(txtPhuRaVien.Text, 0), 0);
                objRavien.SophieuRavien=Utility.DoTrim( txtSoRaVien.Text ) ;
                objRavien.TongsongayDieutri = Utility.Int32Dbnull(txtTongSoNgayDtri.Text);
                objRavien.MabenhChinh=txtBenhchinh.MyCode;
@@ -300,13 +345,28 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                             objLuotkham.NgayRavien = objRavien.NgayRavien;
                             objLuotkham.IdBenhvienDi = Utility.Int16Dbnull(txtNoichuyenden.MyID, -1);
                         }
+                        objLuotkham.NgayRavien = objRavien.NgayRavien;
+                        objLuotkham.SoRavien = Utility.Int32Dbnull(objRavien.SophieuRavien);
                         objLuotkham.TrangthaiNoitru = 3;
                         objLuotkham.IsNew = false;
                         objLuotkham.MarkOld();
                         objLuotkham.Save();
+
+                        NoitruPhanbuonggiuong objNoitruPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(objLuotkham.IdRavien.Value);
+                        if (objNoitruPhanbuonggiuong != null)
+                        {
+                            objNoitruPhanbuonggiuong.MarkOld();
+                            objNoitruPhanbuonggiuong.IsNew = false;
+                            objNoitruPhanbuonggiuong.NgayKetthuc = objRavien.NgayRavien;
+                            objNoitruPhanbuonggiuong.CachtinhSoluong = 0;
+                            objNoitruPhanbuonggiuong.SoluongGio =(int) Math.Ceiling((objNoitruPhanbuonggiuong.NgayKetthuc.Value - objNoitruPhanbuonggiuong.NgayVaokhoa).TotalHours);
+                            objNoitruPhanbuonggiuong.SoLuong = THU_VIEN_CHUNG.Songay(objNoitruPhanbuonggiuong.NgayKetthuc.Value, objNoitruPhanbuonggiuong.NgayVaokhoa);
+                            objNoitruPhanbuonggiuong.Save();
+                        }
                     }
                     scope.Complete();
                 }
+                mv_blnCancel = false;
                 Utility.SetMsg(lblMsg, "Cập nhật phiếu chuyển viện thành công", false);
                 if (m_enAct == action.Insert)
                     cmdPrint.Enabled = true;
@@ -567,6 +627,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             {
                 if (e.KeyCode == Keys.Enter && Utility.DoTrim(txtMaluotkham.Text) != "")
                 {
+                    AllowTextChanged = false;
                     var dtPatient = new DataTable();
                    
                         objLuotkham = null;
@@ -603,6 +664,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                             objLuotkham = new Select().From(KcbLuotkham.Schema).Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(txtIdBn.Text)
                                 .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(txtMaluotkham.Text)
                                 .ExecuteSingle<KcbLuotkham>();
+                            dtpNgaynhapvien.Value = objLuotkham.NgayNhapvien.Value;
                             txtTenBN.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbDanhsachBenhnhan.Columns.TenBenhnhan], "");
                             txttuoi.Text = Utility.sDbnull(dt_Patient.Rows[0]["Tuoi"], "");
                             txtgioitinh.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbDanhsachBenhnhan.Columns.GioiTinh], "");
@@ -624,6 +686,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                                 cmdChuyen.Enabled = false;
                                 return;
                             }
+                            cmdChuyen.Enabled = objLuotkham != null && objLuotkham.TrangthaiNoitru <= 3;
                             LoadData();
                             dtpNgayravien.Focus();
                         }
@@ -645,11 +708,10 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             objRavien = new Select().From(NoitruPhieuravien.Schema).Where(NoitruPhieuravien.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                 .And(NoitruPhieuravien.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham).ExecuteSingle<NoitruPhieuravien>();
             m_enAct = objRavien != null ? action.Update : action.Insert;
-            cmdHuy.Enabled =cmdPrint.Enabled= objRavien != null;
+            cmdPrint.Enabled= objRavien != null;
+            cmdHuy.Enabled =objRavien != null && objLuotkham != null && objLuotkham.TrangthaiNoitru <= 3;
             if (objRavien != null)
             {
-                cmdPrint.Enabled = true;
-                cmdHuy.Enabled = true;
                 txtId.Text = objRavien.IdRavien.ToString();
                 dtpNgayravien.Text = objRavien.NgayRavien.ToString("dd/MM/yyyy");
                 txtGioRaVien.Text = objRavien.NgayRavien.ToString("HH");
@@ -674,6 +736,10 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             }
             else
             {
+                dtpNgayravien.Value = globalVariables.SysDate;
+                txtGioRaVien.Text = dtpNgayravien.Value.ToString("HH");
+                txtPhuRaVien.Text = dtpNgayravien.Value.ToString("mm");
+                txtSoRaVien.Text = THU_VIEN_CHUNG.Laysoravien();
                 cmdPrint.Enabled = false;
                 cmdHuy.Enabled = false;
             }

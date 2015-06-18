@@ -40,8 +40,6 @@ namespace VNS.HIS.UI.NOITRU
             //cmdConfig.Visible = globalVariables.IsAdmin;
            
             txtDepartment_ID.Visible = globalVariables.IsAdmin;
-            txtRoom_ID.Visible = globalVariables.IsAdmin;
-            txtBed_ID.Visible = globalVariables.IsAdmin;
             txtPatientDept_ID.Visible = globalVariables.IsAdmin;
 
             txtHour2Cal.Text =THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_SOGIO_LAMTRONNGAY", "1", false);
@@ -53,10 +51,7 @@ namespace VNS.HIS.UI.NOITRU
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frm_ChuyenKhoaDT_KeyDown);
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             this.txtDepartment_ID.TextChanged += new System.EventHandler(this.txtDepartment_ID_TextChanged);
-            this.cmdLamSach.Click += new System.EventHandler(this.cmdLamSach_Click);
-            this.txtMaLanKham.TextChanged += new System.EventHandler(this.txtMaLanKham_TextChanged);
-            this.cmdSearch.Click += new System.EventHandler(this.cmdSearch_Click);
-            this.txtSoHSBA.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSoHSBA_KeyDown);
+            txtMaLanKham.KeyDown+=txtMaLanKham_KeyDown;
             this.txtBedCode.TextChanged += new System.EventHandler(this.txtBedCode_TextChanged);
             this.txtBedCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBedCode_KeyDown);
             this.txtRoom_code.TextChanged += new System.EventHandler(this.txtRoom_code_TextChanged);
@@ -68,7 +63,6 @@ namespace VNS.HIS.UI.NOITRU
             dtNgayChuyen.TextChanged += new EventHandler(dtNgayChuyen_TextChanged);
             dtNgayvao.ValueChanged += new EventHandler(dtNgayvao_ValueChanged);
             chkAutoCal.CheckedChanged += new EventHandler(chkAutoCal_CheckedChanged);
-            txtSoHSBA.LostFocus += txtSoHSBA_LostFocus;
         }
 
         void grdGiuong_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -146,101 +140,47 @@ namespace VNS.HIS.UI.NOITRU
         {
             if (b_CallParent)
             {
-                SearchThongTin();
+                LoadData();
                 chkAutoCal_CheckedChanged(chkAutoCal, e);
                 txtRoom_code.Focus();
             }
             txtTotalHour.Text =Math.Ceiling( (dtNgayChuyen.Value - dtNgayvao.Value).TotalHours).ToString();
         }
 
-        private void InitData()
-        {
+       
 
-            m_dtDataRoom = THU_VIEN_CHUNG.NoitruTimkiembuongTheokhoa(Utility.Int32Dbnull(txtDepartment_ID.Text));
-            Utility.SetDataSourceForDataGridEx_Basic(grdBuong, m_dtDataRoom, true, true, "1=1", "sluong_giuong_trong desc,ten_buong");
-            if (grdBuong.DataSource != null)
-            {
-                grdBuong.MoveFirst();
-            }
-            
-        }
-
-        private void CallFormSearch()
+        private void ShowPatientList()
         {
             var frm = new frm_TimKiem_BN();
-            frm.SoHSBA = txtSoHSBA.Text;
+            frm.SearchByDate = false;
+            frm.txtPatientCode.Text = txtMaLanKham.Text;
             frm.ShowDialog();
-            if (frm.b_Cancel)
+            if (!frm.m_blnCancel)
             {
-                txtSoHSBA.Text = Utility.sDbnull(frm.MaLuotkham);
+                txtMaLanKham.Text = Utility.sDbnull(frm.MaLuotkham);
                 BindData();
-                txtRoom_code.Focus();
             }
         }
 
-        private void getdata()
-        {
-            //if (!BusinessHelper.KiemTraTonTaiBenhNhan(txtSoHSBA.Text))
-            //{
-            //    CallFormSearch();
-            //}
-            //else
-            //{
-                BindData();
-            //}
-        }
+      
 
         private void ClearControl()
         {
-            foreach (Control control in grpThongTinBN.Controls)
+            foreach (Control ctrl in grpThongTinBN.Controls)
             {
-                if (control is EditBox)
+                if (ctrl is EditBox)
                 {
-                    var txtFormantTongTien = new EditBox();
-
-                    txtFormantTongTien = ((EditBox) (control));
-
-                    if (txtFormantTongTien.Name != txtSoHSBA.Name)
-                    {
-                        txtFormantTongTien.Clear();
-                        txtFormantTongTien.Enabled = false;
-                    }
+                    ((EditBox)ctrl).Clear();
                 }
-                if (control is UIComboBox)
-                {
-                    var txtFormantTongTien = new UIComboBox();
-                    txtFormantTongTien = ((UIComboBox) (control));
-                    txtFormantTongTien.Enabled = false;
-                    if (txtFormantTongTien.Items.Count > 0)
-                        txtFormantTongTien.SelectedIndex = 0;
-                }
+
             }
-
-            foreach (Control control in grpThongTinChuyenKhoa.Controls)
-            {
-                if (control is EditBox)
-                {
-                    var txtFormantTongTien = new EditBox();
-
-                    txtFormantTongTien = ((EditBox) (control));
-                    txtFormantTongTien.Clear();
-                }
-                if (control is UIComboBox)
-                {
-                    var txtFormantTongTien = new UIComboBox();
-                    txtFormantTongTien = ((UIComboBox) (control));
-                    if (txtFormantTongTien.Items.Count > 0)
-                        txtFormantTongTien.SelectedIndex = 0;
-                }
-            }
-            txtSoHSBA.Focus();
-            txtSoHSBA.SelectAll();
         }
+
 
         private void BindData()
         {
             SqlQuery sqlQuery = new Select().From(KcbLuotkham.Schema)
-                .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(txtSoHSBA.Text);
+                .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(txtMaLanKham.Text);
             if (sqlQuery.GetRecordCount() > 0)
             {
                 objLuotkham = sqlQuery.ExecuteSingle<KcbLuotkham>();
@@ -274,73 +214,46 @@ namespace VNS.HIS.UI.NOITRU
                         {
                             txtSoPhong.Text = Utility.sDbnull(objRoom.TenBuong);
                             txtSoPhong.Tag = Utility.sDbnull(objPatientDept.IdBuong);
-                            txtRoom_ID.Text = Utility.sDbnull(objPatientDept.IdBuong);
                         }
                         NoitruDmucGiuongbenh objNoitruDmucGiuongbenh = NoitruDmucGiuongbenh.FetchByID(objPatientDept.IdGiuong);
                         if (objNoitruDmucGiuongbenh != null)
                         {
-                            txtBed_ID.Text = Utility.sDbnull(objPatientDept.IdGiuong);
                             txtSoGiuong.Text = Utility.sDbnull(objNoitruDmucGiuongbenh.TenGiuong);
                             txtSoGiuong.Tag = Utility.sDbnull(objPatientDept.IdGiuong);
                         }
                     }
+                    m_dtDataRoom = THU_VIEN_CHUNG.NoitruTimkiembuongTheokhoa(Utility.Int32Dbnull(txtDepartment_ID.Text));
+                    Utility.SetDataSourceForDataGridEx_Basic(grdBuong, m_dtDataRoom, true, true, "1=1", "sluong_giuong_trong desc,ten_buong");
+                    if (grdBuong.DataSource != null)
+                    {
+                        grdBuong.MoveFirst();
+                    }
                 }
-                InitData();
             }
         }
 
-        /// <summary>
-        /// hàm thực hiện việc tìm kiếm thông tin của khoa
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void txtSoHSBA_TextChanged(object sender, EventArgs e)
+        
+        void txtMaLanKham_KeyDown(object sender, KeyEventArgs e)
         {
-            if (b_CallParent)
+            if (e.KeyCode == Keys.Enter && Utility.DoTrim(txtMaLanKham.Text) != "")
             {
-                SearchThongTin();
-            }
-        }
-
-        /// <summary>
-        /// hàm thực hiện việc nhán phím tắt thông tin 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void txtSoHSBA_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                SearchThongTin();
+                string _patient_Code = Utility.AutoFullPatientCode(txtMaLanKham.Text);
+                ClearControl();
+                txtMaLanKham.Text = _patient_Code;
+                LoadData();
                 txtRoom_code.Focus();
-
+                txtRoom_code.SelectAll();
             }
         }
 
-        private void SearchThongTin()
+        void LoadData()
         {
-            maluotkham = Utility.sDbnull(txtSoHSBA.Text.Trim());
-            if (!string.IsNullOrEmpty(maluotkham) && txtSoHSBA.Text.Length < 8)
-            {
-                maluotkham = Utility.GetYY(DateTime.Now) +
-                           Utility.FormatNumberToString(Utility.Int32Dbnull(txtSoHSBA.Text, 0), "000000");
-                txtSoHSBA.Text = maluotkham;
-                txtSoHSBA.Select(txtSoHSBA.Text.Length, txtSoHSBA.Text.Length);
-            }
-            if (!string.IsNullOrEmpty(txtSoHSBA.Text))
-            {
-                getdata();
-            }
-        }
-
-        private void txtSoHSBA_LostFocus(object sender, EventArgs eventArgs)
-        {
-           
-        }
-
-        private void cmdSearch_Click(object sender, EventArgs e)
-        {
-            CallFormSearch();
+            maluotkham = Utility.AutoFullPatientCode(txtMaLanKham.Text);
+            txtMaLanKham.Text = maluotkham;
+            BindData();
+            ModifyCommand();
+            chkAutoCal_CheckedChanged(chkAutoCal, new EventArgs());
+            txtTotalHour.Text = Math.Ceiling((dtNgayChuyen.Value - dtNgayvao.Value).TotalHours).ToString();
         }
 
        
@@ -359,13 +272,13 @@ namespace VNS.HIS.UI.NOITRU
 
         private bool IsValidData()
         {
-            KcbLuotkham objKcbLuotkham = Utility.getKcbLuotkham(Utility.Int64Dbnull(txtPatient_ID.Text), txtSoHSBA.Text);
+            KcbLuotkham objKcbLuotkham = Utility.getKcbLuotkham(Utility.Int64Dbnull(txtPatient_ID.Text), txtMaLanKham.Text);
             if (objKcbLuotkham != null && objKcbLuotkham.TrangthaiNoitru < 1)
             {
                 Utility.ShowMsg("Bệnh nhân này chưa nhập viện nên không được phép phân buồng giường", "Thông báo",
                                 MessageBoxIcon.Warning);
-                txtSoHSBA.Focus();
-                txtSoHSBA.SelectAll();
+                txtMaLanKham.Focus();
+                txtMaLanKham.SelectAll();
                 return false;
             }
 
@@ -419,8 +332,8 @@ namespace VNS.HIS.UI.NOITRU
                                                       dtNgayChuyen.Value.Day, Utility.Int32Dbnull(txtGio.Text),
                                                       Utility.Int32Dbnull(txtPhut.Text), 00);
                     objPatientDept.SoLuong = Utility.Int32Dbnull(Utility.DecimaltoDbnull(txtSoluong.Text));
-                    objPatientDept.SoluongGio = Utility.ByteDbnull(txtTotalHour.Text);
-                    objPatientDept.CachTinh = (byte)(chkAutoCal.Checked ? 0 : 1);
+                    objPatientDept.SoluongGio = Utility.Int32Dbnull(txtTotalHour.Text);
+                    objPatientDept.CachtinhSoluong = (byte)(chkAutoCal.Checked ? 0 : 1);
                     ActionResult actionResult = new noitru_nhapvien().ChuyenGiuongDieuTri(objPatientDept,
                                                                                               objLuotkham,
                                                                                               ngaychuyenkhoa,
@@ -479,21 +392,7 @@ namespace VNS.HIS.UI.NOITRU
             }
         }
 
-        //private void cboPhong_ValueChanged(object sender, EventArgs e)
-        //{
-        //    m_dtDatabed =
-        //        CommonBusiness.LayThongTinGiuongKhacGiuongHienTai(
-        //            Utility.Int32Dbnull(txtDepartment_ID.Text), Utility.Int32Dbnull(cboPhong.Value),
-        //            Utility.Int32Dbnull(txtBed_ID.Text));
-        //    cboGiuong.DataSource = m_dtDatabed;
-        //    cboGiuong.ValueMember = NoitruDmucGiuongbenh.Columns.IdGiuong;
-        //    cboGiuong.DisplayMember = NoitruDmucGiuongbenh.Columns.BedName;
-        //    if (_hinhPhanBuongGiuongProperties != null)
-        //    {
-        //        cboGiuong.DropDownList.SortKeys.Add("IsFull", SortOrder.Ascending);
-        //    }
-        //}
-
+        
         /// <summary>
         /// hàm thực hiện việc phím tắt thông tin 
         /// </summary>
@@ -504,12 +403,14 @@ namespace VNS.HIS.UI.NOITRU
             if (e.KeyCode == Keys.S && e.Control) cmdSave.PerformClick();
             if (e.KeyCode == Keys.Escape) cmdExit.PerformClick();
             if (e.KeyCode == Keys.Enter) SendKeys.Send("{TAB}");
-            //if (e.KeyCode == Keys.F11)cmdXemGiuong.PerformClick();
             if (e.KeyCode == Keys.F2)
             {
-                txtSoHSBA.Focus();
-                txtSoHSBA.SelectAll();
-                return;
+                txtMaLanKham.Focus();
+                txtMaLanKham.SelectAll();
+            }
+            if (e.KeyCode == Keys.F3)
+            {
+                ShowPatientList();
             }
             if (e.KeyCode == Keys.F5)
             {
@@ -524,38 +425,7 @@ namespace VNS.HIS.UI.NOITRU
             grpThongTinChuyenKhoa.Enabled = !string.IsNullOrEmpty(txtMaLanKham.Text);
         }
 
-        /// <summary>
-        /// hàm thực hiện việc làm sạch thông tin 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cmdLamSach_Click(object sender, EventArgs e)
-        {
-            txtSoHSBA.Clear();
-            txtSoHSBA.Focus();
-            txtSoHSBA.SelectAll();
-            ClearControl();
-            ModifyCommand();
-        }
-
-        private void txtMaLanKham_TextChanged(object sender, EventArgs e)
-        {
-            ModifyCommand();
-        }
-
-        //private void cmdXemGiuong_Click(object sender, EventArgs e)
-        //{
-        //    var frm = new frm_XemGiuong();
-        //    frm.Department_ID = Utility.Int32Dbnull(txtDepartmentName.Tag);
-        //    // frm.Room_ID = Utility.Int32Dbnull(cboPhong.Value);
-        //    // frm.Bed_ID = Utility.Int32Dbnull(cboGiuong.Value);
-        //    frm.ShowDialog();
-        //    if (frm.b_Cancel)
-        //    {
-        //        //   cboPhong.Text = Utility.sDbnull(frm.RoomName);
-        //        // cboGiuong.Text = Utility.sDbnull(frm.BedName);
-        //    }
-        //}
+       
 
         private void cmdConfig_Click(object sender, EventArgs e)
         {
@@ -634,7 +504,7 @@ namespace VNS.HIS.UI.NOITRU
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    txtBedCode.Focus();
+                   // txtBedCode.Focus();
                     txtRoom_code.Text = Utility.sDbnull(grdBuong.GetValue(NoitruDmucBuong.Columns.TenBuong));
                 }
                 if (e.KeyCode == Keys.Down)
@@ -663,8 +533,6 @@ namespace VNS.HIS.UI.NOITRU
             if (e.KeyCode == Keys.Enter)
             {
                 cmdSave_Click(cmdSave, new EventArgs());
-                //cmdSave.Focus();
-                //txtBedCode.Text = Utility.sDbnull(grdGiuong.GetValue(NoitruDmucGiuongbenh.Columns.TenGiuong));
             }
         }
 
@@ -674,7 +542,7 @@ namespace VNS.HIS.UI.NOITRU
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    cmdSave.Focus();
+                   // cmdSave.Focus();
                     txtBedCode.Text = Utility.sDbnull(grdGiuong.GetValue(NoitruDmucGiuongbenh.Columns.TenGiuong));
                 }
                 if (e.KeyCode == Keys.Down)

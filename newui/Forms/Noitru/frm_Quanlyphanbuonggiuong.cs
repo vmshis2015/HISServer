@@ -101,7 +101,7 @@ namespace VNS.HIS.UI.NOITRU
                                                 txtPatientCode.Text, 1,
                                                 chkByDate.Checked ? dtFromDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
                                                 chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
-                                                string.Empty, (int?) _TrangthaiNoitru,-1).
+                                                string.Empty, (int?) _TrangthaiNoitru,-1,0).
                     GetDataSet().Tables[0];
            
                 if (PropertyLib._NoitruProperties.HienthiKhoatheonguoidung)
@@ -251,11 +251,7 @@ namespace VNS.HIS.UI.NOITRU
                 frm.p_DanhSachPhanBuongGiuong = m_dtTimKiembenhNhan;
                // frm.m_enAction = action.Insert;
                 frm.b_CallParent = true;
-                frm.cmdSearch.Enabled = false;
-                frm.cmdLamSach.Enabled = false;
-                frm.txtMaLanKham.Enabled = false;
-                txtPatientCode.Enabled = false;
-                frm.txtSoHSBA.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
+                
                 frm.txtMaLanKham.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
                 frm.txtPatient_ID.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
                 frm.grdList = grdList;
@@ -307,11 +303,6 @@ namespace VNS.HIS.UI.NOITRU
                 frm.b_CallParent = true;
                 // frm.m_enAction = action.Insert;
                 frm.IDBuonggiuong = Utility.Int32Dbnull(grdList.GetValue(NoitruPhanbuonggiuong.Columns.Id));
-                frm.cmdSearch.Enabled = false;
-                frm.cmdLamSach.Enabled = false;
-                frm.txtMaLanKham.Enabled = false;
-                txtPatientCode.Enabled = false;
-                frm.txtSoHSBA.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
                 frm.txtMaLanKham.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
                 frm.txtPatient_ID.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
                 frm.grdList = grdList;

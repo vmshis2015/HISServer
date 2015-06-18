@@ -8,6 +8,7 @@ using VNS.HIS.DAL;
 using VNS.Properties;
 using VNS.HIS.BusRule.Classes;
 using SubSonic;
+using Janus.Windows.GridEX.EditControls;
 
 
 namespace VNS.HIS.UI.NOITRU
@@ -45,8 +46,39 @@ namespace VNS.HIS.UI.NOITRU
             grdGiuong.MouseDoubleClick += grdGiuong_MouseDoubleClick;
             txtBedCode.TextChanged+=txtBedCode_TextChanged;
             txtBedCode.KeyDown+=txtBedCode_KeyDown;
+            txtMaLanKham.KeyDown += txtMaLanKham_KeyDown;
+            cmdChonBNmoi.Click += cmdChonBNmoi_Click;
         }
 
+        void cmdChonBNmoi_Click(object sender, EventArgs e)
+        {
+            ClearControl();
+            txtMaLanKham.Focus();
+        }
+
+        void txtMaLanKham_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && Utility.DoTrim(txtMaLanKham.Text) != "")
+            {
+                objPhanbuonggiuong = null;
+                string _patient_Code = Utility.AutoFullPatientCode(txtMaLanKham.Text);
+                ClearControl();
+                txtMaLanKham.Text = _patient_Code;
+                BindData();
+            }
+        }
+
+        private void ClearControl()
+        {
+            foreach (Control ctrl in grpThongTinBN.Controls)
+            {
+                if (ctrl is EditBox)
+                {
+                    ((EditBox)ctrl).Clear();
+                }
+
+            }
+        }
         void grdGiuong_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             grdGiuong_KeyDown(sender, new KeyEventArgs(Keys.Enter));
@@ -212,17 +244,16 @@ namespace VNS.HIS.UI.NOITRU
         }
         private void BindData()
         {
-           
-                txtSoHSBA.Text = objPhanbuonggiuong.MaLuotkham;
-                
 
             SqlQuery sqlQuery = new Select().From(KcbLuotkham.Schema)
-                .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(txtSoHSBA.Text);
+                .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(txtMaLanKham.Text);
             if (sqlQuery.GetRecordCount() > 0)
             {
                 objPatientExam = sqlQuery.ExecuteSingle<KcbLuotkham>();
                 if (objPatientExam != null)
                 {
+                    if (objPhanbuonggiuong == null)
+                        objPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(Utility.Int32Dbnull(objPatientExam.IdRavien, 0));
                     txtMaLanKham.Text = Utility.sDbnull(objPatientExam.MaLuotkham);
                     txtSoBHYT.Text = Utility.sDbnull(objPatientExam.MatheBhyt);
                     DmucKhoaphong objLDepartment = DmucKhoaphong.FetchByID(objPatientExam.IdKhoanoitru);
@@ -231,6 +262,7 @@ namespace VNS.HIS.UI.NOITRU
                         txtDepartment_ID.Text = Utility.sDbnull(objLDepartment.IdKhoaphong);
                         txtDepartmentName.Tag = Utility.sDbnull(objLDepartment.IdKhoaphong);
                         txtDepartmentName.Text = Utility.sDbnull(objLDepartment.TenKhoaphong);
+                        txtKhoadieutri.Text = txtDepartmentName.Text;
                     }
                     KcbDanhsachBenhnhan objPatientInfo = KcbDanhsachBenhnhan.FetchByID(objPatientExam.IdBenhnhan);
                     if (objPatientInfo != null)
@@ -246,6 +278,12 @@ namespace VNS.HIS.UI.NOITRU
                         txtPatientDept_ID.Text = Utility.sDbnull(objPhanbuonggiuong.Id);
                         
                     }
+                    m_dtDataRoom = THU_VIEN_CHUNG.NoitruTimkiembuongTheokhoa(Utility.Int32Dbnull(txtDepartment_ID.Text));
+                    Utility.SetDataSourceForDataGridEx_Basic(grdBuong, m_dtDataRoom, true, true, "1=1", "sluong_giuong_trong desc,ten_buong");
+                    if (grdBuong.DataSource != null)
+                    {
+                        grdBuong.MoveFirst();
+                    }
                 }
             }
         }
@@ -258,28 +296,38 @@ namespace VNS.HIS.UI.NOITRU
         {
         }
 
-        private void InitData()
-        {
-            m_dtDataRoom = THU_VIEN_CHUNG.NoitruTimkiembuongTheokhoa(Utility.Int32Dbnull(txtDepartment_ID.Text));
-           // 
-            Utility.SetDataSourceForDataGridEx_Basic(grdBuong, m_dtDataRoom,true, true, "1=1", "sluong_giuong_trong desc,ten_buong");
-            if (grdBuong.DataSource != null)
-            {
-                grdBuong.MoveFirst();
-            }
-            BindData();
-        }
-
+       
         private void frm_phanbuonggiuong_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.S && e.Control) cmdSave.PerformClick();
             if (e.KeyCode == Keys.Escape) cmdExit.PerformClick();
             if (e.KeyCode == Keys.F2) txtRoom_code.Focus();
             if (e.KeyCode == Keys.Enter) SendKeys.Send("{TAB}");
+            if (e.KeyCode == Keys.F2)
+            {
+                txtMaLanKham.Focus();
+                txtMaLanKham.SelectAll();
+            }
+            if (e.KeyCode == Keys.F3)
+            {
+                ShowPatientList();
+            }
             if (e.KeyCode == Keys.F5)
             {
                 grdBuong_SelectionChanged(grdBuong, new EventArgs());
                 return;
+            }
+        }
+        private void ShowPatientList()
+        {
+            var frm = new frm_TimKiem_BN();
+            frm.SearchByDate = false;
+            frm.txtPatientCode.Text = txtMaLanKham.Text;
+            frm.ShowDialog();
+            if (!frm.m_blnCancel)
+            {
+                txtMaLanKham.Text = Utility.sDbnull(frm.MaLuotkham);
+                txtMaLanKham_KeyDown(txtMaLanKham, new KeyEventArgs(Keys.Enter));
             }
         }
 
@@ -331,7 +379,8 @@ namespace VNS.HIS.UI.NOITRU
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    cmdSave.Focus();
+                    if (Utility.isValidGrid(grdGiuong))
+                        cmdSave_Click(cmdSave, new EventArgs());
                 }
                 if (e.KeyCode == Keys.Down)
                 {
@@ -356,11 +405,9 @@ namespace VNS.HIS.UI.NOITRU
 
         private void grdGiuong_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter && Utility.isValidGrid(grdGiuong))
             {
                 cmdSave_Click(cmdSave, new EventArgs());
-                //cmdSave.Focus();
-                //txtBedCode.Text = Utility.sDbnull(grdGiuong.GetValue(NoitruDmucGiuongbenh.Columns.TenGiuong));
             }
         }
 
@@ -368,6 +415,7 @@ namespace VNS.HIS.UI.NOITRU
         {
             if (objPhanbuonggiuong != null)
             {
+                txtMaLanKham.Text = objPhanbuonggiuong.MaLuotkham;
                 txtPatientDept_ID.Text = Utility.sDbnull(objPhanbuonggiuong.Id);
                 txtDepartment_ID.Text = Utility.sDbnull(objPhanbuonggiuong.IdKhoanoitru);
                 DmucKhoaphong objDepartment = DmucKhoaphong.FetchByID(Utility.Int32Dbnull(txtDepartment_ID.Text));
@@ -376,10 +424,10 @@ namespace VNS.HIS.UI.NOITRU
                     txtDepartmentName.Text = Utility.sDbnull(objDepartment.TenKhoaphong);
                     txtDepartmentName.Tag = Utility.sDbnull(objDepartment.IdKhoaphong);
                 }
-                dtNgayChuyen.Value = globalVariables.SysDate;// Convert.ToDateTime(objPhanbuonggiuong.NgayVaokhoa);
+                dtNgayChuyen.Value = globalVariables.SysDate;
                 txtGio.Text = Utility.sDbnull(dtNgayChuyen.Value.Hour);
                 txtPhut.Text = Utility.sDbnull(dtNgayChuyen.Value.Minute);
-                InitData();
+                BindData();
                 txtRoom_code.Focus();
                 txtRoom_code.SelectAll();
             }
@@ -391,7 +439,7 @@ namespace VNS.HIS.UI.NOITRU
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    txtBedCode.Focus();
+                   // txtBedCode.Focus();
                     txtRoom_code.Text = Utility.sDbnull(grdBuong.GetValue(NoitruDmucBuong.Columns.TenBuong));
                 }
                 if (e.KeyCode == Keys.Down)
@@ -424,6 +472,7 @@ namespace VNS.HIS.UI.NOITRU
                 m_dtDataRoom.DefaultView.RowFilter = rowFilter;
                 m_dtDataRoom.AcceptChanges();
                 grdBuong.MoveFirst();
+                txtBedCode.Focus();
             }
         }
     }

@@ -130,7 +130,7 @@ namespace VNS.HIS.UI.NOITRU
             }
             if (objKcbLuotkham != null && objKcbLuotkham.TrangthaiNoitru >1)
             {
-                Utility.SetMsg(lblMsg, "Bệnh nhân đã có dữ liệu nội trú, Bạn không thể xóa hoặc hủy nhập viện được,yêu cầu xem lại", true);
+                Utility.SetMsg(lblMsg, "Bệnh nhân đã có dữ liệu nội trú nên không thể hủy nhập viện được. Mời bạn kiểm tra lại", true);
                 return false;
             }
            
@@ -139,21 +139,19 @@ namespace VNS.HIS.UI.NOITRU
                .And(NoitruPhanbuonggiuong.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham).ExecuteAsCollection<NoitruPhanbuonggiuongCollection>();
             if (objNoitruPhanbuonggiuong != null && objNoitruPhanbuonggiuong.Count > 1)
             {
-                Utility.SetMsg(lblMsg, "Bệnh nhân đã chuyển khoa hoặc phân buồng giường, Bạn không thể hủy thông tin nhập viện", true);
+                Utility.SetMsg(lblMsg, "Bệnh nhân đã chuyển khoa hoặc chuyển giường nên bạn không thể hủy thông tin nhập viện", true);
                 return false;
             }
             if (objNoitruPhanbuonggiuong != null && objNoitruPhanbuonggiuong.Count == 1 && Utility.Int32Dbnull(objNoitruPhanbuonggiuong[0].IdBuong, -1) > 0)
             {
-                Utility.ShowMsg("Bệnh nhân đã phân buồng giường,Bạn không thể xóa thông tin ", "Thông báo", MessageBoxIcon.Warning);
+                Utility.ShowMsg("Bệnh nhân đã phân buồng giường nên bạn không thể hủy thông tin nhập viện ", "Thông báo", MessageBoxIcon.Warning);
                 return false;
             }
             
             
             NoitruTamung _NoitruTamung = new Select().From(NoitruTamung.Schema)
               .Where(NoitruTamung.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
-                //.And(NoitruTamung.Columns.TrangThai).IsEqualTo(1)
               .And(NoitruTamung.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).ExecuteSingle<NoitruTamung>();
-            //.AndExpression(NoitruTamung.Columns.IdPhieuGoiDvu).IsEqualTo(-1).Or(NoitruTamung.Columns.IdPhieuGoiDvu).IsNull().CloseExpression();
             if (_NoitruTamung != null)
             {
                 Utility.SetMsg(lblMsg, "Bệnh nhân này đã đóng tiền tạm ứng , Bạn không thể hủy nhập viện", true);
@@ -279,7 +277,7 @@ namespace VNS.HIS.UI.NOITRU
             objPatientDept.TrangthaiThanhtoan = 0;
             objPatientDept.TrangThai = 0;
             objPatientDept.DuyetBhyt = 0;
-            objPatientDept.CachTinh = 0;
+            objPatientDept.CachtinhSoluong = 0;
             objPatientDept.SoluongGio = 0;
             return objPatientDept;
           
@@ -289,70 +287,35 @@ namespace VNS.HIS.UI.NOITRU
         {
             Utility.SetMsg(lblMsg, "", false);
             Utility.ResetMessageError(errorProvider1);
-            objLuotkham = new Select().From(KcbLuotkham.Schema)
-              .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
-              .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).ExecuteSingle<KcbLuotkham>();
-            //if (objLuotkham != null && objLuotkham.TrangthaiNoitru == 1)
-            //{
-            //    Utility.ShowMsg("Bệnh nhân vừa được người khác nhập viện. Bạn hãy kiểm tra lại ", "Thông báo",
-            //                  MessageBoxIcon.Warning);
-            //    return false;
-            //}
-            if (objLuotkham != null && objLuotkham.TrangthaiNoitru > 1)
-            {
-                Utility.SetMsg(lblMsg, "Bệnh nhân đã chuẩn bị ra viện hoặc đã ra viện. Mời bạn xem lại ", true);
-                return false;
-            }
-            NoitruPhanbuonggiuongCollection _NoitruPhanbuonggiuong = new Select().From(NoitruPhanbuonggiuong.Schema)
-             .Where(NoitruPhanbuonggiuong.Columns.NoiTru).IsEqualTo(1)
-             .And(NoitruPhanbuonggiuong.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
-             .And(NoitruPhanbuonggiuong.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).ExecuteSingle<NoitruPhanbuonggiuongCollection>();
-            if (_NoitruPhanbuonggiuong != null && _NoitruPhanbuonggiuong.Count>1)
-            {
-                Utility.SetMsg(lblMsg, "Bệnh nhân đã được phân chuyển khoa hoặc chuyển giường. Mời bạn xem lại ",true);
-                return false;
-
-            }
-            if (_NoitruPhanbuonggiuong != null && _NoitruPhanbuonggiuong.Where(c=>Utility.Int32Dbnull( c.IdBuong,-1)>0).Count()>0)
-            {
-                Utility.SetMsg(lblMsg, "Bệnh nhân đã được phân buồng giường. Mời bạn xem lại ", true);
-                return false;
-
-            }
             if (Utility.Int32Dbnull(txtKhoanoitru.MyID, -1) == -1)
             {
                 Utility.SetMsg(lblMsg, "Bạn phải chọn khoa nội trú", true);
                 txtKhoanoitru.Focus();
                 return false;
             }
+            NoitruPhanbuonggiuongCollection objNoitruPhanbuonggiuong = new Select().From(NoitruPhanbuonggiuong.Schema)
+               .Where(NoitruPhanbuonggiuong.Columns.NoiTru).IsEqualTo(1)
+               .And(NoitruPhanbuonggiuong.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham).ExecuteAsCollection<NoitruPhanbuonggiuongCollection>();
+            if (objNoitruPhanbuonggiuong != null && objNoitruPhanbuonggiuong.Count > 1)
+            {
+                Utility.SetMsg(lblMsg, "Bệnh nhân đã chuyển khoa hoặc chuyển giường nên bạn không thể hủy thông tin nhập viện", true);
+                return false;
+            }
+            if (objNoitruPhanbuonggiuong != null && objNoitruPhanbuonggiuong.Count == 1 && Utility.Int32Dbnull(objNoitruPhanbuonggiuong[0].IdBuong, -1) > 0)
+            {
+                Utility.ShowMsg("Bệnh nhân đã phân buồng giường nên bạn không thể cập nhật lại thông tin khoa vào viện", "Thông báo", MessageBoxIcon.Warning);
+                return false;
+            }
+            objLuotkham = new Select().From(KcbLuotkham.Schema)
+              .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+              .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).ExecuteSingle<KcbLuotkham>();
 
-            //if(!globalVariables.IsAdmin)
-            //{
-            //    SqlQuery sqlQuery1 = new Select().From(TThongtinGoiDvuBnhan.Schema)
-            //                       .Where(TThongtinGoiDvuBnhan.Columns.MaLuotkham).IsEqualTo(
-            //                           objLuotkham.MaLuotkham)
-            //                       .And(TThongtinGoiDvuBnhan.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
-            //                       .And(TThongtinGoiDvuBnhan.Columns.NoiTru).IsEqualTo(1)
-            //                       .And(TThongtinGoiDvuBnhan.Columns.DaTtoan).IsEqualTo(1);
-            //    if (sqlQuery1.GetRecordCount() > 0)
-            //    {
-            //        Utility.ShowMsg("Gói của bệnh nhân đã thanh toán, Bạn không thể chỉ định hoặc sửa thông tin gói", "Thông báo", MessageBoxIcon.Warning);
-            //        //  Utility.SetMsgError(errorProvider1, grdGoiDV, "Gói của bệnh nhân đã thanh toán, Bạn không thể chỉ định hoặc sửa thông tin gói");
-            //        return false;
-            //    }
-            //    sqlQuery1 = new Select().From(TThongtinGoiDvuBnhan.Schema)
-            //                          .Where(TThongtinGoiDvuBnhan.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
-            //                          .And(TThongtinGoiDvuBnhan.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
-            //                          .And(TThongtinGoiDvuBnhan.Columns.NoiTru).IsEqualTo(1)
-            //                          .And(TThongtinGoiDvuBnhan.Columns.TrangThai).IsEqualTo(1);
-            //    if (sqlQuery1.GetRecordCount() > 0)
-            //    {
-            //        Utility.ShowMsg("Gói của bệnh nhân đã kích hoạt, Bạn không thể chỉ định hoặc sửa thông tin gói", "Thông báo", MessageBoxIcon.Warning);
-            //        //   Utility.SetMsgError(errorProvider1, grdGoiDV, "Gói của bệnh nhân đã kích hoạt, Bạn không thể chỉ định hoặc sửa thông tin gói");
-            //        return false;
-            //    }
-            //}
-
+            if (objLuotkham != null && objLuotkham.TrangthaiNoitru > 1)
+            {
+                Utility.SetMsg(lblMsg, "Bệnh nhân đã có dữ liệu nội trú nên bạn không thể cập nhật lại thông tin khoa vào viện. Mời bạn kiểm tra lại ", true);
+                return false;
+            }
+           
             return true;
         }
         /// <summary>

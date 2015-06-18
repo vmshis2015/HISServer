@@ -393,13 +393,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chkXacnhan.Checked = true;
             this.chkXacnhan.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkXacnhan.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkXacnhan.Location = new System.Drawing.Point(8, 182);
+            this.chkXacnhan.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkXacnhan.ForeColor = System.Drawing.Color.Maroon;
+            this.chkXacnhan.Location = new System.Drawing.Point(14, 182);
             this.chkXacnhan.Name = "chkXacnhan";
             this.chkXacnhan.Size = new System.Drawing.Size(189, 23);
             this.chkXacnhan.TabIndex = 414;
             this.chkXacnhan.TabStop = false;
-            this.chkXacnhan.Text = "Khoa duyệt?";
+            this.chkXacnhan.Text = "Duyệt dữ liệu nội trú?";
             this.toolTip1.SetToolTip(this.chkXacnhan, "Hiển thị tất cả các phiếu điều trị của Bệnh nhân");
             // 
             // cmdInphoiBHYT
@@ -543,7 +544,7 @@
             // lnkViewAll
             // 
             this.lnkViewAll.AutoSize = true;
-            this.lnkViewAll.Location = new System.Drawing.Point(223, 186);
+            this.lnkViewAll.Location = new System.Drawing.Point(335, 186);
             this.lnkViewAll.Name = "lnkViewAll";
             this.lnkViewAll.Size = new System.Drawing.Size(72, 15);
             this.lnkViewAll.TabIndex = 424;
@@ -559,7 +560,7 @@
             this.uiGroupBox2.FrameStyle = Janus.Windows.EditControls.FrameStyle.Top;
             this.uiGroupBox2.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox2.Name = "uiGroupBox2";
-            this.uiGroupBox2.Size = new System.Drawing.Size(427, 568);
+            this.uiGroupBox2.Size = new System.Drawing.Size(427, 562);
             this.uiGroupBox2.TabIndex = 11;
             this.uiGroupBox2.Text = "Danh sách Bệnh nhân nội trú";
             // 
@@ -570,7 +571,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 17);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(427, 548);
+            this.panel5.Size = new System.Drawing.Size(427, 542);
             this.panel5.TabIndex = 7;
             // 
             // uiTabPhieudieutri
@@ -579,7 +580,7 @@
             this.uiTabPhieudieutri.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiTabPhieudieutri.Location = new System.Drawing.Point(0, 0);
             this.uiTabPhieudieutri.Name = "uiTabPhieudieutri";
-            this.uiTabPhieudieutri.Size = new System.Drawing.Size(427, 304);
+            this.uiTabPhieudieutri.Size = new System.Drawing.Size(427, 298);
             this.uiTabPhieudieutri.TabIndex = 19;
             this.uiTabPhieudieutri.TabPages.AddRange(new Janus.Windows.UI.Tab.UITabPage[] {
             this.tabPagePhieuDieuTri});
@@ -590,7 +591,7 @@
             this.tabPagePhieuDieuTri.Controls.Add(this.grdPhieudieutri);
             this.tabPagePhieuDieuTri.Location = new System.Drawing.Point(1, 22);
             this.tabPagePhieuDieuTri.Name = "tabPagePhieuDieuTri";
-            this.tabPagePhieuDieuTri.Size = new System.Drawing.Size(425, 281);
+            this.tabPagePhieuDieuTri.Size = new System.Drawing.Size(425, 275);
             this.tabPagePhieuDieuTri.TabStop = true;
             this.tabPagePhieuDieuTri.Text = "Thông tin phiếu điều trị";
             // 
@@ -599,8 +600,6 @@
             this.grdPhieudieutri.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
             this.grdPhieudieutri.AutomaticSort = false;
             this.grdPhieudieutri.BackColor = System.Drawing.Color.Silver;
-            this.grdPhieudieutri.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
-    " thông tin bệnh nhân đưa vào phòng khám</FilterRowInfoText></LocalizableData>";
             grdPhieudieutri_DesignTimeLayout_Reference_0.Instance = ((object)(resources.GetObject("grdPhieudieutri_DesignTimeLayout_Reference_0.Instance")));
             grdPhieudieutri_DesignTimeLayout.LayoutReferences.AddRange(new Janus.Windows.Common.Layouts.JanusLayoutReference[] {
             grdPhieudieutri_DesignTimeLayout_Reference_0});
@@ -628,7 +627,7 @@
             this.grdPhieudieutri.SelectedFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
             this.grdPhieudieutri.SelectedFormatStyle.ForeColor = System.Drawing.Color.White;
             this.grdPhieudieutri.SelectedInactiveFormatStyle.ForeColor = System.Drawing.Color.Black;
-            this.grdPhieudieutri.Size = new System.Drawing.Size(425, 281);
+            this.grdPhieudieutri.Size = new System.Drawing.Size(425, 275);
             this.grdPhieudieutri.TabIndex = 9;
             this.grdPhieudieutri.TabStop = false;
             this.grdPhieudieutri.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
@@ -660,7 +659,7 @@
             this.panel7.Controls.Add(this.label34);
             this.panel7.Controls.Add(this.label41);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel7.Location = new System.Drawing.Point(0, 304);
+            this.panel7.Location = new System.Drawing.Point(0, 298);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(427, 244);
             this.panel7.TabIndex = 6;
@@ -880,7 +879,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1014, 736);
+            this.panel4.Size = new System.Drawing.Size(1008, 730);
             this.panel4.TabIndex = 0;
             this.panel4.TabStop = true;
             // 
@@ -891,7 +890,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 168);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1014, 568);
+            this.panel1.Size = new System.Drawing.Size(1008, 562);
             this.panel1.TabIndex = 74;
             // 
             // tabDiagInfo
@@ -901,7 +900,7 @@
             this.tabDiagInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabDiagInfo.Location = new System.Drawing.Point(427, 0);
             this.tabDiagInfo.Name = "tabDiagInfo";
-            this.tabDiagInfo.Size = new System.Drawing.Size(587, 568);
+            this.tabDiagInfo.Size = new System.Drawing.Size(581, 562);
             this.tabDiagInfo.TabIndex = 66;
             this.tabDiagInfo.TabPages.AddRange(new Janus.Windows.UI.Tab.UITabPage[] {
             this.tabPageChiDinhCLS,
@@ -1038,7 +1037,7 @@
             this.tabPageChidinhThuoc.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageChidinhThuoc.Location = new System.Drawing.Point(1, 23);
             this.tabPageChidinhThuoc.Name = "tabPageChidinhThuoc";
-            this.tabPageChidinhThuoc.Size = new System.Drawing.Size(585, 544);
+            this.tabPageChidinhThuoc.Size = new System.Drawing.Size(579, 538);
             this.tabPageChidinhThuoc.TabStop = true;
             this.tabPageChidinhThuoc.Text = "Thuốc";
             // 
@@ -1049,7 +1048,7 @@
             this.pnltabkedon.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnltabkedon.Location = new System.Drawing.Point(0, 0);
             this.pnltabkedon.Name = "pnltabkedon";
-            this.pnltabkedon.Size = new System.Drawing.Size(585, 544);
+            this.pnltabkedon.Size = new System.Drawing.Size(579, 538);
             this.pnltabkedon.TabIndex = 9;
             // 
             // grdPresDetail
@@ -1073,7 +1072,7 @@
             this.grdPresDetail.RecordNavigator = true;
             this.grdPresDetail.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdPresDetail.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
-            this.grdPresDetail.Size = new System.Drawing.Size(585, 544);
+            this.grdPresDetail.Size = new System.Drawing.Size(579, 538);
             this.grdPresDetail.TabIndex = 2;
             this.grdPresDetail.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdPresDetail.TotalRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
@@ -1205,8 +1204,6 @@
             // 
             this.grdBuongGiuong.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
             this.grdBuongGiuong.BackColor = System.Drawing.Color.Silver;
-            this.grdBuongGiuong.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
-    " thông tin bệnh nhân</FilterRowInfoText></LocalizableData>";
             grdBuongGiuong_DesignTimeLayout.LayoutString = resources.GetString("grdBuongGiuong_DesignTimeLayout.LayoutString");
             this.grdBuongGiuong.DesignTimeLayout = grdBuongGiuong_DesignTimeLayout;
             this.grdBuongGiuong.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1319,7 +1316,7 @@
             this.pnlThongtinBNKCB.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlThongtinBNKCB.Location = new System.Drawing.Point(0, 0);
             this.pnlThongtinBNKCB.Name = "pnlThongtinBNKCB";
-            this.pnlThongtinBNKCB.Size = new System.Drawing.Size(1014, 168);
+            this.pnlThongtinBNKCB.Size = new System.Drawing.Size(1008, 168);
             this.pnlThongtinBNKCB.TabIndex = 0;
             this.pnlThongtinBNKCB.TabStop = true;
             // 
@@ -1329,7 +1326,7 @@
             this.uiTabThongtinBN.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiTabThongtinBN.Location = new System.Drawing.Point(0, 0);
             this.uiTabThongtinBN.Name = "uiTabThongtinBN";
-            this.uiTabThongtinBN.Size = new System.Drawing.Size(1014, 168);
+            this.uiTabThongtinBN.Size = new System.Drawing.Size(1008, 168);
             this.uiTabThongtinBN.TabIndex = 469;
             this.uiTabThongtinBN.TabPages.AddRange(new Janus.Windows.UI.Tab.UITabPage[] {
             this.uiTabPage6});
@@ -1340,7 +1337,7 @@
             this.uiTabPage6.Controls.Add(this.pnlPatientInfor);
             this.uiTabPage6.Location = new System.Drawing.Point(1, 22);
             this.uiTabPage6.Name = "uiTabPage6";
-            this.uiTabPage6.Size = new System.Drawing.Size(1012, 145);
+            this.uiTabPage6.Size = new System.Drawing.Size(1006, 145);
             this.uiTabPage6.TabStop = true;
             this.uiTabPage6.Text = "Thông tin Bệnh nhân";
             // 
@@ -1380,7 +1377,7 @@
             this.pnlPatientInfor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPatientInfor.Location = new System.Drawing.Point(0, 0);
             this.pnlPatientInfor.Name = "pnlPatientInfor";
-            this.pnlPatientInfor.Size = new System.Drawing.Size(1012, 145);
+            this.pnlPatientInfor.Size = new System.Drawing.Size(1006, 145);
             this.pnlPatientInfor.TabIndex = 468;
             // 
             // label2
@@ -1454,7 +1451,7 @@
             this.txtGiuong.Location = new System.Drawing.Point(733, 106);
             this.txtGiuong.Name = "txtGiuong";
             this.txtGiuong.ReadOnly = true;
-            this.txtGiuong.Size = new System.Drawing.Size(276, 21);
+            this.txtGiuong.Size = new System.Drawing.Size(270, 21);
             this.txtGiuong.TabIndex = 460;
             this.txtGiuong.TabStop = false;
             // 
@@ -1721,14 +1718,14 @@
             // frm_TonghopRavien
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1014, 736);
+            this.ClientSize = new System.Drawing.Size(1008, 730);
             this.Controls.Add(this.panel4);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.Name = "frm_TonghopRavien";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Lập phiếu điều trị nội trú";
+            this.Text = "Duyệt tổng hợp dữ liệu nội trú trước khi thanh toán ra viện";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ctxTronggoi_tutuc.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdAssignDetail)).EndInit();

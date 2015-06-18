@@ -65,6 +65,8 @@
             this.cmdHuy = new Janus.Windows.EditControls.UIButton();
             this.cmdChuyen = new Janus.Windows.EditControls.UIButton();
             this.pnlFill = new System.Windows.Forms.Panel();
+            this.label31 = new System.Windows.Forms.Label();
+            this.dtpNgaynhapvien = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.cboDoctorAssign = new System.Windows.Forms.ComboBox();
             this.label30 = new System.Windows.Forms.Label();
             this.txtphuongtienvc = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
@@ -90,7 +92,6 @@
             this.txtBenhchinh = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.label27 = new System.Windows.Forms.Label();
             this.chkDaCapGiayRaVien = new Janus.Windows.EditControls.UICheckBox();
-            this.txtSoRaVien = new Janus.Windows.GridEX.EditControls.EditBox();
             this.txtTongSoNgayDtri = new Janus.Windows.GridEX.EditControls.MaskedEditBox();
             this.dtNGAY_CAP_GIAY_RVIEN = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.label11 = new System.Windows.Forms.Label();
@@ -112,8 +113,7 @@
             this.lblMsg = new System.Windows.Forms.Label();
             this.txtId = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.dtpNgaynhapvien = new Janus.Windows.CalendarCombo.CalendarCombo();
+            this.txtSoRaVien = new MaskedTextBox.MaskedTextBox();
             this.pnlTop.SuspendLayout();
             this.pnlBottom.SuspendLayout();
             this.pnlFill.SuspendLayout();
@@ -539,6 +539,7 @@
             // 
             // pnlFill
             // 
+            this.pnlFill.Controls.Add(this.txtSoRaVien);
             this.pnlFill.Controls.Add(this.label31);
             this.pnlFill.Controls.Add(this.dtpNgaynhapvien);
             this.pnlFill.Controls.Add(this.cboDoctorAssign);
@@ -566,7 +567,6 @@
             this.pnlFill.Controls.Add(this.txtBenhchinh);
             this.pnlFill.Controls.Add(this.label27);
             this.pnlFill.Controls.Add(this.chkDaCapGiayRaVien);
-            this.pnlFill.Controls.Add(this.txtSoRaVien);
             this.pnlFill.Controls.Add(this.txtTongSoNgayDtri);
             this.pnlFill.Controls.Add(this.dtNGAY_CAP_GIAY_RVIEN);
             this.pnlFill.Controls.Add(this.label11);
@@ -593,6 +593,35 @@
             this.pnlFill.Name = "pnlFill";
             this.pnlFill.Size = new System.Drawing.Size(884, 424);
             this.pnlFill.TabIndex = 2;
+            // 
+            // label31
+            // 
+            this.label31.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.ForeColor = System.Drawing.Color.Black;
+            this.label31.Location = new System.Drawing.Point(260, 7);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(102, 20);
+            this.label31.TabIndex = 630;
+            this.label31.Text = "Ngày nhập viện";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // dtpNgaynhapvien
+            // 
+            this.dtpNgaynhapvien.CustomFormat = "dd/MM/yyyy :HH:mm";
+            this.dtpNgaynhapvien.DateFormat = Janus.Windows.CalendarCombo.DateFormat.Custom;
+            // 
+            // 
+            // 
+            this.dtpNgaynhapvien.DropDownCalendar.Name = "";
+            this.dtpNgaynhapvien.DropDownCalendar.Visible = false;
+            this.dtpNgaynhapvien.Enabled = false;
+            this.dtpNgaynhapvien.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpNgaynhapvien.IsNullDate = true;
+            this.dtpNgaynhapvien.Location = new System.Drawing.Point(388, 6);
+            this.dtpNgaynhapvien.Name = "dtpNgaynhapvien";
+            this.dtpNgaynhapvien.ShowUpDown = true;
+            this.dtpNgaynhapvien.Size = new System.Drawing.Size(179, 21);
+            this.dtpNgaynhapvien.TabIndex = 629;
             // 
             // cboDoctorAssign
             // 
@@ -1159,16 +1188,6 @@
             this.chkDaCapGiayRaVien.TabStop = false;
             this.chkDaCapGiayRaVien.Text = "Ngày cấp giấy ra viện";
             // 
-            // txtSoRaVien
-            // 
-            this.txtSoRaVien.BackColor = System.Drawing.Color.White;
-            this.txtSoRaVien.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSoRaVien.Location = new System.Drawing.Point(497, 31);
-            this.txtSoRaVien.Name = "txtSoRaVien";
-            this.txtSoRaVien.Size = new System.Drawing.Size(70, 21);
-            this.txtSoRaVien.TabIndex = 3;
-            this.txtSoRaVien.Visible = false;
-            // 
             // txtTongSoNgayDtri
             // 
             this.txtTongSoNgayDtri.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1405,33 +1424,16 @@
             this.label3.Text = "Id ra viện:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label31
+            // txtSoRaVien
             // 
-            this.label31.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.ForeColor = System.Drawing.Color.Black;
-            this.label31.Location = new System.Drawing.Point(260, 7);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(102, 20);
-            this.label31.TabIndex = 630;
-            this.label31.Text = "Ngày nhập viện";
-            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // dtpNgaynhapvien
-            // 
-            this.dtpNgaynhapvien.CustomFormat = "dd/MM/yyyy :HH:mm";
-            this.dtpNgaynhapvien.DateFormat = Janus.Windows.CalendarCombo.DateFormat.Custom;
-            // 
-            // 
-            // 
-            this.dtpNgaynhapvien.DropDownCalendar.Name = "";
-            this.dtpNgaynhapvien.DropDownCalendar.Visible = false;
-            this.dtpNgaynhapvien.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpNgaynhapvien.IsNullDate = true;
-            this.dtpNgaynhapvien.Location = new System.Drawing.Point(388, 6);
-            this.dtpNgaynhapvien.Name = "dtpNgaynhapvien";
-            this.dtpNgaynhapvien.ShowUpDown = true;
-            this.dtpNgaynhapvien.Size = new System.Drawing.Size(179, 21);
-            this.dtpNgaynhapvien.TabIndex = 629;
+            this.txtSoRaVien.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSoRaVien.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSoRaVien.Location = new System.Drawing.Point(497, 31);
+            this.txtSoRaVien.Masked = MaskedTextBox.Mask.Digit;
+            this.txtSoRaVien.Name = "txtSoRaVien";
+            this.txtSoRaVien.Size = new System.Drawing.Size(70, 21);
+            this.txtSoRaVien.TabIndex = 3;
+            this.txtSoRaVien.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // frm_Phieuravien
             // 
@@ -1516,7 +1518,6 @@
         private UCs.AutoCompleteTextbox txtBenhchinh;
         internal System.Windows.Forms.Label label27;
         private Janus.Windows.EditControls.UICheckBox chkDaCapGiayRaVien;
-        private Janus.Windows.GridEX.EditControls.EditBox txtSoRaVien;
         private Janus.Windows.GridEX.EditControls.MaskedEditBox txtTongSoNgayDtri;
         private Janus.Windows.CalendarCombo.CalendarCombo dtNGAY_CAP_GIAY_RVIEN;
         internal System.Windows.Forms.Label label11;
@@ -1543,5 +1544,6 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label31;
         private Janus.Windows.CalendarCombo.CalendarCombo dtpNgaynhapvien;
+        private MaskedTextBox.MaskedTextBox txtSoRaVien;
     }
 }

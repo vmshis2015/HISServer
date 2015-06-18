@@ -244,8 +244,52 @@ namespace VNS.HIS.UI.NOITRU
             chkViewAll.CheckedChanged += chkViewAll_CheckedChanged;
             txtHoly._OnShowData += txtHoly__OnShowData;
             txtChedodinhduong._OnShowData += txtChedodinhduong__OnShowData;
+            grdBuongGiuong.MouseDoubleClick += grdBuongGiuong_MouseDoubleClick;
+            txtMaluotkham.KeyDown += txtMaluotkham_KeyDown;
+            
         }
 
+        void txtMaluotkham_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && Utility.DoTrim(txtMaluotkham.Text) != "")
+            {
+                txtPatient_Code.Text = txtMaluotkham.Text;
+                txtPatient_Code_KeyDown(txtPatient_Code, e);
+            }
+        }
+
+        void grdBuongGiuong_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (!Utility.isValidGrid(grdBuongGiuong))
+            {
+                return;
+            }
+            if (Utility.Int32Dbnull(Utility.getValueOfGridCell(grdBuongGiuong, NoitruPhanbuonggiuong.Columns.Id.ToString()), 0) != Utility.Int32Dbnull(objLuotkham.IdRavien, 0))
+            {
+                string khoabuonggiuong = Utility.GetValueFromGridColumn(grdBuongGiuong, "ten_khoanoitru") + " - " + Utility.GetValueFromGridColumn(grdBuongGiuong, "ten_buong") + " - " + Utility.GetValueFromGridColumn(grdBuongGiuong, "ten_giuong");
+                if (!Utility.AcceptQuestion("Bạn có chắc chắn muốn lập phiếu điều trị cho thời điểm Bệnh nhân nằm tại " + khoabuonggiuong + " đang chọn hay không?", "Cảnh báo", true))
+                    return;
+            }
+            GetNoitruPhanbuonggiuong(); 
+        }
+        void GetNoitruPhanbuonggiuong()
+        {
+            objNoitruPhanbuonggiuong = null;
+            if (!Utility.isValidGrid(grdBuongGiuong))
+            {
+                txtKhoanoitru_lapphieu.Clear();
+                txtBuong_lapphieu.Clear();
+                txtGiuong_lapphieu.Clear();
+
+                return;
+            }
+            objNoitruPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(Utility.Int32Dbnull(Utility.getValueOfGridCell(grdBuongGiuong, NoitruPhanbuonggiuong.Columns.Id.ToString()), 0));
+            txtKhoanoitru_lapphieu.Text = Utility.GetValueFromGridColumn(grdBuongGiuong, "ten_khoanoitru");
+            txtBuong_lapphieu.Text = Utility.GetValueFromGridColumn(grdBuongGiuong, "ten_buong");
+            txtGiuong_lapphieu.Text = Utility.GetValueFromGridColumn(grdBuongGiuong, "ten_giuong");
+
+
+        }
         void txtChedodinhduong__OnShowData()
         {
             DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtChedodinhduong.LOAI_DANHMUC);
@@ -913,7 +957,12 @@ namespace VNS.HIS.UI.NOITRU
             try
             {
                 //Kiểm tra lần nhập viện hoặc chuyển khoa gần nhất phải được phân buồng giường trước khi ra viện
-                NoitruPhanbuonggiuong objNoitruPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(objLuotkham.IdRavien);
+                if (objNoitruPhanbuonggiuong == null)
+                {
+                    uiTabPhieudieutri.SelectedTab = uiTabPhieudieutri.TabPages["Buonggiuong"];
+                    Utility.ShowMsg("Bạn cần chọn Thông tin Khoa-Buồng-Giường(Thời điểm) lập phiếu điều trị cho Bệnh nhân");
+                    return;
+                }
                 bool isValid = Utility.Int16Dbnull(objNoitruPhanbuonggiuong.IdBuong, 0) > 0 && Utility.Int16Dbnull(objNoitruPhanbuonggiuong.IdBuong, 0) > 0;
                 if (!isValid)
                 {
@@ -926,7 +975,7 @@ namespace VNS.HIS.UI.NOITRU
                 frm.grdList = grdPhieudieutri;
                 frm.em_Action = action.Insert;
                 frm.p_TreatMent = m_dtPhieudieutri;
-                frm.objBuongGiuong = getNoitruBuonggiuong();
+                frm.objBuongGiuong = objNoitruPhanbuonggiuong;
                 frm.objLuotkham = objLuotkham;
                 frm.objPhieudieutri = new NoitruPhieudieutri();
                 frm.ShowDialog();
@@ -967,14 +1016,15 @@ namespace VNS.HIS.UI.NOITRU
             {
                 if (!CheckPatientSelected()) return;
                 int ID = Utility.Int32Dbnull(grdPhieudieutri.GetValue(NoitruPhieudieutri.Columns.IdPhieudieutri), -1);
+                
                 frm_themphieudieutri frm = new frm_themphieudieutri();
-                frm.objBuongGiuong = getNoitruBuonggiuong();
+                frm.objBuongGiuong = null;//Tự động nạp tại form load
                 frm.objLuotkham = objLuotkham;
                 frm.grdList = grdPhieudieutri;
                 frm.em_Action = action.Update;
                 frm.p_TreatMent = m_dtPhieudieutri;
                 frm.txtTreat_ID.Text = ID.ToString();
-                frm.objPhieudieutri = new NoitruPhieudieutri(ID);
+                frm.objPhieudieutri = NoitruPhieudieutri.FetchByID(ID);
                 frm.ShowDialog();
                 if (frm.b_Cancel)
                 {
@@ -1295,11 +1345,8 @@ namespace VNS.HIS.UI.NOITRU
             return true;
            
         }
-        private NoitruPhanbuonggiuong getNoitruBuonggiuong()
-        {
-            NoitruPhanbuonggiuong objDept = NoitruPhanbuonggiuong.FetchByID(Utility.Int32Dbnull(objLuotkham.IdRavien, -1));
-            return objDept;
-        }
+        NoitruPhanbuonggiuong objNoitruPhanbuonggiuong = null;
+       
        
         void txtChanDoan__OnSaveAs()
         {
@@ -1543,7 +1590,7 @@ namespace VNS.HIS.UI.NOITRU
         private void cmdSearch_Click(object sender, EventArgs e)
         {
             if (!chkByDate.Checked)
-                if (Utility.AcceptQuestion("Bạn đang tìm kiếm không theo điều kiện thời gian!\nViệc tìm kiếm sẽ mất nhiều thời gian nếu dữ liệu đã có nhiều.\nBạn có muốn dừng việc tìm kiếm để chọn lại khoảng thời gian tìm kiếm hay không?"))
+                if (Utility.AcceptQuestion("Bạn đang tìm kiếm không theo điều kiện thời gian!\nViệc tìm kiếm sẽ mất nhiều thời gian nếu dữ liệu đã có nhiều.\nBạn có muốn dừng việc tìm kiếm để chọn lại khoảng thời gian tìm kiếm hay không?","Xác nhận",true))
                     return;
             SearchPatient();
         }
@@ -1570,7 +1617,7 @@ namespace VNS.HIS.UI.NOITRU
                 
                 m_dtPatients = _KCB_THAMKHAM.NoitruTimkiembenhnhan(!chkByDate.Checked ? "01/01/1900" : dt_FormDate.ToString("dd/MM/yyyy"), !chkByDate.Checked ? "01/01/1900" : dt_ToDate.ToString("dd/MM/yyyy"), txtTenBN.Text, Status, Utility.DoTrim(txtMaluotkham.Text),
                                                           Utility.Int32Dbnull(cboKhoanoitru.SelectedValue, -1),
-                                                          Utility.Int32Dbnull(cboTrangthai.SelectedValue, -1));
+                                                          -1,chkChuyenkhoa.Checked?1:0);
 
                 if (!m_dtPatients.Columns.Contains("MAUSAC"))
                     m_dtPatients.Columns.Add("MAUSAC", typeof(int));
@@ -2354,8 +2401,6 @@ namespace VNS.HIS.UI.NOITRU
                 m_dtTamung = new KCB_THAMKHAM().NoitruTimkiemlichsuNoptientamung(objLuotkham.MaLuotkham, (int)objLuotkham.IdBenhnhan, 0, -1);
                 Utility.SetDataSourceForDataGridEx_Basic(grdTamung, m_dtTamung, false, true, "1=1", NoitruTamung.Columns.NgayTamung + " desc");
                 grdTamung.MoveFirst();
-                
-                
             }
             catch (Exception ex)
             {
@@ -2371,10 +2416,13 @@ namespace VNS.HIS.UI.NOITRU
         {
             try
             {
-
+                if (m_dtBuongGiuong != null) m_dtBuongGiuong.Rows.Clear();
                 m_dtBuongGiuong = _KCB_THAMKHAM.NoitruTimkiemlichsuBuonggiuong(objLuotkham.MaLuotkham, (int)objLuotkham.IdBenhnhan);
                 Utility.SetDataSourceForDataGridEx_Basic(grdBuongGiuong, m_dtBuongGiuong, false, true, "1=1", NoitruPhanbuonggiuong.Columns.NgayVaokhoa + " desc");
-                grdBuongGiuong.MoveFirst();
+               //Tự động dò tới khoa hiện tại
+                Utility.GotoNewRowJanus(grdBuongGiuong, NoitruPhanbuonggiuong.Columns.Id, Utility.Int32Dbnull(objLuotkham.IdRavien, 0).ToString());
+                GetNoitruPhanbuonggiuong();
+
             }
             catch (Exception ex)
             {
@@ -2745,8 +2793,9 @@ namespace VNS.HIS.UI.NOITRU
                     string _patient_Code = Utility.AutoFullPatientCode(txtPatient_Code.Text);
                     ClearControl();
                     
+
                     dtPatient = _KCB_THAMKHAM.TimkiemBenhnhan(txtPatient_Code.Text,
-                                                   Utility.Int32Dbnull(cboKhoanoitru.SelectedValue, -1),(byte)1, 0);
+                                                   -1,(byte)1, 0);
                    
                     DataRow[] arrPatients = dtPatient.Select(KcbLuotkham.Columns.MaLuotkham + "='" + _patient_Code + "'");
                     if (arrPatients.GetLength(0) <= 0)
@@ -2767,26 +2816,18 @@ namespace VNS.HIS.UI.NOITRU
                     {
                         txtPatient_Code.Text = _patient_Code;
                     }
-                    m_dtPatients = _KCB_THAMKHAM.NoitruTimkiembenhnhan("01/01/1900", "01/01/1900", txtTenBN.Text, 1, Utility.DoTrim(txtMaluotkham.Text),
-                                                         Utility.Int32Dbnull(cboKhoanoitru.SelectedValue, -1),
-                                                         Utility.Int32Dbnull(cboTrangthai.SelectedValue, -1));
+                    txtMaluotkham.Text = _patient_Code;
+                    m_dtPatients = _KCB_THAMKHAM.NoitruTimkiembenhnhan("01/01/1900", "01/01/1900", "", 1, Utility.DoTrim(txtMaluotkham.Text),
+                                                         -1,
+                                                         -1, chkChuyenkhoa.Checked ? 1 : 0);
 
                     if (!m_dtPatients.Columns.Contains("MAUSAC"))
                         m_dtPatients.Columns.Add("MAUSAC", typeof(int));
 
                     Utility.SetDataSourceForDataGridEx_Basic(grdPatientList, m_dtPatients, true, true, "", KcbDanhsachBenhnhan.Columns.TenBenhnhan); //"locked=0", "");
 
-                    //DataTable dt_Patient = _KCB_THAMKHAM.TimkiemThongtinBenhnhansaukhigoMaBN
-                    //    (txtPatient_Code.Text, Utility.Int32Dbnull(cboKhoanoitru.SelectedValue, -1),globalVariables.MA_KHOA_THIEN);
-                    
-                    //grdPatientList.DataSource = null;
-                    //grdPatientList.DataSource = dt_Patient;
                     if (m_dtPatients.Rows.Count > 0)
                     {
-                        //grdPatientList.MoveToRowIndex(0);
-                        //grdPatientList.CurrentRow.BeginEdit();
-                        //grdPatientList.CurrentRow.Cells["MAUSAC"].Value = 1;
-                        //grdPatientList.CurrentRow.EndEdit();
                         AllowTextChanged = false;
                         if (dt_ICD_PHU != null) dt_ICD_PHU.Rows.Clear();
                         GetData();
@@ -2799,7 +2840,6 @@ namespace VNS.HIS.UI.NOITRU
                         ModifyCommmands();
                         txtPatient_Code.Text = sPatientTemp;
                         txtPatient_Code.SelectAll();
-                        //Utility.SetMsg(lblMsg, "Không tìm thấy bệnh nhân có mã lần khám đang chọn",true);
                     }
                     txtMach.SelectAll();
                 }

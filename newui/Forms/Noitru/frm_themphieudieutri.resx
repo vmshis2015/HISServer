@@ -473,7 +473,7 @@
     <value>3</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Ngày lập phiếu</value>
+    <value>Ngày điều trị</value>
   </data>
   <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>

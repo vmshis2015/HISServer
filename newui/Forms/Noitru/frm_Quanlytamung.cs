@@ -693,7 +693,7 @@ namespace VNS.HIS.UI.NOITRU
                                                 txtPatientCode.Text, 1,
                                                 chkByDate.Checked ? dtFromDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
                                                 chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
-                                                string.Empty, (int?) _TrangthaiNoitru,-1).
+                                                string.Empty, (int?) _TrangthaiNoitru,-1,0).
                     GetDataSet().Tables[0];
             _rowFilter = "1=1";
                 //if (PropertyLib._NoitruProperties.HienthiKhoatheonguoidung)

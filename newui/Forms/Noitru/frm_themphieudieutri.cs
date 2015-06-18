@@ -22,21 +22,38 @@ namespace VNS.HIS.UI.NOITRU
         private DataTable m_dtNhanVienBsChidinh = new DataTable();
         public NoitruPhieudieutri objPhieudieutri;
         public DataTable p_TreatMent = new DataTable();
-
+        DateTime MinDate = DateTime.Now;
+        DateTime MaxDate = DateTime.Now;
         public List<int> lstPresID = new List<int>();
         public frm_themphieudieutri()
         {
             InitializeComponent();
             KeyPreview = true;
-            
-            dtNgayLapPhieu.Value = dtGioLapPhieu.Value = globalVariables.SysDate;
+           
             cboBacSy.Enabled = true;
             CauHinh();
         }
-
+        public void SetDate()
+        {
+            try
+            {
+                MinDate = objBuongGiuong.NgayVaokhoa;
+                MaxDate = objBuongGiuong.NgayKetthuc != null ? objBuongGiuong.NgayKetthuc.Value : new DateTime(2099, 12,31);
+                if (Utility.Int32Dbnull(Utility.GetYYYYMMDD(dtNgayLapPhieu.MaxDate), 0) <= Utility.Int32Dbnull(Utility.GetYYYYMMDD(globalVariables.SysDate), 0))
+                    dtNgayLapPhieu.Value = dtGioLapPhieu.Value = MaxDate;
+                else
+                {
+                    dtNgayLapPhieu.Value = dtGioLapPhieu.Value = globalVariables.SysDate;
+                }
+            }
+            catch(Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
+        }
         private void CauHinh()
         {
-            
+            cboKhoaNoiTru.Enabled = globalVariables.IsAdmin;
         }
        
 
@@ -64,7 +81,10 @@ namespace VNS.HIS.UI.NOITRU
                     DataBinding.BindDataCombobox(cboKhoaNoiTru, dataTable,
                                                DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong, "", true);
 
-                    if (objLuotkham != null)
+                    if (objBuongGiuong != null)
+                        cboKhoaNoiTru.SelectedIndex = Utility.GetSelectedIndex(cboKhoaNoiTru,
+                                                                               objBuongGiuong.IdKhoanoitru.ToString());
+                    else if (objLuotkham != null)
                         cboKhoaNoiTru.SelectedIndex = Utility.GetSelectedIndex(cboKhoaNoiTru,
                                                                                objLuotkham.IdKhoanoitru.ToString());
                     else
@@ -99,8 +119,9 @@ namespace VNS.HIS.UI.NOITRU
         private void frm_themphieudieutri_Load(object sender, EventArgs e)
         {
             InitData();
-            getData();
            
+            getData();
+            SetDate();
             ModifyCommands();
             cboKhoaNoiTru.Enabled = globalVariables.IsAdmin || cboKhoaNoiTru.Items.Count>1;
             cboBacSy.Enabled = globalVariables.IsAdmin;
@@ -133,6 +154,7 @@ namespace VNS.HIS.UI.NOITRU
         {
             if (objPhieudieutri != null && objPhieudieutri.IdPhieudieutri>0)
             {
+               
                 if (objPhieudieutri.NgayDieutri == null) objPhieudieutri.NgayDieutri = DateTime.Now;
                 txtTreat_ID.Text = objPhieudieutri.IdPhieudieutri.ToString();
                 dtNgayLapPhieu.Value = objPhieudieutri.NgayDieutri.Value;
@@ -142,12 +164,13 @@ namespace VNS.HIS.UI.NOITRU
                 cboKhoaNoiTru.SelectedIndex = Utility.GetSelectedIndex(cboKhoaNoiTru, objPhieudieutri.IdKhoanoitru.ToString());
                 chkPhieuBoSung.Checked = Utility.Byte2Bool(objPhieudieutri.TthaiBosung);
                 cboBacSy.SelectedIndex = Utility.GetSelectedIndex(cboBacSy, objPhieudieutri.IdBacsi.ToString());
-
+                if (objBuongGiuong == null)
+                    objBuongGiuong = NoitruPhanbuonggiuong.FetchByID(objPhieudieutri.IdBuongGiuong);
             }
             else
             {
-                dtNgayLapPhieu.Value = globalVariables.SysDate;
-                dtGioLapPhieu.Value = globalVariables.SysDate;
+                dtNgayLapPhieu.Value = dtNgayLapPhieu.MaxDate;
+                dtGioLapPhieu.Value = dtNgayLapPhieu.MaxDate;
                 
 
             }
@@ -159,6 +182,12 @@ namespace VNS.HIS.UI.NOITRU
             {
                 if (em_Action == action.Insert)
                 {
+                    DateTime _temp = new DateTime(dtNgayLapPhieu.Value.Year, dtNgayLapPhieu.Value.Month, dtNgayLapPhieu.Value.Day, dtGioLapPhieu.Value.Hour, dtGioLapPhieu.Value.Minute, 0);
+                    if (_temp < MinDate || _temp > MaxDate)
+                    {
+                        Utility.ShowMsg(string.Format("Ngày lập phiếu phải nằm trong khoảng {0} và {1}", MinDate.ToString("dd/MM/yyyy HH:mm:ss"), MaxDate.ToString("dd/MM/yyyy HH:mm:ss")));
+                        return false;
+                    }
                     NoitruPhieudieutri item = new Select().From(NoitruPhieudieutri.Schema)
                      .Where(NoitruPhieudieutri.NgayDieutriColumn).IsEqualTo(dtNgayLapPhieu.Value.Date)
                      .And(NoitruPhieudieutri.Columns.TthaiBosung).IsEqualTo(0)
@@ -224,14 +253,6 @@ namespace VNS.HIS.UI.NOITRU
                     break;
             }
         }
-        //void GetDuplicatePres()
-        //{
-        //    lstPresID.Clear();
-        //    foreach (GridEXRow row in grdPres.GetCheckedRows())
-        //    {
-        //        lstPresID.Add(Utility.Int32Dbnull(row.Cells[KcbDonthuoc.Columns.IdDonthuoc].Value, 0));
-        //    }
-        //}
         private void ThemPhieuDieuTri()
         {
             if (objPhieudieutri == null) objPhieudieutri = new NoitruPhieudieutri();
@@ -264,7 +285,7 @@ namespace VNS.HIS.UI.NOITRU
             objPhieudieutri.GioDieutri = dtGioLapPhieu.Text;
             objPhieudieutri.Thu = Utility.ConvertDayVietnamese(dtNgayLapPhieu.Value.DayOfWeek.ToString());
             objPhieudieutri.MaLuotkham = Utility.sDbnull(objLuotkham.MaLuotkham, "");
-            objPhieudieutri.IdKhoanoitru = Utility.Int16Dbnull(cboKhoaNoiTru.SelectedValue, -1);
+            objPhieudieutri.IdKhoanoitru = objBuongGiuong.IdKhoanoitru;
             objPhieudieutri.IdBuongGiuong =objBuongGiuong!=null? Utility.Int32Dbnull(objBuongGiuong.Id):-1;
             objPhieudieutri.IdBenhnhan = Utility.Int32Dbnull(objLuotkham.IdBenhnhan, -1);
             objPhieudieutri.IdBuong = objLuotkham.IdBuong;
@@ -431,6 +452,8 @@ namespace VNS.HIS.UI.NOITRU
                 objPhieudieutri.IdPhieudieutri = Utility.Int32Dbnull(txtTreat_ID.Text, -1);
                 objPhieudieutri.NguoiSua = globalVariables.UserName;
                 objPhieudieutri.NgaySua = globalVariables.SysDate;
+                objPhieudieutri.TenMaysua = globalVariables.gv_strComputerName;
+                objPhieudieutri.IpMaysua = globalVariables.gv_strIPAddress;
             }
             else
             {
@@ -441,12 +464,14 @@ namespace VNS.HIS.UI.NOITRU
                 objPhieudieutri.NguoiTao = globalVariables.UserName;
                 objPhieudieutri.NgayTao = globalVariables.SysDate;
             }
+            objPhieudieutri.ThongtinDieutri = Utility.DoTrim(txtBstheodoi.Text);
+            objPhieudieutri.ThongtinTheodoi = Utility.DoTrim(txtDieuduongtheodoi.Text);
             objPhieudieutri.NgayDieutri = dtNgayLapPhieu.Value.Date;
             objPhieudieutri.GioDieutri = dtGioLapPhieu.Text;
             objPhieudieutri.Thu = Utility.ConvertDayVietnamese(dtNgayLapPhieu.Value.DayOfWeek.ToString());
             objPhieudieutri.MaLuotkham = Utility.sDbnull(objLuotkham.MaLuotkham, "");
             objPhieudieutri.IdBuongGiuong = objBuongGiuong != null ? Utility.Int32Dbnull(objBuongGiuong.Id) : -1;
-            objPhieudieutri.IdKhoanoitru = Utility.Int16Dbnull(cboKhoaNoiTru.SelectedValue, -1);
+            objPhieudieutri.IdKhoanoitru = objBuongGiuong.IdKhoanoitru;
             objPhieudieutri.IdBenhnhan = Utility.Int32Dbnull(objLuotkham.IdBenhnhan, -1);
             objPhieudieutri.TthaiBosung =Utility.Bool2byte( chkPhieuBoSung.Checked);
             objPhieudieutri.IdBuong = objLuotkham.IdBuong;
