@@ -209,11 +209,7 @@ namespace VNS.HIS.BusRule.Classes
                     using (var dbscope = new SharedDbConnectionScope())
                     {
 
-
-                        //if(Convert.ToDateTime(objTreatment.NgayLapPhieu))
-                        SqlQuery sqlQuery = new Select().From(NoitruPhieudieutri.Schema)
-                            .Where(NoitruPhieudieutri.Columns.IdPhieudieutri).IsEqualTo(objTreatment.IdPhieudieutri);
-                        if (sqlQuery.GetRecordCount() <= 0)
+                        if (objTreatment.IdPhieudieutri<=0)
                         {
                             objTreatment.NgaySua = null;
                             objTreatment.NguoiSua = string.Empty;
@@ -222,10 +218,7 @@ namespace VNS.HIS.BusRule.Classes
                         }
                         else
                         {
-                            objTreatment.TenMaysua = globalVariables.gv_strComputerName;
-                            objTreatment.IpMaysua = globalVariables.gv_strIPAddress;
-                            objTreatment.NgaySua = DateTime.Now;
-                            objTreatment.NguoiSua = globalVariables.UserName;
+                            
                             objTreatment.MarkOld();
                             objTreatment.IsNew = false;
                             objTreatment.IsLoaded = true;

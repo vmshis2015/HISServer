@@ -42,6 +42,58 @@ namespace VNS.HIS.BusRule.Classes
                 .And(NoitruPhanbuonggiuong.Columns.TrangThai).IsEqualTo(0).ExecuteSingle<NoitruPhanbuonggiuong>();
             return objPhanbuonggiuong;
         }
+        public static ActionResult CapnhatSoluong(long id, int soluongngay,byte cachtinhsoluong)
+        {
+            try
+            {
+                using (var scope = new TransactionScope())
+                {
+                    using (var sh = new SharedDbConnectionScope())
+                    {
+
+                      new Update(NoitruPhanbuonggiuong.Schema)
+                                             .Set(NoitruPhanbuonggiuong.Columns.SoLuong).EqualTo(soluongngay)
+                                             .Set(NoitruPhanbuonggiuong.Columns.CachtinhSoluong).EqualTo(cachtinhsoluong)
+                                             .Where(NoitruPhanbuonggiuong.Columns.Id).IsEqualTo(id).Execute();
+                    }
+                    scope.Complete();
+                    return ActionResult.Success;
+
+                }
+            }
+            catch (Exception exception)
+            {
+                Utility.CatchException(exception);
+                return ActionResult.Error;
+            }
+
+        }
+        public static ActionResult Capnhatgia(long id, decimal don_gia, byte cachtinh_gia)
+        {
+            try
+            {
+                using (var scope = new TransactionScope())
+                {
+                    using (var sh = new SharedDbConnectionScope())
+                    {
+
+                        new Update(NoitruPhanbuonggiuong.Schema)
+                                             .Set(NoitruPhanbuonggiuong.Columns.DonGia).EqualTo(don_gia)
+                                             .Set(NoitruPhanbuonggiuong.Columns.CachtinhGia).EqualTo(cachtinh_gia)
+                                             .Where(NoitruPhanbuonggiuong.Columns.Id).IsEqualTo(id).Execute();
+                    }
+                    scope.Complete();
+                    return ActionResult.Success;
+
+                }
+            }
+            catch (Exception exception)
+            {
+                Utility.CatchException(exception);
+                return ActionResult.Error;
+            }
+
+        }
         public ActionResult HuyBenhNhanVaoBuongGuong(NoitruPhanbuonggiuong objPhanbuonggiuong, ref int IdChuyen)
         {
             IdChuyen = -1;
@@ -518,6 +570,8 @@ namespace VNS.HIS.BusRule.Classes
                                     .Set(NoitruPhanbuonggiuong.Columns.IdBacsiChidinh).EqualTo(objBuongGiuong.IdBacsiChidinh)
                                     .Where(NoitruPhanbuonggiuong.Columns.Id).IsEqualTo(_NoitruPhanbuonggiuong[0].Id)
                                     .Execute();
+                                    objBuongGiuong.Id = _NoitruPhanbuonggiuong[0].Id;
+                                    
                                 }
                             }
                             else
@@ -559,8 +613,9 @@ namespace VNS.HIS.BusRule.Classes
                                 .And(KcbLuotkham.Columns.IdBenhnhan).IsNotEqualTo(objLuotkham.IdBenhnhan)
                                 .And(KcbLuotkham.Columns.SoBenhAn).IsEqualTo(objLuotkham.SoBenhAn)
                                 .ExecuteSingle<KcbLuotkham>();
-                           if (_tempt != null)
-                               objLuotkham.SoBenhAn = THU_VIEN_CHUNG.LaySoBenhAn();
+                           //Tạm bỏ -->Phải giữ nguyên số bệnh án nội trú chứ?
+                            //if (_tempt != null)
+                           //    objLuotkham.SoBenhAn = THU_VIEN_CHUNG.LaySoBenhAn();
                             new Update(KcbLuotkham.Schema)
                                 .Set(KcbLuotkham.Columns.SoBenhAn).EqualTo(objLuotkham.SoBenhAn)
                                 .Set(KcbLuotkham.Columns.IdKhoanoitru).EqualTo(objBuongGiuong.IdKhoanoitru)
@@ -570,7 +625,7 @@ namespace VNS.HIS.BusRule.Classes
                                 .Set(KcbLuotkham.Columns.NgayNhapvien).EqualTo(objBuongGiuong.NgayVaokhoa)
                                 .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
                                 .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).Execute();
-                            
+                            //Phần gói này sẽ thiết kế lại sau
                             if (objThongtinGoiDvu != null)
                             {
                                 if (Utility.Int32Dbnull(objThongtinGoiDvu.TrangthaiHuy, -1) <= 0) objThongtinGoiDvu.TrangthaiHuy = 0;
