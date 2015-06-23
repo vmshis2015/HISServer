@@ -237,7 +237,7 @@ namespace VNS.HIS.UI.THUOC
                 txtDonvitinh.SelectAll();
                 return false;
             }
-            if (String.IsNullOrEmpty( txtDongia.Text))
+            if (Utility.DoTrim( txtDongia.Text)=="")
             {
                 Utility.SetMsg(lblMsg, "Đơn giá không được để trống.",true);
                  txtDongia.Focus();
