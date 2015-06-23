@@ -577,6 +577,10 @@ namespace VNS.Libs
         {
             return SPs.DmucLaydanhsachCackhoaKCBtheoBacsi(username, isAdmin, noitru).GetDataSet().Tables[0];
         }
+        public static DataTable DmucLaydanhsachCacphongkhamTheoBacsi(string UserName, short? Idkhoa, byte? IsAdmin, byte? Noitru)
+        {
+            return SPs.DmucLaydanhsachCacphongkhamTheoBacsi(UserName, Idkhoa, IsAdmin, Noitru).GetDataSet().Tables[0];
+        }
         public static DateTime GetSysDateTime()
         {
             try
