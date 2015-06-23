@@ -29,26 +29,26 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Node0");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Node2");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Node3");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Node4");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Node5");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Node6");
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Node7");
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Node8");
-            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Node10");
-            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Node11");
-            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Node12");
-            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Node13");
-            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Node14");
-            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Node9", new System.Windows.Forms.TreeNode[] {
-            treeNode25,
-            treeNode26,
-            treeNode27,
-            treeNode28,
-            treeNode29});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node0");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node1");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node2");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Node3");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node4");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Node5");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Node6");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Node7");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Node8");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Node10");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Node11");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Node12");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Node13");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Node14");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Node9", new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11,
+            treeNode12,
+            treeNode13,
+            treeNode14});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_MainForm_new));
             this.treeView = new System.Windows.Forms.TreeView();
             this.pMainConent = new Janus.Windows.UI.Dock.UIPanelGroup();
@@ -67,6 +67,8 @@
             this.cmdrelogin = new System.Windows.Forms.Button();
             this.cmdMainPanel = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnureLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblHospital = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblDepartment = new System.Windows.Forms.ToolStripStatusLabel();
@@ -80,64 +82,65 @@
             this.ctxCustom = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.mnureLoad = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lblTime = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pMainConent)).BeginInit();
             this.pnlHeader.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PanelManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMain)).BeginInit();
             this.ctxCustom.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeView
             // 
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView.LineColor = System.Drawing.Color.Empty;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
-            treeNode16.Name = "Node0";
-            treeNode16.Text = "Node0";
-            treeNode17.Name = "Node1";
-            treeNode17.Text = "Node1";
-            treeNode18.Name = "Node2";
-            treeNode18.Text = "Node2";
-            treeNode19.Name = "Node3";
-            treeNode19.Text = "Node3";
-            treeNode20.Name = "Node4";
-            treeNode20.Text = "Node4";
-            treeNode21.Name = "Node5";
-            treeNode21.Text = "Node5";
-            treeNode22.Name = "Node6";
-            treeNode22.Text = "Node6";
-            treeNode23.Name = "Node7";
-            treeNode23.Text = "Node7";
-            treeNode24.Name = "Node8";
-            treeNode24.Text = "Node8";
-            treeNode25.Name = "Node10";
-            treeNode25.Text = "Node10";
-            treeNode26.Name = "Node11";
-            treeNode26.Text = "Node11";
-            treeNode27.Name = "Node12";
-            treeNode27.Text = "Node12";
-            treeNode28.Name = "Node13";
-            treeNode28.Text = "Node13";
-            treeNode29.Name = "Node14";
-            treeNode29.Text = "Node14";
-            treeNode30.Name = "Node9";
-            treeNode30.Text = "Node9";
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "Node0";
+            treeNode2.Name = "Node1";
+            treeNode2.Text = "Node1";
+            treeNode3.Name = "Node2";
+            treeNode3.Text = "Node2";
+            treeNode4.Name = "Node3";
+            treeNode4.Text = "Node3";
+            treeNode5.Name = "Node4";
+            treeNode5.Text = "Node4";
+            treeNode6.Name = "Node5";
+            treeNode6.Text = "Node5";
+            treeNode7.Name = "Node6";
+            treeNode7.Text = "Node6";
+            treeNode8.Name = "Node7";
+            treeNode8.Text = "Node7";
+            treeNode9.Name = "Node8";
+            treeNode9.Text = "Node8";
+            treeNode10.Name = "Node10";
+            treeNode10.Text = "Node10";
+            treeNode11.Name = "Node11";
+            treeNode11.Text = "Node11";
+            treeNode12.Name = "Node12";
+            treeNode12.Text = "Node12";
+            treeNode13.Name = "Node13";
+            treeNode13.Text = "Node13";
+            treeNode14.Name = "Node14";
+            treeNode14.Text = "Node14";
+            treeNode15.Name = "Node9";
+            treeNode15.Text = "Node9";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode16,
-            treeNode17,
-            treeNode18,
-            treeNode19,
-            treeNode20,
-            treeNode21,
-            treeNode22,
-            treeNode23,
-            treeNode24,
-            treeNode30});
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode15});
             this.treeView.Size = new System.Drawing.Size(196, 461);
             this.treeView.TabIndex = 0;
             // 
@@ -354,6 +357,19 @@
             this.panel1.TabIndex = 4;
             this.toolTip1.SetToolTip(this.panel1, "Nhấn F12 để ẩn(hiện) tiêu đề");
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnureLoad});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(359, 26);
+            // 
+            // mnureLoad
+            // 
+            this.mnureLoad.Name = "mnureLoad";
+            this.mnureLoad.Size = new System.Drawing.Size(358, 22);
+            this.mnureLoad.Text = "Nạp lại thông tin đơn vị làm việc và tham số hệ thống";
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -362,6 +378,7 @@
             this.lblDepartment,
             this.lblUser,
             this.lblIP,
+            this.lblTime,
             this.lblCopyright,
             this.lblUpdateVersion});
             this.statusStrip1.Location = new System.Drawing.Point(0, 718);
@@ -374,7 +391,7 @@
             // lblHospital
             // 
             this.lblHospital.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHospital.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblHospital.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.lblHospital.Name = "lblHospital";
             this.lblHospital.Size = new System.Drawing.Size(65, 17);
             this.lblHospital.Text = "Bệnh viện:";
@@ -382,7 +399,7 @@
             // lblDepartment
             // 
             this.lblDepartment.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDepartment.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblDepartment.ForeColor = System.Drawing.Color.Black;
             this.lblDepartment.Name = "lblDepartment";
             this.lblDepartment.Size = new System.Drawing.Size(78, 17);
             this.lblDepartment.Text = "Khoa-phòng:";
@@ -390,7 +407,7 @@
             // lblUser
             // 
             this.lblUser.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblUser.Name = "lblUser";
             this.lblUser.Size = new System.Drawing.Size(80, 17);
             this.lblUser.Text = "Người dùng: ";
@@ -408,7 +425,7 @@
             // lblCopyright
             // 
             this.lblCopyright.Name = "lblCopyright";
-            this.lblCopyright.Size = new System.Drawing.Size(968, 17);
+            this.lblCopyright.Size = new System.Drawing.Size(902, 17);
             this.lblCopyright.Spring = true;
             this.lblCopyright.Text = "COPYRIGHT © Công ty cổ phần CNTT VINASOFT";
             this.lblCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -427,8 +444,8 @@
             this.PanelManager.AllowAutoHideAnimation = false;
             this.PanelManager.BackColorSplitter = System.Drawing.Color.Navy;
             this.PanelManager.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><AutoHidePanelToolTip>" +
-                "Tự động ẩn</AutoHidePanelToolTip><CloseMdiToolTip>Đóng Form hiện tại</CloseMdiTo" +
-                "olTip></LocalizableData>";
+    "Tự động ẩn</AutoHidePanelToolTip><CloseMdiToolTip>Đóng Form hiện tại</CloseMdiTo" +
+    "olTip></LocalizableData>";
             this.PanelManager.ContainerControl = this;
             this.PanelManager.DefaultPanelSettings.ActiveCaptionFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.PanelManager.DefaultPanelSettings.ActiveCaptionFormatStyle.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
@@ -497,18 +514,19 @@
             this.menuStrip.TabIndex = 11;
             this.menuStrip.Text = "menuStrip1";
             // 
-            // contextMenuStrip1
+            // timer1
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnureLoad});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(359, 26);
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // mnureLoad
+            // lblTime
             // 
-            this.mnureLoad.Name = "mnureLoad";
-            this.mnureLoad.Size = new System.Drawing.Size(358, 22);
-            this.mnureLoad.Text = "Nạp lại thông tin đơn vị làm việc và tham số hệ thống";
+            this.lblTime.ActiveLinkColor = System.Drawing.Color.Navy;
+            this.lblTime.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(35, 17);
+            this.lblTime.Text = "Time";
             // 
             // frm_MainForm_new
             // 
@@ -535,12 +553,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pMainConent)).EndInit();
             this.pnlHeader.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PanelManager)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMain)).EndInit();
             this.ctxCustom.ResumeLayout(false);
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -580,5 +598,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lblUpdateVersion;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem mnureLoad;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripStatusLabel lblTime;
     }
 }

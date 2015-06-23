@@ -37,6 +37,7 @@ namespace CIS.CoreApp
         bool Click2Update = false;
         private string sFileName = "File_Config/autoHie.txt";
         private string sFileNameScreen = Application.StartupPath + "/File_Config/defaultscreen.txt";
+        
         /// <summary>
         /// hàm thực hiện việc khởi tạo
         /// </summary>
@@ -44,7 +45,8 @@ namespace CIS.CoreApp
         {
             try
             {
-                
+                WS._AdminWS = new VNSCore.AWS.LoginWS();
+                 
                 globalVariables.m_strPropertiesFolder = Application.StartupPath + @"\Properties\";
                 if (!new ConnectionSQL().ReadConfig())
                 {
@@ -67,6 +69,22 @@ namespace CIS.CoreApp
                 
                 lblCopyright.Click += new EventHandler(lblCopyright_Click);
                 InitLogs();
+                if (PropertyLib._ConfigProperties.HIS_AppMode!=VNS.Libs.AppType.AppEnum.AppMode.Demo && PropertyLib._ConfigProperties.RunUnderWS)
+                {
+                    string DataBaseServer = "";
+                    string DataBaseName = "";
+                    string UID = "";
+                    string PWD = "";
+                    WS._AdminWS.GetConnectionString(ref DataBaseServer, ref DataBaseName, ref UID, ref PWD);
+                    PropertyLib._ConfigProperties.DataBaseServer = DataBaseServer;
+                    PropertyLib._ConfigProperties.DataBaseName = DataBaseName;
+                    PropertyLib._ConfigProperties.UID = UID;
+                    PropertyLib._ConfigProperties.PWD = PWD;
+                    globalVariables.ServerName = PropertyLib._ConfigProperties.DataBaseServer;
+                    globalVariables.sUName = PropertyLib._ConfigProperties.UID;
+                    globalVariables.sPwd = PropertyLib._ConfigProperties.PWD;
+                    globalVariables.sDbName = PropertyLib._ConfigProperties.DataBaseName;
+                }
                 Utility.InitSubSonic(new ConnectionSQL().KhoiTaoKetNoi(), "ORM");
                 Try2ReadApp();
                 //Kill chương trình UpdateVersion
@@ -394,6 +412,7 @@ namespace CIS.CoreApp
 
                 LoadBackgroud();
                 SetsyncDateTime();
+                lblTime.Text ="Bây giờ là: "+ DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                 ClearTab();
                 LoadFormMain();
                 if (!PropertyLib._AppProperties.AutoHideHeader)
@@ -929,10 +948,12 @@ namespace CIS.CoreApp
                 else if (arrDrActive.Length == 1)
                 {
                     PanelManager.DefaultPanelSettings.CloseButtonVisible = false;
-                    pMain.AutoHide = true;
+                    pMain.AutoHide = false;
                     isSingleFunction = true;
                     DisplaySingleFunction(arrDrActive[0]);
                 }
+                if (isSingleFunction)
+                    pMain.AutoHide = true;
             }
             catch
             {
@@ -1525,11 +1546,11 @@ namespace CIS.CoreApp
 
         private void frm_MainForm_new_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!fored2Close)
-                if (!Utility.AcceptQuestion("Bạn có thực sự muốn thoát khỏi chương trình?", "Xác nhận", true))
-                {
-                    e.Cancel = true;
-                }
+            //if (!fored2Close)
+            //    if (!Utility.AcceptQuestion("Bạn có thực sự muốn thoát khỏi chương trình?", "Xác nhận", true))
+            //    {
+            //        e.Cancel = true;
+            //    }
         }
 
         private void ntfSystemInfo_DoubleClick(object sender, EventArgs e)
@@ -1728,5 +1749,33 @@ namespace CIS.CoreApp
             frm_ChangePass _ChangePass = new frm_ChangePass();
             _ChangePass.ShowDialog();
         }
+        int _timeCount = 0;
+        /// <summary>
+        /// Một phút update lại Datetime với máy chủ 1 lần
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                _timeCount += 1000;
+                if (_timeCount == 60000)
+                {
+                    _timeCount = 0;
+                    globalVariables.SysDate = THU_VIEN_CHUNG.GetSysDateTime();
+                }
+                lblTime.Text = "Bây giờ là: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            
+        }
+    }
+    public class WS
+    {
+        public static VNSCore.AWS.LoginWS _AdminWS;
     }
 }

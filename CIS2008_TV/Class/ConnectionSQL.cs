@@ -75,7 +75,7 @@ namespace VNS.Core.Classes
      public ConnectionSQL()
      {
      }
-     
+    
       public  string KhoiTaoKetNoi()
       {
 

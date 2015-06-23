@@ -66,6 +66,22 @@ namespace VNS.Core.Classes
            else return KiemTraPassword_Admin(UserName, Password);
 
        }
+       public bool isAdmin(string UserName)
+       {
+           bool _success = false;
+           SysAdministrator _admin = new Select().From(SysAdministrator.Schema).Where(SysAdministrator.Columns.PkSAdminID).IsEqualTo(UserName)
+              .ExecuteSingle<SysAdministrator>();
+
+           if (_admin != null)
+           {
+               _success = true;
+           }
+           else
+           {
+               _success = false;
+           }
+           return _success;
+       }
        public bool isAdmin(string UserName, string Password)
        {
            bool _success = false;

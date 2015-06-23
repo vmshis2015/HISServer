@@ -48,6 +48,7 @@
             this.cbogiaodien = new System.Windows.Forms.ComboBox();
             this.lnkHelp = new System.Windows.Forms.LinkLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.cmdSettings = new Janus.Windows.EditControls.UIButton();
             this.cboKhoaKCB = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -168,8 +169,8 @@
             // vbLine1
             // 
             this.vbLine1._FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.vbLine1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.vbLine1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.vbLine1.BackColor = System.Drawing.Color.Transparent;
             this.vbLine1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.vbLine1.FontText = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -193,10 +194,11 @@
             // 
             this.lblMsg.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblMsg.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMsg.Location = new System.Drawing.Point(0, 315);
+            this.lblMsg.Location = new System.Drawing.Point(0, 301);
             this.lblMsg.Name = "lblMsg";
-            this.lblMsg.Size = new System.Drawing.Size(544, 19);
+            this.lblMsg.Size = new System.Drawing.Size(544, 33);
             this.lblMsg.TabIndex = 15;
+            this.lblMsg.Text = "Msg";
             this.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
@@ -239,6 +241,24 @@
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp";
             // 
+            // cmdSettings
+            // 
+            this.cmdSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSettings.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdSettings.Image = ((System.Drawing.Image)(resources.GetObject("cmdSettings.Image")));
+            this.cmdSettings.ImageHorizontalAlignment = Janus.Windows.EditControls.ImageHorizontalAlignment.Center;
+            this.cmdSettings.ImageSize = new System.Drawing.Size(23, 23);
+            this.cmdSettings.Location = new System.Drawing.Point(509, 3);
+            this.cmdSettings.Name = "cmdSettings";
+            this.cmdSettings.Office2007ColorScheme = Janus.Windows.UI.Office2007ColorScheme.Custom;
+            this.cmdSettings.Office2007CustomColor = System.Drawing.Color.White;
+            this.cmdSettings.Size = new System.Drawing.Size(35, 28);
+            this.cmdSettings.TabIndex = 546;
+            this.cmdSettings.TabStop = false;
+            this.toolTip1.SetToolTip(this.cmdSettings, "Cấu hình ứng dụng");
+            this.cmdSettings.ToolTipText = "Settings";
+            this.cmdSettings.VisualStyle = Janus.Windows.UI.VisualStyle.OfficeXP;
+            // 
             // cboKhoaKCB
             // 
             this.cboKhoaKCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -265,9 +285,9 @@
             // frm_Login
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.CancelButton = this.cmdExit;
             this.ClientSize = new System.Drawing.Size(544, 350);
             this.ControlBox = false;
+            this.Controls.Add(this.cmdSettings);
             this.Controls.Add(this.cboKhoaKCB);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lnkHelp);
@@ -324,6 +344,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ComboBox cboKhoaKCB;
         private System.Windows.Forms.Label label6;
+        private Janus.Windows.EditControls.UIButton cmdSettings;
 
 
     }

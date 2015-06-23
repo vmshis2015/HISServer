@@ -17,17 +17,19 @@ using VNS.Libs.AppUI;
 using VNS.HIS.DAL;
 using System.IO;
 using VNS.Properties;
+using xvhrk;
 
 namespace CIS.CoreApp
 {
     public partial class frm_Login : Form
     {
         private BackgroundWorker bw = new BackgroundWorker();
+        bool oldVal = false;
+        string oldUID = "";
         public frm_Login()
         {
             InitializeComponent();
-           
-           
+            cmdSettings.Click+=cmdSettings_Click;
             txtUserName.LostFocus+=new EventHandler(txtUserName_LostFocus);
             if (globalVariables.sMenuStyle == "MENU")
                 cbogiaodien.SelectedIndex = 0;
@@ -35,7 +37,47 @@ namespace CIS.CoreApp
                 cbogiaodien.SelectedIndex = 1;
             
         }
-       
+        private void cmdSettings_Click(object sender, EventArgs e)
+        {
+            oldVal = PropertyLib._ConfigProperties.RunUnderWS;
+            frm_Properties _Properties = new frm_Properties(PropertyLib._ConfigProperties);
+            _Properties.TopMost = true;
+            _Properties.ShowDialog();
+            if (oldVal != PropertyLib._ConfigProperties.RunUnderWS)
+            {
+                if (PropertyLib._ConfigProperties.RunUnderWS)
+                {
+                    string DataBaseServer = "";
+                    string DataBaseName = "";
+                    string UID = "";
+                    string PWD = "";
+                    WS._AdminWS.GetConnectionString(ref DataBaseServer, ref DataBaseName, ref UID, ref PWD);
+                    PropertyLib._ConfigProperties.DataBaseServer = DataBaseServer;
+                    PropertyLib._ConfigProperties.DataBaseName = DataBaseName;
+                    PropertyLib._ConfigProperties.UID = UID;
+                    PropertyLib._ConfigProperties.PWD = PWD;
+                    globalVariables.ServerName = PropertyLib._ConfigProperties.DataBaseServer;
+                    globalVariables.sUName = PropertyLib._ConfigProperties.UID;
+                    globalVariables.sPwd = PropertyLib._ConfigProperties.PWD;
+                    globalVariables.sDbName = PropertyLib._ConfigProperties.DataBaseName;
+                }
+                else
+                {
+                    globalVariables.ServerName = PropertyLib._ConfigProperties.DataBaseServer;
+                    globalVariables.sUName = PropertyLib._ConfigProperties.UID;
+                    globalVariables.sPwd = PropertyLib._ConfigProperties.PWD;
+                    globalVariables.sDbName = PropertyLib._ConfigProperties.DataBaseName;
+                    globalVariables.sMenuStyle = "DOCKING";
+
+                    globalVariables.MA_KHOA_THIEN = PropertyLib._ConfigProperties.MaKhoa;
+                    globalVariables.MA_PHONG_THIEN = PropertyLib._ConfigProperties.Maphong;
+                    globalVariables.SOMAYLE = PropertyLib._ConfigProperties.Somayle;
+                    globalVariables.MIN_STT = PropertyLib._ConfigProperties.Min;
+                    globalVariables.MAX_STT = PropertyLib._ConfigProperties.Max;
+                }
+                Utility.InitSubSonic(new ConnectionSQL().KhoiTaoKetNoi(), "ORM");
+            }
+        }
        
         bool b_HasSuccess = false;
        public bool blnRelogin = false;
@@ -55,6 +97,7 @@ namespace CIS.CoreApp
                 PropertyLib._AppProperties = PropertyLib.GetAppPropertiess();
                 cbogiaodien.SelectedIndex = PropertyLib._AppProperties.MenuStype;
                 txtUserName.Text = PropertyLib._AppProperties.UID;
+                oldUID = txtUserName.Text;
                 chkRemember.Checked = PropertyLib._AppProperties.REM;
                 cboKhoaKCB.SelectedIndex = Utility.GetSelectedIndex(cboKhoaKCB, PropertyLib._AppProperties.Makhoathien);
                 if (PropertyLib._AppProperties.AutoLogin)
@@ -81,6 +124,24 @@ namespace CIS.CoreApp
         /// <param name="eventArgs"></param>
         private void txtUserName_LostFocus(object  sender,EventArgs eventArgs)
         {
+            try
+            {
+                if (oldUID != Utility.sDbnull(txtUserName.Text))
+                {
+                    oldUID = Utility.sDbnull(txtUserName.Text);
+                    globalVariables.UserName = oldUID;
+                   bool isAdmin= new LoginService().isAdmin(Utility.sDbnull(oldUID));
+                    DataBinding.BindDataCombox(cboKhoaKCB,
+                                               THU_VIEN_CHUNG.LaydanhsachKhoanoitruTheoBacsi(globalVariables.UserName, Utility.Bool2byte(isAdmin), (byte)2),
+                                               DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
+                                               "---Khoa làm việc---", false);
+                    cboKhoaKCB.SelectedIndex = Utility.GetSelectedIndex(cboKhoaKCB, PropertyLib._AppProperties.Makhoathien);
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
            
         }
         /// <summary>
@@ -104,7 +165,12 @@ namespace CIS.CoreApp
             {
                 b_Cancel = true;
                 if (!blnRelogin)
-                    Application.Exit();
+                {
+                    if (Utility.AcceptQuestion("Bạn có thực sự muốn thoát khỏi chương trình?", "Xác nhận", true))
+                    {
+                        Application.Exit();
+                    }
+                }
                 else
                     this.Close();
             }
@@ -123,12 +189,8 @@ namespace CIS.CoreApp
         {
             try
             {
-                if (cboKhoaKCB.SelectedValue.ToString() == "-1")
-                {
-                    UIAction.SetTextStatus(lblMsg, "Bạn cần chọn khoa làm việc", true);
-                    cboKhoaKCB.Focus();
-                    return;
-                }
+
+               
                 Application.DoEvents();
                 Utility.WaitNow(this);
                 cmdLogin.Enabled = false;
@@ -171,12 +233,19 @@ namespace CIS.CoreApp
         private bool IsValid()
         {
             UIAction.SetTextStatus(lblMsg, "", false);
+            
             if (string.IsNullOrEmpty(txtUserName.Text))
             {
                 UIAction.SetTextStatus(lblMsg, "Bạn phải nhập tên đăng nhập", true);
                 cmdLogin.Enabled = true;
                 UIAction.FocusEditbox(txtUserName);
                 b_HasSuccess = true;
+                return false;
+            }
+            if (cboKhoaKCB.Items.Count==0 || cboKhoaKCB.SelectedValue==null || cboKhoaKCB.SelectedValue.ToString() == "-1" || cboKhoaKCB.SelectedIndex < 0)
+            {
+                UIAction.SetTextStatus(lblMsg, "Bạn cần chọn khoa làm việc", true);
+                cboKhoaKCB.Focus();
                 return false;
             }
             PropertyLib._AppProperties.Makhoathien = Utility.sDbnull(cboKhoaKCB.SelectedValue, "KKB");
@@ -217,8 +286,75 @@ namespace CIS.CoreApp
                 globalVariables.sMenuStyle = "MENU";
             else
                 globalVariables.sMenuStyle = "DOCKING";
+            if (!blnRelogin && PropertyLib._ConfigProperties.HIS_AppMode != VNS.Libs.AppType.AppEnum.AppMode.Demo)
+            {
+                UIAction.SetTextStatus(lblMsg, "Đang kiểm tra giấy phép sử dụng phần mềm...", false);
+                if (PropertyLib._ConfigProperties.RunUnderWS)
+                {
+                    if (!WS._AdminWS.IsValidLicense())
+                    {
+                        globalVariables.LoginSuceess = false;
+                        UIAction.SetTextStatus(lblMsg, "Phần mềm chưa đăng ký license. Đề nghị liên hệ nhà sản xuất phần mềm để được trợ giúp: 09 15 15 01 48 (Mr.Cường)", true);
+                        return false;
+                    }
+                }
+                else
+                    if (!isValidSoftKey())
+                    {
+                        globalVariables.LoginSuceess = false;
+                        Utility.ShowMsg("Phần mềm chưa đăng ký license. Đề nghị liên hệ nhà sản xuất phần mềm để được trợ giúp: 09 15 15 01 48 (Mr.Cường)");
+                        UIAction.SetTextStatus(lblMsg, "Phần mềm chưa đăng ký license. Đề nghị liên hệ nhà sản xuất phần mềm để được trợ giúp: 09 15 15 01 48 (Mr.Cường)", true);
+                        return false;
+                    }
+            }
             LoadDataForm();
             return true;
+        }
+        bool isValidSoftKey()
+        {
+            try
+            {
+                if (globalVariables.IsValidLicense) return true;
+                string sRegKey = "";
+                sRegKey = getRegKeyBasedOnSCPLicense();
+                var AppKey = new MHardKey("XFW", 5, false);
+                globalVariables.IsValidLicense = sRegKey == AppKey.RegKey;
+                if (!globalVariables.IsValidLicense)
+                {
+                    VNS.Libs.AppLogger.LogAction.LogSCPService(string.Format(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "-->Kiểm tra khóa mềm không hợp lệ."));
+                    return false;
+                }
+                else//Khóa check OK
+                {
+                    VNS.Libs.AppLogger.LogAction.LogSCPService(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "-->Kiểm tra khóa mềm hợp lệ...");
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                VNS.Libs.AppLogger.LogAction.LogSCPService(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "-->Lỗi khi kiểm tra khóa mềm-->" + ex.Message);
+                return false;
+            }
+
+        }
+        string getRegKeyBasedOnSCPLicense()
+        {
+            try
+            {
+                string fileName = "";
+                fileName = Application.StartupPath + @"\license.lic";
+                if (!File.Exists(fileName)) return "";
+                using (StreamReader _streamR = new StreamReader(fileName))
+                {
+                    return _streamR.ReadLine();
+                }
+
+            }
+            catch
+            {
+                return "";
+            }
         }
         private void LoadDataForm()
         {
@@ -286,23 +422,11 @@ namespace CIS.CoreApp
              
                 globalVariables.SysDate = THU_VIEN_CHUNG.GetSysDateTime();
                
-                
-                //var query = from o in Directory.GetFiles(Application.StartupPath + @"/Hislink_log", "*.*",
-                //SearchOption.AllDirectories)
-                //            let x = new FileInfo(o)
-                //            where x.CreationTime <= THU_VIEN_CHUNG.GetSysDateTime().AddMonths(-6)
-
-                //            select o;
-                //foreach (var item in query)
-                //{
-                //    File.Delete(item);
-
-                //}
                 globalVariables.gv_dtDmucNhanvien = new Select().From(VDmucNhanvien.Schema).ExecuteDataSet().Tables[0];
                 Utility.LoadImageLogo();
 
 
-            }// globalVariables.b_LISConnectionState = HIS_LIS.isLISConnectionState()
+            }
 
             catch (Exception ex)
             {
