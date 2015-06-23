@@ -170,6 +170,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReportTitle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportTitle.Designer.cs">
+      <DependentUpon>ReportTitle.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,6 +221,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ReportTitle.resx">
+      <DependentUpon>ReportTitle.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Cauhinh\frm_Properties.resx">
       <DependentUpon>frm_Properties.cs</DependentUpon>
     </EmbeddedResource>
@@ -251,7 +260,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\newdal\newdal.csproj">
+    <ProjectReference Include="..\newdal\newdal.csproj">
       <Project>{cd0be8e8-b7d8-41ca-95f7-ea03675cfe0d}</Project>
       <Name>newdal</Name>
     </ProjectReference>
