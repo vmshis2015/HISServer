@@ -8,6 +8,7 @@ using System.Drawing.Design;
 using System.Windows.Forms;
 using System.IO;
 using VNS.Libs;
+using VNS.Libs.AppType;
 
 namespace VNS.Properties
 {
@@ -172,8 +173,6 @@ namespace VNS.Properties
         {
             InphieuNhapvienNgaysaukhiNhapvien = true;
             ThoatNgaysaukhiNhapvienthanhcong = true;
-            HienthiKhoatheonguoidung = false;
-            Xoakhihuygiuong = false;
             
             Songaysaochep = 0;
             Saochepngaytruocdo = true;
@@ -252,16 +251,6 @@ DisplayName("Số ngày hiển thị phiếu điều trị")]
         public bool Saochepngaytruocdo { get; set; }
 
        
-
-        [Browsable(true), ReadOnly(false), Category("Cấu hình nội trú"),
-       Description("Xóa khi hủy giường"),
-       DisplayName("Xóa khi hủy giường")]
-        public bool Xoakhihuygiuong { get; set; }
-
-        [Browsable(true), ReadOnly(false), Category("Cấu hình nội trú"),
-        Description("Chỉ hiển thị khoa nội trú ứng với khoa nội trú người dùng"),
-        DisplayName("Chỉ hiển thị khoa nội trú ứng với khoa nội trú người dùng")]
-        public bool HienthiKhoatheonguoidung { get; set; }
 
         [Browsable(true), ReadOnly(false), Category("Cấu hình nội trú"),
         Description("Tự đôngk in phiếu nhập viện ngay sau khi nhập viện tại chức năng thăm khám"),
@@ -365,7 +354,28 @@ DisplayName("Số ngày hiển thị phiếu điều trị")]
             MaDvi = "HIS";
             Min = 0;
             Max = 1000;
+            HIS_AppMode = AppEnum.AppMode.License;
+            HIS_HardKeyType = AppEnum.HardKeyType.SOFTKEY;
+            RunUnderWS = true;
+            WSURL = "";
         }
+        [Browsable(true), ReadOnly(false), Category("Webservice settings"),
+Description("Địa chỉ Webservice"),
+DisplayName("Địa chỉ Webservice")]
+        public string WSURL { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Webservice settings"),
+ Description("true=Kết nối qua Webservice để nhận chuỗi kết nối chung và kiểm tra giấy phép sử dụng trên máy chủ CSDL. False = Từng máy đăng ký và tự cấu hình vào CSDL"),
+ DisplayName("Kết nối qua Webservice")]
+        public bool RunUnderWS { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("HIS License settings"),
+  Description("Kiểu giấy phép"),
+  DisplayName("HIS License Type")]
+        public AppEnum.HardKeyType HIS_HardKeyType { get; set; }
+        [Browsable(true), ReadOnly(false), Category("HIS License settings"),
+Description("Kiểu ứng dụng"),
+DisplayName("HIS Application Mode")]
+        public AppEnum.AppMode HIS_AppMode { get; set; }
         [Browsable(true), ReadOnly(false), Category("Department Settings"),
    Description("Số mã bệnh phẩm nhỏ nhất khi bác sĩ chỉ định CLS"),
    DisplayName("số mã bệnh phẩm nhỏ nhất")]

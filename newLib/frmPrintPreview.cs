@@ -185,6 +185,7 @@ namespace VNS.Libs
 
             try
             {
+                reportTitle1.Init(mv_sReportCode);
                 //SetLanguage(globalVariables.DisplayLanguage, this, "GOLFMAN", globalVariables.SqlConn);
                 addTrinhKy_OnFormLoad();
                

@@ -18,6 +18,7 @@ namespace VNS.Libs
 {
     public class globalVariables
     {
+        public static bool IsValidLicense = false;
         public static string BHYT79ATH_TIEUDE = "BẢNG TỔNG HỢP ĐỀ NGHỊ THANH TOÁN CHI PHÍ KHÁM CHỮA BỆNH NGOẠI TRÚ";
         public static string BHYT79ATH = "BHYT79ATH";
         public static string BHYT79ACT_TIEUDE = "DANH SÁCH ĐỀ NGHỊ THANH TOÁN CHI PHÍ KHÁM CHỮA BỆNH NGOẠI TRÚ";
@@ -59,7 +60,6 @@ namespace VNS.Libs
         public static DataTable gv_dtSysTieude = new DataTable();
         public static DataTable gv_dtDanhmucchung = new DataTable();
 
-        public static bool gv_bQuyenSuaTieudeBaocao = true;
         public static int CHARACTERCASING = 0;
         public static int SO_BENH_AN = 0;
         public static decimal LUONGCOBAN = 650000;

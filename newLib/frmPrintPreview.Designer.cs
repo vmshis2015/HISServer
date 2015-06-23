@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPrintPreview));
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel1 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel2 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
-            this.crptViewer = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
             this.cmdTrinhKy = new Janus.Windows.EditControls.UIButton();
             this.cmdExcel = new Janus.Windows.EditControls.UIButton();
             this.uiStatusBar1 = new Janus.Windows.UI.StatusBar.UIStatusBar();
@@ -42,30 +41,11 @@
             this.cboPrinter = new Janus.Windows.EditControls.UIComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmdCalculator = new Janus.Windows.EditControls.UIButton();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.reportTitle1 = new VNS.Libs.ReportTitle();
+            this.crptViewer = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // crptViewer
-            // 
-            this.crptViewer.ActiveViewIndex = -1;
-            this.crptViewer.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.crptViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.crptViewer.CachedPageNumberPerDoc = 10;
-            this.crptViewer.Cursor = System.Windows.Forms.Cursors.Default;
-            this.crptViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.crptViewer.EnableDrillDown = false;
-            this.crptViewer.Location = new System.Drawing.Point(0, 0);
-            this.crptViewer.Name = "crptViewer";
-            this.crptViewer.SelectionFormula = "";
-            this.crptViewer.ShowCloseButton = false;
-            this.crptViewer.ShowCopyButton = false;
-            this.crptViewer.ShowGroupTreeButton = false;
-            this.crptViewer.ShowParameterPanelButton = false;
-            this.crptViewer.ShowPrintButton = false;
-            this.crptViewer.ShowRefreshButton = false;
-            this.crptViewer.Size = new System.Drawing.Size(1018, 717);
-            this.crptViewer.TabIndex = 0;
-            this.crptViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
-            this.crptViewer.ViewTimeSelectionFormula = "";
             // 
             // cmdTrinhKy
             // 
@@ -73,7 +53,7 @@
             this.cmdTrinhKy.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdTrinhKy.Image = ((System.Drawing.Image)(resources.GetObject("cmdTrinhKy.Image")));
             this.cmdTrinhKy.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdTrinhKy.Location = new System.Drawing.Point(333, 2);
+            this.cmdTrinhKy.Location = new System.Drawing.Point(539, 6);
             this.cmdTrinhKy.Name = "cmdTrinhKy";
             this.cmdTrinhKy.Office2007ColorScheme = Janus.Windows.UI.Office2007ColorScheme.Custom;
             this.cmdTrinhKy.Office2007CustomColor = System.Drawing.Color.White;
@@ -89,7 +69,7 @@
             this.cmdExcel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdExcel.Image = ((System.Drawing.Image)(resources.GetObject("cmdExcel.Image")));
             this.cmdExcel.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdExcel.Location = new System.Drawing.Point(291, 2);
+            this.cmdExcel.Location = new System.Drawing.Point(497, 6);
             this.cmdExcel.Name = "cmdExcel";
             this.cmdExcel.Office2007ColorScheme = Janus.Windows.UI.Office2007ColorScheme.Custom;
             this.cmdExcel.Office2007CustomColor = System.Drawing.Color.White;
@@ -131,13 +111,13 @@
             this.cmdPrint.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdPrint.Image = ((System.Drawing.Image)(resources.GetObject("cmdPrint.Image")));
             this.cmdPrint.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdPrint.Location = new System.Drawing.Point(796, 4);
+            this.cmdPrint.Location = new System.Drawing.Point(947, 6);
             this.cmdPrint.Name = "cmdPrint";
             this.cmdPrint.Office2007ColorScheme = Janus.Windows.UI.Office2007ColorScheme.Custom;
             this.cmdPrint.Office2007CustomColor = System.Drawing.Color.White;
-            this.cmdPrint.Size = new System.Drawing.Size(90, 25);
+            this.cmdPrint.Size = new System.Drawing.Size(68, 25);
             this.cmdPrint.TabIndex = 14;
-            this.cmdPrint.Text = "&In";
+            this.cmdPrint.Text = "In";
             this.cmdPrint.Click += new System.EventHandler(this.cmdPrint_Click);
             // 
             // txtCopyPage
@@ -145,7 +125,7 @@
             this.txtCopyPage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCopyPage.BackColor = System.Drawing.Color.White;
             this.txtCopyPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCopyPage.Location = new System.Drawing.Point(516, 4);
+            this.txtCopyPage.Location = new System.Drawing.Point(722, 7);
             this.txtCopyPage.Name = "txtCopyPage";
             this.txtCopyPage.Numeric = true;
             this.txtCopyPage.Size = new System.Drawing.Size(40, 23);
@@ -162,7 +142,7 @@
             this.lblPageCopy.AutoSize = true;
             this.lblPageCopy.BackColor = System.Drawing.Color.Transparent;
             this.lblPageCopy.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPageCopy.Location = new System.Drawing.Point(430, 9);
+            this.lblPageCopy.Location = new System.Drawing.Point(636, 11);
             this.lblPageCopy.Name = "lblPageCopy";
             this.lblPageCopy.Size = new System.Drawing.Size(71, 15);
             this.lblPageCopy.TabIndex = 15;
@@ -173,9 +153,9 @@
             this.cboPrinter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cboPrinter.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboPrinter.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboPrinter.Location = new System.Drawing.Point(562, 5);
+            this.cboPrinter.Location = new System.Drawing.Point(768, 8);
             this.cboPrinter.Name = "cboPrinter";
-            this.cboPrinter.Size = new System.Drawing.Size(228, 21);
+            this.cboPrinter.Size = new System.Drawing.Size(173, 21);
             this.cboPrinter.TabIndex = 17;
             this.cboPrinter.Text = "Máy in";
             this.cboPrinter.SelectedIndexChanged += new System.EventHandler(this.cboPrinter_SelectedIndexChanged);
@@ -191,7 +171,7 @@
             this.cmdCalculator.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdCalculator.Image = ((System.Drawing.Image)(resources.GetObject("cmdCalculator.Image")));
             this.cmdCalculator.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdCalculator.Location = new System.Drawing.Point(375, 2);
+            this.cmdCalculator.Location = new System.Drawing.Point(581, 6);
             this.cmdCalculator.Name = "cmdCalculator";
             this.cmdCalculator.Office2007ColorScheme = Janus.Windows.UI.Office2007ColorScheme.Custom;
             this.cmdCalculator.Office2007CustomColor = System.Drawing.Color.White;
@@ -201,19 +181,70 @@
             this.cmdCalculator.VisualStyle = Janus.Windows.UI.VisualStyle.Office2007;
             this.cmdCalculator.Click += new System.EventHandler(this.cmdCalculator_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.reportTitle1);
+            this.panel1.Controls.Add(this.cmdExcel);
+            this.panel1.Controls.Add(this.cmdCalculator);
+            this.panel1.Controls.Add(this.cmdTrinhKy);
+            this.panel1.Controls.Add(this.cboPrinter);
+            this.panel1.Controls.Add(this.cmdPrint);
+            this.panel1.Controls.Add(this.lblPageCopy);
+            this.panel1.Controls.Add(this.txtCopyPage);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1018, 35);
+            this.panel1.TabIndex = 22;
+            // 
+            // reportTitle1
+            // 
+            this.reportTitle1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.reportTitle1.Location = new System.Drawing.Point(0, 2);
+            this.reportTitle1.MA_BAOCAO = null;
+            this.reportTitle1.Name = "reportTitle1";
+            this.reportTitle1.Phimtat = "Phím tắt";
+            this.reportTitle1.PicImg = ((System.Drawing.Image)(resources.GetObject("reportTitle1.PicImg")));
+            this.reportTitle1.ShortcutAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.reportTitle1.ShortcutFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reportTitle1.showHelp = false;
+            this.reportTitle1.Size = new System.Drawing.Size(469, 33);
+            this.reportTitle1.TabIndex = 21;
+            this.reportTitle1.TIEUDE = "TIÊU ĐỀ BÁO CÁO";
+            this.reportTitle1.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            // 
+            // crptViewer
+            // 
+            this.crptViewer.ActiveViewIndex = -1;
+            this.crptViewer.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.crptViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.crptViewer.CachedPageNumberPerDoc = 10;
+            this.crptViewer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.crptViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.crptViewer.EnableDrillDown = false;
+            this.crptViewer.Location = new System.Drawing.Point(0, 35);
+            this.crptViewer.Name = "crptViewer";
+            this.crptViewer.SelectionFormula = "";
+            this.crptViewer.ShowCloseButton = false;
+            this.crptViewer.ShowCopyButton = false;
+            this.crptViewer.ShowGroupTreeButton = false;
+            this.crptViewer.ShowParameterPanelButton = false;
+            this.crptViewer.ShowPrintButton = false;
+            this.crptViewer.ShowRefreshButton = false;
+            this.crptViewer.Size = new System.Drawing.Size(1018, 682);
+            this.crptViewer.TabIndex = 23;
+            this.crptViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
+            this.crptViewer.ViewTimeSelectionFormula = "";
+            // 
             // frmPrintPreview
             // 
             this.AcceptButton = this.cmdPrint;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1018, 740);
-            this.Controls.Add(this.cmdCalculator);
-            this.Controls.Add(this.cboPrinter);
-            this.Controls.Add(this.lblPageCopy);
-            this.Controls.Add(this.txtCopyPage);
-            this.Controls.Add(this.cmdPrint);
-            this.Controls.Add(this.cmdExcel);
-            this.Controls.Add(this.cmdTrinhKy);
             this.Controls.Add(this.crptViewer);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.uiStatusBar1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -225,14 +256,14 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPrintPreview_FormClosing);
             this.Load += new System.EventHandler(this.frmPrintPreview_Load_1);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        public CrystalDecisions.Windows.Forms.CrystalReportViewer crptViewer;
         private Janus.Windows.EditControls.UIButton cmdTrinhKy;
         private Janus.Windows.EditControls.UIButton cmdExcel;
         private Janus.Windows.UI.StatusBar.UIStatusBar uiStatusBar1;
@@ -242,6 +273,9 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private Janus.Windows.EditControls.UIButton cmdCalculator;
         public Janus.Windows.GridEX.EditControls.MaskedEditBox txtCopyPage;
+        private System.Windows.Forms.Panel panel1;
+        private ReportTitle reportTitle1;
+        public CrystalDecisions.Windows.Forms.CrystalReportViewer crptViewer;
 
     }
 }

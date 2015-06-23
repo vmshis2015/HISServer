@@ -409,7 +409,33 @@ namespace VNS.Libs
     ///</summary>
     public class Utility
     {
-       
+        public static void SaveValue2File(string fileName, string value)
+        {
+            try
+            {
+                using (StreamWriter _Writer = new StreamWriter(fileName))
+                {
+                    _Writer.Write(value);
+                    _Writer.Flush();
+                    _Writer.Close();
+                }
+            }
+            catch
+            {
+            }
+        }
+        public static string Try2DelFile(string file)
+        {
+            try
+            {
+                if (File.Exists(file)) File.Delete(file);
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
         public static void AutoCompeleteAddress(DataTable dtData)
         {
             try
@@ -10462,7 +10488,79 @@ namespace VNS.Libs
 
 
         }
-       
+        public static void BindDataCombox(ComboBox combox, object data, string dataValueField, string dataTextField,
+                                          string SelectItem, bool AddDefaultIfNoData, bool NoAddIfMorethan2Items)
+        {
+
+            if (data == null)
+            {
+                combox.DataSource = null;
+                return;
+            }
+            DataTable dt = new DataTable();
+            dt = (DataTable)data;
+            if (AddDefaultIfNoData)
+            {
+                DataRow dr = dt.NewRow();
+                dr[dataTextField] = SelectItem;
+                dr[dataValueField] = -1;
+                dt.Rows.InsertAt(dr, 0);
+            }
+            else if (dt.Rows.Count > 1)
+            {
+                if (!NoAddIfMorethan2Items)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr[dataTextField] = SelectItem;
+                    dr[dataValueField] = -1;
+                    dt.Rows.InsertAt(dr, 0);
+                }
+            }
+
+            if (combox != null)
+            {
+                combox.DataSource = dt;
+                combox.ValueMember = dataValueField;
+                combox.DisplayMember = dataTextField;
+            }
+
+
+        }
+        public static void BindDataCombobox(Janus.Windows.EditControls.UIComboBox objCombobox, object data,
+                                        string dataValueField, string dataTextField, string defaultItem, bool AddDefaultIfNoData, bool NoAddIfMorethan2Items)
+        {
+            try
+            {
+                if (data == null) return;
+                DataTable dt = new DataTable();
+                dt = (DataTable)data;
+                if (dt.Columns.Count <= 0 || !dt.Columns.Contains(dataTextField) || !dt.Columns.Contains(dataValueField)) return;
+                if (AddDefaultIfNoData)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr[dataTextField] = defaultItem;
+                    dr[dataValueField] = -1;
+                    dt.Rows.InsertAt(dr, 0);
+                }
+                else if (dt.Rows.Count > 1)
+                {
+                    if (!NoAddIfMorethan2Items)
+                    {
+                        DataRow dr = dt.NewRow();
+                        dr[dataTextField] = defaultItem;
+                        dr[dataValueField] = -1;
+                        dt.Rows.InsertAt(dr, 0);
+                    }
+                }
+                objCombobox.DataSource = dt;
+                objCombobox.ValueMember = dataValueField;
+                objCombobox.DisplayMember = dataTextField;
+                if (objCombobox.Items.Count > 0) objCombobox.SelectedIndex = 0;
+            }
+            catch
+            {
+            }
+        }
         public static void BindDataCombobox(Janus.Windows.EditControls.UIComboBox objCombobox, object data,
                                          string dataValueField, string dataTextField, string defaultItem, bool AddDefaultIfNoData)
         {
@@ -11937,7 +12035,7 @@ namespace VNS.Libs
                 Exists = 0, Error = 1, Success = 2
             }
             public enum WORKLISTSEARCHTYPE { ModalityWorklistQuery = 0, PatientRootQueryStudy = 1 }
-            public enum HardKeyType { SOFTKEY = 0, USBDONGLE = 1, MIXEDMODE = 2 }
+            public enum HardKeyType { SOFTKEY = 0, USBDONGLE = 1, MIXEDMODE = 2, SOFTKEY_EXP = 3 }
             public enum AppName { XFILM = 0, XVIEW = 1, RISLINK = 2, DICOMVIEWER = 3 }
             public enum HIDReaderType { Internal = 0, FromFile = 1 }
             public enum DataBaseType { SQLSERVER = 0, SQLCE = 1, OLEDB = 2, ORACLE = 3 }
