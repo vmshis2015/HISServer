@@ -18,7 +18,7 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
             txtTieuDe.LostFocus += new EventHandler(txtTieuDe_LostFocus);
             txtTieuDe.GotFocus += new EventHandler(txtTieuDe_GotFocus);
             txtTieuDe.KeyDown += new KeyEventHandler(txtTieuDe_KeyDown);
-            cmdSave.Visible = globalVariables.gv_bQuyenSuaTieudeBaocao;
+            cmdSave.Visible = globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenSuatieudebaocao);
             cmdSave.Click += new EventHandler(cmdSave_Click);
         }
         
@@ -87,7 +87,7 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
         }
         void txtTieuDe_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && globalVariables.gv_bQuyenSuaTieudeBaocao)
+            if (e.KeyCode == Keys.Enter && cmdSave.Visible)
                 THU_VIEN_CHUNG.CapnhatgiatriTieudebaocao(MA_BAOCAO, Utility.DoTrim(txtTieuDe.Text));
         }
         void cmdSave_Click(object sender, EventArgs e)
@@ -96,12 +96,12 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
         }
         void txtTieuDe_GotFocus(object sender, EventArgs e)
         {
-            if (globalVariables.gv_bQuyenSuaTieudeBaocao) txtTieuDe.ReadOnly = false;
+            if (cmdSave.Visible) txtTieuDe.ReadOnly = false;
         }
 
         void txtTieuDe_LostFocus(object sender, EventArgs e)
         {
-            if (globalVariables.gv_bQuyenSuaTieudeBaocao) txtTieuDe.ReadOnly = true;
+            if (cmdSave.Visible) txtTieuDe.ReadOnly = true;
         }
         public void Init(string MA_BAOCAO)
         {
