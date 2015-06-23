@@ -186,9 +186,11 @@ namespace VNS.HIS.UI.DANHMUC
             if (e.Control && e.KeyCode == Keys.E) cmdEdit.PerformClick();
             if (e.Control && e.KeyCode == Keys.N) cmdNew.PerformClick();
             if (e.KeyCode == Keys.F4) cmdPrint.PerformClick();
+            if (e.KeyCode == Keys.F5) Search();
 
         }
         #endregion
+      
         #region "HAM DUNG CHUNG"
         /// <summary>
         /// HÀM THỰC HIỆN GÁN SỰ KIỆN CỦA CÁC NÚT THỰC HIỆN TRÊN FORM

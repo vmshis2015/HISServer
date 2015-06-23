@@ -110,11 +110,7 @@ namespace VNS.HIS.UI.DANHMUC
                 DataTable v_dtUserList = new SysUserCollection().Load().ToDataTable();
                 Utility.AddColumnAlltoUserDataTable(ref v_dtUserList, SysUser.Columns.PkSuid, "");
                 v_dtUserList.DefaultView.Sort = SysUser.Columns.PkSuid+" ASC";
-                cboUserName.DataSource = v_dtUserList.DefaultView;
-                cboUserName.ValueMember = SysUser.Columns.PkSuid;
-                cboUserName.DisplayMember = SysUser.Columns.PkSuid;
-                if (cboUserName.Items.Count > 0) cboUserName.SelectedIndex = 0;
-               
+                txtUID.Init(v_dtUserList, new List<string>() { SysUser.Columns.PkSuid, SysUser.Columns.PkSuid, SysUser.Columns.PkSuid });
                 m_dtKhoThuoc = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_TATCA();
                 Utility.SetDataSourceForDataGridEx(grdKhoThuoc, m_dtKhoThuoc, false, true, "1=1", TDmucKho.Columns.SttHthi);
                 m_dtPhongkham = THU_VIEN_CHUNG.LaydanhmucPhong(0);
@@ -159,23 +155,24 @@ namespace VNS.HIS.UI.DANHMUC
         /// </summary>
         private void SetStatusAlter()
         {
+            Utility.SetMsg(lblMsg, "", true);
             if(string.IsNullOrEmpty(txtStaffCode.Text.Trim()))
             {
-                Utility.SetMsgError(errorProvider1,txtStaffCode,"Bạn nhập mã nhân viên");
+                Utility.SetMsg(lblMsg,"Bạn nhập phải nhập mã nhân viên",true);
                 txtStaffCode.Focus();
 
 
             }
             if (string.IsNullOrEmpty(txtName.Text))
             {
-                Utility.SetMsgError(errorProvider2, txtName, "Bạn nhập tên nhân viên");
+                Utility.SetMsg(lblMsg, "Bạn nhập tên nhân viên",true);
                 txtName.Focus();
 
 
             }
             if (cboStaffType.SelectedIndex<=-1)
             {
-                Utility.SetMsgError(errorProvider3, cboStaffType, "Bạn nhập loại nhân viên");
+                Utility.SetMsg(lblMsg, "Bạn nhập loại nhân viên",true);
                 cboStaffType.Focus();
 
 
@@ -187,29 +184,29 @@ namespace VNS.HIS.UI.DANHMUC
             switch (em_Action)
             {
                 case action.Insert:
-                    if (!InValiData()) return;
+                    if (!isValidData()) return;
                     PerformActionInsert();
                     break;
                 case action.Update:
-                    if (!InValiData()) return;
+                    if (!isValidData()) return;
                     PerformActionUpdate();
                     break;
             }
 
         }
-        private bool InValiData()
+        private bool isValidData()
         {
-
+            Utility.SetMsg(lblMsg, "", true);
             if (string.IsNullOrEmpty(txtStaffCode.Text))
             {
-                Utility.SetMsgError(errorProvider1, txtStaffCode, "Bạn phải nhập mã nhân viên");
+                Utility.SetMsg(lblMsg,  "Bạn phải nhập mã nhân viên",true);
                 txtStaffCode.Focus();
                 return false;
 
             }
             if (string.IsNullOrEmpty(txtName.Text))
             {
-                Utility.SetMsgError(errorProvider2, txtName, "Bạn phải nhập tên nhân viên");
+                Utility.SetMsg(lblMsg, "Bạn phải nhập tên nhân viên",true);
                 txtName.Focus();
                 return false;
 
@@ -221,21 +218,21 @@ namespace VNS.HIS.UI.DANHMUC
                 q.And(DmucNhanvien.Columns.IdNhanvien).IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
             if(q.GetRecordCount()>0)
             {
-                Utility.SetMsgError(errorProvider1, txtStaffCode, "Tồn tại mã nhân viên");
+                Utility.SetMsg(lblMsg, "Tồn tại mã nhân viên",true);
                 txtStaffCode.Focus();
                 return false;
             }
             
-            if (!string.IsNullOrEmpty(Utility.sDbnull(cboUserName.SelectedValue.ToString())))
+            if (txtUID.MyID!="-1")
             {
                 SqlQuery q2 = new Select().From(DmucNhanvien.Schema)
-                    .Where(DmucNhanvien.Columns.UserName).IsEqualTo(cboUserName.SelectedValue);
+                    .Where(DmucNhanvien.Columns.UserName).IsEqualTo(txtUID.MyID);
                 if (em_Action == action.Update)
                     q2.And(DmucNhanvien.Columns.IdNhanvien).IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
                 if (q2.GetRecordCount() > 0)
                 {
-                    Utility.ShowMsg("Tên đăng nhập đã gán cho một nhân viên khác", "Thông báo");
-                    cboUserName.Focus();
+                    Utility.SetMsg(lblMsg, "Tên đăng nhập đã gán cho một nhân viên khác",true);
+                    txtUID.Focus();
                     return false;
                 }
             }
@@ -255,37 +252,6 @@ namespace VNS.HIS.UI.DANHMUC
             objDmucNhanvien.Save();
             QuanheNhanVienKho(objDmucNhanvien);
             QuanheBsi_khoaphong(objDmucNhanvien);
-            if (globalVariables.IsAdmin && cboUserName.SelectedIndex > 0)
-            {
-                SqlQuery sqlQuery = new Select().From(SysTrinhky.Schema)
-               .Where(SysTrinhky.Columns.ObjectName).IsEqualTo("Admin");
-                SysTrinhkyCollection objTrinhkyCollection = sqlQuery.ExecuteAsCollection<SysTrinhkyCollection>();
-                foreach (SysTrinhky objSysTrinhky in objTrinhkyCollection)
-                {
-                    sqlQuery = new Select().From(SysTrinhky.Schema)
-                        .Where(SysTrinhky.Columns.ObjectName).IsEqualTo(cboUserName.SelectedValue)
-                        .And(SysTrinhky.Columns.ReportName).IsEqualTo(objSysTrinhky.ReportName);
-                    if (sqlQuery.GetRecordCount() <= 0)
-                    {
-                        objSysTrinhky.ObjectName = Utility.sDbnull(cboUserName.SelectedValue, "");
-
-                        objSysTrinhky.IsNew = true;
-                        objSysTrinhky.Save();
-                    }
-                }
-                new Update(KcbChidinhcl.Schema)
-                    .Set(KcbChidinhcl.Columns.IdBacsiChidinh).EqualTo(objDmucNhanvien.IdNhanvien)
-                    .Where(KcbChidinhcl.Columns.NguoiTao).IsEqualTo(objDmucNhanvien.UserName).Execute();
-                new Update(KcbDonthuoc.Schema)
-                    .Set(KcbDonthuoc.Columns.IdBacsiChidinh).EqualTo(objDmucNhanvien.IdNhanvien)
-                    .Where(KcbDonthuoc.Columns.NguoiTao).IsEqualTo(objDmucNhanvien.UserName).Execute();
-                new Update(KcbThanhtoan.Schema)
-                    .Set(KcbThanhtoan.Columns.IdNhanvienThanhtoan).EqualTo(objDmucNhanvien.IdNhanvien)
-                    .Where(KcbThanhtoan.Columns.NguoiTao).IsEqualTo(objDmucNhanvien.UserName).Execute();
-                new Update(KcbDangkyKcb.Schema)
-                    .Set(KcbDangkyKcb.Columns.IdBacsikham).EqualTo(objDmucNhanvien.IdNhanvien)
-                    .Where(KcbDangkyKcb.Columns.NguoiTao).IsEqualTo(objDmucNhanvien.UserName).Execute();
-            }
                 DataRow dr = p_dtStaffList.NewRow();
                 dr[DmucNhanvien.Columns.NguoiTao] =globalVariables.UserName;
                 dr[DmucNhanvien.Columns.NgayTao] = globalVariables.SysDate;
@@ -301,13 +267,14 @@ namespace VNS.HIS.UI.DANHMUC
                 dr[DmucNhanvien.Columns.IdPhong] = Utility.Int16Dbnull(cboDepart.SelectedValue, 1);
                 dr["ten_phong"] = Utility.sDbnull(cboDepart.Text, "");
                 dr["ten_loainhanvien"] = Utility.sDbnull(cboStaffType.Text, "");
-                dr[DmucNhanvien.Columns.UserName] = Utility.sDbnull(cboUserName.SelectedValue, "");
+                dr[DmucNhanvien.Columns.UserName] = Utility.sDbnull(txtUID.MyCode, "");
                 dr[DmucNhanvien.Columns.MaLoainhanvien] = Utility.sDbnull(cboStaffType.SelectedValue, "");
                 dr[DmucNhanvien.Columns.QuyenHuythanhtoanTatca] = chkCancelPaymentAll.Checked ? Utility.ByteDbnull(1) : Utility.ByteDbnull(0);
                 dr[DmucNhanvien.Columns.QuyenMokhoaTatca] = chkUnlockAll.Checked ? Utility.ByteDbnull(1) : Utility.ByteDbnull(0);
                 dr[DmucNhanvien.Columns.QuyenSuangayThanhtoan] = chkChangePaymentdate.Checked ? Utility.ByteDbnull(1) : Utility.ByteDbnull(0);
                 dr[DmucNhanvien.Columns.QuyenTralaiTien] = chkRepay.Checked ? Utility.ByteDbnull(1) : Utility.ByteDbnull(0);
                 dr[DmucNhanvien.Columns.QuyenKhamtatcacackhoaNoitru] = Utility.Bool2byte(chkAllNoitru.Checked);
+                dr[DmucNhanvien.Columns.QuyenSuatieudebaocao] = Utility.Bool2byte(chkSuatieudebaocao.Checked);
                 dr[DmucNhanvien.Columns.QuyenKhamtatcacacphongNgoaitru] = Utility.Bool2byte(chkAllNgoaitru.Checked);
                 dr[DmucNhanvien.Columns.QuyenThemdanhmucdungchung] = Utility.Bool2byte(chkThemdanhmucchung.Checked);
                 p_dtStaffList.Rows.InsertAt(dr, 0);
@@ -374,7 +341,7 @@ namespace VNS.HIS.UI.DANHMUC
             objDmucNhanvien.IdPhong = Utility.Int16Dbnull(cboDepart.SelectedValue, -1);
             objDmucNhanvien.IdKhoa = Utility.Int32Dbnull(cboUpLevel.SelectedValue, -1);
             objDmucNhanvien.MaLoainhanvien = Utility.sDbnull(cboStaffType.SelectedValue, "-1");
-            objDmucNhanvien.UserName = Utility.sDbnull(cboUserName.SelectedValue, "");
+            objDmucNhanvien.UserName = Utility.sDbnull(txtUID.MyCode, "");
             objDmucNhanvien.TrangThai = Convert.ToByte(chkHienThi.Checked?1:0);
           
             objDmucNhanvien.MotaThem = Utility.DoTrim(txtmotathem.Text);
@@ -388,6 +355,7 @@ namespace VNS.HIS.UI.DANHMUC
             objDmucNhanvien.QuyenKhamtatcacacphongNgoaitru = Utility.Bool2byte(chkAllNgoaitru.Checked);
             objDmucNhanvien.QuyenThemdanhmucdungchung = Utility.Bool2byte(chkThemdanhmucchung.Checked);
             objDmucNhanvien.QuyenXemphieudieutricuabacsinoitrukhac = Utility.Bool2byte(chkXemphieudieutricuaBacsikhac.Checked);
+            objDmucNhanvien.QuyenSuatieudebaocao = Utility.Bool2byte(chkSuatieudebaocao.Checked);
            
             
             return objDmucNhanvien;
@@ -403,27 +371,12 @@ namespace VNS.HIS.UI.DANHMUC
                 objDmucNhanvien.Save();
                 QuanheNhanVienKho(objDmucNhanvien);
                 QuanheBsi_khoaphong(objDmucNhanvien);
-                if (globalVariables.IsAdmin && cboUserName.SelectedIndex > 0)
-                {
-                    new Update(KcbChidinhcl.Schema)
-                        .Set(KcbChidinhcl.Columns.IdBacsiChidinh).EqualTo(objDmucNhanvien.IdNhanvien)
-                        .Where(KcbChidinhcl.Columns.NguoiTao).IsEqualTo(objDmucNhanvien.UserName).Execute();
-                    new Update(KcbDonthuoc.Schema)
-                        .Set(KcbDonthuoc.Columns.IdBacsiChidinh).EqualTo(objDmucNhanvien.IdNhanvien)
-                        .Where(KcbDonthuoc.Columns.NguoiTao).IsEqualTo(objDmucNhanvien.UserName).Execute();
-                    new Update(KcbThanhtoan.Schema)
-                        .Set(KcbThanhtoan.Columns.IdNhanvienThanhtoan).EqualTo(objDmucNhanvien.IdNhanvien)
-                        .Where(KcbThanhtoan.Columns.NguoiTao).IsEqualTo(objDmucNhanvien.UserName).Execute();
-                    new Update(KcbDangkyKcb.Schema)
-                        .Set(KcbDangkyKcb.Columns.IdBacsikham).EqualTo(objDmucNhanvien.IdNhanvien)
-                        .Where(KcbDangkyKcb.Columns.NguoiTao).IsEqualTo(objDmucNhanvien.UserName).Execute();
-                }
-
+               
 
                 DataRow[] dr = p_dtStaffList.Select(DmucNhanvien.Columns.IdNhanvien+ "=" + Utility.Int32Dbnull(txtID.Text, -1));
                 if (dr.GetLength(0) > 0)
                 {
-                    dr[0][DmucNhanvien.Columns.UserName] = cboUserName.SelectedValue;
+                    dr[0][DmucNhanvien.Columns.UserName] = txtUID.MyCode;
                     dr[0][DmucNhanvien.Columns.MaLoainhanvien] = Utility.sDbnull(cboStaffType.SelectedValue, -1);
                     dr[0]["ten_loainhanvien"] = Utility.sDbnull(cboStaffType.Text, "");
                     dr[0]["ten_phong"] = Utility.sDbnull(cboDepart.Text, -1);
@@ -439,7 +392,7 @@ namespace VNS.HIS.UI.DANHMUC
                     dr[0][DmucNhanvien.Columns.QuyenMokhoaTatca] = chkUnlockAll.Checked ? Utility.ByteDbnull(1) : Utility.ByteDbnull(0);
                     dr[0][DmucNhanvien.Columns.QuyenSuangayThanhtoan] = chkChangePaymentdate.Checked ? Utility.ByteDbnull(1) : Utility.ByteDbnull(0);
                     dr[0][DmucNhanvien.Columns.QuyenTralaiTien] = chkRepay.Checked ? Utility.ByteDbnull(1) : Utility.ByteDbnull(0);
-
+                    dr[0][DmucNhanvien.Columns.QuyenSuatieudebaocao] = Utility.Bool2byte(chkSuatieudebaocao.Checked);
                     dr[0][DmucNhanvien.Columns.QuyenKhamtatcacackhoaNoitru] = Utility.Bool2byte(chkAllNoitru.Checked);
                     dr[0][DmucNhanvien.Columns.QuyenKhamtatcacacphongNgoaitru] = Utility.Bool2byte(chkAllNgoaitru.Checked);
                         dr[0][DmucNhanvien.Columns.QuyenThemdanhmucdungchung] = Utility.Bool2byte(chkThemdanhmucchung.Checked);
@@ -498,8 +451,7 @@ namespace VNS.HIS.UI.DANHMUC
                
                 cboStaffType.SelectedIndex = Utility.GetSelectedIndex(cboStaffType,
                                                                        objStaffList.MaLoainhanvien.ToString());
-                cboUserName.SelectedIndex = Utility.GetSelectedIndex(cboUserName,
-                                                                      objStaffList.UserName);
+                txtUID.SetCode(objStaffList.UserName);
 
               
                 cboUpLevel.SelectedIndex = Utility.GetSelectedIndex(cboUpLevel,
@@ -516,6 +468,7 @@ namespace VNS.HIS.UI.DANHMUC
                 chkXemphieudieutricuaBacsikhac.Checked = Utility.Byte2Bool(objStaffList.QuyenXemphieudieutricuabacsinoitrukhac);
                 chkAllNoitru.Checked = Utility.Byte2Bool(objStaffList.QuyenKhamtatcacacphongNgoaitru);
                 chkThemdanhmucchung.Checked = Utility.Byte2Bool(objStaffList.QuyenThemdanhmucdungchung);
+                chkSuatieudebaocao.Checked = Utility.Byte2Bool(objStaffList.QuyenSuatieudebaocao);
                
                 LoadQuanHeNhanVienKho();
                 LoadQheBS_khoanoitru();

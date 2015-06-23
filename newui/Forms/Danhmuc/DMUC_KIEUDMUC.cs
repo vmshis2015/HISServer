@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using VNS.Libs;
 using VNS.HIS.DAL;
 using VNS.HIS.NGHIEPVU;
+using SubSonic;
 namespace VNS.HIS.UI.DANHMUC
 {
     public partial class DMUC_KIEUDMUC : Form
@@ -56,6 +57,7 @@ namespace VNS.HIS.UI.DANHMUC
                 //Bắt sự kiện chọn 1 dòng trên lưới sẽ gán giá trị từ lưới vào các Control nhập liệu phía dưới
                 grdList.SelectionChanged += new EventHandler(grdList_SelectionChanged);
                 grdList.KeyDown += new KeyEventHandler(grdList_KeyDown);
+                grdList.UpdatingCell += grdList_UpdatingCell;
                 cmdNew.Click+=new EventHandler(cmdNew_Click);
                 cmdDelete.Click+=new EventHandler(cmdDelete_Click);
                 cmdSave.Click+=new EventHandler(cmdSave_Click);
@@ -71,6 +73,22 @@ namespace VNS.HIS.UI.DANHMUC
             }
             catch (Exception ex)
             {
+            }
+        }
+
+        void grdList_UpdatingCell(object sender, Janus.Windows.GridEX.UpdatingCellEventArgs e)
+        {
+            try
+            {
+                if (e.Column.Key == DmucKieudmuc.Columns.TenLoai)
+                {
+                    new Update(DmucKieudmuc.Schema).Set(DmucKieudmuc.Columns.TenLoai).EqualTo(e.Value).Where(DmucKieudmuc.Columns.Id).IsEqualTo(Utility.Int32Dbnull(Utility.getValueOfGridCell(grdList, DmucKieudmuc.Columns.Id))).Execute();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Utility.CatchException(ex);
             }
         }
 
@@ -568,7 +586,7 @@ namespace VNS.HIS.UI.DANHMUC
 
                 }
                 //Gán dữ liệu vào lưới
-                Utility.SetDataSourceForDataGridEx(grdList, m_dtData, true, true, "1=1", "TEN_LOAI");
+                Utility.SetDataSourceForDataGridEx(grdList, m_dtData, true, true, "1=1", "MA_LOAI");
                 //Kiểm tra nếu có dữ liệu thì tự động chọn dòng đầu tiên
                 if (grdList.RowCount > 0)
                 {
@@ -863,7 +881,9 @@ namespace VNS.HIS.UI.DANHMUC
         {
             try
             {
-               
+                if (!Utility.isValidGrid(grdList)) return;
+                DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(Utility.sDbnull(Utility.getValueOfGridCell(grdList, DmucKieudmuc.Columns.MaLoai), ""));
+                _DMUC_DCHUNG.ShowDialog();
             }
             catch
             {

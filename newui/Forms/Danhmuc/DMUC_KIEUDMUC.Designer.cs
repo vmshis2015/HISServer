@@ -178,7 +178,7 @@
             this.cmdPrint.Name = "cmdPrint";
             this.cmdPrint.Size = new System.Drawing.Size(89, 25);
             this.cmdPrint.TabIndex = 10;
-            this.cmdPrint.Text = "In danh sách";
+            this.cmdPrint.Text = "Mở danh mục";
             // 
             // cmdCancel
             // 

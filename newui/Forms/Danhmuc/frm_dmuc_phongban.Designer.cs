@@ -85,7 +85,7 @@
             this.toolStripButton1});
             this.sysColor.Location = new System.Drawing.Point(0, 0);
             this.sysColor.Name = "sysColor";
-            this.sysColor.Size = new System.Drawing.Size(1022, 39);
+            this.sysColor.Size = new System.Drawing.Size(1008, 39);
             this.sysColor.TabIndex = 2;
             this.sysColor.Text = "toolStrip1";
             // 
@@ -96,8 +96,8 @@
             this.cmdNew.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdNew.Name = "cmdNew";
-            this.cmdNew.Size = new System.Drawing.Size(136, 36);
-            this.cmdNew.Text = "&Thêm mới (Ctrl+N)";
+            this.cmdNew.Size = new System.Drawing.Size(144, 36);
+            this.cmdNew.Text = "Thêm mới (Ctrl+N)";
             // 
             // toolStripSeparator1
             // 
@@ -112,7 +112,7 @@
             this.cmdEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdEdit.Name = "cmdEdit";
             this.cmdEdit.Size = new System.Drawing.Size(106, 36);
-            this.cmdEdit.Text = "&Sửa(Ctrl+E)";
+            this.cmdEdit.Text = "Sửa(Ctrl+E)";
             // 
             // toolStripSeparator2
             // 
@@ -127,7 +127,7 @@
             this.cmdDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdDelete.Name = "cmdDelete";
             this.cmdDelete.Size = new System.Drawing.Size(107, 36);
-            this.cmdDelete.Text = "&Xoá(Ctrl+D)";
+            this.cmdDelete.Text = "Xoá(Ctrl+D)";
             // 
             // toolStripSeparator4
             // 
@@ -143,6 +143,7 @@
             this.cmdPrint.Name = "cmdPrint";
             this.cmdPrint.Size = new System.Drawing.Size(135, 36);
             this.cmdPrint.Text = "&In danh sách(F4)";
+            this.cmdPrint.Visible = false;
             this.cmdPrint.Click += new System.EventHandler(this.cmdPrint_Click);
             // 
             // toolStripButton1
@@ -161,7 +162,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 39);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1022, 557);
+            this.panel1.Size = new System.Drawing.Size(1008, 691);
             this.panel1.TabIndex = 3;
             // 
             // tabControl1
@@ -171,7 +172,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1022, 557);
+            this.tabControl1.Size = new System.Drawing.Size(1008, 691);
             this.tabControl1.TabIndex = 4;
             // 
             // tabPage1
@@ -181,7 +182,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1014, 531);
+            this.tabPage1.Size = new System.Drawing.Size(1000, 665);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "THÔNG TIN CẤP TRÊN (KHOA)";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -193,7 +194,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1008, 525);
+            this.panel2.Size = new System.Drawing.Size(994, 659);
             this.panel2.TabIndex = 1;
             // 
             // grpKhoaPhong
@@ -203,7 +204,7 @@
             this.grpKhoaPhong.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpKhoaPhong.Location = new System.Drawing.Point(0, 0);
             this.grpKhoaPhong.Name = "grpKhoaPhong";
-            this.grpKhoaPhong.Size = new System.Drawing.Size(1008, 502);
+            this.grpKhoaPhong.Size = new System.Drawing.Size(994, 636);
             this.grpKhoaPhong.TabIndex = 29;
             this.grpKhoaPhong.Text = "&Thông tin khoa phòng";
             // 
@@ -211,7 +212,7 @@
             // 
             this.grdPhongBan.AlternatingColors = true;
             this.grdPhongBan.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
-                " thông tin khoa phòng</FilterRowInfoText></LocalizableData>";
+    " thông tin khoa phòng</FilterRowInfoText></LocalizableData>";
             grdPhongBan_DesignTimeLayout.LayoutString = resources.GetString("grdPhongBan_DesignTimeLayout.LayoutString");
             this.grdPhongBan.DesignTimeLayout = grdPhongBan_DesignTimeLayout;
             this.grdPhongBan.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -227,14 +228,14 @@
             this.grdPhongBan.Name = "grdPhongBan";
             this.grdPhongBan.RecordNavigator = true;
             this.grdPhongBan.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdPhongBan.Size = new System.Drawing.Size(1002, 483);
+            this.grdPhongBan.Size = new System.Drawing.Size(988, 617);
             this.grdPhongBan.TabIndex = 31;
             this.grdPhongBan.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // uiStatusBar2
             // 
             this.uiStatusBar2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiStatusBar2.Location = new System.Drawing.Point(0, 502);
+            this.uiStatusBar2.Location = new System.Drawing.Point(0, 636);
             this.uiStatusBar2.Name = "uiStatusBar2";
             uiStatusBarPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
             uiStatusBarPanel1.BorderColor = System.Drawing.Color.Empty;
@@ -265,7 +266,7 @@
             uiStatusBarPanel2,
             uiStatusBarPanel3,
             uiStatusBarPanel4});
-            this.uiStatusBar2.Size = new System.Drawing.Size(1008, 23);
+            this.uiStatusBar2.Size = new System.Drawing.Size(994, 23);
             this.uiStatusBar2.TabIndex = 28;
             this.uiStatusBar2.VisualStyle = Janus.Windows.UI.VisualStyle.OfficeXP;
             // 
@@ -351,7 +352,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1022, 596);
+            this.ClientSize = new System.Drawing.Size(1008, 730);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.sysColor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -359,6 +360,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frm_dmuc_phongban";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thông tin khoa phòng";
