@@ -44,6 +44,7 @@ namespace VNS.HIS.UCs
 
         public object MyID { get; set; }
         public string MyCode { get; set; }
+        public string MyText { get; set; }
         #endregion Fields
 
         #region Constructors
@@ -66,6 +67,7 @@ namespace VNS.HIS.UCs
             splitCharIDAndCode = '#';
             MyID = DefaultID;
             MyCode = DefaultCode;
+            MyText = "";
             CompareNoID = true;
             TakeCode = false;
             FillValueAfterSelect = false;
@@ -321,7 +323,7 @@ namespace VNS.HIS.UCs
                 if (dtData == null) return;
                 if (!dtData.Columns.Contains("ShortCut"))
                     dtData.Columns.Add(new DataColumn("ShortCut", typeof(string)));
-                foreach (DataRow dr in dtData.Rows)
+                foreach (DataRowView dr in dtData.DefaultView)
                 {
                     string shortcut = "";
                     string realName = dr[lstIdCodeName[2]].ToString().Trim() + " " +
@@ -370,7 +372,7 @@ namespace VNS.HIS.UCs
                 if (dtData == null) return;
                 if (!dtData.Columns.Contains("ShortCut"))
                     dtData.Columns.Add(new DataColumn("ShortCut", typeof(string)));
-                foreach (DataRow dr in dtData.Rows)
+                foreach (DataRowView dr in dtData.DefaultView)
                 {
                     string shortcut = "";
                     string realName = dr["TEN"].ToString().Trim() + " " +
@@ -475,6 +477,7 @@ namespace VNS.HIS.UCs
                     if (txtMyName_Edit != null)
                         txtMyName_Edit.Text = lst2[1];
                     MyCode = lst2[0];
+                    MyText = lst2[1]; 
                     if (TakeCode)
                         _Text = MyCode;
                     else
@@ -643,6 +646,7 @@ namespace VNS.HIS.UCs
                         txtMyCode_Edit.Text = arrValues[1];
                     MyID = arrValues[0];
                     MyCode = arrValues[1];
+                    MyText = listBox.SelectedItem.ToString(); 
                     if (txtMyName != null)
                         txtMyName.Text = listBox.SelectedItem.ToString();
                     if (txtMyName_Edit != null)
@@ -726,6 +730,7 @@ namespace VNS.HIS.UCs
                             txtMyCode_Edit.Text = arrValues[1];
                         MyID = arrValues[0];
                         MyCode = arrValues[1];
+                        MyText = listBox.SelectedItem.ToString();
                         if (txtMyName != null)
                             txtMyName.Text = listBox.SelectedItem.ToString();
                         if (txtMyName_Edit != null)
@@ -828,6 +833,7 @@ namespace VNS.HIS.UCs
                 txtMyCode_Edit.Text = DefaultCode;
             MyID = DefaultID;
             MyCode = DefaultCode;
+            MyText = "";
         }
         // This is a timecritical part
         // Fills/ refreshed the CurrentAutoCompleteList with appropreate candidates

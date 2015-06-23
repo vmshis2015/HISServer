@@ -150,12 +150,24 @@ namespace VNS.HIS.UCs
             oldText = this.Text;
             ToolStripMenuItem _item = new ToolStripMenuItem("Cấu hình danh mục");
             ToolStripMenuItem _itemSaveas = new ToolStripMenuItem("Lưu thành");
+            ToolStripMenuItem _itemRefresh = new ToolStripMenuItem("Refresh");
             _item.Click += new EventHandler(_item_Click);
             _itemSaveas.Click += new EventHandler(_itemSaveas_Click);
+            _itemRefresh.Click += _itemRefresh_Click;
             ctx.Items.Add(_item);
             
             ctx.Items.Add(_itemSaveas);
+            ctx.Items.Add(_itemRefresh);
             this.ContextMenuStrip = ctx;
+            bool _Visible = globalVariables.IsAdmin;
+            if (!_Visible)
+                _Visible = globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenThemdanhmucdungchung);
+            _item.Visible = _itemSaveas.Visible = _Visible;
+        }
+
+        void _itemRefresh_Click(object sender, EventArgs e)
+        {
+            Init();
         }
 
         void _itemSaveas_Click(object sender, EventArgs e)
@@ -348,6 +360,12 @@ namespace VNS.HIS.UCs
             DataRow[] arrDr = m_dtDanhmucChung.Select("MA='" + code + "'");
             if (arrDr.Length > 0)
                 _Text = arrDr[0]["TEN"].ToString();
+            else
+            {
+                this._Text = "";
+                setDefaultValue();
+            }
+
         }
         DataTable m_dtDanhmucChung = null;
      

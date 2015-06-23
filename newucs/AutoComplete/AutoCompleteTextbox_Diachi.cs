@@ -519,6 +519,8 @@ namespace VNS.HIS.UCs
         }
         private void buildData(string TenTp)
         {
+            if (Utility.DoTrim(TenTp) != "")
+                TenTp = TenTp.TrimStart();//Tránh trường hợp nhập " hn" hệ thống không tìm được dữ liệu
             TenTp = TenTp.Replace("'", "");
             string _rowFilter = "1=1";
             if (TenTp == "")// || TenTp.Length > 6)
