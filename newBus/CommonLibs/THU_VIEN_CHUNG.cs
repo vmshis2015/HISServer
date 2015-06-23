@@ -575,7 +575,17 @@ namespace VNS.Libs
         }
         public static DataTable LaydanhsachKhoanoitruTheoBacsi(string username, byte isAdmin,byte noitru)
         {
-            return SPs.DmucLaydanhsachCackhoaKCBtheoBacsi(username, isAdmin, noitru).GetDataSet().Tables[0];
+            DataTable dtData=SPs.DmucLaydanhsachCackhoaKCBtheoBacsi(username, isAdmin, noitru).GetDataSet().Tables[0];
+            DataTable dtRevalue = dtData.Clone();
+            if (!Utility.Byte2Bool(isAdmin) && THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_NAPKHOANOITRU_THEOKHOADANGNHAP", "0", true) == "1")
+            {
+                DataRow[] arrDr = dtData.Select(DmucKhoaphong.Columns.IdKhoaphong + "=" + globalVariables.idKhoatheoMay.ToString());
+                if (arrDr.Length > 0)
+                    dtRevalue = arrDr.CopyToDataTable();
+            }
+            else
+                dtRevalue = dtData.Copy();
+            return dtRevalue;
         }
         public static DataTable DmucLaydanhsachCacphongkhamTheoBacsi(string UserName, short? Idkhoa, byte? IsAdmin, byte? Noitru)
         {
