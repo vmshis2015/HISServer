@@ -53,6 +53,7 @@ namespace CIS.CoreApp
                     Try2ExitApp();
                     return;
                 }
+
                 InitializeComponent();
                 lblUpdateVersion.Click += new EventHandler(lblUpdateVersion_Click);
                 lblDepartment.Click += new EventHandler(lblDepartment_Click);
@@ -69,6 +70,7 @@ namespace CIS.CoreApp
                 
                 lblCopyright.Click += new EventHandler(lblCopyright_Click);
                 InitLogs();
+                WS._AdminWS.Url = PropertyLib._ConfigProperties.WSURL;
                 if (PropertyLib._ConfigProperties.HIS_AppMode!=VNS.Libs.AppType.AppEnum.AppMode.Demo && PropertyLib._ConfigProperties.RunUnderWS)
                 {
                     string DataBaseServer = "";
