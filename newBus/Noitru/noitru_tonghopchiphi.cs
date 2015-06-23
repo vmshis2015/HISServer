@@ -21,7 +21,13 @@ namespace VNS.HIS.BusRule.Classes
         {
             log = LogManager.GetCurrentClassLogger();
         }
-        public static ActionResult TongHopChiPhi(KcbLuotkham objPatientExam)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objPatientExam"></param>
+        /// <param name="Khoanoitru_tonghop">true= Khoa nội trú tự chốt dữ liệu;fasle= Khoa tổng hợp chốt dữ liệu</param>
+        /// <returns></returns>
+        public static ActionResult TongHopChiPhi(KcbLuotkham objPatientExam,short idKhoanoitru, bool Khoanoitru_tonghop)
         {
 
             try
@@ -31,7 +37,6 @@ namespace VNS.HIS.BusRule.Classes
                 {
                     using (var sh = new SharedDbConnectionScope())
                     {
-
                         new Update(KcbLuotkham.Schema)
                         .Set(KcbLuotkham.Columns.TrangthaiNoitru).EqualTo(Utility.Int32Dbnull(objPatientExam.TrangthaiNoitru))
                         .Set(KcbLuotkham.Columns.TthaiThopNoitru).EqualTo(Utility.Int32Dbnull(objPatientExam.TthaiThopNoitru))
@@ -42,6 +47,7 @@ namespace VNS.HIS.BusRule.Classes
                         .IsEqualTo(Utility.Int32Dbnull(objPatientExam.IdBenhnhan))
                         .Execute();
 
+                        SPs.NoitruChotdulieuravien(objPatientExam.MaLuotkham, objPatientExam.IdBenhnhan, idKhoanoitru, Utility.Bool2byte(Khoanoitru_tonghop), (byte)(Utility.Byte2Bool(KcbLuotkham.Columns.TthaiThopNoitru) ? 1 : 0)).Execute();
                     }
                     scope.Complete();
                     return ActionResult.Success;
