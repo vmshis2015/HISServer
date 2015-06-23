@@ -2105,7 +2105,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                     else
                     {
                         if (PropertyLib._ThanhtoanProperties.Hoitruockhihuythanhtoan)
-                            if (Utility.AcceptQuestion(string.Format("Bạn có muốn hủy lần thanh toán với Mã thanh toán {0}", objPayment.IdThanhtoan.ToString()), "Thông báo", true))
+                            if (!Utility.AcceptQuestion(string.Format("Bạn có muốn hủy lần thanh toán với Mã thanh toán {0}", objPayment.IdThanhtoan.ToString()), "Thông báo", true))
                             {
                                 return;
                             }
