@@ -144,7 +144,6 @@ namespace VNS.HIS.UI.NGOAITRU
             txtPatient_Code.TextChanged+=new EventHandler(txtPatient_Code_TextChanged);
 
             grdList.ColumnButtonClick+=new ColumnActionEventHandler(grdList_ColumnButtonClick);
-            grdList.FormattingRow+=new RowLoadEventHandler(grdList_FormattingRow);
             grdList.KeyDown += new KeyEventHandler(grdList_KeyDown);
             grdList.SelectionChanged+=new EventHandler(grdList_SelectionChanged);
             grdList.DoubleClick += new EventHandler(grdList_DoubleClick);
@@ -1382,17 +1381,17 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 m_dtDoctorAssign = THU_VIEN_CHUNG.LaydanhsachBacsi(-1,0);
                 DataBinding.BindDataCombox(cboDoctorAssign, m_dtDoctorAssign, DmucNhanvien.Columns.IdNhanvien,
-                                           DmucNhanvien.Columns.TenNhanvien, "---Bác sỹ chỉ định---", true);
-                if (globalVariables.gv_intIDNhanvien <= 0)
+                                           DmucNhanvien.Columns.TenNhanvien, "---Bác sỹ khám---", true);
+                if (globalVariablesPrivate.objNhanvien==null)
                 {
                     if (cboDoctorAssign.Items.Count > 0)
                         cboDoctorAssign.SelectedIndex = 0;
                 }
                 else
                 {
-                    if (cboDoctorAssign.Items.Count > 0)
+                    if (cboDoctorAssign.Items.Count > 0 && globalVariablesPrivate.objNhanvien!=null)
                         cboDoctorAssign.SelectedIndex = Utility.GetSelectedIndex(cboDoctorAssign,
-                                                                                 globalVariables.gv_intIDNhanvien.ToString());
+                                                                                 globalVariablesPrivate.objNhanvien.IdNhanvien.ToString());
                 }
             }
             catch (Exception exception)
@@ -1630,7 +1629,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private void LoadPhongkhamngoaitru()
         {
             DataBinding.BindDataCombox(cboPhongKhamNgoaiTru,
-                                                 THU_VIEN_CHUNG.Laydanhsachcacphongthamkham(globalVariables.MA_KHOA_THIEN, globalVariables.MA_PHONG_THIEN),
+                                                 THU_VIEN_CHUNG.DmucLaydanhsachCacphongkhamTheoBacsi(globalVariables.UserName,globalVariables.idKhoatheoMay, Utility.Bool2byte(globalVariables.IsAdmin), (byte)0),
                                                  DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
                                                  "---Chọn phòng khám---", true);
            
@@ -5115,29 +5114,5 @@ namespace VNS.HIS.UI.NGOAITRU
             TimKiemKhoaNoiTru();
         }
 
-        private void grdList_FormattingRow(object sender, RowLoadEventArgs e)
-        {
-
-        }
-
-        private void frm_KCB_THAMKHAM_Load_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pnlKetluan_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void grdKetQua_FormattingRow(object sender, RowLoadEventArgs e)
-        {
-
-        }
-
-        private void tabDiagInfo_SelectedTabChanged_1(object sender, TabEventArgs e)
-        {
-
-        }
     }
 }

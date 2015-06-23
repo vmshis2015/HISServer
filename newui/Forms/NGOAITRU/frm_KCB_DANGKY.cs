@@ -1047,7 +1047,8 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             finally
             {
-                this.Text = "Đăng ký KCB -->Demo 5000";
+                if (PropertyLib._ConfigProperties.HIS_AppMode != VNS.Libs.AppType.AppEnum.AppMode.License)
+                    this.Text = "Đăng ký KCB -->Demo 1500";
                 SetActionStatus(); 
                 if (Nhieuhon2Manhinh())
                 {
@@ -2770,13 +2771,16 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-                KcbLuotkhamCollection lst = new Select().From(KcbLuotkham.Schema).ExecuteAsCollection<KcbLuotkhamCollection>();
-                return lst.Count >= 5000;
+                if (PropertyLib._ConfigProperties.HIS_AppMode != VNS.Libs.AppType.AppEnum.AppMode.License)
+                {
+                    KcbLuotkhamCollection lst = new Select().From(KcbLuotkham.Schema).ExecuteAsCollection<KcbLuotkhamCollection>();
+                    return lst.Count >= 1500;
+                }
+                return false;
             }
             catch(Exception ex)
             {
                 Utility.CatchException("isExceedData()-->",ex);
-
                 return true;
             }
         }
@@ -4594,7 +4598,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     else
                     {
                         if (PropertyLib._ThanhtoanProperties.Hoitruockhihuythanhtoan)
-                            if (Utility.AcceptQuestion(string.Format("Bạn có muốn hủy lần thanh toán với Mã thanh toán {0}", v_Payment_ID.ToString()), "Thông báo", true))
+                            if (!Utility.AcceptQuestion(string.Format("Bạn có muốn hủy lần thanh toán với Mã thanh toán {0}", v_Payment_ID.ToString()), "Thông báo", true))
                             {
                                 return;
                             }
@@ -4822,7 +4826,8 @@ namespace VNS.HIS.UI.NGOAITRU
             objPayment.MaLydoChietkhau = "";
             objPayment.NgayTao = globalVariables.SysDate;
             objPayment.NguoiTao = globalVariables.UserName;
-
+            objPayment.IpMaytao = globalVariables.gv_strIPAddress;
+            objPayment.TenMaytao = globalVariables.gv_strComputerName;
            
            
             return objPayment;

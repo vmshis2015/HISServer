@@ -987,7 +987,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     chitietArray[index].MaLuotkham = this.objLuotkham.MaLuotkham;
                     chitietArray[index].IdKho = new int?(Utility.Int32Dbnull(view[KcbDonthuocChitiet.Columns.IdKho], -1));
                     chitietArray[index].IdThuoc = Utility.Int16Dbnull(view[KcbDonthuocChitiet.Columns.IdThuoc], -1);
-                    chitietArray[index].TrangthaiThanhtoan = new int?(Utility.Int32Dbnull(view[KcbDonthuocChitiet.Columns.TrangthaiThanhtoan], 0));
+                    chitietArray[index].TrangthaiThanhtoan = Utility.ByteDbnull(view[KcbDonthuocChitiet.Columns.TrangthaiThanhtoan], 0);
                     chitietArray[index].SttIn = new short?(Utility.Int16Dbnull(view[KcbDonthuocChitiet.Columns.SttIn], 1));
                     chitietArray[index].TrangthaiHuy = 0;
                     chitietArray[index].IdThuockho = new long?(num2);
@@ -1740,7 +1740,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 IdKham = new long?((long)this.id_kham),
                 IdKho = new int?(Utility.Int32Dbnull(drv[KcbDonthuocChitiet.Columns.IdKho], -1)),
                 IdThuoc = Utility.Int16Dbnull(drv[KcbDonthuocChitiet.Columns.IdThuoc], -1),
-                TrangthaiThanhtoan = new int?(Utility.Int32Dbnull(drv[KcbDonthuocChitiet.Columns.TrangthaiThanhtoan], 0)),
+                TrangthaiThanhtoan = Utility.ByteDbnull(drv[KcbDonthuocChitiet.Columns.TrangthaiThanhtoan], 0),
                 SttIn = new short?(Utility.Int16Dbnull(drv[KcbDonthuocChitiet.Columns.SttIn], 1)),
                 TrangthaiHuy = 0,
                 IdThuockho = new long?((long)Utility.Int32Dbnull(drv[KcbDonthuocChitiet.Columns.IdThuockho], -1)),

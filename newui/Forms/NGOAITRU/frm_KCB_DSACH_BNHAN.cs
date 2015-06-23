@@ -1504,7 +1504,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             KcbLuotkham objLuotkham = CreatePatientExam();
             KcbThanhtoan objPayment = new KcbThanhtoan();
-            if(objLuotkham!=null)
+            if (objLuotkham != null)
             {
                 objPayment.IdThanhtoan = -1;
                 objPayment.MaLuotkham = Utility.sDbnull(objLuotkham.MaLuotkham);
@@ -1536,11 +1536,10 @@ namespace VNS.HIS.UI.NGOAITRU
                 objPayment.MaLydoChietkhau = "";
                 objPayment.NgayTao = globalVariables.SysDate;
                 objPayment.NguoiTao = globalVariables.UserName;
+                objPayment.IpMaytao = globalVariables.gv_strIPAddress;
+                objPayment.TenMaytao = globalVariables.gv_strComputerName;
 
-               
             }
-          
-           
             return objPayment;
         }
         KcbLuotkham objLuotkham = null;
@@ -1680,7 +1679,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     else
                     {
                         if (PropertyLib._ThanhtoanProperties.Hoitruockhihuythanhtoan)
-                            if (Utility.AcceptQuestion(string.Format("Bạn có muốn hủy lần thanh toán với Mã thanh toán {0}", v_Payment_ID.ToString()), "Thông báo", true))
+                            if (!Utility.AcceptQuestion(string.Format("Bạn có muốn hủy lần thanh toán với Mã thanh toán {0}", v_Payment_ID.ToString()), "Thông báo", true))
                             {
                                 return;
                             }

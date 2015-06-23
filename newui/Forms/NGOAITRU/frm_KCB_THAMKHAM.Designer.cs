@@ -1493,7 +1493,6 @@
             this.uiTabPage1});
             this.tabDiagInfo.TabStop = false;
             this.tabDiagInfo.VisualStyle = Janus.Windows.UI.Tab.TabVisualStyle.VS2005;
-            this.tabDiagInfo.SelectedTabChanged += new Janus.Windows.UI.Tab.TabEventHandler(this.tabDiagInfo_SelectedTabChanged_1);
             // 
             // tabPageChanDoan
             // 
@@ -1545,7 +1544,6 @@
             this.pnlKetluan.Name = "pnlKetluan";
             this.pnlKetluan.Size = new System.Drawing.Size(600, 543);
             this.pnlKetluan.TabIndex = 19;
-            this.pnlKetluan.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlKetluan_Paint);
             // 
             // lblBANgoaitru
             // 
@@ -3067,7 +3065,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thông tin thăm khám";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.frm_KCB_THAMKHAM_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.grpSearch)).EndInit();
             this.grpSearch.ResumeLayout(false);
             this.grpSearch.PerformLayout();
