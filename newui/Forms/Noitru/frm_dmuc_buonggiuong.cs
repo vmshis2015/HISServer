@@ -42,7 +42,12 @@ namespace VNS.HIS.UI.NOITRU
                     NoitruDmucGiuongbenh _obj = NoitruDmucGiuongbenh.FetchByID(Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdBed, NoitruDmucGiuongbenh.Columns.IdGiuong)));
                     _obj.MaGiuong = e.Column.DataMember.ToUpper() == NoitruDmucGiuongbenh.Columns.MaGiuong.ToUpper() ? e.Value.ToString() : Utility.sDbnull(Utility.GetValueFromGridColumn(grdBed, NoitruDmucGiuongbenh.Columns.MaGiuong), "");
                     _obj.TenGiuong = e.Column.DataMember.ToUpper() == NoitruDmucGiuongbenh.Columns.TenGiuong.ToUpper() ? e.Value.ToString() : Utility.sDbnull(Utility.GetValueFromGridColumn(grdBed, NoitruDmucGiuongbenh.Columns.TenGiuong), "");
-                    _obj.DonGia = e.Column.DataMember.ToUpper() == NoitruDmucGiuongbenh.Columns.DonGia.ToUpper() ? (decimal)e.Value : Utility.DecimaltoDbnull(Utility.GetValueFromGridColumn(grdBed, NoitruDmucGiuongbenh.Columns.DonGia), 0);
+                    _obj.GiaDichvu = e.Column.DataMember.ToUpper() == NoitruDmucGiuongbenh.Columns.GiaDichvu.ToUpper() ? (decimal)e.Value : Utility.DecimaltoDbnull(Utility.GetValueFromGridColumn(grdBed, NoitruDmucGiuongbenh.Columns.GiaDichvu), 0);
+                    _obj.GiaBhyt = e.Column.DataMember.ToUpper() == NoitruDmucGiuongbenh.Columns.GiaBhyt.ToUpper() ? (decimal)e.Value : Utility.DecimaltoDbnull(Utility.GetValueFromGridColumn(grdBed, NoitruDmucGiuongbenh.Columns.GiaBhyt), 0);
+                    _obj.GiaKhac = e.Column.DataMember.ToUpper() == NoitruDmucGiuongbenh.Columns.GiaKhac.ToUpper() ? (decimal)e.Value : Utility.DecimaltoDbnull(Utility.GetValueFromGridColumn(grdBed, NoitruDmucGiuongbenh.Columns.GiaKhac), 0);
+                    _obj.PhuthuDungtuyen = e.Column.DataMember.ToUpper() == NoitruDmucGiuongbenh.Columns.PhuthuDungtuyen.ToUpper() ? (decimal)e.Value : Utility.DecimaltoDbnull(Utility.GetValueFromGridColumn(grdBed, NoitruDmucGiuongbenh.Columns.PhuthuDungtuyen), 0);
+                    _obj.PhuthuTraituyen = e.Column.DataMember.ToUpper() == NoitruDmucGiuongbenh.Columns.PhuthuTraituyen.ToUpper() ? (decimal)e.Value : Utility.DecimaltoDbnull(Utility.GetValueFromGridColumn(grdBed, NoitruDmucGiuongbenh.Columns.PhuthuTraituyen), 0);
+
                     _obj.SonguoiToida = e.Column.DataMember.ToUpper() == NoitruDmucGiuongbenh.Columns.SonguoiToida.ToUpper() ? (byte)e.Value : Utility.Int16Dbnull(Utility.GetValueFromGridColumn(grdBed, NoitruDmucGiuongbenh.Columns.SonguoiToida), 1);
                     _obj.MotaThem = e.Column.DataMember.ToUpper() == NoitruDmucGiuongbenh.Columns.MotaThem.ToUpper() ? e.Value.ToString() : Utility.sDbnull(Utility.GetValueFromGridColumn(grdBed, NoitruDmucGiuongbenh.Columns.MotaThem), "");
                     _obj.TrangThai = e.Column.DataMember.ToUpper() == NoitruDmucGiuongbenh.Columns.TrangThai.ToUpper() ? (byte)e.Value : Utility.ByteDbnull(Utility.GetValueFromGridColumn(grdBed, NoitruDmucGiuongbenh.Columns.TrangThai), 1);
@@ -63,7 +68,6 @@ namespace VNS.HIS.UI.NOITRU
                     }
                     _obj.Save();
                 }
-
             }
             catch (Exception ex)
             {

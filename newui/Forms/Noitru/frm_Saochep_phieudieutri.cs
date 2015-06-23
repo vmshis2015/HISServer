@@ -426,6 +426,21 @@ namespace VNS.HIS.UI.NOITRU
         }
         private void BindNgayDieutri()
         {
+            //if (Utility.Int16Dbnull(cboKhoaHientai.SelectedValue, -1) < 0)
+            //{
+            //    Utility.ShowMsg("Bạn cần chọn khoa nội trú cần lập phiếu điều trị cho bệnh nhân", "Thông báo", MessageBoxIcon.Error);
+            //    cboKhoaHientai.Focus();
+            //    return;
+            //}
+            ////Kiểm tra có phải đang sao chép cho một khoa ở quá khứ hay không.Nếu đúng thì phải kiểm tra từng ngày tạo
+            //if (Utility.Int32Dbnull(objLuotkham.IdKhoanoitru, -1) != Utility.Int16Dbnull(cboKhoaHientai.SelectedValue, -1))
+            //{
+            //    NoitruPhanbuonggiuongCollection lstPhanbuonggiuong=new Select().From(NoitruPhanbuonggiuong.Schema)
+            //        .Where(NoitruPhanbuonggiuong.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+            //        .And(NoitruPhanbuonggiuong.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+            //        .And(NoitruPhanbuonggiuong.Columns.IdKhoanoitru).IsEqualTo(Utility.Int16Dbnull(cboKhoaHientai.SelectedValue, -1))
+            //        .ExecuteAsCollection<NoitruPhanbuonggiuongCollection>();
+            //}
             DateTime[] ngaythangRange = dtSaoChepNgay.SelectedDates;
           //  m_dtDanhsachNgaysaochep.Clone();
             foreach (var ngaythang in ngaythangRange)

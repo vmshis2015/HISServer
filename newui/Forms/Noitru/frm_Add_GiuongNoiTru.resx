@@ -117,27 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="errorProvider2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>263, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="cmdThemMoi.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="txtBuong.AutoCompleteList" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAANkE3LLaAgAAAqpJREFUWEft
-        l82LklEUxqdGqVZSUW37WLiRlv4P06aVDAjqiGig+MG4dB/+D0EWDYkK1b5VtVOcjYiO6Cg4Kn47+DV+
-        nu7zMjcGmqb76utA0IUHRV7P/fmcc+85bm1dsrRa7WOTyfTCaDTu/Em7u7s7XHhGp9M9vyzWSp95PJ7X
-        RLRgml+lOVuj0Wje7/fnR0dHjUAgEGQb3llp04tfstvtb9nGVy62Nw0GA2q321SpVOj4+JiazSaFw+Gv
-        LNaDdSBuOByO0N8AZrPZL4CTkxPKZDJ0eHhIAIvFYt8YwMNVIYQAFosFDYdD6nQ6VK1WKZvNUiKRoNPT
-        U4k9Eol8ZwCPVoEQAsAmZ2dn1Ov1qF6vUz6flxxAWviKRqOAkO2EMACvg1arReVymdLpNLGCpOVyKaUC
-        i6XjB4O4J8cJYQDuAmxvNBpUKpUol8tRKpWiZDIpqVarUTAY/MgAVKIQsgBQC+PxmLrdrpSKYrEoOYF0
-        xONxCaJQKJBer3+5EQC4ALvZfSDVA5zAqcCxhBsQUuR0Ot9sDIBDwAmkAxvCDdiPE4LTwgA+MQC1CISs
-        FFy8L5COyWQinQSA4IhCcMjtdgPg1kYBOAw2BAjSgl+P5fV6rw+Ag8ARfhz39/evH+Bievx+/3+Af8gB
-        Ng9I7RhFpIQQS1YR2mw2CQA9Xwkhls/nE08BB8BZVkIrA+BqVUKyLyKr1SqlAFeqEkIsWVcxB8BwoYRk
-        A+zt7YUw1aChKCHZAGazOYTq591s3Vf0g/N2LNYNAYDqR19XQtPpVB6AxWJ5p6QDuMxcLtdn4XnAYDC8
-        x5SLWV8J4Z8TK+wvogDbarXapNFoPjAdnL/i/apCjAOVSvWKAdwWmYhusofuMj1heqaQnrI495m2RQDw
-        DCDwMIR5fh3xGIj52/oJ+sGl9iQzAuUAAAAASUVORK5CYII=
+        AAEAAAD/////AQAAAAAAAAAMAgAAAJoBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u
+        ZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0sIG1zY29ybGliLCBWZXJzaW9u
+        PTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUB
+        AAAAMFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLlN0cmluZwMAAAAGX2l0
+        ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgCAAAACQMAAAAAAAAAAAAAABEDAAAAAAAAAAs=
 </value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="txtDonvitinh.AutoCompleteList" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAJoBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u
@@ -150,6 +141,7 @@
   <data name="grdQuanheGiuong_DesignTimeLayout.LayoutString" xml:space="preserve">
     <value>&lt;GridEXLayoutData&gt;&lt;RootTable&gt;&lt;Columns Collection="true" ElementName="Column"&gt;&lt;Column0 ID="CHON"&gt;&lt;Caption&gt;CHON&lt;/Caption&gt;&lt;BoundMode&gt;UnboundFetch&lt;/BoundMode&gt;&lt;ColumnType&gt;CheckBox&lt;/ColumnType&gt;&lt;DataMember&gt;CHON&lt;/DataMember&gt;&lt;Key&gt;CHON&lt;/Key&gt;&lt;Position&gt;0&lt;/Position&gt;&lt;Width&gt;20&lt;/Width&gt;&lt;ActAsSelector&gt;True&lt;/ActAsSelector&gt;&lt;/Column0&gt;&lt;Column1 ID="id_doituong_kcb"&gt;&lt;Caption&gt;id_doituong_kcb&lt;/Caption&gt;&lt;DataMember&gt;id_doituong_kcb&lt;/DataMember&gt;&lt;Key&gt;id_doituong_kcb&lt;/Key&gt;&lt;Position&gt;1&lt;/Position&gt;&lt;Visible&gt;False&lt;/Visible&gt;&lt;/Column1&gt;&lt;Column2 ID="ma_doituong_kcb"&gt;&lt;Caption&gt;Mã&lt;/Caption&gt;&lt;DataMember&gt;ma_doituong_kcb&lt;/DataMember&gt;&lt;Key&gt;ma_doituong_kcb&lt;/Key&gt;&lt;Position&gt;2&lt;/Position&gt;&lt;Width&gt;60&lt;/Width&gt;&lt;/Column2&gt;&lt;Column3 ID="ten_doituong_kcb"&gt;&lt;Caption&gt;Đối tượng&lt;/Caption&gt;&lt;DataMember&gt;ten_doituong_kcb&lt;/DataMember&gt;&lt;Key&gt;ten_doituong_kcb&lt;/Key&gt;&lt;Position&gt;3&lt;/Position&gt;&lt;Width&gt;138&lt;/Width&gt;&lt;/Column3&gt;&lt;Column4 ID="don_gia"&gt;&lt;Caption&gt;Đơn giá&lt;/Caption&gt;&lt;DataMember&gt;don_gia&lt;/DataMember&gt;&lt;Key&gt;don_gia&lt;/Key&gt;&lt;Position&gt;4&lt;/Position&gt;&lt;TextAlignment&gt;Far&lt;/TextAlignment&gt;&lt;Width&gt;156&lt;/Width&gt;&lt;/Column4&gt;&lt;Column5 ID="phuthu_dungtuyen"&gt;&lt;Caption&gt;Phụ thu đúng tuyến&lt;/Caption&gt;&lt;DataMember&gt;phuthu_dungtuyen&lt;/DataMember&gt;&lt;Key&gt;phuthu_dungtuyen&lt;/Key&gt;&lt;Position&gt;5&lt;/Position&gt;&lt;Width&gt;125&lt;/Width&gt;&lt;/Column5&gt;&lt;Column6 ID="phuthu_traituyen"&gt;&lt;Caption&gt;Phụ thu trái tuyến&lt;/Caption&gt;&lt;DataMember&gt;phuthu_traituyen&lt;/DataMember&gt;&lt;Key&gt;phuthu_traituyen&lt;/Key&gt;&lt;Position&gt;6&lt;/Position&gt;&lt;Width&gt;161&lt;/Width&gt;&lt;/Column6&gt;&lt;/Columns&gt;&lt;GroupCondition /&gt;&lt;/RootTable&gt;&lt;/GridEXLayoutData&gt;</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="cmdExit.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAANkE3LLaAgAAB9hJREFUWEfV
@@ -233,16 +225,21 @@
         RgAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>386, 17</value>
-  </metadata>
-  <metadata name="errorProvider3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>509, 17</value>
-  </metadata>
-  <metadata name="errorProvider4.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>639, 17</value>
-  </metadata>
-  <metadata name="errorProvider5.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>769, 17</value>
-  </metadata>
+  <data name="cmdThemMoi.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAANkE3LLaAgAAAqpJREFUWEft
+        l82LklEUxqdGqVZSUW37WLiRlv4P06aVDAjqiGig+MG4dB/+D0EWDYkK1b5VtVOcjYiO6Cg4Kn47+DV+
+        nu7zMjcGmqb76utA0IUHRV7P/fmcc+85bm1dsrRa7WOTyfTCaDTu/Em7u7s7XHhGp9M9vyzWSp95PJ7X
+        RLRgml+lOVuj0Wje7/fnR0dHjUAgEGQb3llp04tfstvtb9nGVy62Nw0GA2q321SpVOj4+JiazSaFw+Gv
+        LNaDdSBuOByO0N8AZrPZL4CTkxPKZDJ0eHhIAIvFYt8YwMNVIYQAFosFDYdD6nQ6VK1WKZvNUiKRoNPT
+        U4k9Eol8ZwCPVoEQAsAmZ2dn1Ov1qF6vUz6flxxAWviKRqOAkO2EMACvg1arReVymdLpNLGCpOVyKaUC
+        i6XjB4O4J8cJYQDuAmxvNBpUKpUol8tRKpWiZDIpqVarUTAY/MgAVKIQsgBQC+PxmLrdrpSKYrEoOYF0
+        xONxCaJQKJBer3+5EQC4ALvZfSDVA5zAqcCxhBsQUuR0Ot9sDIBDwAmkAxvCDdiPE4LTwgA+MQC1CISs
+        FFy8L5COyWQinQSA4IhCcMjtdgPg1kYBOAw2BAjSgl+P5fV6rw+Ag8ARfhz39/evH+Bievx+/3+Af8gB
+        Ng9I7RhFpIQQS1YR2mw2CQA9Xwkhls/nE08BB8BZVkIrA+BqVUKyLyKr1SqlAFeqEkIsWVcxB8BwoYRk
+        A+zt7YUw1aChKCHZAGazOYTq591s3Vf0g/N2LNYNAYDqR19XQtPpVB6AxWJ5p6QDuMxcLtdn4XnAYDC8
+        x5SLWV8J4Z8TK+wvogDbarXapNFoPjAdnL/i/apCjAOVSvWKAdwWmYhusofuMj1heqaQnrI495m2RQDw
+        DCDwMIR5fh3xGIj52/oJ+sGl9iQzAuUAAAAASUVORK5CYII=
+</value>
+  </data>
 </root>

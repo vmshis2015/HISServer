@@ -11,6 +11,7 @@ using VNS.HIS.DAL;
 using VNS.Properties;
 using VNS.HIS.BusRule.Classes;
 using SubSonic;
+using VNS.HIS.NGHIEPVU;
 
 
 namespace VNS.HIS.UI.NOITRU
@@ -34,8 +35,8 @@ namespace VNS.HIS.UI.NOITRU
             InitializeComponent();
             InitEvents();
             dtNgayChuyen.Value = globalVariables.SysDate;
-            txtGio.Value = DateTime.Now.Hour;
-            txtPhut.Value = DateTime.Now.Minute;
+            txtGio.Value = globalVariables.SysDate.Hour;
+            txtPhut.Value = globalVariables.SysDate.Minute;
             
             //cmdConfig.Visible = globalVariables.IsAdmin;
            
@@ -204,24 +205,28 @@ namespace VNS.HIS.UI.NOITRU
                         txtTuoi.Text = Utility.sDbnull(DateTime.Now.Year - objPatientInfo.NamSinh);
                         txtPatientSex.Text =objPatientInfo.GioiTinh;// Utility.Int32Dbnull(objPatientInfo.) == 0 ? "Nam" : "Nữ";
                     }
-                    NoitruPhanbuonggiuong objPatientDept = noitru_nhapvien.LaythongtinBuonggiuongHtai(objLuotkham);
-                    if (objPatientDept != null)
+                    NoitruPhanbuonggiuong objPhanbuonggiuong = noitru_nhapvien.LaythongtinBuonggiuongHtai(objLuotkham);
+                    if (objPhanbuonggiuong != null)
                     {
-                        dtNgayvao.Value = objPatientDept.NgayVaokhoa;
-                        txtPatientDept_ID.Text = Utility.sDbnull(objPatientDept.Id);
-                        NoitruDmucBuong objRoom = NoitruDmucBuong.FetchByID(objPatientDept.IdBuong);
+                        dtNgayvao.Value = objPhanbuonggiuong.NgayVaokhoa;
+                        txtPatientDept_ID.Text = Utility.sDbnull(objPhanbuonggiuong.Id);
+                        NoitruDmucBuong objRoom = NoitruDmucBuong.FetchByID(objPhanbuonggiuong.IdBuong);
                         if (objRoom != null)
                         {
                             txtSoPhong.Text = Utility.sDbnull(objRoom.TenBuong);
-                            txtSoPhong.Tag = Utility.sDbnull(objPatientDept.IdBuong);
+                            txtSoPhong.Tag = Utility.sDbnull(objPhanbuonggiuong.IdBuong);
                         }
-                        NoitruDmucGiuongbenh objNoitruDmucGiuongbenh = NoitruDmucGiuongbenh.FetchByID(objPatientDept.IdGiuong);
+                        NoitruDmucGiuongbenh objNoitruDmucGiuongbenh = NoitruDmucGiuongbenh.FetchByID(objPhanbuonggiuong.IdGiuong);
                         if (objNoitruDmucGiuongbenh != null)
                         {
                             txtSoGiuong.Text = Utility.sDbnull(objNoitruDmucGiuongbenh.TenGiuong);
-                            txtSoGiuong.Tag = Utility.sDbnull(objPatientDept.IdGiuong);
+                            txtSoGiuong.Tag = Utility.sDbnull(objPhanbuonggiuong.IdGiuong);
                         }
                     }
+                    DataTable dtGia = new dmucgiagiuong_busrule().dsGetList("-1").Tables[0];
+                    dtGia.DefaultView.Sort = NoitruGiabuonggiuong.Columns.SttHthi + "," + NoitruGiabuonggiuong.Columns.TenGia;
+                    txtGia.Init(dtGia, new System.Collections.Generic.List<string>() { NoitruGiabuonggiuong.Columns.IdGia, NoitruGiabuonggiuong.Columns.MaGia, NoitruGiabuonggiuong.Columns.TenGia });
+                    
                     m_dtDataRoom = THU_VIEN_CHUNG.NoitruTimkiembuongTheokhoa(Utility.Int32Dbnull(txtDepartment_ID.Text));
                     Utility.SetDataSourceForDataGridEx_Basic(grdBuong, m_dtDataRoom, true, true, "1=1", "sluong_giuong_trong desc,ten_buong");
                     if (grdBuong.DataSource != null)
@@ -300,6 +305,13 @@ namespace VNS.HIS.UI.NOITRU
                 // cboGiuong.Focus();
                 return false;
             }
+            if (Utility.Int32Dbnull(txtGia.MyID, -1) == -1)
+            {
+                Utility.SetMsg(lblMsg, "Bạn phải chọn giá buồng giường", true);
+                txtGia.Focus();
+                txtGia.SelectAll();
+                return false;
+            }
             DataTable dt = new noitru_nhapvien().NoitruKiemtraBuongGiuong((int)objLuotkham.IdKhoanoitru, Utility.Int16Dbnull(grdBuong.GetValue(NoitruDmucGiuongbenh.Columns.IdBuong)), Utility.Int16Dbnull(grdGiuong.GetValue(NoitruDmucGiuongbenh.Columns.IdGiuong)));
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -323,28 +335,28 @@ namespace VNS.HIS.UI.NOITRU
         /// </summary>
         private void PerformAction()
         {
-            NoitruPhanbuonggiuong objPatientDept = NoitruPhanbuonggiuong.FetchByID(Utility.Int32Dbnull(txtPatientDept_ID.Text));
-            if (objPatientDept != null)
+            NoitruPhanbuonggiuong objPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(Utility.Int32Dbnull(txtPatientDept_ID.Text));
+            if (objPhanbuonggiuong != null)
             {
                 if (Utility.AcceptQuestion("Bạn có muốn chuyển Buồng và giường không", "Thông báo", true))
                 {
                     var ngaychuyenkhoa = new DateTime(dtNgayChuyen.Value.Year, dtNgayChuyen.Value.Month,
                                                       dtNgayChuyen.Value.Day, Utility.Int32Dbnull(txtGio.Text),
                                                       Utility.Int32Dbnull(txtPhut.Text), 00);
-                    objPatientDept.SoLuong = Utility.Int32Dbnull(Utility.DecimaltoDbnull(txtSoluong.Text));
-                    objPatientDept.SoluongGio = Utility.Int32Dbnull(txtTotalHour.Text);
-                    objPatientDept.CachtinhSoluong = (byte)(chkAutoCal.Checked ? 0 : 1);
-                    ActionResult actionResult = new noitru_nhapvien().ChuyenGiuongDieuTri(objPatientDept,
+                    objPhanbuonggiuong.SoLuong = Utility.Int32Dbnull(Utility.DecimaltoDbnull(txtSoluong.Text));
+                    objPhanbuonggiuong.SoluongGio = Utility.Int32Dbnull(txtTotalHour.Text);
+                    objPhanbuonggiuong.CachtinhSoluong = (byte)(chkAutoCal.Checked ? 0 : 1);
+                    ActionResult actionResult = new noitru_nhapvien().ChuyenGiuongDieuTri(objPhanbuonggiuong,
                                                                                               objLuotkham,
                                                                                               ngaychuyenkhoa,
                                                                                               Utility.Int16Dbnull(
                                                                                                   grdBuong.GetValue(NoitruDmucBuong.Columns.IdBuong)),
                                                                                               Utility.Int16Dbnull(
-                                                                                                  grdGiuong.GetValue(NoitruDmucGiuongbenh.Columns.IdGiuong)));
+                                                                                                  grdGiuong.GetValue(NoitruDmucGiuongbenh.Columns.IdGiuong)), Utility.Int32Dbnull(txtGia.MyID, -1));
                     switch (actionResult)
                     {
                         case ActionResult.Success:
-                            txtPatientDept_ID.Text = Utility.sDbnull(objPatientDept.Id);
+                            txtPatientDept_ID.Text = Utility.sDbnull(objPhanbuonggiuong.Id);
                             Utility.SetMsg(lblMsg, "Bạn chuyển Buồng thành công", true);
                             // Utility.ShowMsg("Bạn chuyển Buồng thành công", "Thông báo", MessageBoxIcon.Information);
                             if (b_CallParent)

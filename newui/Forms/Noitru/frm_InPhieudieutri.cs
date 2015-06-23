@@ -284,20 +284,15 @@ namespace VNS.HIS.UI.NOITRU
             crpt.SetDataSource(dtPrint);
             objForm.mv_sReportFileName = Path.GetFileName(reportname);
             objForm.mv_sReportCode = "noitru_phieudieutri";
-
-
-
             Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
             Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
             Utility.SetParameterValue(crpt, "CurrentDate", Utility.FormatDateTime(ngayin));
-            // crpt.SetParameterValue("CurrentDate", Utility.FormatDateTime(BusinessHelper.GetSysDateTime()));
+            Utility.SetParameterValue(crpt,"sTitleReport", tieude);
             Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
 
             objForm.crptViewer.ReportSource = crpt;
             objForm.ShowDialog();
             objForm.Dispose();
-            crpt.Close();
-            crpt.Dispose();
 
         }
         private void cmdCauHinh_Click(object sender, EventArgs e)

@@ -191,11 +191,12 @@ namespace VNS.HIS.UI.NOITRU
                     NoitruPhieudieutri item = new Select().From(NoitruPhieudieutri.Schema)
                      .Where(NoitruPhieudieutri.NgayDieutriColumn).IsEqualTo(dtNgayLapPhieu.Value.Date)
                      .And(NoitruPhieudieutri.Columns.TthaiBosung).IsEqualTo(0)
+                     .And(NoitruPhieudieutri.Columns.IdKhoanoitru).IsEqualTo(Utility.Int32Dbnull(cboKhoaNoiTru.SelectedValue,-1))
                      .And(NoitruPhieudieutri.MaLuotkhamColumn).IsEqualTo(Utility.sDbnull(objLuotkham.MaLuotkham, ""))
                      .ExecuteSingle<NoitruPhieudieutri>();
                     if (item != null)
                     {
-                        Utility.ShowMsg("Đã tồn tại phiếu điều trị cho ngày: " + dtNgayLapPhieu.Value.ToString("dd/MM/yyyy") + ".\n Nếu bạn muốn nhập thêm phiếu bổ sung có thể check vào phiếu bổ sung \n Mời bạn nhập ngày khác");
+                        Utility.ShowMsg("Đã tồn tại phiếu điều trị chính cho tại khoa " + cboKhoaNoiTru.Text + " cho ngày: " + dtNgayLapPhieu.Value.ToString("dd/MM/yyyy") + ".\n Nếu bạn muốn nhập thêm phiếu bổ sung có thể check vào phiếu bổ sung \n Mời bạn nhập ngày khác");
                         dtNgayLapPhieu.Focus();
                         return false;
                     }
@@ -206,12 +207,13 @@ namespace VNS.HIS.UI.NOITRU
                     NoitruPhieudieutri item = new Select().From(NoitruPhieudieutri.Schema)
                                      .Where(NoitruPhieudieutri.NgayDieutriColumn).IsEqualTo(dtNgayLapPhieu.Value.Date)
                                      .And(NoitruPhieudieutri.IdPhieudieutriColumn).IsNotEqualTo(objPhieudieutri.IdPhieudieutri)
+                                     .And(NoitruPhieudieutri.Columns.IdKhoanoitru).IsEqualTo(Utility.Int32Dbnull(cboKhoaNoiTru.SelectedValue, -1))
                                      .And(NoitruPhieudieutri.Columns.TthaiBosung).IsEqualTo(0)
                                      .And(NoitruPhieudieutri.MaLuotkhamColumn).IsEqualTo(Utility.sDbnull(objLuotkham.MaLuotkham, ""))
                                      .ExecuteSingle<NoitruPhieudieutri>();
                     if (item != null)
                     {
-                        Utility.ShowMsg("Đã tồn tại phiếu điều trị chính cho ngày: " + dtNgayLapPhieu.Value.ToString("dd/MM/yyyy") + ".\nChú ý: Bạn không thể biến đổi từ một phiếu bổ sung thành một phiếu điều trị chính nếu phiếu chính đã tồn tại");
+                        Utility.ShowMsg("Đã tồn tại phiếu điều trị chính tại khoa "+cboKhoaNoiTru.Text+" cho ngày: " + dtNgayLapPhieu.Value.ToString("dd/MM/yyyy") + ".\nChú ý: Bạn không thể biến đổi từ một phiếu bổ sung thành một phiếu điều trị chính nếu phiếu chính đã tồn tại");
                         dtNgayLapPhieu.Focus();
                         return false;
                     }
@@ -287,6 +289,8 @@ namespace VNS.HIS.UI.NOITRU
             objPhieudieutri.MaLuotkham = Utility.sDbnull(objLuotkham.MaLuotkham, "");
             objPhieudieutri.IdKhoanoitru = objBuongGiuong.IdKhoanoitru;
             objPhieudieutri.IdBuongGiuong =objBuongGiuong!=null? Utility.Int32Dbnull(objBuongGiuong.Id):-1;
+            objPhieudieutri.IdBuong = objBuongGiuong != null ? Utility.Int32Dbnull(objBuongGiuong.IdBuong) : -1;
+            objPhieudieutri.IdGiuong = objBuongGiuong != null ? Utility.Int32Dbnull(objBuongGiuong.IdGiuong) : -1;
             objPhieudieutri.IdBenhnhan = Utility.Int32Dbnull(objLuotkham.IdBenhnhan, -1);
             objPhieudieutri.IdBuong = objLuotkham.IdBuong;
             objPhieudieutri.IdGiuong = objLuotkham.IdGiuong;
@@ -471,18 +475,17 @@ namespace VNS.HIS.UI.NOITRU
             objPhieudieutri.Thu = Utility.ConvertDayVietnamese(dtNgayLapPhieu.Value.DayOfWeek.ToString());
             objPhieudieutri.MaLuotkham = Utility.sDbnull(objLuotkham.MaLuotkham, "");
             objPhieudieutri.IdBuongGiuong = objBuongGiuong != null ? Utility.Int32Dbnull(objBuongGiuong.Id) : -1;
+            objPhieudieutri.IdBuong = objBuongGiuong != null ? Utility.Int32Dbnull(objBuongGiuong.IdBuong) : -1;
+            objPhieudieutri.IdGiuong = objBuongGiuong != null ? Utility.Int32Dbnull(objBuongGiuong.IdGiuong) : -1;
             objPhieudieutri.IdKhoanoitru = objBuongGiuong.IdKhoanoitru;
             objPhieudieutri.IdBenhnhan = Utility.Int32Dbnull(objLuotkham.IdBenhnhan, -1);
             objPhieudieutri.TthaiBosung =Utility.Bool2byte( chkPhieuBoSung.Checked);
-            objPhieudieutri.IdBuong = objLuotkham.IdBuong;
-            objPhieudieutri.IdGiuong = objLuotkham.IdGiuong;
             if (cboBacSy.SelectedIndex > 0)
                 objPhieudieutri.IdBacsi = Utility.Int16Dbnull(cboBacSy.SelectedValue);
             else
             {
                 objPhieudieutri.IdBacsi = globalVariables.gv_intIDNhanvien;
             }
-            // objPhieudieutri.IdBacsi = Utility.GetSelectedIndex(cboBacSy, Utility.sDbnull(objPhieudieutri.IdBacsi, -1));
             ActionResult actionResult = new noitru_phieudieutri().ThemPhieudieutri(objPhieudieutri);
             switch (actionResult)
             {

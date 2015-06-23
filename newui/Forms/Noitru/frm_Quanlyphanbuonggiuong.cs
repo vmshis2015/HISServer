@@ -18,7 +18,7 @@ namespace VNS.HIS.UI.NOITRU
     {
         private DataTable m_dtTimKiembenhNhan=new DataTable();
         public TrangthaiNoitru _TrangthaiNoitru = TrangthaiNoitru.NoiTru;
-
+        DataTable m_dtKhoanoitru = null;
         public frm_Quanlyphanbuonggiuong()
         {
             InitializeComponent();
@@ -48,29 +48,15 @@ namespace VNS.HIS.UI.NOITRU
             ModifyCommand();
             
         }
-        private DataTable m_dtKhoaNoiTru=new DataTable();
         /// <summary>
         /// hàm thực hiện việc lấy thông tin khoa nội trú
         /// </summary>
         private void InitData()
         {
-            m_dtKhoaNoiTru = THU_VIEN_CHUNG.Laydanhmuckhoa("NOI",0);
-            DataBinding.BindDataCombobox(cboKhoaChuyenDen, m_dtKhoaNoiTru,
-                                       DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,"",true);
-            string _rowFilter = "1=1";
-            
-                if (PropertyLib._NoitruProperties.HienthiKhoatheonguoidung)
-                {
-                    if (!globalVariables.IsAdmin)
-                    {
-                        _rowFilter = string.Format("{0}={1}", DmucKhoaphong.Columns.IdKhoaphong, globalVariables.IdKhoaNhanvien);
-                    }
-                }
-               
-           
-           
-            m_dtKhoaNoiTru.DefaultView.RowFilter = _rowFilter;
-            m_dtKhoaNoiTru.AcceptChanges();
+            m_dtKhoanoitru= THU_VIEN_CHUNG.LaydanhsachKhoanoitruTheoBacsi(globalVariables.UserName, Utility.Bool2byte(globalVariables.IsAdmin), (byte)1);
+            DataBinding.BindDataCombobox(cboKhoaChuyenDen, m_dtKhoanoitru,
+                                                 DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
+                                                 "---Chọn khoa nội trú---", false,false);
 
         }
         /// <summary>
@@ -97,19 +83,19 @@ namespace VNS.HIS.UI.NOITRU
         private string _rowFilter = "1=1";
         private void TimKiemThongTin()
         {
-            m_dtTimKiembenhNhan =SPs.NoitruTimkiembenhnhan(Utility.Int32Dbnull(cboKhoaChuyenDen.SelectedValue),
+            if (cboKhoaChuyenDen.Items.Count <= 0)
+            {
+                Utility.ShowMsg("Người dùng đang sử dụng chưa được gắn với khoa nội trú nào nên không thể tìm kiếm. Đề nghị kiểm tra lại");
+                return;
+            }
+            m_dtTimKiembenhNhan =SPs.NoitruTimkiembenhnhan(Utility.Int32Dbnull(cboKhoaChuyenDen.SelectedValue,-1),
                                                 txtPatientCode.Text, 1,
                                                 chkByDate.Checked ? dtFromDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
                                                 chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
                                                 string.Empty, (int?) _TrangthaiNoitru,-1,0).
                     GetDataSet().Tables[0];
-           
-                if (PropertyLib._NoitruProperties.HienthiKhoatheonguoidung)
-                {
-                    _rowFilter = string.Format("{0}={1}", NoitruPhanbuonggiuong.Columns.IdKhoanoitru,
-                        Utility.Int32Dbnull(cboKhoaChuyenDen.SelectedValue));
-                }
-            Utility.SetDataSourceForDataGridEx(grdList, m_dtTimKiembenhNhan, true, true, _rowFilter, "");
+                if (m_dtBuongGiuong != null) m_dtBuongGiuong.Clear();
+            Utility.SetDataSourceForDataGridEx(grdList, m_dtTimKiembenhNhan, true, true, "1=1", "");
             ModifyCommand();
         }
 
@@ -169,58 +155,93 @@ namespace VNS.HIS.UI.NOITRU
 
         }
 
-        private bool inValiChuyenKhoa()
+        private bool isValidData_ChuyenKhoa()
         {
            string  MaLuotkham = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
            int IdBenhnhan = Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
-           KcbLuotkham _KcbLuotkham = new Select().From<KcbLuotkham>()
-                .Where(KcbLuotkham.Columns.MaLuotkham)
-                .IsEqualTo(MaLuotkham)
-                .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(IdBenhnhan).ExecuteSingle<KcbLuotkham>();
-            if (_KcbLuotkham!=null && Utility.Int32Dbnull(_KcbLuotkham.IdKhoanoitru,-1)<0)
-            {
-                Utility.ShowMsg("Bệnh nhân chưa vào viện, Bạn không thể thực hiện chức năng chuyển khoa","Thông báo",MessageBoxIcon.Warning);
-                grdList.Focus();
-                return false;
-            }
+           KcbLuotkham _KcbLuotkham = Utility.getKcbLuotkham(IdBenhnhan, MaLuotkham);
+           if (_KcbLuotkham ==null)
+           {
+               Utility.ShowMsg("Không lấy được thông tin Bệnh nhân. Đề nghị bạn cần chọn ít nhất 1 Bệnh nhân trên lưới");
+               grdList.Focus();
+               return false;
+           }
+           if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) <= 0)
+           {
+               Utility.ShowMsg("Bệnh nhân chưa vào viện, Bạn không thể thực hiện chức năng chuyển khoa", "Thông báo", MessageBoxIcon.Warning);
+               grdList.Focus();
+               return false;
+           }
+           if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) >=4)
+           {
+               Utility.ShowMsg("Bệnh nhân đã tổng hợp ra viện nên không thể chuyển khoa. Đề nghị bạn kiểm tra lại");
+               grdList.Focus();
+               return false;
+           }
             return true;
         }
-        private bool inValiChuyenPhongGiuong()
+        private bool isValidData_ChuyenGiuong()
         {
             string MaLuotkham = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
             int IdBenhnhan = Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
-             KcbLuotkham _KcbLuotkham = new Select().From<KcbLuotkham>()
-                .Where(KcbLuotkham.Columns.MaLuotkham)
-                .IsEqualTo(MaLuotkham)
-                .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(IdBenhnhan).ExecuteSingle<KcbLuotkham>();
-              if (_KcbLuotkham!=null && Utility.Int32Dbnull(_KcbLuotkham.IdKhoanoitru,-1)<0)
+            KcbLuotkham _KcbLuotkham = Utility.getKcbLuotkham(IdBenhnhan, MaLuotkham);
+            if (_KcbLuotkham == null)
             {
-                Utility.ShowMsg("Bệnh nhân chưa phân buồng giường, Bạn không thể thực hiện chức năng chuyển khoa", "Thông báo", MessageBoxIcon.Warning);
+                Utility.ShowMsg("Không lấy được thông tin Bệnh nhân. Đề nghị bạn cần chọn ít nhất 1 Bệnh nhân trên lưới");
                 grdList.Focus();
                 return false;
             }
-              int id = Utility.Int32Dbnull(grdList.GetValue(NoitruPhanbuonggiuong.Columns.Id));
-              NoitruPhanbuonggiuong _NoitruPhanbuonggiuong = new Select().From<NoitruPhanbuonggiuong>()
-                  .Where(NoitruPhanbuonggiuong.Columns.Id).IsEqualTo(id).ExecuteSingle<NoitruPhanbuonggiuong>();
-            if (_NoitruPhanbuonggiuong!=null && Utility.Int32Dbnull(_NoitruPhanbuonggiuong.IdKhoanoitru,-1)<0)
+            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) <= 0)
             {
-                Utility.ShowMsg("Bệnh nhân chưa phân buồng giường, Bạn không thể thực hiện phân buồng giường", "Thông báo", MessageBoxIcon.Warning);
+                Utility.ShowMsg("Bệnh nhân chưa vào viện nên không thể chuyển giường", "Thông báo", MessageBoxIcon.Warning);
+                grdList.Focus();
+                return false;
+            }
+            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) >= 4)
+            {
+                Utility.ShowMsg("Bệnh nhân đã tổng hợp ra viện nên không thể chuyển khoa. Đề nghị bạn kiểm tra lại");
+                grdList.Focus();
+                return false;
+            }
+            int id = Utility.Int32Dbnull(grdList.GetValue(NoitruPhanbuonggiuong.Columns.Id));
+            NoitruPhanbuonggiuong _NoitruPhanbuonggiuong = new Select().From<NoitruPhanbuonggiuong>()
+                .Where(NoitruPhanbuonggiuong.Columns.Id).IsEqualTo(id).ExecuteSingle<NoitruPhanbuonggiuong>();
+            if (_NoitruPhanbuonggiuong != null && Utility.Int32Dbnull(_NoitruPhanbuonggiuong.IdBuong, -1) < 0)
+            {
+                Utility.ShowMsg("Bệnh nhân chưa phân buồng giường nên bạn không thể chuyển giường", "Thông báo", MessageBoxIcon.Warning);
                 grdList.Focus();
                 return false;
             }
             return true;
         }
        
-        private bool IsValiPhanPhongGiuong()
+        private bool isValidData_Phanbuonggiuong()
         {
             string MaLuotkham = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
             int IdBenhnhan = Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
-            KcbLuotkham _KcbLuotkham = new Select().From<KcbLuotkham>()
-                .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(MaLuotkham)
-                .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(IdBenhnhan).ExecuteSingle<KcbLuotkham>();
-            if (_KcbLuotkham != null && Utility.Int32Dbnull(_KcbLuotkham.IdKhoanoitru, -1) < 0)
+            int _IdKhoanoitru = Utility.Int32Dbnull(grdList.GetValue(NoitruPhanbuonggiuong.Columns.IdKhoanoitru));
+            KcbLuotkham _KcbLuotkham = Utility.getKcbLuotkham(IdBenhnhan, MaLuotkham);
+            if (_KcbLuotkham == null)
             {
-                Utility.ShowMsg("Bệnh nhân chưa nhập viện, Bạn không thể thực hiện phân buồng giường", "Thông báo", MessageBoxIcon.Warning);
+                Utility.ShowMsg("Không lấy được thông tin Bệnh nhân. Đề nghị bạn cần chọn ít nhất 1 Bệnh nhân trên lưới");
+                grdList.Focus();
+                return false;
+            }
+            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) <= 0)
+            {
+                Utility.ShowMsg("Bệnh nhân chưa vào viện nên không thể phân buồng giường", "Thông báo", MessageBoxIcon.Warning);
+                grdList.Focus();
+                return false;
+            }
+            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) >= 4)
+            {
+                Utility.ShowMsg("Bệnh nhân đã tổng hợp ra viện nên không thể chuyển khoa. Đề nghị bạn kiểm tra lại");
+                grdList.Focus();
+                return false;
+            }
+            if (m_dtKhoanoitru == null || m_dtKhoanoitru.Rows.Count <= 0 || m_dtKhoanoitru.Select(DmucKhoaphong.Columns.IdKhoaphong + "=" + _IdKhoanoitru.ToString()).Length <= 0)
+            {
+                Utility.ShowMsg("Bạn không được phân buồng giường cho Bệnh nhân của khoa khác. Đề nghị bạn kiểm tra lại");
                 grdList.Focus();
                 return false;
             }
@@ -245,7 +266,7 @@ namespace VNS.HIS.UI.NOITRU
         {
             try
             {
-                if(!inValiChuyenKhoa())return;
+                if(!isValidData_ChuyenKhoa())return;
                 frm_ChuyenKhoa frm = new frm_ChuyenKhoa();
                 frm.IDBuonggiuong = Utility.Int32Dbnull(grdList.GetValue(NoitruPhanbuonggiuong.Columns.Id));
                 frm.p_DanhSachPhanBuongGiuong = m_dtTimKiembenhNhan;
@@ -297,7 +318,7 @@ namespace VNS.HIS.UI.NOITRU
         {
             try
             {
-                if (!inValiChuyenPhongGiuong()) return;
+                if (!isValidData_ChuyenGiuong()) return;
                 frm_Chuyengiuong frm = new frm_Chuyengiuong();
                 frm.p_DanhSachPhanBuongGiuong = m_dtTimKiembenhNhan;
                 frm.b_CallParent = true;
@@ -333,7 +354,7 @@ namespace VNS.HIS.UI.NOITRU
         {
             try
             {
-                if (!IsValiPhanPhongGiuong()) return;
+                if (!isValidData_Phanbuonggiuong()) return;
                 int id = Utility.Int32Dbnull(grdList.GetValue(NoitruPhanbuonggiuong.Columns.Id));
                 NoitruPhanbuonggiuong objPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(id);
                 if (objPhanbuonggiuong != null)
@@ -361,11 +382,31 @@ namespace VNS.HIS.UI.NOITRU
                 //throw;
             }
         }
-        private bool IsValidHuyGiuong()
+        private bool isValidData_Huygiuong()
         {
             int id = Utility.Int32Dbnull(grdList.GetValue(NoitruPhanbuonggiuong.Columns.Id));
+            int _IdKhoanoitru = Utility.Int32Dbnull(grdList.GetValue(NoitruPhanbuonggiuong.Columns.IdKhoanoitru));
             string MaLuotkham = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
             int IdBenhnhan = Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
+            KcbLuotkham _KcbLuotkham = Utility.getKcbLuotkham(IdBenhnhan, MaLuotkham);
+            if (_KcbLuotkham == null)
+            {
+                Utility.ShowMsg("Không lấy được thông tin Bệnh nhân. Đề nghị bạn cần chọn ít nhất 1 Bệnh nhân trên lưới");
+                grdList.Focus();
+                return false;
+            }
+            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) >= 4)
+            {
+                Utility.ShowMsg("Bệnh nhân đã tổng hợp ra viện nên không thể Hủy giường. Đề nghị bạn kiểm tra lại");
+                grdList.Focus();
+                return false;
+            }
+            if (m_dtKhoanoitru == null || m_dtKhoanoitru.Rows.Count<=0 || m_dtKhoanoitru.Select(DmucKhoaphong.Columns.IdKhoaphong + "=" + _IdKhoanoitru.ToString()).Length <= 0)
+            {
+                Utility.ShowMsg("Bạn không được quyền hủy giường của khoa này. Đề nghị bạn kiểm tra lại");
+                grdList.Focus();
+                return false;
+            }
             NoitruPhieudieutri _NoitruPhieudieutri = new Select().From<NoitruPhieudieutri>()
                 .Where(NoitruPhieudieutri.Columns.IdBuongGiuong).IsEqualTo(id)
                 .And(NoitruPhieudieutri.Columns.MaLuotkham).IsEqualTo(MaLuotkham)
@@ -380,7 +421,7 @@ namespace VNS.HIS.UI.NOITRU
                 .Where(NoitruPhanbuonggiuong.Columns.Id).IsEqualTo(id).ExecuteSingle<NoitruPhanbuonggiuong>();
             if (_NoitruPhanbuonggiuong != null && Utility.Int32Dbnull(_NoitruPhanbuonggiuong.TrangThai, -1) == 1)
             {
-                Utility.ShowMsg("Bạn không được phép phân buồng giường cho trạng thái đã chuyển khoa hoặc chuyển buồng giường", "Thông báo", MessageBoxIcon.Warning);
+                Utility.ShowMsg("Bạn không được phép hủy giường cho trạng thái đã chuyển khoa hoặc chuyển buồng giường", "Thông báo", MessageBoxIcon.Warning);
                 grdList.Focus();
                 return false;
             }
@@ -393,8 +434,8 @@ namespace VNS.HIS.UI.NOITRU
         /// <param name="e"></param>
         private void cmdHuyphangiuong_Click(object sender, EventArgs e)
         {
-            if (!IsValidHuyGiuong()) return;
-            if (Utility.AcceptQuestion("Bạn có muốn hủy phần buồng giường cho bệnh nhân đang chọn không\n Nếu bạn chọn bệnh nhân sẽ ra khỏi giường","Thông báo", true))
+            if (!isValidData_Huygiuong()) return;
+            if (Utility.AcceptQuestion("Bạn có muốn hủy phần buồng giường cho bệnh nhân đang chọn không?","Thông báo", true))
             {
                 int id = Utility.Int32Dbnull(grdList.GetValue(NoitruPhanbuonggiuong.Columns.Id));
                 NoitruPhanbuonggiuong objPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(id);
@@ -462,8 +503,8 @@ namespace VNS.HIS.UI.NOITRU
         {
             try
             {
-
-                m_dtBuongGiuong = new KCB_THAMKHAM().NoitruTimkiemlichsuBuonggiuong(Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham)), Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan)));
+                //Lấy tất cả lịch sử buồng giường
+                m_dtBuongGiuong = new KCB_THAMKHAM().NoitruTimkiemlichsuBuonggiuong(Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham)), Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan)),"-1");
                 Utility.SetDataSourceForDataGridEx_Basic(grdBuongGiuong, m_dtBuongGiuong, false, true, "1=1", NoitruPhanbuonggiuong.Columns.NgayVaokhoa + " desc");
                 grdBuongGiuong.MoveFirst();
             }
@@ -551,11 +592,24 @@ namespace VNS.HIS.UI.NOITRU
             if(e.KeyCode==Keys.N&&e.Control)cmdThemMoiBN.PerformClick();
             if(e.KeyCode==Keys.U&&e.Control)cmdSuaThongTinBN.PerformClick();
         }
-        private bool IsValidHuyKhoanoitru()
+        private bool isValidData_HuyKhoa()
         {
             int id = Utility.Int32Dbnull(grdList.GetValue(NoitruPhanbuonggiuong.Columns.Id));
             string MaLuotkham = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
             int IdBenhnhan = Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
+            KcbLuotkham _KcbLuotkham = Utility.getKcbLuotkham(IdBenhnhan, MaLuotkham);
+            if (_KcbLuotkham == null)
+            {
+                Utility.ShowMsg("Không lấy được thông tin Bệnh nhân. Đề nghị bạn cần chọn ít nhất 1 Bệnh nhân trên lưới");
+                grdList.Focus();
+                return false;
+            }
+            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) >= 4)
+            {
+                Utility.ShowMsg("Bệnh nhân đã tổng hợp ra viện nên không thể Hủy chuyển khoa. Đề nghị bạn kiểm tra lại");
+                grdList.Focus();
+                return false;
+            }
             NoitruPhieudieutri _NoitruPhieudieutri = new Select().From<NoitruPhieudieutri>()
                 .Where(NoitruPhieudieutri.Columns.IdBuongGiuong).IsEqualTo(id)
                 .And(NoitruPhieudieutri.Columns.MaLuotkham).IsEqualTo(MaLuotkham)
@@ -570,7 +624,7 @@ namespace VNS.HIS.UI.NOITRU
                 .Where(NoitruPhanbuonggiuong.Columns.Id).IsEqualTo(id).ExecuteSingle<NoitruPhanbuonggiuong>();
             if (_NoitruPhanbuonggiuong != null && Utility.Int32Dbnull(_NoitruPhanbuonggiuong.TrangThai, -1) == 1)
             {
-                Utility.ShowMsg("Bạn không được phép phân buồng giường cho trạng thái đã chuyển khoa hoặc chuyển buồng giường", "Thông báo", MessageBoxIcon.Warning);
+                Utility.ShowMsg("Bạn không được phép hủy chuyển khoa cho trạng thái đã chuyển khoa hoặc chuyển buồng giường", "Thông báo", MessageBoxIcon.Warning);
                 grdList.Focus();
                 return false;
             }
@@ -578,7 +632,7 @@ namespace VNS.HIS.UI.NOITRU
         }
         private void cmdHuychuyenkhoa_Click(object sender, EventArgs e)
         {
-            if (!IsValidHuyKhoanoitru()) return;
+            if (!isValidData_HuyKhoa()) return;
             if (Utility.AcceptQuestion("Bạn có chắc chắn muốn hủy chuyển khoa nội trú. Sau khi hủy, Bệnh nhân sẽ quay về trạng thái khoa-buồng-giường trước đó", "Thông báo", true))
             {
                 int IdChuyen = -1;

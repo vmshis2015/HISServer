@@ -27,7 +27,7 @@ namespace VNS.HIS.UI.NOITRU
         private DataTable m_dtGiuong = new DataTable();
         private DataTable m_dtKhoaNoItru = new DataTable();
         private DataTable m_dtPhong = new DataTable();
-        private NoitruPhanbuonggiuong objPatientDept;
+        private NoitruPhanbuonggiuong objPhanbuonggiuong;
         private KcbLuotkham objPatientExam;
         public DataTable p_DanhSachPhanBuongGiuong = new DataTable();
 
@@ -35,8 +35,8 @@ namespace VNS.HIS.UI.NOITRU
         {
             InitializeComponent();
             dtNgayChuyen.Value = globalVariables.SysDate;
-            txtGio.Value = DateTime.Now.Hour;
-            txtPhut.Value = DateTime.Now.Minute;
+            txtGio.Value = globalVariables.SysDate.Hour;
+            txtPhut.Value = globalVariables.SysDate.AddMinutes(1).Minute;
             ClearControl();
             dtNgayvao.ValueChanged += new EventHandler(dtNgayvao_ValueChanged);
             CauHinh();
@@ -172,22 +172,22 @@ namespace VNS.HIS.UI.NOITRU
                         txtTuoi.Text = Utility.sDbnull(DateTime.Now.Year - objPatientInfo.NamSinh);
                         txtPatientSex.Text = objPatientInfo.GioiTinh;// Utility.Int32Dbnull(objPatientInfo.PatientSex) == 0 ? "Nam" : "Nữ";
                     }
-                    objPatientDept = NoitruPhanbuonggiuong.FetchByID(objPatientExam.IdRavien);
-                    dtNgayvao.Value = objPatientDept.NgayVaokhoa;
-                    if (objPatientDept != null)
+                    objPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(objPatientExam.IdRavien);
+                    dtNgayvao.Value = objPhanbuonggiuong.NgayVaokhoa;
+                    if (objPhanbuonggiuong != null)
                     {
-                        txtPatientDept_ID.Text = Utility.sDbnull(objPatientDept.Id);
-                        NoitruDmucBuong objRoom = NoitruDmucBuong.FetchByID(objPatientDept.IdBuong);
+                        txtPatientDept_ID.Text = Utility.sDbnull(objPhanbuonggiuong.Id);
+                        NoitruDmucBuong objRoom = NoitruDmucBuong.FetchByID(objPhanbuonggiuong.IdBuong);
                         if (objRoom != null)
                         {
                             txtSoPhong.Text = Utility.sDbnull(objRoom.TenBuong);
-                            txtSoPhong.Tag = Utility.sDbnull(objPatientDept.IdBuong);
+                            txtSoPhong.Tag = Utility.sDbnull(objPhanbuonggiuong.IdBuong);
                         }
-                        NoitruDmucGiuongbenh objNoitruDmucGiuongbenh = NoitruDmucGiuongbenh.FetchByID(objPatientDept.IdGiuong);
+                        NoitruDmucGiuongbenh objNoitruDmucGiuongbenh = NoitruDmucGiuongbenh.FetchByID(objPhanbuonggiuong.IdGiuong);
                         if (objNoitruDmucGiuongbenh != null)
                         {
                             txtSoGiuong.Text = Utility.sDbnull(objNoitruDmucGiuongbenh.TenGiuong);
-                            txtSoGiuong.Tag = Utility.sDbnull(objPatientDept.IdGiuong);
+                            txtSoGiuong.Tag = Utility.sDbnull(objPhanbuonggiuong.IdGiuong);
                         }
                     }
                 }
@@ -225,26 +225,25 @@ namespace VNS.HIS.UI.NOITRU
                 txtSoluong.SelectAll();
                 return false;
             }
-            
-
             return true;
         }
 
         private void PerformAction()
         {
-            NoitruPhanbuonggiuong objPatientDept = NoitruPhanbuonggiuong.FetchByID(Utility.Int32Dbnull(txtPatientDept_ID.Text));
+            NoitruPhanbuonggiuong objPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(Utility.Int32Dbnull(txtPatientDept_ID.Text));
 
-            if (objPatientDept != null)
+            if (objPhanbuonggiuong != null)
             {
                 if (Utility.AcceptQuestion(string.Format("Bạn có chắc chắn muốn chuyển khoa điều trị từ {0} đến {1} hay không?",txtDepartmentName.Text,txtKhoanoitru.Text), "Thông báo", true))
                 {
                     var ngaychuyenkhoa = new DateTime(dtNgayChuyen.Value.Year, dtNgayChuyen.Value.Month,
                                                       dtNgayChuyen.Value.Day, Utility.Int32Dbnull(txtGio.Text),
                                                       Utility.Int32Dbnull(txtPhut.Text), 00);
-                    objPatientDept.SoLuong = Utility.Int32Dbnull(Utility.DecimaltoDbnull(txtSoluong.Text));
-                    objPatientDept.SoluongGio = Utility.Int32Dbnull(Utility.DecimaltoDbnull(txtTotalHour.Text)); 
-                    objPatientDept.CachtinhSoluong = (byte)(chkAutoCal.Checked ? 0 : 1);
-                    ActionResult actionResult = new noitru_nhapvien().ChuyenKhoaDieuTri(objPatientDept,
+                    objPhanbuonggiuong.SoLuong = Utility.Int32Dbnull(Utility.DecimaltoDbnull(txtSoluong.Text));
+                    objPhanbuonggiuong.SoluongGio = Utility.Int32Dbnull(Utility.DecimaltoDbnull(txtTotalHour.Text)); 
+                    objPhanbuonggiuong.CachtinhSoluong = (byte)(chkAutoCal.Checked ? 0 : 1);
+                    
+                    ActionResult actionResult = new noitru_nhapvien().ChuyenKhoaDieuTri(objPhanbuonggiuong,
                                                                                             objPatientExam,
                                                                                             ngaychuyenkhoa,
                                                                                             Utility.Int16Dbnull(txtKhoanoitru.MyID, -1), -1,
@@ -252,7 +251,7 @@ namespace VNS.HIS.UI.NOITRU
                     switch (actionResult)
                     {
                         case ActionResult.Success:
-                            txtPatientDept_ID.Text = Utility.sDbnull(objPatientDept.Id);
+                            txtPatientDept_ID.Text = Utility.sDbnull(objPhanbuonggiuong.Id);
                             Utility.SetMsg(lblMsg, "Bạn chuyển phòng thành công", true);
                             if (b_CallParent)
                             {

@@ -29,9 +29,31 @@
         private void InitializeComponent()
         {
             Janus.Windows.GridEX.GridEXLayout grdBuong_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Chuyengiuong));
             Janus.Windows.GridEX.GridEXLayout grdGiuong_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Chuyengiuong));
             this.grpThongTinBN = new Janus.Windows.EditControls.UIGroupBox();
+            this.txtDepartment_ID = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txtPatientSex = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txtTuoi = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtNamSinh = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.txtMaLanKham = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.editBox1 = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtDepartmentName = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtSoGiuong = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtSoPhong = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.txtSoBHYT = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtPatient_Name = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtPatient_ID = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtPatientDept_ID = new Janus.Windows.GridEX.EditControls.EditBox();
             this.grpThongTinChuyenKhoa = new Janus.Windows.EditControls.UIGroupBox();
             this.label26 = new System.Windows.Forms.Label();
@@ -69,28 +91,8 @@
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
             this.cmdHelp = new Janus.Windows.EditControls.UIButton();
             this.lblMsg = new System.Windows.Forms.Label();
-            this.txtDepartment_ID = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txtPatientSex = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.txtTuoi = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.txtNamSinh = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.txtMaLanKham = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.editBox1 = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtDepartmentName = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtSoGiuong = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtSoPhong = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.txtSoBHYT = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtPatient_Name = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtPatient_ID = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.txtGia = new VNS.HIS.UCs.AutoCompleteTextbox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grpThongTinBN)).BeginInit();
             this.grpThongTinBN.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpThongTinChuyenKhoa)).BeginInit();
@@ -136,6 +138,216 @@
             this.grpThongTinBN.Text = "Thông tin bệnh nhân";
             this.grpThongTinBN.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.VS2005;
             // 
+            // txtDepartment_ID
+            // 
+            this.txtDepartment_ID.Location = new System.Drawing.Point(566, 19);
+            this.txtDepartment_ID.Name = "txtDepartment_ID";
+            this.txtDepartment_ID.ReadOnly = true;
+            this.txtDepartment_ID.Size = new System.Drawing.Size(10, 21);
+            this.txtDepartment_ID.TabIndex = 1;
+            this.txtDepartment_ID.TabStop = false;
+            this.txtDepartment_ID.Visible = false;
+            // 
+            // label18
+            // 
+            this.label18.Location = new System.Drawing.Point(467, 75);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(82, 15);
+            this.label18.TabIndex = 50;
+            this.label18.Text = "Giới tính";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPatientSex
+            // 
+            this.txtPatientSex.Location = new System.Drawing.Point(557, 73);
+            this.txtPatientSex.Name = "txtPatientSex";
+            this.txtPatientSex.ReadOnly = true;
+            this.txtPatientSex.Size = new System.Drawing.Size(174, 21);
+            this.txtPatientSex.TabIndex = 1;
+            this.txtPatientSex.TabStop = false;
+            // 
+            // label17
+            // 
+            this.label17.Location = new System.Drawing.Point(261, 75);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(59, 15);
+            this.label17.TabIndex = 49;
+            this.label17.Text = "Tuổi";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtTuoi
+            // 
+            this.txtTuoi.Location = new System.Drawing.Point(326, 73);
+            this.txtTuoi.Name = "txtTuoi";
+            this.txtTuoi.ReadOnly = true;
+            this.txtTuoi.Size = new System.Drawing.Size(135, 21);
+            this.txtTuoi.TabIndex = 1;
+            this.txtTuoi.TabStop = false;
+            // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(9, 75);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(111, 18);
+            this.label16.TabIndex = 48;
+            this.label16.Text = "Năm sinh";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtNamSinh
+            // 
+            this.txtNamSinh.Location = new System.Drawing.Point(126, 73);
+            this.txtNamSinh.Name = "txtNamSinh";
+            this.txtNamSinh.ReadOnly = true;
+            this.txtNamSinh.Size = new System.Drawing.Size(129, 21);
+            this.txtNamSinh.TabIndex = 1;
+            this.txtNamSinh.TabStop = false;
+            // 
+            // txtMaLanKham
+            // 
+            this.txtMaLanKham.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtMaLanKham.ButtonFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaLanKham.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+            this.txtMaLanKham.Location = new System.Drawing.Point(126, 20);
+            this.txtMaLanKham.Name = "txtMaLanKham";
+            this.txtMaLanKham.Size = new System.Drawing.Size(129, 21);
+            this.txtMaLanKham.TabIndex = 0;
+            // 
+            // label15
+            // 
+            this.label15.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.Navy;
+            this.label15.Location = new System.Drawing.Point(9, 23);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(111, 15);
+            this.label15.TabIndex = 47;
+            this.label15.Text = "Mã lượt khám";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // editBox1
+            // 
+            this.editBox1.Enabled = false;
+            this.editBox1.Location = new System.Drawing.Point(550, 19);
+            this.editBox1.Name = "editBox1";
+            this.editBox1.ReadOnly = true;
+            this.editBox1.Size = new System.Drawing.Size(10, 21);
+            this.editBox1.TabIndex = 1;
+            this.editBox1.TabStop = false;
+            this.editBox1.Visible = false;
+            // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(9, 101);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(111, 18);
+            this.label7.TabIndex = 46;
+            this.label7.Text = "Khoa điều trị";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtDepartmentName
+            // 
+            this.txtDepartmentName.ButtonFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDepartmentName.Location = new System.Drawing.Point(126, 102);
+            this.txtDepartmentName.Name = "txtDepartmentName";
+            this.txtDepartmentName.ReadOnly = true;
+            this.txtDepartmentName.Size = new System.Drawing.Size(605, 21);
+            this.txtDepartmentName.TabIndex = 1;
+            this.txtDepartmentName.TabStop = false;
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(467, 129);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(82, 15);
+            this.label6.TabIndex = 45;
+            this.label6.Text = "Giường";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtSoGiuong
+            // 
+            this.txtSoGiuong.ButtonFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSoGiuong.Location = new System.Drawing.Point(557, 128);
+            this.txtSoGiuong.Name = "txtSoGiuong";
+            this.txtSoGiuong.ReadOnly = true;
+            this.txtSoGiuong.Size = new System.Drawing.Size(174, 21);
+            this.txtSoGiuong.TabIndex = 1;
+            this.txtSoGiuong.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(9, 129);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(111, 18);
+            this.label5.TabIndex = 44;
+            this.label5.Text = "Buồng";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtSoPhong
+            // 
+            this.txtSoPhong.ButtonFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSoPhong.Location = new System.Drawing.Point(126, 128);
+            this.txtSoPhong.Name = "txtSoPhong";
+            this.txtSoPhong.ReadOnly = true;
+            this.txtSoPhong.Size = new System.Drawing.Size(335, 21);
+            this.txtSoPhong.TabIndex = 1;
+            this.txtSoPhong.TabStop = false;
+            // 
+            // txtSoBHYT
+            // 
+            this.txtSoBHYT.Location = new System.Drawing.Point(557, 45);
+            this.txtSoBHYT.Name = "txtSoBHYT";
+            this.txtSoBHYT.ReadOnly = true;
+            this.txtSoBHYT.Size = new System.Drawing.Size(174, 21);
+            this.txtSoBHYT.TabIndex = 1;
+            this.txtSoBHYT.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(467, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(82, 15);
+            this.label3.TabIndex = 43;
+            this.label3.Text = "Mã thẻ BHYT";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPatient_Name
+            // 
+            this.txtPatient_Name.Location = new System.Drawing.Point(126, 45);
+            this.txtPatient_Name.Name = "txtPatient_Name";
+            this.txtPatient_Name.ReadOnly = true;
+            this.txtPatient_Name.Size = new System.Drawing.Size(335, 21);
+            this.txtPatient_Name.TabIndex = 1;
+            this.txtPatient_Name.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(9, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(111, 18);
+            this.label2.TabIndex = 42;
+            this.label2.Text = "Họ và tên ";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPatient_ID
+            // 
+            this.txtPatient_ID.Location = new System.Drawing.Point(326, 20);
+            this.txtPatient_ID.Name = "txtPatient_ID";
+            this.txtPatient_ID.ReadOnly = true;
+            this.txtPatient_ID.Size = new System.Drawing.Size(135, 21);
+            this.txtPatient_ID.TabIndex = 1;
+            this.txtPatient_ID.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(261, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 18);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "Id BN";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // txtPatientDept_ID
             // 
             this.txtPatientDept_ID.Enabled = false;
@@ -146,6 +358,8 @@
             // 
             // grpThongTinChuyenKhoa
             // 
+            this.grpThongTinChuyenKhoa.Controls.Add(this.txtGia);
+            this.grpThongTinChuyenKhoa.Controls.Add(this.label4);
             this.grpThongTinChuyenKhoa.Controls.Add(this.label26);
             this.grpThongTinChuyenKhoa.Controls.Add(this.label25);
             this.grpThongTinChuyenKhoa.Controls.Add(this.label24);
@@ -378,9 +592,9 @@
             // 
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 133);
+            this.panel1.Location = new System.Drawing.Point(3, 161);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(766, 204);
+            this.panel1.Size = new System.Drawing.Size(766, 176);
             this.panel1.TabIndex = 478;
             // 
             // splitContainer1
@@ -396,7 +610,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.grdGiuong);
-            this.splitContainer1.Size = new System.Drawing.Size(766, 204);
+            this.splitContainer1.Size = new System.Drawing.Size(766, 176);
             this.splitContainer1.SplitterDistance = 387;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -416,7 +630,7 @@
             this.grdBuong.Location = new System.Drawing.Point(0, 0);
             this.grdBuong.Name = "grdBuong";
             this.grdBuong.RowHeaderContent = Janus.Windows.GridEX.RowHeaderContent.RowIndex;
-            this.grdBuong.Size = new System.Drawing.Size(387, 204);
+            this.grdBuong.Size = new System.Drawing.Size(387, 176);
             this.grdBuong.TabIndex = 9;
             this.grdBuong.TabStop = false;
             this.grdBuong.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
@@ -441,7 +655,7 @@
             this.grdGiuong.Location = new System.Drawing.Point(0, 0);
             this.grdGiuong.Name = "grdGiuong";
             this.grdGiuong.RowHeaderContent = Janus.Windows.GridEX.RowHeaderContent.RowIndex;
-            this.grdGiuong.Size = new System.Drawing.Size(375, 204);
+            this.grdGiuong.Size = new System.Drawing.Size(375, 176);
             this.grdGiuong.TabIndex = 10;
             this.grdGiuong.TabStop = false;
             this.grdGiuong.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
@@ -575,7 +789,7 @@
             this.cmdExit.Location = new System.Drawing.Point(673, 527);
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(102, 29);
-            this.cmdExit.TabIndex = 11;
+            this.cmdExit.TabIndex = 12;
             this.cmdExit.Text = "Thoát";
             // 
             // cmdSave
@@ -586,7 +800,7 @@
             this.cmdSave.Location = new System.Drawing.Point(562, 526);
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(102, 29);
-            this.cmdSave.TabIndex = 10;
+            this.cmdSave.TabIndex = 11;
             this.cmdSave.Text = "Đồng ý";
             this.cmdSave.VisualStyle = Janus.Windows.UI.VisualStyle.OfficeXP;
             // 
@@ -598,7 +812,7 @@
             this.cmdHelp.Location = new System.Drawing.Point(9, 526);
             this.cmdHelp.Name = "cmdHelp";
             this.cmdHelp.Size = new System.Drawing.Size(102, 29);
-            this.cmdHelp.TabIndex = 12;
+            this.cmdHelp.TabIndex = 13;
             this.cmdHelp.TabStop = false;
             this.cmdHelp.Text = "Trợ giúp";
             this.cmdHelp.Visible = false;
@@ -611,215 +825,55 @@
             this.lblMsg.TabIndex = 19;
             this.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // txtDepartment_ID
+            // txtGia
             // 
-            this.txtDepartment_ID.Location = new System.Drawing.Point(566, 19);
-            this.txtDepartment_ID.Name = "txtDepartment_ID";
-            this.txtDepartment_ID.ReadOnly = true;
-            this.txtDepartment_ID.Size = new System.Drawing.Size(10, 21);
-            this.txtDepartment_ID.TabIndex = 1;
-            this.txtDepartment_ID.TabStop = false;
-            this.txtDepartment_ID.Visible = false;
+            this.txtGia._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtGia._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGia._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtGia.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtGia.AutoCompleteList")));
+            this.txtGia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGia.CaseSensitive = false;
+            this.txtGia.CompareNoID = true;
+            this.txtGia.DefaultCode = "-1";
+            this.txtGia.DefaultID = "-1";
+            this.txtGia.Drug_ID = null;
+            this.txtGia.ExtraWidth = 0;
+            this.txtGia.FillValueAfterSelect = false;
+            this.txtGia.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGia.Location = new System.Drawing.Point(126, 130);
+            this.txtGia.MaxHeight = 289;
+            this.txtGia.MinTypedCharacters = 2;
+            this.txtGia.MyCode = "-1";
+            this.txtGia.MyID = "-1";
+            this.txtGia.Name = "txtGia";
+            this.txtGia.RaiseEvent = true;
+            this.txtGia.RaiseEventEnter = true;
+            this.txtGia.RaiseEventEnterWhenEmpty = true;
+            this.txtGia.SelectedIndex = -1;
+            this.txtGia.Size = new System.Drawing.Size(629, 21);
+            this.txtGia.splitChar = '@';
+            this.txtGia.splitCharIDAndCode = '#';
+            this.txtGia.TabIndex = 10;
+            this.txtGia.TakeCode = false;
+            this.txtGia.txtMyCode = null;
+            this.txtGia.txtMyCode_Edit = null;
+            this.txtGia.txtMyID = null;
+            this.txtGia.txtMyID_Edit = null;
+            this.txtGia.txtMyName = null;
+            this.txtGia.txtMyName_Edit = null;
+            this.txtGia.txtNext = null;
             // 
-            // label18
+            // label4
             // 
-            this.label18.Location = new System.Drawing.Point(467, 75);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(82, 15);
-            this.label18.TabIndex = 50;
-            this.label18.Text = "Giới tính";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtPatientSex
-            // 
-            this.txtPatientSex.Location = new System.Drawing.Point(557, 73);
-            this.txtPatientSex.Name = "txtPatientSex";
-            this.txtPatientSex.ReadOnly = true;
-            this.txtPatientSex.Size = new System.Drawing.Size(174, 21);
-            this.txtPatientSex.TabIndex = 1;
-            this.txtPatientSex.TabStop = false;
-            // 
-            // label17
-            // 
-            this.label17.Location = new System.Drawing.Point(261, 75);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(59, 15);
-            this.label17.TabIndex = 49;
-            this.label17.Text = "Tuổi";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtTuoi
-            // 
-            this.txtTuoi.Location = new System.Drawing.Point(326, 73);
-            this.txtTuoi.Name = "txtTuoi";
-            this.txtTuoi.ReadOnly = true;
-            this.txtTuoi.Size = new System.Drawing.Size(135, 21);
-            this.txtTuoi.TabIndex = 1;
-            this.txtTuoi.TabStop = false;
-            // 
-            // label16
-            // 
-            this.label16.Location = new System.Drawing.Point(9, 75);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(111, 18);
-            this.label16.TabIndex = 48;
-            this.label16.Text = "Năm sinh";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtNamSinh
-            // 
-            this.txtNamSinh.Location = new System.Drawing.Point(126, 73);
-            this.txtNamSinh.Name = "txtNamSinh";
-            this.txtNamSinh.ReadOnly = true;
-            this.txtNamSinh.Size = new System.Drawing.Size(129, 21);
-            this.txtNamSinh.TabIndex = 1;
-            this.txtNamSinh.TabStop = false;
-            // 
-            // txtMaLanKham
-            // 
-            this.txtMaLanKham.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.txtMaLanKham.ButtonFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaLanKham.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            this.txtMaLanKham.Location = new System.Drawing.Point(126, 20);
-            this.txtMaLanKham.Name = "txtMaLanKham";
-            this.txtMaLanKham.Size = new System.Drawing.Size(129, 21);
-            this.txtMaLanKham.TabIndex = 0;
-            // 
-            // label15
-            // 
-            this.label15.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.Navy;
-            this.label15.Location = new System.Drawing.Point(9, 23);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(111, 15);
-            this.label15.TabIndex = 47;
-            this.label15.Text = "Mã lượt khám";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // editBox1
-            // 
-            this.editBox1.Enabled = false;
-            this.editBox1.Location = new System.Drawing.Point(550, 19);
-            this.editBox1.Name = "editBox1";
-            this.editBox1.ReadOnly = true;
-            this.editBox1.Size = new System.Drawing.Size(10, 21);
-            this.editBox1.TabIndex = 1;
-            this.editBox1.TabStop = false;
-            this.editBox1.Visible = false;
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(9, 101);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(111, 18);
-            this.label7.TabIndex = 46;
-            this.label7.Text = "Khoa điều trị";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDepartmentName
-            // 
-            this.txtDepartmentName.ButtonFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDepartmentName.Location = new System.Drawing.Point(126, 102);
-            this.txtDepartmentName.Name = "txtDepartmentName";
-            this.txtDepartmentName.ReadOnly = true;
-            this.txtDepartmentName.Size = new System.Drawing.Size(605, 21);
-            this.txtDepartmentName.TabIndex = 1;
-            this.txtDepartmentName.TabStop = false;
-            // 
-            // label6
-            // 
-            this.label6.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(467, 129);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(82, 15);
-            this.label6.TabIndex = 45;
-            this.label6.Text = "Giường";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtSoGiuong
-            // 
-            this.txtSoGiuong.ButtonFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSoGiuong.Location = new System.Drawing.Point(557, 128);
-            this.txtSoGiuong.Name = "txtSoGiuong";
-            this.txtSoGiuong.ReadOnly = true;
-            this.txtSoGiuong.Size = new System.Drawing.Size(174, 21);
-            this.txtSoGiuong.TabIndex = 1;
-            this.txtSoGiuong.TabStop = false;
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(9, 129);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(111, 18);
-            this.label5.TabIndex = 44;
-            this.label5.Text = "Buồng";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtSoPhong
-            // 
-            this.txtSoPhong.ButtonFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSoPhong.Location = new System.Drawing.Point(126, 128);
-            this.txtSoPhong.Name = "txtSoPhong";
-            this.txtSoPhong.ReadOnly = true;
-            this.txtSoPhong.Size = new System.Drawing.Size(335, 21);
-            this.txtSoPhong.TabIndex = 1;
-            this.txtSoPhong.TabStop = false;
-            // 
-            // txtSoBHYT
-            // 
-            this.txtSoBHYT.Location = new System.Drawing.Point(557, 45);
-            this.txtSoBHYT.Name = "txtSoBHYT";
-            this.txtSoBHYT.ReadOnly = true;
-            this.txtSoBHYT.Size = new System.Drawing.Size(174, 21);
-            this.txtSoBHYT.TabIndex = 1;
-            this.txtSoBHYT.TabStop = false;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(467, 48);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 15);
-            this.label3.TabIndex = 43;
-            this.label3.Text = "Mã thẻ BHYT";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtPatient_Name
-            // 
-            this.txtPatient_Name.Location = new System.Drawing.Point(126, 45);
-            this.txtPatient_Name.Name = "txtPatient_Name";
-            this.txtPatient_Name.ReadOnly = true;
-            this.txtPatient_Name.Size = new System.Drawing.Size(335, 21);
-            this.txtPatient_Name.TabIndex = 1;
-            this.txtPatient_Name.TabStop = false;
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(9, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 18);
-            this.label2.TabIndex = 42;
-            this.label2.Text = "Họ và tên ";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtPatient_ID
-            // 
-            this.txtPatient_ID.Location = new System.Drawing.Point(326, 20);
-            this.txtPatient_ID.Name = "txtPatient_ID";
-            this.txtPatient_ID.ReadOnly = true;
-            this.txtPatient_ID.Size = new System.Drawing.Size(135, 21);
-            this.txtPatient_ID.TabIndex = 1;
-            this.txtPatient_ID.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(261, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 18);
-            this.label1.TabIndex = 29;
-            this.label1.Text = "Id BN";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label4.Location = new System.Drawing.Point(24, 133);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(96, 18);
+            this.label4.TabIndex = 496;
+            this.label4.Text = "Chọn giá:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frm_Chuyengiuong
             // 
@@ -919,6 +973,8 @@
         private System.Windows.Forms.Label label2;
         internal Janus.Windows.GridEX.EditControls.EditBox txtPatient_ID;
         private System.Windows.Forms.Label label1;
+        private UCs.AutoCompleteTextbox txtGia;
+        private System.Windows.Forms.Label label4;
         
     }
 }

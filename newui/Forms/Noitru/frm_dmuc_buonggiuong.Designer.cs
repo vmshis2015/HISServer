@@ -90,7 +90,7 @@
             this.tabBuonGiuong.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabBuonGiuong.Location = new System.Drawing.Point(0, 0);
             this.tabBuonGiuong.Name = "tabBuonGiuong";
-            this.tabBuonGiuong.Size = new System.Drawing.Size(861, 612);
+            this.tabBuonGiuong.Size = new System.Drawing.Size(1008, 707);
             this.tabBuonGiuong.TabIndex = 0;
             this.tabBuonGiuong.TabPages.AddRange(new Janus.Windows.UI.Tab.UITabPage[] {
             this.tabPagePhong,
@@ -102,7 +102,7 @@
             this.tabPagePhong.Controls.Add(this.toolStrip);
             this.tabPagePhong.Location = new System.Drawing.Point(1, 23);
             this.tabPagePhong.Name = "tabPagePhong";
-            this.tabPagePhong.Size = new System.Drawing.Size(857, 586);
+            this.tabPagePhong.Size = new System.Drawing.Size(1004, 681);
             this.tabPagePhong.TabStop = true;
             this.tabPagePhong.Text = "Thông tin phòng nội trú";
             // 
@@ -114,7 +114,7 @@
             this.uiGroupBox1.Image = ((System.Drawing.Image)(resources.GetObject("uiGroupBox1.Image")));
             this.uiGroupBox1.Location = new System.Drawing.Point(0, 39);
             this.uiGroupBox1.Name = "uiGroupBox1";
-            this.uiGroupBox1.Size = new System.Drawing.Size(857, 547);
+            this.uiGroupBox1.Size = new System.Drawing.Size(1004, 642);
             this.uiGroupBox1.TabIndex = 6;
             this.uiGroupBox1.Text = "Danh sách buồng nội trú";
             // 
@@ -141,7 +141,7 @@
             this.grdRoom.Name = "grdRoom";
             this.grdRoom.RecordNavigator = true;
             this.grdRoom.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdRoom.Size = new System.Drawing.Size(851, 526);
+            this.grdRoom.Size = new System.Drawing.Size(998, 621);
             this.grdRoom.TabIndex = 1;
             this.grdRoom.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             this.grdRoom.SelectionChanged += new System.EventHandler(this.grdRoom_SelectionChanged);
@@ -159,7 +159,7 @@
             this.cmdThoat});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(857, 39);
+            this.toolStrip.Size = new System.Drawing.Size(1004, 39);
             this.toolStrip.TabIndex = 4;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -223,7 +223,7 @@
             this.tabPageGiuong.Controls.Add(this.toolStrip1);
             this.tabPageGiuong.Location = new System.Drawing.Point(1, 23);
             this.tabPageGiuong.Name = "tabPageGiuong";
-            this.tabPageGiuong.Size = new System.Drawing.Size(857, 586);
+            this.tabPageGiuong.Size = new System.Drawing.Size(1004, 681);
             this.tabPageGiuong.TabStop = true;
             this.tabPageGiuong.Text = "Thông tin giường nội trú";
             // 
@@ -235,7 +235,7 @@
             this.uiGroupBox2.Image = ((System.Drawing.Image)(resources.GetObject("uiGroupBox2.Image")));
             this.uiGroupBox2.Location = new System.Drawing.Point(0, 114);
             this.uiGroupBox2.Name = "uiGroupBox2";
-            this.uiGroupBox2.Size = new System.Drawing.Size(857, 472);
+            this.uiGroupBox2.Size = new System.Drawing.Size(1004, 567);
             this.uiGroupBox2.TabIndex = 7;
             this.uiGroupBox2.Text = "Danh sách giường nội trú";
             // 
@@ -243,7 +243,6 @@
             // 
             this.grdBed.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
     " thông tin giường</FilterRowInfoText></LocalizableData>";
-            this.grdBed.ColumnAutoResize = true;
             this.grdBed.DefaultFilterRowComparison = Janus.Windows.GridEX.FilterConditionOperator.Contains;
             grdBed_DesignTimeLayout.LayoutString = resources.GetString("grdBed_DesignTimeLayout.LayoutString");
             this.grdBed.DesignTimeLayout = grdBed_DesignTimeLayout;
@@ -262,7 +261,7 @@
             this.grdBed.Name = "grdBed";
             this.grdBed.RecordNavigator = true;
             this.grdBed.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdBed.Size = new System.Drawing.Size(851, 451);
+            this.grdBed.Size = new System.Drawing.Size(998, 546);
             this.grdBed.TabIndex = 0;
             this.grdBed.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             this.grdBed.SelectionChanged += new System.EventHandler(this.grdBed_SelectionChanged);
@@ -282,9 +281,9 @@
             this.uiGroupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.uiGroupBox3.Location = new System.Drawing.Point(0, 39);
             this.uiGroupBox3.Name = "uiGroupBox3";
-            this.uiGroupBox3.Size = new System.Drawing.Size(857, 75);
+            this.uiGroupBox3.Size = new System.Drawing.Size(1004, 75);
             this.uiGroupBox3.TabIndex = 8;
-            this.uiGroupBox3.Text = "&Tìm kiếm thông tin ";
+            this.uiGroupBox3.Text = "Tìm kiếm thông tin ";
             // 
             // label4
             // 
@@ -357,7 +356,7 @@
             // 
             this.cmdSearchGiuong.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdSearchGiuong.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdSearchGiuong.Location = new System.Drawing.Point(742, 19);
+            this.cmdSearchGiuong.Location = new System.Drawing.Point(889, 19);
             this.cmdSearchGiuong.Name = "cmdSearchGiuong";
             this.cmdSearchGiuong.Size = new System.Drawing.Size(109, 49);
             this.cmdSearchGiuong.TabIndex = 0;
@@ -376,7 +375,7 @@
             this.cmdThoatGiuong});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(857, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(1004, 39);
             this.toolStrip1.TabIndex = 5;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -436,7 +435,7 @@
             // uiStatusBar1
             // 
             this.uiStatusBar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiStatusBar1.Location = new System.Drawing.Point(0, 612);
+            this.uiStatusBar1.Location = new System.Drawing.Point(0, 707);
             this.uiStatusBar1.Name = "uiStatusBar1";
             uiStatusBarPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
             uiStatusBarPanel1.BorderColor = System.Drawing.Color.Empty;
@@ -474,7 +473,7 @@
             uiStatusBarPanel3,
             uiStatusBarPanel4,
             uiStatusBarPanel5});
-            this.uiStatusBar1.Size = new System.Drawing.Size(861, 23);
+            this.uiStatusBar1.Size = new System.Drawing.Size(1008, 23);
             this.uiStatusBar1.TabIndex = 5;
             this.uiStatusBar1.VisualStyle = Janus.Windows.UI.VisualStyle.OfficeXP;
             // 
@@ -482,11 +481,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(861, 635);
+            this.ClientSize = new System.Drawing.Size(1008, 730);
             this.Controls.Add(this.tabBuonGiuong);
             this.Controls.Add(this.uiStatusBar1);
             this.KeyPreview = true;
             this.Name = "frm_dmuc_buonggiuong";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thông tin buồng giường";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

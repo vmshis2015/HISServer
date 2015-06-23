@@ -25,6 +25,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
         public bool mv_blnCancel = true;
         public KcbLuotkham objLuotkham = null;
         action m_enAct = action.Insert;
+        public bool AutoLoad = false;
         public frm_Phieuravien()
         {
             InitializeComponent();
@@ -191,6 +192,9 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                         scope.Complete();
                         mv_blnCancel = false;
                         Utility.SetMsg(lblMsg,string.Format( "Hủy chuyển viện cho bệnh nhân {0} thành công",txtTenBN.Text), true);
+                        cmdHuy.Enabled = false;
+                        cmdPrint.Enabled = false;
+                        cmdChuyen.Enabled = objLuotkham != null && objLuotkham.TrangthaiNoitru <= 3;
                     }
                 }
                 catch (Exception ex)
@@ -277,8 +281,15 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                objRavien.SophieuRavien=Utility.DoTrim( txtSoRaVien.Text ) ;
                objRavien.TongsongayDieutri = Utility.Int32Dbnull(txtTongSoNgayDtri.Text);
                objRavien.MabenhChinh=txtBenhchinh.MyCode;
+               
+                objRavien.IdBenhnhan = objLuotkham.IdBenhnhan;
+                objRavien.MaLuotkham = objLuotkham.MaLuotkham;
+                objRavien.SoBenhAn = Utility.Int32Dbnull(objLuotkham.SoBenhAn, -1);
+                objRavien.IdKhoaravien = globalVariables.idKhoatheoMay;
+                objRavien.IdKhoanoitru = objLuotkham.IdKhoanoitru;
+                objRavien.TrangThai = 0;
 
-               objRavien.MabenhGiaiphau = txtBenhgiaiphau.MyCode;
+                objRavien.MabenhGiaiphau = txtBenhgiaiphau.MyCode;
                objRavien.MabenhBienchung = txtBenhbienchung.MyCode;
                objRavien.MabenhNguyennhan = txtBenhnguyennhan.MyCode;
                objRavien.MaKquaDieutri = txtKqdieutri.MyCode;
@@ -367,11 +378,12 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                     scope.Complete();
                 }
                 mv_blnCancel = false;
-                Utility.SetMsg(lblMsg, "Cập nhật phiếu chuyển viện thành công", false);
+                Utility.SetMsg(lblMsg, m_enAct == action.Insert?"Thêm mới phiếu chuyển viện thành công":"Cập nhật phiếu chuyển viện thành công", false);
                 if (m_enAct == action.Insert)
                     cmdPrint.Enabled = true;
+                cmdHuy.Enabled = objRavien != null && objLuotkham != null && objLuotkham.TrangthaiNoitru <= 3;
                 m_enAct = action.Update;
-                txtId.Text = _phieuchuyenvien.IdPhieu.ToString();
+                txtId.Text = objRavien.IdRavien.ToString();
             }
             catch (Exception ex)
             {
@@ -512,6 +524,10 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 txtPhuongphapdieutri.Init();
                 txtTinhtrangravien.Init();
                 txtphuongtienvc.Init();
+                if (objLuotkham != null)
+                    txtMaluotkham.Text = objLuotkham.MaLuotkham;
+                if (AutoLoad)
+                    txtMaluotkham_KeyDown(txtMaluotkham, new KeyEventArgs(Keys.Enter));
                 
             }
             catch (Exception ex)
@@ -621,7 +637,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             if (e.Control && e.KeyCode == Keys.P) cmdPrint.PerformClick();
         }
 
-        void txtMaluotkham_KeyDown(object sender, KeyEventArgs e)
+        public void txtMaluotkham_KeyDown(object sender, KeyEventArgs e)
         {
             try
             {
@@ -656,7 +672,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                         {
                             txtMaluotkham.Text = _patient_Code;
                         }
-                        DataTable dt_Patient = new KCB_THAMKHAM().TimkiemThongtinBenhnhansaukhigoMaBN(txtMaluotkham.Text, -1, globalVariables.MA_KHOA_THIEN);
+                        DataTable dt_Patient = new KCB_THAMKHAM().TimkiemThongtinBenhnhansaukhigoMaBN(txtMaluotkham.Text, -1,"ALL");
                         if (dt_Patient != null && dt_Patient.Rows.Count > 0)
                         {
 

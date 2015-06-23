@@ -35,7 +35,6 @@
             this.txtidBuong = new System.Windows.Forms.TextBox();
             this.txtIdkhoanoitru = new System.Windows.Forms.TextBox();
             this.txtIdravien = new System.Windows.Forms.TextBox();
-            this.baocaO_TIEUDE1 = new VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
             this.cmdgetPatient = new Janus.Windows.EditControls.UIButton();
             this.txtGiuong = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -65,6 +64,7 @@
             this.cmdHuy = new Janus.Windows.EditControls.UIButton();
             this.cmdChuyen = new Janus.Windows.EditControls.UIButton();
             this.pnlFill = new System.Windows.Forms.Panel();
+            this.txtSoRaVien = new MaskedTextBox.MaskedTextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.dtpNgaynhapvien = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.cboDoctorAssign = new System.Windows.Forms.ComboBox();
@@ -113,7 +113,7 @@
             this.lblMsg = new System.Windows.Forms.Label();
             this.txtId = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtSoRaVien = new MaskedTextBox.MaskedTextBox();
+            this.baocaO_TIEUDE1 = new VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
             this.pnlTop.SuspendLayout();
             this.pnlBottom.SuspendLayout();
             this.pnlFill.SuspendLayout();
@@ -205,31 +205,14 @@
             this.txtIdravien.TabStop = false;
             this.txtIdravien.Visible = false;
             // 
-            // baocaO_TIEUDE1
-            // 
-            this.baocaO_TIEUDE1.BackColor = System.Drawing.SystemColors.Control;
-            this.baocaO_TIEUDE1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.baocaO_TIEUDE1.Location = new System.Drawing.Point(0, 0);
-            this.baocaO_TIEUDE1.MA_BAOCAO = "NOITRU_PHIEURAVIEN";
-            this.baocaO_TIEUDE1.Name = "baocaO_TIEUDE1";
-            this.baocaO_TIEUDE1.Phimtat = "Bạn có thể sử dụng phím tắt";
-            this.baocaO_TIEUDE1.PicImg = ((System.Drawing.Image)(resources.GetObject("baocaO_TIEUDE1.PicImg")));
-            this.baocaO_TIEUDE1.ShortcutAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.baocaO_TIEUDE1.ShortcutFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.baocaO_TIEUDE1.showHelp = false;
-            this.baocaO_TIEUDE1.Size = new System.Drawing.Size(884, 30);
-            this.baocaO_TIEUDE1.TabIndex = 24;
-            this.baocaO_TIEUDE1.TIEUDE = "PHIẾU RA VIỆN";
-            this.baocaO_TIEUDE1.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            // 
             // cmdgetPatient
             // 
             this.cmdgetPatient.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdgetPatient.Image = ((System.Drawing.Image)(resources.GetObject("cmdgetPatient.Image")));
-            this.cmdgetPatient.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdgetPatient.Location = new System.Drawing.Point(391, 34);
+            this.cmdgetPatient.ImageSize = new System.Drawing.Size(20, 20);
+            this.cmdgetPatient.Location = new System.Drawing.Point(391, 37);
             this.cmdgetPatient.Name = "cmdgetPatient";
-            this.cmdgetPatient.Size = new System.Drawing.Size(32, 30);
+            this.cmdgetPatient.Size = new System.Drawing.Size(25, 25);
             this.cmdgetPatient.TabIndex = 23;
             // 
             // txtGiuong
@@ -594,6 +577,17 @@
             this.pnlFill.Size = new System.Drawing.Size(884, 424);
             this.pnlFill.TabIndex = 2;
             // 
+            // txtSoRaVien
+            // 
+            this.txtSoRaVien.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSoRaVien.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSoRaVien.Location = new System.Drawing.Point(497, 31);
+            this.txtSoRaVien.Masked = MaskedTextBox.Mask.Digit;
+            this.txtSoRaVien.Name = "txtSoRaVien";
+            this.txtSoRaVien.Size = new System.Drawing.Size(70, 21);
+            this.txtSoRaVien.TabIndex = 3;
+            this.txtSoRaVien.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // label31
             // 
             this.label31.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -756,7 +750,6 @@
             // 
             // txtYkien
             // 
-            this.txtYkien.Enabled = false;
             this.txtYkien.Location = new System.Drawing.Point(153, 330);
             this.txtYkien.Name = "txtYkien";
             this.txtYkien.Size = new System.Drawing.Size(620, 20);
@@ -775,7 +768,6 @@
             // 
             // txtLoidanBS
             // 
-            this.txtLoidanBS.Enabled = false;
             this.txtLoidanBS.Location = new System.Drawing.Point(153, 304);
             this.txtLoidanBS.Name = "txtLoidanBS";
             this.txtLoidanBS.Size = new System.Drawing.Size(619, 20);
@@ -823,6 +815,7 @@
             // 
             this.txtBenhgiaiphau._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtBenhgiaiphau._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBenhgiaiphau._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtBenhgiaiphau.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtBenhgiaiphau.AutoCompleteList")));
             this.txtBenhgiaiphau.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBenhgiaiphau.CaseSensitive = false;
@@ -847,7 +840,7 @@
             this.txtBenhgiaiphau.splitChar = '@';
             this.txtBenhgiaiphau.splitCharIDAndCode = '#';
             this.txtBenhgiaiphau.TabIndex = 15;
-            this.txtBenhgiaiphau.TakeCode = true;
+            this.txtBenhgiaiphau.TakeCode = false;
             this.txtBenhgiaiphau.txtMyCode = null;
             this.txtBenhgiaiphau.txtMyCode_Edit = null;
             this.txtBenhgiaiphau.txtMyID = null;
@@ -860,6 +853,7 @@
             // 
             this.txtNoichuyenden._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtNoichuyenden._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNoichuyenden._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtNoichuyenden.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNoichuyenden.AutoCompleteList")));
             this.txtNoichuyenden.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNoichuyenden.CaseSensitive = false;
@@ -1024,6 +1018,7 @@
             // 
             this.txtBenhphu._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtBenhphu._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBenhphu._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtBenhphu.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtBenhphu.AutoCompleteList")));
             this.txtBenhphu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBenhphu.CaseSensitive = false;
@@ -1048,7 +1043,7 @@
             this.txtBenhphu.splitChar = '@';
             this.txtBenhphu.splitCharIDAndCode = '#';
             this.txtBenhphu.TabIndex = 8;
-            this.txtBenhphu.TakeCode = true;
+            this.txtBenhphu.TakeCode = false;
             this.txtBenhphu.txtMyCode = null;
             this.txtBenhphu.txtMyCode_Edit = null;
             this.txtBenhphu.txtMyID = null;
@@ -1061,6 +1056,7 @@
             // 
             this.txtBenhnguyennhan._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtBenhnguyennhan._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBenhnguyennhan._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtBenhnguyennhan.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtBenhnguyennhan.AutoCompleteList")));
             this.txtBenhnguyennhan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBenhnguyennhan.CaseSensitive = false;
@@ -1085,7 +1081,7 @@
             this.txtBenhnguyennhan.splitChar = '@';
             this.txtBenhnguyennhan.splitCharIDAndCode = '#';
             this.txtBenhnguyennhan.TabIndex = 7;
-            this.txtBenhnguyennhan.TakeCode = true;
+            this.txtBenhnguyennhan.TakeCode = false;
             this.txtBenhnguyennhan.txtMyCode = null;
             this.txtBenhnguyennhan.txtMyCode_Edit = null;
             this.txtBenhnguyennhan.txtMyID = null;
@@ -1098,6 +1094,7 @@
             // 
             this.txtBenhbienchung._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtBenhbienchung._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBenhbienchung._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtBenhbienchung.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtBenhbienchung.AutoCompleteList")));
             this.txtBenhbienchung.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBenhbienchung.CaseSensitive = false;
@@ -1122,7 +1119,7 @@
             this.txtBenhbienchung.splitChar = '@';
             this.txtBenhbienchung.splitCharIDAndCode = '#';
             this.txtBenhbienchung.TabIndex = 6;
-            this.txtBenhbienchung.TakeCode = true;
+            this.txtBenhbienchung.TakeCode = false;
             this.txtBenhbienchung.txtMyCode = null;
             this.txtBenhbienchung.txtMyCode_Edit = null;
             this.txtBenhbienchung.txtMyID = null;
@@ -1135,6 +1132,7 @@
             // 
             this.txtBenhchinh._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtBenhchinh._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBenhchinh._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtBenhchinh.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtBenhchinh.AutoCompleteList")));
             this.txtBenhchinh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBenhchinh.CaseSensitive = false;
@@ -1159,7 +1157,7 @@
             this.txtBenhchinh.splitChar = '@';
             this.txtBenhchinh.splitCharIDAndCode = '#';
             this.txtBenhchinh.TabIndex = 5;
-            this.txtBenhchinh.TakeCode = true;
+            this.txtBenhchinh.TakeCode = false;
             this.txtBenhchinh.txtMyCode = null;
             this.txtBenhchinh.txtMyCode_Edit = null;
             this.txtBenhchinh.txtMyID = null;
@@ -1424,16 +1422,22 @@
             this.label3.Text = "Id ra viện:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txtSoRaVien
+            // baocaO_TIEUDE1
             // 
-            this.txtSoRaVien.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSoRaVien.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSoRaVien.Location = new System.Drawing.Point(497, 31);
-            this.txtSoRaVien.Masked = MaskedTextBox.Mask.Digit;
-            this.txtSoRaVien.Name = "txtSoRaVien";
-            this.txtSoRaVien.Size = new System.Drawing.Size(70, 21);
-            this.txtSoRaVien.TabIndex = 3;
-            this.txtSoRaVien.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.baocaO_TIEUDE1.BackColor = System.Drawing.SystemColors.Control;
+            this.baocaO_TIEUDE1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.baocaO_TIEUDE1.Location = new System.Drawing.Point(0, 0);
+            this.baocaO_TIEUDE1.MA_BAOCAO = "NOITRU_PHIEURAVIEN";
+            this.baocaO_TIEUDE1.Name = "baocaO_TIEUDE1";
+            this.baocaO_TIEUDE1.Phimtat = "Bạn có thể sử dụng phím tắt";
+            this.baocaO_TIEUDE1.PicImg = ((System.Drawing.Image)(resources.GetObject("baocaO_TIEUDE1.PicImg")));
+            this.baocaO_TIEUDE1.ShortcutAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.baocaO_TIEUDE1.ShortcutFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.baocaO_TIEUDE1.showHelp = false;
+            this.baocaO_TIEUDE1.Size = new System.Drawing.Size(884, 30);
+            this.baocaO_TIEUDE1.TabIndex = 24;
+            this.baocaO_TIEUDE1.TIEUDE = "PHIẾU RA VIỆN";
+            this.baocaO_TIEUDE1.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 
             // frm_Phieuravien
             // 
@@ -1480,7 +1484,6 @@
         private System.Windows.Forms.TextBox txtKhoanoitru;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox txtTenBN;
-        private System.Windows.Forms.TextBox txtMaluotkham;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel pnlBottom;
         private System.Windows.Forms.Panel pnlFill;
@@ -1545,5 +1548,6 @@
         private System.Windows.Forms.Label label31;
         private Janus.Windows.CalendarCombo.CalendarCombo dtpNgaynhapvien;
         private MaskedTextBox.MaskedTextBox txtSoRaVien;
+        public System.Windows.Forms.TextBox txtMaluotkham;
     }
 }

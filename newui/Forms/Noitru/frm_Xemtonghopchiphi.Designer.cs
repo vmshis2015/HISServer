@@ -40,17 +40,16 @@
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.baocaO_TIEUDE1 = new VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
             this.grdThongTinChuaThanhToan = new Janus.Windows.GridEX.GridEX();
+            this.pnlCachthuchienthidulieu = new System.Windows.Forms.Panel();
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdThongTinChuaThanhToan)).BeginInit();
+            this.pnlCachthuchienthidulieu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel10
             // 
+            this.panel10.Controls.Add(this.pnlCachthuchienthidulieu);
             this.panel10.Controls.Add(this.cmdPrint);
-            this.panel10.Controls.Add(this.optNgoaitru);
-            this.panel10.Controls.Add(this.optNoitru);
-            this.panel10.Controls.Add(this.label7);
-            this.panel10.Controls.Add(this.optAll);
             this.panel10.Controls.Add(this.cmdRefresh);
             this.panel10.Controls.Add(this.cmdExit);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -79,7 +78,7 @@
             this.optNgoaitru.AutoSize = true;
             this.optNgoaitru.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optNgoaitru.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.optNgoaitru.Location = new System.Drawing.Point(358, 21);
+            this.optNgoaitru.Location = new System.Drawing.Point(349, 17);
             this.optNgoaitru.Name = "optNgoaitru";
             this.optNgoaitru.Size = new System.Drawing.Size(76, 19);
             this.optNgoaitru.TabIndex = 279;
@@ -91,7 +90,7 @@
             this.optNoitru.AutoSize = true;
             this.optNoitru.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optNoitru.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.optNoitru.Location = new System.Drawing.Point(259, 21);
+            this.optNoitru.Location = new System.Drawing.Point(250, 17);
             this.optNoitru.Name = "optNoitru";
             this.optNoitru.Size = new System.Drawing.Size(62, 19);
             this.optNoitru.TabIndex = 278;
@@ -101,7 +100,7 @@
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(12, 18);
+            this.label7.Location = new System.Drawing.Point(3, 14);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(123, 23);
             this.label7.TabIndex = 277;
@@ -114,7 +113,7 @@
             this.optAll.Checked = true;
             this.optAll.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optAll.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.optAll.Location = new System.Drawing.Point(155, 21);
+            this.optAll.Location = new System.Drawing.Point(146, 17);
             this.optAll.Name = "optAll";
             this.optAll.Size = new System.Drawing.Size(60, 19);
             this.optAll.TabIndex = 276;
@@ -198,6 +197,18 @@
             this.grdThongTinChuaThanhToan.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
             this.grdThongTinChuaThanhToan.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
+            // pnlCachthuchienthidulieu
+            // 
+            this.pnlCachthuchienthidulieu.Controls.Add(this.label7);
+            this.pnlCachthuchienthidulieu.Controls.Add(this.optAll);
+            this.pnlCachthuchienthidulieu.Controls.Add(this.optNgoaitru);
+            this.pnlCachthuchienthidulieu.Controls.Add(this.optNoitru);
+            this.pnlCachthuchienthidulieu.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlCachthuchienthidulieu.Location = new System.Drawing.Point(0, 0);
+            this.pnlCachthuchienthidulieu.Name = "pnlCachthuchienthidulieu";
+            this.pnlCachthuchienthidulieu.Size = new System.Drawing.Size(434, 50);
+            this.pnlCachthuchienthidulieu.TabIndex = 281;
+            // 
             // frm_Xemtonghopchiphi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,10 +220,12 @@
             this.KeyPreview = true;
             this.Name = "frm_Xemtonghopchiphi";
             this.ShowIcon = false;
-            this.Text = "Xem thông tin tổng hợp chi phí";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Xem thông tin tổng hợp chi phí Bệnh nhân";
             this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdThongTinChuaThanhToan)).EndInit();
+            this.pnlCachthuchienthidulieu.ResumeLayout(false);
+            this.pnlCachthuchienthidulieu.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -229,5 +242,6 @@
         private Janus.Windows.EditControls.UIButton cmdPrint;
         private FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE baocaO_TIEUDE1;
         private Janus.Windows.GridEX.GridEX grdThongTinChuaThanhToan;
+        private System.Windows.Forms.Panel pnlCachthuchienthidulieu;
     }
 }

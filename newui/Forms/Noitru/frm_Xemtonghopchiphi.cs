@@ -19,9 +19,16 @@ namespace VNS.HIS.UI.NOITRU
     {
         public KcbLuotkham objLuotkham = null;
         DataTable m_dtChiPhiThanhtoan = null;
-        public frm_Xemtonghopchiphi()
+        bool Khoanoitrutonghop = true;
+        bool mv_blnHasloaded = false;
+        string idkhoanoitru = "-1";
+        public frm_Xemtonghopchiphi(bool Khoanoitrutonghop,string idkhoanoitru)
         {
             InitializeComponent();
+            this.idkhoanoitru = idkhoanoitru;
+            this.Khoanoitrutonghop = Khoanoitrutonghop;
+            pnlCachthuchienthidulieu.Visible = !Khoanoitrutonghop;
+            optAll.Checked = true;
             InitEvents();
         }
         void InitEvents()
@@ -38,6 +45,7 @@ namespace VNS.HIS.UI.NOITRU
         {
             try
             {
+                if (!mv_blnHasloaded) return;
                 string RowFilter = "1=1";
                 PropertyLib._ThanhtoanProperties.CachhienthidulieuNoitru = DisplayType.Tatca;
                 if (optNoitru.Checked)
@@ -65,7 +73,7 @@ namespace VNS.HIS.UI.NOITRU
             try
             {
                 Utility.WaitNow(this);
-                DataTable dtData = SPs.NoitruTonghopChiphiRavien(objLuotkham.MaLuotkham, (int)objLuotkham.IdBenhnhan).GetDataSet().Tables[0];
+                DataTable dtData = SPs.NoitruTonghopChiphiRavien(objLuotkham.MaLuotkham, (int)objLuotkham.IdBenhnhan,Utility.Bool2byte(!Khoanoitrutonghop),idkhoanoitru).GetDataSet().Tables[0];
                 THU_VIEN_CHUNG.CreateXML(dtData, "noitru_tonghopchiphiravien.XML");
                 if (dtData.Rows.Count <= 0)
                 {
@@ -104,7 +112,6 @@ namespace VNS.HIS.UI.NOITRU
                         DmucThuoc objDrug = DmucThuoc.FetchByID(Drug_ID);
                         if (objDrug != null)
                         {
-                            //LDrugType objLDrugType = LDrugType.FetchByID(objDrug.DrugTypeId);
                             if (objDrug.KieuThuocvattu == "THUOC")
                             {
                                 drv["id_loaidichvu"] = 1;
@@ -135,13 +142,13 @@ namespace VNS.HIS.UI.NOITRU
                 if (string.IsNullOrEmpty(globalVariables.gv_strTenNhanvien)) StaffName = globalVariables.UserName;
 
                 string tieude = "", reportname = "";
-                ReportDocument crpt = Utility.GetReport("noitru_tonghopchiphiravien", ref tieude, ref reportname);
+                ReportDocument crpt = Utility.GetReport(Khoanoitrutonghop ? "noitru_tonghopchiphiravien_theokhoa" : "noitru_tonghopchiphiravien", ref tieude, ref reportname);
                 if (crpt == null) return;
                 frmPrintPreview objForm = new frmPrintPreview(baocaO_TIEUDE1.TIEUDE, crpt, true, dtData.Rows.Count <= 0 ? false : true);
                 crpt.SetDataSource(dtData);
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.mv_sReportFileName = Path.GetFileName(reportname);
-                objForm.mv_sReportCode = "noitru_tonghopchiphiravien";
+                objForm.mv_sReportCode = Khoanoitrutonghop ? "noitru_tonghopchiphiravien_theokhoa" : "noitru_tonghopchiphiravien";
                 Utility.SetParameterValue(crpt, "StaffName", StaffName);
                 Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
                 Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
@@ -175,15 +182,16 @@ namespace VNS.HIS.UI.NOITRU
 
         void frm_Xemtonghopchiphi_Load(object sender, EventArgs e)
         {
-            baocaO_TIEUDE1.Init("noitru_tonghopchiphiravien");
+            baocaO_TIEUDE1.Init(Khoanoitrutonghop ? "noitru_tonghopchiphiravien_theokhoa" : "noitru_tonghopchiphiravien");
             LoadData();
+            mv_blnHasloaded = true;
         }
         void LoadData()
         {
             try
             {
                 m_dtChiPhiThanhtoan =
-                   SPs.NoitruTonghopChiphiRavien(objLuotkham.MaLuotkham, (int)objLuotkham.IdBenhnhan).GetDataSet().Tables[0];
+                   SPs.NoitruTonghopChiphiRavien(objLuotkham.MaLuotkham, (int)objLuotkham.IdBenhnhan, Utility.Bool2byte(!Khoanoitrutonghop), idkhoanoitru).GetDataSet().Tables[0];
                 Utility.SetDataSourceForDataGridEx(grdThongTinChuaThanhToan, m_dtChiPhiThanhtoan, false, true, "trangthai_huy=0" + (PropertyLib._ThanhtoanProperties.Hienthidichvuchuathanhtoan ? " and trangthai_thanhtoan=0" : ""), "");
             }
             catch (Exception ex)

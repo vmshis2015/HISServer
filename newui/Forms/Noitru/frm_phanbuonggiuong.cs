@@ -9,6 +9,7 @@ using VNS.Properties;
 using VNS.HIS.BusRule.Classes;
 using SubSonic;
 using Janus.Windows.GridEX.EditControls;
+using VNS.HIS.NGHIEPVU;
 
 
 namespace VNS.HIS.UI.NOITRU
@@ -48,6 +49,12 @@ namespace VNS.HIS.UI.NOITRU
             txtBedCode.KeyDown+=txtBedCode_KeyDown;
             txtMaLanKham.KeyDown += txtMaLanKham_KeyDown;
             cmdChonBNmoi.Click += cmdChonBNmoi_Click;
+            txtGia._OnSelectionChanged += txtGia__OnSelectionChanged;
+        }
+
+        void txtGia__OnSelectionChanged()
+        {
+            cboGia.Text = txtGia.MyText;
         }
 
         void cmdChonBNmoi_Click(object sender, EventArgs e)
@@ -149,6 +156,7 @@ namespace VNS.HIS.UI.NOITRU
                 objPhanbuonggiuong.NgayVaokhoa = ngaychuyenkhoa;
                 objPhanbuonggiuong.IdBuong = Utility.Int16Dbnull(grdBuong.GetValue(NoitruDmucBuong.Columns.IdBuong));
                 objPhanbuonggiuong.IdGiuong = Utility.Int16Dbnull(grdGiuong.GetValue(NoitruDmucGiuongbenh.Columns.IdGiuong));
+                objPhanbuonggiuong.IdGia = Utility.Int32Dbnull(txtGia.MyID, -1);
                 ActionResult actionResult = new noitru_nhapvien().PhanGiuongDieuTri(objPhanbuonggiuong,
                                                                                         objPatientExam,
                                                                                         ngaychuyenkhoa,
@@ -201,6 +209,13 @@ namespace VNS.HIS.UI.NOITRU
                Utility.SetMsg(lblMsg, "Bạn phải chọn giường cần chuyển", true);
                txtBedCode.Focus();
                txtBedCode.SelectAll();
+               return false;
+           }
+           if (Utility.Int32Dbnull(txtGia.MyID, -1) == -1)
+           {
+               Utility.SetMsg(lblMsg, "Bạn phải chọn giá buồng giường", true);
+               txtGia.Focus();
+               txtGia.SelectAll();
                return false;
            }
            DataTable dt = new noitru_nhapvien().NoitruKiemtraBuongGiuong(objPhanbuonggiuong.IdKhoanoitru, Utility.Int16Dbnull(grdBuong.GetValue(NoitruDmucGiuongbenh.Columns.IdBuong)), Utility.Int16Dbnull(grdGiuong.GetValue(NoitruDmucGiuongbenh.Columns.IdGiuong)));
@@ -278,7 +293,15 @@ namespace VNS.HIS.UI.NOITRU
                         txtPatientDept_ID.Text = Utility.sDbnull(objPhanbuonggiuong.Id);
                         
                     }
+                    DataTable dtGia= new dmucgiagiuong_busrule().dsGetList("-1").Tables[0];
+                    dtGia.DefaultView.Sort = NoitruGiabuonggiuong.Columns.SttHthi + "," + NoitruGiabuonggiuong.Columns.TenGia;
+                    txtGia.Init(dtGia, new System.Collections.Generic.List<string>() { NoitruGiabuonggiuong.Columns.IdGia, NoitruGiabuonggiuong.Columns.MaGia, NoitruGiabuonggiuong.Columns.TenGia });
+                    cboGia.DataSource = dtGia;
+                    cboGia.DataMember = NoitruGiabuonggiuong.Columns.IdGia;
+                    cboGia.ValueMember = NoitruGiabuonggiuong.Columns.IdGia;
+                    cboGia.DisplayMember = NoitruGiabuonggiuong.Columns.TenGia;
                     m_dtDataRoom = THU_VIEN_CHUNG.NoitruTimkiembuongTheokhoa(Utility.Int32Dbnull(txtDepartment_ID.Text));
+
                     Utility.SetDataSourceForDataGridEx_Basic(grdBuong, m_dtDataRoom, true, true, "1=1", "sluong_giuong_trong desc,ten_buong");
                     if (grdBuong.DataSource != null)
                     {
