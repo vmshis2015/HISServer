@@ -210,9 +210,9 @@ namespace VNS.HIS.BusRule.Classes
             return SPs.NoitruTimkiemphieudieutriTheoluotkham(globalVariables.UserName,IsAdmin,  ngaylapphieu, PatientCode, PatientID, idkhoanoitru, songayhienthi).
                                 GetDataSet().Tables[0];
         }
-        public DataTable NoitruTimkiemlichsuBuonggiuong(string PatientCode, int PatientID)
+        public DataTable NoitruTimkiemlichsuBuonggiuong(string PatientCode, int PatientID, string idKhoanoitru)
         {
-            return SPs.NoitruTimkiemlichsuBuonggiuong( PatientCode, PatientID).GetDataSet().Tables[0];
+            return SPs.NoitruTimkiemlichsuBuonggiuong( PatientCode, PatientID,idKhoanoitru).GetDataSet().Tables[0];
         }
         public DataTable NoitruTimkiemlichsuNoptientamung(string PatientCode, int PatientID, short kieutamung, int idkhoanoitru)
         {
@@ -251,9 +251,9 @@ namespace VNS.HIS.BusRule.Classes
         {
             return SPs.KcbThamkhamLaythongtinclsThuocTheolankham(PatientID, PatientCode, ExamID).GetDataSet();
         }
-        public DataSet NoitruLaythongtinclsThuocTheophieudieutri(int PatientID, string PatientCode, int idPhieudieutri, byte layca_dulieu_ngoaitru_chuathanhtoan)
+        public DataSet NoitruLaythongtinclsThuocTheophieudieutri(int PatientID, string PatientCode, int idPhieudieutri, byte layca_dulieu_ngoaitru_chuathanhtoan, string idKhoanoitru)
         {
-            return SPs.NoitruLaythongtinclsThuocTheophieudieutri(PatientID, PatientCode, idPhieudieutri, layca_dulieu_ngoaitru_chuathanhtoan).GetDataSet();
+            return SPs.NoitruLaythongtinclsThuocTheophieudieutri(PatientID, PatientCode, idPhieudieutri, layca_dulieu_ngoaitru_chuathanhtoan,idKhoanoitru).GetDataSet();
         }
         public DataSet NoitruLayDanhsachVtthGoidichvu(int PatientID, string PatientCode)
         {

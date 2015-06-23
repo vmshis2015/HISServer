@@ -593,6 +593,8 @@ namespace VNS.HIS.BusRule.Classes
                         //Phần trăm này có thể bị biến đổi và khác với % trong các bảng dịch vụ
                         LayThongtinPtramBHYT(v_dblTongtienDCT + v_TotalPaymentDetail, objLuotkham, ref PtramBHYT);
                         objThanhtoan.MaThanhtoan = THU_VIEN_CHUNG.TaoMathanhtoan(Convert.ToDateTime(objThanhtoan.NgayThanhtoan));
+
+                        objThanhtoan.IdLoaidoituongKcb = objLuotkham.IdLoaidoituongKcb;
                         objThanhtoan.IsNew = true;
                         objThanhtoan.Save();
                        //Tính lại Bnhan chi trả và BHYT chi trả
