@@ -169,6 +169,7 @@
             this.cmdCauhinh.Name = "cmdCauhinh";
             this.cmdCauhinh.Size = new System.Drawing.Size(95, 36);
             this.cmdCauhinh.Text = "Cấu hình";
+            this.cmdCauhinh.Visible = false;
             // 
             // cmdCauhinhgia
             // 
@@ -185,6 +186,7 @@
             this.cmdPrint.Name = "cmdPrint";
             this.cmdPrint.Size = new System.Drawing.Size(119, 36);
             this.cmdPrint.Text = "In danh sách";
+            this.cmdPrint.Visible = false;
             // 
             // cmdPrintRelationObject
             // 
@@ -202,6 +204,7 @@
             this.cmdExportExcel.Name = "cmdExportExcel";
             this.cmdExportExcel.Size = new System.Drawing.Size(118, 36);
             this.cmdExportExcel.Text = "Export Excel";
+            this.cmdExportExcel.Visible = false;
             // 
             // cmdClose
             // 
