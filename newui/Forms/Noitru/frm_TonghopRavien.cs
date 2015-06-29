@@ -118,6 +118,7 @@ namespace VNS.HIS.UI.NOITRU
             this.Khoanoitrutonghop = _Khoanoitrutonghop == "1";
             cboKhoanoitru.Visible = this.Khoanoitrutonghop;
             lblKhoatonghop.Visible = this.Khoanoitrutonghop;
+            
             KeyPreview = true;
             log = LogManager.GetCurrentClassLogger();
             dtInput_Date.Value =globalVariables.SysDate;
@@ -767,7 +768,7 @@ namespace VNS.HIS.UI.NOITRU
             _Phieuravien.ShowDialog();
             if (_Phieuravien.objLuotkham != null)
             {
-                cmdXacnhan.Enabled = _Phieuravien.objLuotkham.TrangthaiNoitru >= 3 && _Phieuravien.objLuotkham.TrangthaiNoitru <= 4;
+                cmdXacnhan.Enabled = Khoanoitrutonghop ||( _Phieuravien.objLuotkham.TrangthaiNoitru >= 3 && _Phieuravien.objLuotkham.TrangthaiNoitru <= 4);
             }
             //Tính toán lại thông tin buồng giường cuối cùng
             LayLichsuBuongGiuong();
@@ -834,11 +835,13 @@ namespace VNS.HIS.UI.NOITRU
         {
             if (!IsValidData())
                 return;
-            objLuotkham.TthaiThopNoitru = Utility.Bool2byte(chkXacnhan.Checked);
-            objLuotkham.TrangthaiNoitru = (byte)(chkXacnhan.Checked ? 4 : 3);
             short idkhoanoitru=Utility.Int16Dbnull(cboKhoanoitru.SelectedValue,0);//Khoa nội trú tổng hợp để chuyển khoa
-            if(!Khoanoitrutonghop)//Điều dưỡng tổng hợp trước khi ra viện
-                idkhoanoitru=-1;
+            if (!Khoanoitrutonghop)//Điều dưỡng tổng hợp trước khi ra viện
+            {
+                idkhoanoitru = -1;
+                objLuotkham.TthaiThopNoitru = Utility.Bool2byte(chkXacnhan.Checked);
+                objLuotkham.TrangthaiNoitru = (byte)(chkXacnhan.Checked ? 4 : 3);
+            }
             if (noitru_tonghopchiphi.TongHopChiPhi(objLuotkham, idkhoanoitru, Khoanoitrutonghop) == ActionResult.Success)
             {
                 cmdRavien.Enabled = objLuotkham != null && objLuotkham.TrangthaiNoitru <= 3;
@@ -857,9 +860,9 @@ namespace VNS.HIS.UI.NOITRU
                 return false;
             }
             if(chkXacnhan.Checked)
-                if (objLuotkham.TrangthaiNoitru < 3)
+                if (!Khoanoitrutonghop && objLuotkham.TrangthaiNoitru < 3)
                 {
-                    Utility.ShowMsg("Bệnh nhân chưa lập phiếu xuất viện nên bạn không thể xác nhận dữ liệu nội trú. Đề nghị bạn lập xuất viện trước");
+                    Utility.ShowMsg("Bệnh nhân chưa lập phiếu ra viện nên bạn không thể xác nhận dữ liệu nội trú. Đề nghị bạn lập phiếu ra viện trước");
                     cmdRavien.Focus();
                     return false;
                 }
@@ -1156,7 +1159,7 @@ namespace VNS.HIS.UI.NOITRU
             string NOITRU_HIENTHI_PHIEUVTTH_THEOPHIEUDIEUTRI = THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_HIENTHI_PHIEUVTTH_THEOPHIEUDIEUTRI","1", false);
             try
             {
-                cmdXacnhan.Enabled = objLuotkham != null && objLuotkham.TrangthaiNoitru == 3;//Phải ra viện mới được tổng hợp
+                cmdXacnhan.Enabled = objLuotkham != null && (Khoanoitrutonghop || objLuotkham.TrangthaiNoitru == 3);//Phải ra viện mới được tổng hợp
                 cmdRavien.Enabled = objLuotkham != null && objLuotkham.TrangthaiNoitru <= 3;
                 cmdIngoiDV.Enabled = objLuotkham != null && grdGoidichvu.RowCount > 0 && objPhieudieutri != null;
 

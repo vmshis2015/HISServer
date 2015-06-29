@@ -172,10 +172,20 @@ namespace VNS.HIS.UI.NOITRU
                grdList.Focus();
                return false;
            }
-           if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) >=4)
+           if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) == 4)
            {
-               Utility.ShowMsg("Bệnh nhân đã tổng hợp ra viện nên không thể chuyển khoa. Đề nghị bạn kiểm tra lại");
+               Utility.ShowMsg("Bệnh nhân đã được xác nhận dữ liệu nội trú để chuyển thanh toán nên không thể Hủy giường. Đề nghị bạn kiểm tra lại");
                grdList.Focus();
+               return false;
+           }
+           if (_KcbLuotkham.TrangthaiNoitru == 5)
+           {
+               Utility.ShowMsg("Bệnh nhân đã được duyệt thanh toán nội trú nên bạn không thể sửa lại trạng thái xác nhận dữ liệu nội trú");
+               return false;
+           }
+           if (Utility.Byte2Bool(_KcbLuotkham.TthaiThanhtoannoitru) || _KcbLuotkham.TrangthaiNoitru == 6)
+           {
+               Utility.ShowMsg("Bệnh nhân đã được thanh toán nội trú nên bạn không thể sửa lại trạng thái xác nhận dữ liệu nội trú");
                return false;
            }
             return true;
@@ -197,10 +207,20 @@ namespace VNS.HIS.UI.NOITRU
                 grdList.Focus();
                 return false;
             }
-            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) >= 4)
+            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) == 4)
             {
-                Utility.ShowMsg("Bệnh nhân đã tổng hợp ra viện nên không thể chuyển khoa. Đề nghị bạn kiểm tra lại");
+                Utility.ShowMsg("Bệnh nhân đã được xác nhận dữ liệu nội trú để chuyển thanh toán nên không thể Hủy giường. Đề nghị bạn kiểm tra lại");
                 grdList.Focus();
+                return false;
+            }
+            if (_KcbLuotkham.TrangthaiNoitru == 5)
+            {
+                Utility.ShowMsg("Bệnh nhân đã được duyệt thanh toán nội trú nên bạn không thể sửa lại trạng thái xác nhận dữ liệu nội trú");
+                return false;
+            }
+            if (Utility.Byte2Bool(_KcbLuotkham.TthaiThanhtoannoitru) || _KcbLuotkham.TrangthaiNoitru == 6)
+            {
+                Utility.ShowMsg("Bệnh nhân đã được thanh toán nội trú nên bạn không thể sửa lại trạng thái xác nhận dữ liệu nội trú");
                 return false;
             }
             int id = Utility.Int32Dbnull(grdList.GetValue(NoitruPhanbuonggiuong.Columns.Id));
@@ -233,10 +253,20 @@ namespace VNS.HIS.UI.NOITRU
                 grdList.Focus();
                 return false;
             }
-            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) >= 4)
+            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) == 4)
             {
-                Utility.ShowMsg("Bệnh nhân đã tổng hợp ra viện nên không thể chuyển khoa. Đề nghị bạn kiểm tra lại");
+                Utility.ShowMsg("Bệnh nhân đã được xác nhận dữ liệu nội trú để chuyển thanh toán nên không thể Hủy giường. Đề nghị bạn kiểm tra lại");
                 grdList.Focus();
+                return false;
+            }
+            if (_KcbLuotkham.TrangthaiNoitru == 5)
+            {
+                Utility.ShowMsg("Bệnh nhân đã được duyệt thanh toán nội trú nên bạn không thể sửa lại trạng thái xác nhận dữ liệu nội trú");
+                return false;
+            }
+            if (Utility.Byte2Bool(_KcbLuotkham.TthaiThanhtoannoitru) || _KcbLuotkham.TrangthaiNoitru == 6)
+            {
+                Utility.ShowMsg("Bệnh nhân đã được thanh toán nội trú nên bạn không thể sửa lại trạng thái xác nhận dữ liệu nội trú");
                 return false;
             }
             if (m_dtKhoanoitru == null || m_dtKhoanoitru.Rows.Count <= 0 || m_dtKhoanoitru.Select(DmucKhoaphong.Columns.IdKhoaphong + "=" + _IdKhoanoitru.ToString()).Length <= 0)
@@ -395,10 +425,20 @@ namespace VNS.HIS.UI.NOITRU
                 grdList.Focus();
                 return false;
             }
-            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) >= 4)
+            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) == 4)
             {
-                Utility.ShowMsg("Bệnh nhân đã tổng hợp ra viện nên không thể Hủy giường. Đề nghị bạn kiểm tra lại");
+                Utility.ShowMsg("Bệnh nhân đã được xác nhận dữ liệu nội trú để chuyển thanh toán nên không thể Hủy giường. Đề nghị bạn kiểm tra lại");
                 grdList.Focus();
+                return false;
+            }
+            if (_KcbLuotkham.TrangthaiNoitru == 5)
+            {
+                Utility.ShowMsg("Bệnh nhân đã được duyệt thanh toán nội trú nên bạn không thể sửa lại trạng thái xác nhận dữ liệu nội trú");
+                return false;
+            }
+            if (Utility.Byte2Bool(_KcbLuotkham.TthaiThanhtoannoitru) || _KcbLuotkham.TrangthaiNoitru == 6)
+            {
+                Utility.ShowMsg("Bệnh nhân đã được thanh toán nội trú nên bạn không thể sửa lại trạng thái xác nhận dữ liệu nội trú");
                 return false;
             }
             if (m_dtKhoanoitru == null || m_dtKhoanoitru.Rows.Count<=0 || m_dtKhoanoitru.Select(DmucKhoaphong.Columns.IdKhoaphong + "=" + _IdKhoanoitru.ToString()).Length <= 0)
@@ -604,10 +644,20 @@ namespace VNS.HIS.UI.NOITRU
                 grdList.Focus();
                 return false;
             }
-            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) >= 4)
+            if (Utility.Int32Dbnull(_KcbLuotkham.TrangthaiNoitru, -1) == 4)
             {
-                Utility.ShowMsg("Bệnh nhân đã tổng hợp ra viện nên không thể Hủy chuyển khoa. Đề nghị bạn kiểm tra lại");
+                Utility.ShowMsg("Bệnh nhân đã được xác nhận dữ liệu nội trú để chuyển thanh toán nên không thể Hủy giường. Đề nghị bạn kiểm tra lại");
                 grdList.Focus();
+                return false;
+            }
+            if (_KcbLuotkham.TrangthaiNoitru == 5)
+            {
+                Utility.ShowMsg("Bệnh nhân đã được duyệt thanh toán nội trú nên bạn không thể sửa lại trạng thái xác nhận dữ liệu nội trú");
+                return false;
+            }
+            if (Utility.Byte2Bool(_KcbLuotkham.TthaiThanhtoannoitru) || _KcbLuotkham.TrangthaiNoitru == 6)
+            {
+                Utility.ShowMsg("Bệnh nhân đã được thanh toán nội trú nên bạn không thể sửa lại trạng thái xác nhận dữ liệu nội trú");
                 return false;
             }
             NoitruPhieudieutri _NoitruPhieudieutri = new Select().From<NoitruPhieudieutri>()

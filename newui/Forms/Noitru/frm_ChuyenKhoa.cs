@@ -28,7 +28,7 @@ namespace VNS.HIS.UI.NOITRU
         private DataTable m_dtKhoaNoItru = new DataTable();
         private DataTable m_dtPhong = new DataTable();
         private NoitruPhanbuonggiuong objPhanbuonggiuong;
-        private KcbLuotkham objPatientExam;
+        private KcbLuotkham objLuotkham;
         public DataTable p_DanhSachPhanBuongGiuong = new DataTable();
 
         public frm_ChuyenKhoa()
@@ -150,12 +150,12 @@ namespace VNS.HIS.UI.NOITRU
                 .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(txtMaLanKham.Text);
             if (sqlQuery.GetRecordCount() > 0)
             {
-                objPatientExam = sqlQuery.ExecuteSingle<KcbLuotkham>();
-                if (objPatientExam != null)
+                objLuotkham = sqlQuery.ExecuteSingle<KcbLuotkham>();
+                if (objLuotkham != null)
                 {
-                    txtMaLanKham.Text = Utility.sDbnull(objPatientExam.MaLuotkham);
-                    txtSoBHYT.Text = Utility.sDbnull(objPatientExam.MatheBhyt);
-                    DmucKhoaphong objDmucKhoaphong = DmucKhoaphong.FetchByID(objPatientExam.IdKhoanoitru);
+                    txtMaLanKham.Text = Utility.sDbnull(objLuotkham.MaLuotkham);
+                    txtSoBHYT.Text = Utility.sDbnull(objLuotkham.MatheBhyt);
+                    DmucKhoaphong objDmucKhoaphong = DmucKhoaphong.FetchByID(objLuotkham.IdKhoanoitru);
                     if (objDmucKhoaphong != null)
                     {
                         txtDepartmentName.Tag = Utility.sDbnull(objDmucKhoaphong.IdKhoaphong);
@@ -163,16 +163,16 @@ namespace VNS.HIS.UI.NOITRU
                         txtDepartmentName.Text = Utility.sDbnull(objDmucKhoaphong.TenKhoaphong);
                     }
 
-                    KcbDanhsachBenhnhan objPatientInfo = KcbDanhsachBenhnhan.FetchByID(objPatientExam.IdBenhnhan);
+                    KcbDanhsachBenhnhan objPatientInfo = KcbDanhsachBenhnhan.FetchByID(objLuotkham.IdBenhnhan);
                     if (objPatientInfo != null)
                     {
                         txtPatient_Name.Text = Utility.sDbnull(objPatientInfo.TenBenhnhan);
-                        txtPatient_ID.Text = Utility.sDbnull(objPatientExam.IdBenhnhan);
+                        txtPatient_ID.Text = Utility.sDbnull(objLuotkham.IdBenhnhan);
                         txtNamSinh.Text = Utility.sDbnull(objPatientInfo.NamSinh);
                         txtTuoi.Text = Utility.sDbnull(DateTime.Now.Year - objPatientInfo.NamSinh);
                         txtPatientSex.Text = objPatientInfo.GioiTinh;// Utility.Int32Dbnull(objPatientInfo.PatientSex) == 0 ? "Nam" : "Nữ";
                     }
-                    objPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(objPatientExam.IdRavien);
+                    objPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(objLuotkham.IdRavien);
                     dtNgayvao.Value = objPhanbuonggiuong.NgayVaokhoa;
                     if (objPhanbuonggiuong != null)
                     {
@@ -204,14 +204,40 @@ namespace VNS.HIS.UI.NOITRU
         private void cmdSave_Click(object sender, EventArgs e)
         {
             //if (!InValBenhNhan.ExistBN(txtMaLanKham.Text)) return;
-            if (!KiemTraThongtin()) return;
+            if (!IsValidData()) return;
             PerformAction();
             ModifyCommand();
         }
 
-        private bool KiemTraThongtin()
+        private bool IsValidData()
         {
-            
+            objLuotkham = Utility.getKcbLuotkham(objLuotkham.MaLuotkham);
+            if (objLuotkham == null)
+            {
+                Utility.ShowMsg("Không lấy được dữ liệu lượt khám của bệnh nhân. Đề nghị bạn kiểm tra lại");
+                return false;
+            }
+            if (objLuotkham.TrangthaiNoitru == 0)
+            {
+                Utility.ShowMsg("Bệnh nhân chưa nhập viện nội trú nên bạn không thể chuyển khoa. Đề nghị bạn kiểm tra lại");
+                return false;
+            }
+            if (objLuotkham.TrangthaiNoitru == 4)
+            {
+                Utility.ShowMsg("Bệnh nhân đã được xác nhận dữ liệu thanh toán nội trú nên bạn không thể chuyển khoa");
+                return false;
+            }
+            if (objLuotkham.TrangthaiNoitru == 5)
+            {
+                Utility.ShowMsg("Bệnh nhân đã được duyệt thanh toán nội trú nên bạn không thể chuyển khoa");
+                return false;
+            }
+            if (Utility.Byte2Bool(objLuotkham.TthaiThanhtoannoitru) || objLuotkham.TrangthaiNoitru == 6)
+            {
+                Utility.ShowMsg("Bệnh nhân đã được thanh toán nội trú nên bạn không thể  chuyển khoa");
+                return false;
+            }
+
             if (Utility.Int32Dbnull(txtKhoanoitru.MyID, -1) == -1)
             {
                 Utility.ShowMsg("Bạn phải chọn khoa nội trú chuyển đến", "Thông báo", MessageBoxIcon.Warning);
@@ -244,7 +270,7 @@ namespace VNS.HIS.UI.NOITRU
                     objPhanbuonggiuong.CachtinhSoluong = (byte)(chkAutoCal.Checked ? 0 : 1);
                     
                     ActionResult actionResult = new noitru_nhapvien().ChuyenKhoaDieuTri(objPhanbuonggiuong,
-                                                                                            objPatientExam,
+                                                                                            objLuotkham,
                                                                                             ngaychuyenkhoa,
                                                                                             Utility.Int16Dbnull(txtKhoanoitru.MyID, -1), -1,
                                                                                             -1);
@@ -258,9 +284,6 @@ namespace VNS.HIS.UI.NOITRU
                                 b_Cancel = false;
                                 Close();
                             }
-
-                          
-
                             break;
                         case ActionResult.Error:
                             Utility.ShowMsg("Lỗi trong quá trình chuyển khoa", "Thông báo", MessageBoxIcon.Error);
