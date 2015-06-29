@@ -319,6 +319,10 @@ DisplayName("Số ngày hiển thị phiếu điều trị")]
             LabelSize = new Size(257, 35);
             TextSize = new Size(121, 22);
 
+            RtfDynamicSize = new Size(378, 35);
+            RtfLabelSize = new Size(257, 35);
+            RtfTextSize = new Size(121, 22);
+
         }
         [Browsable(true), ReadOnly(false), Category("DynamicInput Properties"),
    Description("DynamicSize"),
@@ -335,7 +339,20 @@ DisplayName("Số ngày hiển thị phiếu điều trị")]
   DisplayName("Kích thước giá trị")]
         public Size TextSize { get; set; }
 
+        [Browsable(true), ReadOnly(false), Category("RichtextBox DynamicInput Properties"),
+  Description("DynamicSize"),
+  DisplayName("Kích thước đối tượng")]
+        public Size RtfDynamicSize { get; set; }
 
+        [Browsable(true), ReadOnly(false), Category("RichtextBox DynamicInput Properties"),
+  Description("LabelSize"),
+  DisplayName("Kích thước mô tả ")]
+        public Size RtfLabelSize { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("RichtextBox DynamicInput Properties"),
+  Description("TextSize"),
+  DisplayName("Kích thước giá trị ")]
+        public Size RtfTextSize { get; set; }
 
     }
     public class ConfigProperties
@@ -357,7 +374,7 @@ DisplayName("Số ngày hiển thị phiếu điều trị")]
             HIS_AppMode = AppEnum.AppMode.License;
             HIS_HardKeyType = AppEnum.HardKeyType.SOFTKEY;
             RunUnderWS = true;
-            WSURL = "";
+            WSURL = "http://localhost:1695/AdminWS.asmx";
         }
         [Browsable(true), ReadOnly(false), Category("Webservice settings"),
 Description("Địa chỉ Webservice"),
@@ -433,15 +450,46 @@ DisplayName("HIS Application Mode")]
     }
     public class FTPProperties
     {
-
         public FTPProperties()
         {
+            IPAddress = "192.168.1.254";
+            UID ="user";
+            PWD = "123456";
+            UNCPath=@"\\192.168.1.254\PACSImage";
             IamLocal = false;
             Push2FTP = false;
             ImageFolder = Application.StartupPath + @"\ImageSA";
+            PrintAfterSave = false;
+            PrintPreview = true;
         }
         [Browsable(true), ReadOnly(false), Category("Cấu hình FTP"),
-   Description("Local Image Forlder"),
+ Description("In ngay sau khi lưu"),
+ DisplayName("In ngay sau khi lưu")]
+        public bool PrintAfterSave { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình FTP"),
+  Description("Xem trước khi in"),
+  DisplayName("Xem trước khi in")]
+        public bool PrintPreview { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Cấu hình FTP"),
+   Description("IPAddress"),
+   DisplayName("IPAddress")]
+        public string IPAddress { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình FTP"),
+   Description("UID"),
+   DisplayName("UID")]
+        public string UID { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình FTP"),
+   Description("PWD"),
+   DisplayName("PWD")]
+        public string PWD { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình FTP"),
+   Description("Thư mục share chứa ảnh"),
+   DisplayName("UNCPath")]
+        public string UNCPath { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Cấu hình FTP"),
+   Description("Thư mục chứa ảnh máy Local dùng để chứa ảnh Download từ FTP"),
    DisplayName("Local Image Forlder")]
         public string ImageFolder { get; set; }
 

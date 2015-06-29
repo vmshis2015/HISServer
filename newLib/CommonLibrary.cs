@@ -585,6 +585,7 @@ namespace VNS.Libs
         {
             try
             {
+                KillProcess(appName);
                 System.Diagnostics.Process.Start(appName);
             }
             catch
@@ -1840,6 +1841,19 @@ namespace VNS.Libs
             }
         }
         public static KcbLuotkham getKcbLuotkham(long idbenhnhan,string maluotkham)
+        {
+            try
+            {
+                return new Select().From(KcbLuotkham.Schema)
+                     .Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(idbenhnhan)
+                     .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(maluotkham).ExecuteSingle<KcbLuotkham>();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public static KcbLuotkham getKcbLuotkham(object idbenhnhan, object maluotkham)
         {
             try
             {

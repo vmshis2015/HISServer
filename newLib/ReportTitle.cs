@@ -20,7 +20,7 @@ namespace VNS.Libs
             txtTieuDe.LostFocus += new EventHandler(txtTieuDe_LostFocus);
             txtTieuDe.GotFocus += new EventHandler(txtTieuDe_GotFocus);
             txtTieuDe.KeyDown += new KeyEventHandler(txtTieuDe_KeyDown);
-            cmdSave.Visible = cmdSave.Visible = globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenSuatieudebaocao);
+            cmdSave.Visible = cmdSave.Visible = globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenSuatieudebaocao));
             cmdSave.Click += new EventHandler(cmdSave_Click);
         }
         
