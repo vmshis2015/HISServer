@@ -1064,7 +1064,7 @@
             this.vbLine4.Size = new System.Drawing.Size(385, 22);
             this.vbLine4.TabIndex = 559;
             this.vbLine4.TabStop = false;
-            this.vbLine4.YourText = "Thông tin đơn thuốc";
+            this.vbLine4.YourText = "Chẩn đoán và bệnh";
             // 
             // txtMaBenhphu
             // 
@@ -1490,7 +1490,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(95, 21);
             this.label6.TabIndex = 52;
-            this.label6.Text = "Bs chỉ định :";
+            this.label6.Text = "Bs kê đơn :";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label23
@@ -1584,7 +1584,7 @@
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(95, 23);
             this.label25.TabIndex = 47;
-            this.label25.Text = "Ngày tạo đơn:";
+            this.label25.Text = "Ngày kê đơn:";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // dtpCreatedDate

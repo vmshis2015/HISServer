@@ -252,7 +252,7 @@
             this.Tabpagedangky.Name = "Tabpagedangky";
             this.Tabpagedangky.Size = new System.Drawing.Size(485, 587);
             this.Tabpagedangky.TabStop = true;
-            this.Tabpagedangky.Text = "Thông tin phòng chỉ định khám";
+            this.Tabpagedangky.Text = "Dịch vụ đăng ký";
             // 
             // grdRegExam
             // 
@@ -578,6 +578,7 @@
             // 
             this.txtExamtypeCode._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtExamtypeCode._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtExamtypeCode._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtExamtypeCode.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtExamtypeCode.AutoCompleteList")));
             this.txtExamtypeCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtExamtypeCode.CaseSensitive = false;
@@ -593,6 +594,7 @@
             this.txtExamtypeCode.MinTypedCharacters = 2;
             this.txtExamtypeCode.MyCode = "-1";
             this.txtExamtypeCode.MyID = "-1";
+            this.txtExamtypeCode.MyText = "";
             this.txtExamtypeCode.Name = "txtExamtypeCode";
             this.txtExamtypeCode.RaiseEvent = true;
             this.txtExamtypeCode.RaiseEventEnter = false;
@@ -670,6 +672,7 @@
             // 
             this.txtKieuKham._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtKieuKham._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKieuKham._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtKieuKham.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKieuKham.AutoCompleteList")));
             this.txtKieuKham.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtKieuKham.CaseSensitive = false;
@@ -685,6 +688,7 @@
             this.txtKieuKham.MinTypedCharacters = 2;
             this.txtKieuKham.MyCode = "-1";
             this.txtKieuKham.MyID = "-1";
+            this.txtKieuKham.MyText = "";
             this.txtKieuKham.Name = "txtKieuKham";
             this.txtKieuKham.RaiseEvent = true;
             this.txtKieuKham.RaiseEventEnter = false;
@@ -718,6 +722,7 @@
             // 
             this.txtPhongkham._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtPhongkham._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPhongkham._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtPhongkham.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPhongkham.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtPhongkham.AutoCompleteList")));
@@ -735,6 +740,7 @@
             this.txtPhongkham.MinTypedCharacters = 2;
             this.txtPhongkham.MyCode = "-1";
             this.txtPhongkham.MyID = "-1";
+            this.txtPhongkham.MyText = "";
             this.txtPhongkham.Name = "txtPhongkham";
             this.txtPhongkham.RaiseEvent = true;
             this.txtPhongkham.RaiseEventEnter = false;
@@ -802,7 +808,7 @@
             this.tabPageChiDinh.Name = "tabPageChiDinh";
             this.tabPageChiDinh.Size = new System.Drawing.Size(485, 587);
             this.tabPageChiDinh.TabStop = true;
-            this.tabPageChiDinh.Text = "Thông tin chỉ định(Nhấn F2)";
+            this.tabPageChiDinh.Text = "Chỉ định không qua khám";
             // 
             // uiGroupBox4
             // 

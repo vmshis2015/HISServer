@@ -1373,7 +1373,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cboDoctorAssign.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDoctorAssign.FormattingEnabled = true;
-            this.cboDoctorAssign.Location = new System.Drawing.Point(350, 23);
+            this.cboDoctorAssign.Location = new System.Drawing.Point(350, 22);
             this.cboDoctorAssign.Name = "cboDoctorAssign";
             this.cboDoctorAssign.Size = new System.Drawing.Size(243, 21);
             this.cboDoctorAssign.TabIndex = 15;

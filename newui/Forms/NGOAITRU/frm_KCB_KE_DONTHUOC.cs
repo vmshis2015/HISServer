@@ -1660,6 +1660,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 this.barcode.Data = Utility.sDbnull(this.IdDonthuoc);
                 this.txtLoiDanBS.Text = Utility.sDbnull(donthuoc.LoidanBacsi);
                 this.txtKhamLai.Text = Utility.sDbnull(donthuoc.TaiKham);
+                this.cbobacSyChiDinh.SelectedIndex = Utility.GetSelectedIndex(this.cbobacSyChiDinh, donthuoc.IdBacsiChidinh.ToString());
                 dtpCreatedDate.Value = donthuoc.NgayKedon;
                 if (donthuoc.NgayTaikham != null)
                 {

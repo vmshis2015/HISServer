@@ -992,7 +992,16 @@ namespace VNS.HIS.UI.NGOAITRU
                         SinhMaLanKham();
                         LoadThongtinBenhnhan();
                         LaydanhsachdangkyKCB();
-                        txtKieuKham.Select();
+                        if (pnlChonphongkham.Visible)
+                        {
+                            txtExamtypeCode.Focus();
+                            txtExamtypeCode.Select();
+                        }
+                        else
+                        {
+                            txtKieuKham.Focus();
+                            txtKieuKham.Select();
+                        }
                     }
                     else//Còn lần khám chưa thanh toán-->Kiểm tra
                     {
@@ -2876,7 +2885,16 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (grdRegExam.GetDataRows().Length <= 0 &&  cboKieuKham.SelectedIndex<0)
                     if (Utility.AcceptQuestion("Bệnh nhân chưa có phòng khám. Bạn nên chọn một phòng khám cho Bệnh nhân trước khi lưu. Bạn có muốn tạm dừng để nhập thông tin phòng khám cho bệnh nhân không?\n Nhấn Yes để tạm dừng việc Ghi và chọn lại phòng khám.", "Cảnh báo", true))
                     {
-                        txtKieuKham.Focus();
+                        if (pnlChonphongkham.Visible)
+                        {
+                            txtExamtypeCode.Focus();
+                            txtExamtypeCode.Select();
+                        }
+                        else
+                        {
+                            txtKieuKham.Focus();
+                            txtKieuKham.Select();
+                        }
                         return false;
                     }
             //Kiểm tra xem đã chọn phòng khám chưa
@@ -3247,7 +3265,16 @@ namespace VNS.HIS.UI.NGOAITRU
                     m_enAction = action.Add;
                     SinhMaLanKham();
                     LaydanhsachdangkyKCB();
-                    txtKieuKham.Focus();
+                    if (pnlChonphongkham.Visible)
+                    {
+                        txtExamtypeCode.Focus();
+                        txtExamtypeCode.Select();
+                    }
+                    else
+                    {
+                        txtKieuKham.Focus();
+                        txtKieuKham.Select();
+                    }
                 }
                 else
                 {
@@ -3781,7 +3808,16 @@ namespace VNS.HIS.UI.NGOAITRU
         private void txtSoDT_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                txtKieuKham.Focus();
+                if (pnlChonphongkham.Visible)
+                {
+                    txtExamtypeCode.Focus();
+                    txtExamtypeCode.Select();
+                }
+                else
+                {
+                    txtKieuKham.Focus();
+                    txtKieuKham.Select();
+                }
         }
 
         private void cmdMoSoKham_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
