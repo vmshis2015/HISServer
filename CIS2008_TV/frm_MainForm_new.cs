@@ -422,8 +422,9 @@ namespace CIS.CoreApp
                 else
                     pnlHeader.Height = 0;
             }
-            catch
+            catch(Exception ex)
             {
+                Utility.CatchException(ex);
             }
         }
        
