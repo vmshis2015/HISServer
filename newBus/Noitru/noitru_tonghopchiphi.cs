@@ -46,7 +46,6 @@ namespace VNS.HIS.BusRule.Classes
                         .And(KcbLuotkham.Columns.IdBenhnhan)
                         .IsEqualTo(Utility.Int32Dbnull(objPatientExam.IdBenhnhan))
                         .Execute();
-
                         SPs.NoitruChotdulieuravien(objPatientExam.MaLuotkham, objPatientExam.IdBenhnhan, idKhoanoitru, Utility.Bool2byte(Khoanoitru_tonghop), (byte)(Utility.Byte2Bool(KcbLuotkham.Columns.TthaiThopNoitru) ? 1 : 0)).Execute();
                     }
                     scope.Complete();

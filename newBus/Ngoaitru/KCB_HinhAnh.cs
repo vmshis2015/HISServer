@@ -75,7 +75,7 @@ namespace VNS.HIS.BusRule.Classes
                             .Set(KcbChidinhclsChitiet.Columns.NgayThuchien).EqualTo(globalVariables.SysDate)
                             .Set(KcbChidinhclsChitiet.Columns.NguoiThuchien).EqualTo(globalVariables.UserName)
                             .Where(KcbChidinhclsChitiet.Columns.IdChitietchidinh).IsEqualTo(IdChitietchidinh).
-                            And(KcbChidinhclsChitiet.Columns.TrangThai).IsEqualTo(1).//Chỉ update khi trạng thái mới chuyển cls
+                            And(KcbChidinhclsChitiet.Columns.TrangThai).IsEqualTo(2).//Chỉ update khi trạng thái mới chuyển cls
                             Execute();
                        else//3 hoặc 4
                            new Update(KcbChidinhclsChitiet.Schema)

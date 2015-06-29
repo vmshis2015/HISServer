@@ -84,7 +84,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             StoredProcedure sp = SPs.ThuocNhapkhoOutput(objPhieuNhapCt.NgayHethan, objPhieuNhapCt.GiaNhap, objPhieuNhapCt.GiaBan,
                                                                       _SoLuong, Utility.DecimaltoDbnull(objPhieuNhapCt.Vat),
                                                                       objPhieuNhapCt.IdThuoc, objPhieuNhap.IdKhonhap,
-                                                                      objPhieuNhapCt.MaNhacungcap, objPhieuNhapCt.SoLo, -1, idthuockho, ngayxacnhan, objPhieuNhapCt.GiaBhyt, objPhieuNhapCt.GiaPhuthuDungtuyen, objPhieuNhapCt.GiaPhuthuTraituyen);
+                                                                      objPhieuNhapCt.MaNhacungcap, objPhieuNhapCt.SoLo, -1, idthuockho, ngayxacnhan, objPhieuNhapCt.GiaBhyt, objPhieuNhapCt.GiaPhuthuDungtuyen, objPhieuNhapCt.GiaPhuthuTraituyen, objPhieuNhapCt.KieuThuocvattu);
                             sp.Execute();
                             idthuockho = Utility.Int64Dbnull(sp.OutputValues[0], -1);
                            
@@ -229,7 +229,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             StoredProcedure sp = SPs.ThuocNhapkhoOutput(objPhieuNhapCt.NgayHethan, objPhieuNhapCt.GiaNhap, objPhieuNhapCt.GiaBan,
                                                                       objPhieuNhapCt.SoLuong, Utility.DecimaltoDbnull(objPhieuNhapCt.Vat),
                                                                       objPhieuNhapCt.IdThuoc, objPhieuNhap.IdKhonhap,
-                                                                      objPhieuNhapCt.MaNhacungcap, objPhieuNhapCt.SoLo, -1, idthuockho, ngayxacnhan, objPhieuNhapCt.GiaBhyt, objPhieuNhapCt.GiaPhuthuDungtuyen, objPhieuNhapCt.GiaPhuthuTraituyen);
+                                                                      objPhieuNhapCt.MaNhacungcap, objPhieuNhapCt.SoLo, -1, idthuockho, ngayxacnhan, objPhieuNhapCt.GiaBhyt, objPhieuNhapCt.GiaPhuthuDungtuyen, objPhieuNhapCt.GiaPhuthuTraituyen, objPhieuNhapCt.KieuThuocvattu);
                             sp.Execute();
                             //Lấy về Id_thuockho tương ứng trong tủ trực
                             idthuockho = Utility.Int64Dbnull(sp.OutputValues[0], -1);
@@ -429,7 +429,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                                                                       objPhieuNhapCt.SoLuong, Utility.DecimaltoDbnull(objPhieuNhapCt.Vat),
                                                                       objPhieuNhapCt.IdThuoc, objPhieuNhap.IdKhoxuat, objPhieuNhapCt.MaNhacungcap,
                                                                       objPhieuNhapCt.SoLo,-1,id_thuockho, objPhieuNhapCt.NgayNhap, objPhieuNhapCt.GiaBhyt
-                                                                      , objPhieuNhapCt.GiaPhuthuDungtuyen, objPhieuNhapCt.GiaPhuthuTraituyen);
+                                                                      , objPhieuNhapCt.GiaPhuthuDungtuyen, objPhieuNhapCt.GiaPhuthuTraituyen, objPhieuNhapCt.KieuThuocvattu);
                             sp.Execute();
                             //Trừ thuốc từ tủ trực
                             int SluongChia = Utility.Int32Dbnull(objPhieuNhapCt.SluongChia, 1);
@@ -505,7 +505,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                                                                       Sluong, Utility.DecimaltoDbnull(objPhieuNhapCt.Vat),
                                                                       objPhieuNhapCt.IdThuoc, objPhieuNhap.IdKhoxuat, objPhieuNhapCt.MaNhacungcap,
                                                                       objPhieuNhapCt.SoLo, -1, idthuockho, objPhieuNhapCt.NgayNhap,objPhieuNhapCt.GiaBhyt,
-                                                                      objPhieuNhapCt.GiaPhuthuDungtuyen,objPhieuNhapCt.GiaPhuthuTraituyen);
+                                                                      objPhieuNhapCt.GiaPhuthuDungtuyen, objPhieuNhapCt.GiaPhuthuTraituyen, objPhieuNhapCt.KieuThuocvattu);
                             sp.Execute();
                             idthuockho = Utility.Int64Dbnull(sp.OutputValues[0], -1);
                            //Xuất thứ nguyên từ kho nhận
@@ -721,7 +721,8 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                                                                   PhieuXuatBnhanCt.SoLuong, Utility.DecimaltoDbnull(PhieuXuatBnhanCt.Vat),
                                                                   PhieuXuatBnhanCt.IdThuoc, PhieuXuatBnhanCt.IdKho,
                                                                   PhieuXuatBnhanCt.MaNhacungcap, PhieuXuatBnhanCt.SoLo,
-                                                                  PhieuXuatBnhanCt.IdThuockho.Value, id_Thuockho_new, PhieuXuatBnhanCt.NgayNhap, PhieuXuatBnhanCt.DonGia, PhieuXuatBnhanCt.PhuthuDungtuyen, PhieuXuatBnhanCt.PhuthuTraituyen);
+                                                                  PhieuXuatBnhanCt.IdThuockho.Value, id_Thuockho_new, PhieuXuatBnhanCt.NgayNhap,
+                                                                  PhieuXuatBnhanCt.DonGia, PhieuXuatBnhanCt.PhuthuDungtuyen, PhieuXuatBnhanCt.PhuthuTraituyen, phieuxuat.KieuThuocvattu);
                                 sp.Execute();
                                 //Lấy đầu ra iTThuockho nếu thêm mới để update lại presdetail
                                 id_Thuockho_new = Utility.Int32Dbnull(sp.OutputValues[0]);
