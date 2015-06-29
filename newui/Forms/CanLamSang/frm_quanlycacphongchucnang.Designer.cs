@@ -31,10 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_quanlycacphongchucnang));
             Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem4 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem5 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem6 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem7 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem8 = new Janus.Windows.EditControls.UIComboBoxItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -43,6 +43,9 @@
             this.TabInfo = new Janus.Windows.UI.Tab.UITab();
             this.tabCapNhap = new Janus.Windows.UI.Tab.UITabPage();
             this.grpChiDinhCLS = new Janus.Windows.EditControls.UIGroupBox();
+            this.cmdConfig = new Janus.Windows.EditControls.UIButton();
+            this.cmdDelFTPImages = new Janus.Windows.EditControls.UIButton();
+            this.chkInsaukhiluu = new Janus.Windows.EditControls.UICheckBox();
             this.lnkSize = new System.Windows.Forms.LinkLabel();
             this.lnkMore = new System.Windows.Forms.LinkLabel();
             this.chkPreview = new Janus.Windows.EditControls.UICheckBox();
@@ -65,7 +68,6 @@
             this.txtIdKham = new Janus.Windows.GridEX.EditControls.EditBox();
             this.txtGhiChu = new Janus.Windows.GridEX.EditControls.EditBox();
             this.label33 = new System.Windows.Forms.Label();
-            this.chkXacnhan = new Janus.Windows.EditControls.UICheckBox();
             this.cmdSaveBookMark = new Janus.Windows.EditControls.UIButton();
             this.label19 = new System.Windows.Forms.Label();
             this.txtidchidinhchitiet = new Janus.Windows.GridEX.EditControls.EditBox();
@@ -108,6 +110,7 @@
             this.cmdSaveAndAccept = new Janus.Windows.EditControls.UIButton();
             this.cmdPrintRadio = new Janus.Windows.EditControls.UIButton();
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
+            this.chkXacnhan = new Janus.Windows.EditControls.UICheckBox();
             this.tabDanhsach = new Janus.Windows.UI.Tab.UITabPage();
             this.grdList = new Janus.Windows.GridEX.GridEX();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -137,35 +140,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cboPatientSex = new Janus.Windows.EditControls.UIComboBox();
             this.cmdSearch = new Janus.Windows.EditControls.UIButton();
-            this.tabConfigRadio = new Janus.Windows.UI.Tab.UITabPage();
-            this.uiGroupBox11 = new Janus.Windows.EditControls.UIGroupBox();
-            this.txtImgFolder = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.cmdDelFTPImages = new Janus.Windows.EditControls.UIButton();
-            this.chkPush2FTP = new Janus.Windows.EditControls.UICheckBox();
-            this.lstRemoteSiteFiles = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chkIsLocal = new Janus.Windows.EditControls.UICheckBox();
-            this.linkClean = new System.Windows.Forms.LinkLabel();
-            this.cmdSaveConfig = new Janus.Windows.EditControls.UIButton();
-            this.txtUNCPath = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.txtPassword = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.txtUserName = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.cmdConnect = new Janus.Windows.EditControls.UIButton();
-            this.txtIP = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.uiGroupBox10 = new Janus.Windows.EditControls.UIGroupBox();
             this.ctxImage = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuBrowseImage = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDeleteImage = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuView = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.gridEXExporter1 = new Janus.Windows.GridEX.Export.GridEXExporter(this.components);
             this.gridEXExporter2 = new Janus.Windows.GridEX.Export.GridEXExporter(this.components);
@@ -186,10 +165,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.grpTimKiem)).BeginInit();
             this.grpTimKiem.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.tabConfigRadio.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox11)).BeginInit();
-            this.uiGroupBox11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox10)).BeginInit();
             this.ctxImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox13)).BeginInit();
             this.SuspendLayout();
@@ -248,8 +223,7 @@
             this.TabInfo.TabIndex = 0;
             this.TabInfo.TabPages.AddRange(new Janus.Windows.UI.Tab.UITabPage[] {
             this.tabCapNhap,
-            this.tabDanhsach,
-            this.tabConfigRadio});
+            this.tabDanhsach});
             this.TabInfo.TabStop = false;
             this.TabInfo.VisualStyle = Janus.Windows.UI.Tab.TabVisualStyle.VS2005;
             this.TabInfo.SelectedTabChanged += new Janus.Windows.UI.Tab.TabEventHandler(this.TabInfo_SelectedTabChanged);
@@ -270,6 +244,9 @@
             // 
             // grpChiDinhCLS
             // 
+            this.grpChiDinhCLS.Controls.Add(this.cmdConfig);
+            this.grpChiDinhCLS.Controls.Add(this.cmdDelFTPImages);
+            this.grpChiDinhCLS.Controls.Add(this.chkInsaukhiluu);
             this.grpChiDinhCLS.Controls.Add(this.lnkSize);
             this.grpChiDinhCLS.Controls.Add(this.lnkMore);
             this.grpChiDinhCLS.Controls.Add(this.chkPreview);
@@ -288,7 +265,6 @@
             this.grpChiDinhCLS.Controls.Add(this.txtIdKham);
             this.grpChiDinhCLS.Controls.Add(this.txtGhiChu);
             this.grpChiDinhCLS.Controls.Add(this.label33);
-            this.grpChiDinhCLS.Controls.Add(this.chkXacnhan);
             this.grpChiDinhCLS.Controls.Add(this.cmdSaveBookMark);
             this.grpChiDinhCLS.Controls.Add(this.label19);
             this.grpChiDinhCLS.Controls.Add(this.txtidchidinhchitiet);
@@ -311,16 +287,50 @@
             this.grpChiDinhCLS.Text = "Thông tin kết quả";
             this.grpChiDinhCLS.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2003;
             // 
+            // cmdConfig
+            // 
+            this.cmdConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdConfig.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdConfig.Image = ((System.Drawing.Image)(resources.GetObject("cmdConfig.Image")));
+            this.cmdConfig.ImageSize = new System.Drawing.Size(24, 24);
+            this.cmdConfig.Location = new System.Drawing.Point(963, 509);
+            this.cmdConfig.Name = "cmdConfig";
+            this.cmdConfig.Size = new System.Drawing.Size(43, 34);
+            this.cmdConfig.TabIndex = 504;
+            this.cmdConfig.TabStop = false;
+            // 
+            // cmdDelFTPImages
+            // 
+            this.cmdDelFTPImages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdDelFTPImages.Image = ((System.Drawing.Image)(resources.GetObject("cmdDelFTPImages.Image")));
+            this.cmdDelFTPImages.ImageSize = new System.Drawing.Size(24, 24);
+            this.cmdDelFTPImages.Location = new System.Drawing.Point(836, 299);
+            this.cmdDelFTPImages.Name = "cmdDelFTPImages";
+            this.cmdDelFTPImages.Size = new System.Drawing.Size(166, 38);
+            this.cmdDelFTPImages.TabIndex = 503;
+            this.cmdDelFTPImages.Text = "Xóa ảnh download từ FTP?";
+            // 
+            // chkInsaukhiluu
+            // 
+            this.chkInsaukhiluu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkInsaukhiluu.Checked = true;
+            this.chkInsaukhiluu.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkInsaukhiluu.Location = new System.Drawing.Point(835, 519);
+            this.chkInsaukhiluu.Name = "chkInsaukhiluu";
+            this.chkInsaukhiluu.Size = new System.Drawing.Size(142, 23);
+            this.chkInsaukhiluu.TabIndex = 502;
+            this.chkInsaukhiluu.TabStop = false;
+            this.chkInsaukhiluu.Text = "In ngay sau khi lưu";
+            // 
             // lnkSize
             // 
             this.lnkSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lnkSize.AutoSize = true;
             this.lnkSize.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkSize.Location = new System.Drawing.Point(839, 473);
+            this.lnkSize.Location = new System.Drawing.Point(839, 464);
             this.lnkSize.Name = "lnkSize";
             this.lnkSize.Size = new System.Drawing.Size(127, 16);
             this.lnkSize.TabIndex = 501;
-            this.lnkSize.TabStop = true;
             this.lnkSize.Text = "Cấu hình kích thước";
             this.toolTip1.SetToolTip(this.lnkSize, "Nhấn vào đây để cấu hình kích thước cho các đối tượng nhập kết quả");
             // 
@@ -329,11 +339,10 @@
             this.lnkMore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lnkMore.AutoSize = true;
             this.lnkMore.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkMore.Location = new System.Drawing.Point(839, 500);
+            this.lnkMore.Location = new System.Drawing.Point(839, 491);
             this.lnkMore.Name = "lnkMore";
             this.lnkMore.Size = new System.Drawing.Size(76, 16);
             this.lnkMore.TabIndex = 500;
-            this.lnkMore.TabStop = true;
             this.lnkMore.Text = "Thêm giá trị";
             this.toolTip1.SetToolTip(this.lnkMore, "Nhấn vào đây để thêm các giá trị kết quả ứng với dịch vụ CĐHA đang chọn(Có thể th" +
         "ực hiện ở cả danh mục dịch vụ Cận lâm sàng chi tiết)");
@@ -343,7 +352,6 @@
             this.chkPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkPreview.Checked = true;
             this.chkPreview.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPreview.Image = ((System.Drawing.Image)(resources.GetObject("chkPreview.Image")));
             this.chkPreview.Location = new System.Drawing.Point(687, 521);
             this.chkPreview.Name = "chkPreview";
             this.chkPreview.Size = new System.Drawing.Size(142, 23);
@@ -365,9 +373,10 @@
             // 
             this.label35.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label35.Location = new System.Drawing.Point(20, 524);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(45, 15);
+            this.label35.Size = new System.Drawing.Size(44, 15);
             this.label35.TabIndex = 496;
             this.label35.Text = "Mẫu in";
             this.toolTip1.SetToolTip(this.label35, "Là mẫu in chuẩn do nhà cung cấp phần mềm cấu hình");
@@ -413,7 +422,7 @@
             this.cmdGetImages.Image = ((System.Drawing.Image)(resources.GetObject("cmdGetImages.Image")));
             this.cmdGetImages.Location = new System.Drawing.Point(835, 255);
             this.cmdGetImages.Name = "cmdGetImages";
-            this.cmdGetImages.Size = new System.Drawing.Size(166, 27);
+            this.cmdGetImages.Size = new System.Drawing.Size(166, 38);
             this.cmdGetImages.TabIndex = 8;
             this.cmdGetImages.TabStop = false;
             this.cmdGetImages.Text = "Lấy ảnh từ FTP";
@@ -422,6 +431,7 @@
             // chkSaveImg
             // 
             this.chkSaveImg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkSaveImg.Enabled = false;
             this.chkSaveImg.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSaveImg.ForeColor = System.Drawing.Color.Navy;
             this.chkSaveImg.Location = new System.Drawing.Point(835, 193);
@@ -522,20 +532,6 @@
             this.label33.TabIndex = 33;
             this.label33.Text = "Ghi chú";
             this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // chkXacnhan
-            // 
-            this.chkXacnhan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkXacnhan.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkXacnhan.ForeColor = System.Drawing.Color.Navy;
-            this.chkXacnhan.Location = new System.Drawing.Point(835, 226);
-            this.chkXacnhan.Name = "chkXacnhan";
-            this.chkXacnhan.Size = new System.Drawing.Size(171, 23);
-            this.chkXacnhan.TabIndex = 7;
-            this.chkXacnhan.TabStop = false;
-            this.chkXacnhan.Text = "Đã xác nhận kết quả?";
-            this.toolTip1.SetToolTip(this.chkXacnhan, "Chọn mục này nếu muốn kết thúc nhập kết quả cho cận lâm sàng đang chọn(Nếu kết th" +
-        "úc, các bác sĩ ở phòng khám có thể xem kết quả này)");
             // 
             // cmdSaveBookMark
             // 
@@ -968,6 +964,7 @@
             this.uiGroupBox8.Controls.Add(this.cmdSaveAndAccept);
             this.uiGroupBox8.Controls.Add(this.cmdPrintRadio);
             this.uiGroupBox8.Controls.Add(this.cmdSave);
+            this.uiGroupBox8.Controls.Add(this.chkXacnhan);
             this.uiGroupBox8.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.uiGroupBox8.Location = new System.Drawing.Point(0, 650);
             this.uiGroupBox8.Name = "uiGroupBox8";
@@ -1021,7 +1018,7 @@
             this.cmdSaveAndAccept.Name = "cmdSaveAndAccept";
             this.cmdSaveAndAccept.Size = new System.Drawing.Size(133, 27);
             this.cmdSaveAndAccept.TabIndex = 92;
-            this.cmdSaveAndAccept.Text = "Lưu và in";
+            this.cmdSaveAndAccept.Text = "Lưu và xác nhận";
             this.cmdSaveAndAccept.Click += new System.EventHandler(this.cmdSaveAndAccept_Click);
             // 
             // cmdPrintRadio
@@ -1033,7 +1030,7 @@
             this.cmdPrintRadio.Name = "cmdPrintRadio";
             this.cmdPrintRadio.Size = new System.Drawing.Size(133, 27);
             this.cmdPrintRadio.TabIndex = 93;
-            this.cmdPrintRadio.Text = "&In kết quả(F4)";
+            this.cmdPrintRadio.Text = "In kết quả(F4)";
             this.cmdPrintRadio.Click += new System.EventHandler(this.cmdPrintRadio_Click);
             // 
             // cmdSave
@@ -1046,6 +1043,19 @@
             this.cmdSave.Size = new System.Drawing.Size(133, 27);
             this.cmdSave.TabIndex = 91;
             this.cmdSave.Text = "Lưu (Ctrl+S)";
+            // 
+            // chkXacnhan
+            // 
+            this.chkXacnhan.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkXacnhan.ForeColor = System.Drawing.Color.Navy;
+            this.chkXacnhan.Location = new System.Drawing.Point(262, 14);
+            this.chkXacnhan.Name = "chkXacnhan";
+            this.chkXacnhan.Size = new System.Drawing.Size(171, 23);
+            this.chkXacnhan.TabIndex = 7;
+            this.chkXacnhan.TabStop = false;
+            this.chkXacnhan.Text = "Đã xác nhận kết quả?";
+            this.toolTip1.SetToolTip(this.chkXacnhan, "Chọn mục này nếu muốn kết thúc nhập kết quả cho cận lâm sàng đang chọn(Nếu kết th" +
+        "úc, các bác sĩ ở phòng khám có thể xem kết quả này)");
             // 
             // tabDanhsach
             // 
@@ -1390,27 +1400,27 @@
             // 
             // cboPatientSex
             // 
-            uiComboBoxItem1.FormatStyle.Alpha = 0;
-            uiComboBoxItem1.IsSeparator = false;
-            uiComboBoxItem1.Text = "Giới tính";
-            uiComboBoxItem1.Value = -1;
-            uiComboBoxItem2.FormatStyle.Alpha = 0;
-            uiComboBoxItem2.IsSeparator = false;
-            uiComboBoxItem2.Text = "Nam(Male)";
-            uiComboBoxItem2.Value = 0;
-            uiComboBoxItem3.FormatStyle.Alpha = 0;
-            uiComboBoxItem3.IsSeparator = false;
-            uiComboBoxItem3.Text = "Nữ(Female)";
-            uiComboBoxItem3.Value = 1;
-            uiComboBoxItem4.FormatStyle.Alpha = 0;
-            uiComboBoxItem4.IsSeparator = false;
-            uiComboBoxItem4.Text = "Khác";
-            uiComboBoxItem4.Value = 2;
+            uiComboBoxItem5.FormatStyle.Alpha = 0;
+            uiComboBoxItem5.IsSeparator = false;
+            uiComboBoxItem5.Text = "Giới tính";
+            uiComboBoxItem5.Value = -1;
+            uiComboBoxItem6.FormatStyle.Alpha = 0;
+            uiComboBoxItem6.IsSeparator = false;
+            uiComboBoxItem6.Text = "Nam(Male)";
+            uiComboBoxItem6.Value = 0;
+            uiComboBoxItem7.FormatStyle.Alpha = 0;
+            uiComboBoxItem7.IsSeparator = false;
+            uiComboBoxItem7.Text = "Nữ(Female)";
+            uiComboBoxItem7.Value = 1;
+            uiComboBoxItem8.FormatStyle.Alpha = 0;
+            uiComboBoxItem8.IsSeparator = false;
+            uiComboBoxItem8.Text = "Khác";
+            uiComboBoxItem8.Value = 2;
             this.cboPatientSex.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem1,
-            uiComboBoxItem2,
-            uiComboBoxItem3,
-            uiComboBoxItem4});
+            uiComboBoxItem5,
+            uiComboBoxItem6,
+            uiComboBoxItem7,
+            uiComboBoxItem8});
             this.cboPatientSex.Location = new System.Drawing.Point(85, 77);
             this.cboPatientSex.Name = "cboPatientSex";
             this.cboPatientSex.SelectedIndex = 0;
@@ -1431,251 +1441,15 @@
             this.cmdSearch.Text = "&Tìm kiếm(F3)";
             this.cmdSearch.Click += new System.EventHandler(this.cmdSearch_Click);
             // 
-            // tabConfigRadio
-            // 
-            this.tabConfigRadio.Controls.Add(this.uiGroupBox11);
-            this.tabConfigRadio.Controls.Add(this.uiGroupBox10);
-            this.tabConfigRadio.Image = ((System.Drawing.Image)(resources.GetObject("tabConfigRadio.Image")));
-            this.tabConfigRadio.Location = new System.Drawing.Point(1, 27);
-            this.tabConfigRadio.Name = "tabConfigRadio";
-            this.tabConfigRadio.Size = new System.Drawing.Size(1012, 696);
-            this.tabConfigRadio.TabStop = true;
-            this.tabConfigRadio.Text = "Cấu hình hệ thống";
-            // 
-            // uiGroupBox11
-            // 
-            this.uiGroupBox11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.uiGroupBox11.Controls.Add(this.txtImgFolder);
-            this.uiGroupBox11.Controls.Add(this.label32);
-            this.uiGroupBox11.Controls.Add(this.cmdDelFTPImages);
-            this.uiGroupBox11.Controls.Add(this.chkPush2FTP);
-            this.uiGroupBox11.Controls.Add(this.lstRemoteSiteFiles);
-            this.uiGroupBox11.Controls.Add(this.chkIsLocal);
-            this.uiGroupBox11.Controls.Add(this.linkClean);
-            this.uiGroupBox11.Controls.Add(this.cmdSaveConfig);
-            this.uiGroupBox11.Controls.Add(this.txtUNCPath);
-            this.uiGroupBox11.Controls.Add(this.label30);
-            this.uiGroupBox11.Controls.Add(this.label25);
-            this.uiGroupBox11.Controls.Add(this.txtPassword);
-            this.uiGroupBox11.Controls.Add(this.label24);
-            this.uiGroupBox11.Controls.Add(this.txtUserName);
-            this.uiGroupBox11.Controls.Add(this.label21);
-            this.uiGroupBox11.Controls.Add(this.cmdConnect);
-            this.uiGroupBox11.Controls.Add(this.txtIP);
-            this.uiGroupBox11.Image = ((System.Drawing.Image)(resources.GetObject("uiGroupBox11.Image")));
-            this.uiGroupBox11.Location = new System.Drawing.Point(0, 0);
-            this.uiGroupBox11.Name = "uiGroupBox11";
-            this.uiGroupBox11.Size = new System.Drawing.Size(453, 643);
-            this.uiGroupBox11.TabIndex = 1;
-            this.uiGroupBox11.Text = "&Cấu hình";
-            this.uiGroupBox11.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2003;
-            // 
-            // txtImgFolder
-            // 
-            this.txtImgFolder.Location = new System.Drawing.Point(109, 150);
-            this.txtImgFolder.Name = "txtImgFolder";
-            this.txtImgFolder.Size = new System.Drawing.Size(316, 21);
-            this.txtImgFolder.TabIndex = 4;
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(1, 152);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(19, 15);
-            this.label32.TabIndex = 24;
-            this.label32.Text = "    ";
-            // 
-            // cmdDelFTPImages
-            // 
-            this.cmdDelFTPImages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdDelFTPImages.Image = ((System.Drawing.Image)(resources.GetObject("cmdDelFTPImages.Image")));
-            this.cmdDelFTPImages.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdDelFTPImages.Location = new System.Drawing.Point(6, 597);
-            this.cmdDelFTPImages.Name = "cmdDelFTPImages";
-            this.cmdDelFTPImages.Size = new System.Drawing.Size(436, 31);
-            this.cmdDelFTPImages.TabIndex = 23;
-            this.cmdDelFTPImages.Text = "Xóa ảnh download từ FTP?";
-            this.cmdDelFTPImages.Click += new System.EventHandler(this.cmdDelFTPImages_Click);
-            // 
-            // chkPush2FTP
-            // 
-            this.chkPush2FTP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkPush2FTP.Location = new System.Drawing.Point(6, 568);
-            this.chkPush2FTP.Name = "chkPush2FTP";
-            this.chkPush2FTP.Size = new System.Drawing.Size(328, 23);
-            this.chkPush2FTP.TabIndex = 22;
-            this.chkPush2FTP.Text = "Đẩy ảnh lên FTP ngay khi lưu kết quả?";
-            this.chkPush2FTP.CheckedChanged += new System.EventHandler(this.chkPush2FTP_CheckedChanged);
-            // 
-            // lstRemoteSiteFiles
-            // 
-            this.lstRemoteSiteFiles.AllowDrop = true;
-            this.lstRemoteSiteFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstRemoteSiteFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6});
-            this.lstRemoteSiteFiles.Location = new System.Drawing.Point(11, 242);
-            this.lstRemoteSiteFiles.MultiSelect = false;
-            this.lstRemoteSiteFiles.Name = "lstRemoteSiteFiles";
-            this.lstRemoteSiteFiles.Size = new System.Drawing.Size(436, 281);
-            this.lstRemoteSiteFiles.TabIndex = 21;
-            this.lstRemoteSiteFiles.UseCompatibleStateImageBehavior = false;
-            this.lstRemoteSiteFiles.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Name";
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "FileType";
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Path";
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Permission";
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Date";
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Size";
-            // 
-            // chkIsLocal
-            // 
-            this.chkIsLocal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkIsLocal.Location = new System.Drawing.Point(6, 539);
-            this.chkIsLocal.Name = "chkIsLocal";
-            this.chkIsLocal.Size = new System.Drawing.Size(203, 23);
-            this.chkIsLocal.TabIndex = 19;
-            this.chkIsLocal.Text = "Ảnh nguồn từ máy tính này?";
-            this.chkIsLocal.CheckedChanged += new System.EventHandler(this.chkHasHinhAnh_CheckedChanged);
-            // 
-            // linkClean
-            // 
-            this.linkClean.AutoSize = true;
-            this.linkClean.Location = new System.Drawing.Point(381, 536);
-            this.linkClean.Name = "linkClean";
-            this.linkClean.Size = new System.Drawing.Size(61, 15);
-            this.linkClean.TabIndex = 18;
-            this.linkClean.TabStop = true;
-            this.linkClean.Text = "&Làm sạch";
-            this.linkClean.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkClean_LinkClicked);
-            // 
-            // cmdSaveConfig
-            // 
-            this.cmdSaveConfig.Image = ((System.Drawing.Image)(resources.GetObject("cmdSaveConfig.Image")));
-            this.cmdSaveConfig.Location = new System.Drawing.Point(211, 207);
-            this.cmdSaveConfig.Name = "cmdSaveConfig";
-            this.cmdSaveConfig.Size = new System.Drawing.Size(101, 29);
-            this.cmdSaveConfig.TabIndex = 6;
-            this.cmdSaveConfig.Text = "Lưu lại";
-            this.cmdSaveConfig.Click += new System.EventHandler(this.cmdSaveConfig_Click);
-            // 
-            // txtUNCPath
-            // 
-            this.txtUNCPath.Location = new System.Drawing.Point(109, 123);
-            this.txtUNCPath.Name = "txtUNCPath";
-            this.txtUNCPath.Size = new System.Drawing.Size(316, 21);
-            this.txtUNCPath.TabIndex = 3;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(8, 125);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(64, 15);
-            this.label30.TabIndex = 14;
-            this.label30.Text = "UNC Path:";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(8, 95);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(61, 15);
-            this.label25.TabIndex = 7;
-            this.label25.Text = "Password";
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Location = new System.Drawing.Point(109, 95);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(181, 21);
-            this.txtPassword.TabIndex = 2;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(8, 68);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(67, 15);
-            this.label24.TabIndex = 5;
-            this.label24.Text = "UserName";
-            // 
-            // txtUserName
-            // 
-            this.txtUserName.Location = new System.Drawing.Point(109, 68);
-            this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(181, 21);
-            this.txtUserName.TabIndex = 1;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(8, 41);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(51, 15);
-            this.label21.TabIndex = 3;
-            this.label21.Text = "Domain";
-            // 
-            // cmdConnect
-            // 
-            this.cmdConnect.Image = ((System.Drawing.Image)(resources.GetObject("cmdConnect.Image")));
-            this.cmdConnect.Location = new System.Drawing.Point(99, 207);
-            this.cmdConnect.Name = "cmdConnect";
-            this.cmdConnect.Size = new System.Drawing.Size(106, 29);
-            this.cmdConnect.TabIndex = 5;
-            this.cmdConnect.Text = "Kết nối";
-            this.cmdConnect.Click += new System.EventHandler(this.cmdConnect_Click);
-            // 
-            // txtIP
-            // 
-            this.txtIP.Location = new System.Drawing.Point(109, 41);
-            this.txtIP.Name = "txtIP";
-            this.txtIP.Size = new System.Drawing.Size(181, 21);
-            this.txtIP.TabIndex = 0;
-            // 
-            // uiGroupBox10
-            // 
-            this.uiGroupBox10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.uiGroupBox10.Location = new System.Drawing.Point(0, 643);
-            this.uiGroupBox10.Name = "uiGroupBox10";
-            this.uiGroupBox10.Size = new System.Drawing.Size(1012, 53);
-            this.uiGroupBox10.TabIndex = 0;
-            this.uiGroupBox10.Text = "&Chức năng";
-            this.uiGroupBox10.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2003;
-            // 
             // ctxImage
             // 
             this.ctxImage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuBrowseImage,
-            this.mnuDeleteImage});
+            this.mnuDeleteImage,
+            this.toolStripMenuItem1,
+            this.mnuView});
             this.ctxImage.Name = "contextMenuStrip1";
-            this.ctxImage.Size = new System.Drawing.Size(127, 48);
+            this.ctxImage.Size = new System.Drawing.Size(127, 76);
             // 
             // mnuBrowseImage
             // 
@@ -1688,6 +1462,17 @@
             this.mnuDeleteImage.Name = "mnuDeleteImage";
             this.mnuDeleteImage.Size = new System.Drawing.Size(126, 22);
             this.mnuDeleteImage.Text = "Hủy ảnh";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(123, 6);
+            // 
+            // mnuView
+            // 
+            this.mnuView.Name = "mnuView";
+            this.mnuView.Size = new System.Drawing.Size(126, 22);
+            this.mnuView.Text = "View ảnh";
             // 
             // uiGroupBox13
             // 
@@ -1705,12 +1490,11 @@
             // 
             // frm_quanlycacphongchucnang
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1014, 746);
             this.Controls.Add(this.TabInfo);
             this.Controls.Add(this.statusStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.Name = "frm_quanlycacphongchucnang";
             this.ShowIcon = false;
@@ -1740,11 +1524,6 @@
             this.grpTimKiem.ResumeLayout(false);
             this.grpTimKiem.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.tabConfigRadio.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox11)).EndInit();
-            this.uiGroupBox11.ResumeLayout(false);
-            this.uiGroupBox11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox10)).EndInit();
             this.ctxImage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox13)).EndInit();
             this.ResumeLayout(false);
@@ -1783,19 +1562,6 @@
         private Janus.Windows.EditControls.UIButton cmdExit;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label5;
-        private Janus.Windows.UI.Tab.UITabPage tabConfigRadio;
-        private Janus.Windows.EditControls.UIGroupBox uiGroupBox11;
-        private System.Windows.Forms.Label label21;
-        private Janus.Windows.EditControls.UIButton cmdConnect;
-        private Janus.Windows.GridEX.EditControls.EditBox txtIP;
-        private Janus.Windows.EditControls.UIGroupBox uiGroupBox10;
-        private System.Windows.Forms.Label label25;
-        private Janus.Windows.GridEX.EditControls.EditBox txtPassword;
-        private System.Windows.Forms.Label label24;
-        private Janus.Windows.GridEX.EditControls.EditBox txtUserName;
-        private System.Windows.Forms.Label label30;
-        private Janus.Windows.GridEX.EditControls.EditBox txtUNCPath;
-        private Janus.Windows.EditControls.UIButton cmdSaveConfig;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolAccept;
         private System.Windows.Forms.ToolStripMenuItem toolChooseBN;
@@ -1805,9 +1571,7 @@
         private Janus.Windows.GridEX.Export.GridEXExporter gridEXExporter1;
         private Janus.Windows.GridEX.Export.GridEXExporter gridEXExporter2;
         private Janus.Windows.EditControls.UIGroupBox uiGroupBox13;
-        private System.Windows.Forms.LinkLabel linkClean;
         private Janus.Windows.EditControls.UICheckBox chkXacnhan;
-        private Janus.Windows.EditControls.UICheckBox chkIsLocal;
         private Janus.Windows.GridEX.EditControls.EditBox txtGhiChu;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Panel panel2;
@@ -1819,13 +1583,6 @@
         public Janus.Windows.EditControls.UIButton cmdSave;
         public Janus.Windows.EditControls.UIButton cmdSaveAndAccept;
         public Janus.Windows.EditControls.UIButton cmdSaveBookMark;
-        public System.Windows.Forms.ListView lstRemoteSiteFiles;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ToolTip toolTip1;
         private Janus.Windows.CalendarCombo.CalendarCombo dtpNgayhethanBHYT;
         private System.Windows.Forms.Label label1;
@@ -1877,12 +1634,8 @@
         private Janus.Windows.CalendarCombo.CalendarCombo dtpPrintDate;
         private System.Windows.Forms.Label label7;
         private WPF.UCs.ImgBox imgBox3;
-        private Janus.Windows.EditControls.UICheckBox chkPush2FTP;
         private Janus.Windows.EditControls.UIButton cmdGetImages;
-        private Janus.Windows.EditControls.UIButton cmdDelFTPImages;
         private System.Windows.Forms.Label label31;
-        private Janus.Windows.GridEX.EditControls.EditBox txtImgFolder;
-        private System.Windows.Forms.Label label32;
         private System.Windows.Forms.FlowLayoutPanel flowDynamics;
         public Janus.Windows.EditControls.UIButton cmdBrowseMauChuan;
         private System.Windows.Forms.Label label35;
@@ -1891,5 +1644,10 @@
         private Janus.Windows.EditControls.UICheckBox chkPreview;
         private System.Windows.Forms.LinkLabel lnkMore;
         private System.Windows.Forms.LinkLabel lnkSize;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem mnuView;
+        private Janus.Windows.EditControls.UICheckBox chkInsaukhiluu;
+        private Janus.Windows.EditControls.UIButton cmdDelFTPImages;
+        private Janus.Windows.EditControls.UIButton cmdConfig;
     }
 }

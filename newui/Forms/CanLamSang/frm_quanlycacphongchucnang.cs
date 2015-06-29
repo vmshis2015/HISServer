@@ -29,6 +29,7 @@ using VNS.HIS.UI.HinhAnh;
 
 namespace VNS.HIS.UI.Forms.HinhAnh
 {
+    //0=Mới chỉ định;1=Đã chuyển CLS;2=Đang thực hiện;3= Đã có kết quả CLS;4=Đã xác nhận kết quả
     public partial class frm_quanlycacphongchucnang : Form
     {
         #region "biến thực hiện việc xử lý ảnh"
@@ -85,11 +86,6 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             dtmFrom.Value = globalVariables.SysDate;
             dtmTo.Value = dtmFrom.Value;
             cboPatientSex.SelectedIndex = 0;
-            // cmdSearchFormRadio.Click+=new EventHandler(cmdSearchFormRadio_Click);
-            //if (globalVariables.UserName != "ADMIN")
-            //    m_strMaDichvu = ServiceCode;
-            //else
-            //    m_strMaDichvu = ServiceCode;
             m_strMaDichvu = ServiceCode;
            
             cmdExit.Click += cmdExit_Click;
@@ -98,7 +94,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             cmdSave.Click += cmdSave_Click;
 
             LoadDataSysConfigRadio();
-            if (globalVariables.UserName != "ADMIN") TabInfo.TabPages.Remove(tabConfigRadio);
+            cmdConfig.Visible=globalVariables.IsAdmin;
 
             InitEvents();
             CauHinh();
@@ -118,10 +114,52 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             imgBox3._OnDeleteImage += new ImgBox.OnDeleteImage(imgBox3__OnDeleteImage);
             imgBox4._OnDeleteImage += new ImgBox.OnDeleteImage(imgBox4__OnDeleteImage);
 
+            imgBox1._OnViewImage += imgBox__OnViewImage;
+            imgBox2._OnViewImage += imgBox__OnViewImage;
+            imgBox3._OnViewImage += imgBox__OnViewImage;
+            imgBox4._OnViewImage += imgBox__OnViewImage;
+
           
             cmdBrowseMauChuan.Click += cmdBrowseMauChuan_Click;
+            mnuView.Click += mnuView_Click;
             lnkMore.Click += lnkMore_Click;
             lnkSize.Click += lnkSize_Click;
+            chkPreview.CheckedChanged += chkPreview_CheckedChanged;
+            chkInsaukhiluu.CheckedChanged += chkInsaukhiluu_CheckedChanged;
+            cmdConfig.Click += cmdConfig_Click;
+
+            cmdDelFTPImages.Click+=cmdDelFTPImages_Click;
+            
+        }
+
+        void imgBox__OnViewImage(ImgBox imgBox)
+        {
+            if (File.Exists(Utility.sDbnull(imgBox.Tag, "")))
+                Utility.OpenProcess(Utility.sDbnull(imgBox.Tag, ""));
+        }
+        
+        void cmdConfig_Click(object sender, EventArgs e)
+        {
+            frm_Properties _Properties = new frm_Properties(PropertyLib._FTPProperties);
+            _Properties.ShowDialog();
+            SaveConfig();
+            CauHinh();
+        }
+
+        void chkInsaukhiluu_CheckedChanged(object sender, EventArgs e)
+        {
+            PropertyLib._FTPProperties.PrintAfterSave = chkInsaukhiluu.Checked;
+            PropertyLib.SaveProperty(PropertyLib._FTPProperties);
+        }
+
+        void chkPreview_CheckedChanged(object sender, EventArgs e)
+        {
+            PropertyLib._FTPProperties.PrintPreview = chkPreview.Checked;
+            PropertyLib.SaveProperty(PropertyLib._FTPProperties);
+        }
+
+        void mnuView_Click(object sender, EventArgs e)
+        {
             
         }
 
@@ -251,13 +289,12 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         {
             try
             {
-                chkIsLocal.Checked = PropertyLib._FTPProperties.IamLocal;
-                chkPush2FTP.Checked = PropertyLib._FTPProperties.Push2FTP;
-                cmdGetImages.Enabled = chkPush2FTP.Checked;
-                cmdDelFTPImages.Enabled = chkPush2FTP.Checked;
-                FtpClient = new FTPclient(txtIP.Text, txtUserName.Text, txtPassword.Text);
+                chkPreview.Checked = PropertyLib._FTPProperties.PrintPreview;
+                chkInsaukhiluu.Checked = PropertyLib._FTPProperties.PrintAfterSave;
+                cmdGetImages.Enabled = PropertyLib._FTPProperties.Push2FTP;
+                cmdDelFTPImages.Enabled = PropertyLib._FTPProperties.Push2FTP;
+                FtpClient = new FTPclient(PropertyLib._FTPProperties.IPAddress, PropertyLib._FTPProperties.UID, PropertyLib._FTPProperties.PWD);
                 _FtpClientCurrentDirectory = FtpClient.CurrentDirectory;
-                txtImgFolder.Text = PropertyLib._FTPProperties.ImageFolder;
                 _baseDirectory = Utility.DoTrim(PropertyLib._FTPProperties.ImageFolder);
                 if (_baseDirectory.EndsWith(@"\")) _baseDirectory = _baseDirectory.Substring(0, _baseDirectory.Length - 1);
                 if (!Directory.Exists(_baseDirectory))
@@ -301,8 +338,8 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 if (ten_benhnhan == "") ten_benhnhan = "NULL";
                 byte trangthai_xacnhan = 0;
                 if (radChuaXacNhan.Checked) trangthai_xacnhan = (byte)0;
-                if (radDaXacNhan.Checked) trangthai_xacnhan = (byte)2;
-                if (radChoXacNhan.Checked) trangthai_xacnhan = (byte)1;
+                if (radDaXacNhan.Checked) trangthai_xacnhan = (byte)4;
+                if (radChoXacNhan.Checked) trangthai_xacnhan = (byte)3;
                 m_dKcbChidinhclsChitiet =
                     SPs.HinhanhTimkiembnhan(id_benhnhan, ma_luotkham, ten_benhnhan, trangthai_xacnhan,
                     chkByDate.Checked ? dtmFrom.Value.ToString("dd/MM/yyyy") : "01/01/1900", chkByDate.Checked ? dtmTo.Value.ToString("dd/MM/yyyy") : "01/01/1900"
@@ -400,24 +437,12 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             try
             {
 
-                toolAccept.Enabled = grdList.RowCount > 0 && grdList.CurrentRow.RowType == RowType.Record;
-                toolChooseBN.Enabled = grdList.RowCount > 0 && grdList.CurrentRow.RowType == RowType.Record;
-                toolPrintRadio.Enabled = grdList.RowCount > 0 && grdList.CurrentRow.RowType == RowType.Record;
+                toolChooseBN.Enabled = Utility.isValidGrid(grdList);
+                toolPrintRadio.Enabled = Utility.isValidGrid(grdList) && Utility.Int32Dbnull(grdList.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrangThai].Value)>=3;
 
-                toolAccept.Enabled = grdList.RowCount > 0 && (grdList.CurrentRow.RowType == RowType.Record &&
-                                                              Utility.Int32Dbnull(
-                                                                  grdList.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrangThai].Value) ==
-                                                              0 ||
-                                                              Utility.Int32Dbnull(
-                                                                  grdList.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrangThai].Value) ==
-                                                              1);
-                toolUnAccept.Enabled = grdList.RowCount > 0 && grdList.CurrentRow.RowType == RowType.Record &&
-                                       (Utility.Int32Dbnull(grdList.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrangThai].Value) == 1 ||
-                                        Utility.Int32Dbnull(grdList.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrangThai].Value) == 2);
+                toolAccept.Enabled = Utility.isValidGrid(grdList) && Utility.Int32Dbnull(grdList.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrangThai].Value) ==3 ;
+                toolUnAccept.Enabled =  Utility.isValidGrid(grdList) && Utility.Int32Dbnull(grdList.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrangThai].Value) == 4 ;
                 toolUnAccept.Visible = globalVariables.IsAdmin;
-
-
-                //cmdDelete.Enabled = TabInfo.SelectedIndex == 1;
             }
             catch (Exception)
             {
@@ -454,23 +479,11 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             SysConfigRadio objConfigRadio = SysConfigRadio.FetchByID(1);
             if (objConfigRadio != null)
             {
-                txtUNCPath.Text = Utility.sDbnull(objConfigRadio.PathUNC, "");
-                txtPassword.Text = Utility.sDbnull(objConfigRadio.PassWord, "");
-                txtIP.Text = Utility.sDbnull(objConfigRadio.Domain, "");
-                txtUserName.Text = Utility.sDbnull(objConfigRadio.UserName, "");
+               PropertyLib._FTPProperties.UNCPath = Utility.sDbnull(objConfigRadio.PathUNC, "");
+               PropertyLib._FTPProperties.PWD = Utility.sDbnull(objConfigRadio.PassWord, "");
+               PropertyLib._FTPProperties.IPAddress = Utility.sDbnull(objConfigRadio.Domain, "");
+               PropertyLib._FTPProperties.UID = Utility.sDbnull(objConfigRadio.UserName, "");
             }
-
-            //SysConfigRadio objConfigRadio1 = SysConfigRadio.FetchByID(2);
-            //if (objConfigRadio1 != null) chkHasHinhAnh.Checked = objConfigRadio1.PathUNC == "1" ? true : false;
-
-            //SqlQuery sqlQuery =
-            //    new Select().From(SysConfigRadio.Schema).Where(SysConfigRadio.Columns.UserName).IsEqualTo("ISVIEW");
-            //var objConfigRadio2 = sqlQuery.ExecuteSingle<SysConfigRadio>();
-            ////  = SysConfigRadio.FetchByID(2);
-            //if (objConfigRadio2 != null)
-            //{
-            //    chkBHYTtraiTuyen.Checked = objConfigRadio2.PathUNC == "1" ? true : false;
-            //}
         }
 
       
@@ -551,7 +564,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 txtChanDoan.Text = Utility.sDbnull(dr[VKcbLuotkham.Columns.ChanDoan], "");
                 //txtGhiChu.Text = Utility.sDbnull(dr[VKcbChidinhcl.Columns.MotaThem], "");
 
-                chkXacnhan.Checked = Utility.ByteDbnull(dr[VKcbChidinhcl.Columns.TrangThai], 0) == 2;
+                chkXacnhan.Checked = Utility.ByteDbnull(dr[VKcbChidinhcl.Columns.TrangThai], 0) == 4;
                 //try2DelImageOnFTPFolder();
                 FtpClient.CurrentDirectory = _FtpClientCurrentDirectory;
                 CheckImages(dr.Row);
@@ -605,10 +618,20 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                     _ucTextSysparam.TabStop = true;
                     _ucTextSysparam._OnEnterKey += _ucTextSysparam__OnEnterKey;
                     _ucTextSysparam.TabIndex = 10 + Utility.Int32Dbnull(dr[DynamicField.Columns.Stt],0);
+                    
                     _ucTextSysparam.Init();
-                    _ucTextSysparam.Size = PropertyLib._DynamicInputProperties.DynamicSize;
-                    _ucTextSysparam.txtValue.Size = PropertyLib._DynamicInputProperties.TextSize;
-                    _ucTextSysparam.lblName.Size = PropertyLib._DynamicInputProperties.LabelSize;
+                    if (Utility.Byte2Bool(dr[DynamicField.Columns.Rtxt]))
+                    {
+                        _ucTextSysparam.Size = PropertyLib._DynamicInputProperties.RtfDynamicSize;
+                        _ucTextSysparam.txtValue.Size = PropertyLib._DynamicInputProperties.RtfTextSize;
+                        _ucTextSysparam.lblName.Size = PropertyLib._DynamicInputProperties.RtfLabelSize;
+                    }
+                    else
+                    {
+                        _ucTextSysparam.Size = PropertyLib._DynamicInputProperties.DynamicSize;
+                        _ucTextSysparam.txtValue.Size = PropertyLib._DynamicInputProperties.TextSize;
+                        _ucTextSysparam.lblName.Size = PropertyLib._DynamicInputProperties.LabelSize;
+                    }
                     flowDynamics.Controls.Add(_ucTextSysparam);
                 }
             }
@@ -623,25 +646,28 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         {
             try
             {
-                int _idx = -1;
-                var q = (from p in flowDynamics.Controls.Cast<ucDynamicParam>().AsEnumerable()
-                         where p.TabIndex > obj.TabIndex
-                         select p.TabIndex);
-                if (q.Count() > 0)
-                    _idx = q.Min();
-                if (_idx > 0)
+                if (!obj._AcceptTab)
                 {
-                    foreach (ucDynamicParam ucs in flowDynamics.Controls)
+                    int _idx = -1;
+                    var q = (from p in flowDynamics.Controls.Cast<ucDynamicParam>().AsEnumerable()
+                             where p.TabIndex > obj.TabIndex
+                             select p.TabIndex);
+                    if (q.Count() > 0)
+                        _idx = q.Min();
+                    if (_idx > 0)
                     {
-                        if (ucs.TabIndex == _idx)
+                        foreach (ucDynamicParam ucs in flowDynamics.Controls)
                         {
-                            ucs.FocusMe();
-                            return;
+                            if (ucs.TabIndex == _idx)
+                            {
+                                ucs.FocusMe();
+                                return;
+                            }
                         }
                     }
+                    else//Last Controls
+                        cmdSave.Focus();
                 }
-                else//Last Controls
-                    cmdSave.Focus();
             }
             catch (Exception)
             {
@@ -782,8 +808,8 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 {
                     case ActionResult.Success:
                         grdList.CurrentRow.BeginEdit();
-                        grdList.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrangThai].Value = 2;
-                        grdList.CurrentRow.Cells["ten_trangthai"].Value = GetAsssignDetailStatus(2);
+                        grdList.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrangThai].Value = 4;
+                        grdList.CurrentRow.Cells["ten_trangthai"].Value = GetAsssignDetailStatus(4);
                         grdList.CurrentRow.EndEdit();
                         grdList.UpdateData();
                         grdList.Refresh();
@@ -829,19 +855,19 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         /// <param name="e"></param>
         private void toolUnAccept_Click(object sender, EventArgs e)
         {
-            if (globalVariables.UserName == "ADMIN")
+            if (globalVariables.UserName == "ADMIN" || Utility.sDbnull(grdList.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiThuchien].Value, "") == globalVariables.UserName)
             {
 
                 ActionResult actionResult =
                     new KCB_HinhAnh().UpdateXacNhanDaThucHien(
-                        v_id_chitietchidinh, 2);//Trạng thái đang nhập kết quả
+                        v_id_chitietchidinh, 3);//Trạng thái đang nhập kết quả
 
                 switch (actionResult)
                 {
                     case ActionResult.Success:
                         grdList.CurrentRow.BeginEdit();
-                        grdList.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrangThai].Value = 2;
-                        grdList.CurrentRow.Cells["ten_trangthai"].Value = GetAsssignDetailStatus(0);
+                        grdList.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrangThai].Value = 3;
+                        grdList.CurrentRow.Cells["ten_trangthai"].Value = GetAsssignDetailStatus(3);
                         grdList.CurrentRow.EndEdit();
                         grdList.UpdateData();
                         grdList.Refresh();
@@ -855,9 +881,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             }
             else
             {
-                Utility.ShowMsg(
-                    "Bạn không có quyền hủy bỏ thông tin này,liên hệ với administrator thực hiện hủy thông tin trên",
-                    "Thông báo");
+                Utility.ShowMsg("Kết quả này được xác nhận bởi bác sĩ khác nên bạn không được phép hủy hoặc thay đổi. Muốn thay đổi bạn cần đăng nhập là Admin hoặc liên hệ bác sĩ xác nhận kết quả này");
                 return;
             }
 
@@ -940,10 +964,10 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             {
                 Utility.SetMsg(lblMsg, "",false);
                 KcbChidinhclsChitiet objKcbChidinhclsChitiet = KcbChidinhclsChitiet.FetchByID(Utility.Int32Dbnull(txtidchidinhchitiet.Text, -1));
-                objKcbChidinhclsChitiet.FTPImage = Utility.Bool2byte(chkPush2FTP.Checked);
+                objKcbChidinhclsChitiet.FTPImage = Utility.Bool2byte(PropertyLib._FTPProperties.Push2FTP);
                 if (chkSaveImg.Checked )
                 {
-                    if (chkPush2FTP.Checked)
+                    if (PropertyLib._FTPProperties.Push2FTP)
                     {
                         Utility.SetMsg(lblMsg, "Đang xóa ảnh khỏi FTP...", false);
                         try2DelImageOnFTP(objKcbChidinhclsChitiet.ImgPath1);
@@ -1040,8 +1064,11 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         }
         private void cmdSave_Click(object sender, EventArgs e)
         {
+           
             if (!isValidData()) return;
-            SaveResult();
+            if (SaveResult())
+                if (chkInsaukhiluu.Checked)
+                    cmdPrintRadio_Click(cmdPrintRadio, e);
         }
         string localpath1 = "";
         string localpath2 = "";
@@ -1127,7 +1154,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 dr[VKcbChidinhcl.Columns.ImgPath2] = objAssignDetail.ImgPath2;
                 dr[VKcbChidinhcl.Columns.ImgPath3] = objAssignDetail.ImgPath3;
                 dr[VKcbChidinhcl.Columns.ImgPath4] = objAssignDetail.ImgPath4;
-                if (chkPush2FTP.Checked)
+                if (PropertyLib._FTPProperties.Push2FTP)
                 {
                     dr["Local1"] = localpath1;
                     dr["Local2"] = localpath2;
@@ -1191,8 +1218,8 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                     {
                         if (arrDr.GetLength(0) > 0)
                         {
-                            arrDr[0][KcbChidinhclsChitiet.Columns.TrangThai] = chkXacnhan.Checked ? 2 : 1;
-                            arrDr[0]["ten_trangthai"] = GetAsssignDetailStatus(chkXacnhan.Checked ? 2 : 1);
+                            arrDr[0][KcbChidinhclsChitiet.Columns.TrangThai] = chkXacnhan.Checked ? 4 : 3;
+                            arrDr[0]["ten_trangthai"] = GetAsssignDetailStatus(chkXacnhan.Checked ? 4 : 3);
                         }
                     }
                     arrDr[0][KcbChidinhclsChitiet.Columns.NguoiThuchien] = globalVariables.UserName;
@@ -1269,7 +1296,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 }
                 if (!string.IsNullOrEmpty(imgPath))
                 {
-                    if (!chkIsLocal.Checked || m_blnForced2GetImagesFromFTP)
+                    if (!PropertyLib._FTPProperties.IamLocal || m_blnForced2GetImagesFromFTP)
                     {
                         FtpClient.CurrentDirectory = string.Format("{0}{1}", _FtpClientCurrentDirectory,
                             txtidchidinhchitiet.Text);
@@ -1763,22 +1790,22 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         private void cmdSaveAndAccept_Click(object sender, EventArgs e)
         {
             if (!isValidData()) return;
+            chkXacnhan.Checked = true;
             if (SaveResult())
-                cmdPrintRadio_Click(cmdPrintRadio, e);
+                if (chkXacnhan.Checked)
+                    cmdPrintRadio_Click(cmdPrintRadio, e);
         }
-
-
 
         private void linkClean_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            lstRemoteSiteFiles.Clear();
+            
         }
 
      
 
         private void chkHasHinhAnh_CheckedChanged(object sender, EventArgs e)
         {
-            PropertyLib._FTPProperties.IamLocal = chkIsLocal.Checked;
+            PropertyLib._FTPProperties.IamLocal = PropertyLib._FTPProperties.IamLocal;
             PropertyLib.SaveProperty(PropertyLib._FTPProperties);
         }
 
@@ -1843,31 +1870,31 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         /// <param name="e"></param>
         private void cmdConnect_Click(object sender, EventArgs e)
         {
-            try
-            {
-                //Set FTP
-                FtpClient = new FTPclient(txtIP.Text, txtUserName.Text, txtPassword.Text);
+            //try
+            //{
+            //    //Set FTP
+            //    FtpClient = new FTPclient(PropertyLib._FTPProperties.IPAddress, PropertyLib._FTPProperties.UID, PropertyLib._FTPProperties.PWD);
 
-                foreach (FTPfileInfo folder in FtpClient.ListDirectoryDetail("/"))
-                {
-                    var item = new ListViewItem();
-                    item.Text = folder.Filename;
-                    if (folder.FileType == FTPfileInfo.DirectoryEntryTypes.Directory)
-                        item.SubItems.Add("Folder");
-                    else
-                        item.SubItems.Add("File");
+            //    foreach (FTPfileInfo folder in FtpClient.ListDirectoryDetail("/"))
+            //    {
+            //        var item = new ListViewItem();
+            //        item.Text = folder.Filename;
+            //        if (folder.FileType == FTPfileInfo.DirectoryEntryTypes.Directory)
+            //            item.SubItems.Add("Folder");
+            //        else
+            //            item.SubItems.Add("File");
 
-                    item.SubItems.Add(folder.FullName);
-                    item.SubItems.Add(folder.Permission);
-                    item.SubItems.Add(folder.FileDateTime.ToShortTimeString() + folder.FileDateTime.ToShortDateString());
-                    item.SubItems.Add(GetFileSize(folder.Size));
-                    lstRemoteSiteFiles.Items.Add(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                Utility.CatchException(ex);
-            }
+            //        item.SubItems.Add(folder.FullName);
+            //        item.SubItems.Add(folder.Permission);
+            //        item.SubItems.Add(folder.FileDateTime.ToShortTimeString() + folder.FileDateTime.ToShortDateString());
+            //        item.SubItems.Add(GetFileSize(folder.Size));
+            //        lstRemoteSiteFiles.Items.Add(item);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Utility.CatchException(ex);
+            //}
         }
 
         private string GetFileSize(double byteCount)
@@ -1890,10 +1917,8 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cmdSaveConfig_Click(object sender, EventArgs e)
+        private void SaveConfig()
         {
-            PropertyLib._FTPProperties.ImageFolder = txtImgFolder.Text.Trim();
-            PropertyLib.SaveProperty(PropertyLib._FTPProperties);
             _baseDirectory = Utility.DoTrim(PropertyLib._FTPProperties.ImageFolder);
             if (_baseDirectory.EndsWith(@"\")) _baseDirectory = _baseDirectory.Substring(0,_baseDirectory.Length - 1);
             _actionResult = new KCB_HinhAnh().UpdateSysConfigRadio(CreateNewSysRadio());
@@ -1915,10 +1940,10 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         private SysConfigRadio CreateNewSysRadio()
         {
             var objConfigRadio = new SysConfigRadio();
-            objConfigRadio.PassWord = Utility.sDbnull(txtPassword.Text, "");
-            objConfigRadio.UserName = Utility.sDbnull(txtUserName.Text, "");
-            objConfigRadio.Domain = Utility.sDbnull(txtIP.Text, "");
-            objConfigRadio.PathUNC = Utility.sDbnull(txtUNCPath.Text, "");
+            objConfigRadio.PassWord = PropertyLib._FTPProperties.PWD;
+            objConfigRadio.UserName = PropertyLib._FTPProperties.UID;
+            objConfigRadio.Domain = PropertyLib._FTPProperties.IPAddress;
+            objConfigRadio.PathUNC = PropertyLib._FTPProperties.UNCPath;
             return objConfigRadio;
         }
 
@@ -2342,9 +2367,9 @@ namespace VNS.HIS.UI.Forms.HinhAnh
 
         private void chkPush2FTP_CheckedChanged(object sender, EventArgs e)
         {
-            cmdGetImages.Enabled = chkPush2FTP.Checked;
-            cmdDelFTPImages.Enabled = chkPush2FTP.Checked;
-            PropertyLib._FTPProperties.Push2FTP = chkPush2FTP.Checked;
+            cmdGetImages.Enabled = PropertyLib._FTPProperties.Push2FTP;
+            cmdDelFTPImages.Enabled = PropertyLib._FTPProperties.Push2FTP;
+            PropertyLib._FTPProperties.Push2FTP = PropertyLib._FTPProperties.Push2FTP;
             PropertyLib.SaveProperty(PropertyLib._FTPProperties);
         }
     }

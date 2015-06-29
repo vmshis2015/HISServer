@@ -28,18 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_DynamicSetup));
             Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
+            this.cmdConfig = new Janus.Windows.EditControls.UIButton();
             this.grdList = new Janus.Windows.GridEX.GridEX();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cmdConfig);
             this.panel1.Controls.Add(this.cmdExit);
             this.panel1.Controls.Add(this.cmdSave);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -63,11 +67,25 @@
             // cmdSave
             // 
             this.cmdSave.Image = ((System.Drawing.Image)(resources.GetObject("cmdSave.Image")));
+            this.cmdSave.ImageSize = new System.Drawing.Size(20, 20);
             this.cmdSave.Location = new System.Drawing.Point(510, 6);
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(132, 31);
             this.cmdSave.TabIndex = 9;
             this.cmdSave.Text = "Cập nhập(Ctrl+S)";
+            this.toolTip1.SetToolTip(this.cmdSave, "Cập nhật lại tất cả dữ liệu");
+            // 
+            // cmdConfig
+            // 
+            this.cmdConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdConfig.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdConfig.Image = ((System.Drawing.Image)(resources.GetObject("cmdConfig.Image")));
+            this.cmdConfig.ImageSize = new System.Drawing.Size(24, 24);
+            this.cmdConfig.Location = new System.Drawing.Point(3, 3);
+            this.cmdConfig.Name = "cmdConfig";
+            this.cmdConfig.Size = new System.Drawing.Size(43, 34);
+            this.cmdConfig.TabIndex = 505;
+            this.cmdConfig.TabStop = false;
             // 
             // grdList
             // 
@@ -83,7 +101,7 @@
             this.grdList.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown;
             this.grdList.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.grdList.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
-            this.grdList.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdList.Font = new System.Drawing.Font("Arial", 9.75F);
             this.grdList.GroupByBoxVisible = false;
             this.grdList.HeaderFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
             this.grdList.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
@@ -93,10 +111,15 @@
             this.grdList.RowHeaderFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
             this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdList.Size = new System.Drawing.Size(784, 513);
-            this.grdList.TabIndex = 2;
+            this.grdList.TabIndex = 0;
             this.grdList.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdList.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
             this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ToolTipTitle = "Trợ giúp";
             // 
             // frm_DynamicSetup
             // 
@@ -121,8 +144,10 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private Janus.Windows.GridEX.GridEX grdList;
         public Janus.Windows.EditControls.UIButton cmdSave;
         private Janus.Windows.EditControls.UIButton cmdExit;
+        private Janus.Windows.GridEX.GridEX grdList;
+        private Janus.Windows.EditControls.UIButton cmdConfig;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

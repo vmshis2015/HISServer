@@ -11,6 +11,7 @@ using SubSonic;
 using Janus.Windows.GridEX;
 using VNS.Libs;
 using System.Transactions;
+using VNS.Properties;
 
 namespace VNS.HIS.UI.HinhAnh
 {
@@ -24,6 +25,7 @@ namespace VNS.HIS.UI.HinhAnh
         public frm_DynamicSetup()
         {
             InitializeComponent();
+            Config();
             this.Load += frm_DynamicSetup_Load;
             this.KeyDown += frm_DynamicSetup_KeyDown;
             this.FormClosing += frm_DynamicSetup_FormClosing;
@@ -31,8 +33,20 @@ namespace VNS.HIS.UI.HinhAnh
             grdList.UpdatingCell += grdList_UpdatingCell;
             grdList.DeletingRecords += grdList_DeletingRecords;
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
+            cmdConfig.Click += cmdConfig_Click;
         }
 
+
+        void cmdConfig_Click(object sender, EventArgs e)
+        {
+            frm_Properties _Properties = new frm_Properties(PropertyLib._DynamicInputProperties);
+            _Properties.ShowDialog();
+            Config();
+        }
+        void Config()
+        {
+           
+        }
         void frm_DynamicSetup_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (hasDeleted)
@@ -138,6 +152,9 @@ namespace VNS.HIS.UI.HinhAnh
                     obj.Ma = Utility.sDbnull(_row.Cells[DynamicField.Columns.Ma].Value, "-1");
                     obj.Mota = Utility.sDbnull(_row.Cells[DynamicField.Columns.Mota].Value, "-1");
                     obj.Stt = Utility.Int16Dbnull(_row.Cells[DynamicField.Columns.Stt].Value, 0);
+                    obj.Rtxt = Utility.ByteDbnull(_row.Cells[DynamicField.Columns.Rtxt].Value, 0);
+                    obj.TopLabel = Utility.ByteDbnull(_row.Cells[DynamicField.Columns.TopLabel].Value, 0);
+
                     obj.Bodypart = objDichvuchitiet.Bodypart;
                     obj.Viewposition = objDichvuchitiet.ViewPosition;
 
@@ -149,7 +166,8 @@ namespace VNS.HIS.UI.HinhAnh
                 if (_actionResult == ActionResult.Success)
                 {
                     this.DialogResult = System.Windows.Forms.DialogResult.OK;
-                    this.Close();
+                    LoadData();
+                    Utility.focusCell(grdList, DynamicField.Columns.Ma);
                 }
 
             }
