@@ -415,15 +415,26 @@ namespace VNS.HIS.UI.DANHMUC
             if (Utility.AcceptQuestion("Bạn có muốn xóa đối tượng đang chọn hay không?", "Xác nhận xóa", true))
             {
                 int v_intObjectTypeID = Convert.ToInt32(txtID.Text.Trim());
-                //Kiểm tra ko được xóa nếu đã sử dụng trong bảng khác
-                //Sẽ kiểm tra thêm trong bảng L_Service_Objects và L_Patient_Exam
-                if (new QheDoituongThuocController().FetchByQuery(QheDoituongThuoc.CreateQuery().AddWhere(QheDoituongThuoc.IdDoituongKcbColumn.ColumnName, Comparison.Equals, v_intObjectTypeID)).Count > 0
-                    || new QheDoituongDichvuclController().FetchByQuery(QheDoituongDichvucl.CreateQuery().AddWhere(QheDoituongDichvucl.IdDoituongKcbColumn.ColumnName, Comparison.Equals, v_intObjectTypeID)).Count > 0
-                    )
+                KcbLuotkham _item = new Select().From(KcbLuotkham.Schema).Where(KcbLuotkham.Columns.IdDoituongKcb).IsEqualTo(v_intObjectTypeID).ExecuteSingle<KcbLuotkham>();
+                if (_item != null)
                 {
-                    Utility.ShowMsg("Loại đối tượng này đã được sử dụng trong bảng khác nên bạn không thể xóa");
+                    Utility.ShowMsg("Đối tượng KCB này đã được sử dụng trong bảng khác nên bạn không thể xóa");
                     return;
                 }
+                QheDoituongDichvucl _item1 = new Select().From(QheDoituongDichvucl.Schema).Where(QheDoituongDichvucl.Columns.IdDoituongKcb).IsEqualTo(v_intObjectTypeID).ExecuteSingle<QheDoituongDichvucl>();
+                if (_item1 != null)
+                {
+                    Utility.ShowMsg("Đối tượng KCB này đã được sử dụng trong bảng khác nên bạn không thể xóa");
+                    return;
+                }
+                QheDoituongThuoc _item2 = new Select().From(QheDoituongThuoc.Schema).Where(QheDoituongThuoc.Columns.IdDoituongKcb).IsEqualTo(v_intObjectTypeID).ExecuteSingle<QheDoituongThuoc>();
+                if (_item2 != null)
+                {
+                    Utility.ShowMsg("Đối tượng KCB này đã được sử dụng trong bảng khác nên bạn không thể xóa");
+                    return;
+                }
+                
+
                 DataRow [] v_DeleteObject = dsTable.Select(DmucDoituongkcb.Columns.IdDoituongKcb+ "=" + v_intObjectTypeID);
                 
                 //Gọi nghiệp vụ xóa dữ liệu\
@@ -447,17 +458,23 @@ namespace VNS.HIS.UI.DANHMUC
         /// </summary>
         private void PerformAction()
         {
-            //Kiểm tra tính hợp lệ của dữ liệu trước khi thêm mới
-            if (!IsValidData())
-            {
-                return;
-            }
+            
             switch (m_enAction)
             {
                 case action.Insert:
+                    //Kiểm tra tính hợp lệ của dữ liệu trước khi thêm mới
+                    if (!IsValidData())
+                    {
+                        return;
+                    }
                     PerformInsertAction();
                     break;
                 case action.Update:
+                    //Kiểm tra tính hợp lệ của dữ liệu trước khi thêm mới
+                    if (!IsValidData())
+                    {
+                        return;
+                    }
                     PerformUpdateAction();
                     break;
                 case action.Delete:

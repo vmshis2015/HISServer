@@ -277,6 +277,8 @@ namespace VNS.HIS.UI.DANHMUC
                 dr[DmucNhanvien.Columns.QuyenSuatieudebaocao] = Utility.Bool2byte(chkSuatieudebaocao.Checked);
                 dr[DmucNhanvien.Columns.QuyenKhamtatcacacphongNgoaitru] = Utility.Bool2byte(chkAllNgoaitru.Checked);
                 dr[DmucNhanvien.Columns.QuyenThemdanhmucdungchung] = Utility.Bool2byte(chkThemdanhmucchung.Checked);
+                dr[DmucNhanvien.Columns.QuyenSuadonthuoc] = Utility.Bool2byte(chkQuyenSuadonthuoc.Checked);
+                dr[DmucNhanvien.Columns.QuyenSuaphieuchidinhcls] = Utility.Bool2byte(chkQuyensuaCLS.Checked);
                 p_dtStaffList.Rows.InsertAt(dr, 0);
                 this.Close();
          
@@ -356,6 +358,8 @@ namespace VNS.HIS.UI.DANHMUC
             objDmucNhanvien.QuyenThemdanhmucdungchung = Utility.Bool2byte(chkThemdanhmucchung.Checked);
             objDmucNhanvien.QuyenXemphieudieutricuabacsinoitrukhac = Utility.Bool2byte(chkXemphieudieutricuaBacsikhac.Checked);
             objDmucNhanvien.QuyenSuatieudebaocao = Utility.Bool2byte(chkSuatieudebaocao.Checked);
+            objDmucNhanvien.QuyenSuaphieuchidinhcls = Utility.Bool2byte(chkQuyensuaCLS.Checked);
+            objDmucNhanvien.QuyenSuadonthuoc = Utility.Bool2byte(chkQuyenSuadonthuoc.Checked);
            
             
             return objDmucNhanvien;
@@ -396,6 +400,8 @@ namespace VNS.HIS.UI.DANHMUC
                     dr[0][DmucNhanvien.Columns.QuyenKhamtatcacackhoaNoitru] = Utility.Bool2byte(chkAllNoitru.Checked);
                     dr[0][DmucNhanvien.Columns.QuyenKhamtatcacacphongNgoaitru] = Utility.Bool2byte(chkAllNgoaitru.Checked);
                         dr[0][DmucNhanvien.Columns.QuyenThemdanhmucdungchung] = Utility.Bool2byte(chkThemdanhmucchung.Checked);
+                        dr[0][DmucNhanvien.Columns.QuyenSuadonthuoc] = Utility.Bool2byte(chkQuyenSuadonthuoc.Checked);
+                        dr[0][DmucNhanvien.Columns.QuyenSuaphieuchidinhcls] = Utility.Bool2byte(chkQuyensuaCLS.Checked);
 
 
                 }
@@ -469,6 +475,8 @@ namespace VNS.HIS.UI.DANHMUC
                 chkAllNoitru.Checked = Utility.Byte2Bool(objStaffList.QuyenKhamtatcacacphongNgoaitru);
                 chkThemdanhmucchung.Checked = Utility.Byte2Bool(objStaffList.QuyenThemdanhmucdungchung);
                 chkSuatieudebaocao.Checked = Utility.Byte2Bool(objStaffList.QuyenSuatieudebaocao);
+                chkQuyenSuadonthuoc.Checked = Utility.Byte2Bool(objStaffList.QuyenSuadonthuoc);
+                chkQuyensuaCLS.Checked = Utility.Byte2Bool(objStaffList.QuyenSuaphieuchidinhcls);
                
                 LoadQuanHeNhanVienKho();
                 LoadQheBS_khoanoitru();

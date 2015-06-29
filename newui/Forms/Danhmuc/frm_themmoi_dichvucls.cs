@@ -179,6 +179,18 @@ namespace VNS.HIS.UI.DANHMUC
                     return false;
                 }
             }
+            if (Utility.sDbnull(cboNhomin.SelectedValue, "-1") == "-1")
+            {
+                Utility.SetMsg(lblMsg, "Bạn phải chọn nhóm in phiếu", true);
+                cboNhomin.Focus();
+                return false;
+            }
+            if (Utility.sDbnull(cbonhombaocao.SelectedValue, "-1") == "-1")
+            {
+                Utility.SetMsg(lblMsg, "Bạn phải chọn nhóm báo cáo", true);
+                cbonhombaocao.Focus();
+                return false;
+            }
             return true;
         }
         void GetData()

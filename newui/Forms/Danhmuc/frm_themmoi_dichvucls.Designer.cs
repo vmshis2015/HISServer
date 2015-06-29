@@ -167,9 +167,9 @@
             this.cboPhongthuchien.BorderStyle = Janus.Windows.UI.BorderStyle.Flat;
             this.cboPhongthuchien.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboPhongthuchien.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboPhongthuchien.Location = new System.Drawing.Point(132, 221);
+            this.cboPhongthuchien.Location = new System.Drawing.Point(136, 221);
             this.cboPhongthuchien.Name = "cboPhongthuchien";
-            this.cboPhongthuchien.Size = new System.Drawing.Size(422, 22);
+            this.cboPhongthuchien.Size = new System.Drawing.Size(418, 22);
             this.cboPhongthuchien.TabIndex = 8;
             this.cboPhongthuchien.Text = "Khoa thực hiện";
             // 
@@ -177,10 +177,10 @@
             // 
             this.txtchidan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtchidan.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtchidan.Location = new System.Drawing.Point(132, 257);
+            this.txtchidan.Location = new System.Drawing.Point(136, 257);
             this.txtchidan.Multiline = true;
             this.txtchidan.Name = "txtchidan";
-            this.txtchidan.Size = new System.Drawing.Size(422, 34);
+            this.txtchidan.Size = new System.Drawing.Size(418, 34);
             this.txtchidan.TabIndex = 9;
             // 
             // label7
@@ -196,6 +196,7 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Red;
             this.label6.Location = new System.Drawing.Point(2, 136);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(125, 23);
@@ -218,15 +219,16 @@
             this.cboDepartment.BorderStyle = Janus.Windows.UI.BorderStyle.Flat;
             this.cboDepartment.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboDepartment.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboDepartment.Location = new System.Drawing.Point(133, 193);
+            this.cboDepartment.Location = new System.Drawing.Point(137, 193);
             this.cboDepartment.Name = "cboDepartment";
-            this.cboDepartment.Size = new System.Drawing.Size(422, 22);
+            this.cboDepartment.Size = new System.Drawing.Size(418, 22);
             this.cboDepartment.TabIndex = 7;
             this.cboDepartment.Text = "Khoa thực hiện";
             // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Red;
             this.label2.Location = new System.Drawing.Point(2, 166);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(125, 23);
@@ -239,9 +241,9 @@
             this.cbonhombaocao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbonhombaocao.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbonhombaocao.FormattingEnabled = true;
-            this.cbonhombaocao.Location = new System.Drawing.Point(132, 164);
+            this.cbonhombaocao.Location = new System.Drawing.Point(136, 164);
             this.cbonhombaocao.Name = "cbonhombaocao";
-            this.cbonhombaocao.Size = new System.Drawing.Size(422, 24);
+            this.cbonhombaocao.Size = new System.Drawing.Size(418, 24);
             this.cbonhombaocao.TabIndex = 6;
             // 
             // cboNhomin
@@ -256,9 +258,9 @@
             "Phiếu điện tim",
             "Phiếu nội soi",
             "Phiếu điện não đồ"});
-            this.cboNhomin.Location = new System.Drawing.Point(132, 135);
+            this.cboNhomin.Location = new System.Drawing.Point(136, 135);
             this.cboNhomin.Name = "cboNhomin";
-            this.cboNhomin.Size = new System.Drawing.Size(422, 24);
+            this.cboNhomin.Size = new System.Drawing.Size(418, 24);
             this.cboNhomin.TabIndex = 5;
             // 
             // chkHaveDetail
@@ -290,10 +292,10 @@
             // 
             this.txtDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDesc.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDesc.Location = new System.Drawing.Point(132, 301);
+            this.txtDesc.Location = new System.Drawing.Point(136, 301);
             this.txtDesc.Multiline = true;
             this.txtDesc.Name = "txtDesc";
-            this.txtDesc.Size = new System.Drawing.Size(422, 34);
+            this.txtDesc.Size = new System.Drawing.Size(418, 34);
             this.txtDesc.TabIndex = 10;
             // 
             // txtServiceCode
@@ -406,9 +408,10 @@
             this.cmdThoat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdThoat.Location = new System.Drawing.Point(303, 399);
             this.cmdThoat.Name = "cmdThoat";
-            this.cmdThoat.Size = new System.Drawing.Size(120, 31);
+            this.cmdThoat.Size = new System.Drawing.Size(120, 35);
             this.cmdThoat.TabIndex = 15;
-            this.cmdThoat.Text = "&Thoát(Esc)";
+            this.cmdThoat.Text = "Thoát(Esc)";
+            this.cmdThoat.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdThoat.UseVisualStyleBackColor = true;
             // 
             // cmdGhi
@@ -416,11 +419,12 @@
             this.cmdGhi.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdGhi.Image = ((System.Drawing.Image)(resources.GetObject("cmdGhi.Image")));
             this.cmdGhi.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdGhi.Location = new System.Drawing.Point(165, 398);
+            this.cmdGhi.Location = new System.Drawing.Point(165, 399);
             this.cmdGhi.Name = "cmdGhi";
-            this.cmdGhi.Size = new System.Drawing.Size(120, 31);
+            this.cmdGhi.Size = new System.Drawing.Size(117, 35);
             this.cmdGhi.TabIndex = 14;
-            this.cmdGhi.Text = "&Lưu(Ctrl+S)";
+            this.cmdGhi.Text = "Lưu(Ctrl+S)";
+            this.cmdGhi.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdGhi.UseVisualStyleBackColor = true;
             this.cmdGhi.Click += new System.EventHandler(this.cmdGhi_Click_1);
             // 
@@ -432,7 +436,7 @@
             this.Controls.Add(this.grpControl);
             this.Controls.Add(this.cmdThoat);
             this.Controls.Add(this.cmdGhi);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

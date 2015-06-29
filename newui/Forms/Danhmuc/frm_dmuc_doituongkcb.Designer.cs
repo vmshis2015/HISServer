@@ -92,7 +92,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.Label5.Name = "Label5";
             this.Label5.Size = new System.Drawing.Size(136, 21);
             this.Label5.TabIndex = 7;
-            this.Label5.Text = "Giảm đúng tuyến:";
+            this.Label5.Text = "% BHYT đúng tuyến:";
             this.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tabPage1
@@ -209,6 +209,7 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             // label4
             // 
+            this.label4.ForeColor = System.Drawing.Color.Red;
             this.label4.Location = new System.Drawing.Point(21, 138);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(136, 21);
@@ -256,7 +257,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(136, 21);
             this.label10.TabIndex = 20;
-            this.label10.Text = "Giảm trái tuyến tuyến:";
+            this.label10.Text = "% BHYT trái tuyến:";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtPos
@@ -317,6 +318,7 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             // Label2
             // 
+            this.Label2.ForeColor = System.Drawing.Color.Red;
             this.Label2.Location = new System.Drawing.Point(21, 110);
             this.Label2.Name = "Label2";
             this.Label2.Size = new System.Drawing.Size(136, 21);
@@ -337,7 +339,8 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             // Label1
             // 
-            this.Label1.Location = new System.Drawing.Point(21, 34);
+            this.Label1.ForeColor = System.Drawing.Color.Red;
+            this.Label1.Location = new System.Drawing.Point(21, 31);
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(136, 21);
             this.Label1.TabIndex = 0;

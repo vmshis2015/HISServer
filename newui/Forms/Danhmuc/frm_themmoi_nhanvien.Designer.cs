@@ -75,6 +75,8 @@
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.grdQuyen = new Janus.Windows.GridEX.GridEX();
+            this.chkQuyensuaCLS = new System.Windows.Forms.CheckBox();
+            this.chkQuyenSuadonthuoc = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -144,7 +146,6 @@
             this.txtUID.DefaultCode = "-1";
             this.txtUID.DefaultID = "-1";
             this.txtUID.Drug_ID = null;
-            this.txtUID.Enabled = false;
             this.txtUID.ExtraWidth = 0;
             this.txtUID.FillValueAfterSelect = false;
             this.txtUID.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -187,6 +188,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chkQuyensuaCLS);
+            this.tabPage1.Controls.Add(this.chkQuyenSuadonthuoc);
             this.tabPage1.Controls.Add(this.chkSuatieudebaocao);
             this.tabPage1.Controls.Add(this.chkXemphieudieutricuaBacsikhac);
             this.tabPage1.Controls.Add(this.chkAllNgoaitru);
@@ -640,6 +643,30 @@
             this.grdQuyen.Size = new System.Drawing.Size(605, 148);
             this.grdQuyen.TabIndex = 73;
             // 
+            // chkQuyensuaCLS
+            // 
+            this.chkQuyensuaCLS.AutoSize = true;
+            this.chkQuyensuaCLS.Font = new System.Drawing.Font("Arial", 9F);
+            this.chkQuyensuaCLS.ForeColor = System.Drawing.Color.Black;
+            this.chkQuyensuaCLS.Location = new System.Drawing.Point(6, 162);
+            this.chkQuyensuaCLS.Name = "chkQuyensuaCLS";
+            this.chkQuyensuaCLS.Size = new System.Drawing.Size(288, 19);
+            this.chkQuyensuaCLS.TabIndex = 81;
+            this.chkQuyensuaCLS.Text = "Quyền sửa phiếu chỉ định CLS của người khác?";
+            this.chkQuyensuaCLS.UseVisualStyleBackColor = true;
+            // 
+            // chkQuyenSuadonthuoc
+            // 
+            this.chkQuyenSuadonthuoc.AutoSize = true;
+            this.chkQuyenSuadonthuoc.Font = new System.Drawing.Font("Arial", 9F);
+            this.chkQuyenSuadonthuoc.ForeColor = System.Drawing.Color.Black;
+            this.chkQuyenSuadonthuoc.Location = new System.Drawing.Point(6, 138);
+            this.chkQuyenSuadonthuoc.Name = "chkQuyenSuadonthuoc";
+            this.chkQuyenSuadonthuoc.Size = new System.Drawing.Size(239, 19);
+            this.chkQuyenSuadonthuoc.TabIndex = 80;
+            this.chkQuyenSuadonthuoc.Text = "Quyền sửa đơn thuốc của người khác?";
+            this.chkQuyenSuadonthuoc.UseVisualStyleBackColor = true;
+            // 
             // frm_themmoi_nhanvien
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -719,5 +746,7 @@
         private UCs.AutoCompleteTextbox txtUID;
         internal System.Windows.Forms.Label lblMsg;
         private System.Windows.Forms.CheckBox chkSuatieudebaocao;
+        private System.Windows.Forms.CheckBox chkQuyensuaCLS;
+        private System.Windows.Forms.CheckBox chkQuyenSuadonthuoc;
     }
 }
