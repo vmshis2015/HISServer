@@ -140,7 +140,7 @@ namespace VNS.HIS.UI.THUOC
             bool CHUAXACNHAN = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.TrangThai), 0) == 0;
             cmdUpdatePhieuNhap.Enabled = cmdXoaPhieuNhap.Enabled = CHUAXACNHAN && Utility.isValidGrid(grdList);
             cmdNhapKho.Enabled = CHUAXACNHAN && Utility.isValidGrid(grdList);
-            cmdHuychuyenkho.Enabled = !cmdNhapKho.Enabled;
+            cmdHuychuyenkho.Enabled =Utility.isValidGrid(grdList) && !cmdNhapKho.Enabled;
             cmdInPhieuNhapKho.Enabled = Utility.isValidGrid(grdList);
             if (!Utility.isValidGrid(grdList))
             {

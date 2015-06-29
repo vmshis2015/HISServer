@@ -18,8 +18,10 @@ namespace VNS.HIS.UI.THUOC
     {
         private DataTable m_dtKhothuoc=new DataTable();
         private DataTable m_dataFull = new DataTable();
+        private DataTable m_dtkho = new DataTable();
         private HisDuocProperties HisDuocProperties;
         bool hasLoaded = false;
+        string kieu_thuocvattu = "THUOC";
         public frm_UpdateSoLuongTon()
         {
             InitializeComponent();
@@ -27,7 +29,8 @@ namespace VNS.HIS.UI.THUOC
             grdDieuchinh.UpdatingCell += new Janus.Windows.GridEX.UpdatingCellEventHandler(grdDieuchinh_UpdatingCell);
             grdDieuchinh.SelectionChanged += new EventHandler(grdDieuchinh_SelectionChanged);
             grdList.UpdatingCell += grdList_UpdatingCell;
-            
+
+            grdKho.UpdatingCell += grdKho_UpdatingCell;
             cmdUp.Click += new EventHandler(cmdUp_Click);
             cmdDown.Click += new EventHandler(cmdDown_Click);
             lnkNgayhethan.Click += new EventHandler(lnkNgayhethan_Click);
@@ -38,6 +41,25 @@ namespace VNS.HIS.UI.THUOC
             optUutien.CheckedChanged += new EventHandler(_CheckedChanged);
             optExpireDate.CheckedChanged += new EventHandler(_CheckedChanged);
             Cauhinh();
+        }
+
+        void grdKho_UpdatingCell(object sender, UpdatingCellEventArgs e)
+        {
+            try
+            {
+                if (e.Column.Key == TThuockho.Columns.ChophepKedon)
+                {
+                      int idKho = Utility.Int32Dbnull(grdKho.CurrentRow.Cells[TThuockho.Columns.IdKho].Value);
+                    int IdThuoc = Utility.Int32Dbnull(grdList.CurrentRow.Cells[TThuockho.Columns.IdThuoc].Value);
+                    SPs.ThuocCapnhattrangthaikedon(IdThuoc, idKho, (byte)e.Value).Execute();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Utility.CatchException(ex);
+            }
+            
         }
 
         void grdList_UpdatingCell(object sender, UpdatingCellEventArgs e)
@@ -303,21 +325,26 @@ namespace VNS.HIS.UI.THUOC
                 if (!Utility.isValidGrid(grdList))
                 {
                     pnlDieuchinh.Height = 0;
+                    m_dtkho.Rows.Clear();
                 }
                 else
                 {
                     pnlDieuchinh.Height = 300;
-                    object idthuoc=Utility.getValueOfGridCell(grdList,TThuockho.Columns.IdThuoc);
-                    if(idthuoc!=null)
+                    object idthuoc = Utility.getValueOfGridCell(grdList, TThuockho.Columns.IdThuoc);
+                    if (idthuoc != null)
                     {
+                        m_dtkho = SPs.ThuocKhochuathuoc(Utility.Int32Dbnull(idthuoc, 0), kieu_thuocvattu).GetDataSet().Tables[0];
+                        Utility.SetDataSourceForDataGridEx(grdKho, m_dtkho, true, true, "1=1", TDmucKho.Columns.TenKho);
                         m_dataFull.DefaultView.RowFilter = TThuockho.Columns.IdThuoc + "=" + idthuoc.ToString();
                     }
                     else
                     {
+                        m_dtkho.Rows.Clear();
                         m_dataFull.DefaultView.RowFilter = "1=2";
                     }
-                   
                 }
+
+
             }
             catch
             {
@@ -383,17 +410,30 @@ namespace VNS.HIS.UI.THUOC
 
         private void LoadThuocTrongKho()
         {
-            DataSet ds = SPs.ThuocLaythongtinthuoctontrongkhoTheokho(Utility.Int32Dbnull(cboKho.SelectedValue, -1)).GetDataSet();
-            m_dtKhothuoc = ds.Tables[0];
-            m_dataFull = ds.Tables[1];
-            Utility.SetDataSourceForDataGridEx(grdList, m_dtKhothuoc, true, true, "1=1", "TEN_THUOC");
-            string Orderby = TThuockho.Columns.SttBan;
-            Utility.SetDataSourceForDataGridEx(grdDieuchinh, m_dataFull, true, true, "1=2", getOrderOut());
-           
-            if (grdList.GetDataRows().Length > 0)
+            TDmucKho _kho = TDmucKho.FetchByID(Utility.Int32Dbnull(cboKho.SelectedValue, -1));
+            if (_kho != null)
             {
-                grdList.MoveFirst();
-                grdList_CurrentCellChanged(grdList, new EventArgs());
+                kieu_thuocvattu = _kho.KhoThuocVt;
+                if (kieu_thuocvattu != "THUOC" || kieu_thuocvattu != "VT")
+                    kieu_thuocvattu = "ALL";
+                DataSet ds = SPs.ThuocLaythongtinthuoctontrongkhoTheokho(Utility.Int32Dbnull(cboKho.SelectedValue, -1)).GetDataSet();
+                m_dtKhothuoc = ds.Tables[0];
+                m_dataFull = ds.Tables[1];
+                Utility.SetDataSourceForDataGridEx(grdList, m_dtKhothuoc, true, true, "1=1", "TEN_THUOC");
+                string Orderby = TThuockho.Columns.SttBan;
+                Utility.SetDataSourceForDataGridEx(grdDieuchinh, m_dataFull, true, true, "1=2", getOrderOut());
+
+                if (grdList.GetDataRows().Length > 0)
+                {
+                    grdList.MoveFirst();
+                    grdList_CurrentCellChanged(grdList, new EventArgs());
+                }
+            }
+            else
+            {
+                m_dtKhothuoc.Rows.Clear();
+                m_dataFull.Rows.Clear();
+                m_dtkho.Rows.Clear();
             }
         }
         string getOrderOut()

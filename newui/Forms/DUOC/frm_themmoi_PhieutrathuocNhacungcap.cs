@@ -179,8 +179,12 @@ namespace VNS.HIS.UI.THUOC
         void txtNhacungcap__OnEnterMe()
         {
             m_dtDataThuocKho.DefaultView.RowFilter = "1=1";
+            m_dtDataPhieuChiTiet.DefaultView.RowFilter = "1=1";
             if (txtNhacungcap.MyCode != "-1")
+            {
                 m_dtDataThuocKho.DefaultView.RowFilter = "ma_nhacungcap='" + txtNhacungcap.MyCode + "'";
+                m_dtDataPhieuChiTiet.DefaultView.RowFilter = "ma_nhacungcap='" + txtNhacungcap.MyCode + "'";
+            }
             m_dtDataThuocKho.AcceptChanges();
         }
 
@@ -714,6 +718,13 @@ namespace VNS.HIS.UI.THUOC
         }
         void AddDetails()
         {
+            Utility.SetMsg(lblMsg, "", true);
+            if (txtNhacungcap.myCode == "-1")
+            {
+                Utility.SetMsg(lblMsg, "Bạn cần chọn nhà cung cấp trước khi thực hiện chọn thuốc trả", true);
+                txtNhacungcap.Focus();
+                return;
+            }
             foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdKhoXuat.GetDataRows())
             {
                 AddDetailNext(gridExRow);

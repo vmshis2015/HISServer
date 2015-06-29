@@ -599,7 +599,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.uiGroupBox4);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Size = new System.Drawing.Size(1008, 425);
-            this.splitContainer1.SplitterDistance = 553;
+            this.splitContainer1.SplitterDistance = 568;
             this.splitContainer1.TabIndex = 69;
             // 
             // uiGroupBox1
@@ -609,7 +609,7 @@
             this.uiGroupBox1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox1.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox1.Name = "uiGroupBox1";
-            this.uiGroupBox1.Size = new System.Drawing.Size(477, 425);
+            this.uiGroupBox1.Size = new System.Drawing.Size(518, 425);
             this.uiGroupBox1.TabIndex = 1;
             this.uiGroupBox1.Text = "Danh sách thuốc trong kho thanh lý";
             // 
@@ -636,7 +636,7 @@
             this.grdKhoXuat.Name = "grdKhoXuat";
             this.grdKhoXuat.RecordNavigator = true;
             this.grdKhoXuat.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdKhoXuat.Size = new System.Drawing.Size(471, 404);
+            this.grdKhoXuat.Size = new System.Drawing.Size(512, 404);
             this.grdKhoXuat.TabIndex = 2;
             this.toolTip1.SetToolTip(this.grdKhoXuat, "Nếu chọn nhập trên lưới thì sau khi nhập xong có thể nhấn tổ hợp phím Ctrl+Enter " +
         "để chuyển thuốc hủy sang lưới chi tiết");
@@ -649,18 +649,20 @@
             this.panel2.Controls.Add(this.cmdPrevius);
             this.panel2.Controls.Add(this.cmdNext);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(477, 0);
+            this.panel2.Location = new System.Drawing.Point(518, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(76, 425);
+            this.panel2.Size = new System.Drawing.Size(50, 425);
             this.panel2.TabIndex = 0;
             // 
             // cmdPrevius
             // 
+            this.cmdPrevius.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdPrevius.Image = ((System.Drawing.Image)(resources.GetObject("cmdPrevius.Image")));
             this.cmdPrevius.ImageSize = new System.Drawing.Size(32, 32);
-            this.cmdPrevius.Location = new System.Drawing.Point(8, 202);
+            this.cmdPrevius.Location = new System.Drawing.Point(5, 202);
             this.cmdPrevius.Name = "cmdPrevius";
-            this.cmdPrevius.Size = new System.Drawing.Size(60, 60);
+            this.cmdPrevius.Size = new System.Drawing.Size(39, 101);
             this.cmdPrevius.TabIndex = 17;
             this.cmdPrevius.TabStop = false;
             this.toolTip1.SetToolTip(this.cmdPrevius, "Nhấn nút này khi cần hủy chuyển các thuốc được chọn trên lưới bên tay phải( phím " +
@@ -668,11 +670,13 @@
             // 
             // cmdNext
             // 
+            this.cmdNext.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdNext.Image = ((System.Drawing.Image)(resources.GetObject("cmdNext.Image")));
             this.cmdNext.ImageSize = new System.Drawing.Size(32, 32);
-            this.cmdNext.Location = new System.Drawing.Point(8, 136);
+            this.cmdNext.Location = new System.Drawing.Point(5, 102);
             this.cmdNext.Name = "cmdNext";
-            this.cmdNext.Size = new System.Drawing.Size(60, 60);
+            this.cmdNext.Size = new System.Drawing.Size(39, 94);
             this.cmdNext.TabIndex = 16;
             this.cmdNext.TabStop = false;
             this.toolTip1.SetToolTip(this.cmdNext, "Sau khi nhập số lượng thuốc cần hủy thì nhấn nút này để chuyển sang phần chi tiết" +
@@ -685,7 +689,7 @@
             this.uiGroupBox4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox4.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox4.Name = "uiGroupBox4";
-            this.uiGroupBox4.Size = new System.Drawing.Size(451, 376);
+            this.uiGroupBox4.Size = new System.Drawing.Size(436, 376);
             this.uiGroupBox4.TabIndex = 69;
             this.uiGroupBox4.Text = "Chi tiết phiếu thanh lý";
             // 
@@ -708,7 +712,7 @@
             this.grdPhieuXuatChiTiet.Name = "grdPhieuXuatChiTiet";
             this.grdPhieuXuatChiTiet.RecordNavigator = true;
             this.grdPhieuXuatChiTiet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdPhieuXuatChiTiet.Size = new System.Drawing.Size(445, 355);
+            this.grdPhieuXuatChiTiet.Size = new System.Drawing.Size(430, 355);
             this.grdPhieuXuatChiTiet.TabIndex = 0;
             this.grdPhieuXuatChiTiet.TabStop = false;
             this.grdPhieuXuatChiTiet.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
@@ -723,7 +727,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 376);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(451, 49);
+            this.panel1.Size = new System.Drawing.Size(436, 49);
             this.panel1.TabIndex = 70;
             // 
             // cmdInPhieuNhap
@@ -732,7 +736,7 @@
             this.cmdInPhieuNhap.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdInPhieuNhap.Image = ((System.Drawing.Image)(resources.GetObject("cmdInPhieuNhap.Image")));
             this.cmdInPhieuNhap.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdInPhieuNhap.Location = new System.Drawing.Point(89, 7);
+            this.cmdInPhieuNhap.Location = new System.Drawing.Point(74, 7);
             this.cmdInPhieuNhap.Name = "cmdInPhieuNhap";
             this.cmdInPhieuNhap.Size = new System.Drawing.Size(127, 33);
             this.cmdInPhieuNhap.TabIndex = 14;
@@ -745,7 +749,7 @@
             this.cmdSave.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdSave.Image = ((System.Drawing.Image)(resources.GetObject("cmdSave.Image")));
             this.cmdSave.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdSave.Location = new System.Drawing.Point(219, 7);
+            this.cmdSave.Location = new System.Drawing.Point(204, 7);
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(118, 33);
             this.cmdSave.TabIndex = 13;
@@ -758,7 +762,7 @@
             this.cmdExit.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdExit.Image = ((System.Drawing.Image)(resources.GetObject("cmdExit.Image")));
             this.cmdExit.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdExit.Location = new System.Drawing.Point(338, 7);
+            this.cmdExit.Location = new System.Drawing.Point(323, 7);
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(110, 33);
             this.cmdExit.TabIndex = 15;
