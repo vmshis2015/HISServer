@@ -152,6 +152,7 @@
             this.cmdChuyenCLS = new Janus.Windows.EditControls.UIButton();
             this.cmdDungChuyenCLS = new Janus.Windows.EditControls.UIButton();
             this.pnlThongtintien = new System.Windows.Forms.Panel();
+            this.cmdChiphithem = new Janus.Windows.EditControls.UIButton();
             this.label7 = new System.Windows.Forms.Label();
             this.txtPttt = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.chkLayHoadon = new System.Windows.Forms.CheckBox();
@@ -228,7 +229,6 @@
             this.txtCanhbao = new Janus.Windows.GridEX.EditControls.EditBox();
             this.vbLine2 = new VNS.UCs.VBLine();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.cmdChiphithem = new Janus.Windows.EditControls.UIButton();
             this.ctxBienlai.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -608,6 +608,7 @@
             // 
             this.txtICD._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtICD._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtICD._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtICD.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtICD.AutoCompleteList")));
             this.txtICD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtICD.CaseSensitive = false;
@@ -623,6 +624,7 @@
             this.txtICD.MinTypedCharacters = 2;
             this.txtICD.MyCode = "-1";
             this.txtICD.MyID = "-1";
+            this.txtICD.MyText = "";
             this.txtICD.Name = "txtICD";
             this.txtICD.RaiseEvent = true;
             this.txtICD.RaiseEventEnter = true;
@@ -1116,7 +1118,7 @@
             this.tabPagePayment.Name = "tabPagePayment";
             this.tabPagePayment.Size = new System.Drawing.Size(639, 132);
             this.tabPagePayment.TabStop = true;
-            this.tabPagePayment.Text = "Thông tin thanh toán (Alt +1)";
+            this.tabPagePayment.Text = "Lịch sử thanh toán (Alt +4)";
             // 
             // grdPayment
             // 
@@ -1160,7 +1162,7 @@
             this.tabPagePhieuChi.Name = "tabPagePhieuChi";
             this.tabPagePhieuChi.Size = new System.Drawing.Size(639, 132);
             this.tabPagePhieuChi.TabStop = true;
-            this.tabPagePhieuChi.Text = "Trả lại tiền (Phiếu chi)  (Alt + 2)";
+            this.tabPagePhieuChi.Text = "Lịch sử trả lại tiền (Phiếu chi)  (Alt + 5)";
             // 
             // grdPhieuChi
             // 
@@ -1220,7 +1222,7 @@
             this.tabpageThongTinThanhToan.Name = "tabpageThongTinThanhToan";
             this.tabpageThongTinThanhToan.Size = new System.Drawing.Size(641, 525);
             this.tabpageThongTinThanhToan.TabStop = true;
-            this.tabpageThongTinThanhToan.Text = "Thông tin tổng hợp";
+            this.tabpageThongTinThanhToan.Text = "Tổng hợp(Alt+1)";
             // 
             // panel4
             // 
@@ -1653,6 +1655,21 @@
             this.pnlThongtintien.Name = "pnlThongtintien";
             this.pnlThongtintien.Size = new System.Drawing.Size(330, 483);
             this.pnlThongtintien.TabIndex = 362;
+            // 
+            // cmdChiphithem
+            // 
+            this.cmdChiphithem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cmdChiphithem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdChiphithem.Image = ((System.Drawing.Image)(resources.GetObject("cmdChiphithem.Image")));
+            this.cmdChiphithem.ImageSize = new System.Drawing.Size(20, 20);
+            this.cmdChiphithem.Location = new System.Drawing.Point(5, 391);
+            this.cmdChiphithem.Name = "cmdChiphithem";
+            this.cmdChiphithem.Office2007ColorScheme = Janus.Windows.UI.Office2007ColorScheme.Custom;
+            this.cmdChiphithem.Office2007CustomColor = System.Drawing.Color.Yellow;
+            this.cmdChiphithem.Size = new System.Drawing.Size(138, 35);
+            this.cmdChiphithem.TabIndex = 382;
+            this.cmdChiphithem.Text = "Chi phí thêm";
+            this.toolTip1.SetToolTip(this.cmdChiphithem, "Nhấn vào đây để hủy thanh toán cho phiếu thanh toán đang chọn bên dưới");
             // 
             // label7
             // 
@@ -2216,7 +2233,7 @@
             this.tabPageThongTinChiTietThanhToan.Name = "tabPageThongTinChiTietThanhToan";
             this.tabPageThongTinChiTietThanhToan.Size = new System.Drawing.Size(641, 525);
             this.tabPageThongTinChiTietThanhToan.TabStop = true;
-            this.tabPageThongTinChiTietThanhToan.Text = "Thông tin Chi tiết";
+            this.tabPageThongTinChiTietThanhToan.Text = "Dịch vụ chi tiết(Alt+2)";
             // 
             // grdThongTinChuaThanhToan
             // 
@@ -2261,7 +2278,7 @@
             this.tabPageThongTinDaThanhToan.Name = "tabPageThongTinDaThanhToan";
             this.tabPageThongTinDaThanhToan.Size = new System.Drawing.Size(641, 525);
             this.tabPageThongTinDaThanhToan.TabStop = true;
-            this.tabPageThongTinDaThanhToan.Text = "Thông tin đã thanh toán (F3)";
+            this.tabPageThongTinDaThanhToan.Text = "Dịch vụ đã thanh toán(Alt+3)";
             // 
             // grdThongTinDaThanhToan
             // 
@@ -2678,21 +2695,6 @@
             // 
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp nhanh:";
-            // 
-            // cmdChiphithem
-            // 
-            this.cmdChiphithem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdChiphithem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdChiphithem.Image = ((System.Drawing.Image)(resources.GetObject("cmdChiphithem.Image")));
-            this.cmdChiphithem.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdChiphithem.Location = new System.Drawing.Point(5, 391);
-            this.cmdChiphithem.Name = "cmdChiphithem";
-            this.cmdChiphithem.Office2007ColorScheme = Janus.Windows.UI.Office2007ColorScheme.Custom;
-            this.cmdChiphithem.Office2007CustomColor = System.Drawing.Color.Yellow;
-            this.cmdChiphithem.Size = new System.Drawing.Size(138, 35);
-            this.cmdChiphithem.TabIndex = 382;
-            this.cmdChiphithem.Text = "Chi phí thêm";
-            this.toolTip1.SetToolTip(this.cmdChiphithem, "Nhấn vào đây để hủy thanh toán cho phiếu thanh toán đang chọn bên dưới");
             // 
             // frm_THANHTOAN_NGOAITRU
             // 

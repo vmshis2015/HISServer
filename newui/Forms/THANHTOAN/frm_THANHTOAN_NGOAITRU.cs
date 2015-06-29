@@ -2319,15 +2319,6 @@ namespace  VNS.HIS.UI.THANHTOAN
             if (e.KeyCode == Keys.Escape) Close();
             if (e.KeyCode == Keys.F3 ||(e.Control && e.KeyCode==Keys.F))
             {
-                //if (txtMaLanKham.Focused)
-                //{
-                //    cmdSearch.PerformClick();
-                //}
-                //else
-                //{
-                //    txtMaLanKham.Focus();
-                //    txtMaLanKham.Select();
-                //}
                 txtMaLanKham.Focus();
                 txtMaLanKham.Select();
                 cmdSearch.PerformClick();
@@ -2335,13 +2326,13 @@ namespace  VNS.HIS.UI.THANHTOAN
             if (e.KeyCode == Keys.F5) getData();
             if (e.KeyCode == Keys.F4) cmdInphoiBHYT.PerformClick();
             if (e.KeyCode == Keys.T && e.Control) cmdThanhToan.PerformClick();
-            if (e.KeyCode == Keys.F1) tabThongTinCanThanhToan.SelectedIndex = 0;
-            if (e.KeyCode == Keys.F2) tabThongTinCanThanhToan.SelectedIndex = 1;
-            //if (e.KeyCode == Keys.F3) tabThongTinCanThanhToan.SelectedIndex = 2;
+            if (e.Alt && e.KeyCode == Keys.D1) tabThongTinCanThanhToan.SelectedIndex = 0;
+            if (e.Alt &&  e.KeyCode == Keys.D2) tabThongTinCanThanhToan.SelectedIndex = 1;
+            if (e.Alt && e.KeyCode == Keys.D3) tabThongTinCanThanhToan.SelectedIndex = 2;
             if (e.KeyCode == Keys.F7) uiTabHoadon_chiphi.SelectedIndex = 0;
             if (e.KeyCode == Keys.F8) uiTabHoadon_chiphi.SelectedIndex = 1;
-            if (e.KeyCode == Keys.D1 && e.Alt) tabThongTinThanhToan.SelectedTab = tabPagePayment;
-            if (e.KeyCode == Keys.D2 && e.Alt) tabThongTinThanhToan.SelectedTab = tabPagePhieuChi;
+            if (e.KeyCode == Keys.D4 && e.Alt) tabThongTinThanhToan.SelectedTab = tabPagePayment;
+            if (e.KeyCode == Keys.D5 && e.Alt) tabThongTinThanhToan.SelectedTab = tabPagePhieuChi;
         }
 
         private void cmdLaylaiThongTin_Click(object sender, EventArgs e)
