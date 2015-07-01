@@ -31,16 +31,19 @@
             this.components = new System.ComponentModel.Container();
             this.cmdGetQMS = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkSoUutien = new SView.UCs.medCheckBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.chkMore = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.nmrMore = new System.Windows.Forms.NumericUpDown();
-            this.chkMore = new System.Windows.Forms.CheckBox();
-            this.lblQMSNumber = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.chkSoUutien = new SView.UCs.medCheckBox();
+            this.lblQMSNumber = new System.Windows.Forms.TextBox();
+            this.ctxOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuReprint = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nmrMore)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmrMore)).BeginInit();
+            this.ctxOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdGetQMS
@@ -63,6 +66,46 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(401, 56);
             this.panel1.TabIndex = 29;
+            // 
+            // chkSoUutien
+            // 
+            this.chkSoUutien._FontColor = System.Drawing.Color.Navy;
+            this.chkSoUutien.AllowOnCheck = true;
+            this.chkSoUutien.BackColor = System.Drawing.Color.Transparent;
+            this.chkSoUutien.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkSoUutien.FontText = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkSoUutien.ForeColor = System.Drawing.Color.Navy;
+            this.chkSoUutien.IsChecked = false;
+            this.chkSoUutien.Location = new System.Drawing.Point(0, 0);
+            this.chkSoUutien.Margin = new System.Windows.Forms.Padding(0);
+            this.chkSoUutien.Name = "chkSoUutien";
+            this.chkSoUutien.Size = new System.Drawing.Size(401, 56);
+            this.chkSoUutien.TabIndex = 43;
+            this.chkSoUutien.YourText = "Lấy số ưu tiên";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.chkMore);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.nmrMore);
+            this.panel2.Location = new System.Drawing.Point(3, 11);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(10, 20);
+            this.panel2.TabIndex = 42;
+            this.panel2.Visible = false;
+            // 
+            // chkMore
+            // 
+            this.chkMore.AutoSize = true;
+            this.chkMore.BackColor = System.Drawing.Color.Transparent;
+            this.chkMore.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkMore.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.chkMore.Location = new System.Drawing.Point(3, 8);
+            this.chkMore.Name = "chkMore";
+            this.chkMore.Size = new System.Drawing.Size(86, 20);
+            this.chkMore.TabIndex = 39;
+            this.chkMore.Text = "Lấy thêm";
+            this.chkMore.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -95,64 +138,38 @@
             0,
             0});
             // 
-            // chkMore
-            // 
-            this.chkMore.AutoSize = true;
-            this.chkMore.BackColor = System.Drawing.Color.Transparent;
-            this.chkMore.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMore.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.chkMore.Location = new System.Drawing.Point(3, 8);
-            this.chkMore.Name = "chkMore";
-            this.chkMore.Size = new System.Drawing.Size(86, 20);
-            this.chkMore.TabIndex = 39;
-            this.chkMore.Text = "Lấy thêm";
-            this.chkMore.UseVisualStyleBackColor = false;
-            // 
-            // lblQMSNumber
-            // 
-            this.lblQMSNumber.BackColor = System.Drawing.SystemColors.Control;
-            this.lblQMSNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblQMSNumber.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblQMSNumber.Font = new System.Drawing.Font("Arial", 50.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblQMSNumber.ForeColor = System.Drawing.Color.Black;
-            this.lblQMSNumber.Location = new System.Drawing.Point(0, 0);
-            this.lblQMSNumber.Name = "lblQMSNumber";
-            this.lblQMSNumber.Size = new System.Drawing.Size(401, 89);
-            this.lblQMSNumber.TabIndex = 30;
-            this.lblQMSNumber.Text = "999";
-            this.lblQMSNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp:";
             // 
-            // panel2
+            // lblQMSNumber
             // 
-            this.panel2.Controls.Add(this.chkMore);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.nmrMore);
-            this.panel2.Location = new System.Drawing.Point(3, 11);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(10, 20);
-            this.panel2.TabIndex = 42;
-            this.panel2.Visible = false;
+            this.lblQMSNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblQMSNumber.ContextMenuStrip = this.ctxOptions;
+            this.lblQMSNumber.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblQMSNumber.Font = new System.Drawing.Font("Arial", 50.25F, System.Drawing.FontStyle.Bold);
+            this.lblQMSNumber.Location = new System.Drawing.Point(0, 0);
+            this.lblQMSNumber.Name = "lblQMSNumber";
+            this.lblQMSNumber.ReadOnly = true;
+            this.lblQMSNumber.Size = new System.Drawing.Size(401, 85);
+            this.lblQMSNumber.TabIndex = 31;
+            this.lblQMSNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip1.SetToolTip(this.lblQMSNumber, "Số thứ tự khám theo phòng khám");
             // 
-            // chkSoUutien
+            // ctxOptions
             // 
-            this.chkSoUutien._FontColor = System.Drawing.Color.Navy;
-            this.chkSoUutien.AllowOnCheck = true;
-            this.chkSoUutien.BackColor = System.Drawing.Color.Transparent;
-            this.chkSoUutien.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkSoUutien.FontText = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkSoUutien.ForeColor = System.Drawing.Color.Navy;
-            this.chkSoUutien.IsChecked = false;
-            this.chkSoUutien.Location = new System.Drawing.Point(0, 0);
-            this.chkSoUutien.Margin = new System.Windows.Forms.Padding(0);
-            this.chkSoUutien.Name = "chkSoUutien";
-            this.chkSoUutien.Size = new System.Drawing.Size(401, 56);
-            this.chkSoUutien.TabIndex = 43;
-            this.chkSoUutien.YourText = "Lấy số ưu tiên";
+            this.ctxOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuReprint});
+            this.ctxOptions.Name = "ctxOptions";
+            this.ctxOptions.Size = new System.Drawing.Size(144, 26);
+            // 
+            // mnuReprint
+            // 
+            this.mnuReprint.CheckOnClick = true;
+            this.mnuReprint.Name = "mnuReprint";
+            this.mnuReprint.Size = new System.Drawing.Size(143, 22);
+            this.mnuReprint.Text = "In lại số QMS";
             // 
             // ucQMSItem
             // 
@@ -164,10 +181,12 @@
             this.Name = "ucQMSItem";
             this.Size = new System.Drawing.Size(401, 210);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nmrMore)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmrMore)).EndInit();
+            this.ctxOptions.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -178,9 +197,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown nmrMore;
         private System.Windows.Forms.CheckBox chkMore;
-        private System.Windows.Forms.Label lblQMSNumber;
         private System.Windows.Forms.ToolTip toolTip1;
         private SView.UCs.medCheckBox chkSoUutien;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox lblQMSNumber;
+        private System.Windows.Forms.ContextMenuStrip ctxOptions;
+        private System.Windows.Forms.ToolStripMenuItem mnuReprint;
     }
 }

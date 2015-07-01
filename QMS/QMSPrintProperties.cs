@@ -320,8 +320,82 @@ namespace VNS.QMS
     DisplayName("Thời gian nghỉ giữa mỗi lần lấy số")]
         public int SleepTime { get; set; }
 
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+     Description("Tên hiển thị lấy số dịch vụ"),
+     DisplayName("Tên hiển thị lấy số dịch vụ")]
+        public string tensodichvu { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+     Description("Tên hiển thị lấy số BHYT"),
+     DisplayName("Tên hiển thị lấy số BHYT")]
+        public string tensobhyt { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+     Description("Tên hiển thị lấy số khác"),
+     DisplayName("Tên hiển thị lấy số khác")]
+        public string tensokhac { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+    Description("Tên hiển thị lấy số ưu tiên"),
+    DisplayName("Tên hiển thị lấy số ưu tiên")]
+        public string tensouutien { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+       Description("Mã đối tượng lấy số khác: ALL,DV hoặc BHYT"),
+     DisplayName("Mã đối tượng lấy số DV")]
+        public string madoituongdichvu { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+       Description("Mã đối tượng lấy số khác: ALL,DV hoặc BHYT"),
+     DisplayName("Mã đối tượng lấy số BHYT")]
+        public string madoituongbhyt { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+     Description("Mã đối tượng lấy số khác: ALL,DV hoặc BHYT"),
+     DisplayName("Mã đối tượng lấy số khác")]
+        public string madoituongkhac { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+    Description("Mã đối tượng lấy số ưu tiên: ALL,DV hoặc BHYT"),
+    DisplayName("Mã đối tượng lấy số ưu tiên")]
+        public string madoituonguutien { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+  Description("Hiển thị lấy số Ưu tiên"),
+  DisplayName("Hiển thị lấy số Ưu tiên")]
+        public bool hienthiLaysoUutien { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+    Description("Hiển thị lấy số DV"),
+    DisplayName("Hiển thị lấy số DV")]
+        public bool hienthiLaysoDV { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+    Description("Hiển thị lấy số khác"),
+    DisplayName("Hiển thị lấy số khác")]
+        public bool hienthiLaysokhac { get; set; }
+
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+    Description("Hiển thị lấy số BHYT"),
+    DisplayName("Hiển thị lấy số BHYT")]
+        public bool hienthiLaysoBHYT { get; set; }
+
+
         public QMSProperties()
         {
+            madoituonguutien = "ALL";
+            madoituongdichvu = "DV";
+            madoituongbhyt = "BHYT";
+            madoituongkhac = "ALL";
+            tensouutien = "Lấy số Ưu tiên";
+            tensobhyt = "Lấy số BHYT";
+            tensodichvu = "Lấy số Dịch vụ";
+            tensokhac = "Lấy số tiêm chủng";
+            hienthiLaysokhac = true;
+            hienthiLaysoBHYT = true;
+            hienthiLaysoDV = true;
+            hienthiLaysoUutien = true;
             TenBenhVien = "BỆNH VIỆN NỘI TIẾT TRUNG ƯƠNG";
             MaQuay = "QUAYSO_1";
             TenQuay = "Quầy tiếp đón số 1";

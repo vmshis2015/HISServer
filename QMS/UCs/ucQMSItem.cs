@@ -26,6 +26,7 @@ namespace QMS.UCs
         int id_dichvukcb=-1;
         DataTable dtSTTKham = null;
         bool hasLoaded = false;
+        string tenhienthi = "";
         int SoUutien = 0;//0=số thường;1= số ưu tiên
         public delegate void OnCreatedQMSNumber(string MaxNumber);
         public event OnCreatedQMSNumber _OnCreatedQMSNumber;
@@ -41,6 +42,7 @@ namespace QMS.UCs
         {
             InitializeComponent();
             InitEvents();
+            this.tenhienthi = tenhienthi;
             this._QMSProperties = _QMSProperties;
             this.id_dichvukcb = id_dichvukcb;
             this.ma_KhoaKcb = ma_KhoaKcb;
@@ -55,6 +57,7 @@ namespace QMS.UCs
         public void Init(DataRow dr,int id_KhoaKcb, int id_kieukham, int id_phongkham, string tenhienthi, QMSProperties _QMSProperties, string ma_doituong_kcb, int SoUutien)
         {
             this._QMSProperties = _QMSProperties;
+            this.tenhienthi = tenhienthi;
             setControlProperties();
             cmdGetQMS.Text = tenhienthi;
             this.id_KhoaKcb = id_KhoaKcb;
@@ -123,6 +126,26 @@ namespace QMS.UCs
             nmrMore.ValueChanged += nmrMore_ValueChanged;
             chkMore.CheckedChanged += chkMore_CheckedChanged;
             chkSoUutien._Oncheck += chkSoUutien__Oncheck;
+            mnuReprint.Click += mnuReprint_Click;
+        }
+        bool Reprint = false;
+        void mnuReprint_Click(object sender, EventArgs e)
+        {
+            if (mnuReprint.Checked)
+            {
+                lblQMSNumber.ReadOnly = false;
+                lblQMSNumber.BackColor = Color.White;
+                Reprint = true;
+                cmdGetQMS.Text = "In lại";
+            }
+            else
+            {
+                Reprint = false;
+                lblQMSNumber.BackColor = cmdGetQMS.BackColor;
+                lblQMSNumber.ReadOnly = true;
+                cmdGetQMS.Text = tenhienthi;
+            }
+            
         }
 
         void chkSoUutien__Oncheck()
@@ -153,18 +176,39 @@ namespace QMS.UCs
         void cmdGetQMS_Click(object sender, EventArgs e)
         {
             UIAction._EnableControl(cmdGetQMS, false, "");
+            bool RestoreStatus = true;
             try
             {
+                
+                int LaysoUutien = chkSoUutien.IsChecked ? 1 : SoUutien;
+                if (Reprint)
+                {
+                    KcbQm objQms=new Select().From(KcbQm.Schema)
+                        .Where(KcbQm.Columns.SttKham).IsEqualTo(Utility.Int32Dbnull(lblQMSNumber.Text,0))
+                        .And(KcbQm.Columns.LoaiQms).IsEqualTo(LaysoUutien)
+                        .And(KcbQm.Columns.IdDichvukcb).IsEqualTo(id_dichvukcb)
+                        .ExecuteSingle<KcbQm>();
+                    if (objQms == null)
+                    {
+                        Utility.ShowMsg("Số thứ tự khám bạn muốn in lại chưa được tạo hoặc không tồn tại. Đề nghị bạn nhập số khác");
+                        RestoreStatus = false;
+                        lblQMSNumber.SelectAll();
+                        lblQMSNumber.Focus();
+                        return;
+                    }
+                    this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdGetQMS, Utility.sDbnull(objQms.SoQms), LaysoUutien);
+                    return;
+                }
                 int soluong = 1;
-                int LaysoUutien = chkSoUutien.IsChecked?1:SoUutien;
                 if (chkMore.Checked)
                     soluong = (int)nmrMore.Value;
                 for (int i = 1; i <= soluong; i++)
                 {
-                    this.LaySokham(1, lblQMSNumber, Utility.sDbnull(ma_KhoaKcb), ma_doituong_kcb, LaysoUutien);
+                    string qmsNumber = "";
+                    this.LaySokham(1, lblQMSNumber, Utility.sDbnull(ma_KhoaKcb), ma_doituong_kcb, LaysoUutien, ref qmsNumber);
                     if (_QMSProperties.PrintStatus)
                     {
-                        this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdGetQMS, Utility.sDbnull(lblQMSNumber.Text), LaysoUutien);
+                        this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdGetQMS, qmsNumber, LaysoUutien);
                     }
                 }
                 if (_QMSProperties.SleepTime > 10)
@@ -176,10 +220,18 @@ namespace QMS.UCs
             }
             finally
             {
+                if (RestoreStatus)
+                {
+                    Reprint = false;
+                    lblQMSNumber.BackColor = cmdGetQMS.BackColor;
+                    lblQMSNumber.ReadOnly = true;
+                    mnuReprint.Checked = false;
+                    if (Utility.DoTrim(tenhienthi) != "") cmdGetQMS.Text = tenhienthi;
+                }
                 UIAction._EnableControl(cmdGetQMS, true, "");
             }
         }
-        private void LaySokham(int status, Label lblQMSNumber, string MaKhoa, string madoituongkcb, int IsUuTien)
+        private void LaySokham(int status, TextBox lblQMSNumber, string MaKhoa, string madoituongkcb, int IsUuTien,ref string qmsNumber)
         {
             try
             {
@@ -195,6 +247,7 @@ namespace QMS.UCs
                 {
                     str = Utility.FormatNumberToString(num, "00");
                 }
+                qmsNumber = str;
                 if (_OnCreatedQMSNumber != null)
                     _OnCreatedQMSNumber(str);
                 str = Utility.sDbnull(SttKham);

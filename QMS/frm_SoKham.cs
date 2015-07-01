@@ -47,31 +47,190 @@ namespace VNS.QMS
             chkLaythemsoYC.CheckedChanged += new EventHandler(chkLaythemsoYC_CheckedChanged);
             chkLaythemsothuong.CheckedChanged += new EventHandler(chkLaythemsothuong_CheckedChanged);
             chkLaythemsouutien.CheckedChanged += new EventHandler(chkLaythemsouutien_CheckedChanged);
-            linkLabel1.Click += new EventHandler(linkLabel1_Click);
 
             nmrLaythemsothuong.ValueChanged += new EventHandler(nmrLaythemsothuong_ValueChanged);
             nmrLaythemsoUutien.ValueChanged += new EventHandler(nmrLaythemsoUutien_ValueChanged);
             nmrLaythemsoYC.ValueChanged += new EventHandler(nmrLaythemsoYC_ValueChanged);
 
             cmdConfig.Click+=new EventHandler(cmdConfig_Click);
+            mnuReprint.Click += mnuReprint_Click;
+
+
+            chkLaythemsokhac.CheckedChanged += chkLaythemsokhac_CheckedChanged;
+            nmrLaythemsokhac.ValueChanged += nmrLaythemsokhac_ValueChanged;
+            cmdSotiemchung.Click += cmdSotiemchung_Click;
         }
 
-        void cmdgetBHYT_Click(object sender, EventArgs e)
+        void cmdSotiemchung_Click(object sender, EventArgs e)
         {
             Utility.WaitNow(this);
-            int soluong = 1;
-            if (chkLaythemsoBhyt.Checked)
-                soluong = (int)nmrLaythemsoBHYT.Value;
-            for (int i = 1; i <= soluong; i++)
+            UIAction._EnableControl(cmdSotiemchung, false, "");
+            bool RestoreStatus = true;
+            try
             {
-                this.LaySokham(1, txtSoKhamBHYT, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh),"BHYT", 0);
-                if (_QMSProperties.PrintStatus)
+                if (Reprint)
                 {
-                    this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdgetBHYT, Utility.sDbnull(txtSoKhamBHYT.Text), 0);
+                    KcbQm objQms = new Select().From(KcbQm.Schema)
+                        .Where(KcbQm.Columns.SoQms).IsEqualTo(Utility.Int32Dbnull(txtsokhac.Text, 0))
+                        .And(KcbQm.Columns.LoaiQms).IsEqualTo(2)
+                        .And(KcbQm.Columns.MaKhoakcb).IsEqualTo(_QMSProperties.MaKhoaKhamBenh)
+                        .And(KcbQm.Columns.MaDoituongKcb).IsEqualTo("ALL")
+                        .ExecuteSingle<KcbQm>();
+                    if (objQms == null)
+                    {
+                        Utility.ShowMsg("Số QMS bạn muốn in lại chưa được tạo hoặc không tồn tại. Đề nghị bạn nhập số khác");
+                        RestoreStatus = false;
+                        txtsokhac.SelectAll();
+                        txtsokhac.Focus();
+                        return;
+                    }
+                    this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdSotiemchung, Utility.sDbnull(objQms.SoQms), 0);
+                    return;
+                }
+                int soluong = 1;
+                if (chkLaythemsokhac.Checked)
+                    soluong = (int)nmrLaythemsokhac.Value;
+                for (int i = 1; i <= soluong; i++)
+                {
+                    this.LaySokham(1, txtsokhac, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), _QMSProperties.madoituongkhac, 2);
+                    if (_QMSProperties.PrintStatus)
+                    {
+                        this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdSotiemchung, Utility.sDbnull(txtsokhac.Text), 0);
+                    }
+                }
+                Utility.DefaultNow(this);
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
+            finally
+            {
+                if (RestoreStatus)
+                {
+                    Reprint = false;
+                    txtsokhac.BackColor = cmdSotiemchung.BackColor;
+                    txtsokhac.ReadOnly = true;
+                    cmdSotiemchung.Text = cmdSotiemchung.Tag.ToString();
+                    mnuReprint.Checked = false;
+                }
+                UIAction._EnableControl(cmdSotiemchung, true, "");
+            }
+        }
+
+        void nmrLaythemsokhac_ValueChanged(object sender, EventArgs e)
+        {
+            if (!hasLoaded) return;
+            lblHelpsokhac.Text = "Nếu bạn nhấn nút " + cmdSotiemchung.Text + ". Hệ thống sẽ tự động in từ số " + (Utility.Int32Dbnull(txtsokhac.Text, 0) + 1).ToString() + " đến số " + (Utility.Int32Dbnull(txtsokhac.Text, 0) + nmrLaythemsokhac.Value).ToString();
+        }
+
+        void chkLaythemsokhac_CheckedChanged(object sender, EventArgs e)
+        {
+            nmrLaythemsokhac.Enabled = chkLaythemsokhac.Checked;
+            lblHelpsokhac.Visible = chkLaythemsokhac.Checked;
+            if (chkLaythemsokhac.Checked)
+            {
+                lblHelpsokhac.Text = "Nếu bạn nhấn nút " + cmdSotiemchung.Text + ". Hệ thống sẽ tự động in từ số " + (Utility.Int32Dbnull(txtsokhac.Text, 0) + 1).ToString() + " đến số " + (Utility.Int32Dbnull(txtsokhac.Text, 0) + nmrLaythemsokhac.Value).ToString();
+                nmrLaythemsokhac.Focus();
+            }
+            else
+            {
+                cmdSotiemchung.Focus();
+            }
+        }
+        bool Reprint = false;
+        void mnuReprint_Click(object sender, EventArgs e)
+        {
+            string ctrlName = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl.Name;
+            if (ctrlName == txtSoKham.Name)
+            {
+                if (mnuReprint.Checked)
+                {
+                    txtSoKham.ReadOnly = false;
+                    txtSoKham.BackColor = Color.White;
+                    Reprint = true;
+                    cmdGetSoKham.Text = "In lại";
+                }
+                else
+                {
+                    Reprint = false;
+                    txtSoKham.BackColor = cmdGetSoKham.BackColor;
+                    txtSoKham.ReadOnly = true;
+                    cmdGetSoKham.Text = cmdGetSoKham.Tag.ToString();
                 }
             }
-            Utility.DefaultNow(this);
+            else if (ctrlName == txtSoKhamBHYT.Name)
+            {
+                if (mnuReprint.Checked)
+                {
+                    txtSoKhamBHYT.ReadOnly = false;
+                    txtSoKhamBHYT.BackColor = Color.White;
+                    Reprint = true;
+                    cmdgetBHYT.Text = "In lại";
+                }
+                else
+                {
+                    Reprint = false;
+                    txtSoKhamBHYT.BackColor = cmdgetBHYT.BackColor;
+                    txtSoKhamBHYT.ReadOnly = true;
+                    cmdgetBHYT.Text = cmdgetBHYT.Tag.ToString();
+                }
+            }
+            else if (ctrlName == txtSoKhamUuTien.Name)
+            {
+                if (mnuReprint.Checked)
+                {
+                    txtSoKhamUuTien.ReadOnly = false;
+                    txtSoKhamUuTien.BackColor = Color.White;
+                    Reprint = true;
+                    cmdKhamUuTien.Text = "In lại";
+                }
+                else
+                {
+                    Reprint = false;
+                    txtSoKhamUuTien.BackColor = cmdKhamUuTien.BackColor;
+                    txtSoKhamUuTien.ReadOnly = true;
+                    cmdKhamUuTien.Text = cmdKhamUuTien.Tag.ToString();
+                }
+            }
+            else if (ctrlName == txtSoKhamYeuCau.Name)
+            {
+                if (mnuReprint.Checked)
+                {
+                    txtSoKhamYeuCau.ReadOnly = false;
+                    txtSoKhamYeuCau.BackColor = Color.White;
+                    Reprint = true;
+                    cmdKhamYC.Text = "In lại";
+                }
+                else
+                {
+                    Reprint = false;
+                    txtSoKhamYeuCau.BackColor = cmdKhamYC.BackColor;
+                    txtSoKhamYeuCau.ReadOnly = true;
+                    cmdKhamYC.Text = cmdKhamYC.Tag.ToString();
+                }
+            }
+            else if (ctrlName == txtsokhac.Name)
+            {
+                if (mnuReprint.Checked)
+                {
+                    txtsokhac.ReadOnly = false;
+                    txtsokhac.BackColor = Color.White;
+                    Reprint = true;
+                    cmdSotiemchung.Text = "In lại";
+                }
+                else
+                {
+                    Reprint = false;
+                    txtsokhac.BackColor = cmdSotiemchung.BackColor;
+                    txtsokhac.ReadOnly = true;
+                    cmdSotiemchung.Text = cmdSotiemchung.Tag.ToString();
+                }
+            }
+
         }
+
+     
 
         void nmrLaythemsoYC_ValueChanged(object sender, EventArgs e)
         {
@@ -115,7 +274,7 @@ namespace VNS.QMS
         }
         void linkLabel1_Click(object sender, EventArgs e)
         {
-            CleanTemporaryFolders();
+           
         }
 
         void chkLaythemsouutien_CheckedChanged(object sender, EventArgs e)
@@ -167,10 +326,11 @@ namespace VNS.QMS
         {
             if (e.KeyCode == Keys.F5)
             {
-                this.LaySokham(0, txtSoKham, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), "DV", 0);
-                this.LaySokham(0, txtSoKhamBHYT, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), "BHYT", 0);
+                this.LaySokham(0, txtSoKham, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), _QMSProperties.madoituongdichvu, 0);
+                this.LaySokham(0, txtSoKhamBHYT, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), _QMSProperties.madoituongbhyt, 0);
                 this.LaySokham(0, txtSoKhamUuTien, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), "ALL", 1);
                 this.LaySokham(0, txtSoKhamYeuCau, Utility.sDbnull(_QMSProperties.MaKhoaYeuCau), "ALL", 0);
+                this.LaySokham(0, txtsokhac, Utility.sDbnull(_QMSProperties.MaKhoaYeuCau), _QMSProperties.madoituongkhac, 0);
             }
             if (e.KeyCode == Keys.F1)
                 cmdGetSoKham_Click(cmdGetSoKham, new EventArgs());
@@ -195,33 +355,37 @@ namespace VNS.QMS
 
         private void CauHinh()
         {
-            Utility.SetMsg(this.lblMessage, _QMSProperties.TenBenhVien, true);
-            txtSoKham.BackColor = _QMSProperties.MauB1;
-            txtSoKham.ForeColor = _QMSProperties.MauF1;
-
-            txtSoKhamYeuCau.BackColor = _QMSProperties.MauB2;
-            txtSoKhamYeuCau.ForeColor = _QMSProperties.MauF2;
-
-            txtSoKhamUuTien.BackColor = _QMSProperties.MauB3;
-            txtSoKhamUuTien.ForeColor = _QMSProperties.MauF3;
-        }
-
-        private void CleanTemporaryFolders()
-        {
             try
             {
-                Utility.WaitNow(this);
-                string folderName = Environment.ExpandEnvironmentVariables("%TEMP%");
-                this.EmptyFolderContents(folderName);
+                UIAction.SetText(this.lblMessage, _QMSProperties.TenBenhVien);
+                txtSoKham.BackColor = _QMSProperties.MauB1;
+                txtSoKham.ForeColor = _QMSProperties.MauF1;
+
+                txtSoKhamYeuCau.BackColor = _QMSProperties.MauB2;
+                txtSoKhamYeuCau.ForeColor = _QMSProperties.MauF2;
+
+                txtSoKhamUuTien.BackColor = _QMSProperties.MauB3;
+                txtSoKhamUuTien.ForeColor = _QMSProperties.MauF3;
+
+                pnlBHYT.Visible = _QMSProperties.hienthiLaysoBHYT;
+                pnlSoDVthuong.Visible = _QMSProperties.hienthiLaysoDV;
+                pnlSokhac.Visible = _QMSProperties.hienthiLaysokhac;
+                pnlUutien.Visible = _QMSProperties.hienthiLaysoUutien;
+
+                cmdGetSoKham.Text = _QMSProperties.tensodichvu;
+                cmdKhamUuTien.Text = _QMSProperties.tensouutien;
+                cmdSotiemchung.Text = _QMSProperties.tensokhac;
+                cmdgetBHYT.Text = _QMSProperties.tensobhyt;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                
+                
             }
-            finally
-            {
-                Utility.DefaultNow(this);
-            }
+           
         }
+
+        
 
         private void cmdConfig_Click(object sender, EventArgs e)
         {
@@ -229,53 +393,230 @@ namespace VNS.QMS
             frm.ShowDialog();
             CauHinh();
         }
+        void cmdgetBHYT_Click(object sender, EventArgs e)
+        {
+            Utility.WaitNow(this);
+            UIAction._EnableControl(cmdgetBHYT, false, "");
+            bool RestoreStatus = true;
+            try
+            {
+                if (Reprint)
+                {
+                    KcbQm objQms = new Select().From(KcbQm.Schema)
+                        .Where(KcbQm.Columns.SoQms).IsEqualTo(Utility.Int32Dbnull(txtSoKhamBHYT.Text, 0))
+                        .And(KcbQm.Columns.LoaiQms).IsEqualTo(0)
+                        .And(KcbQm.Columns.MaKhoakcb).IsEqualTo(_QMSProperties.MaKhoaKhamBenh)
+                        .And(KcbQm.Columns.MaDoituongKcb).IsEqualTo("BHYT")
+                        .ExecuteSingle<KcbQm>();
+                    if (objQms == null)
+                    {
+                        Utility.ShowMsg("Số QMS bạn muốn in lại chưa được tạo hoặc không tồn tại. Đề nghị bạn nhập số khác");
+                        RestoreStatus = false;
+                        txtSoKhamBHYT.SelectAll();
+                        txtSoKhamBHYT.Focus();
+                        return;
+                    }
+                    this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdgetBHYT, Utility.sDbnull(objQms.SoQms), 0);
+                    return;
+                }
+
+                int soluong = 1;
+                if (chkLaythemsoBhyt.Checked)
+                    soluong = (int)nmrLaythemsoBHYT.Value;
+                for (int i = 1; i <= soluong; i++)
+                {
+                    this.LaySokham(1, txtSoKhamBHYT, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), _QMSProperties.madoituongbhyt, 0);
+                    if (_QMSProperties.PrintStatus)
+                    {
+                        this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdgetBHYT, Utility.sDbnull(txtSoKhamBHYT.Text), 0);
+                    }
+                }
+                Utility.DefaultNow(this);
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
+            finally
+            {
+                if (RestoreStatus)
+                {
+                    Reprint = false;
+                    txtSoKhamBHYT.BackColor = cmdgetBHYT.BackColor;
+                    txtSoKhamBHYT.ReadOnly = true;
+                    cmdgetBHYT.Text = cmdgetBHYT.Tag.ToString();
+                    mnuReprint.Checked = false;
+                }
+                UIAction._EnableControl(cmdgetBHYT, true, "");
+            }
+        }
         private void cmdGetSoKham_Click(object sender, EventArgs e)
         {
             Utility.WaitNow(this);
-            int soluong = 1;
-            if (chkLaythemsothuong.Checked)
-                soluong = (int)nmrLaythemsothuong.Value;
-            for (int i = 1; i <= soluong; i++)
+            UIAction._EnableControl(cmdgetBHYT, false, "");
+            bool RestoreStatus = true;
+            try
             {
-                this.LaySokham(1,txtSoKham, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh),"DV", 0);
-                if (_QMSProperties.PrintStatus)
+                if (Reprint)
                 {
-                    this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdGetSoKham, Utility.sDbnull(txtSoKham.Text), 0);
+                    KcbQm objQms = new Select().From(KcbQm.Schema)
+                        .Where(KcbQm.Columns.SoQms).IsEqualTo(Utility.Int32Dbnull(txtSoKham.Text, 0))
+                        .And(KcbQm.Columns.LoaiQms).IsEqualTo(0)
+                        .And(KcbQm.Columns.MaKhoakcb).IsEqualTo(_QMSProperties.MaKhoaKhamBenh)
+                        .And(KcbQm.Columns.MaDoituongKcb).IsEqualTo("DV")
+                        .ExecuteSingle<KcbQm>();
+                    if (objQms == null)
+                    {
+                        Utility.ShowMsg("Số QMS bạn muốn in lại chưa được tạo hoặc không tồn tại. Đề nghị bạn nhập số khác");
+                        RestoreStatus = false;
+                        txtSoKham.SelectAll();
+                        txtSoKham.Focus();
+                        return;
+                    }
+                    this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdGetSoKham, Utility.sDbnull(objQms.SoQms), 0);
+                    return;
                 }
+                int soluong = 1;
+                if (chkLaythemsothuong.Checked)
+                    soluong = (int)nmrLaythemsothuong.Value;
+                for (int i = 1; i <= soluong; i++)
+                {
+                    this.LaySokham(1, txtSoKham, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), _QMSProperties.madoituongdichvu, 0);
+                    if (_QMSProperties.PrintStatus)
+                    {
+                        this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdGetSoKham, Utility.sDbnull(txtSoKham.Text), 0);
+                    }
+                }
+                Utility.DefaultNow(this);
             }
-            Utility.DefaultNow(this);
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
+            finally
+            {
+                if (RestoreStatus)
+                {
+                    Reprint = false;
+                    txtSoKham.BackColor = cmdGetSoKham.BackColor;
+                    txtSoKham.ReadOnly = true;
+                    cmdGetSoKham.Text = cmdGetSoKham.Tag.ToString();
+                    mnuReprint.Checked = false;
+                }
+                UIAction._EnableControl(cmdgetBHYT, true, "");
+            }
         }
         private void cmdKhamYC_Click(object sender, EventArgs e)
         {
             Utility.WaitNow(this);
-            int soluong = 1;
-            if (chkLaythemsoYC.Checked)
-                soluong = (int)nmrLaythemsoYC.Value;
-            for (int i = 1; i <= soluong; i++)
+            UIAction._EnableControl(cmdgetBHYT, false, "");
+            bool RestoreStatus = true;
+            try
             {
-                this.LaySokham(1,txtSoKhamYeuCau, Utility.sDbnull(_QMSProperties.MaKhoaYeuCau),"ALL", 0);
-                if (_QMSProperties.PrintStatus)
+                if (Reprint)
                 {
-                    this.InPhieuKham(_QMSProperties.TenKhoaYeuCau, this.cmdKhamYC, Utility.sDbnull(this.txtSoKhamYeuCau.Text), 0);
+                    KcbQm objQms = new Select().From(KcbQm.Schema)
+                        .Where(KcbQm.Columns.SoQms).IsEqualTo(Utility.Int32Dbnull(txtSoKhamYeuCau.Text, 0))
+                        .And(KcbQm.Columns.LoaiQms).IsEqualTo(0)
+                        .And(KcbQm.Columns.MaKhoakcb).IsEqualTo(_QMSProperties.MaKhoaKhamBenh)
+                        .And(KcbQm.Columns.MaDoituongKcb).IsEqualTo("ALL")
+                        .ExecuteSingle<KcbQm>();
+                    if (objQms == null)
+                    {
+                        Utility.ShowMsg("Số QMS bạn muốn in lại chưa được tạo hoặc không tồn tại. Đề nghị bạn nhập số khác");
+                        RestoreStatus = false;
+                        txtSoKhamYeuCau.SelectAll();
+                        txtSoKhamYeuCau.Focus();
+                        return;
+                    }
+                    this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdKhamYC, Utility.sDbnull(objQms.SoQms), 0);
+                    return;
                 }
+                int soluong = 1;
+                if (chkLaythemsoYC.Checked)
+                    soluong = (int)nmrLaythemsoYC.Value;
+                for (int i = 1; i <= soluong; i++)
+                {
+                    this.LaySokham(1, txtSoKhamYeuCau, Utility.sDbnull(_QMSProperties.MaKhoaYeuCau), "ALL", 0);
+                    if (_QMSProperties.PrintStatus)
+                    {
+                        this.InPhieuKham(_QMSProperties.TenKhoaYeuCau, this.cmdKhamYC, Utility.sDbnull(this.txtSoKhamYeuCau.Text), 0);
+                    }
+                }
+                Utility.DefaultNow(this);
             }
-            Utility.DefaultNow(this);
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
+            finally
+            {
+                if (RestoreStatus)
+                {
+                    Reprint = false;
+                    txtSoKhamYeuCau.BackColor = cmdKhamYC.BackColor;
+                    txtSoKhamYeuCau.ReadOnly = true;
+                    cmdKhamYC.Text = cmdKhamYC.Tag.ToString();
+                    mnuReprint.Checked = false;
+                }
+                UIAction._EnableControl(cmdgetBHYT, true, "");
+            }
         }
         private void cmdKhamUuTien_Click(object sender, EventArgs e)
         {
             Utility.WaitNow(this);
-             int soluong = 1;
-            if (chkLaythemsouutien.Checked)
-                soluong = (int)nmrLaythemsoUutien.Value;
-            for (int i = 1; i <= soluong; i++)
+            UIAction._EnableControl(cmdgetBHYT, false, "");
+            bool RestoreStatus = true;
+            try
             {
-                this.LaySokham(1,txtSoKhamUuTien, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh),"ALL", 1);
-                if (_QMSProperties.PrintStatus)
+                if (Reprint)
                 {
-                    this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdKhamUuTien, Utility.sDbnull(txtSoKhamUuTien.Text), 1);
+                    KcbQm objQms = new Select().From(KcbQm.Schema)
+                        .Where(KcbQm.Columns.SoQms).IsEqualTo(Utility.Int32Dbnull(txtSoKhamUuTien.Text, 0))
+                        .And(KcbQm.Columns.LoaiQms).IsEqualTo(0)
+                        .And(KcbQm.Columns.MaKhoakcb).IsEqualTo(_QMSProperties.MaKhoaKhamBenh)
+                        .And(KcbQm.Columns.MaDoituongKcb).IsEqualTo("ALL")
+                        .ExecuteSingle<KcbQm>();
+                    if (objQms == null)
+                    {
+                        Utility.ShowMsg("Số QMS bạn muốn in lại chưa được tạo hoặc không tồn tại. Đề nghị bạn nhập số khác");
+                        RestoreStatus = false;
+                        txtSoKhamUuTien.SelectAll();
+                        txtSoKhamUuTien.Focus();
+                        return;
+                    }
+                    this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdKhamUuTien, Utility.sDbnull(objQms.SoQms), 0);
+                    return;
                 }
+                int soluong = 1;
+                if (chkLaythemsouutien.Checked)
+                    soluong = (int)nmrLaythemsoUutien.Value;
+                for (int i = 1; i <= soluong; i++)
+                {
+                    this.LaySokham(1, txtSoKhamUuTien, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), _QMSProperties.madoituonguutien, 1);
+                    if (_QMSProperties.PrintStatus)
+                    {
+                        this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdKhamUuTien, Utility.sDbnull(txtSoKhamUuTien.Text), 1);
+                    }
+                }
+                Utility.DefaultNow(this);
             }
-            Utility.DefaultNow(this);
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
+            finally
+            {
+                if (RestoreStatus)
+                {
+                    Reprint = false;
+                    txtSoKhamUuTien.BackColor = cmdKhamUuTien.BackColor;
+                    txtSoKhamUuTien.ReadOnly = true;
+                    cmdKhamUuTien.Text = cmdKhamUuTien.Tag.ToString();
+                    mnuReprint.Checked = false;
+                }
+                UIAction._EnableControl(cmdgetBHYT, true, "");
+            }
         }
         private void EmptyFolderContents(string folderName)
         {
@@ -315,9 +656,10 @@ namespace VNS.QMS
         private void frm_SoKham_Load(object sender, EventArgs e)
         {
            this.LaySokham(0,txtSoKham, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh),"DV", 0);
-           this.LaySokham(0,txtSoKhamUuTien, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh),"ALL", 1);
+           this.LaySokham(0, txtSoKhamUuTien, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), _QMSProperties.madoituonguutien, 1);
            this.LaySokham(0, txtSoKhamYeuCau, Utility.sDbnull(_QMSProperties.MaKhoaYeuCau),"ALL", 0);
            this.LaySokham(0, txtSoKhamBHYT, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh),"BHYT", 0);
+           this.LaySokham(0, txtsokhac, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), _QMSProperties.madoituongkhac, 0);
            hasLoaded = true;
            
            
@@ -353,7 +695,7 @@ namespace VNS.QMS
                 crpt_sokham.PrintToPrinter(1, false, 0, 0);
                 UIAction._EnableControl(button, true, "");
                 button.Focus();
-                this.CleanTemporaryFolders();
+                
             }
             catch (Exception ex)
             {
@@ -368,7 +710,7 @@ namespace VNS.QMS
 
        
 
-        private void LaySokham(int status,Label txt, string MaKhoa,string madoituongkcb, int IsUuTien)
+        private void LaySokham(int status,TextBox txt, string MaKhoa,string madoituongkcb, int IsUuTien)
         {
             try
             {
