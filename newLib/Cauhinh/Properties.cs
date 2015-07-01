@@ -1733,7 +1733,7 @@ DisplayName("HIS Application Mode")]
             TestMode = false;
             ThoiGianTuDongLay = 3000;
             IsQMS = false;
-            IsChoKham = true;
+            
             MaQuay = "QUAY_1";
             TenQuay = "Quầy thu ngân số 1";
             TenBenhVien = "BỆNH VIỆN NỘI TIẾT TRUNG ƯƠNG";
@@ -1746,71 +1746,62 @@ DisplayName("HIS Application Mode")]
             Chopheplaysouutien = false;
             Chilaysouutien = false;
             MaDoituongKCB = "ALL";
-
-            //TuDongLayThongTin = false;
-            //PrinterName = Utility.GetDefaultPrinter();
-            //PrintStatus = true;
+            LoaiQMS_bo = "NO";
+            TenLoaiQMS = "";
+           
         }
-        [Browsable(true), ReadOnly(false), Category("Cấu hình số khám ưu tiên"),
-     Description("Chỉ hiển thị số ưu tiên"),
-     DisplayName("Chỉ hiển thị số ưu tiên")]
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
+    Description("Để trắng=Hệ thống tự phân biệt. Ngược lại, nếu muốn tách riêng phòng tiếp đón sử dụng số KHÁC thì để tên loại số đó. Ví dụ: Số tiêm chủng, Số đặc biệt..."),
+    DisplayName("Tên loại QMS: Số ưu tiên, Số thường, Số tiêm chủng")]
+        public string TenLoaiQMS { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
+    Description("Loại QMS bỏ không lấy.NO=Không bỏ số nào. Ngược lại, muốn bỏ số thường thì đặt 0. muốn bỏ số thường+số ưu tiên thì đặt 0,1. ..."),
+    DisplayName("Loại QMS bỏ")]
+        public string LoaiQMS_bo { get; set; }
+
+
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
+     Description("Chỉ hiển thị số ưu tiên tại quầy tiếp đón"),
+     DisplayName("Chỉ hiển thị số ưu tiên tại quầy tiếp đón")]
         public bool Chilaysouutien { get; set; }
 
-        [Browsable(true), ReadOnly(false), Category("Cấu hình số khám ưu tiên"),
-      Description("Cho phép lấy số ưu tiên"),
-      DisplayName("Cho phép lấy số ưu tiên")]
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
+      Description("Cho phép lấy số ưu tiên tại quầy tiếp đón(Tổng số QMS= Tổng số thường+Tổng số ưu tiên). Nếu không thì hệ thống chỉ lấy số thường"),
+      DisplayName("Cho phép lấy số ưu tiên tại quầy tiếp đón này")]
         public bool Chopheplaysouutien { get; set; }
         [ReadOnly(false), DisplayName("Đối tượng KCB"),
         Browsable(true), Category("Cấu hình mã đối tượng KCB."),
         Description("Mã đối tượng KCB")]
         public string MaDoituongKCB { get; set; }
-        // [Browsable(true), ReadOnly(false), Category("Cấu hình in máy in nhiệt "),
-        //Description("Lấy thông tin máy in nhiệt"),
-        //DisplayName("Tên máy in nhiệt cần in  ")]
-        // public string PrinterName { get; set; }
-
-        // [Browsable(true), ReadOnly(false), Category("Cấu hình in máy in nhiệt "),
-        //  Description("Lấy thông tin máy in nhiệt"),
-        //  DisplayName("Tên máy in nhiệt cần in  ")]
-        // public bool PrintStatus { get; set; }
-
-        // [Browsable(true), ReadOnly(false), Category("Cấu hình tự động lấy thông tin "),
-        // Description("Cấu hình cho phép lấy thông tin dữ liệu trên lưới"),
-        // DisplayName("Tự động lấy thông tin lên danh sách ")]
-        // public bool TuDongLayThongTin { get; set; }
-        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợt"),
+        
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợi"),
          Description("Cho phép hiển thị phần gọi số thứ tự QMS"),
          DisplayName("Cho phép dùng QMS ")]
         public bool IsQMS { get; set; }
 
-        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợt"),
-         Description("Cho phép hiển thị phần chờ khám"),
-         DisplayName("Cho phép hiển thị chờ khám ")]
-        public bool IsChoKham { get; set; }
-
-        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợt phòng khám bệnh"),
-         Description("Cấu hình mã khoa phòng của bác sỹ đang thực hiện"),
-         DisplayName("Mã khoa phòng thực hiện")]
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợi phòng khám bệnh"),
+         Description("Mã phòng khám sử dụng QMS chờ khám"),
+         DisplayName("Mã phòng khám sử dụng QMS")]
         public string MaPhongKham { get; set; }
 
-        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợt phòng khám bệnh"),
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợi phòng khám bệnh"),
          Description("Số lượng hiển thị trên màn hình"),
          DisplayName("Số lượng hiển thị trên màn hình chờ ")]
         public Int32 SoLuongHienThi { get; set; }
 
-        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợt phòng khám bệnh"),
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợi phòng khám bệnh"),
          Description("Thời gian sẽ tự động lấy lại dữ liệu"),
          DisplayName("Thời gian sẽ tự động lấy lại dữ liệu ")]
         public Int32 ThoiGianTuDongLay { get; set; }
 
-        [Browsable(true), ReadOnly(false), Category("Cấu hình quầy hiển thị"),
-         Description("Mã quầy thu ngân cần hiển thị số"),
-         DisplayName("Mã quầy thu ngân cần  ")]
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
+         Description("Mã quầy tiếp đón"),
+         DisplayName("Mã quầy tiếp đón")]
         public string MaQuay { get; set; }
 
-        [Browsable(true), ReadOnly(false), Category("Cấu hình quầy hiển thị"),
-         Description("Tên quầy thu ngân cần hiển thị số"),
-         DisplayName("Tên quầy thu ngân cần  ")]
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
+         Description("Tên quầy tiếp đón"),
+         DisplayName("Tên quầy tiếp đón")]
         public string TenQuay { get; set; }
 
         [Browsable(true), ReadOnly(false), Category("Tên Bệnh Viện"),
@@ -1818,23 +1809,23 @@ DisplayName("HIS Application Mode")]
          DisplayName("Cấu hình hiển thị tên bệnh viện")]
         public string TenBenhVien { get; set; }
 
-        [Browsable(true), ReadOnly(false), Category("Cấu hình quầy hiển thị"),
-         Description("Cỡ chữ của hệ thống"),
-         DisplayName("Font size ")]
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
+         Description("Cỡ chữ QMS: 01,02,99,100..."),
+         DisplayName("Cỡ chữ QMS")]
         public Int32 FontSize { get; set; }
 
-        [Browsable(true), ReadOnly(false), Category("Cấu hình quầy hiển thị"),
-    Description("Cỡ chữ của loại bệnh nhân"),
-    DisplayName("Font size loại bệnh nhân ")]
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
+    Description("Cỡ chữ loại QMS: Số thường, Số ưu tiên..."),
+    DisplayName("Cỡ chữ loại QMS")]
         public Int32 LoaiBNFontSize { get; set; }
-       
 
-        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợt"),
+
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợi"),
          Description("Thời gian chờ sau mỗi đợt gọi bằng tay"),
          DisplayName("Thời gian chờ")]
         public uint ThoiGianCho { get; set; }
 
-        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợt"),
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợi"),
          Description("Cấu hình chế độ chạy cho phép test hoặc chạy thật"),
          DisplayName("Chế độ chạy test")]
         public bool TestMode { get; set; }
