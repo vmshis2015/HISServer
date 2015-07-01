@@ -28,7 +28,7 @@ namespace VNS.UI.QMS
         public void SetQMSValue(string sokham,int IsUuTien)
         {
             Utility.SetMsg(lblSoKham,sokham,true);
-            grpThongTin.Text = IsUuTien == 1 ? "SỐ ƯU TIÊN" : "SỐ THƯỜNG";
+            grpThongTin.Text = Utility.DoTrim(PropertyLib._HISQMSProperties.TenLoaiQMS) == "" ? (IsUuTien == 1 ? "SỐ ƯU TIÊN" : "SỐ THƯỜNG") : Utility.DoTrim(PropertyLib._HISQMSProperties.TenLoaiQMS);
         }
         /// <summary>
         /// hàm thực hiện việc cấu hình

@@ -45,10 +45,10 @@ namespace VNS.UI.QMS
             {
                 if (!Utility.isValidGrid(grdListGoiLaiSoKham))
                 {
-                    Utility.ShowMsg("Bạn cần chọn 1 dòng QMS cần khôi phục để dùng cho máy của bạn");
+                    Utility.ShowMsg("Bạn cần chọn ít nhất 1 dòng QMS cần khôi phục để dùng cho máy của bạn");
+                    grdListGoiLaiSoKham.MoveFirst();
                     return;
                 }
-
                 int id = Utility.Int32Dbnull(grdListGoiLaiSoKham.CurrentRow.Cells[KcbQm.Columns.Id].Value);
                 new Update(KcbQm.Schema)
                     .Set(KcbQm.Columns.TrangThai).EqualTo(1)
