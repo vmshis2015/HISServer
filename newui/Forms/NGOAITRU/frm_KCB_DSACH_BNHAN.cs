@@ -1814,9 +1814,13 @@ namespace VNS.HIS.UI.NGOAITRU
             objPhieuThu.NgayThuchien = globalVariables.SysDate;
             objPhieuThu.SoTien = TONG_TIEN;
             objPhieuThu.NguoiNop = globalVariables.UserName;
+            objPhieuThu.IdNhanvien = globalVariables.gv_intIDNhanvien;
+            objPhieuThu.IdKhoaThuchien = globalVariables.idKhoatheoMay;
             objPhieuThu.TaikhoanCo = "";
             objPhieuThu.TaikhoanNo = "";
             objPhieuThu.LydoNop = "Thu phí KCB bệnh nhân";
+            objPhieuThu.NguoiTao = globalVariables.UserName;
+            objPhieuThu.NgayTao = globalVariables.SysDate;
             return objPhieuThu;
         }
         void InHoadon(int _Payment_ID)

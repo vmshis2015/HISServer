@@ -451,10 +451,10 @@
             this.cmdMoSoKham.AutoSize = true;
             this.cmdMoSoKham.Location = new System.Drawing.Point(584, 26);
             this.cmdMoSoKham.Name = "cmdMoSoKham";
-            this.cmdMoSoKham.Size = new System.Drawing.Size(49, 13);
+            this.cmdMoSoKham.Size = new System.Drawing.Size(177, 13);
             this.cmdMoSoKham.TabIndex = 539;
             this.cmdMoSoKham.TabStop = true;
-            this.cmdMoSoKham.Text = "&Mở khóa";
+            this.cmdMoSoKham.Text = "Khôi phục số khám bị bỏ qua, hủy...";
             // 
             // lblQMS
             // 
@@ -478,6 +478,7 @@
             this.chkUuTien.TabIndex = 10;
             this.chkUuTien.TabStop = false;
             this.chkUuTien.Text = "Đối tượng ưu tiên";
+            this.chkUuTien.Visible = false;
             this.chkUuTien.VisualStyle = Janus.Windows.UI.VisualStyle.Office2003;
             // 
             // cmdStart
