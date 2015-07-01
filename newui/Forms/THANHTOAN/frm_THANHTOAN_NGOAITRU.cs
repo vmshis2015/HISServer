@@ -2832,13 +2832,13 @@ namespace  VNS.HIS.UI.THANHTOAN
                     objForm.mv_sReportCode = "thanhtoan_Hoadondo";
                     report.PrintOptions.PrinterName = cbomayinhoadon.Text;
                     report.SetDataSource(dtPatientPayment);
-                    report.SetParameterValue("NGUOIIN", Utility.sDbnull(globalVariables.gv_strTenNhanvien, ""));
+                    Utility.SetParameterValue(report, "NGUOIIN", Utility.sDbnull(globalVariables.gv_strTenNhanvien, ""));
 
-                    report.SetParameterValue("ParentBranchName", globalVariables.ParentBranch_Name);
-                    report.SetParameterValue("BranchName", globalVariables.Branch_Name);
-                    report.SetParameterValue("DateTime", Utility.FormatDateTime(globalVariables.SysDate));
-                    report.SetParameterValue("CurrentDate", Utility.FormatDateTime(globalVariables.SysDate));
-                    report.SetParameterValue("sTitleReport", tieude);
+                    Utility.SetParameterValue(report, "ParentBranchName", globalVariables.ParentBranch_Name);
+                    Utility.SetParameterValue(report, "BranchName", globalVariables.Branch_Name);
+                    Utility.SetParameterValue(report, "DateTime", Utility.FormatDateTime(globalVariables.SysDate));
+                    Utility.SetParameterValue(report, "CurrentDate", Utility.FormatDateTime(globalVariables.SysDate));
+                    Utility.SetParameterValue(report, "sTitleReport", tieude);
                     //report.SetParameterValue("CharacterMoney", new MoneyByLetter().sMoneyToLetter(TONG_TIEN.ToString()));
                     objForm.crptViewer.ReportSource = report;
 
@@ -2849,6 +2849,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                     }
                     else
                     {
+                        objForm.addTrinhKy_OnFormLoad();
                         report.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInHoadon;
                         report.PrintToPrinter(1,false, 0, 0);
                     }
