@@ -64,11 +64,10 @@ namespace VNS.Libs
     void chkPortrait_CheckedChanged(object sender, EventArgs e)
     {
         if (chkPortrait.Checked)
-            this.Width = 818;
+            this.Width = 943;
         else
             this.Width = w;
     }
-
     private void cmdOK_Click_1(object sender, EventArgs e)
     {
 
