@@ -10,6 +10,7 @@ using VNS.Properties;
 using VNS.Libs;
 using SubSonic;
 using VNS.HIS.DAL;
+using CIS2008;
 
 namespace CIS.CoreApp
 {
@@ -29,10 +30,12 @@ namespace CIS.CoreApp
         {
             try
             {
-                globalVariables.gv_dtSysparams = new Select().From(SysSystemParameter.Schema).ExecuteDataSet().Tables[0];
-                globalVariables.gv_dtSysTieude = new Select().From(SysTieude.Schema).ExecuteDataSet().Tables[0];
-                THU_VIEN_CHUNG.LoadThamSoHeThong();
-                Utility.ShowMsg("Đã nạp lại toàn bộ tham số hệ thống");
+                frm_Sysparams _Sysparams = new frm_Sysparams();
+                _Sysparams.ShowDialog();
+                //globalVariables.gv_dtSysparams = new Select().From(SysSystemParameter.Schema).ExecuteDataSet().Tables[0];
+                //globalVariables.gv_dtSysTieude = new Select().From(SysTieude.Schema).ExecuteDataSet().Tables[0];
+                //THU_VIEN_CHUNG.LoadThamSoHeThong();
+                //Utility.ShowMsg("Đã nạp lại toàn bộ tham số hệ thống");
             }
             catch(Exception ex)
             {
