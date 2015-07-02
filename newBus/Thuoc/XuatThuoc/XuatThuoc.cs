@@ -195,6 +195,9 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                                   .Set(KcbDonthuoc.Columns.NgaySua).EqualTo(globalVariables.SysDate)
                                   .Set(KcbDonthuoc.Columns.NguoiSua).EqualTo(globalVariables.UserName)
                                   .Set(KcbDonthuoc.Columns.TrangThai).EqualTo(status)
+                                  .Set(KcbDonthuoc.Columns.NgayHuyxacnhan).EqualTo(null)
+                                  .Set(KcbDonthuoc.Columns.NguoiHuyxacnhan).EqualTo("")
+                                  .Set(KcbDonthuoc.Columns.LydoHuyxacnhan).EqualTo("")
                                   .Where(KcbDonthuoc.Columns.IdDonthuoc).IsEqualTo(objDonthuoc.IdDonthuoc).Execute();
                     }
                     scope.Complete();
