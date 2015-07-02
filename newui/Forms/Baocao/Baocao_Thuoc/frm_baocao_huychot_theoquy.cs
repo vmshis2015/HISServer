@@ -62,14 +62,14 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 if (chkTheoNhomThuoc.Checked)
                 {
 
-                    baocaO_TIEUDE1.Init("thuoc_baocao_nhapxuatton_theoquy_theonhom");
+                    baocaO_TIEUDE1.Init("thuoc_baocao_huychot_theonhom");
                     grdList.BringToFront();
 
                 }
                 else
                 {
 
-                    baocaO_TIEUDE1.Init("thuoc_baocao_nhapxuatton_theoquy");
+                    baocaO_TIEUDE1.Init("thuoc_baocao_huychot");
                     grdList.BringToFront();
 
                 }
@@ -78,14 +78,14 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
             {
                 if (chkTheoNhomThuoc.Checked)
                 {
-                    baocaO_TIEUDE1.Init("vt_baocao_nhapxuatton_theoquy_theonhom");
+                    baocaO_TIEUDE1.Init("vt_baocao_huychot_theonhom");
                     grdList.BringToFront();
 
                 }
                 else
                 {
 
-                    baocaO_TIEUDE1.Init("vt_baocao_nhapxuatton_theoquy");
+                    baocaO_TIEUDE1.Init("vt_baocao_huychot_theoquy");
                     grdList.BringToFront();
 
                 }
