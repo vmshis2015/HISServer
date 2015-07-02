@@ -490,6 +490,12 @@ namespace VNS.HIS.UI.THUOC
 
                 return false;
             }
+            int tthai_chot = Utility.Int32Dbnull(grdPres.GetValue("tthai_chot"), -1);
+            if (tthai_chot == 1)
+            {
+                Utility.ShowMsg("Đơn thuốc đã được chốt nên không thể hủy. Đề nghị bạn kiểm tra lại", "Thông báo", MessageBoxIcon.Warning);
+                return false;
+            }
             int Pres_ID = Utility.Int32Dbnull(grdPres.GetValue(KcbDonthuoc.Columns.IdDonthuoc), -1);
             KcbDonthuoc objKcbDonthuoc = KcbDonthuoc.FetchByID(Pres_ID);
             if (objKcbDonthuoc != null && objKcbDonthuoc.TrangThai==0)
