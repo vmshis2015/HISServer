@@ -20,11 +20,11 @@ namespace VNS.HIS.BusRule.Classes
         {
             log = LogManager.GetCurrentClassLogger();
         }
-        public void LaySoKhamQMS(string MaQuay, string MaKhoa, string madoituongkcb, ref int SoKham, ref int idDichvukcb, ref int idQMS, int IsUuTien)
+        public void LaySoKhamQMS(string MaQuay, string MaKhoa, string madoituongkcb, ref int SoKham, ref int idDichvukcb, ref int idQMS, int loaiqms,string loaiqmsbo)
         {
             SoKham = 0;
             idDichvukcb = 0;
-            StoredProcedure sp = SPs.QmsLayso(MaQuay, MaKhoa,madoituongkcb, SoKham,idDichvukcb,idQMS, IsUuTien);
+            StoredProcedure sp = SPs.QmsLayso(MaQuay, MaKhoa, madoituongkcb, SoKham, idDichvukcb, idQMS, loaiqms, loaiqmsbo);
             sp.Execute();
             SoKham= Utility.Int32Dbnull(sp.OutputValues[0]);
             idDichvukcb = Utility.Int32Dbnull(sp.OutputValues[1]);
