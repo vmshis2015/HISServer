@@ -23,7 +23,7 @@ namespace VNS.Libs
         public string mv_sReportFileName { get; set; }
         public string mv_sReportCode { get; set; }
         CrystalDecisions.CrystalReports.Engine.ReportDocument RptDoc;
-
+        string errTrinhky = "";
         private bool MustCreate;
         public DataSet dsXML = new DataSet();
         public string RType;
@@ -367,21 +367,32 @@ namespace VNS.Libs
             }
             catch (Exception ex)
             {
+                Utility.ShowMsg(ex.Message);
             }
         }
         static string GetRtfUnicodeEscapedString(string s)
         {
-            var sb = new StringBuilder();
-            foreach (var c in s)
+            try
             {
-                if (c == '\\' || c == '{' || c == '}')
-                    sb.Append(@"\" + c);
-                else if (c <= 0x7f)
-                    sb.Append(c);
-                else
-                    sb.Append("\\u" + Convert.ToUInt32(c) + "?");
+                var sb = new StringBuilder();
+                foreach (var c in s)
+                {
+                    if (c == '\\' || c == '{' || c == '}')
+                        sb.Append(@"\" + c);
+                    else if (c <= 0x7f)
+                        sb.Append(c);
+                    else
+                        sb.Append("\\u" + Convert.ToUInt32(c) + "?");
+                }
+                return sb.ToString();
             }
-            return sb.ToString();
+            catch (Exception ex)
+            {
+                Utility.CatchException("GetRtfUnicodeEscapedString.Exception", ex);
+                return s;
+                
+            }
+            
         }
         CrystalDecisions.Shared.ParameterField GetTrinhky(CrystalDecisions.Shared.ParameterFields p)
         {
@@ -400,6 +411,7 @@ namespace VNS.Libs
             }
             catch (Exception ex)
             {
+                Utility.ShowMsg(ex.Message);
                 return null;
             }
         }
@@ -407,6 +419,7 @@ namespace VNS.Libs
         {
             try
             {
+                errTrinhky = "";
                 for (int i = 0; i <= p.Count - 1; i++)
                 {
                     if (p[i].ParameterFieldName.ToUpper() == "txtTrinhky".ToUpper())
@@ -417,7 +430,6 @@ namespace VNS.Libs
                             sPvalue = sPvalue.Replace("&NGAYIN", GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
                             sPvalue = sPvalue.Replace("&NGUOIIN", GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
                             RptDoc.SetParameterValue(p[i].ParameterFieldName, sPvalue);
-
                         }
                         else
                         {
@@ -438,6 +450,7 @@ namespace VNS.Libs
             }
             catch (Exception ex)
             {
+                Utility.ShowMsg(ex.Message);
             }
         }
         object getDefaultValue(ParameterValueKind kind)
