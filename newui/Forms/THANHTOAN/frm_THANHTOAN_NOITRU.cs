@@ -992,6 +992,17 @@ namespace  VNS.HIS.UI.THANHTOAN
                     
                 }
                 
+                if (objLuotkham.TrangthaiNoitru <=2)
+                {
+                    Utility.ShowMsg("Bệnh nhân bạn chọn chưa được lập phiếu ra viện nên không thể thanh toán nội trú");
+                    return;
+                }
+                if (objLuotkham.TrangthaiNoitru == 3)
+                {
+                    Utility.ShowMsg("Bệnh nhân bạn chọn mới lập phiếu ra viện và chưa được xác nhận tổng hợp ra viện nên không thể thanh toán nội trú");
+                    return;
+                }
+                
             }
             catch
             {
