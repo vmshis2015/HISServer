@@ -78,7 +78,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             {
                 Utility.WaitNow(this);
                 DataTable dtData =
-                                 SPs.KcbThamkhamPhieuchuyenvien(Utility.DoTrim(txtMaluotkham.Text)).GetDataSet().Tables[0];
+                                 SPs.NoitruInphieuravien(Utility.DoTrim(txtMaluotkham.Text)).GetDataSet().Tables[0];
 
                 if (dtData.Rows.Count <= 0)
                 {

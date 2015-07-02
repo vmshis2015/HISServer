@@ -886,6 +886,15 @@ namespace VNS.HIS.UI.NOITRU
                 Utility.ShowMsg("Bệnh nhân này còn một số đơn thuốc nội trú chưa được tổng hợp và lĩnh thuốc. Đề nghị bạn kiểm tra lại");
                 return false;
             }
+            string question = "Bạn có chắc chắc muốn xác nhận dữ liệu nội trú cho Bệnh nhân " + txtPatient_Name.Text;
+            if (!Khoanoitrutonghop)
+                question += "\nSau khi xác nhận xong, dữ liệu nội trú sẽ được phép thanh toán tại quầy thu ngân";
+            else
+                question += "\nSau khi xác nhận xong, bạn sẽ không được phép chỉnh sửa thông tin điều trị tại khoa nội trú này nữa";
+            if (!Utility.AcceptQuestion(question, "Xác nhận dữ liệu", true))
+            {
+                return false;
+            }
             return true;
         }
 
@@ -1480,6 +1489,7 @@ namespace VNS.HIS.UI.NOITRU
                            NoitruPhanbuonggiuong objNoitruPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(Utility.Int64Dbnull(dr[NoitruPhanbuonggiuong.Columns.Id], 0));
                             if (objNoitruPhanbuonggiuong.NgayKetthuc == null)
                             {
+                                dr[NoitruPhanbuonggiuong.Columns.NgayKetthuc] = globalVariables.SysDate;
                                 dr[NoitruPhanbuonggiuong.Columns.SoLuong] = THU_VIEN_CHUNG.Songay(objNoitruPhanbuonggiuong.NgayVaokhoa, globalVariables.SysDate);
                                 dr["thanh_tien"] = Utility.DecimaltoDbnull(dr[NoitruPhanbuonggiuong.Columns.DonGia], 0) * Utility.Int32Dbnull(dr[NoitruPhanbuonggiuong.Columns.SoLuong], 0);
                             }
