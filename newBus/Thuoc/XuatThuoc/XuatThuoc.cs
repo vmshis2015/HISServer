@@ -507,7 +507,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                                    .Where(TThuockho.IdThuockhoColumn).IsEqualTo(objDetail.IdThuockho)
                                    .ExecuteSingle<TThuockho>();
                     //Kiểm tra xem thuốc còn đủ hay không?
-                    if (objTThuockho.SoLuong <= objCapphatDetail.SoLuong)
+                    if (objTThuockho.SoLuong < objCapphatDetail.SoLuong)
                     {
                         //Sau này có thể mở rộng thêm code tự động dò và xác định lại Id_thuockho cho các chi tiết đơn thuốc
                         return ActionResult.NotEnoughDrugInStock;
