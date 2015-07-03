@@ -24,6 +24,15 @@ namespace VNS.HIS.BusRule.Classes
         {
             return SPs.BaocaoTiepdonbenhnhanTonghop(FromDate, ToDate, iddoituongkcb, nguoitao, DeparmentCODE).GetDataSet().Tables[0];
         }
+        public static DataTable BaoCaoThongKeBNTheoDotuoiCT(int? iddoituongkcb, DateTime? FromDate, DateTime? ToDate, int gioitinh , string DeparmentCODE)
+        {
+            return SPs.BaocaoThongKeBNTheoDoTuoiCt(iddoituongkcb, FromDate, ToDate, gioitinh, DeparmentCODE).GetDataSet().Tables[0];
+        }
+        public static DataTable BaoCaoThongkeSoluongBenhNhanTheoBacsy(DateTime? FromDate, DateTime? ToDate, int? iddoituongkcb, int? idBsThuchien, int? idKhoaPhong, string DeparmentCODE)
+        {
+            return SPs.BaocaoSoluongbenhnhanTheobacsy(FromDate, ToDate,iddoituongkcb,idKhoaPhong,idBsThuchien, DeparmentCODE).GetDataSet().Tables[0];
+        }
+        
         public static DataTable BaocaoTiepdonbenhnhanChitiet(int? ObjectType, DateTime? FromDate, DateTime? ToDate, string nguoitao, string DeparmentCODE)
         {
             return SPs.BaocaoTiepdonbenhnhanChitiet(ObjectType, FromDate, ToDate, nguoitao, DeparmentCODE).GetDataSet().Tables[0];
