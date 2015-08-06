@@ -23,6 +23,7 @@ using VNS.HIS.Classes;
 using VNS.HIS.BusRule.Classes;
 using CrystalDecisions.CrystalReports.Engine;
 using VNS.HIS.UI.Forms.NGOAITRU;
+using VNS.HIS.UI.Forms.Cauhinh;
 
 namespace  VNS.HIS.UI.THANHTOAN
 {
@@ -1601,7 +1602,7 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             if (globalVariables.SysDate.Date != InputDate.Date)
             {
-                var frm = new frm_ChonngayThanhtoan();
+                frm_ChonngayThanhtoan frm = new frm_ChonngayThanhtoan();
                 frm.pdt_InputDate = dtInput_Date.Value;
                 frm.ShowDialog();
                 if (frm.b_Cancel)
@@ -2445,7 +2446,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 v_Payment_ID = Utility.Int32Dbnull(grdPayment.GetValue(KcbThanhtoan.Columns.IdThanhtoan), -1);
                 DataTable dtPatientPayment = _THANHTOAN.Laythongtinhoadondo(v_Payment_ID);
                  string tieude="", reportname = "";
-                var report = Utility.GetReport("thanhtoan_RedInvoice",ref tieude,ref reportname);
+                ReportDocument report = Utility.GetReport("thanhtoan_RedInvoice",ref tieude,ref reportname);
                 if (report == null) return;
                 if (printDialog1.ShowDialog() == DialogResult.OK)
                 {
@@ -2530,7 +2531,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         new MoneyByLetter().sMoneyToLetter(Utility.sDbnull(dtPatientPayment.Rows[0]["TONG_TIEN"]));
                     int lengh = txtSerieDau.Text.Length;
                     string tieude="", reportname = "";
-                    var report = Utility.GetReport("thanhtoan_Hoadondo",ref tieude,ref reportname);
+                    ReportDocument report = Utility.GetReport("thanhtoan_Hoadondo",ref tieude,ref reportname);
                     if (report == null) return;
                     var objForm = new frmPrintPreview("", report, true, true);
                     objForm.mv_sReportFileName = Path.GetFileName(reportname);
