@@ -26,8 +26,8 @@ namespace VNS.HIS.UI.THUOC
         private DataTable dtPresDetail;
         private DataSet dsData;
         private string RowFillerPresDetail = "1=2";
-        private DataTable dataTable;
-        private DataTable dataTableDetail;
+        private DataTable dtDmucthuoc;
+        private DataTable dtPhieucapphatchitiet;
         public action m_Action = action.Insert;
         public int _IDCAPPHAT = -1;
         public int DepartmentId = -1;
@@ -39,6 +39,8 @@ namespace VNS.HIS.UI.THUOC
         int loaiphieu = 0;//0: Don thuoc thuong;1: Don thuoc bo sung
         bool m_blnHasLoaded = false;
         bool m_blnAllowCellChanged = true;
+        public delegate void OnInsertCompleted(long idcapphat);
+        public event OnInsertCompleted _OnInsertCompleted;
         #endregion
 
         #region "khoi tao thong tin du lieu cua form"
@@ -73,6 +75,8 @@ namespace VNS.HIS.UI.THUOC
             chkDaochon.CheckedChanged += chkDaochon_CheckedChanged;
             chkCheckAll.CheckedChanged += chkCheckAll_CheckedChanged;
             cboStatus.SelectedIndexChanged+=cboStatus_SelectedIndexChanged;
+            
+
         }
 
         void chkCheckAll_CheckedChanged(object sender, EventArgs e)
@@ -170,7 +174,7 @@ namespace VNS.HIS.UI.THUOC
                 DataTable dtKho = new DataTable();
                 if (KIEUTHUOC_VT == "THUOC")
                 {
-                    dtKho = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_LE_NOITRU();
+                    dtKho = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_LE_TUTRUC_NOITRU();
                 }
                 else
                 {
@@ -325,7 +329,7 @@ namespace VNS.HIS.UI.THUOC
                     SetEnabledButton(true);
                     dtPres.Clear();
                     dtPresDetail.Clear();
-                    dataTable.Clear();
+                    dtDmucthuoc.Clear();
                     break;
             }
         }
@@ -366,9 +370,9 @@ namespace VNS.HIS.UI.THUOC
                                                               chkCheck.Checked
                                                                   ? dtDenNgay.Value.ToString("dd/MM/yyyy") : "01/01/1900" ).GetDataSet();
                 
-                dataTable = dsData.Tables[2];
+                dtDmucthuoc = dsData.Tables[2];
                 //Đơn thuốc và chi tiết cấp phát
-                dataTableDetail = dsData.Tables[3];
+                dtPhieucapphatchitiet = dsData.Tables[3];
                 //Chi tiết đơn thuốc
                 dtPresDetail = dsData.Tables[1];
                 grdPresDetail.DataSource = dtPresDetail.DefaultView;
@@ -395,11 +399,11 @@ namespace VNS.HIS.UI.THUOC
             try
             {
                 m_blnAllowCellChanged = false;
-                if (dtPres != null && dataTableDetail != null)
+                if (dtPres != null && dtPhieucapphatchitiet != null)
                 {
                     foreach (DataRow dr in dtPres.Rows)
                     {
-                        DataRow[] arrDr = dataTableDetail.Select(TPhieuCapphatChitiet.Columns.IdDonthuoc + "=" + dr[TPhieuCapphatChitiet.Columns.IdDonthuoc]);
+                        DataRow[] arrDr = dtPhieucapphatchitiet.Select(TPhieuCapphatChitiet.Columns.IdDonthuoc + "=" + dr[TPhieuCapphatChitiet.Columns.IdDonthuoc]);
                         if (arrDr.Length > 0)
                             dr["CHON"] = 1;
                         else
@@ -452,9 +456,9 @@ namespace VNS.HIS.UI.THUOC
         /// </summary>
         void TongHopThuoc()
         {
-            dataTable.Clear();
+            dtDmucthuoc.Clear();
             grdPres.UpdateData();
-            dataTableDetail.Clear();
+            dtPhieucapphatchitiet.Clear();
             //foreach(GridEXRow grd in grdPres.GetCheckedRows())
             //{
             //    DataRow row = ((DataRowView)grd.DataRow).Row;
@@ -462,7 +466,7 @@ namespace VNS.HIS.UI.THUOC
             {
                 foreach (DataRow dr in dtPresDetail.Select("id_donthuoc = " + row["id_donthuoc"]))
                 {
-                    DataRow drNew = dataTable.NewRow();
+                    DataRow drNew = dtDmucthuoc.NewRow();
                     drNew[DmucThuoc.Columns.IdThuoc] = dr[DmucThuoc.Columns.IdThuoc];
                     drNew[DmucThuoc.Columns.TenThuoc] = dr[DmucThuoc.Columns.TenThuoc];
                     drNew["tenthuoc_bietduoc"] = dr["tenthuoc_bietduoc"];
@@ -474,22 +478,25 @@ namespace VNS.HIS.UI.THUOC
                     drNew["ten_donvitinh"] = dr["ten_donvitinh"];
                     drNew[DmucLoaithuoc.Columns.TenLoaithuoc] = dr[DmucLoaithuoc.Columns.TenLoaithuoc];
                     drNew[KcbDonthuocChitiet.Columns.SoLuong] = dr[KcbDonthuocChitiet.Columns.SoLuong];
-                    dataTable.Rows.Add(drNew);
+                    dtDmucthuoc.Rows.Add(drNew);
 
-                    DataRow drDetail = dataTableDetail.NewRow();
+                    DataRow drDetail = dtPhieucapphatchitiet.NewRow();
                     drDetail[TPhieuCapphatChitiet.Columns.IdCapphat] = 0;
                     drDetail[TPhieuCapphatChitiet.Columns.DaLinh] = 0;
+                    drDetail[TPhieuCapphatChitiet.Columns.IdBenhnhan] = row[TPhieuCapphatChitiet.Columns.IdBenhnhan];
+                    drDetail[TPhieuCapphatChitiet.Columns.MaLuotkham] = row[TPhieuCapphatChitiet.Columns.MaLuotkham];
+                    drDetail[TPhieuCapphatChitiet.Columns.NgayKedon] = row[TPhieuCapphatChitiet.Columns.NgayKedon];
                     drDetail[TPhieuCapphatChitiet.Columns.IdKho] = Utility.Int32Dbnull(dr[KcbDonthuocChitiet.Columns.IdKho], -1);
                     drDetail[TPhieuCapphatChitiet.Columns.IdThuockho] = Utility.Int32Dbnull(dr[KcbDonthuocChitiet.Columns.IdThuockho], -1);
                     drDetail[TPhieuCapphatChitiet.Columns.IdDonthuoc] = Utility.Int32Dbnull(dr[KcbDonthuocChitiet.Columns.IdDonthuoc], -1);
                     drDetail[TPhieuCapphatChitiet.Columns.IdChitietdonthuoc] = Utility.Int32Dbnull(dr[KcbDonthuocChitiet.Columns.IdChitietdonthuoc], -1);
                     drDetail[TPhieuCapphatChitiet.Columns.IdThuoc] = dr[DmucThuoc.Columns.IdThuoc];
-                    drDetail[TPhieuCapphatChitiet.Columns.SoLuong] = dr["Quantity"];//.Columns.SoLuong];
-                    dataTableDetail.Rows.Add(drDetail);
+                    drDetail[TPhieuCapphatChitiet.Columns.SoLuong] = dr["Quantity"];
+                    dtPhieucapphatchitiet.Rows.Add(drDetail);
                 }
             }
-            dataTableDetail.AcceptChanges();
-            dataTable.AcceptChanges();
+            dtPhieucapphatchitiet.AcceptChanges();
+            dtDmucthuoc.AcceptChanges();
             RefeshDataAfrerUpdate();
 
         }
@@ -498,8 +505,8 @@ namespace VNS.HIS.UI.THUOC
         /// </summary>
         void RefeshDataAfrerUpdate()
         {
-            DataTable dtData = dataTable.Clone();
-            foreach (DataRow dr in dataTable.Rows)
+            DataTable dtData = dtDmucthuoc.Clone();
+            foreach (DataRow dr in dtDmucthuoc.Rows)
             {
                 DataRow[] arrDr = dtData.Select(DmucThuoc.Columns.IdThuoc + "=" + Utility.sDbnull(dr[DmucThuoc.Columns.IdThuoc], "-1"));
                 if (arrDr.Length <= 0)
@@ -524,7 +531,7 @@ namespace VNS.HIS.UI.THUOC
         /// <param name="e"></param>
         private void cmdSave_Click(object sender, EventArgs e)
         {
-            PerfomAtion();
+            PerformAction();
         }
         /// <summary>
         /// kiểm tra thông tin 
@@ -572,7 +579,7 @@ namespace VNS.HIS.UI.THUOC
             }
 
         }
-        void PerfomAtion()
+        void PerformAction()
         {
             if (!IsValidData())
                 return;
@@ -634,13 +641,14 @@ namespace VNS.HIS.UI.THUOC
             drNew[TPhieuCapphatNoitru.Columns.IdCapphat] = DeliveryId;
             drNew[TPhieuCapphatNoitru.Columns.IdKhoXuat] = StockID;
             drNew["ten_khoaphong"] = cboDepartment.Text;
+            drNew["ten_kho"] = cboKhoxuat.Text;
             drNew[TPhieuCapphatNoitru.Columns.IdKhoaLinh] = Utility.Int32Dbnull(cboDepartment.SelectedValue, -1);
             drNew[TPhieuCapphatNoitru.Columns.IdNhanvien] = Utility.Int16Dbnull(cboStaff.SelectedValue);
             drNew["ten_nhanvien"] = cboStaff.Text;
             drNew["ten_nhanvien_phatthuoc"] = "";
             drNew["DA_LINH"] = 0;
-            drNew["CHUA_LINH"] = dataTable.Rows.Count;
-            drNew["TOTAL"] = dataTable.Rows.Count;
+            drNew["CHUA_LINH"] = dtDmucthuoc.Rows.Count;
+            drNew["TOTAL"] = dtDmucthuoc.Rows.Count;
             drNew[TPhieuCapphatNoitru.Columns.TrangThai] = 0;
             drNew["ten_trangthai"] = "Chưa duyệt";
             drNew["mota_them"] = "Chưa được kho dược phát thuốc";
@@ -657,11 +665,11 @@ namespace VNS.HIS.UI.THUOC
             try
             {
                 int idcapphat = _IDCAPPHAT;
-                DataTable dataTable = SPs.ThuocNoitruLaydulieuinphieulinhthuocnoitru(idcapphat).GetDataSet().Tables[0];
+                DataTable dtDmucthuoc = SPs.ThuocNoitruLaydulieuinphieulinhthuocnoitru(idcapphat).GetDataSet().Tables[0];
                 TPhieuCapphatNoitru objPhieuCapphatNoitru = TPhieuCapphatNoitru.FetchByID(idcapphat);
                 if (objPhieuCapphatNoitru != null)
                 {
-                    thuoc_baocao.Inphieutonghoplinhthuocnoitru(objPhieuCapphatNoitru, dataTable);
+                    thuoc_baocao.Inphieutonghoplinhthuocnoitru(objPhieuCapphatNoitru, dtDmucthuoc);
                 }
             }
             catch (Exception)
@@ -696,6 +704,7 @@ namespace VNS.HIS.UI.THUOC
                         cmdPrint.Enabled = true;
                         cmdPrintDetail.Enabled = true;
                         ProcessDataInsert(_IDCAPPHAT);
+                        if (_OnInsertCompleted != null) _OnInsertCompleted(_IDCAPPHAT);
                         //Utility.ShowMsg("Đã thực hiện cấp phát thuốc thành công\nBạn có thể in phiếu cấp phát thuốc tổng hợp hoặc phiếu cấp phát thuốc chi tiết để mang đến quầy thuốc xin cấp phát.");
                         cmdPrint.Focus();
                         break;
@@ -811,11 +820,16 @@ namespace VNS.HIS.UI.THUOC
             {
                 List<TPhieuCapphatChitiet> lstCapphatchitiet = new List<TPhieuCapphatChitiet>();
                 int idx = 0;
-                foreach (DataRow row in dataTableDetail.Rows)
+                foreach (DataRow row in dtPhieucapphatchitiet.Rows)
                 {
                  TPhieuCapphatChitiet   _newItem = new TPhieuCapphatChitiet();
                  _newItem.IdCapphat = -1;
                  _newItem.DaLinh = 0;
+                 _newItem.IdBenhnhan = Utility.Int32Dbnull(row[TPhieuCapphatChitiet.Columns.IdBenhnhan], -1);
+                 _newItem.MaLuotkham = Utility.sDbnull(row[TPhieuCapphatChitiet.Columns.MaLuotkham],"");
+                 _newItem.NgayKedon = Convert.ToDateTime(row[TPhieuCapphatChitiet.Columns.NgayKedon]);
+                 _newItem.ThucLinh = 0;
+                 _newItem.SoLuongtralai = 0;
                  _newItem.IdKho = Utility.Int32Dbnull(row[TPhieuCapphatChitiet.Columns.IdKho], -1);
                  _newItem.IdThuockho = Utility.Int32Dbnull(row[TPhieuCapphatChitiet.Columns.IdThuockho], -1);
                  _newItem.IdThuoc = Utility.Int32Dbnull(row[TPhieuCapphatChitiet.Columns.IdThuoc], -1);
@@ -844,7 +858,7 @@ namespace VNS.HIS.UI.THUOC
 
         private void cmdPrint_Click(object sender, EventArgs e)
         {
-            PerfomAtion();
+            PerformAction();
             PrintPhieuDenghiCapPhat();
         }
         

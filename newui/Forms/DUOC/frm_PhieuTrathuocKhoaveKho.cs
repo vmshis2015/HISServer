@@ -15,6 +15,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using Microsoft.VisualBasic;
 using VNS.Properties;
 using VNS.HIS.NGHIEPVU.THUOC;
+using VNS.HIS.UI.Forms.Cauhinh;
 namespace VNS.HIS.UI.THUOC
 {
     public partial class frm_PhieuTrathuocKhoaveKho : Form

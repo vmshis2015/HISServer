@@ -14,6 +14,7 @@ using SubSonic;
 using VNS.HIS.UI.THUOC;
 using VNS.Properties;
 using VNS.HIS.NGHIEPVU.THUOC;
+using VNS.HIS.UI.Forms.Cauhinh;
 
 
 namespace VNS.HIS.UI.THUOC

@@ -17,6 +17,7 @@ using Microsoft.VisualBasic;
 using SortOrder = System.Windows.Forms.SortOrder;
 using VNS.Properties;
 using VNS.HIS.NGHIEPVU.THUOC;
+using VNS.HIS.UI.Forms.Cauhinh;
 
 namespace VNS.HIS.UI.THUOC
 {

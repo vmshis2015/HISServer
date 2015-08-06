@@ -43,6 +43,8 @@
             this.cmdCancelConfirm = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.cmdPrint = new System.Windows.Forms.ToolStripButton();
+            this.cmdInsotamtra = new System.Windows.Forms.ToolStripButton();
+            this.cmdBenhnhanLinhthuoc = new System.Windows.Forms.ToolStripButton();
             this.cmdConfig = new System.Windows.Forms.ToolStripButton();
             this.cmdClose = new System.Windows.Forms.ToolStripButton();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
@@ -76,7 +78,6 @@
             this.cmdHuyDonThuoc = new Janus.Windows.EditControls.UIButton();
             this.grdList = new Janus.Windows.GridEX.GridEX();
             this.uiGroupBox2 = new Janus.Windows.EditControls.UIGroupBox();
-            this.cmdInsotamtra = new System.Windows.Forms.ToolStripButton();
             this.sysColor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
@@ -106,6 +107,7 @@
             this.toolStripSeparator1,
             this.cmdPrint,
             this.cmdInsotamtra,
+            this.cmdBenhnhanLinhthuoc,
             this.cmdConfig,
             this.cmdClose});
             this.sysColor.Location = new System.Drawing.Point(0, 0);
@@ -186,6 +188,22 @@
             this.cmdPrint.Text = "In phiếu";
             this.cmdPrint.ToolTipText = "In phiếu nhập";
             this.cmdPrint.Click += new System.EventHandler(this.cmdPrint_Click);
+            // 
+            // cmdInsotamtra
+            // 
+            this.cmdInsotamtra.Image = ((System.Drawing.Image)(resources.GetObject("cmdInsotamtra.Image")));
+            this.cmdInsotamtra.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cmdInsotamtra.Name = "cmdInsotamtra";
+            this.cmdInsotamtra.Size = new System.Drawing.Size(118, 36);
+            this.cmdInsotamtra.Text = "In sổ tam tra";
+            // 
+            // cmdBenhnhanLinhthuoc
+            // 
+            this.cmdBenhnhanLinhthuoc.Image = ((System.Drawing.Image)(resources.GetObject("cmdBenhnhanLinhthuoc.Image")));
+            this.cmdBenhnhanLinhthuoc.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cmdBenhnhanLinhthuoc.Name = "cmdBenhnhanLinhthuoc";
+            this.cmdBenhnhanLinhthuoc.Size = new System.Drawing.Size(192, 36);
+            this.cmdBenhnhanLinhthuoc.Text = "Phát thuốc cho Bệnh nhân";
             // 
             // cmdConfig
             // 
@@ -502,8 +520,8 @@
             // 
             // label9
             // 
-            this.label9.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(7, 38);
+            this.label9.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(7, 36);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(107, 16);
             this.label9.TabIndex = 456;
@@ -528,7 +546,8 @@
             // 
             // lblKhoxuat
             // 
-            this.lblKhoxuat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKhoxuat.Enabled = false;
+            this.lblKhoxuat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.lblKhoxuat.Location = new System.Drawing.Point(7, 7);
             this.lblKhoxuat.Name = "lblKhoxuat";
             this.lblKhoxuat.Size = new System.Drawing.Size(107, 16);
@@ -540,11 +559,12 @@
             // 
             this.cboKhoxuat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboKhoxuat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboKhoxuat.Enabled = false;
+            this.cboKhoxuat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.cboKhoxuat.Location = new System.Drawing.Point(120, 5);
             this.cboKhoxuat.MaxDropDownItems = 15;
             this.cboKhoxuat.Name = "cboKhoxuat";
-            this.cboKhoxuat.Size = new System.Drawing.Size(300, 22);
+            this.cboKhoxuat.Size = new System.Drawing.Size(300, 21);
             this.cboKhoxuat.TabIndex = 48;
             this.cboKhoxuat.Text = "Kho xuất";
             this.cboKhoxuat.SelectedIndexChanged += new System.EventHandler(this.cboKhoxuat_SelectedIndexChanged);
@@ -597,14 +617,6 @@
             this.uiGroupBox2.Size = new System.Drawing.Size(573, 589);
             this.uiGroupBox2.TabIndex = 9;
             this.uiGroupBox2.Text = "Danh sách phiếu tổng hợp thuốc nội trú";
-            // 
-            // cmdInsotamtra
-            // 
-            this.cmdInsotamtra.Image = ((System.Drawing.Image)(resources.GetObject("cmdInsotamtra.Image")));
-            this.cmdInsotamtra.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cmdInsotamtra.Name = "cmdInsotamtra";
-            this.cmdInsotamtra.Size = new System.Drawing.Size(118, 36);
-            this.cmdInsotamtra.Text = "In sổ tam tra";
             // 
             // frm_PhieucapphatNoitru
             // 
@@ -692,5 +704,6 @@
         private Janus.Windows.EditControls.UIButton cmdPhatThuoc;
         private Janus.Windows.EditControls.UIButton cmdHuyDonThuoc;
         private System.Windows.Forms.ToolStripButton cmdInsotamtra;
+        private System.Windows.Forms.ToolStripButton cmdBenhnhanLinhthuoc;
     }
 }

@@ -12,6 +12,7 @@ using SubSonic;
 using VNS.HIS.DAL;
 using VNS.Properties;
 using VNS.HIS.NGHIEPVU.THUOC;
+using VNS.HIS.UI.Forms.Cauhinh;
 namespace VNS.HIS.UI.THUOC
 {
     /// <summary>
@@ -319,40 +320,43 @@ namespace VNS.HIS.UI.THUOC
         private void cmdNhapKho_Click(object sender, EventArgs e)
         {
             Utility.SetMsg(uiStatusBar1.Panels["MSG"], "", false);
-            if(Utility.AcceptQuestion("Bạn có chắc chắn muốn xác nhận phiếu nhập kho đang chọn hay không?\nSau khi xác nhận, thuốc sẽ được cộng vào trong kho nhập","Thông báo",true))
-            {
-
-                int ITPhieuNhapxuatthuoc = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
-                TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc = TPhieuNhapxuatthuoc.FetchByID(ITPhieuNhapxuatthuoc);
-                if(objTPhieuNhapxuatthuoc!=null)
+            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_HIENTHI_NGAYXACNHAN", "0", false) == "0")
+                if (!Utility.AcceptQuestion("Bạn có chắc chắn muốn xác nhận phiếu nhập kho đang chọn hay không?\nSau khi xác nhận, thuốc sẽ được cộng vào trong kho nhập", "Thông báo", true))
                 {
-                    DateTime _ngayxacnhan=globalVariables.SysDate;
-                    if (THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_HIENTHI_NGAYXACNHAN", "0", false) == "1")
-                    {
-                        frm_ChonngayXacnhan _ChonngayXacnhan = new frm_ChonngayXacnhan();
-                        _ChonngayXacnhan.pdt_InputDate = objTPhieuNhapxuatthuoc.NgayHoadon;
-                        _ChonngayXacnhan.ShowDialog();
-                        _ngayxacnhan = _ChonngayXacnhan.pdt_InputDate;
-                    }
-                    ActionResult actionResult =
-                        _NHAPKHO.XacNhanPhieuNhapKho(objTPhieuNhapxuatthuoc, _ngayxacnhan);
-                    switch (actionResult)
-                    {
-                        case ActionResult.Success:
-                            Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Xác nhận phiếu nhập kho thành công",false);
-                            grdList.CurrentRow.BeginEdit();
-                            grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.TrangThai].Value = 1;
-                            grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.NgayXacnhan].Value = _ngayxacnhan;
-                            grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.NguoiXacnhan].Value = globalVariables.UserName;
-                            grdList.CurrentRow.EndEdit();
-                            break;
-                        case ActionResult.Error:
-                            Utility.ShowMsg("Lỗi khi xác nhận phiếu nhập kho thuốc", "Thông báo lỗi",MessageBoxIcon.Error);
-                            break;
-                    }
+                    return;
                 }
-                
+
+            int ITPhieuNhapxuatthuoc = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
+            TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc = TPhieuNhapxuatthuoc.FetchByID(ITPhieuNhapxuatthuoc);
+            if (objTPhieuNhapxuatthuoc != null)
+            {
+                DateTime _ngayxacnhan = globalVariables.SysDate;
+                if (THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_HIENTHI_NGAYXACNHAN", "0", false) == "1")
+                {
+                    frm_ChonngayXacnhan _ChonngayXacnhan = new frm_ChonngayXacnhan();
+                    _ChonngayXacnhan.pdt_InputDate = objTPhieuNhapxuatthuoc.NgayHoadon;
+                    _ChonngayXacnhan.ShowDialog();
+                    _ngayxacnhan = _ChonngayXacnhan.pdt_InputDate;
+                }
+                ActionResult actionResult =
+                    _NHAPKHO.XacNhanPhieuNhapKho(objTPhieuNhapxuatthuoc, _ngayxacnhan);
+                switch (actionResult)
+                {
+                    case ActionResult.Success:
+                        Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Xác nhận phiếu nhập kho thành công", false);
+                        grdList.CurrentRow.BeginEdit();
+                        grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.TrangThai].Value = 1;
+                        grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.NgayXacnhan].Value = _ngayxacnhan;
+                        grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.NguoiXacnhan].Value = globalVariables.UserName;
+                        grdList.CurrentRow.EndEdit();
+                        break;
+                    case ActionResult.Error:
+                        Utility.ShowMsg("Lỗi khi xác nhận phiếu nhập kho thuốc", "Thông báo lỗi", MessageBoxIcon.Error);
+                        break;
+                }
             }
+
+
             ModifyCommand();
         }
         private void ModifyCommand()

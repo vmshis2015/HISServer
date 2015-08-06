@@ -7,13 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Janus.Windows.GridEX;
+using NLog;
 using SubSonic;
 using VNS.Libs;
 using VNS.HIS.DAL;
 
+using VNS.HIS.UI.NGOAITRU;
+using VNS.UI.QMS;
 using VNS.Properties;
-using VNS.HIS.NGHIEPVU.THUOC;
-namespace VietBaIT.HISLink.UI.Duoc.Form_NghiepVu_NoiTru
+using VNS.HIS.BusRule.Classes;
+
+using VNS.HIS.UI.BENH_AN;
+using VNS.HIS.UI.Forms.NGOAITRU;
+using VNS.HIS.UI.NOITRU;
+using VNS.HIS.UI.DANHMUC;
+using VNS.HIS.Classes;
+using VNS.Libs.AppUI;
+using VNS.UCs;
+namespace VNS.HIS.UI.THUOC
 {
     public partial class frm_LinhPhieuThuoc : Form
     {
@@ -34,30 +45,30 @@ namespace VietBaIT.HISLink.UI.Duoc.Form_NghiepVu_NoiTru
         }
         private void getData()
         {
-            DPhieuCapphat objPhieuCapphat = DPhieuCapphat.FetchByID(Utility.Int32Dbnull(txtID_CAPPHAT.Text));
+            TPhieuCapphatNoitru objPhieuCapphat = TPhieuCapphatNoitru.FetchByID(Utility.Int32Dbnull(txtID_CAPPHAT.Text));
             if (objPhieuCapphat != null)
             {
                 txtID_CAPPHAT.Text = Utility.sDbnull(objPhieuCapphat.IdCapphat);
                 dtNgayCapPhat.Value = dtNgayCapPhat.Value;
                 txtID_KHOA_LINH.Text = Utility.sDbnull(objPhieuCapphat.IdKhoaLinh);
                 idKhoaLinh = Utility.Int32Dbnull(objPhieuCapphat.IdKhoaLinh);
-                LDepartment objLDepartment = LDepartment.FetchByID(objPhieuCapphat.IdKhoaLinh);
+                DmucKhoaphong objLDepartment = DmucKhoaphong.FetchByID(objPhieuCapphat.IdKhoaLinh);
                 if (objLDepartment != null)
                 {
-                    txtTen_KHOA_LINH.Text = Utility.sDbnull(objLDepartment.DepartmentName);
+                    txtTen_KHOA_LINH.Text = Utility.sDbnull(objLDepartment.TenKhoaphong);
                 }
                 //chkIsBoSung.Checked = Convert.ToBoolean(objPhieuCapphat.LinhBSung);
 
-                IsPhieuBoSung = Convert.ToBoolean(objPhieuCapphat.LinhBSung);
+                IsPhieuBoSung =Utility.Byte2Bool(objPhieuCapphat.LoaiPhieu);
                 radLinhBoSung.Checked = IsPhieuBoSung;
                 loaiphieu = Utility.sDbnull(objPhieuCapphat.LoaiPhieu);
                 radThuoc.Checked = loaiphieu == "THUOC";
                 radLinhVTYT.Checked = loaiphieu == "VT";
-                txtID_NVIEN.Text = Utility.sDbnull(objPhieuCapphat.IdNvien);
-                LStaff objStaff = LStaff.FetchByID(objPhieuCapphat.IdNvien);
+                txtID_NVIEN.Text = Utility.sDbnull(objPhieuCapphat.IdNhanviencapphat);
+                DmucNhanvien objStaff = DmucNhanvien.FetchByID(objPhieuCapphat.IdNhanviencapphat);
                 if (objStaff != null)
                 {
-                    txtTen_NVIEN.Text = Utility.sDbnull(objStaff.StaffName);
+                    txtTen_NVIEN.Text = Utility.sDbnull(objStaff.TenNhanvien);
                 }
                 txtId_KhoXuat.Text = Utility.sDbnull(objPhieuCapphat.IdKhoXuat);
                 id_khoXuat = Utility.Int32Dbnull(objPhieuCapphat.IdKhoXuat);
@@ -136,7 +147,7 @@ namespace VietBaIT.HISLink.UI.Duoc.Form_NghiepVu_NoiTru
         {
             if (grdPres.CurrentRow != null && grdPres.CurrentRow.RowType == RowType.Record)
             {
-                int idcapphat = Utility.Int32Dbnull(grdPres.GetValue(DPhieuCapphat.Columns.IdCapphat));
+                int idcapphat = Utility.Int32Dbnull(grdPres.GetValue(TPhieuCapphatNoitru.Columns.IdCapphat));
                 int Id_donThuoc = Utility.Int32Dbnull(grdPres.GetValue(TPrescription.Columns.PresId));
                 m_dtPhieuCapPhatLichSuCT = SPs.DuocCapPhatPhieuCapPhatCT(Id_donThuoc, idcapphat).GetDataSet().Tables[0];
                 Utility.SetDataSourceForDataGridEx(grdPresDetail, m_dtPhieuCapPhatLichSuCT,true,true,"1=1","");
@@ -163,7 +174,7 @@ namespace VietBaIT.HISLink.UI.Duoc.Form_NghiepVu_NoiTru
             foreach (Janus.Windows.GridEX.GridEXRow grdRow in grdPresDetail.GetDataRows())
             {
                 grdRow.BeginEdit();
-                grdRow.Cells[DPhieuCapphatCt.Columns.DaLinh].Value = 1;
+                grdRow.Cells[TPhieuCapphatNoitruCt.Columns.DaLinh].Value = 1;
                 grdRow.EndEdit();
             }
         }
@@ -178,17 +189,17 @@ namespace VietBaIT.HISLink.UI.Duoc.Form_NghiepVu_NoiTru
          
             foreach (Janus.Windows.GridEX.GridEXRow grdExRow in grdPresDetail.GetDataRows())
             {
-                int IdCapPhatCt = Utility.Int32Dbnull(grdExRow.Cells[DPhieuCapphatCt.Columns.IdCapPhatCt].Value);
-                int presdetail_id = Utility.Int32Dbnull(grdExRow.Cells[DPhieuCapphatCt.Columns.IdDonthuocCtiet].Value);
-                int soluong = Utility.Int32Dbnull(grdExRow.Cells[DPhieuCapphatCt.Columns.SoLuong].Value);
-                int DaLinh = Utility.Int32Dbnull(grdExRow.Cells[DPhieuCapphatCt.Columns.DaLinh].Value);
+                int IdCapPhatCt = Utility.Int32Dbnull(grdExRow.Cells[TPhieuCapphatNoitruCt.Columns.IdCapPhatCt].Value);
+                int presdetail_id = Utility.Int32Dbnull(grdExRow.Cells[TPhieuCapphatNoitruCt.Columns.IdDonthuocCtiet].Value);
+                int soluong = Utility.Int32Dbnull(grdExRow.Cells[TPhieuCapphatNoitruCt.Columns.SoLuong].Value);
+                int DaLinh = Utility.Int32Dbnull(grdExRow.Cells[TPhieuCapphatNoitruCt.Columns.DaLinh].Value);
                // int value = Utility.Int32Dbnull(e.Value);
                 StoredProcedure sp = SPs.DuocUpdateLinhSoLuongThuoc(IdCapPhatCt, presdetail_id, DaLinh);
                 sp.Execute();
                 var query = from thuoc in m_dtPhieuCapPhatLichSuCT.AsEnumerable()
                     where
-                        Utility.Int32Dbnull(DPhieuCapphatCt.Columns.IdCapPhatCt) ==
-                        Utility.Int32Dbnull(grdExRow.Cells[DPhieuCapphatCt.Columns.IdCapPhatCt].Value)
+                        Utility.Int32Dbnull(TPhieuCapphatNoitruCt.Columns.IdCapPhatCt) ==
+                        Utility.Int32Dbnull(grdExRow.Cells[TPhieuCapphatNoitruCt.Columns.IdCapPhatCt].Value)
                     select thuoc;
                 if (query.Any())
                 {
@@ -213,7 +224,7 @@ namespace VietBaIT.HISLink.UI.Duoc.Form_NghiepVu_NoiTru
                 string _rowFilter = "1=1";
                 if (chkChuaPhat.Checked)
                 {
-                    _rowFilter = string.Format("{0}={1}", DPhieuCapphatCt.Columns.DaLinh, false);
+                    _rowFilter = string.Format("{0}={1}", TPhieuCapphatNoitruCt.Columns.DaLinh, false);
 
                 }
                 m_dtPhieuCapPhatLichSuCT.DefaultView.RowFilter = _rowFilter;
@@ -233,7 +244,7 @@ namespace VietBaIT.HISLink.UI.Duoc.Form_NghiepVu_NoiTru
                 string _rowFilter = "1=1";
                 if (chkChuaPhat.Checked)
                 {
-                    _rowFilter = string.Format("{0}={1}", DPhieuCapphatCt.Columns.DaLinh, true);
+                    _rowFilter = string.Format("{0}={1}", TPhieuCapphatNoitruCt.Columns.DaLinh, true);
 
                 }
                 m_dtPhieuCapPhatLichSuCT.DefaultView.RowFilter = _rowFilter;

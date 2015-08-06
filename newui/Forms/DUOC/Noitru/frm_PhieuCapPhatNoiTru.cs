@@ -54,6 +54,14 @@ namespace VNS.HIS.UI.THUOC
             cmdPhatThuoc.Click += cmdPhatThuoc_Click;
             cmdHuyDonThuoc.Click += cmdHuyDonThuoc_Click;
             cmdInsotamtra.Click += cmdInsotamtra_Click;
+            cmdBenhnhanLinhthuoc.Click += cmdBenhnhanLinhthuoc_Click;
+        }
+
+        void cmdBenhnhanLinhthuoc_Click(object sender, EventArgs e)
+        {
+            frm_PhatThuocBN_Noitru _PhatThuocBN_Noitru = new frm_PhatThuocBN_Noitru(KIEU_THUOC_VT);
+            _PhatThuocBN_Noitru.Startup(Utility.sDbnull(grdList.CurrentRow.Cells[TPhieuCapphatNoitru.Columns.IdCapphat].Value, "-1"));
+            _PhatThuocBN_Noitru.ShowDialog();
         }
 
         void cmdInsotamtra_Click(object sender, EventArgs e)
@@ -64,6 +72,12 @@ namespace VNS.HIS.UI.THUOC
                 {
                     Utility.ShowMsg("Bạn cần chọn phiếu lĩnh thuốc nội trú trên lưới trước khi thực hiện lệnh in");
                     grdList.MoveFirst();
+                    return;
+                }
+                TPhieuCapphatNoitru _item = TPhieuCapphatNoitru.FetchByID(_ID_CAPPHAT);
+                if (_item == null)
+                {
+                    Utility.ShowMsg("Phiếu bạn chọn đã bị người khác tác động xóa mất. Đề nghị nhấn tìm kiếm để thử kiểm tra lại");
                     return;
                 }
                 DataTable dtData=SPs.ThuocNoitruInsotamtra(Utility.Int32Dbnull(grdList.CurrentRow.Cells[TPhieuCapphatNoitru.Columns.IdCapphat].Value, -1)).GetDataSet().Tables[0];
@@ -118,7 +132,7 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                DataTable m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_LE_NOITRU();
+                DataTable m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_LE_TUTRUC_NOITRU();
                 DataBinding.BindDataCombobox(cboKhoxuat, m_dtKhoXuat,
                                               TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho, "---Chọn kho xuất thuốc---", true);
 
@@ -193,8 +207,9 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                Int16 StockID = Utility.Int16Dbnull(cboKhoxuat.SelectedValue, -1);
-
+                Int16 StockID =  Utility.Int16Dbnull(cboKhoxuat.SelectedValue, -1);
+                if (dtList != null) dtList.Rows.Clear();
+                if (dtDrugList != null) dtDrugList.Rows.Clear();
                 dtList = SPs.ThuocNoitruTimkiemphieutonghopthuocnoitru(Utility.Int32Dbnull(txtID_CAPPHAT.Text, -1), (Int16)(optLinhThuong.Checked ? 0 : 1), chkByDate.Checked ? dtpFromDate.Value.ToString("dd/MM/yyyy") : "01/01/1900", chkByDate.Checked ? dtpToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
                                                      Utility.Int32Dbnull(cboStaff.SelectedValue, -1),
                                                      Utility.Int32Dbnull(cboDepartment.SelectedValue, -1), StockID,
@@ -212,8 +227,6 @@ namespace VNS.HIS.UI.THUOC
             }
             finally
             {
-
-                
                 modifyActButtons();
             }
         }
@@ -223,15 +236,17 @@ namespace VNS.HIS.UI.THUOC
             try
             {
                 int DA_LINH = 0;
-                if (Utility.isValidGrid(grdList)) Utility.Int32Dbnull(grdList.CurrentRow.Cells["DA_LINH"].Value, 0);
+                if (Utility.isValidGrid(grdList))DA_LINH= Utility.Int32Dbnull(grdList.CurrentRow.Cells["DA_LINH"].Value, 0);
                 string THUOC_NOITRU_XACNHANDALINH_KHIXACNHANDONTHUOC = THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NOITRU_XACNHANDALINH_KHIXACNHANDONTHUOC", "0", false);
                 if (THUOC_NOITRU_XACNHANDALINH_KHIXACNHANDONTHUOC == "1") DA_LINH=0;//Ko quan tâm trạng thái đã lĩnh
 
                 cmdInsert.Enabled = true;
+                cmdCheck.Enabled = Utility.isValidGrid(grdList) && DA_LINH == 0 && grdList.CurrentRow.Cells[TPhieuCapphatNoitru.Columns.TrangThai].Value.ToString() == "0";
                 cmdUpdate.Enabled = Utility.isValidGrid(grdList) && DA_LINH == 0 && grdList.CurrentRow.Cells[TPhieuCapphatNoitru.Columns.TrangThai].Value.ToString() == "0";
                 cmdDelete.Enabled = Utility.isValidGrid(grdList) && DA_LINH == 0 && grdList.CurrentRow.Cells[TPhieuCapphatNoitru.Columns.TrangThai].Value.ToString() == "0";
                 cmdConfirm.Enabled = cmdUpdate.Enabled;
                 cmdCancelConfirm.Enabled = Utility.isValidGrid(grdList) && DA_LINH == 0 && !cmdConfirm.Enabled;
+                cmdBenhnhanLinhthuoc.Enabled = Utility.isValidGrid(grdList) && grdList.CurrentRow.Cells[TPhieuCapphatNoitru.Columns.TrangThai].Value.ToString() == "1";
                 cmdPhatThuoc.Enabled = cmdConfirm.Enabled;
                 cmdHuyDonThuoc.Enabled = cmdCancelConfirm.Enabled;
                 if (cmdConfirm.Enabled) cmdPhatThuoc.BringToFront();
@@ -259,9 +274,15 @@ namespace VNS.HIS.UI.THUOC
         {
             frm_AddCapPhatThuocNoiTru frm = new frm_AddCapPhatThuocNoiTru(KIEU_THUOC_VT, loaiphieu);
             frm.m_Action = action.Insert;
+            frm._OnInsertCompleted += frm__OnInsertCompleted;
             frm.dtList = dtList;
             frm.ShowDialog();
             grdList_SelectionChanged(grdList, new EventArgs());
+        }
+
+        void frm__OnInsertCompleted(long idcapphat)
+        {
+            Utility.GonewRowJanus(grdList, TPhieuCapphatNoitru.Columns.IdCapphat, idcapphat.ToString());
         }
 
         private void cmdUpdate_Click(object sender, EventArgs e)
@@ -271,6 +292,12 @@ namespace VNS.HIS.UI.THUOC
                 if (!Utility.isValidGrid(grdList))
                 {
                     Utility.ShowMsg("Bạn cần chọn phiếu để sửa");
+                    return;
+                }
+                TPhieuCapphatNoitru _item = TPhieuCapphatNoitru.FetchByID(_ID_CAPPHAT);
+                if (_item == null)
+                {
+                    Utility.ShowMsg("Phiếu bạn chọn đã bị người khác tác động xóa mất. Đề nghị nhấn tìm kiếm để thử kiểm tra lại");
                     return;
                 }
                 if (DAPHATTHUOC_BENHNHAN())
@@ -314,7 +341,7 @@ namespace VNS.HIS.UI.THUOC
                     .From(TPhieuCapphatChitiet.Schema)
                     .Where(TPhieuCapphatChitiet.IdCapphatColumn).IsEqualTo(_ID_CAPPHAT)
                     .And(TPhieuCapphatChitiet.DaLinhColumn).IsEqualTo(1)
-                    .ExecuteAsCollection<TPhieuCapphatChitietCollection>().Count > 0;
+                    .ExecuteSingle<TPhieuCapphatChitiet>() != null;
             }
             catch
             {
@@ -364,13 +391,19 @@ namespace VNS.HIS.UI.THUOC
                     Utility.ShowMsg("Bạn cần chọn phiếu để xác nhận");
                     return;
                 }
+                TPhieuCapphatNoitru _item = TPhieuCapphatNoitru.FetchByID(_ID_CAPPHAT);
+                if (_item == null)
+                {
+                    Utility.ShowMsg("Phiếu bạn chọn đã bị người khác tác động xóa mất. Đề nghị nhấn tìm kiếm để thử kiểm tra lại");
+                    return;
+                }
                 if (DAPHATTHUOC_BENHNHAN())
                 {
                     Utility.ShowMsg("Đã phát thuốc cho Bệnh nhân nên bạn không thể xác nhận phiếu");
                     return;
                 }
                 Int16 StockID = 0;
-                if (cboKhoxuat.Items.Count <= 0 || cboKhoxuat.SelectedValue.ToString() == "-1")
+                if (cboKhoxuat.Items.Count <= 0 || cboKhoxuat.SelectedValue.ToString() == "-1" ||cboKhoxuat.SelectedIndex<=-1)
                 {
                     Utility.ShowMsg("Bạn cần chọn kho xuất");
                     cboKhoxuat.Focus();
@@ -397,6 +430,9 @@ namespace VNS.HIS.UI.THUOC
                                 dtList.AcceptChanges();
                             }
                             ProcessStatus();
+                            break;
+                        case ActionResult.DataChanged:
+                            Utility.ShowMsg("Phiếu này đã bị người khác vừa thay đổi. Bạn cần nhấn lại nút tìm kiếm để kiểm tra lại tình trạng tồn tại của phiếu");
                             break;
                         case ActionResult.NotEnoughDrugInStock:
                             Utility.ShowMsg("Số thuốc trong kho không đủ để cấp phát\nVui lòng bấm vào nút Kiểm tra thuốc trong kho bên cạnh để xem chi tiết thuốc còn thiếu");
@@ -452,16 +488,25 @@ namespace VNS.HIS.UI.THUOC
                     Utility.ShowMsg("Bạn cần chọn phiếu để xóa");
                     return;
                 }
+                TPhieuCapphatNoitru _item = TPhieuCapphatNoitru.FetchByID(_ID_CAPPHAT);
+                if (_item == null)
+                {
+                    Utility.ShowMsg("Phiếu bạn chọn đã bị người khác tác động xóa mất. Đề nghị nhấn tìm kiếm để thử kiểm tra lại");
+                    return;
+                }
                 if (DAPHATTHUOC_BENHNHAN())
                 {
                     Utility.ShowMsg("Đã phát thuốc cho Bệnh nhân nên bạn không thể xóa phiếu");
                     return;
                 }
+                
+                if (!Utility.AcceptQuestion("Bạn có chắc chắn muốn xóa phiếu lĩnh thuốc nội trú đang chọn hay không?", "Xác nhận xóa", true))
+                    return;
                 ActionResult actionResult = new CapphatThuocKhoa().XoaPhieuCapPhatNoiTru(_ID_CAPPHAT);
                 switch (actionResult)
                 {
                     case ActionResult.Success:
-                        Utility.ShowMsg("Đã xóa dữ liệu thành công");
+                        if (dtDrugList != null) dtDrugList.Rows.Clear();
                         DataRow[] drDetele = dtList.Select(TPhieuCapphatNoitru.Columns.IdCapphat + " = " + _ID_CAPPHAT);
                         dtList.Rows.Remove(drDetele[0]);
                         dtList.AcceptChanges();
@@ -526,7 +571,14 @@ namespace VNS.HIS.UI.THUOC
                     Utility.ShowMsg("Bạn cần chọn phiếu để hủy xác nhận");
                     return;
                 }
+                
                 if (_ID_CAPPHAT == -1) return;
+                TPhieuCapphatNoitru _item = TPhieuCapphatNoitru.FetchByID(_ID_CAPPHAT);
+                if (_item == null)
+                {
+                    Utility.ShowMsg("Phiếu bạn chọn đã bị người khác tác động xóa mất. Đề nghị nhấn tìm kiếm để thử kiểm tra lại");
+                    return;
+                }
                 if (DAPHATTHUOC_BENHNHAN())
                 {
                     Utility.ShowMsg("Đã phát thuốc cho Bệnh nhân nên bạn không thể hủy xác nhận phiếu");
@@ -550,6 +602,9 @@ namespace VNS.HIS.UI.THUOC
                             }
                             ProcessStatus();
                             Utility.ShowMsg("Đã thực hiện hủy cấp phát thuốc theo phiếu thành công!");
+                            break;
+                        case ActionResult.DataChanged:
+                            Utility.ShowMsg("Phiếu này đã bị người khác vừa thay đổi. Bạn cần nhấn lại nút tìm kiếm để kiểm tra lại tình trạng tồn tại của phiếu");
                             break;
                         case ActionResult.Error:
                             Utility.ShowMsg("Không tìm thấy chi tiết trong bảng đơn thuốc chi tiết. Đề nghị bug lại dữ liệu");
@@ -705,15 +760,15 @@ namespace VNS.HIS.UI.THUOC
             try
             {
                 if (!bln_hasloaded) return;
-                if (cboKhoxuat.Items.Count > 0 && Utility.Int16Dbnull(cboKhoxuat.SelectedValue, -1)>0 && cmdUpdate.Enabled && PropertyLib._DuocNoitruProperties.Doituong==Doituongdung.Yta)
-                {
-                        new Update(TPhieuCapphatNoitru.Schema).Set(TPhieuCapphatNoitru.IdKhoXuatColumn).EqualTo(Utility.Int16Dbnull(cboKhoxuat.SelectedValue, -1)).Where(TPhieuCapphatNoitru.IdCapphatColumn).IsEqualTo(_ID_CAPPHAT).Execute();
-                        DataRow[] arrDR = dtList.Select("ID_CAPPHAT=" + _ID_CAPPHAT);
-                        if (arrDR.Length > 0)
-                        {
-                            arrDR[0][TPhieuCapphatNoitru.IdKhoXuatColumn.ColumnName] = Utility.Int16Dbnull(cboKhoxuat.SelectedValue, -1);
-                        }
-                }
+                //if (cboKhoxuat.Items.Count > 0 && Utility.Int16Dbnull(cboKhoxuat.SelectedValue, -1)>0 && cmdUpdate.Enabled && PropertyLib._DuocNoitruProperties.Doituong==Doituongdung.Yta)
+                //{
+                //        new Update(TPhieuCapphatNoitru.Schema).Set(TPhieuCapphatNoitru.IdKhoXuatColumn).EqualTo(Utility.Int16Dbnull(cboKhoxuat.SelectedValue, -1)).Where(TPhieuCapphatNoitru.IdCapphatColumn).IsEqualTo(_ID_CAPPHAT).Execute();
+                //        DataRow[] arrDR = dtList.Select("ID_CAPPHAT=" + _ID_CAPPHAT);
+                //        if (arrDR.Length > 0)
+                //        {
+                //            arrDR[0][TPhieuCapphatNoitru.IdKhoXuatColumn.ColumnName] = Utility.Int16Dbnull(cboKhoxuat.SelectedValue, -1);
+                //        }
+                //}
             }
             catch
             {
@@ -726,6 +781,12 @@ namespace VNS.HIS.UI.THUOC
             {
                 Utility.ShowMsg("Bạn cần chọn kho xuất");
                 cboKhoxuat.Focus();
+                return;
+            }
+            TPhieuCapphatNoitru _item = TPhieuCapphatNoitru.FetchByID(_ID_CAPPHAT);
+            if (_item == null)
+            {
+                Utility.ShowMsg("Phiếu bạn chọn đã bị người khác tác động xóa mất. Đề nghị nhấn tìm kiếm để thử kiểm tra lại");
                 return;
             }
             ActionResult ActionResult = new CapphatThuocKhoa().Kiemtratonthuoc(_ID_CAPPHAT, Utility.Int16Dbnull(cboKhoxuat.SelectedValue, -1));
