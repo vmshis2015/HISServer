@@ -721,6 +721,9 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
         }
         void LoadData()
         {
+            //Tự động tính tổng số ngày điều trị
+            txtTongSoNgayDtri.Text = THU_VIEN_CHUNG.Songay(objLuotkham.NgayNhapvien.Value, new DateTime(dtpNgayravien.Value.Year, dtpNgayravien.Value.Month, dtpNgayravien.Value.Day, Utility.Int32Dbnull(txtGioRaVien.Text, 0), Utility.Int32Dbnull(txtPhuRaVien.Text, 0), 0)).ToString();
+
             objRavien = new Select().From(NoitruPhieuravien.Schema).Where(NoitruPhieuravien.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                 .And(NoitruPhieuravien.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham).ExecuteSingle<NoitruPhieuravien>();
             m_enAct = objRavien != null ? action.Update : action.Insert;

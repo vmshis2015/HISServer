@@ -15,6 +15,7 @@ using SubSonic;
 using VNS.HIS.UI.DANHMUC;
 using System.IO;
 using VNS.HIS.UI.Forms.NGOAITRU;
+using VNS.HIS.UI.Forms.Cauhinh;
 namespace VNS.HIS.UI.NOITRU
 {
     public partial class frm_Quanlytamung : Form

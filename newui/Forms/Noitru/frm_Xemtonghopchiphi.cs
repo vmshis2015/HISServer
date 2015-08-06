@@ -140,15 +140,17 @@ namespace VNS.HIS.UI.NOITRU
                 Utility.UpdateLogotoDatatable(ref dtData);
                 string StaffName = globalVariables.gv_strTenNhanvien;
                 if (string.IsNullOrEmpty(globalVariables.gv_strTenNhanvien)) StaffName = globalVariables.UserName;
-
+                string reportCode=Khoanoitrutonghop ? "noitru_tonghopchiphiravien_theokhoa_dichvu" : "noitru_tonghopchiphiravien_dichvu";
+                if (THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb))
+                    reportCode = Khoanoitrutonghop ? "noitru_tonghopchiphiravien_theokhoa" : "noitru_tonghopchiphiravien";
                 string tieude = "", reportname = "";
-                ReportDocument crpt = Utility.GetReport(Khoanoitrutonghop ? "noitru_tonghopchiphiravien_theokhoa" : "noitru_tonghopchiphiravien", ref tieude, ref reportname);
+                ReportDocument crpt = Utility.GetReport(reportCode, ref tieude, ref reportname);
                 if (crpt == null) return;
                 frmPrintPreview objForm = new frmPrintPreview(baocaO_TIEUDE1.TIEUDE, crpt, true, dtData.Rows.Count <= 0 ? false : true);
                 crpt.SetDataSource(dtData);
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.mv_sReportFileName = Path.GetFileName(reportname);
-                objForm.mv_sReportCode = Khoanoitrutonghop ? "noitru_tonghopchiphiravien_theokhoa" : "noitru_tonghopchiphiravien";
+                objForm.mv_sReportCode = reportCode;
                 Utility.SetParameterValue(crpt, "StaffName", StaffName);
                 Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
                 Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);

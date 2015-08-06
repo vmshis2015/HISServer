@@ -31,6 +31,7 @@ using VNS.HIS.UI.DANHMUC;
 using VNS.HIS.Classes;
 using VNS.Libs.AppUI;
 using VNS.UCs;
+using VNS.HIS.NGHIEPVU.THUOC;
 
 namespace VNS.HIS.UI.NOITRU
 {
@@ -157,7 +158,7 @@ namespace VNS.HIS.UI.NOITRU
             
             grdAssignDetail.CellUpdated += grdAssignDetail_CellUpdated;
             grdAssignDetail.SelectionChanged+=new EventHandler(grdAssignDetail_SelectionChanged);
-
+            
             cmdInsertAssign.Click+=new EventHandler(cmdInsertAssign_Click);
             cmdUpdate.Click+=new EventHandler(cmdUpdate_Click);
             cmdDelteAssign.Click+=new EventHandler(cmdDelteAssign_Click);
@@ -246,8 +247,95 @@ namespace VNS.HIS.UI.NOITRU
             txtChedodinhduong._OnShowData += txtChedodinhduong__OnShowData;
             grdBuongGiuong.MouseDoubleClick += grdBuongGiuong_MouseDoubleClick;
             txtMaluotkham.KeyDown += txtMaluotkham_KeyDown;
-            
+
+           
+            grdPresDetail.UpdatingCell += grdPresDetail_UpdatingCell;
         }
+        void Modify_Thuoctralai()
+        {
+            try
+            {
+                bool _dacapphat = false;
+                if (grdPresDetail.GetDataRows().Length > 0)
+                {
+                    _dacapphat = m_dtDonthuoc.Select(TPhieuCapphatChitiet.Columns.IdChitiet + ">0").Length > 0;
+                }
+                grdPresDetail.RootTable.Columns[TPhieuCapphatChitiet.Columns.ThucLinh].Visible = _dacapphat && grdPresDetail.GetDataRows().Length > 0 && THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_HIENTHI_THUCLINH_PHATTHUOC_BENHNHAN", "0", false) == "1" && THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NOITRU_XACNHANDALINH_KHIXACNHANDONTHUOC", "0", false) == "1";
+                grdPresDetail.RootTable.Columns[TPhieuCapphatChitiet.Columns.SoLuongtralai].Visible = _dacapphat && grdPresDetail.GetDataRows().Length > 0 && !grdPresDetail.RootTable.Columns[TPhieuCapphatChitiet.Columns.ThucLinh].Visible   && THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NOITRU_XACNHANDALINH_KHIXACNHANDONTHUOC", "0", false) == "1";
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        void grdPresDetail_UpdatingCell(object sender, UpdatingCellEventArgs e)
+        {
+            try
+            {
+                if (!Utility.isValidGrid(grdPresDetail)) return;
+                int TrangthaiTralai = Utility.Int32Dbnull(Utility.getValueOfGridCell(grdPresDetail, TPhieuCapphatChitiet.Columns.TrangthaiTralai), 0);
+                int IdPhieutralai = Utility.Int32Dbnull(Utility.getValueOfGridCell(grdPresDetail, TPhieuCapphatChitiet.Columns.IdPhieutralai), 0);
+                long IdChitiet = Utility.Int64Dbnull(Utility.getValueOfGridCell(grdPresDetail, TPhieuCapphatChitiet.Columns.IdChitiet), 0);
+                int soluong = Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[TPhieuCapphatChitiet.Columns.SoLuong].Value, -1);
+                int soluongtralai = 0;
+                int thuclinh = soluong;
+                if (IdChitiet <= 0)
+                {
+                    Utility.ShowMsg("Chi tiết này chưa được tổng hợp lĩnh thuốc nội trú nên bạn không thể sửa lại số lượng thực lĩnh(hoặc số lượng trả lại). Đề nghị kiểm tra lại");
+                    return;
+                }
+                if (TrangthaiTralai == 1)
+                {
+                    Utility.ShowMsg("Chi tiết này đã được tổng hợp thành phiếu trả thuốc thừa nên bạn không thể thay đổi lại thông tin số lượng thực lĩnh(hoặc số lượng trả lại) nữa\nMời bạn kiểm tra lại");
+                    e.Cancel = true;
+                    return;
+                }
+                if (TrangthaiTralai == 2)
+                {
+                    Utility.ShowMsg("Chi tiết này đã được tổng hợp thành phiếu trả thuốc thừa và đã trả lại kho thuốc nên bạn không thể thay đổi lại thông tin số lượng thực lĩnh(hoặc số lượng trả lại) nữa\nMời bạn kiểm tra lại");
+                    e.Cancel = true;
+                    return;
+                }
+                if (IdPhieutralai > 0)
+                {
+                    Utility.ShowMsg("Chi tiết này đã được tổng hợp thành phiếu trả thuốc thừa nên bạn không thể thay đổi lại thông tin số lượng thực lĩnh(hoặc số lượng trả lại) nữa\nMời bạn kiểm tra lại");
+                    e.Cancel = true;
+                    return;
+                }
+                int soluongsua = Utility.Int32Dbnull(e.Value, 0);
+                if (soluongsua > soluong)
+                {
+                    Utility.ShowMsg(string.Format("Số lượng thực lĩnh (hoặc trả lại) phải nhỏ hơn hoặc bằng số lượng kê {0}", soluong.ToString()));
+                    e.Cancel = true;
+                    return;
+                }
+                grdPresDetail.CurrentRow.BeginEdit();
+                if (e.Column.Key == TPhieuCapphatChitiet.Columns.SoLuongtralai)
+                {
+                    soluongtralai = soluongsua;
+                    thuclinh = soluong - soluongsua;
+                    grdPresDetail.CurrentRow.Cells[TPhieuCapphatChitiet.Columns.ThucLinh].Value = soluong - soluongsua;
+                }
+                else
+                {
+                    thuclinh = soluongsua;
+                    soluongtralai = soluong - soluongsua;
+                    grdPresDetail.CurrentRow.Cells[TPhieuCapphatChitiet.Columns.SoLuongtralai].Value = soluong - soluongsua;
+                }
+                grdPresDetail.CurrentRow.EndEdit();
+                grdPresDetail.Refetch();
+                CapphatThuocKhoa.CapnhatThuclinh(
+                    IdChitiet
+                    , thuclinh
+                    , soluongtralai
+                    );
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
+        }
+
+       
 
         void txtMaluotkham_KeyDown(object sender, KeyEventArgs e)
         {
@@ -998,6 +1086,7 @@ namespace VNS.HIS.UI.NOITRU
         {
             try
             {
+                Utility.SetMsg(lblMsg, "", false);
                 //Kiểm tra lần nhập viện hoặc chuyển khoa gần nhất phải được phân buồng giường trước khi ra viện
                 if (objNoitruPhanbuonggiuong == null)
                 {
@@ -1776,14 +1865,14 @@ namespace VNS.HIS.UI.NOITRU
                 //0=Ngoại trú;1=Nội trú;2=Đã điều trị(Lập phiếu);3=Đã tổng hợp chờ ra viện;4=Ra viện
                 if (objLuotkham.TrangthaiNoitru > 3)
                 {
-                  cmdThemchandoan.Enabled=  cmdInsertAssign.Enabled = cmdUpdate.Enabled = cmdDelteAssign.Enabled =cmdThemgoiDV.Enabled=cmdSuagoiDV.Enabled=cmdXoagoiDV.Enabled=
-                                                                  cmdCreateNewPres.Enabled =
-                                                                  cmdUpdatePres.Enabled = cmdDeletePres.Enabled =
-                                                                  cmdThemphieuVT.Enabled = cmdSuaphieuVT.Enabled = cmdXoaphieuVT.Enabled = false;
+                    cmdThemchandoan.Enabled = cmdInsertAssign.Enabled = cmdUpdate.Enabled = cmdDelteAssign.Enabled = cmdThemgoiDV.Enabled = cmdSuagoiDV.Enabled = cmdXoagoiDV.Enabled =
+                                                                    cmdCreateNewPres.Enabled =
+                                                                    cmdUpdatePres.Enabled = cmdDeletePres.Enabled =
+                                                                    cmdThemphieuVT.Enabled = cmdSuaphieuVT.Enabled = cmdXoaphieuVT.Enabled = false;
                 }
                 else
                 {
-                    cmdThemchandoan.Enabled =objLuotkham!=null && (NOITRU_HIENTHI_CHANDOANKCB_THEOPHIEUDIEUTRI=="0" ||(NOITRU_HIENTHI_CHANDOANKCB_THEOPHIEUDIEUTRI =="1" && objPhieudieutri != null));
+                    cmdThemchandoan.Enabled = objLuotkham != null && (NOITRU_HIENTHI_CHANDOANKCB_THEOPHIEUDIEUTRI == "0" || (NOITRU_HIENTHI_CHANDOANKCB_THEOPHIEUDIEUTRI == "1" && objPhieudieutri != null));
                     cmdInsertAssign.Enabled = objLuotkham != null && IsValidCommon() && objPhieudieutri != null;
                     cmdThemgoiDV.Enabled = objLuotkham != null && IsValidCommon() && (NOITRU_HIENTHI_GOIDICHVU_THEOPHIEUDIEUTRI == "0" || (NOITRU_HIENTHI_GOIDICHVU_THEOPHIEUDIEUTRI == "1" && objPhieudieutri != null));
                     cmdThemphieuVT_tronggoi.Enabled = objLuotkham != null && IsValidCommon() && Utility.isValidGrid(grdGoidichvu);
@@ -1793,6 +1882,10 @@ namespace VNS.HIS.UI.NOITRU
             }
             catch (Exception exception)
             {
+            }
+            finally
+            {
+                Modify_Thuoctralai();
             }
         }
 
@@ -4069,13 +4162,24 @@ namespace VNS.HIS.UI.NOITRU
             UpdateDonThuoc();
         }
 
-        private bool Donthuoc_DangXacnhan(int pres_id)
+        private bool IsValid_UpdateDonthuoc(int pres_id,string thuoc_vt)
         {
-            var _item =
+            TPhieuCapphatChitiet _capphat = new Select().From(TPhieuCapphatChitiet.Schema).Where(TPhieuCapphatChitiet.Columns.IdDonthuoc).IsEqualTo(pres_id)
+                .ExecuteSingle<TPhieuCapphatChitiet>();
+            if (_capphat != null)
+            {
+                Utility.ShowMsg("Đơn " + thuoc_vt + " đã được tổng hợp lĩnh " + thuoc_vt + " nội trú nên bạn không được phép sửa. Đề nghị kiểm tra lại");
+                return false;
+            }
+            KcbDonthuoc _item =
                 new Select().From(KcbDonthuoc.Schema).Where(KcbDonthuoc.IdDonthuocColumn).IsEqualTo(pres_id)
                 .And(KcbDonthuoc.TrangThaiColumn).IsEqualTo(1).ExecuteSingle<KcbDonthuoc>();
-            if (_item != null) return true;
-            return false;
+            if (_item != null)
+            {
+                Utility.ShowMsg("Đơn " + thuoc_vt + " này đang ở trạng thái đã duyệt cho Bệnh nhân nên không thể chỉnh sửa. Đề nghị kiểm tra lại");
+                return false;
+            }
+            return true;
         }
 
         private void UpdateDonThuoc()
@@ -4088,10 +4192,8 @@ namespace VNS.HIS.UI.NOITRU
                     if (objPatientExam != null)
                     {
                         int Pres_ID = Utility.Int32Dbnull(grdPresDetail.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
-                        if (Donthuoc_DangXacnhan(Pres_ID))
+                        if (!IsValid_UpdateDonthuoc(Pres_ID,"thuốc"))
                         {
-                            Utility.ShowMsg(
-                                "Đơn thuốc này đang ở trạng thái đã duyệt cho Bệnh nhân nên không thể chỉnh sửa. Đề nghị quay lại hỏi bộ phận cấp phát thuốc tại phòng Dược");
                             return;
                         }
                         var v_collect = new Select().From(KcbDonthuocChitiet.Schema.TableName)
@@ -4337,10 +4439,8 @@ namespace VNS.HIS.UI.NOITRU
                 if (objPatientExam != null)
                 {
                     int Pres_ID = Utility.Int32Dbnull(grdVTTH.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
-                    if (Donthuoc_DangXacnhan(Pres_ID))
+                    if (!IsValid_UpdateDonthuoc(Pres_ID,"vật tư"))
                     {
-                        Utility.ShowMsg(
-                            "Phiếu vật tư này đang ở trạng thái đã duyệt cho Bệnh nhân nên không thể chỉnh sửa. Đề nghị quay lại hỏi bộ phận cấp phát vật tư để xác nhận");
                         return;
                     }
                     var v_collect = new Select().From(KcbDonthuocChitiet.Schema.TableName)
@@ -4401,10 +4501,8 @@ namespace VNS.HIS.UI.NOITRU
             {
                 string s = "";
                 int Pres_ID = Utility.Int32Dbnull(grdVTTH_tronggoi.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
-                if (Donthuoc_DangXacnhan(Pres_ID))
+                if (!IsValid_UpdateDonthuoc(Pres_ID,"vật tư"))
                 {
-                    Utility.ShowMsg(
-                        "Phiếu vật tư này đang ở trạng thái đã duyệt cho Bệnh nhân nên không thể chỉnh sửa. Đề nghị quay lại hỏi bộ phận cấp phát vật tư để xác nhận");
                     return;
                 }
                 var v_collect = new Select().From(KcbDonthuocChitiet.Schema.TableName)
@@ -4583,10 +4681,8 @@ namespace VNS.HIS.UI.NOITRU
                 if (objPatientExam != null)
                 {
                     int Pres_ID = Utility.Int32Dbnull(grdVTTH.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
-                    if (Donthuoc_DangXacnhan(Pres_ID))
+                    if (!IsValid_UpdateDonthuoc(Pres_ID,"vật tư"))
                     {
-                        Utility.ShowMsg(
-                            "Phiếu vật tư này đang ở trạng thái đã duyệt cho Bệnh nhân nên không thể chỉnh sửa. Đề nghị quay lại hỏi bộ phận cấp phát vật tư tại phòng vật tư");
                         return;
                     }
                     var v_collect = new Select().From(KcbDonthuocChitiet.Schema.TableName)
@@ -4644,10 +4740,8 @@ namespace VNS.HIS.UI.NOITRU
         {
             string s = "";
             int Pres_ID = Utility.Int32Dbnull(grdVTTH.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
-            if (Donthuoc_DangXacnhan(Pres_ID))
+            if (!IsValid_UpdateDonthuoc(Pres_ID,"vật tư"))
             {
-                Utility.ShowMsg(
-                    "Phiếu vật tư này đang ở trạng thái đã duyệt cho Bệnh nhân nên không thể chỉnh sửa. Đề nghị quay lại hỏi bộ phận cấp phát vật tư tại phòng vật tư");
                 return;
             }
             var v_collect = new Select().From(KcbDonthuocChitiet.Schema.TableName)
@@ -4682,10 +4776,8 @@ namespace VNS.HIS.UI.NOITRU
         {
             string s = "";
             int Pres_ID = Utility.Int32Dbnull(grdPresDetail.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
-            if (Donthuoc_DangXacnhan(Pres_ID))
+            if (!IsValid_UpdateDonthuoc(Pres_ID,"thuốc"))
             {
-                Utility.ShowMsg(
-                    "Đơn thuốc này đang ở trạng thái đã duyệt cho Bệnh nhân nên không thể chỉnh sửa. Đề nghị quay lại hỏi bộ phận cấp phát vật tư tại phòng thuốc");
                 return;
             }
             var v_collect = new Select().From(KcbDonthuocChitiet.Schema.TableName)
@@ -5050,7 +5142,7 @@ namespace VNS.HIS.UI.NOITRU
             Utility.UpdateLogotoDatatable(ref v_dtData);
             string KhoGiay = "A5";
             if (PropertyLib._MayInProperties.CoGiayInDonthuoc == Papersize.A4) KhoGiay = "A4";
-            var reportDocument = new ReportDocument();
+            ReportDocument reportDocument = new ReportDocument();
             string reportCode = "";
              string tieude="", reportname = "";
             switch (KhoGiay)

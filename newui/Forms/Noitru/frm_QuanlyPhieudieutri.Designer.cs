@@ -653,7 +653,7 @@
             this.grdAssignDetail.Name = "grdAssignDetail";
             this.grdAssignDetail.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdAssignDetail.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
-            this.grdAssignDetail.Size = new System.Drawing.Size(585, 425);
+            this.grdAssignDetail.Size = new System.Drawing.Size(585, 403);
             this.grdAssignDetail.TabIndex = 253;
             this.toolTip1.SetToolTip(this.grdAssignDetail, "Nhấn chuột phải để xóa từng chi tiết cận lâm sàng đang chọn");
             this.grdAssignDetail.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
@@ -1024,7 +1024,7 @@
             this.lnkSize.AutoSize = true;
             this.lnkSize.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lnkSize.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkSize.Location = new System.Drawing.Point(0, 384);
+            this.lnkSize.Location = new System.Drawing.Point(0, 362);
             this.lnkSize.Name = "lnkSize";
             this.lnkSize.Size = new System.Drawing.Size(127, 16);
             this.lnkSize.TabIndex = 502;
@@ -1917,7 +1917,7 @@
             this.tabPageChiDinhCLS.Font = new System.Drawing.Font("Arial", 9F);
             this.tabPageChiDinhCLS.Location = new System.Drawing.Point(1, 23);
             this.tabPageChiDinhCLS.Name = "tabPageChiDinhCLS";
-            this.tabPageChiDinhCLS.Size = new System.Drawing.Size(585, 475);
+            this.tabPageChiDinhCLS.Size = new System.Drawing.Size(585, 453);
             this.tabPageChiDinhCLS.TabStop = true;
             this.tabPageChiDinhCLS.Text = "CLS";
             // 
@@ -1930,7 +1930,7 @@
             this.pnlChidinh.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlChidinh.Location = new System.Drawing.Point(0, 0);
             this.pnlChidinh.Name = "pnlChidinh";
-            this.pnlChidinh.Size = new System.Drawing.Size(585, 475);
+            this.pnlChidinh.Size = new System.Drawing.Size(585, 453);
             this.pnlChidinh.TabIndex = 8;
             // 
             // uiTabKqCls
@@ -1939,7 +1939,7 @@
             this.uiTabKqCls.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiTabKqCls.Location = new System.Drawing.Point(585, 0);
             this.uiTabKqCls.Name = "uiTabKqCls";
-            this.uiTabKqCls.Size = new System.Drawing.Size(0, 425);
+            this.uiTabKqCls.Size = new System.Drawing.Size(0, 403);
             this.uiTabKqCls.TabIndex = 255;
             this.uiTabKqCls.TabPages.AddRange(new Janus.Windows.UI.Tab.UITabPage[] {
             this.tabPhieuDieuTri});
@@ -1952,7 +1952,7 @@
             this.tabPhieuDieuTri.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPhieuDieuTri.Location = new System.Drawing.Point(1, 24);
             this.tabPhieuDieuTri.Name = "tabPhieuDieuTri";
-            this.tabPhieuDieuTri.Size = new System.Drawing.Size(0, 400);
+            this.tabPhieuDieuTri.Size = new System.Drawing.Size(0, 378);
             this.tabPhieuDieuTri.TabStop = true;
             this.tabPhieuDieuTri.Text = "Kết quả CLS";
             // 
@@ -1962,7 +1962,7 @@
             this.pnlXN.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlXN.Location = new System.Drawing.Point(0, 0);
             this.pnlXN.Name = "pnlXN";
-            this.pnlXN.Size = new System.Drawing.Size(0, 400);
+            this.pnlXN.Size = new System.Drawing.Size(0, 378);
             this.pnlXN.TabIndex = 0;
             // 
             // grdKetqua
@@ -1985,7 +1985,7 @@
             this.grdKetqua.Name = "grdKetqua";
             this.grdKetqua.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdKetqua.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
-            this.grdKetqua.Size = new System.Drawing.Size(0, 400);
+            this.grdKetqua.Size = new System.Drawing.Size(0, 378);
             this.grdKetqua.TabIndex = 256;
             this.grdKetqua.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdKetqua.TotalRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
@@ -2002,7 +2002,7 @@
             this.pnlXQ.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlXQ.Location = new System.Drawing.Point(0, 0);
             this.pnlXQ.Name = "pnlXQ";
-            this.pnlXQ.Size = new System.Drawing.Size(0, 400);
+            this.pnlXQ.Size = new System.Drawing.Size(0, 378);
             this.pnlXQ.TabIndex = 22;
             // 
             // pnlDynamicValues
@@ -2011,7 +2011,7 @@
             this.pnlDynamicValues.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlDynamicValues.Location = new System.Drawing.Point(0, 0);
             this.pnlDynamicValues.Name = "pnlDynamicValues";
-            this.pnlDynamicValues.Size = new System.Drawing.Size(0, 384);
+            this.pnlDynamicValues.Size = new System.Drawing.Size(0, 362);
             this.pnlDynamicValues.TabIndex = 503;
             this.pnlDynamicValues.TabStop = true;
             // 
@@ -2039,7 +2039,7 @@
             this.pnlCLS.Controls.Add(this.cmdInsertAssign);
             this.pnlCLS.Controls.Add(this.cboServicePrint);
             this.pnlCLS.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlCLS.Location = new System.Drawing.Point(0, 425);
+            this.pnlCLS.Location = new System.Drawing.Point(0, 403);
             this.pnlCLS.Name = "pnlCLS";
             this.pnlCLS.Size = new System.Drawing.Size(585, 50);
             this.pnlCLS.TabIndex = 1;
@@ -2071,7 +2071,7 @@
             this.tabPageChidinhThuoc.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageChidinhThuoc.Location = new System.Drawing.Point(1, 23);
             this.tabPageChidinhThuoc.Name = "tabPageChidinhThuoc";
-            this.tabPageChidinhThuoc.Size = new System.Drawing.Size(585, 475);
+            this.tabPageChidinhThuoc.Size = new System.Drawing.Size(585, 453);
             this.tabPageChidinhThuoc.TabStop = true;
             this.tabPageChidinhThuoc.Text = "Thuốc";
             // 
@@ -2083,7 +2083,7 @@
             this.pnltabkedon.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnltabkedon.Location = new System.Drawing.Point(0, 0);
             this.pnltabkedon.Name = "pnltabkedon";
-            this.pnltabkedon.Size = new System.Drawing.Size(585, 475);
+            this.pnltabkedon.Size = new System.Drawing.Size(585, 453);
             this.pnltabkedon.TabIndex = 9;
             // 
             // grdPresDetail
@@ -2107,7 +2107,7 @@
             this.grdPresDetail.RecordNavigator = true;
             this.grdPresDetail.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdPresDetail.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
-            this.grdPresDetail.Size = new System.Drawing.Size(585, 425);
+            this.grdPresDetail.Size = new System.Drawing.Size(585, 403);
             this.grdPresDetail.TabIndex = 2;
             this.grdPresDetail.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdPresDetail.TotalRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
@@ -2124,7 +2124,7 @@
             this.pnlDonthuoc.Controls.Add(this.cmdUpdatePres);
             this.pnlDonthuoc.Controls.Add(this.cmdCreateNewPres);
             this.pnlDonthuoc.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlDonthuoc.Location = new System.Drawing.Point(0, 425);
+            this.pnlDonthuoc.Location = new System.Drawing.Point(0, 403);
             this.pnlDonthuoc.Name = "pnlDonthuoc";
             this.pnlDonthuoc.Size = new System.Drawing.Size(585, 50);
             this.pnlDonthuoc.TabIndex = 1;

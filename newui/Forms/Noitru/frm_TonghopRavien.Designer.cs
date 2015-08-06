@@ -1661,7 +1661,7 @@
             // txtObjectType_Name
             // 
             this.txtObjectType_Name.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtObjectType_Name.Location = new System.Drawing.Point(914, 32);
+            this.txtObjectType_Name.Location = new System.Drawing.Point(898, 57);
             this.txtObjectType_Name.Name = "txtObjectType_Name";
             this.txtObjectType_Name.ReadOnly = true;
             this.txtObjectType_Name.Size = new System.Drawing.Size(10, 21);

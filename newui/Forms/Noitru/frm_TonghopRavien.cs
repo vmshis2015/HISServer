@@ -213,18 +213,19 @@ namespace VNS.HIS.UI.NOITRU
         //0=Mới chỉ định;1=Đã chuyển CLS;2=Đang thực hiện;3= Đã có kết quả CLS;4=Đã xác nhận kết quả
         void mnuCancel_Click(object sender, EventArgs e)
         {
+            GridEX _grd = grdAssignDetail;
             try
             {
                 if (objLuotkham.TrangthaiNoitru == 5)
                 {
                     Utility.ShowMsg("Bệnh nhân đã được duyệt thanh toán nội trú nên bạn không thể sửa lại trạng thái tổng hợp nội trú");
-                    return ;
+                    return;
                 }
 
                 if (Utility.Byte2Bool(objLuotkham.TthaiThanhtoannoitru) || objLuotkham.TrangthaiNoitru == 6)
                 {
                     Utility.ShowMsg("Bệnh nhân đã được thanh toán nội trú nên bạn không thể hủy các dịch vụ của Bệnh nhân");
-                    return ;
+                    return;
                 }
 
                 string ctrlName = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl.Name;
@@ -250,6 +251,7 @@ namespace VNS.HIS.UI.NOITRU
                         grdAssignDetail.CurrentRow.BeginEdit();
                         grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrangthaiHuy].Value = 1;
                         grdAssignDetail.CurrentRow.EndEdit();
+                        _grd = grdAssignDetail;
                     }
                     else if (ctrlName == grdPresDetail.Name)
                     {
@@ -271,6 +273,7 @@ namespace VNS.HIS.UI.NOITRU
                         grdPresDetail.CurrentRow.BeginEdit();
                         grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.TrangthaiHuy].Value = 1;
                         grdPresDetail.CurrentRow.EndEdit();
+                        _grd = grdPresDetail;
                     }
                     else//VTTH
                     {
@@ -292,6 +295,7 @@ namespace VNS.HIS.UI.NOITRU
                         grdPresDetail.CurrentRow.BeginEdit();
                         grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.TrangthaiHuy].Value = 1;
                         grdPresDetail.CurrentRow.EndEdit();
+                        _grd = grdPresDetail;
                     }
                 }
                 else//Sử dụng lại
@@ -311,6 +315,7 @@ namespace VNS.HIS.UI.NOITRU
                         grdAssignDetail.CurrentRow.BeginEdit();
                         grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TrangthaiHuy].Value = 0;
                         grdAssignDetail.CurrentRow.EndEdit();
+                        _grd = grdAssignDetail;
                     }
                     else if (ctrlName == grdPresDetail.Name)
                     {
@@ -327,13 +332,14 @@ namespace VNS.HIS.UI.NOITRU
                         grdPresDetail.CurrentRow.BeginEdit();
                         grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.TrangthaiHuy].Value = 0;
                         grdPresDetail.CurrentRow.EndEdit();
+                        _grd = grdPresDetail;
                     }
                     else//VTTH
                     {
                         long Id = Utility.Int64Dbnull(Utility.GetValueFromGridColumn(grdVTTH, KcbDonthuocChitiet.Columns.IdChitietdonthuoc), -1);
                         int TrangThai = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdVTTH, KcbDonthuocChitiet.Columns.TrangThai, "0"), 0);
                         int TrangthaiThanhtoan = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdVTTH, KcbDonthuocChitiet.Columns.TrangthaiThanhtoan, "0"), 0);
-                       
+
                         if (TrangthaiThanhtoan > 0)//Đã thanh toán
                         {
                             Utility.ShowMsg("Vật tư bạn đang chọn đã thanh toán nên không cho phép sử dụng lại. Đề nghị bạn kiểm tra lại");
@@ -344,6 +350,7 @@ namespace VNS.HIS.UI.NOITRU
                         grdVTTH.CurrentRow.BeginEdit();
                         grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.TrangthaiHuy].Value = 0;
                         grdVTTH.CurrentRow.EndEdit();
+                        _grd = grdVTTH;
                     }
                 }
 
@@ -352,6 +359,10 @@ namespace VNS.HIS.UI.NOITRU
             {
 
 
+            }
+            finally
+            {
+                ChangeMenu(_grd.CurrentRow);
             }
         }
 
@@ -647,6 +658,7 @@ namespace VNS.HIS.UI.NOITRU
 
 
             }
+            
         }
 
         void lnkViewAll_Click(object sender, EventArgs e)
@@ -766,8 +778,9 @@ namespace VNS.HIS.UI.NOITRU
             _Phieuravien.objLuotkham = this.objLuotkham;
             _Phieuravien.AutoLoad = true;
             _Phieuravien.ShowDialog();
-            if (_Phieuravien.objLuotkham != null)
+            if (!_Phieuravien.mv_blnCancel && _Phieuravien.objLuotkham != null)
             {
+                this.objLuotkham = Utility.getKcbLuotkham(this.objLuotkham);
                 cmdXacnhan.Enabled = Khoanoitrutonghop ||( _Phieuravien.objLuotkham.TrangthaiNoitru >= 3 && _Phieuravien.objLuotkham.TrangthaiNoitru <= 4);
             }
             //Tính toán lại thông tin buồng giường cuối cùng
@@ -1721,6 +1734,7 @@ namespace VNS.HIS.UI.NOITRU
 
                     if (objLuotkham!=null)
                     {
+                        cmdInphoiBHYT.Visible = THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb);
                         AllowTextChanged = false;
                         GetData();
                         txtPatient_Code.SelectAll();
