@@ -467,11 +467,19 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                         objThuocCt.IdDonthuoc = Utility.Int32Dbnull(objCapphatDetail.IdThuoc);
                         objThuocCt.IsNew = true;
                         objThuocCt.Save();
-                        
+                        if (THUOC_NOITRU_XACNHANDALINH_KHIXACNHANDONTHUOC == "1")
+                        {
+                            objCapphatDetail.ThucLinh = objCapphatDetail.SoLuong;
+                            objCapphatDetail.IsNew = false;
+                            objCapphatDetail.MarkOld();
+                            objCapphatDetail.Save();
+                        }
                     }
                     byte DA_LINH = (byte)(THUOC_NOITRU_XACNHANDALINH_KHIXACNHANDONTHUOC == "1" ? 1 : 0);
+
                     new Update(TPhieuCapphatChitiet.Schema)
                         .Set(TPhieuCapphatChitiet.Columns.DaLinh).EqualTo(DA_LINH)
+                        
                         .Set(TPhieuCapphatChitiet.Columns.IdPhieuxuatthuocBenhnhan).EqualTo(objXuatBnhan.IdPhieu)
                         .Where(TPhieuCapphatChitiet.Columns.IdCapphat).IsEqualTo(objXuatBnhan.IdCapphat).Execute();
                     sqlQuery = new Select().From(KcbDonthuocChitiet.Schema)
@@ -897,6 +905,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                 TPhieuXuatthuocBenhnhanChitiet objXuatBnhanCt = new TPhieuXuatthuocBenhnhanChitiet();
                 objXuatBnhanCt.IdPhieu = Utility.Int32Dbnull(objPhieuXuatBnhan.IdPhieu);
                 objXuatBnhanCt.SoLuong = iSoLuonTru;
+                
                 objXuatBnhanCt.ChiDan = objDetail.MotaThem;
                 objXuatBnhanCt.IdThuoc = Utility.Int32Dbnull(objDetail.IdThuoc);
                 objXuatBnhanCt.NgayHethan = objDetail.NgayHethan;// objTThuockho.NgayHethan.Date;
