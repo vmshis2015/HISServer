@@ -1,6 +1,6 @@
 ﻿namespace VNS.HIS.UI.BaoCao.Form_BaoCao
 {
-    partial class frm_baocao_nhapxuaton_theoquy
+    partial class frm_baocao_nhapxuaton_theokhoanoitru
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_baocao_nhapxuaton_theoquy));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_baocao_nhapxuaton_theokhoanoitru));
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
@@ -71,13 +71,13 @@
             this.chkBiendong = new Janus.Windows.EditControls.UICheckBox();
             this.chkTheoNhomThuoc = new Janus.Windows.EditControls.UICheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.cboKho = new Janus.Windows.EditControls.UIComboBox();
             this.dtToDate = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.dtFromDate = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.cmdExportToExcel = new Janus.Windows.EditControls.UIButton();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.gridEXExporter1 = new Janus.Windows.GridEX.Export.GridEXExporter(this.components);
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
+            this.txtKhoanoitru = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
@@ -100,7 +100,7 @@
             this.baocaO_TIEUDE1.BackColor = System.Drawing.SystemColors.Control;
             this.baocaO_TIEUDE1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.baocaO_TIEUDE1.Location = new System.Drawing.Point(0, 0);
-            this.baocaO_TIEUDE1.MA_BAOCAO = "THUOC_BC_NHAPXUATTON";
+            this.baocaO_TIEUDE1.MA_BAOCAO = "THUOC_BC_NHAPXUATTON_THEOKHOA";
             this.baocaO_TIEUDE1.Name = "baocaO_TIEUDE1";
             this.baocaO_TIEUDE1.Phimtat = "Bạn có thể sử dụng phím tắt";
             this.baocaO_TIEUDE1.PicImg = ((System.Drawing.Image)(resources.GetObject("baocaO_TIEUDE1.PicImg")));
@@ -109,7 +109,7 @@
             this.baocaO_TIEUDE1.showHelp = false;
             this.baocaO_TIEUDE1.Size = new System.Drawing.Size(784, 41);
             this.baocaO_TIEUDE1.TabIndex = 1;
-            this.baocaO_TIEUDE1.TIEUDE = "BÁO CÁO NHẬP XUẤT TỒN";
+            this.baocaO_TIEUDE1.TIEUDE = "BÁO CÁO NHẬP XUẤT TỒN THEO KHOA";
             this.baocaO_TIEUDE1.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 
             // label1
@@ -170,6 +170,7 @@
             this.uiGroupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.uiGroupBox1.Controls.Add(this.txtKhoanoitru);
             this.uiGroupBox1.Controls.Add(this.label2);
             this.uiGroupBox1.Controls.Add(this.optNgay);
             this.uiGroupBox1.Controls.Add(this.dtpNam);
@@ -186,7 +187,6 @@
             this.uiGroupBox1.Controls.Add(this.chkBiendong);
             this.uiGroupBox1.Controls.Add(this.chkTheoNhomThuoc);
             this.uiGroupBox1.Controls.Add(this.label3);
-            this.uiGroupBox1.Controls.Add(this.cboKho);
             this.uiGroupBox1.Controls.Add(this.dtToDate);
             this.uiGroupBox1.Controls.Add(this.dtFromDate);
             this.uiGroupBox1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -514,7 +514,7 @@
             this.chkTheoNhomThuoc.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkTheoNhomThuoc.Location = new System.Drawing.Point(365, 175);
             this.chkTheoNhomThuoc.Name = "chkTheoNhomThuoc";
-            this.chkTheoNhomThuoc.Size = new System.Drawing.Size(194, 23);
+            this.chkTheoNhomThuoc.Size = new System.Drawing.Size(211, 23);
             this.chkTheoNhomThuoc.TabIndex = 7;
             this.chkTheoNhomThuoc.Text = "Báo cáo theo loại thuốc?";
             // 
@@ -525,17 +525,8 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(126, 23);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Chọn kho";
+            this.label3.Text = "Khoa nội trú:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cboKho
-            // 
-            this.cboKho.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboKho.Location = new System.Drawing.Point(139, 27);
-            this.cboKho.Name = "cboKho";
-            this.cboKho.Size = new System.Drawing.Size(371, 21);
-            this.cboKho.TabIndex = 0;
-            this.cboKho.Text = "Kho";
             // 
             // dtToDate
             // 
@@ -591,7 +582,48 @@
             // 
             this.printDialog1.UseEXDialog = true;
             // 
-            // frm_baocao_nhapxuaton_theoquy
+            // txtKhoanoitru
+            // 
+            this.txtKhoanoitru._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtKhoanoitru._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKhoanoitru._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtKhoanoitru.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtKhoanoitru.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKhoanoitru.AutoCompleteList")));
+            this.txtKhoanoitru.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtKhoanoitru.CaseSensitive = false;
+            this.txtKhoanoitru.CompareNoID = true;
+            this.txtKhoanoitru.DefaultCode = "-1";
+            this.txtKhoanoitru.DefaultID = "-1";
+            this.txtKhoanoitru.Drug_ID = null;
+            this.txtKhoanoitru.ExtraWidth = 0;
+            this.txtKhoanoitru.FillValueAfterSelect = false;
+            this.txtKhoanoitru.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKhoanoitru.Location = new System.Drawing.Point(140, 29);
+            this.txtKhoanoitru.MaxHeight = 289;
+            this.txtKhoanoitru.MinTypedCharacters = 2;
+            this.txtKhoanoitru.MyCode = "-1";
+            this.txtKhoanoitru.MyID = "-1";
+            this.txtKhoanoitru.MyText = "";
+            this.txtKhoanoitru.Name = "txtKhoanoitru";
+            this.txtKhoanoitru.RaiseEvent = true;
+            this.txtKhoanoitru.RaiseEventEnter = true;
+            this.txtKhoanoitru.RaiseEventEnterWhenEmpty = true;
+            this.txtKhoanoitru.SelectedIndex = -1;
+            this.txtKhoanoitru.Size = new System.Drawing.Size(581, 21);
+            this.txtKhoanoitru.splitChar = '@';
+            this.txtKhoanoitru.splitCharIDAndCode = '#';
+            this.txtKhoanoitru.TabIndex = 50;
+            this.txtKhoanoitru.TakeCode = false;
+            this.txtKhoanoitru.txtMyCode = null;
+            this.txtKhoanoitru.txtMyCode_Edit = null;
+            this.txtKhoanoitru.txtMyID = null;
+            this.txtKhoanoitru.txtMyID_Edit = null;
+            this.txtKhoanoitru.txtMyName = null;
+            this.txtKhoanoitru.txtMyName_Edit = null;
+            this.txtKhoanoitru.txtNext = null;
+            // 
+            // frm_baocao_nhapxuaton_theokhoanoitru
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(784, 562);
@@ -605,11 +637,11 @@
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frm_baocao_nhapxuaton_theoquy";
+            this.Name = "frm_baocao_nhapxuaton_theokhoanoitru";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BÁO CÁO NHẬP XUẤT TỒN";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frm_baocao_nhapxuaton_theoquy_KeyDown_1);
+            this.Text = "BÁO CÁO NHẬP XUẤT TỒN THEO KHOA";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frm_baocao_nhapxuaton_theokhoanoitru_KeyDown_1);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).EndInit();
             this.uiGroupBox1.ResumeLayout(false);
@@ -631,7 +663,6 @@
         private Janus.Windows.EditControls.UIGroupBox uiGroupBox1;
         private Janus.Windows.GridEX.GridEX grdList;
         private System.Windows.Forms.Label label3;
-        private Janus.Windows.EditControls.UIComboBox cboKho;
         private Janus.Windows.CalendarCombo.CalendarCombo dtToDate;
         private Janus.Windows.CalendarCombo.CalendarCombo dtFromDate;
         private Janus.Windows.EditControls.UICheckBox chkTheoNhomThuoc;
@@ -654,5 +685,6 @@
         private System.Windows.Forms.RadioButton optThang;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton optNgay;
+        private UCs.AutoCompleteTextbox txtKhoanoitru;
     }
 }
