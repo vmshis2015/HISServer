@@ -368,12 +368,12 @@ namespace VNS.HIS.UCs
 
         }
         DataTable m_dtDanhmucChung = null;
-     
+        string defaultItem = "";
         public void Init()
         {
             try
             {
-                string defaultItem = "";
+                
                 m_dtDanhmucChung = LayDulieuDanhmucChung(new List<string>() { LOAI_DANHMUC });
                 if (m_dtDanhmucChung == null || m_dtDanhmucChung.Columns.Count <= 0) return;
              if (!m_dtDanhmucChung.Columns.Contains("ShortCut")) m_dtDanhmucChung.Columns.Add(new DataColumn("ShortCut", typeof(string)));
@@ -420,6 +420,10 @@ namespace VNS.HIS.UCs
             {
                 Utility.ShowMsg("Lỗi khi tạo Autocomplete cho danh mục dùng chung\n" + ex.Message);
             }
+        }
+        public void SetDefaultItem()
+        {
+            SetCode(defaultItem);
         }
         public void Init(DataTable dtData)
         {

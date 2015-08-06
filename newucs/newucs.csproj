@@ -99,6 +99,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Running\Janus.Windows.UI.v3.dll</HintPath>
     </Reference>
+    <Reference Include="RicherTextBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\RicherTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="SubSonic, Version=2.2.0.0, Culture=neutral, PublicKeyToken=eadb47849839a332, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -276,7 +280,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\newdal\newdal.csproj">
+    <ProjectReference Include="..\newdal\newdal.csproj">
       <Project>{cd0be8e8-b7d8-41ca-95f7-ea03675cfe0d}</Project>
       <Name>newdal</Name>
     </ProjectReference>
