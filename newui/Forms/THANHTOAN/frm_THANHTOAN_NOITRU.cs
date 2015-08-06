@@ -24,6 +24,7 @@ using VNS.HIS.BusRule.Classes;
 using CrystalDecisions.CrystalReports.Engine;
 using VNS.HIS.UI.Forms.NGOAITRU;
 using VNS.HIS.UI.HOADONDO;
+using VNS.HIS.UI.Forms.Cauhinh;
 
 namespace  VNS.HIS.UI.THANHTOAN
 {
@@ -918,7 +919,7 @@ namespace  VNS.HIS.UI.THANHTOAN
               DataTable  m_dtThongTin = _THANHTOAN.LaythongtinBenhnhan(txtPatient_Code.Text,
                     Utility.Int32Dbnull(txtPatient_ID.Text, -1));
                 gridExRow = grdList.GetRow();
-                if (!Utility.isValidGrid(grdList) )
+                if (!Utility.isValidGrid(grdList))
                 {
                     return;
                 }
@@ -984,6 +985,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         .And(NoitruTamung.Columns.KieuTamung).IsEqualTo(1)//Hoàn ứng. Có thể kiểm tra bằng trường trạng thái=1
                         .ExecuteSingle<NoitruTamung>();
                     //}
+                    ucTamung1.ChangePatients(objLuotkham);
                     cmdHoanung.Text=objTamung==null?"Hoàn ứng":"Hủy hoàn ứng";
                     cmdHoanung.Tag = objTamung == null ? "0" : "1";
                     KiemTraDaInPhoiBHYT();
@@ -1314,6 +1316,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 decimal Chietkhauchitiet = query1.Sum(c => Utility.DecimaltoDbnull(c.Cells["tien_chietkhau"].Value));
                 txtSoTienCanNop.Text = Utility.sDbnull(thanhtien - Chietkhauchitiet);
                 txtTienChietkhau.Text = Utility.sDbnull( Chietkhauchitiet);
+
                 ModifyCommand();
             }
             catch (Exception)
@@ -1862,7 +1865,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 Utility.ShowMsg("Bệnh nhân chưa được Khoa nội trú tổng hợp xuất viện nên không được phép thanh toán");
                 return false;
             }
-            if (Utility.Int32Dbnull(objLuotkham.TrangthaiNoitru, -1) == 4)
+            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_TAICHINH_DUYET_TRUOCKHITHANHTOAN", "0", true) == "1" && Utility.Int32Dbnull(objLuotkham.TrangthaiNoitru, -1) == 4)
             {
                 Utility.ShowMsg("Bệnh nhân chưa được duyệt thanh toán nội trú nên không thể thanh toán. Đề nghị bạn kiểm tra lại");
                 return false;
@@ -2027,6 +2030,11 @@ namespace  VNS.HIS.UI.THANHTOAN
                     }
                     else
                     {
+                        if (PropertyLib._ThanhtoanProperties.Hoitruockhihuythanhtoan)
+                            if (!Utility.AcceptQuestion(string.Format("Bạn có muốn hủy lần thanh toán với Mã thanh toán {0}", objPayment.IdThanhtoan.ToString()), "Thông báo", true))
+                            {
+                                return;
+                            }
                         if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_BATNHAPLYDO_HUYTHANHTOAN", "1", false) == "1")
                         {
                             frm_Chondanhmucdungchung _Nhaplydohuythanhtoan = new frm_Chondanhmucdungchung("LYDOHUYTHANHTOAN", "Hủy thanh toán tiền Bệnh nhân", "Nhập lý do hủy thanh toán trước khi thực hiện...", "Lý do hủy thanh toán");
@@ -2250,6 +2258,11 @@ namespace  VNS.HIS.UI.THANHTOAN
                 txtMaLanKham.Select();
                 cmdSearch.PerformClick();
             }
+            //if (e.KeyCode == Keys.Enter)
+            //{
+            //    ProcessTabKey(true);
+            //    return;
+            //}
             if (e.KeyCode == Keys.F5) getData();
             if (e.KeyCode == Keys.F4) cmdInphoiBHYT.PerformClick();
             if (e.KeyCode == Keys.T && e.Control) cmdThanhToan.PerformClick();
@@ -2535,7 +2548,10 @@ namespace  VNS.HIS.UI.THANHTOAN
                 }
                 if (!string.IsNullOrEmpty(txtMaLanKham.Text))
                 {
+                    bool byDate = chkCreateDate.Checked;
+                    chkCreateDate.Checked = false;
                     cmdSearch_Click(cmdSearch, new EventArgs());
+                    chkCreateDate.Checked = byDate;
                     if (grdList.RowCount == 1)
                     {
                         grdList.MoveFirst();
@@ -2615,7 +2631,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 v_Payment_ID = Utility.Int32Dbnull(grdPayment.GetValue(KcbThanhtoan.Columns.IdThanhtoan), -1);
                 DataTable dtPatientPayment = _THANHTOAN.Laythongtinhoadondo(v_Payment_ID);
                  string tieude="", reportname = "";
-                var report = Utility.GetReport("thanhtoan_RedInvoice",ref tieude,ref reportname);
+                ReportDocument report = Utility.GetReport("thanhtoan_RedInvoice",ref tieude,ref reportname);
                 if (report == null) return;
                 if (printDialog1.ShowDialog() == DialogResult.OK)
                 {
@@ -2700,7 +2716,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         new MoneyByLetter().sMoneyToLetter(Utility.sDbnull(dtPatientPayment.Rows[0]["TONG_TIEN"]));
                     int lengh = txtSerieDau.Text.Length;
                     string tieude="", reportname = "";
-                    var report = Utility.GetReport("thanhtoan_Hoadondo",ref tieude,ref reportname);
+                    ReportDocument report = Utility.GetReport("thanhtoan_Hoadondo",ref tieude,ref reportname);
                     if (report == null) return;
                     frmPrintPreview objForm = new frmPrintPreview("", report, true, true);
                     objForm.mv_sReportFileName = Path.GetFileName(reportname);

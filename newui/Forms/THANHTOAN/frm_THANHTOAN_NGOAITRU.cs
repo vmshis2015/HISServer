@@ -25,6 +25,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using VNS.HIS.UI.Forms.NGOAITRU;
 using VNS.HIS.UI.HOADONDO;
 using VNS.HIS.UI.DANHMUC;
+using VNS.HIS.UI.Forms.Cauhinh;
 
 namespace  VNS.HIS.UI.THANHTOAN
 {
@@ -171,7 +172,16 @@ namespace  VNS.HIS.UI.THANHTOAN
             mnuCapnhatPTTT.Click += mnuCapnhatPTTT_Click;
             txtPttt._OnShowData += txtPttt__OnShowData;
             cmdChiphithem.Click += cmdChiphithem_Click;
+            mnuPhanbotientheoPTTT.Click += mnuPhanbotientheoPTTT_Click;
             
+        }
+
+        void mnuPhanbotientheoPTTT_Click(object sender, EventArgs e)
+        {
+            if (!Utility.isValidGrid(grdPayment)) return;
+            v_Payment_ID = Utility.Int32Dbnull(grdPayment.CurrentRow.Cells[KcbThanhtoan.Columns.IdThanhtoan].Value, -1);
+            frm_PhanbotientheoPTTT _PhanbotientheoPTTT = new frm_PhanbotientheoPTTT(v_Payment_ID);
+            _PhanbotientheoPTTT.ShowDialog();
         }
 
         void cmdChiphithem_Click(object sender, EventArgs e)
@@ -1878,7 +1888,7 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             if (globalVariables.SysDate.Date != InputDate.Date)
             {
-                var frm = new frm_ChonngayThanhtoan();
+                frm_ChonngayThanhtoan frm = new frm_ChonngayThanhtoan();
                 frm.pdt_InputDate = dtInput_Date.Value;
                 frm.ShowDialog();
                 if (frm.b_Cancel)
@@ -1904,6 +1914,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             objPayment.TrangthaiIn = 0;
             objPayment.NgayIn = null;
             objPayment.NguoiIn = string.Empty;
+            objPayment.MaPttt = txtPttt.myCode;
             objPayment.NgayTonghop = null;
             objPayment.NguoiTonghop = string.Empty;
             objPayment.NgayChot = null;
@@ -2740,7 +2751,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 v_Payment_ID = Utility.Int32Dbnull(grdPayment.GetValue(KcbThanhtoan.Columns.IdThanhtoan), -1);
                 DataTable dtPatientPayment = _THANHTOAN.Laythongtinhoadondo(v_Payment_ID);
                  string tieude="", reportname = "";
-                var report = Utility.GetReport("thanhtoan_RedInvoice",ref tieude,ref reportname);
+                ReportDocument report = Utility.GetReport("thanhtoan_RedInvoice",ref tieude,ref reportname);
                 if (report == null) return;
                 if (printDialog1.ShowDialog() == DialogResult.OK)
                 {
@@ -2825,7 +2836,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         new MoneyByLetter().sMoneyToLetter(Utility.sDbnull(dtPatientPayment.Rows[0]["TONG_TIEN"]));
                     int lengh = txtSerieDau.Text.Length;
                     string tieude="", reportname = "";
-                    var report = Utility.GetReport("thanhtoan_Hoadondo",ref tieude,ref reportname);
+                    ReportDocument report = Utility.GetReport("thanhtoan_Hoadondo",ref tieude,ref reportname);
                     if (report == null) return;
                     frmPrintPreview objForm = new frmPrintPreview("", report, true, true);
                     objForm.mv_sReportFileName = Path.GetFileName(reportname);

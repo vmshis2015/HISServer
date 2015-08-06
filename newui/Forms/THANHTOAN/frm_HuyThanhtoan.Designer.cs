@@ -310,8 +310,8 @@
             // 
             // pnlActions
             // 
-            this.pnlActions.Controls.Add(this.pnlInhoadon);
             this.pnlActions.Controls.Add(this.pnlHuyThanhtoan);
+            this.pnlActions.Controls.Add(this.pnlInhoadon);
             this.pnlActions.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlActions.Location = new System.Drawing.Point(0, 174);
             this.pnlActions.Name = "pnlActions";
@@ -320,8 +320,8 @@
             // 
             // pnlInhoadon
             // 
-            this.pnlInhoadon.Controls.Add(this.txtSoTienCanNop);
             this.pnlInhoadon.Controls.Add(this.flowLayoutPanel1);
+            this.pnlInhoadon.Controls.Add(this.txtSoTienCanNop);
             this.pnlInhoadon.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlInhoadon.Location = new System.Drawing.Point(0, 0);
             this.pnlInhoadon.Name = "pnlInhoadon";

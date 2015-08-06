@@ -16,6 +16,7 @@ using VNS.HIS.UI.Forms.NGOAITRU;
 using Janus.Windows.GridEX;
 using Janus.Windows.GridEX.EditControls;
 using VNS.HIS.Classes;
+using VNS.HIS.UI.Forms.Cauhinh;
 namespace VNS.HIS.UI.THANHTOAN
 {
     public partial class frm_HuyThanhtoan_Quaythuoc : Form

@@ -229,6 +229,7 @@
             this.txtCanhbao = new Janus.Windows.GridEX.EditControls.EditBox();
             this.vbLine2 = new VNS.UCs.VBLine();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.mnuPhanbotientheoPTTT = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxBienlai.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -470,10 +471,11 @@
             this.serperator1,
             this.mnuLayhoadondo,
             this.serperator2,
-            this.mnuCapnhatPTTT});
+            this.mnuCapnhatPTTT,
+            this.mnuPhanbotientheoPTTT});
             this.ctxBienlai.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.ctxBienlai.Name = "contextMenuStrip1";
-            this.ctxBienlai.Size = new System.Drawing.Size(320, 126);
+            this.ctxBienlai.Size = new System.Drawing.Size(320, 170);
             // 
             // mnuSuaSoBienLai
             // 
@@ -2696,6 +2698,12 @@
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp nhanh:";
             // 
+            // mnuPhanbotientheoPTTT
+            // 
+            this.mnuPhanbotientheoPTTT.Name = "mnuPhanbotientheoPTTT";
+            this.mnuPhanbotientheoPTTT.Size = new System.Drawing.Size(319, 22);
+            this.mnuPhanbotientheoPTTT.Text = "Phân bổ tiền theo Phương thức thanh toán";
+            // 
             // frm_THANHTOAN_NGOAITRU
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -2944,5 +2952,6 @@
         private System.Windows.Forms.Label label7;
         private UCs.AutoCompleteTextbox_Danhmucchung txtPttt;
         private Janus.Windows.EditControls.UIButton cmdChiphithem;
+        private System.Windows.Forms.ToolStripMenuItem mnuPhanbotientheoPTTT;
     }
 }
