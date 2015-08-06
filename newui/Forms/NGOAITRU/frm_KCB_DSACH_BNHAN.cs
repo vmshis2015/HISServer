@@ -20,6 +20,7 @@ using VNS.HIS.Classes;
 using VNS.HIS.UI.Baocao;
 using VNS.HIS.UI.THANHTOAN;
 using VNS.HIS.UI.Forms.NGOAITRU;
+using VNS.HIS.UI.Forms.Cauhinh;
 namespace VNS.HIS.UI.NGOAITRU
 {
     public partial class frm_KCB_DSACH_BNHAN : Form
@@ -834,7 +835,7 @@ namespace VNS.HIS.UI.NGOAITRU
         KCB_DANGKY _KCB_DANGKY = new KCB_DANGKY();
         void ProcessData()
         {
-            int v_RegId = -1;
+            long v_RegId = -1;
             if (objLuotkham == null) objLuotkham = CreatePatientExam();
             if(objLuotkham!=null)
             {
@@ -1538,7 +1539,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 objPayment.NguoiTao = globalVariables.UserName;
                 objPayment.IpMaytao = globalVariables.gv_strIPAddress;
                 objPayment.TenMaytao = globalVariables.gv_strComputerName;
-
+                objPayment.MaPttt = "TM";
             }
             return objPayment;
         }

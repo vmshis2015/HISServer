@@ -2117,6 +2117,8 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
+
+                Utility.SetMsg(lblMsg, "", false);
                 if(!Utility.isValidGrid(grdList))
                 {
                     return;
@@ -2236,8 +2238,6 @@ namespace VNS.HIS.UI.NGOAITRU
                                                            Utility.GetSelectedIndex(cboDoctorAssign,
                                                                                     Utility.sDbnull(
                                                                                         objkcbdangky.IdBacsikham, -1));
-
-                                       
                                     }
                                     catch (Exception)
                                     {
@@ -4932,7 +4932,7 @@ namespace VNS.HIS.UI.NGOAITRU
             Utility.UpdateLogotoDatatable(ref v_dtData);
             string KhoGiay = "A5";
             if (PropertyLib._MayInProperties.CoGiayInDonthuoc == Papersize.A4) KhoGiay = "A4";
-            var reportDocument = new ReportDocument();
+            ReportDocument reportDocument = new ReportDocument();
              string tieude="", reportname = "",reportCode="";
             switch (KhoGiay)
             {

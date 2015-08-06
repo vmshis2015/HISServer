@@ -1767,7 +1767,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 DonGia = Utility.DecimaltoDbnull(drv[KcbDonthuocChitiet.Columns.DonGia], 0),
                 PhuThu = new decimal?(Utility.Int16Dbnull(drv[KcbDonthuocChitiet.Columns.PhuThu], 0)),
                 PhuthuDungtuyen = new decimal?(Utility.Int16Dbnull(drv[KcbDonthuocChitiet.Columns.PhuthuDungtuyen], 0)),
-                PhuthuTraituyen = new decimal?(Utility.Int16Dbnull(drv[KcbDonthuocChitiet.Columns.PhuthuDungtuyen], 0)),
+                PhuthuTraituyen = new decimal?(Utility.Int16Dbnull(drv[KcbDonthuocChitiet.Columns.PhuthuTraituyen], 0)),
                 MotaThem = Utility.sDbnull(drv[KcbDonthuocChitiet.Columns.MotaThem], ""),
                 TrangthaiBhyt = Utility.ByteDbnull(drv[KcbDonthuocChitiet.Columns.TuTuc], 0),
                 TrangThai = 0,
