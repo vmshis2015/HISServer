@@ -550,7 +550,7 @@ namespace VNS.HIS.BusRule.Classes
                         {
                             if (THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_TUDONGHOANUNG_KHITHANHTOANNOITRU", "0", false) == "1")
                             {
-                                SPs.NoitruHoanung(objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, objThanhtoan.NgayThanhtoan, globalVariables.gv_intIDNhanvien,globalVariables.UserName, (int)objLuotkham.IdKhoanoitru, (long)objLuotkham.IdRavien, (int)objLuotkham.IdBuong, (int)objLuotkham.IdGiuong).Execute();
+                                SPs.NoitruHoanung(objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, objThanhtoan.NgayThanhtoan, globalVariables.gv_intIDNhanvien, globalVariables.UserName, (int)objLuotkham.IdKhoanoitru, (long)objLuotkham.IdRavien, (int)objLuotkham.IdBuong, (int)objLuotkham.IdGiuong).Execute();
                             }
                         }
                         ///Tính tổng tiền đồng chi trả
@@ -559,13 +559,13 @@ namespace VNS.HIS.BusRule.Classes
                             new KcbThanhtoanController()
                             .FetchByQuery(
                                 KcbThanhtoan.CreateQuery()
-                                .AddWhere(KcbThanhtoan.Columns.MaLuotkham, Comparison.Equals,objLuotkham.MaLuotkham)
-                                .AND(KcbThanhtoan.Columns.IdBenhnhan, Comparison.Equals,objLuotkham.IdBenhnhan)
+                                .AddWhere(KcbThanhtoan.Columns.MaLuotkham, Comparison.Equals, objLuotkham.MaLuotkham)
+                                .AND(KcbThanhtoan.Columns.IdBenhnhan, Comparison.Equals, objLuotkham.IdBenhnhan)
                                 .AND(KcbThanhtoan.Columns.KieuThanhtoan, Comparison.Equals, objThanhtoan.KieuThanhtoan)
                                 .AND(KcbThanhtoan.Columns.TrangThai, Comparison.Equals, 0));//Chỉ lấy về các bản ghi thanh toán thường(0= thường;1= thanh toán hủy(trả lại tiền))
                         //Lấy tổng tiền của các lần thanh toán trước
                         List<KcbThanhtoanChitiet> lstKcbThanhtoanChitiet = new List<KcbThanhtoanChitiet>();
-                        
+
                         foreach (KcbThanhtoan Payment in paymentCollection)
                         {
                             KcbThanhtoanChitietCollection paymentDetailCollection = new Select().From(KcbThanhtoanChitiet.Schema)
@@ -588,7 +588,7 @@ namespace VNS.HIS.BusRule.Classes
                             }
                         }
                         List<int> lstIdThanhtoan = (from q in lstKcbThanhtoanChitiet
-                                                     select q.IdThanhtoan).ToList<int>();
+                                                    select q.IdThanhtoan).ToList<int>();
                         //Tính toán lại phần trăm BHYT chủ yếu liên quan đến phần lương cơ bản. 
                         //Phần trăm này có thể bị biến đổi và khác với % trong các bảng dịch vụ
                         LayThongtinPtramBHYT(v_dblTongtienDCT + v_TotalPaymentDetail, objLuotkham, ref PtramBHYT);
@@ -597,57 +597,57 @@ namespace VNS.HIS.BusRule.Classes
                         objThanhtoan.IdLoaidoituongKcb = objLuotkham.IdLoaidoituongKcb;
                         objThanhtoan.IsNew = true;
                         objThanhtoan.Save();
-                       //Tính lại Bnhan chi trả và BHYT chi trả
-                         THU_VIEN_CHUNG.TinhPhamTramBHYT(objLuotkham, ref objArrPaymentDetail, ref lstKcbThanhtoanChitiet,PtramBHYT);
-                         decimal TT_BN = 0m;
-                         decimal TT_BHYT = 0m;
-                         decimal TT_Chietkhau_Chitiet = 0m;
+                        //Tính lại Bnhan chi trả và BHYT chi trả
+                        THU_VIEN_CHUNG.TinhPhamTramBHYT(objLuotkham, ref objArrPaymentDetail, ref lstKcbThanhtoanChitiet, PtramBHYT);
+                        decimal TT_BN = 0m;
+                        decimal TT_BHYT = 0m;
+                        decimal TT_Chietkhau_Chitiet = 0m;
 
-                         if (THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_TINHLAI_TOANBODICHVU", "1", false) == "1")
-                         {
-                             foreach (int IdThanhtoan in lstIdThanhtoan)
-                             {
-                                 TT_BN = 0m;
-                                 TT_BHYT = 0m;
-                                 TT_Chietkhau_Chitiet = 0m;
-                                 List<KcbThanhtoanChitiet> _LstChitiet = (from q in lstKcbThanhtoanChitiet
-                                                                          select q).ToList<KcbThanhtoanChitiet>();
+                        if (THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_TINHLAI_TOANBODICHVU", "1", false) == "1")
+                        {
+                            foreach (int IdThanhtoan in lstIdThanhtoan)
+                            {
+                                TT_BN = 0m;
+                                TT_BHYT = 0m;
+                                TT_Chietkhau_Chitiet = 0m;
+                                List<KcbThanhtoanChitiet> _LstChitiet = (from q in lstKcbThanhtoanChitiet
+                                                                         select q).ToList<KcbThanhtoanChitiet>();
 
-                                 if (_LstChitiet.Count > 0)
-                                 {
-                                     foreach (KcbThanhtoanChitiet objThanhtoanDetail in _LstChitiet)
-                                     {
-                                         TT_BN += (objThanhtoanDetail.BnhanChitra + objThanhtoanDetail.PhuThu) * objThanhtoanDetail.SoLuong;
-                                         if (!Utility.Byte2Bool(objThanhtoanDetail.TuTuc))
-                                             TT_BHYT += objThanhtoanDetail.BhytChitra * objThanhtoanDetail.SoLuong;
-                                         TT_Chietkhau_Chitiet += Utility.DecimaltoDbnull(objThanhtoanDetail.TienChietkhau, 0);
-                                         objThanhtoanDetail.IsNew = false;
-                                         objThanhtoanDetail.MarkOld();
-                                         objThanhtoanDetail.Save();
-                                     }
-                                     //Update lại tiền thanh toán
-                                     new Update(KcbThanhtoan.Schema)
-                       .Set(KcbThanhtoan.Columns.TongTien).EqualTo(TT_BHYT + TT_BN)
-                       .Set(KcbThanhtoan.Columns.BnhanChitra).EqualTo(TT_BN)
-                       .Set(KcbThanhtoan.Columns.BhytChitra).EqualTo(TT_BHYT)
-                       .Set(KcbThanhtoan.Columns.MaDoituongKcb).EqualTo(objLuotkham.MaDoituongKcb)
-                       .Set(KcbThanhtoan.Columns.IdDoituongKcb).EqualTo(objLuotkham.IdDoituongKcb)
-                       .Set(KcbThanhtoan.Columns.PtramBhyt).EqualTo(objLuotkham.PtramBhyt)
-                       .Set(KcbThanhtoan.Columns.IdHdonLog).EqualTo(IdHdonLog)
-                       .Where(KcbThanhtoan.Columns.IdThanhtoan).IsEqualTo(IdThanhtoan).Execute();
-                                     //Update phiếu thu
-                                     new Update(KcbPhieuthu.Schema)
-                      .Set(KcbPhieuthu.Columns.SoTien).EqualTo(TT_BN - TT_Chietkhau_Chitiet)
-                      .Set(KcbPhieuthu.Columns.SotienGoc).EqualTo(TT_BN)
-                      .Where(KcbPhieuthu.Columns.IdThanhtoan).IsEqualTo(IdThanhtoan).Execute();
-                                 }
+                                if (_LstChitiet.Count > 0)
+                                {
+                                    foreach (KcbThanhtoanChitiet objThanhtoanDetail in _LstChitiet)
+                                    {
+                                        TT_BN += (objThanhtoanDetail.BnhanChitra + objThanhtoanDetail.PhuThu) * objThanhtoanDetail.SoLuong;
+                                        if (!Utility.Byte2Bool(objThanhtoanDetail.TuTuc))
+                                            TT_BHYT += objThanhtoanDetail.BhytChitra * objThanhtoanDetail.SoLuong;
+                                        TT_Chietkhau_Chitiet += Utility.DecimaltoDbnull(objThanhtoanDetail.TienChietkhau, 0);
+                                        objThanhtoanDetail.IsNew = false;
+                                        objThanhtoanDetail.MarkOld();
+                                        objThanhtoanDetail.Save();
+                                    }
+                                    //Update lại tiền thanh toán
+                                    new Update(KcbThanhtoan.Schema)
+                      .Set(KcbThanhtoan.Columns.TongTien).EqualTo(TT_BHYT + TT_BN)
+                      .Set(KcbThanhtoan.Columns.BnhanChitra).EqualTo(TT_BN)
+                      .Set(KcbThanhtoan.Columns.BhytChitra).EqualTo(TT_BHYT)
+                      .Set(KcbThanhtoan.Columns.MaDoituongKcb).EqualTo(objLuotkham.MaDoituongKcb)
+                      .Set(KcbThanhtoan.Columns.IdDoituongKcb).EqualTo(objLuotkham.IdDoituongKcb)
+                      .Set(KcbThanhtoan.Columns.PtramBhyt).EqualTo(objLuotkham.PtramBhyt)
+                      .Set(KcbThanhtoan.Columns.IdHdonLog).EqualTo(IdHdonLog)
+                      .Where(KcbThanhtoan.Columns.IdThanhtoan).IsEqualTo(IdThanhtoan).Execute();
+                                    //Update phiếu thu
+                                    new Update(KcbPhieuthu.Schema)
+                     .Set(KcbPhieuthu.Columns.SoTien).EqualTo(TT_BN - TT_Chietkhau_Chitiet)
+                     .Set(KcbPhieuthu.Columns.SotienGoc).EqualTo(TT_BN)
+                     .Where(KcbPhieuthu.Columns.IdThanhtoan).IsEqualTo(IdThanhtoan).Execute();
+                                }
 
-                             }
-                         }
+                            }
+                        }
                         //Reset để không bị cộng dồn với các thanh toán cũ
-                         TT_BN = 0m;
-                         TT_BHYT = 0m;
-                         TT_Chietkhau_Chitiet = 0m;
+                        TT_BN = 0m;
+                        TT_BHYT = 0m;
+                        TT_Chietkhau_Chitiet = 0m;
                         foreach (KcbThanhtoanChitiet objThanhtoanDetail in objArrPaymentDetail)
                         {
                             TT_BN += (objThanhtoanDetail.BnhanChitra + objThanhtoanDetail.PhuThu) * objThanhtoanDetail.SoLuong;
@@ -655,14 +655,14 @@ namespace VNS.HIS.BusRule.Classes
                                 TT_BHYT += objThanhtoanDetail.BhytChitra * objThanhtoanDetail.SoLuong;
                             TT_Chietkhau_Chitiet += Utility.DecimaltoDbnull(objThanhtoanDetail.TienChietkhau, 0);
                             objThanhtoanDetail.IdThanhtoan = Utility.Int32Dbnull(objThanhtoan.IdThanhtoan, -1);
-                            
+
                             objThanhtoanDetail.IsNew = true;
                             objThanhtoanDetail.Save();
                             UpdatePaymentStatus(objThanhtoan, objThanhtoanDetail);
                         }
                         TongtienBNchitra = TT_BN;
+
                         #region Hoadondo
-                       
                         if (Layhoadondo)
                         {
                             int record = -1;
@@ -738,7 +738,23 @@ namespace VNS.HIS.BusRule.Classes
                         .Set(KcbThanhtoan.Columns.IdHdonLog).EqualTo(IdHdonLog)
                         .Where(KcbThanhtoan.Columns.IdThanhtoan).IsEqualTo(objThanhtoan.IdThanhtoan).Execute();
 
-                        if (Utility.Byte2Bool(objThanhtoan.NoiTru) && Utility.ByteDbnull(objLuotkham.TrangthaiNoitru,0)>=2)
+                        //Tạo bản ghi trong bảng phân bổ tiền theo phương thức thanh toán
+                        new Delete().From(KcbThanhtoanPhanbotheoPTTT.Schema)
+                            .Where(KcbThanhtoanPhanbotheoPTTT.Columns.IdThanhtoan)
+                            .IsEqualTo(objThanhtoan.IdThanhtoan).Execute();
+                        KcbThanhtoanPhanbotheoPTTT objPhanbotienTT = new KcbThanhtoanPhanbotheoPTTT();
+                        objPhanbotienTT.IdThanhtoan = objThanhtoan.IdThanhtoan;
+                        objPhanbotienTT.IdBenhnhan = objThanhtoan.IdBenhnhan;
+                        objPhanbotienTT.MaLuotkham = objThanhtoan.MaLuotkham;
+                        objPhanbotienTT.MaPttt = objThanhtoan.MaPttt;
+                        objPhanbotienTT.SoTien = TT_BN - TT_Chietkhau_Chitiet;
+                        objPhanbotienTT.TongTien = objPhanbotienTT.SoTien;
+                        objPhanbotienTT.NguoiTao = objThanhtoan.NguoiTao;
+                        objPhanbotienTT.NgayTao = objThanhtoan.NgayTao;
+                        objPhanbotienTT.IsNew = true;
+                        objPhanbotienTT.Save();
+
+                        if (Utility.Byte2Bool(objThanhtoan.NoiTru) && Utility.ByteDbnull(objLuotkham.TrangthaiNoitru, 0) >= 2)
                             new Update(KcbLuotkham.Schema).Set(KcbLuotkham.Columns.TthaiThanhtoannoitru).EqualTo(1)
                                 .Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                                 .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
@@ -1065,7 +1081,15 @@ namespace VNS.HIS.BusRule.Classes
             {
                 using (var scope = new TransactionScope())
                 {
-                    
+                    new Update(KcbDangkySokham.Schema)
+                       .Set(KcbDangkySokham.Columns.IdThanhtoan).EqualTo(-1)
+                       .Set(KcbDangkySokham.Columns.NgayThanhtoan).EqualTo(null)
+                       .Set(KcbDangkySokham.Columns.TrangthaiThanhtoan).EqualTo(0)
+                       .Set(KcbDangkySokham.Columns.NguonThanhtoan).EqualTo(null)
+                       .Set(KcbDangkySokham.Columns.NgaySua).EqualTo(globalVariables.SysDate)
+                       .Set(KcbDangkySokham.Columns.NguoiSua).EqualTo(globalVariables.UserName)
+                       .Where(KcbDangkySokham.Columns.IdThanhtoan).IsEqualTo(objThanhtoan.IdThanhtoan).Execute();
+
                     new Update(KcbDangkyKcb.Schema)
                         .Set(KcbDangkyKcb.Columns.IdThanhtoan).EqualTo(-1)
                         .Set(KcbDangkyKcb.Columns.NgayThanhtoan).EqualTo(null)
@@ -1287,18 +1311,18 @@ namespace VNS.HIS.BusRule.Classes
                         if (objLuotkham != null)
                         {
                             byte locked = (byte)(objLuotkham.MaDoituongKcb == "DV" ? objLuotkham.Locked : 0);
-                            byte TthaiThanhtoannoitru = (byte)(Utility.Byte2Bool(objThanhtoan.NoiTru) ? 0 : 1);
                             new Update(KcbLuotkham.Schema)
                                 .Set(KcbLuotkham.Columns.NgayKetthuc).EqualTo(null)
                                 .Set(KcbLuotkham.Columns.NguoiKetthuc).EqualTo(string.Empty)
                                 .Set(KcbLuotkham.Columns.Locked).EqualTo(locked)
                                 .Set(KcbLuotkham.Columns.TrangthaiNgoaitru).EqualTo(locked)
-                                .Set(KcbLuotkham.Columns.TthaiThanhtoannoitru).EqualTo(TthaiThanhtoannoitru)
+                                .Set(KcbLuotkham.Columns.TthaiThanhtoannoitru).EqualTo(0)
                                 .Set(KcbLuotkham.Columns.LydoKetthuc).EqualTo("")
                                 .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
                                 .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).Execute();
                         }
                         KcbThanhtoan.Delete(id_thanhtoan);
+                        new Delete().From(KcbThanhtoanPhanbotheoPTTT.Schema).Where(KcbThanhtoanPhanbotheoPTTT.Columns.IdThanhtoan).IsEqualTo(id_thanhtoan).Execute();
                         if (objLuotkham != null) log.Info(string.Format("Phiếu thanh toán ID: {0} của bệnh nhân: {1} - ID Bệnh nhân: {2} đã được hủy bởi :{3} với lý do hủy :{4}", id_thanhtoan.ToString(), objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, globalVariables.UserName, lydohuy));
                     }
                     scope.Complete();
@@ -1316,9 +1340,58 @@ namespace VNS.HIS.BusRule.Classes
         {
             return SPs.KcbThanhtoanLaythongtinchitietTheoid(IdThanhtoan).GetDataSet().Tables[0];
         }
+        public DataTable KcbThanhtoanLaydulieuphanbothanhtoanTheoPTTT(int IdThanhtoan)
+        {
+            return SPs.KcbThanhtoanLaydulieuphanbothanhtoanTheoPTTT(IdThanhtoan).GetDataSet().Tables[0];
+        }
         public DataTable KiemtraTrangthaidonthuocTruockhihuythanhtoan(int IdThanhtoan)
         {
             return SPs.DonthuocKiemtraxacnhanthuocTrongdon(IdThanhtoan).GetDataSet().Tables[0];
+        }
+        public ActionResult UpdateTienphanbotheoPTTT( DataTable dtData,ref string msg)
+        {
+            try
+            {
+                using (var scope = new TransactionScope())
+                {
+                    using (var sh = new SharedDbConnectionScope())
+                    {
+                        long id_thanhtoan = Utility.Int64Dbnull(dtData.Rows[0]["id_thanhtoan"], 0);
+                        if (id_thanhtoan > 0)
+                        {
+                            KcbThanhtoan objThanhtoan = KcbThanhtoan.FetchByID(id_thanhtoan);
+                            new Delete().From(KcbThanhtoanPhanbotheoPTTT.Schema).Where(KcbThanhtoanPhanbotheoPTTT.Columns.IdThanhtoan).IsEqualTo(id_thanhtoan).Execute();
+                            foreach (DataRow dr in dtData.Rows)
+                            {
+                                if (Utility.DecimaltoDbnull(dr["so_tien"], 0) > 0)
+                                {
+                                    KcbThanhtoanPhanbotheoPTTT _newItem = new KcbThanhtoanPhanbotheoPTTT();
+                                    _newItem.IdThanhtoan = id_thanhtoan;
+                                    _newItem.MaPttt = Utility.sDbnull(dr["ma_pttt"], "");
+                                    _newItem.IdBenhnhan = objThanhtoan.IdBenhnhan;
+                                    _newItem.MaLuotkham = objThanhtoan.MaLuotkham;
+                                    _newItem.TongTien = Utility.DecimaltoDbnull(dr["tong_tien"], 0);
+                                    _newItem.NoiTru = objThanhtoan.NoiTru;
+                                    _newItem.SoTien = Utility.DecimaltoDbnull(dr["so_tien"], 0);
+                                    _newItem.NguoiTao = globalVariables.UserName;
+                                    _newItem.NgayTao = globalVariables.SysDate;
+                                    _newItem.IsNew = true;
+                                    _newItem.Save();
+                                }
+                            }
+                        }
+
+                    }
+                    scope.Complete();
+                    return ActionResult.Success;
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = ex.Message;
+                log.Error("Loi trong qua trinh tra tien lai:{0}", ex.ToString());
+                return ActionResult.Error;
+            }
         }
         public ActionResult UpdateHuyInPhoiBHYT(KcbLuotkham objLuotkham, KieuThanhToan kieuThanhToan)
         {
@@ -1992,11 +2065,18 @@ namespace VNS.HIS.BusRule.Classes
                             .Set(NoitruPhanbuonggiuong.Columns.NguoiSua).EqualTo(globalVariables.UserName)
                             .Set(NoitruPhanbuonggiuong.Columns.NgayThanhtoan).EqualTo(objThanhtoan.NgayThanhtoan)
                              .Set(NoitruPhanbuonggiuong.Columns.NguonThanhtoan).EqualTo(objThanhtoan.KieuThanhtoan)
-                            //  .Set(KcbChidinhclsChitiet.Columns.TienChietkhau).EqualTo(objThanhtoanDetail.TienChietkhau)
-                            //.Set(KcbChidinhclsChitiet.Columns.TileChietkhau).EqualTo(objThanhtoanDetail.TileChietkhau)
-                            //.Set(KcbChidinhclsChitiet.Columns.KieuChietkhau).EqualTo(objThanhtoanDetail.KieuChietkhau)
                             .Where(NoitruPhanbuonggiuong.Columns.IdKham).IsEqualTo(objThanhtoanDetail.IdPhieu)
                             .And(NoitruPhanbuonggiuong.Columns.NoiTru).IsEqualTo(0).Execute();
+                        break;
+                    case 10://Sổ khám
+                        new Update(KcbDangkySokham.Schema)
+                           .Set(KcbDangkySokham.Columns.IdThanhtoan).EqualTo(objThanhtoan.IdThanhtoan)
+                           .Set(KcbDangkySokham.Columns.TrangthaiThanhtoan).EqualTo(1)
+                            .Set(KcbDangkySokham.Columns.NgaySua).EqualTo(globalVariables.SysDate)
+                           .Set(KcbDangkySokham.Columns.NguoiSua).EqualTo(globalVariables.UserName)
+                           .Set(KcbDangkySokham.Columns.NgayThanhtoan).EqualTo(objThanhtoan.NgayThanhtoan)
+                           .Set(KcbDangkySokham.Columns.NguonThanhtoan).EqualTo(objThanhtoan.KieuThanhtoan)
+                           .Where(KcbDangkySokham.Columns.IdSokcb).IsEqualTo(objThanhtoanDetail.IdPhieu).Execute();
                         break;
                     case 8://Gói dịch vụ
                     case 9://Chi phí thêm
