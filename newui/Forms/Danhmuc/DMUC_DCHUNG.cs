@@ -161,8 +161,13 @@ namespace VNS.HIS.UI.DANHMUC
         {
             try
             {
-
-                m_strListType = p_strArgs;
+                string[] arrValues = p_strArgs.Split('|');
+                m_strListType = arrValues[0];
+                if (arrValues.Length > 1)
+                {
+                    grdList.RootTable.Columns["VIET_TAT"].Caption = arrValues[1];
+                    lblViettat.Text = arrValues[1];
+                }
                 DmucKieudmuc objKieuDMUC = m_BusRules.GetKieuDanhMuc(m_strListType);
                 m_strListName = objKieuDMUC == null ? "Chưa khai báo loại danh mục chung" : objKieuDMUC.TenLoai;
                 this.Text = m_strListName;

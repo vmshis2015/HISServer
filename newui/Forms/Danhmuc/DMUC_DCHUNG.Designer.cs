@@ -55,7 +55,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lblMsg = new System.Windows.Forms.Label();
             this.txtViettat = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblViettat = new System.Windows.Forms.Label();
             this.chkTrangthai = new Janus.Windows.EditControls.UICheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSTT = new Janus.Windows.GridEX.EditControls.EditBox();
@@ -242,7 +242,7 @@
             this.uiTabPage1.Controls.Add(this.label4);
             this.uiTabPage1.Controls.Add(this.lblMsg);
             this.uiTabPage1.Controls.Add(this.txtViettat);
-            this.uiTabPage1.Controls.Add(this.label3);
+            this.uiTabPage1.Controls.Add(this.lblViettat);
             this.uiTabPage1.Controls.Add(this.chkTrangthai);
             this.uiTabPage1.Controls.Add(this.label2);
             this.uiTabPage1.Controls.Add(this.txtSTT);
@@ -298,7 +298,7 @@
             // lblMsg
             // 
             this.lblMsg.BackColor = System.Drawing.Color.Transparent;
-            this.lblMsg.Location = new System.Drawing.Point(308, 98);
+            this.lblMsg.Location = new System.Drawing.Point(308, 94);
             this.lblMsg.Name = "lblMsg";
             this.lblMsg.Size = new System.Drawing.Size(457, 23);
             this.lblMsg.TabIndex = 9;
@@ -306,26 +306,26 @@
             // 
             // txtViettat
             // 
-            this.txtViettat.Location = new System.Drawing.Point(330, 40);
+            this.txtViettat.Location = new System.Drawing.Point(345, 40);
             this.txtViettat.MaxLength = 10;
             this.txtViettat.Name = "txtViettat";
             this.txtViettat.Size = new System.Drawing.Size(100, 21);
             this.txtViettat.TabIndex = 5;
             // 
-            // label3
+            // lblViettat
             // 
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(270, 39);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 23);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Viết tắt:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblViettat.BackColor = System.Drawing.Color.Transparent;
+            this.lblViettat.Location = new System.Drawing.Point(270, 39);
+            this.lblViettat.Name = "lblViettat";
+            this.lblViettat.Size = new System.Drawing.Size(69, 23);
+            this.lblViettat.TabIndex = 7;
+            this.lblViettat.Text = "Viết tắt:";
+            this.lblViettat.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // chkTrangthai
             // 
             this.chkTrangthai.BackColor = System.Drawing.Color.Transparent;
-            this.chkTrangthai.Location = new System.Drawing.Point(436, 41);
+            this.chkTrangthai.Location = new System.Drawing.Point(463, 41);
             this.chkTrangthai.Name = "chkTrangthai";
             this.chkTrangthai.Size = new System.Drawing.Size(126, 23);
             this.chkTrangthai.TabIndex = 6;
@@ -353,10 +353,10 @@
             // 
             // txtTen
             // 
-            this.txtTen.Location = new System.Drawing.Point(330, 13);
+            this.txtTen.Location = new System.Drawing.Point(345, 13);
             this.txtTen.MaxLength = 255;
             this.txtTen.Name = "txtTen";
-            this.txtTen.Size = new System.Drawing.Size(435, 21);
+            this.txtTen.Size = new System.Drawing.Size(420, 21);
             this.txtTen.TabIndex = 3;
             // 
             // lblTen
@@ -365,7 +365,7 @@
             this.lblTen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblTen.Location = new System.Drawing.Point(270, 14);
             this.lblTen.Name = "lblTen";
-            this.lblTen.Size = new System.Drawing.Size(54, 16);
+            this.lblTen.Size = new System.Drawing.Size(69, 16);
             this.lblTen.TabIndex = 2;
             this.lblTen.Text = "Tên:";
             this.lblTen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -517,7 +517,7 @@
         private Janus.Windows.Ribbon.LabelCommand labelCommand5;
         private Janus.Windows.Ribbon.LabelCommand labelCommand6;
         private Janus.Windows.GridEX.EditControls.EditBox txtViettat;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblViettat;
         private Janus.Windows.EditControls.UICheckBox chkTrangthai;
         private System.Windows.Forms.Label label2;
         private Janus.Windows.GridEX.EditControls.EditBox txtSTT;
