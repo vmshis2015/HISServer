@@ -61,6 +61,11 @@ namespace VNS.HIS.BusRule.Classes
             return SPs.ThuocBaocaonhapxuatton(FromDate, ToDate, IDKHO, NhomThuoc, IDThuoc, Cobiendong).GetDataSet().Tables[0];
 
         }
+        public static DataTable ThuocNoitruBaocaonhapxuattonTheokhoa(string FromDate, string ToDate, int? IDKHOA, string NhomThuoc, int? IDThuoc, string kieuthuocvt, int? Cobiendong)
+        {
+            return SPs.ThuocNoitruBaocaonhapxuattonTheokhoa(FromDate, ToDate, IDKHOA, NhomThuoc, IDThuoc, kieuthuocvt, Cobiendong).GetDataSet().Tables[0];
+
+        }
         public static DataTable ThuocBaocaoBiendongthuocTrongkhole(string FromDate, string ToDate, int? IDKHO, int? IDTHUOC, string NhomThuoc, int? Cobiendong)
         {
             return SPs.ThuocBaocaoBiendongthuocTrongkhole(FromDate, ToDate, IDKHO, IDTHUOC, NhomThuoc, Cobiendong).GetDataSet().Tables[0];
