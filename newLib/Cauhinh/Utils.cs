@@ -10,6 +10,30 @@ namespace VNS.Properties
 {
     public class PropertyLib
     {
+        public static TrathuocthuaProperties _TrathuocthuaProperties = new TrathuocthuaProperties();
+        public static TrathuocthuaProperties GetTrathuocthuaProperties()
+        {
+            try
+            {
+                if (!System.IO.Directory.Exists(globalVariables.m_strPropertiesFolder))
+                {
+                    Directory.CreateDirectory(globalVariables.m_strPropertiesFolder);
+                }
+                var myProperty = new TrathuocthuaProperties();
+                string filePath = string.Format(@"{0}\{1}.xml", globalVariables.m_strPropertiesFolder, myProperty.GetType().Name);
+                if (!File.Exists(filePath)) return myProperty;
+                var myFileStream = new FileStream(filePath, FileMode.Open);
+                var mySerializer = new XmlSerializer(myProperty.GetType());
+                myProperty = (TrathuocthuaProperties)mySerializer.Deserialize(myFileStream);
+                myFileStream.Close();
+                return myProperty;
+            }
+            catch (Exception ex)
+            {
+                return new TrathuocthuaProperties();
+            }
+        }
+
         public static ConfigProperties _ConfigProperties = new ConfigProperties();
         public static ConfigProperties GetConfigProperties()
         {

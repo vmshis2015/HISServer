@@ -36,7 +36,7 @@ namespace VNS.Libs
 			txtBaoCao.Enabled = false;
 			txtBaoCao.BackColor = Color.WhiteSmoke;
            // txtTrinhky.SetFontFamily(new FontFamily("Arial"));
-            txtTrinhky.Font = new Font("Arial", 9f, FontStyle.Regular);
+            txtTrinhky.Font = new Font("Arial", 10f, FontStyle.Regular);
 		}
 
 		catch (Exception ex) {

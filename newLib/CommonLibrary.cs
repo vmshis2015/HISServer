@@ -36,9 +36,10 @@ using Janus.Windows.UI.StatusBar;
 using newLib;
 using System.ServiceProcess;
 
+
 namespace VNS.Libs
 {
-
+   
     public static class FormExtensions
     {
         public static bool? SetScreenToFirstNonPrimary(this Form self)
@@ -121,7 +122,8 @@ namespace VNS.Libs
         PhieuXuatKhoa = 6,
         PhieuHuy = 7,
         PhieuTraNCC = 8,
-        PhieuThanhly=10
+        PhieuThanhly=10,
+        Phieutrathuocthua=11
     } ;
     public enum TonghopStatus
     {
@@ -314,7 +316,8 @@ namespace VNS.Libs
         IsNotUserName = 11,
         PresIsConfirmed = 12,
         AssignIsConfirmed = 14,
-        Cancel = 15
+        Cancel = 15,
+        DataChanged = 15
     } ;
 
     /// <summary>
@@ -409,6 +412,33 @@ namespace VNS.Libs
     ///</summary>
     public class Utility
     {
+        public static void LoadProperties()
+        {
+            PropertyLib._TrathuocthuaProperties = PropertyLib.GetTrathuocthuaProperties();
+            PropertyLib._FTPProperties = PropertyLib.GetFTPProperties();
+            PropertyLib._BenhAnProperties = PropertyLib.GetBenhAnProperties();
+            PropertyLib._DuocNoitruProperties = PropertyLib.GetDuocNoitruProperties();
+            PropertyLib._HisDuocProperties = PropertyLib.GetHisDuocProperties();
+            PropertyLib._HISQMSProperties = PropertyLib.GetHISQMSProperties();
+            PropertyLib._NoitruProperties = PropertyLib.GetNoitruProperties();
+
+            PropertyLib._QMSPrintProperties = PropertyLib.GetQMSPrintProperties();
+            PropertyLib._KCBProperties = PropertyLib.GetKCBProperties();
+            PropertyLib._ThamKhamProperties = PropertyLib.GetThamKhamProperties();
+            PropertyLib._ThanhtoanProperties = PropertyLib.GetThanhtoanProperties();
+            PropertyLib._MayInProperties = PropertyLib.GetMayInProperties();
+            PropertyLib._HISCLSProperties = PropertyLib.GetHISCLSProperties();
+
+            PropertyLib._QheGiaCLSProperties = PropertyLib.GetQheGiaCLSProperties();
+            PropertyLib._ThuocProperties = PropertyLib.GetThuocProperties();
+            PropertyLib._QheGiaThuocProperties = PropertyLib.GetQheGiaThuocProperties();
+
+            PropertyLib._NhapkhoProperties = PropertyLib.GetNhapkhoProperties();
+            PropertyLib._ChuyenkhoProperties = PropertyLib.GetChuyenkhoProperties();
+            PropertyLib._QuaythuocProperties = PropertyLib.GetQuaythuocProperties();
+            PropertyLib._DynamicInputProperties = PropertyLib.GetDynamicInputProperties();
+
+        }
         public static void SaveValue2File(string fileName, string value)
         {
             try
@@ -845,6 +875,7 @@ namespace VNS.Libs
             if (_loaiphieu == LoaiPhieu.PhieuHuy) return "PHUY";
             if (_loaiphieu == LoaiPhieu.PhieuThanhly) return "PTL";
             if (_loaiphieu == LoaiPhieu.PhieuTraNCC) return "PTNCC";
+            if (_loaiphieu == LoaiPhieu.Phieutrathuocthua) return "PTraTThua";
             return "PNK";
         }
         /// <summary>
@@ -1834,6 +1865,24 @@ namespace VNS.Libs
                return new Select().From(KcbLuotkham.Schema)
                     .Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(Utility.GetValueFromGridColumn(grdlist, KcbLuotkham.Columns.IdBenhnhan))
                     .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(Utility.GetValueFromGridColumn(grdlist, KcbLuotkham.Columns.MaLuotkham)).ExecuteSingle<KcbLuotkham>();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Refresh lại lượt khám
+        /// </summary>
+        /// <param name="objKcbLuotkham"></param>
+        /// <returns></returns>
+        public static KcbLuotkham getKcbLuotkham(KcbLuotkham objKcbLuotkham)
+        {
+            try
+            {
+                return new Select().From(KcbLuotkham.Schema)
+                     .Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objKcbLuotkham.IdBenhnhan)
+                     .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objKcbLuotkham.MaLuotkham).ExecuteSingle<KcbLuotkham>();
             }
             catch (Exception ex)
             {
@@ -2909,7 +2958,12 @@ namespace VNS.Libs
         {
             System.Windows.Forms.MessageBox.Show(Message, Title, MessageBoxButtons.OK, Icon);
         }
-
+        public static string getTenNhanvien()
+        {
+            if (globalVariablesPrivate.objNhanvien != null) return globalVariablesPrivate.objNhanvien.TenNhanvien;
+            return globalVariables.UserName;
+        }
+      
         /// <summary>
         /// 
         /// </summary>
@@ -3778,32 +3832,7 @@ namespace VNS.Libs
             }
 
         }
-        public static void LoadProperties()
-        {
-            PropertyLib._FTPProperties = PropertyLib.GetFTPProperties();
-            PropertyLib._BenhAnProperties = PropertyLib.GetBenhAnProperties();
-            PropertyLib._DuocNoitruProperties = PropertyLib.GetDuocNoitruProperties();
-            PropertyLib._HisDuocProperties = PropertyLib.GetHisDuocProperties();
-            PropertyLib._HISQMSProperties = PropertyLib.GetHISQMSProperties();
-            PropertyLib._NoitruProperties = PropertyLib.GetNoitruProperties();
-
-            PropertyLib._QMSPrintProperties = PropertyLib.GetQMSPrintProperties();
-            PropertyLib._KCBProperties = PropertyLib.GetKCBProperties();
-            PropertyLib._ThamKhamProperties = PropertyLib.GetThamKhamProperties();
-            PropertyLib._ThanhtoanProperties = PropertyLib.GetThanhtoanProperties();
-            PropertyLib._MayInProperties = PropertyLib.GetMayInProperties();
-            PropertyLib._HISCLSProperties = PropertyLib.GetHISCLSProperties();
-
-            PropertyLib._QheGiaCLSProperties = PropertyLib.GetQheGiaCLSProperties();
-            PropertyLib._ThuocProperties = PropertyLib.GetThuocProperties();
-            PropertyLib._QheGiaThuocProperties = PropertyLib.GetQheGiaThuocProperties();
-
-            PropertyLib._NhapkhoProperties = PropertyLib.GetNhapkhoProperties();
-            PropertyLib._ChuyenkhoProperties = PropertyLib.GetChuyenkhoProperties();
-            PropertyLib._QuaythuocProperties = PropertyLib.GetQuaythuocProperties();
-            PropertyLib._DynamicInputProperties = PropertyLib.GetDynamicInputProperties();
-
-        }
+       
         /// <summary>
         /// HÀM THỰC HIỆN CONVERT DOUBLE NẾU ĐỐI TƯỢNG LÀ NULL
         /// </summary>
@@ -6595,15 +6624,32 @@ namespace VNS.Libs
                 fileName = filereport.ToUpper().Replace(".RPT", "") + ".RPT";
                 tieude = _object.TieuDe;
                 string fullPath = Application.StartupPath + @"\reports\" + filereport.ToUpper().Replace(".RPT", "") + ".RPT";
-                if (File.Exists(fullPath))
+                if (Laygiatrithamsohethong("REPORT_LOADFROMDLL", "0", false) == "1")
                 {
-                    crpt.Load(fullPath);
+                    Assembly assembly = Assembly.LoadFile(Application.StartupPath + @"\reports.dll");
+                    Type[] type = assembly.GetTypes();
+                    foreach (Type objType in type)
+                    {
+                        if (objType.Name.ToUpper() == filereport.ToUpper().Replace(".RPT", ""))
+                        {
+                            crpt = assembly.CreateInstance(objType.FullName, true) as ReportDocument;
+                            break;
+                        }
+                    }
                 }
                 else
                 {
-                    Utility.ShowMsg("Không tồn tại file báo cáo tại đường dẫn sau\n"+fullPath, "thông báo");
-                    return null;
+                    if (File.Exists(fullPath))
+                    {
+                        crpt.Load(fullPath);
+                    }
+                    else
+                    {
+                        Utility.ShowMsg("Không tồn tại file báo cáo tại đường dẫn sau\n" + fullPath, "thông báo");
+                        return null;
+                    }
                 }
+                
                 return crpt;
             }
             catch (Exception ex)
@@ -6611,6 +6657,56 @@ namespace VNS.Libs
                 Utility.ShowMsg("Lỗi khi nạp báo cáo " + mabaocao + "-->\n" + ex.Message);
                 //ErrMsg = ex.Message;
                 return null;
+            }
+        }
+        public static string GetRtfUnicodeEscapedString(string s)
+        {
+            try
+            {
+                var sb = new StringBuilder();
+                foreach (var c in s)
+                {
+                    if (c == '\\' || c == '{' || c == '}')
+                        sb.Append(@"\" + c);
+                    else if (c <= 0x7f)
+                        sb.Append(c);
+                    else
+                        sb.Append("\\u" + Convert.ToUInt32(c) + "?");
+                }
+                return sb.ToString();
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException("GetRtfUnicodeEscapedString.Exception", ex);
+                return s;
+
+            }
+
+        }
+        public static string Laygiatrithamsohethong(string ParamName, string defaultval, bool fromDB)
+        {
+            try
+            {
+                fromDB = true;
+                string reval = defaultval;
+                if (fromDB)
+                {
+                    SqlQuery sqlQuery =
+                        new Select().From(SysSystemParameter.Schema).Where(SysSystemParameter.Columns.SName).IsEqualTo(
+                            ParamName);
+                    SysSystemParameter objSystemParameter = sqlQuery.ExecuteSingle<SysSystemParameter>();
+                    if (objSystemParameter != null) reval = objSystemParameter.SValue;
+                }
+                else
+                {
+                    DataRow[] arrDR = globalVariables.gv_dtSysparams.Select(SysSystemParameter.SNameColumn.ColumnName + " ='" + ParamName + "'");
+                    if (arrDR.Length > 0) reval = Utility.sDbnull(arrDR[0][SysSystemParameter.SValueColumn.ColumnName]);
+                }
+                return reval;
+            }
+            catch
+            {
+                return defaultval;
             }
         }
         /// <summary>
@@ -9012,16 +9108,13 @@ namespace VNS.Libs
         public cls_SignInfor(string sv_sBieuMau, string sv_sDonVi)
         {
             exists = true;
-            SqlCommand cmdNguoiKy = new SqlCommand();
             DataTable dtbNguoiKy = new DataTable();
             try
             {
                
                 SqlQuery sqlQuery = new Select().From(SysTrinhky.Schema).Where(SysTrinhky.Columns.ReportName).IsEqualTo(
                     sv_sBieuMau);
-                    //.And(SysTrinhky.Columns.ObjectName).IsEqualTo(globalVariables.UserName);
                 dtbNguoiKy = sqlQuery.ExecuteDataSet().Tables[0];
-                // adtNguoiKy.Fill(dtbNguoiKy);
             }
             catch (Exception ex)
             {
@@ -12060,6 +12153,7 @@ namespace VNS.Libs
             public enum ViewState { Ready = 0, Capture = 1 };
             public enum FPDMode { SingleMode = 0, DualMode = 1, Other = 2 };
             public enum LoginMode { None = -1, Login = 0, Logout = 1 };
+            public enum DepartmentType { ngoaitru = 0, noitru = 1, tatca = 2 };
             public enum ClickMode { Click = 0, DoubleClick = 1 };
             public enum ToolMode { None = 0, WindowLevel = 1, Zoom = 2, Magnify = 3, Crop = 4, Annotation = 5, Select = 6 };
             public enum AnnType { None = 0, Arrow = 1, Square = 2, Ellipse = 3, Pen = 4, Angle = 5, Ruler = 6 };

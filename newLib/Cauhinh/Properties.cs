@@ -35,7 +35,13 @@ namespace VNS.Properties
             CloseAfterPWDChange = true;
             ShowActiveControl = false;
             Makhoathien = "KKB";
+            _DepartmentType = AppEnum.DepartmentType.tatca;
         }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình ứng dụng"),
+   Description("Loại khoa được phép khám ở máy này"),
+   DisplayName("Loại khoa được phép khám ở máy này")]
+        public AppEnum.DepartmentType _DepartmentType { get; set; }
+
         [Browsable(true), ReadOnly(false), Category("Cấu hình ứng dụng"),
     Description("Mã khoa thực hiện"),
     DisplayName("Mã khoa thực hiện")]
@@ -1390,7 +1396,95 @@ DisplayName("HIS Application Mode")]
 
         }
     }
+    public class TrathuocthuaProperties
+    {
+        [Browsable(true), ReadOnly(false), Category("Cấu hình tìm kiếm phiếu trả thuốc thừa"),
+       Description("Tự động tìm kiếm khi chuyển trạng thái"),
+       DisplayName("Tự động tìm kiếm khi chuyển trạng thái")]
+        public bool TimkiemkhiChontrangthai { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Cấu hình tìm kiếm phiếu trả thuốc thừa"),
+         Description("Lọc thông tin trạng thái duyệt thuốc sau khi duyệt,Nếu bạn chọn false thì sẽ không thay đổi, nếu true sẽ lọc trên lưới ngay khi duyệt"),
+         DisplayName("Lọc xác nhận ngay khi duyệt")]
+        public bool Locphieusaukhiduyet { get; set; }
+
+
+
+        [Browsable(true), ReadOnly(false), Category("Cấu hình trả thuốc thừa"),
+        Description("Nếu là true cho phép, false là ẩn quyển"),
+        DisplayName("Quyền được thêm phiếu")]
+        public bool QuyenThemPhieu { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình trả thuốc thừa"),
+       Description("Nếu là true cho phép, false là ẩn quyển"),
+       DisplayName("Quyền được sửa thêm phiếu")]
+        public bool QuyenSuaPhieu { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình trả thuốc thừa"),
+       Description("Nếu là true cho phép, false là ẩn quyển"),
+       DisplayName("Quyền được xóa phiếu")]
+        public bool QuyenXoaPhieu { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình trả thuốc thừa"),
+       Description("Nếu là true cho phép, false là ẩn quyển"),
+       DisplayName("Quyền được xác nhận phiếu")]
+        public bool QuyenXacNhanPhieu { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình trả thuốc thừa"),
+       Description("Nếu là true cho phép, false là ẩn quyển"),
+       DisplayName("Quyền được hủy xác nhận phiếu")]
+        public bool QuyenHuyXacNhanPhieu { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Cấu hình trả thuốc thừa"),
+       Description("Nếu là true cho phép, false là ẩn quyển"),
+       DisplayName("Quyền in phiếu")]
+        public bool QuyenInphieu { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Cấu hình tìm kiếm phiếu trả thuốc thừa"),
+    Description("Đến ngày=ngày hiện tại. Từ ngày được tính bằng đến ngày trừ số ngày lùi. Nếu Số ngày lùi=0 thì Từ ngày=Đến ngày"),
+    DisplayName("Số ngày lùi khi tìm kiếm phiếu trả thuốc thừa")]
+        public int Songayluitimphieu { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Cấu ập nhật phiếu trả thuốc thừa"),
+     Description("In ngay sau khi lưu"),
+     DisplayName("In ngay sau khi lưu")]
+        public bool Insaukhiluu { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Cấu hình in phiếu trả thuốc thừa"),
+   Description("Loại phiếu in"),
+   DisplayName("Loại phiếu in")]
+        public LoaiphieuIn Kieuin { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Cấu hình tìm kiếm phiếu trả thuốc thừa"),
+   Description("True=Tìm theo ngày trả thuốc.False=Tìm theo ngày lập phiếu"),
+   DisplayName("Tìm theo ngày trả thuốc")]
+        public bool Timtheongaytra { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Cấu hình in phiếu trả thuốc thừa"),
+  Description("Hiển thị chọn in phiếu"),
+  DisplayName("Hiển thị chọn in phiếu")]
+        public bool Hienthichonin { get; set; }
+
+
+        [Browsable(true), ReadOnly(false), Category("Cấu ập nhật phiếu trả thuốc thừa"),
+  Description("0=Chuyển về trạng thái cập nhật;1=thoát sau khi Lưu;2= Chuyển về trạng thái thêm mới phiếu khác"),
+  DisplayName("Thoát sau khi lưu")]
+        public int ThoatsaukhiLuu { get; set; }
+
+        public TrathuocthuaProperties()
+        {
+            TimkiemkhiChontrangthai = true;
+            QuyenHuyXacNhanPhieu = true;
+            QuyenSuaPhieu = true;
+            QuyenThemPhieu = true;
+            QuyenXacNhanPhieu = true;
+            QuyenXoaPhieu = true;
+            QuyenInphieu = true;
+            TimkiemkhiChontrangthai = false;
+            Timtheongaytra = false;
+            Kieuin = LoaiphieuIn.Chitiet;
+            Insaukhiluu = false;
+            Locphieusaukhiduyet = false;
+        }
+    }
     public enum Doituongdung { Yta = 0, Nhanvienkho = 1 };
+    public enum LoaiphieuIn { Cahai = 0, Tonghop = 1, Chitiet=2 };
     public enum DisplayType { Tatca = 0, Noitru = 1,Ngoaitru=2 };
     public class HisDuocProperties
     {

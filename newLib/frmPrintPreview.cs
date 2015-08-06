@@ -46,14 +46,13 @@ namespace VNS.Libs
         cls_SignInfor mv_oNguoiKy;
         CrystalDecisions.CrystalReports.Engine.TextObject mv_oRptText;
         CrystalDecisions.Shared.ParameterField mv_oRptFieldObj;
-        CrystalDecisions.CrystalReports.Engine.ReportDocument mv_oRptDoc;
-        CrystalDecisions.Windows.Forms.CrystalReportViewer mv_oViewDoc;
         CrystalDecisions.Shared.ParameterFields mv_oRptPara;
         bool mv_bNgayQToan = false;
         bool mv_bSetContent = true;
         private NLog.Logger log;
         public bool PrintCopy = true;
         bool mv_bAdded = false;
+        public bool AutoClose = false;
         // private Logger log;
         public frmPrintPreview(string FormTitle, CrystalDecisions.CrystalReports.Engine.ReportDocument RptDoc, bool pv_bSetContent, bool pv_bDisplayPrintButton)
             : base()
@@ -62,12 +61,9 @@ namespace VNS.Libs
             //This call is required by the Windows Form Designer.
             InitializeComponent();
             log = LogManager.GetCurrentClassLogger();
-            
             //Add any initialization after the InitializeComponent() call
             this.Text = FormTitle;
             this.RptDoc = RptDoc;
-            //
-            this.crptViewer.ReportSource = this.RptDoc;
             cmdTrinhKy.Visible = pv_bSetContent;
             mv_bSetContent = pv_bSetContent;
             this.crptViewer.ShowRefreshButton = false;
@@ -165,7 +161,7 @@ namespace VNS.Libs
         {
             if (e.KeyCode == Keys.Escape) this.Close();
 
-            if (e.KeyCode == Keys.P || (e.Modifiers == Keys.Control && e.KeyCode == Keys.P))
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.P)
             {
                 if (PrintCopy)
                     cmdPrint.PerformClick();
@@ -186,20 +182,15 @@ namespace VNS.Libs
             try
             {
                 reportTitle1.Init(mv_sReportCode);
-                //SetLanguage(globalVariables.DisplayLanguage, this, "GOLFMAN", globalVariables.SqlConn);
                 addTrinhKy_OnFormLoad();
-               
-
                 cmdPrint.Focus();
+                CleanTemporaryFolders();
+                if (AutoClose) this.Close();
             }
             catch (Exception ex)
             {
-                //SetLanguage(globalVariables.DisplayLanguage, this, "GOLFMAN", globalVariables.SqlConn);
             }
             
-              
-            //CleanTemporaryFolders();
-
         }
         void LoadPrintNumberByReportCode()
         {
@@ -240,55 +231,57 @@ namespace VNS.Libs
             try
             {
                 LoadPrintNumberByReportCode();
-                //doan gan cac bien: doan nay co the phai thay doi ten bien cho phu hop
-                mv_oRptDoc = RptDoc;
-                mv_oViewDoc = this.crptViewer;
-                //ket thuc doan gan bien
 
-                mv_oRptFieldObj = GetTrinhky(RptDoc.ParameterFields);
-                if (mv_oRptFieldObj == null) return;
-                mv_oNguoiKy = new cls_SignInfor(string.IsNullOrEmpty(mv_sReportFileName) ? mv_oRptDoc.ToString() : mv_sReportFileName, "");
-                //chkPrint_CheckedChanged(chkPrint, New System.EventArgs)
-                if (mv_oNguoiKy._TonTai)
+                mv_oRptFieldObj = GetTrinhky(this.crptViewer.ParameterFieldInfo);
+                //if (mv_oRptFieldObj == null) return;
+                mv_oNguoiKy = new cls_SignInfor(string.IsNullOrEmpty(mv_sReportFileName) ? RptDoc.ToString() : mv_sReportFileName, "");
+                if (mv_oNguoiKy != null)
                 {
-                    SetParamAgain(RptDoc.ParameterFields);
-                    //if (mv_bSetContent)
-                    //{
-                        
-                    //    mv_oRptDoc.ReportDefinition.ReportObjects["txtTrinhky"]..Text = mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
-                       
-                    //}
-                    //else
-                    //{
-                    //    mv_oRptDoc.DataDefinition.FormulaFields["Formula_1"].Text = "";
-                    //}
-                   
-                }
-                else
-                {
-                    SetParamAgain(RptDoc.ParameterFields);
-                    if (string.IsNullOrEmpty(mv_sReportFileName))
-                        mv_oNguoiKy = new cls_SignInfor(mv_oRptFieldObj, "", RptDoc.ToString(), "");
+                    //chkPrint_CheckedChanged(chkPrint, New System.EventArgs)
+                    if (mv_oNguoiKy._TonTai)
+                    {
+                        SetParamAgain(this.crptViewer.ParameterFieldInfo);
+                        //if (mv_bSetContent)
+                        //{
+
+                        //    mv_oRptDoc.ReportDefinition.ReportObjects["txtTrinhky"]..Text = mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
+
+                        //}
+                        //else
+                        //{
+                        //    mv_oRptDoc.DataDefinition.FormulaFields["Formula_1"].Text = "";
+                        //}
+
+                    }
                     else
                     {
-                        mv_oNguoiKy = new cls_SignInfor(mv_oRptFieldObj, "", mv_sReportFileName, "");
-                    }
+                        SetParamAgain(this.crptViewer.ParameterFieldInfo);
+                        if (string.IsNullOrEmpty(mv_sReportFileName))
+                            mv_oNguoiKy = new cls_SignInfor(mv_oRptFieldObj, "", RptDoc.ToString(), "");
+                        else
+                        {
+                            mv_oNguoiKy = new cls_SignInfor(mv_oRptFieldObj, "", mv_sReportFileName, "");
+                        }
 
+                    }
                 }
-                mv_oViewDoc.ReportSource = RptDoc;
+                this.crptViewer.ReportSource = RptDoc;
             }
             catch (Exception ex)
             {
                 mv_oRptText = null;
-                //an nut tuy chon di
-                log.Error("Loi trong qua trinh load thong tin trình ky={0}", ex);
+                Utility.CatchException("addTrinhKy_OnFormLoad-->", ex);
                 this.cmdTrinhKy.Visible = false;
             }
         }
        
         public void addTrinhKy_OnButtonClick()
         {
-            if (mv_oRptFieldObj == null) return;
+            if (mv_oRptFieldObj == null)
+            {
+                Utility.ShowMsg("Hệ thống không phát hiện trình ký trên báo cáo này. Mời bạn kiểm tra lại");
+                return;
+            }
 
             try
             {
@@ -322,17 +315,9 @@ namespace VNS.Libs
                     {
                         this.mv_oNguoiKy.updateRPTtoDB();
                     }
-                    SetParamAgain(RptDoc.ParameterFields);
-                    //if (mv_bSetContent)
-                    //{
-                    //    mv_oRptDoc.DataDefinition.FormulaFields["Formula_1"].Text =  mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
-                    //}
-                    //else
-                    //{
-                    //    mv_oRptDoc.DataDefinition.FormulaFields["Formula_1"].Text = "";
-                    //}
-                    //mv_oViewDoc.ReportSource = Nothing
-                    mv_oViewDoc.ReportSource = RptDoc;
+                    SetParamAgain(this.crptViewer.ParameterFieldInfo);
+                   
+                    this.crptViewer.ReportSource = RptDoc;
                 }
             }
             catch (Exception ex)
@@ -352,8 +337,8 @@ namespace VNS.Libs
                         if (mv_bSetContent)
                         {
                             string sPvalue=mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
-                            sPvalue = sPvalue.Replace("&NGAYIN", GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
-                            sPvalue = sPvalue.Replace("&NGUOIIN", GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
+                            sPvalue = sPvalue.Replace("&NGAYIN",Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
+                            sPvalue = sPvalue.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
                             RptDoc.SetParameterValue(p[i].ParameterFieldName, sPvalue);
                         }
                         else
@@ -367,91 +352,78 @@ namespace VNS.Libs
             }
             catch (Exception ex)
             {
-                Utility.ShowMsg(ex.Message);
+                Utility.ShowMsg("SetTrinhky-->"+ex.Message);
             }
         }
-        static string GetRtfUnicodeEscapedString(string s)
-        {
-            try
-            {
-                var sb = new StringBuilder();
-                foreach (var c in s)
-                {
-                    if (c == '\\' || c == '{' || c == '}')
-                        sb.Append(@"\" + c);
-                    else if (c <= 0x7f)
-                        sb.Append(c);
-                    else
-                        sb.Append("\\u" + Convert.ToUInt32(c) + "?");
-                }
-                return sb.ToString();
-            }
-            catch (Exception ex)
-            {
-                Utility.CatchException("GetRtfUnicodeEscapedString.Exception", ex);
-                return s;
-                
-            }
-            
-        }
+      
         CrystalDecisions.Shared.ParameterField GetTrinhky(CrystalDecisions.Shared.ParameterFields p)
         {
             try
             {
+                
                 CrystalDecisions.Shared.ParameterFields p0 = new CrystalDecisions.Shared.ParameterFields();
                 for (int i = 0; i <= p.Count - 1; i++)
                 {
-                    if (p[i].ParameterFieldName.ToUpper() == "txtTrinhky".ToUpper())
+                    if (Utility.DoTrim( p[i].ParameterFieldName.ToUpper()) == "txtTrinhky".ToUpper())
                     {
                         return p[i];
                     }
 
                 }
+               // Utility.ShowMsg("No trinhky");
                 return null;
             }
             catch (Exception ex)
             {
-                Utility.ShowMsg(ex.Message);
+                Utility.ShowMsg("GetTrinhky-->" + ex.Message);
                 return null;
             }
         }
         private void SetParamAgain(CrystalDecisions.Shared.ParameterFields p)
         {
-            try
-            {
+            
                 errTrinhky = "";
+                bool hasTrinhky = false;
                 for (int i = 0; i <= p.Count - 1; i++)
                 {
-                    if (p[i].ParameterFieldName.ToUpper() == "txtTrinhky".ToUpper())
+                    try
                     {
-                        if (mv_bSetContent)
+                        if (p[i].ParameterFieldName.ToUpper() == "txtTrinhky".ToUpper())
                         {
-                            string sPvalue = mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
-                            sPvalue = sPvalue.Replace("&NGAYIN", GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
-                            sPvalue = sPvalue.Replace("&NGUOIIN", GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
-                            RptDoc.SetParameterValue(p[i].ParameterFieldName, sPvalue);
+                            hasTrinhky = true;
+                            if (mv_bSetContent)
+                            {
+                                string sPvalue = mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
+                                sPvalue = sPvalue.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
+                                sPvalue = sPvalue.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
+                                RptDoc.SetParameterValue(p[i].ParameterFieldName, sPvalue);
+                            }
+                            else
+                            {
+                                RptDoc.SetParameterValue(p[i].ParameterFieldName, "");
+                            }
                         }
                         else
                         {
-                            RptDoc.SetParameterValue(p[i].ParameterFieldName, "");
+                            if (p[i].CurrentValues!=null && p[i].CurrentValues.Count > 0)
+                                RptDoc.SetParameterValue(p[i].ParameterFieldName, ((CrystalDecisions.Shared.ParameterDiscreteValue)p[i].CurrentValues[0]).Value);
+                            else
+                                RptDoc.SetParameterValue(p[i].ParameterFieldName, getDefaultValue(p[i].ParameterValueType));
                         }
                     }
-                    else if (p[i].ParameterFieldName.ToUpper() == "TXTNGAYQT")
+                    catch (Exception ex)
                     {
-                    }
-                    else
-                    {
-                        if (p[i].CurrentValues.Count > 0)
-                            RptDoc.SetParameterValue(p[i].ParameterFieldName, ((CrystalDecisions.Shared.ParameterDiscreteValue)p[i].CurrentValues[0]).Value);
-                        else
-                            RptDoc.SetParameterValue(p[i].ParameterFieldName, getDefaultValue(p[i].ParameterValueType));
+                        Utility.CatchException("SetParamAgain-->", ex);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Utility.ShowMsg(ex.Message);
-            }
+                if (mv_bSetContent && hasTrinhky)
+                {
+                    string sPvalue = mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
+                    sPvalue = sPvalue.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
+                    sPvalue = sPvalue.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
+                    Utility.SetParameterValue(RptDoc, "txtTrinhky", sPvalue);
+                }
+           
         }
         object getDefaultValue(ParameterValueKind kind)
         {
@@ -482,7 +454,7 @@ namespace VNS.Libs
             try
             {
                 SaveFileDialog SaveFileDlg = new SaveFileDialog();
-                SaveFileDlg.Title = "VietBaJC-->Save to Excel file";
+                SaveFileDlg.Title = "VSS-->Save to Excel file";
                 SaveFileDlg.Filter = "Excel files|*.XLS";
                 if (SaveFileDlg.ShowDialog() == DialogResult.OK)
                 {
@@ -602,18 +574,11 @@ namespace VNS.Libs
             try
             {
                 String tempFolder = Environment.ExpandEnvironmentVariables("%TEMP%");
-                // String recent = Environment.ExpandEnvironmentVariables("%USERPROFILE%") + "\\Recent";
-                // String prefetch = Environment.ExpandEnvironmentVariables("%SYSTEMROOT%") + "\\Prefetch";
                 EmptyFolderContents(tempFolder);
-                //  EmptyFolderContents(recent);
-                //  EmptyFolderContents(prefetch);
             }
             catch (Exception)
             {
-
-
             }
-
         }
         /// <summary>
         /// hàm thực hiện rỗng thư mục của dữ liệu trong Folder
@@ -685,14 +650,19 @@ namespace VNS.Libs
         {
             try
             {
-                //RptDoc.Close();
-                //RptDoc.Dispose();
-                //CleanTemporaryFolders();
+                if (RptDoc != null)
+                {
+                    RptDoc.Close();
+                    RptDoc.Dispose();
+                    GC.Collect();
+                }
             }
             catch (Exception)
             {
-
-
+            }
+            finally
+            {
+                CleanTemporaryFolders();
             }
 
         }
