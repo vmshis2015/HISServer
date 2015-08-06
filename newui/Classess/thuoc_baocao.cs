@@ -10,6 +10,7 @@ using VNS.Libs;
 using VNS.HIS.DAL;
 using VNS.HIS.UI.BaoCao;
 using Microsoft.VisualBasic;
+using VNS.Properties;
 
 
 namespace VNS.HIS.UI.Baocao
@@ -86,6 +87,86 @@ namespace VNS.HIS.UI.Baocao
                     }
 
                 }
+            }
+        }
+        public static void InPhieutrathuocthua(TPhieutrathuocthua objPhieutrathuocthua, string sTitleReport, DateTime NgayIn)
+        {
+            if (PropertyLib._TrathuocthuaProperties.Kieuin == LoaiphieuIn.Tonghop)
+                InPhieutrathuocthuaTonghop(objPhieutrathuocthua, sTitleReport, NgayIn);
+            else if (PropertyLib._TrathuocthuaProperties.Kieuin == LoaiphieuIn.Chitiet)
+                InPhieutrathuocthuaChitiet(objPhieutrathuocthua, sTitleReport, NgayIn);
+            else
+            {
+                InPhieutrathuocthuaTonghop(objPhieutrathuocthua, sTitleReport, NgayIn);
+                InPhieutrathuocthuaChitiet(objPhieutrathuocthua, sTitleReport, NgayIn);
+            }
+        }
+        public static void InPhieutrathuocthuaTonghop(TPhieutrathuocthua objPhieutrathuocthua, string sTitleReport, DateTime NgayIn)
+        {
+            DataTable m_dtReport = SPs.ThuocNoitruInTonghopPhieutrathuocthua(objPhieutrathuocthua.Id).GetDataSet().Tables[0];
+            if (m_dtReport.Rows.Count <= 0)
+            {
+                Utility.ShowMsg("Không tìm thấy thông tin ", "Thông báo", MessageBoxIcon.Warning);
+                return;
+            }
+            THU_VIEN_CHUNG.CreateXML(m_dtReport, "thuoc_noitru_phieutrathuocthua");
+            string tieude = "", reportname = "";
+            var crpt = Utility.GetReport("thuoc_noitru_phieutrathuocthua", ref tieude, ref reportname);
+
+            if (crpt == null) return;
+            Utility.UpdateLogotoDatatable(ref m_dtReport);
+            frmPrintPreview objForm = new frmPrintPreview(sTitleReport, crpt, true, true);
+
+            try
+            {
+                m_dtReport.AcceptChanges();
+                crpt.SetDataSource(m_dtReport);
+                objForm.mv_sReportFileName = Path.GetFileName(reportname);
+                objForm.mv_sReportCode = "thuoc_noitru_phieutrathuocthua";
+                objForm.crptViewer.ReportSource = crpt;
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+                Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+                Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                objForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
+        }
+        public static void InPhieutrathuocthuaChitiet(TPhieutrathuocthua objPhieutrathuocthua, string sTitleReport, DateTime NgayIn)
+        {
+            DataTable m_dtReport = SPs.ThuocNoitruInChitietPhieutrathuocthua(objPhieutrathuocthua.Id).GetDataSet().Tables[0];
+            if (m_dtReport.Rows.Count <= 0)
+            {
+                Utility.ShowMsg("Không tìm thấy thông tin ", "Thông báo", MessageBoxIcon.Warning);
+                return;
+            }
+            THU_VIEN_CHUNG.CreateXML(m_dtReport, "thuoc_noitru_phieutrathuocthua_chitiet");
+            string tieude = "", reportname = "";
+            var crpt = Utility.GetReport("thuoc_noitru_phieutrathuocthua_chitiet", ref tieude, ref reportname);
+            if (crpt == null) return;
+
+            Utility.UpdateLogotoDatatable(ref m_dtReport);
+            frmPrintPreview objForm = new frmPrintPreview(sTitleReport, crpt, true, true);
+
+            try
+            {
+                m_dtReport.AcceptChanges();
+                crpt.SetDataSource(m_dtReport);
+                objForm.mv_sReportFileName = Path.GetFileName(reportname);
+                objForm.mv_sReportCode = "thuoc_noitru_phieutrathuocthua_chitiet";
+                objForm.crptViewer.ReportSource = crpt;
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+                Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+                Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                objForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
             }
         }
         public static void PhieuTongHopLinhThuoc(DataTable m_dtReport, DateTime Ngaylapphieu,string reportcode)
@@ -177,10 +258,7 @@ namespace VNS.HIS.UI.Baocao
             }
             catch (Exception ex)
             {
-                if (globalVariables.IsAdmin)
-                {
-                    Utility.ShowMsg(ex.ToString());
-                }
+                Utility.CatchException(ex);
             }
         }
       public static void BaocaohuythuocChitiet(DataTable m_dtReport,string tenbaocao, string sTitleReport, DateTime NgayIn, string FromDateToDate)
@@ -215,10 +293,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
       public static void Baocaotrathuocnhacungcap(DataTable m_dtReport,string tenbaocao, string sTitleReport, DateTime NgayIn, string FromDateToDate)
@@ -253,10 +328,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
       public static void BaocaoThanhlythuoc(DataTable m_dtReport,string tenbaocao, string sTitleReport, DateTime NgayIn, string FromDateToDate)
@@ -291,10 +363,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
       /// <summary>
@@ -368,10 +437,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
 
@@ -451,6 +517,81 @@ namespace VNS.HIS.UI.Baocao
               }
           }
       }
+      public static void BaocaoNhapxuattonTheoKhoanoitru(DataTable m_dtReport, string kieuthuoc_vt, string sTitleReport, string _tondau, string _toncuoi, DateTime NgayIn, string FromDateToDate, string tenkhoa, bool theonhom)
+      {
+
+          string tieude = "", reportname = "", reportcode = "thuoc_baocao_nhapxuatton_theokhoanoitru_theonhom";
+          ReportDocument crpt = null;
+          if (kieuthuoc_vt == "THUOC")
+          {
+              if (theonhom)
+              {
+                  reportcode = "thuoc_baocao_nhapxuatton_theokhoanoitru_theonhom";
+                  crpt = Utility.GetReport("thuoc_baocao_nhapxuatton_theokhoanoitru_theonhom", ref tieude, ref reportname);
+              }
+              else
+              {
+                  reportcode = "thuoc_baocao_nhapxuatton_theokhoanoitru";
+                  crpt = Utility.GetReport("thuoc_baocao_nhapxuatton_theokhoanoitru", ref tieude, ref reportname);
+              }
+          }
+          else//VTTH
+          {
+              if (theonhom)
+              {
+                  reportcode = "vt_baocao_nhapxuatton_theokhoanoitru_theonhom";
+                  crpt = Utility.GetReport("vt_baocao_nhapxuatton_theokhoanoitru_theonhom", ref tieude, ref reportname);
+              }
+              else
+              {
+                  reportcode = "vt_baocao_nhapxuatton_theokhoanoitru";
+                  crpt = Utility.GetReport("vt_baocao_nhapxuatton_theokhoanoitru", ref tieude, ref reportname);
+              }
+          }
+          if (crpt == null) return;
+
+          MoneyByLetter _moneyByLetter = new MoneyByLetter();
+          string tinhtong = TinhTong(m_dtReport, "TT_TONCUOI");
+          var objForm = new frmPrintPreview(sTitleReport, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+          objForm.mv_sReportFileName = Path.GetFileName(reportname);
+          objForm.mv_sReportCode = reportcode;
+          Utility.UpdateLogotoDatatable(ref m_dtReport);
+          try
+          {
+              if (theonhom)
+                  m_dtReport.DefaultView.Sort = "stt_hthi_nhom,tenbietduoc";
+              else
+                  m_dtReport.DefaultView.Sort = "tenbietduoc";
+              m_dtReport.AcceptChanges();
+              crpt.SetDataSource(m_dtReport.DefaultView);
+              objForm.crptViewer.ReportSource = crpt;
+              //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "  PHÒNG TIẾP ĐÓN   ".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
+              Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+              Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+              Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
+
+              Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+              Utility.SetParameterValue(crpt, "Tondau", _tondau);
+              Utility.SetParameterValue(crpt, "Toncuoi", _toncuoi);
+              Utility.SetParameterValue(crpt, "FromDateToDate", FromDateToDate);
+              Utility.SetParameterValue(crpt, "Department_Name", globalVariables.KhoaDuoc);
+              Utility.SetParameterValue(crpt, "tenkhoa", tenkhoa);
+              Utility.SetParameterValue(crpt, "thanhtien_bangchu", _moneyByLetter.sMoneyToLetter(tinhtong.ToString()));
+              Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
+              Utility.SetParameterValue(crpt, "sTitleReport", sTitleReport);
+              Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+
+              objForm.ShowDialog();
+              // Utility.DefaultNow(this);
+          }
+          catch (Exception ex)
+          {
+              if (globalVariables.IsAdmin)
+              {
+                  Utility.ShowMsg(ex.ToString());
+              }
+          }
+      }
       public static void Baocaohuychot(DataTable m_dtReport, string kieuthuoc_vt, string sTitleReport,  string dieukienbaocao, bool theonhom)
       {
 
@@ -511,10 +652,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
 
@@ -557,10 +695,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
       /// <summary>
@@ -632,10 +767,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
       public static void ThethuocChitiet(DataTable m_dtReport,string kieuthuoc_vt, string sTitleReport, DateTime NgayIn, string FromDateToDate, string tenkho)
@@ -671,10 +803,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
       public static void Thethuoc(DataTable m_dtReport,string kieuthuoc_vt, string sTitleReport, DateTime NgayIn, string FromDateToDate, string tenkho)
@@ -711,10 +840,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
       public static void Thethuockhochan(DataTable m_dtReport,string kieuthuoc_vt, string sTitleReport, DateTime NgayIn, string FromDateToDate, string tenkho)
@@ -751,10 +877,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
       public static void Thethuoctutruc(DataTable m_dtReport, string kieuthuoc_vt, string sTitleReport, DateTime NgayIn, string FromDateToDate, string tenkho)
@@ -794,10 +917,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
       public static void ThethuocKhole(DataTable m_dtReport,string kieuthuoc_vt, string sTitleReport, DateTime NgayIn, string FromDateToDate, string tenkho)
@@ -837,10 +957,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
       public static void baocao_nhapthuoctheo_nhacungcap(DataTable m_dtReport,string tenbaocao, string sTitleReport, DateTime NgayIn, string FromDateToDate)
@@ -882,10 +999,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
 
@@ -924,10 +1038,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
 

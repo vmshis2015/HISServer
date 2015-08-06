@@ -641,9 +641,10 @@ namespace VNS.HIS.Classes
                dtPatientPayment.Rows[0]["sotien_bangchu"] =
                    new MoneyByLetter().sMoneyToLetter(Utility.sDbnull(dtPatientPayment.Rows[0]["TONG_TIEN"]));
                string tieude = "", reportname = "";
-               var report = Utility.GetReport("thanhtoan_Hoadondo", ref tieude, ref reportname);
+               ReportDocument report = Utility.GetReport("thanhtoan_Hoadondo", ref tieude, ref reportname);
                if (report == null) return;
                var objForm = new frmPrintPreview("", report, true, true);
+               //objForm.AutoClose = true;
                objForm.mv_sReportFileName = Path.GetFileName(reportname);
                objForm.mv_sReportCode = "thanhtoan_Hoadondo";
                report.SetDataSource(dtPatientPayment);
@@ -652,9 +653,9 @@ namespace VNS.HIS.Classes
                Utility.SetParameterValue(report,"ParentBranchName", globalVariables.ParentBranch_Name);
                Utility.SetParameterValue(report,"BranchName", globalVariables.Branch_Name);
                Utility.SetParameterValue(report,"DateTime", Utility.FormatDateTime(globalVariables.SysDate));
-               Utility.SetParameterValue(report,"sCurrentDate", Utility.FormatDateTimeWithLocation(globalVariables.SysDate,globalVariables.gv_strDiadiem));
+               Utility.SetParameterValue(report,"CurrentDate", Utility.FormatDateTimeWithLocation(globalVariables.SysDate,globalVariables.gv_strDiadiem));
                Utility.SetParameterValue(report, "sTitleReport", tieude);
-               //Utility.SetParameterValue(report,"CharacterMoney", new MoneyByLetter().sMoneyToLetter(TONG_TIEN.ToString()));
+               
                objForm.crptViewer.ReportSource = report;
               
                if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInHoadon, PropertyLib._MayInProperties.PreviewInHoadon))
@@ -668,6 +669,7 @@ namespace VNS.HIS.Classes
                    report.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInHoadon;
                    report.PrintToPrinter(1, false, 0, 0);
                }
+              
            }
            catch (Exception ex1)
            {
@@ -686,7 +688,7 @@ namespace VNS.HIS.Classes
                dtPatientPayment.Rows[0]["sotien_bangchu"] =
                    new MoneyByLetter().sMoneyToLetter(Utility.sDbnull(dtPatientPayment.Rows[0]["SO_TIEN"]));
                string tieude = "", reportname = "";
-               var report = Utility.GetReport("thanhtoan_phieuchi", ref tieude, ref reportname);
+               ReportDocument report = Utility.GetReport("thanhtoan_phieuchi", ref tieude, ref reportname);
                if (report == null) return;
                var objForm = new frmPrintPreview("", report, true, true);
                objForm.mv_sReportFileName = Path.GetFileName(reportname);
