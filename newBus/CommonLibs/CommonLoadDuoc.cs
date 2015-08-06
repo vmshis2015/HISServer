@@ -479,6 +479,34 @@ namespace VNS.Libs
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
       }
+      /// <summary>
+      /// HÀM THỰC HIỆN LẤY THÔNG TIN KHO LẺ
+      /// </summary>
+      /// <returns></returns>
+      public static DataTable LAYTHONGTIN_KHOTHUOC_LE_TUTRUC_NOITRU()
+      {
+          DataTable m_dtKhoThuoc = new DataTable();
+          SqlQuery sqlQuery = new Select().From(TDmucKho.Schema);
+          if (!globalVariables.IsAdmin)
+          {
+              sqlQuery.Where(TDmucKho.Columns.IdKho).In(new Select(QheNhanvienKho.Columns.IdKho)
+                                                        .From(QheNhanvienKho.Schema).Where(QheNhanvienKho.Columns.IdNhanvien)
+                                                        .IsEqualTo(globalVariables.gv_intIDNhanvien));
+
+          }
+          if (sqlQuery.HasWhere)
+              sqlQuery.And(TDmucKho.Columns.KieuKho).In(lstKhole);
+          else
+          {
+              sqlQuery.Where(TDmucKho.Columns.KieuKho).In(lstKhole);
+          }
+          sqlQuery.And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNoitru);
+          sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
+          m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
+          return m_dtKhoThuoc;
+      }
+    
       public static DataTable LAYTHONGTIN_KHOTHUOC_TUTHUOC_NOITRU_THEOKHOA(int ID_KHOA)
       {
           DataTable m_dtKhoThuoc = new DataTable();

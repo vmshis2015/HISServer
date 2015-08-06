@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using Microsoft.VisualBasic;
 using System.Transactions;
 using System.Windows.Forms;
+using VNS.Properties;
 
 namespace VNS.Libs
 {
@@ -575,8 +576,10 @@ namespace VNS.Libs
         }
         public static DataTable LaydanhsachKhoanoitruTheoBacsi(string username, byte isAdmin,byte noitru)
         {
-            DataTable dtData=SPs.DmucLaydanhsachCackhoaKCBtheoBacsi(username, isAdmin, noitru).GetDataSet().Tables[0];
+            DataTable dtData = SPs.DmucLaydanhsachCackhoaKCBtheoBacsi(username, isAdmin, noitru).GetDataSet().Tables[0];
             DataTable dtRevalue = dtData.Clone();
+            //NOITRU_NAPKHOANOITRU_THEOKHOADANGNHAP: 1= Khi bác sĩ liên khoa đăng nhập thì tại các chức năng phần nội trú sẽ chỉ hiển thị duy nhất khoa là khoa đăng nhập
+            //0= Các chức năng nội trú load tất cả các liên khoa của BS để bác sĩ tự chọn và tìm kiếm BN
             if (!Utility.Byte2Bool(isAdmin) && THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_NAPKHOANOITRU_THEOKHOADANGNHAP", "0", true) == "1")
             {
                 DataRow[] arrDr = dtData.Select(DmucKhoaphong.Columns.IdKhoaphong + "=" + globalVariables.idKhoatheoMay.ToString());
@@ -586,6 +589,12 @@ namespace VNS.Libs
             else
                 dtRevalue = dtData.Copy();
             return dtRevalue;
+        }
+        public static DataTable LaydanhsachKhoaKhidangnhap(string username, byte isAdmin)
+        {
+            DataTable dtData = SPs.DmucLaydanhsachCackhoaKCBtheoBacsi(username, isAdmin, (byte)2).GetDataSet().Tables[0];
+            DataTable dtRevalue = dtData.Clone();
+            return dtData;
         }
         public static DataTable DmucLaydanhsachCacphongkhamTheoBacsi(string UserName, short? Idkhoa, byte? IsAdmin, byte? Noitru)
         {
@@ -981,7 +990,7 @@ namespace VNS.Libs
                 string _filePath = xmlfile;
                 if (!_filePath.ToUpper().Contains(".XML")) _filePath += ".xml";
 
-                if (!_filePath.Contains(@"\")) _filePath = System.Windows.Forms.Application.StartupPath + @"\Xml4Reports\" + xmlfile;
+                if (!_filePath.Contains(@"\")) _filePath = System.Windows.Forms.Application.StartupPath + @"\Xml4Reports\" + _filePath;
                 Utility.CreateFolder(_filePath);
                 if (_XML)
                 {
@@ -1010,7 +1019,7 @@ namespace VNS.Libs
                 bool _XML = Laygiatrithamsohethong("XML", "0", false) == "1";
                 string _filePath = xmlfile;
                 if (!_filePath.ToUpper().Contains(".XML")) _filePath += ".xml";
-                if (!_filePath.Contains(@"\")) _filePath = System.Windows.Forms.Application.StartupPath + @"\Xml4Reports\" + xmlfile;
+                if (!_filePath.Contains(@"\")) _filePath = System.Windows.Forms.Application.StartupPath + @"\Xml4Reports\" + _filePath;
                 Utility.CreateFolder(_filePath);
                 if (_XML)
                 {
@@ -1847,7 +1856,7 @@ namespace VNS.Libs
            switch (PaymentType_ID)
            {
                case 0:
-                   MaKieu = "KHAM";
+                   MaKieu = "PHI_DVYC";
                    break;
                case 1:
                    MaKieu = "KHAM";
@@ -1868,10 +1877,16 @@ namespace VNS.Libs
                    MaKieu = "TAMUNG";
                    break;
                case 7:
-                   MaKieu = "AN";
+                   MaKieu = "PHIEU_AN";
                    break;
                case 8:
                    MaKieu = "GOIDV";
+                   break;
+               case 9:
+                   MaKieu = "CPTHEM";
+                   break;
+               case 10:
+                   MaKieu = "SO_KHAM";
                    break;
            }
            return MaKieu;
