@@ -41,7 +41,7 @@ namespace VNS.HIS.UI.Baocao
 
                m_dtReport.AcceptChanges();
                crpt.SetDataSource(m_dtReport);
-               objForm.crptViewer.ReportSource = crpt;
+              
                ////crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "  PHÒNG TIẾP ĐÓN   ".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
                objForm.mv_sReportFileName = Path.GetFileName(reportname);
                objForm.mv_sReportCode = "thuoc_phieunhapkho";
@@ -52,7 +52,7 @@ namespace VNS.HIS.UI.Baocao
                Utility.SetParameterValue(crpt,"sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
                Utility.SetParameterValue(crpt,"sTitleReport", tieude);
                Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
-             
+               objForm.crptViewer.ReportSource = crpt;
                objForm.ShowDialog();
                // Utility.DefaultNow(this);
            }
@@ -88,13 +88,14 @@ namespace VNS.HIS.UI.Baocao
                crpt.SetDataSource(m_dtReport);
                objForm.mv_sReportFileName = Path.GetFileName(reportname);
                objForm.mv_sReportCode = "thuoc_bienban_thanhly";
-               objForm.crptViewer.ReportSource = crpt;
+              
                Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
                Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
                Utility.SetParameterValue(crpt,"sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
                Utility.SetParameterValue(crpt,"sMoneyLetter", _moneyByLetter.sMoneyToLetter(tinhtong));
                Utility.SetParameterValue(crpt,"sTitleReport", tieude);
                Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+               objForm.crptViewer.ReportSource = crpt;
                objForm.ShowDialog();
            }
            catch (Exception ex)
@@ -129,13 +130,14 @@ namespace VNS.HIS.UI.Baocao
                crpt.SetDataSource(m_dtReport);
                objForm.mv_sReportFileName = Path.GetFileName(reportname);
                objForm.mv_sReportCode = "thuoc_bienban_huythuoc";
-               objForm.crptViewer.ReportSource = crpt;
+             
                Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
                Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
                Utility.SetParameterValue(crpt,"sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
                Utility.SetParameterValue(crpt,"sMoneyLetter", _moneyByLetter.sMoneyToLetter(tinhtong));
                Utility.SetParameterValue(crpt,"sTitleReport", tieude);
                Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+               objForm.crptViewer.ReportSource = crpt;
                objForm.ShowDialog();
            }
            catch (Exception ex)
@@ -169,12 +171,13 @@ namespace VNS.HIS.UI.Baocao
                crpt.SetDataSource(m_dtReport);
                objForm.mv_sReportFileName = Path.GetFileName(reportname);
                objForm.mv_sReportCode = "thuoc_phieudutru";
-               objForm.crptViewer.ReportSource = crpt;
+              
                Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
                Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
                Utility.SetParameterValue(crpt,"sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
                Utility.SetParameterValue(crpt,"sTitleReport", tieude);
                Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+               objForm.crptViewer.ReportSource = crpt;
                objForm.ShowDialog();
            }
            catch (Exception ex)
@@ -209,7 +212,7 @@ namespace VNS.HIS.UI.Baocao
                crpt.SetDataSource(m_dtReport);
                objForm.mv_sReportFileName = Path.GetFileName(reportname);
                objForm.mv_sReportCode = "thuoc_phieu_xuatkho_1lien";
-               objForm.crptViewer.ReportSource = crpt;
+              
 
                Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
                Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
@@ -217,6 +220,7 @@ namespace VNS.HIS.UI.Baocao
                Utility.SetParameterValue(crpt,"sTitleReport", tieude);
                Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
                Utility.SetParameterValue(crpt, "sMoneyLetter", new MoneyByLetter().sMoneyToLetter(tinhtong));
+               objForm.crptViewer.ReportSource = crpt;
 
                objForm.ShowDialog();
                // Utility.DefaultNow(this);
@@ -288,7 +292,7 @@ namespace VNS.HIS.UI.Baocao
 
                m_dtReport.AcceptChanges();
                crpt.SetDataSource(m_dtReport);
-               objForm.crptViewer.ReportSource = crpt;
+              
                objForm.mv_sReportFileName = Path.GetFileName(reportname);
                objForm.mv_sReportCode = "thuoc_phieutrakholevekhochan";
                Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
@@ -296,6 +300,7 @@ namespace VNS.HIS.UI.Baocao
                Utility.SetParameterValue(crpt, "sTitleReport", sTitleReport);
                Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
                Utility.SetParameterValue(crpt, "sMoneybyletter", THU_VIEN_CHUNG.BottomCondition());
+               objForm.crptViewer.ReportSource = crpt;
 
                objForm.ShowDialog();
                // Utility.DefaultNow(this);
@@ -334,13 +339,13 @@ namespace VNS.HIS.UI.Baocao
                                                                                  //           Strings.Chr(34)) + Strings.Chr(34);
                objForm.mv_sReportFileName = Path.GetFileName(reportname);
                objForm.mv_sReportCode = "CRPT_PHIEUXUAT_KHOLE_TOIKHOA";
-               objForm.crptViewer.ReportSource = crpt;
+              
                Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
                Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
                Utility.SetParameterValue(crpt,"sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
                Utility.SetParameterValue(crpt,"sTitleReport", sTitleReport);
                Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
-
+               objForm.crptViewer.ReportSource = crpt;
                objForm.ShowDialog();
                // Utility.DefaultNow(this);
            }
@@ -375,13 +380,14 @@ namespace VNS.HIS.UI.Baocao
                crpt.SetDataSource(m_dtReport);
                objForm.mv_sReportFileName = Path.GetFileName(reportname);
                objForm.mv_sReportCode = "thuoc_phieutranhacungcap";
-               objForm.crptViewer.ReportSource = crpt;
+              
 
                Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
                Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
                Utility.SetParameterValue(crpt,"sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
                Utility.SetParameterValue(crpt,"sTitleReport", tieude);
                Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+               objForm.crptViewer.ReportSource = crpt;
                objForm.ShowDialog();
            }
            catch (Exception ex)

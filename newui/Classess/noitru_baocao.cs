@@ -31,7 +31,7 @@ namespace VNS.HIS.UI.Baocao
             {
 
                 crpt.SetDataSource(m_dtReport);
-                objForm.crptViewer.ReportSource = crpt;
+               
 
                 objForm.mv_sReportFileName = Path.GetFileName(reportname);
                 objForm.mv_sReportCode = "noitru_phieunhapvien";
@@ -40,6 +40,7 @@ namespace VNS.HIS.UI.Baocao
                 Utility.SetParameterValue(crpt,"sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
                 Utility.SetParameterValue(crpt,"sTitleReport", tieude);
                 Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
             }
             catch (Exception ex)
