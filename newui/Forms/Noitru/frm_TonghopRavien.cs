@@ -1181,7 +1181,7 @@ namespace VNS.HIS.UI.NOITRU
             string NOITRU_HIENTHI_PHIEUVTTH_THEOPHIEUDIEUTRI = THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_HIENTHI_PHIEUVTTH_THEOPHIEUDIEUTRI","1", false);
             try
             {
-                cmdXacnhan.Enabled = objLuotkham != null && (Khoanoitrutonghop || objLuotkham.TrangthaiNoitru == 3);//Phải ra viện mới được tổng hợp
+                cmdXacnhan.Enabled = objLuotkham != null && (Khoanoitrutonghop || objLuotkham.TrangthaiNoitru == 3 || objLuotkham.TrangthaiNoitru == 4);//Phải ra viện mới được tổng hợp
                 cmdRavien.Enabled = objLuotkham != null && objLuotkham.TrangthaiNoitru <= 3;
                 cmdIngoiDV.Enabled = objLuotkham != null && grdGoidichvu.RowCount > 0 && objPhieudieutri != null;
 

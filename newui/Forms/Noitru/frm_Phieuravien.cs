@@ -95,7 +95,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 if (crpt == null) return;
                 frmPrintPreview objForm = new frmPrintPreview(baocaO_TIEUDE1.TIEUDE, crpt, true, dtData.Rows.Count <= 0 ? false : true);
                 crpt.SetDataSource(dtData);
-                objForm.crptViewer.ReportSource = crpt;
+               
                 objForm.mv_sReportFileName = Path.GetFileName(reportname);
                 objForm.mv_sReportCode = "noitru_phieuravien";
                 Utility.SetParameterValue(crpt, "StaffName", StaffName);
@@ -105,7 +105,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 Utility.SetParameterValue(crpt, "sTitleReport", baocaO_TIEUDE1.TIEUDE);
                 Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(dtpNgayin.Value));
                 Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
-
+                objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
 
             }
