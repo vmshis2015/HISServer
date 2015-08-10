@@ -382,7 +382,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
 
                 m_dtReport.AcceptChanges();
                 crpt.SetDataSource(m_dtReport);
-                objForm.crptViewer.ReportSource = crpt;
+               
                 objForm.mv_sReportFileName = Path.GetFileName(reportname);
                 objForm.mv_sReportCode = "thanhtoan_Hoadondo";
                 Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
@@ -393,7 +393,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 //Utility.SetParameterValue(crpt, "ketqua", m_dtReport.Rows[0][VKcbChidinhcl.Columns.KetQua].ToString());
                 Utility.SetParameterValue(crpt, "sTitleReport", tieude);
                 Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
-
+                objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
                 // Utility.DefaultNow(this);
             }
