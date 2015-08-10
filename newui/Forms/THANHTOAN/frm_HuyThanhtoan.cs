@@ -348,7 +348,7 @@ namespace VNS.HIS.UI.THANHTOAN
                 ma_lydohuy = _Nhaplydohuythanhtoan.ma;
             }
             bool HUYTHANHTOAN_HUYBIENLAI = THU_VIEN_CHUNG.Laygiatrithamsohethong("HUYTHANHTOAN_HUYBIENLAI", "1", true) == "1";
-            actionResult = _THANHTOAN.HuyThanhtoan(v_Payment_Id, objLuotkham, ma_lydohuy, Utility.Int32Dbnull(grdPaymentDetail.CurrentRow.Cells[KcbThanhtoan.Columns.IdHdonLog], -1), HUYTHANHTOAN_HUYBIENLAI);
+            actionResult = _THANHTOAN.HuyThanhtoan(objPayment, objLuotkham, ma_lydohuy, Utility.Int32Dbnull(grdPaymentDetail.CurrentRow.Cells[KcbThanhtoan.Columns.IdHdonLog], -1), HUYTHANHTOAN_HUYBIENLAI);
             int record = -1;
             switch (actionResult)
             {

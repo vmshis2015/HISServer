@@ -209,7 +209,7 @@ namespace VNS.HIS.UI.THANHTOAN
                     }
                     if (tongtienkhac + Utility.DecimaltoDbnull(e.Value) > Utility.DecimaltoDbnull(tong_tien, 0))
                     {
-                        e.Cancel = true;
+                       // e.Cancel = true;
                         errorProvider1.SetError(txtTongtien, "Tổng tiền phân bổ theo các phương thức thanh toán cần phải bằng tổng tiền thanh toán. Mời bạn kiểm tra lại");
                     }
                 }
@@ -266,12 +266,27 @@ namespace VNS.HIS.UI.THANHTOAN
         /// </summary>
         private void GetData()
         {
-            m_dtData = _THANHTOAN.KcbThanhtoanLaydulieuphanbothanhtoanTheoPTTT(v_Payment_Id);
-            m_dtData.AcceptChanges();
-            grdList.DataSource = m_dtData;
-            if (m_dtData != null && m_dtData.Rows.Count > 0)
+            try
             {
-                txtTongtien.Text = Utility.sDbnull(m_dtData.Rows[0]["Tong_tien"], "0");
+                m_dtData = _THANHTOAN.KcbThanhtoanLaydulieuphanbothanhtoanTheoPTTT(v_Payment_Id);
+                m_dtData.AcceptChanges();
+                grdList.DataSource = m_dtData;
+                if (m_dtData != null && m_dtData.Rows.Count > 0)
+                {
+                    if (m_dtData.Select("Tong_tien>0").Length > 0)
+                        txtTongtien.Text = Utility.sDbnull(m_dtData.Select("Tong_tien>0")[0]["Tong_tien"], "0");
+                    else
+                    {
+                        KcbThanhtoan objThanhtoan = KcbThanhtoan.FetchByID(v_Payment_Id);
+                        if (objThanhtoan != null)
+                            txtTongtien.Text = Utility.sDbnull(objThanhtoan.BnhanChitra, "0");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+                
             }
         }
       

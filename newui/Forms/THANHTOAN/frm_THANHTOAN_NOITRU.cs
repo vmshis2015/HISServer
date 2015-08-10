@@ -25,6 +25,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using VNS.HIS.UI.Forms.NGOAITRU;
 using VNS.HIS.UI.HOADONDO;
 using VNS.HIS.UI.Forms.Cauhinh;
+using VNS.HIS.UI.DANHMUC;
 
 namespace  VNS.HIS.UI.THANHTOAN
 {
@@ -170,6 +171,20 @@ namespace  VNS.HIS.UI.THANHTOAN
             optNgoaitru.CheckedChanged += optAll_CheckedChanged;
             cmdCalculator.Click += cmdCalculator_Click;
             cmdHoanung.Click += cmdHoanung_Click;
+            txtPttt._OnShowData += txtPttt__OnShowData;
+        }
+
+        void txtPttt__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtPttt.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtPttt.myCode;
+                txtPttt.Init();
+                txtPttt.SetCode(oldCode);
+                txtPttt.Focus();
+            }
         }
 
         void cmdHoanung_Click(object sender, EventArgs e)
@@ -1338,6 +1353,7 @@ namespace  VNS.HIS.UI.THANHTOAN
         private void frm_THANHTOAN_NOITRU_Load(object sender, EventArgs e)
         {
             InitData();
+            txtPttt.Init();
             setProperties();
             LoadPrinter();
             AutocompleteICD();
@@ -1815,6 +1831,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             objPayment.TrangthaiIn = 0;
             objPayment.NgayIn = null;
             objPayment.NguoiIn = string.Empty;
+            objPayment.MaPttt = txtPttt.myCode;
             objPayment.NgayTonghop = null;
             objPayment.NguoiTonghop = string.Empty;
             objPayment.NgayChot = null;
@@ -1926,7 +1943,12 @@ namespace  VNS.HIS.UI.THANHTOAN
                 grdThongTinChuaThanhToan.Focus();
                 return false;
             }
-
+            if (txtPttt.myCode == "-1")
+            {
+                Utility.ShowMsg("Bạn phải chọn phương thức thanh toán trước khi thực hiện thanh toán");
+                txtPttt.Focus();
+                return false;
+            }
             return true;
         }
 
@@ -2044,7 +2066,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         }
                        int IdHdonLog = Utility.Int32Dbnull(grdPayment.CurrentRow.Cells[HoadonLog.Columns.IdHdonLog].Value, -1);
                        bool HUYTHANHTOAN_HUYBIENLAI = THU_VIEN_CHUNG.Laygiatrithamsohethong("HUYTHANHTOAN_HUYBIENLAI", "1", true) == "1";
-                       ActionResult actionResult = _THANHTOAN.HuyThanhtoan(Utility.Int32Dbnull(objPayment.IdThanhtoan, -1), objLuotkham, ma_lydohuy, IdHdonLog, HUYTHANHTOAN_HUYBIENLAI);
+                       ActionResult actionResult = _THANHTOAN.HuyThanhtoan(  objPayment , objLuotkham, ma_lydohuy, IdHdonLog, HUYTHANHTOAN_HUYBIENLAI);
                         switch (actionResult)
                         {
                             case ActionResult.Success:
@@ -2668,7 +2690,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         return;
                     }
                     bool HUYHOADON_XOABIENLAI = THU_VIEN_CHUNG.Laygiatrithamsohethong("HUYHOADON_XOABIENLAI", "0", true) == "1";
-                    ActionResult actionResult = _THANHTOAN.HuyThongTinLanThanhToan(v_Payment_Id, objLuotkham, "", IdHdonLog, HUYHOADON_XOABIENLAI);
+                    ActionResult actionResult = _THANHTOAN.HuyThongTinLanThanhToan(KcbThanhtoan.FetchByID(v_Payment_Id), objLuotkham, "", IdHdonLog, HUYHOADON_XOABIENLAI);
                     //nếu hủy hóa đơn và hủy lần thanh toán thành công thì thông báo
                     if (actionResult == ActionResult.Success)
                     {
