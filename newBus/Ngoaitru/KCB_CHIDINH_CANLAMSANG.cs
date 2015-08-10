@@ -10,6 +10,7 @@ using System.Text;
 
 using SubSonic;
 using NLog;
+using System.Collections.Generic;
 namespace VNS.HIS.BusRule.Classes
 {
     public class KCB_CHIDINH_CANLAMSANG
@@ -23,9 +24,17 @@ namespace VNS.HIS.BusRule.Classes
          {
              SPs.ChidinhclsXoaChitiet(IdChitietchidinh).Execute();
          }
+         public void XoaCLSChitietKhoinhom(long IdChitiet)
+         {
+             new Delete().From(DmucNhomcanlamsangChitiet.Schema).Where(DmucNhomcanlamsangChitiet.Columns.IdChitiet).IsEqualTo(IdChitiet).Execute();
+         }
          public void GoidichvuXoachitiet(long IdChitietchidinh)
          {
              SPs.KcbGoidichvuXoachitiet(IdChitietchidinh).Execute();
+         }
+         public DataTable DmucLaychitietNhomchidinhCls(int ID)
+         {
+             return SPs.DmucLaychitietNhomchidinhCls(ID).GetDataSet().Tables[0];
          }
          public DataTable LaythongtinCLS_Thuoc(int ID, string KieuMau)
          {
@@ -43,7 +52,45 @@ namespace VNS.HIS.BusRule.Classes
                                                               Utility.Int32Dbnull(objKcbChidinhcls.IdBenhnhan)).GetDataSet().
                      Tables[0];
          }
-        
+         public ActionResult ThemnhomChidinhCLS(DmucNhomcanlamsang objNhom, List< DmucNhomcanlamsangChitiet> lstChitiet)
+         {
+             try
+             {
+                 using (var scope = new TransactionScope())
+                 {
+                     using (var sh = new SharedDbConnectionScope())
+                     {
+                         if (objNhom != null)
+                         {
+                             objNhom.IsNew = true;
+                             objNhom.Save();
+                             foreach (DmucNhomcanlamsangChitiet objChitiet in lstChitiet)
+                             {
+                                 objChitiet.IdNhom = objNhom.Id;
+                                 if (Utility.Int32Dbnull(objChitiet.SoLuong) <= 0) objChitiet.SoLuong = 1;
+                                 if (objChitiet.IdChitiet <= 0)
+                                 {
+                                     objChitiet.IsNew = true;
+                                     objChitiet.Save();
+                                 }
+                                 else
+                                 {
+                                     objChitiet.MarkOld();
+                                     objChitiet.IsNew = false;
+                                     objChitiet.Save();
+                                 }
+                             }
+                         }
+                     }
+                     scope.Complete();
+                     return ActionResult.Success;
+                 }
+             }
+             catch (Exception exception)
+             {
+                 return ActionResult.Error;
+             }
+         }
          public ActionResult InsertDataChiDinhCLS(KcbChidinhcl objKcbChidinhcls, KcbLuotkham objLuotkham, KcbChidinhclsChitiet[] arrAssignDetails)
          {
              try
@@ -161,6 +208,66 @@ namespace VNS.HIS.BusRule.Classes
                  log.InfoException("Loi thong tin ", exception);
                  return ActionResult.Error;
              }
+         }
+         public ActionResult CapnhatnhomchidinhCLS(DmucNhomcanlamsang objNhom, List<DmucNhomcanlamsangChitiet> lstChitiet)
+         {
+             try
+             {
+                 using (var scope = new TransactionScope())
+                 {
+                     using (var sh = new SharedDbConnectionScope())
+                     {
+
+                         objNhom.Save();
+                         foreach (DmucNhomcanlamsangChitiet objChitiet in lstChitiet)
+                         {
+                             objChitiet.IdNhom = objNhom.Id;
+                             if (Utility.Int32Dbnull(objChitiet.SoLuong) <= 0) objChitiet.SoLuong = 1;
+                             if (objChitiet.IdChitiet <= 0)
+                             {
+                                 objChitiet.IsNew = true;
+                                 objChitiet.Save();
+                             }
+                             else
+                             {
+                                 objChitiet.MarkOld();
+                                 objChitiet.IsNew = false;
+                                 objChitiet.Save();
+                             }
+                         }
+                     }
+                     scope.Complete();
+                     return ActionResult.Success;
+                 }
+             }
+             catch (Exception exception)
+             {
+                 log.InfoException("Loi thong tin ", exception);
+                 return ActionResult.Error;
+             }
+         }
+         public DataTable DmucLaydanhmucclsTaonhomchidinh(string nhomchidinh)
+         {
+             DataTable dataTable = new DataTable();
+             try
+             {
+                 dataTable = SPs.DmucLaydanhmucclsTaonhomchidinh(nhomchidinh).GetDataSet().Tables[0];
+                 if (!dataTable.Columns.Contains("TenDichvu_khongdau"))
+                     dataTable.Columns.Add("TenDichvu_khongdau", typeof(string));
+                 if (!dataTable.Columns.Contains("TenChitietDichvu_khongdau"))
+                     dataTable.Columns.Add("TenChitietDichvu_khongdau", typeof(string));
+                 foreach (DataRow drv in dataTable.Rows)
+                 {
+                     drv["TenDichvu_khongdau"] = Utility.UnSignedCharacter(drv[DmucDichvucl.Columns.TenDichvu].ToString());
+                     drv["TenChitietDichvu_khongdau"] = Utility.UnSignedCharacter(drv[DmucDichvuclsChitiet.Columns.TenChitietdichvu].ToString());
+                 }
+                 dataTable.AcceptChanges();
+             }
+             catch (Exception)
+             {
+                 return null;
+             }
+             return dataTable;
          }
          public DataTable LaydanhsachCLS_chidinh(string MaDoiTuong, byte Noitru, byte cogiayBHYT, int ID_GoiDV, int dungtuyen, string MA_KHOA_THIEN, string nhomchidinh)
          {

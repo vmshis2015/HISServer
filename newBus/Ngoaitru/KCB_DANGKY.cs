@@ -22,6 +22,12 @@ namespace VNS.HIS.BusRule.Classes
         {
             log = LogManager.GetCurrentClassLogger();
         }
+        public long KcbLayIdDoituongKCBHientai(long IdBenhnhan, string ma_luotkham)
+        {
+            DataTable dt=SPs.KcbLayIdDoituongKCBHientai(IdBenhnhan, ma_luotkham).GetDataSet().Tables[0];
+            if(dt.Rows.Count<=0) return -1;
+            return Utility.Int64Dbnull(dt.Rows[0][KcbLichsuDoituongKcb.Columns.IdLichsuDoituongKcb]);
+        }
         public DataTable KcbLaythongtinBenhnhan(long IdBenhnhan)
         {
             return SPs.KcbLaythongtinBenhnhan(IdBenhnhan).GetDataSet().Tables[0];
@@ -785,6 +791,39 @@ namespace VNS.HIS.BusRule.Classes
                     using (var dbscope = new SharedDbConnectionScope())
                     {
                         UpdatePatientInfo(objKcbDanhsachBenhnhan);
+
+                        KcbLichsuDoituongKcb objLichsuKcb = new KcbLichsuDoituongKcb();
+                        objLichsuKcb.IdBenhnhan = objLuotkham.IdBenhnhan;
+                        objLichsuKcb.MaLuotkham = objLuotkham.MaLuotkham;
+                        objLichsuKcb.NgayHieuluc = objLuotkham.NgayTiepdon;
+                        objLichsuKcb.IdDoituongKcb = objLuotkham.IdDoituongKcb;
+                        objLichsuKcb.MaDoituongKcb = objLuotkham.MaDoituongKcb;
+                        objLichsuKcb.IdLoaidoituongKcb = objLuotkham.IdLoaidoituongKcb;
+                        objLichsuKcb.MatheBhyt = objLuotkham.MatheBhyt;
+                        objLichsuKcb.PtramBhyt = objLuotkham.PtramBhyt;
+                        objLichsuKcb.PtramBhytGoc = objLuotkham.PtramBhytGoc;
+                        objLichsuKcb.NgaybatdauBhyt = objLuotkham.NgaybatdauBhyt;
+                        objLichsuKcb.NgayketthucBhyt = objLuotkham.NgayketthucBhyt;
+                        objLichsuKcb.NoicapBhyt = objLuotkham.NoicapBhyt;
+                        objLichsuKcb.MaNoicapBhyt = objLuotkham.MaNoicapBhyt;
+                        objLichsuKcb.MaDoituongBhyt = objLuotkham.MaDoituongBhyt;
+                        objLichsuKcb.MaQuyenloi = objLuotkham.MaQuyenloi;
+                        objLichsuKcb.NoiDongtrusoKcbbd = objLuotkham.NoiDongtrusoKcbbd;
+
+                        objLichsuKcb.MaKcbbd = objLuotkham.MaKcbbd;
+                        objLichsuKcb.TrangthaiNoitru = 0;
+                        objLichsuKcb.DungTuyen = objLuotkham.DungTuyen;
+                        objLichsuKcb.Cmt = objLuotkham.Cmt;
+                        objLichsuKcb.IdRavien = -1;
+                        objLichsuKcb.IdBuong = -1;
+                        objLichsuKcb.IdGiuong = -1;
+                        objLichsuKcb.IdKhoanoitru = -1;
+                        objLichsuKcb.NguoiTao = globalVariables.UserName;
+                        objLichsuKcb.NgayTao = globalVariables.SysDate;
+
+                        objLichsuKcb.IsNew = true;
+                        objLichsuKcb.Save();
+
                         SqlQuery sqlQueryPatientExam = new Select().From(KcbLuotkham.Schema)
                            .Where(KcbLuotkham.Columns.IdBenhnhan).IsNotEqualTo(objLuotkham.IdBenhnhan)
                            .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham);
@@ -792,8 +831,12 @@ namespace VNS.HIS.BusRule.Classes
                         {
 
                             objLuotkham.MaLuotkham = THU_VIEN_CHUNG.KCB_SINH_MALANKHAM();
+                            new Update(KcbLichsuDoituongKcb.Schema)
+                               .Set(KcbLichsuDoituongKcb.Columns.MaLuotkham).EqualTo(objLuotkham.MaLuotkham)
+                               .Where(KcbLichsuDoituongKcb.Columns.IdLichsuDoituongKcb).IsEqualTo(objLichsuKcb.IdLichsuDoituongKcb).Execute();
 
                         }
+                        objLuotkham.IdLichsuDoituongKcb = objLichsuKcb.IdLichsuDoituongKcb;
                         objLuotkham.IsNew = true;
                         objLuotkham.Save();
                         
@@ -934,16 +977,50 @@ namespace VNS.HIS.BusRule.Classes
                     {
                         objKcbDanhsachBenhnhan.IsNew = true;
                         objKcbDanhsachBenhnhan.Save();
+
+                        KcbLichsuDoituongKcb objLichsuKcb = new KcbLichsuDoituongKcb();
+                        objLichsuKcb.IdBenhnhan = objKcbDanhsachBenhnhan.IdBenhnhan;
+                        objLichsuKcb.MaLuotkham = objLuotkham.MaLuotkham;
+                        objLichsuKcb.NgayHieuluc = objLuotkham.NgayTiepdon;
+                        objLichsuKcb.IdDoituongKcb = objLuotkham.IdDoituongKcb;
+                        objLichsuKcb.MaDoituongKcb = objLuotkham.MaDoituongKcb;
+                        objLichsuKcb.IdLoaidoituongKcb = objLuotkham.IdLoaidoituongKcb;
+                        objLichsuKcb.MatheBhyt = objLuotkham.MatheBhyt;
+                        objLichsuKcb.PtramBhyt = objLuotkham.PtramBhyt;
+                        objLichsuKcb.PtramBhytGoc = objLuotkham.PtramBhytGoc;
+                        objLichsuKcb.NgaybatdauBhyt = objLuotkham.NgaybatdauBhyt;
+                        objLichsuKcb.NgayketthucBhyt = objLuotkham.NgayketthucBhyt;
+                        objLichsuKcb.NoicapBhyt = objLuotkham.NoicapBhyt;
+                        objLichsuKcb.MaNoicapBhyt = objLuotkham.MaNoicapBhyt;
+                        objLichsuKcb.MaDoituongBhyt = objLuotkham.MaDoituongBhyt;
+                        objLichsuKcb.MaQuyenloi = objLuotkham.MaQuyenloi;
+                        objLichsuKcb.NoiDongtrusoKcbbd = objLuotkham.NoiDongtrusoKcbbd;
+
+                        objLichsuKcb.MaKcbbd = objLuotkham.MaKcbbd;
+                        objLichsuKcb.TrangthaiNoitru = 0;
+                        objLichsuKcb.DungTuyen = objLuotkham.DungTuyen;
+                        objLichsuKcb.Cmt = objLuotkham.Cmt;
+                        objLichsuKcb.IdRavien = -1;
+                        objLichsuKcb.IdBuong = -1;
+                        objLichsuKcb.IdGiuong = -1;
+                        objLichsuKcb.IdKhoanoitru = -1;
+                        objLichsuKcb.NguoiTao = globalVariables.UserName;
+                        objLichsuKcb.NgayTao = globalVariables.SysDate;
+
+                        objLichsuKcb.IsNew = true;
+                        objLichsuKcb.Save();
+
                         //Thêm lần khám
                         objLuotkham.IdBenhnhan = objKcbDanhsachBenhnhan.IdBenhnhan;
                         objLuotkham.SoBenhAn = string.Empty;
-                       
+                        objLuotkham.IdLichsuDoituongKcb = objLichsuKcb.IdLichsuDoituongKcb;
                         objLuotkham.SttKham = THU_VIEN_CHUNG.LaySTTKhamTheoDoituong(objLuotkham.IdDoituongKcb);
                         objLuotkham.NgayTao = globalVariables.SysDate;
                         objLuotkham.NguoiTao = globalVariables.UserName;
                         objLuotkham.IsNew = true;
                         objLuotkham.Save();
-                        
+
+                       
                         SqlQuery sqlQueryPatientExam = new Select().From(KcbLuotkham.Schema)
                          .Where(KcbLuotkham.Columns.IdBenhnhan).IsNotEqualTo(objLuotkham.IdBenhnhan)
                          .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham);
@@ -954,6 +1031,11 @@ namespace VNS.HIS.BusRule.Classes
                                 .Set(KcbLuotkham.Columns.MaLuotkham).EqualTo(patientCode)
                                 .Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                                 .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham).Execute();
+
+                            new Update(KcbLichsuDoituongKcb.Schema)
+                                .Set(KcbLichsuDoituongKcb.Columns.MaLuotkham).EqualTo(patientCode)
+                                .Where(KcbLichsuDoituongKcb.Columns.IdLichsuDoituongKcb).IsEqualTo(objLichsuKcb.IdLichsuDoituongKcb).Execute();
+
                             objLuotkham.MaLuotkham = patientCode;
                         }
                         new Update(KcbDmucLuotkham.Schema)
@@ -1052,11 +1134,57 @@ namespace VNS.HIS.BusRule.Classes
                                     objLuotkham.IdBenhnhan);
                         KcbLuotkham objExam = query.ExecuteSingle<KcbLuotkham>();
                         UpdatePatientInfo(objKcbDanhsachBenhnhan);
-                        //decimal PtramBHYT = THU_VIEN_CHUNG.TinhPtramBHYT(objLuotkham);
-                        //if (PtramBHYT != Utility.DecimaltoDbnull(objLuotkham.PtramBhyt))
-                        //{
-                        //    objLuotkham.PtramBhyt = PtramBHYT;
-                        //}
+                        long IdLichsuDoituongKcb = KcbLayIdDoituongKCBHientai(objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham);
+                        KcbLichsuDoituongKcb objLichsuKcb = null;
+                        if (IdLichsuDoituongKcb > 0)
+                        {
+                            objLichsuKcb = KcbLichsuDoituongKcb.FetchByID(IdLichsuDoituongKcb);
+                            objLichsuKcb.MarkOld();
+                            objLichsuKcb.IsNew = false;
+                        }
+                        else
+                        {
+                            objLichsuKcb = new KcbLichsuDoituongKcb();
+                            objLichsuKcb.IsNew = true;
+                        }
+                        if (objLichsuKcb == null)
+                        {
+                            Msg = "NULL-->Không lấy được thông tin lịch sử đối tượng KCB của Bệnh nhân";
+                            return ActionResult.Error;
+                        }
+                        
+                            objLichsuKcb.IdBenhnhan = objLuotkham.IdBenhnhan;
+                            objLichsuKcb.MaLuotkham = objLuotkham.MaLuotkham;
+                            objLichsuKcb.NgayHieuluc = objLuotkham.NgayTiepdon;
+                            objLichsuKcb.IdDoituongKcb = objLuotkham.IdDoituongKcb;
+                            objLichsuKcb.MaDoituongKcb = objLuotkham.MaDoituongKcb;
+                            objLichsuKcb.IdLoaidoituongKcb = objLuotkham.IdLoaidoituongKcb;
+                            objLichsuKcb.MatheBhyt = objLuotkham.MatheBhyt;
+                            objLichsuKcb.PtramBhyt = objLuotkham.PtramBhyt;
+                            objLichsuKcb.PtramBhytGoc = objLuotkham.PtramBhytGoc;
+                            objLichsuKcb.NgaybatdauBhyt = objLuotkham.NgaybatdauBhyt;
+                            objLichsuKcb.NgayketthucBhyt = objLuotkham.NgayketthucBhyt;
+                            objLichsuKcb.NoicapBhyt = objLuotkham.NoicapBhyt;
+                            objLichsuKcb.MaNoicapBhyt = objLuotkham.MaNoicapBhyt;
+                            objLichsuKcb.MaDoituongBhyt = objLuotkham.MaDoituongBhyt;
+                            objLichsuKcb.MaQuyenloi = objLuotkham.MaQuyenloi;
+                            objLichsuKcb.NoiDongtrusoKcbbd = objLuotkham.NoiDongtrusoKcbbd;
+
+                            objLichsuKcb.MaKcbbd = objLuotkham.MaKcbbd;
+                            objLichsuKcb.TrangthaiNoitru = 0;
+                            objLichsuKcb.DungTuyen = objLuotkham.DungTuyen;
+                            objLichsuKcb.Cmt = objLuotkham.Cmt;
+                            objLichsuKcb.IdRavien = -1;
+                            objLichsuKcb.IdBuong = -1;
+                            objLichsuKcb.IdGiuong = -1;
+                            objLichsuKcb.IdKhoanoitru = -1;
+                            objLichsuKcb.NguoiTao = globalVariables.UserName;
+                            objLichsuKcb.NgayTao = globalVariables.SysDate;
+
+                            objLichsuKcb.IsNew = true;
+                            objLichsuKcb.Save();
+                        
+                        objLuotkham.IdLichsuDoituongKcb = objLichsuKcb.IdLichsuDoituongKcb;
                         objLuotkham.MarkOld();
                         objLuotkham.IsNew = false;
                         objLuotkham.Save();
