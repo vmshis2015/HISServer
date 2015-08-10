@@ -4671,7 +4671,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             ma_lydohuy = _Nhaplydohuythanhtoan.ma;
                         }
                         bool HUYTHANHTOAN_HUYBIENLAI = THU_VIEN_CHUNG.Laygiatrithamsohethong("HUYTHANHTOAN_HUYBIENLAI", "1", true) == "1";
-                        ActionResult actionResult = new KCB_THANHTOAN().HuyThanhtoan(v_Payment_ID, objLuotkham, ma_lydohuy, Utility.Int32Dbnull(grdRegExam.CurrentRow.Cells[KcbThanhtoan.Columns.IdHdonLog], -1), HUYTHANHTOAN_HUYBIENLAI);
+                        ActionResult actionResult = new KCB_THANHTOAN().HuyThanhtoan(KcbThanhtoan.FetchByID(v_Payment_ID), objLuotkham, ma_lydohuy, Utility.Int32Dbnull(grdRegExam.CurrentRow.Cells[KcbThanhtoan.Columns.IdHdonLog], -1), HUYTHANHTOAN_HUYBIENLAI);
                         switch (actionResult)
                         {
                             case ActionResult.Success:

@@ -60,8 +60,7 @@
             this.grd_List.Size = new System.Drawing.Size(543, 455);
             this.grd_List.TabIndex = 0;
             this.grd_List.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
-            this.grd_List.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grd_List_KeyDown_1);
-            this.grd_List.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.grd_List_KeyPress);
+            
             // 
             // frm_DanhSach_ICD
             // 
@@ -77,8 +76,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Danh mục ICD Bệnh";
-            this.Load += new System.EventHandler(this.frm_DanhSach_ICD_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frm_DanhSach_ICD_KeyDown);
+           
             ((System.ComponentModel.ISupportInitialize)(this.grd_List)).EndInit();
             this.ResumeLayout(false);
 

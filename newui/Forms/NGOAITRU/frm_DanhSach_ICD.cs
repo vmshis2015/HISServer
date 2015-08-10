@@ -27,6 +27,9 @@ namespace  VNS.HIS.UI.NGOAITRU
             this.CP = CP;
             grd_List.RootTable.Columns["colCHON"].Visible = this.CP == 1;
             grd_List.KeyDown += new KeyEventHandler(grd_List_KeyDown);
+            this.grd_List.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.grd_List_KeyPress);
+            this.Load += new System.EventHandler(this.frm_DanhSach_ICD_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frm_DanhSach_ICD_KeyDown);
         }
 
         void grd_List_KeyDown(object sender, KeyEventArgs e)
@@ -73,46 +76,43 @@ namespace  VNS.HIS.UI.NGOAITRU
             }
         }
 
-        private void grd_List_KeyDown_1(object sender, KeyEventArgs e)
-        {
-
-        }
+       
 
         private void grd_List_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsLetter(e.KeyChar))
-            {
-                if (Char.IsLetterOrDigit(e.KeyChar))
-                {
-                        mabenh = Utility.sDbnull(e.KeyChar);
+            //if (Char.IsLetter(e.KeyChar))
+            //{
+                //if (Char.IsLetterOrDigit(e.KeyChar))
+                //{
+                //        mabenh = Utility.sDbnull(e.KeyChar);
 
-                        var querymabenh = from benh in grd_List.GetDataRows()
-                                    where Utility.sDbnull(benh.Cells[DmucBenh.Columns.MaBenh].Value).Contains(mabenh)
-                                          || Utility.sDbnull(benh.Cells[DmucBenh.Columns.MaBenh].Value).EndsWith(mabenh)
-                                          || Utility.sDbnull(benh.Cells[DmucBenh.Columns.MaBenh].Value).StartsWith(mabenh)
-                                    select Utility.sDbnull(benh.Cells[DmucBenh.Columns.MaBenh].Value);
+                //        var querymabenh = from benh in grd_List.GetDataRows()
+                //                    where Utility.sDbnull(benh.Cells[DmucBenh.Columns.MaBenh].Value).Contains(mabenh)
+                //                          || Utility.sDbnull(benh.Cells[DmucBenh.Columns.MaBenh].Value).EndsWith(mabenh)
+                //                          || Utility.sDbnull(benh.Cells[DmucBenh.Columns.MaBenh].Value).StartsWith(mabenh)
+                //                    select Utility.sDbnull(benh.Cells[DmucBenh.Columns.MaBenh].Value);
 
-                        if (querymabenh.Any())
-                        {
-                            Utility.GotoNewRowJanus(grd_List, DmucBenh.Columns.MaBenh, querymabenh.FirstOrDefault());
-                        }
+                //        if (querymabenh.Any())
+                //        {
+                //            Utility.GotoNewRowJanus(grd_List, DmucBenh.Columns.MaBenh, querymabenh.FirstOrDefault());
+                //        }
                    
-                        var query = from benh in grd_List.GetDataRows()
-                                    where Utility.sDbnull(benh.Cells[DmucBenh.Columns.TenBenh].Value).Contains(mabenh)
-                                          || Utility.sDbnull(benh.Cells[DmucBenh.Columns.TenBenh].Value).EndsWith(mabenh)
-                                          || Utility.sDbnull(benh.Cells[DmucBenh.Columns.TenBenh].Value).StartsWith(mabenh)
-                                    select Utility.sDbnull(benh.Cells[DmucBenh.Columns.MaBenh].Value);
-                        if (query.Any())
-                        {
-                            Utility.GotoNewRowJanus(grd_List, DmucBenh.Columns.MaBenh, query.FirstOrDefault());
-                        }
-                    Janus.Windows.GridEX.GridEXColumn gridExColumn =
-                        grd_List.RootTable.Columns[DmucBenh.Columns.TenBenh];
-                    Janus.Windows.GridEX.GridEXFilterCondition gridExFilterCondition = new GridEXFilterCondition(gridExColumn, ConditionOperator.Contains, mabenh);
-                    grd_List.Find(gridExFilterCondition,1,-1);
+                //        var query = from benh in grd_List.GetDataRows()
+                //                    where Utility.sDbnull(benh.Cells[DmucBenh.Columns.TenBenh].Value).Contains(mabenh)
+                //                          || Utility.sDbnull(benh.Cells[DmucBenh.Columns.TenBenh].Value).EndsWith(mabenh)
+                //                          || Utility.sDbnull(benh.Cells[DmucBenh.Columns.TenBenh].Value).StartsWith(mabenh)
+                //                    select Utility.sDbnull(benh.Cells[DmucBenh.Columns.MaBenh].Value);
+                //        if (query.Any())
+                //        {
+                //            Utility.GotoNewRowJanus(grd_List, DmucBenh.Columns.MaBenh, query.FirstOrDefault());
+                //        }
+                //    Janus.Windows.GridEX.GridEXColumn gridExColumn =
+                //        grd_List.RootTable.Columns[DmucBenh.Columns.TenBenh];
+                //    Janus.Windows.GridEX.GridEXFilterCondition gridExFilterCondition = new GridEXFilterCondition(gridExColumn, ConditionOperator.Contains, mabenh);
+                //    grd_List.Find(gridExFilterCondition,1,-1);
 
-                }
-            }
+                //}
+            //}
                
         }
 
