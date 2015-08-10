@@ -222,7 +222,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
 
                 frmPrintPreview objForm = new frmPrintPreview(baocaO_TIEUDE1.TIEUDE, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
                 crpt.SetDataSource(m_dtReport);
-                objForm.crptViewer.ReportSource = crpt;
+               
                 objForm.mv_sReportFileName = Path.GetFileName(reportname);
                 objForm.mv_sReportCode = tenbaocao;
                 //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
@@ -234,6 +234,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
                 Utility.SetParameterValue(crpt,"DayOfWarning", nmrSongay.Value);
                 Utility.SetParameterValue(crpt,"ngay_in", dtNgayInPhieu.Value.ToString("dd/MM/yyyy"));
+                objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
             }
             catch (Exception exception)

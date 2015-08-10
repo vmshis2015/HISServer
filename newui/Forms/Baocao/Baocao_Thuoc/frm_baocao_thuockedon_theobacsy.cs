@@ -125,7 +125,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
             {
                 frmPrintPreview objForm = new frmPrintPreview(baocaO_TIEUDE1.TIEUDE, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
                 crpt.SetDataSource(m_dtReport);
-                objForm.crptViewer.ReportSource = crpt;
+               
                 objForm.mv_sReportFileName = Path.GetFileName(reportname);
                 objForm.mv_sReportCode = "thuoc_baocaokedon_theobacsy";
                 Utility.SetParameterValue(crpt, "StaffName", StaffName);
@@ -138,7 +138,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(dtNgayInPhieu.Value));
                 Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
                 Utility.SetParameterValue(crpt, "Department_Name", globalVariables.KhoaDuoc);
-
+                objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
             }
             catch (Exception exception)
