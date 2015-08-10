@@ -1851,7 +1851,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         return;
                     }
                     bool HUYHOADON_XOABIENLAI = THU_VIEN_CHUNG.Laygiatrithamsohethong("HUYHOADON_XOABIENLAI", "0", true) == "1";
-                    ActionResult actionResult = _THANHTOAN.HuyThongTinLanThanhToan(v_Payment_Id, null, "", IdHdonLog, HUYHOADON_XOABIENLAI);
+                    ActionResult actionResult = _THANHTOAN.HuyThongTinLanThanhToan(KcbThanhtoan.FetchByID( v_Payment_Id), null, "", IdHdonLog, HUYHOADON_XOABIENLAI);
                     //nếu hủy hóa đơn và hủy lần thanh toán thành công thì thông báo
                     if (actionResult == ActionResult.Success)
                     {
