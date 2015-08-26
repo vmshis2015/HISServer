@@ -412,7 +412,7 @@ namespace CIS.CoreApp
             try
             {
 
-                LoadBackgroud();
+                LoadBackground();
                 SetsyncDateTime();
                 lblTime.Text ="Bây giờ là: "+ DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                 ClearTab();
@@ -492,7 +492,7 @@ namespace CIS.CoreApp
         /// <summary>
         /// hàm thực hiện load backgroud 
         /// </summary>
-        private void LoadBackgroud()
+        private void LoadBackground()
         {
             try
             {
@@ -538,7 +538,7 @@ namespace CIS.CoreApp
                     SetInfor();
 
                     LoadMenu();
-
+                    LoadBackground();
                 }
             }
             catch (Exception exception)

@@ -47,7 +47,7 @@ namespace CIS.CoreApp
             {
                 bool isAdmin = new LoginService().isAdmin(Utility.sDbnull(globalVariables.UserName));
                 DataBinding.BindDataCombox(cboKhoaKCB,
-                                           THU_VIEN_CHUNG.LaydanhsachKhoanoitruTheoBacsi(globalVariables.UserName, Utility.Bool2byte(isAdmin), (byte)2),
+                                           THU_VIEN_CHUNG.LaydanhsachKhoaKhidangnhap(globalVariables.UserName, Utility.Bool2byte(isAdmin)),
                                            DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
                                            "---Chọn khoa làm việc---", false);
                 cboKhoaKCB.SelectedIndex = Utility.GetSelectedIndex(cboKhoaKCB, PropertyLib._AppProperties.Makhoathien);

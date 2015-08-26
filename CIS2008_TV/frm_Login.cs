@@ -132,7 +132,7 @@ namespace CIS.CoreApp
                     globalVariables.UserName = oldUID;
                    bool isAdmin= new LoginService().isAdmin(Utility.sDbnull(oldUID));
                     DataBinding.BindDataCombox(cboKhoaKCB,
-                                               THU_VIEN_CHUNG.LaydanhsachKhoanoitruTheoBacsi(globalVariables.UserName, Utility.Bool2byte(isAdmin), (byte)2),
+                                               THU_VIEN_CHUNG.LaydanhsachKhoaKhidangnhap(globalVariables.UserName, Utility.Bool2byte(isAdmin)),
                                                DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
                                                "---Khoa làm việc---", false);
                     cboKhoaKCB.SelectedIndex = Utility.GetSelectedIndex(cboKhoaKCB, PropertyLib._AppProperties.Makhoathien);
