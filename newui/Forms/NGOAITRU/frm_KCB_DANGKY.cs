@@ -5433,7 +5433,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             KcbDangkySokham objSokham = null;
             if (objDoituongKCB == null) return null;
-            if (txtSoKcb.myCode != "-1")
+            if (chkLaysokham.Checked && txtSoKcb.myCode != "-1")
             {
                 
                 DmucChung objDmucchung = THU_VIEN_CHUNG.LaydoituongDmucChung(txtSoKcb.LOAI_DANHMUC, txtSoKcb.myCode);

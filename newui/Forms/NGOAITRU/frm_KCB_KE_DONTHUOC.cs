@@ -581,17 +581,14 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 DataTable data = THU_VIEN_CHUNG.LaydanhsachBacsi(departmentID,noitru);
-                VNS.Libs.DataBinding.BindDataCombox(this.cbobacSyChiDinh, data, DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.TenNhanvien, "---Bác sỹ chỉ định---", true);
+                txtBacsi.Init(data, new List<string>() { DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.MaNhanvien, DmucNhanvien.Columns.TenNhanvien });
                 if (globalVariables.gv_intIDNhanvien <= 0)
                 {
-                    if (this.cbobacSyChiDinh.Items.Count > 0)
-                    {
-                        this.cbobacSyChiDinh.SelectedIndex = 0;
-                    }
+                    txtBacsi.SetId(-1);
                 }
                 else
                 {
-                    this.cbobacSyChiDinh.SelectedIndex = Utility.GetSelectedIndex(this.cbobacSyChiDinh, globalVariables.gv_intIDNhanvien.ToString());
+                    txtBacsi.SetId( globalVariables.gv_intIDNhanvien);
                 }
             }
             catch (Exception)
@@ -753,10 +750,10 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void cmdAddDetail_Click(object sender, EventArgs e)
         {
-            if (Utility.Int32Dbnull(cbobacSyChiDinh.SelectedValue, -1) <= 0)
+            if (Utility.Int32Dbnull(txtBacsi.MyID, -1) <= 0)
             {
                 Utility.SetMsg(lblMsg, "Bạn cần chọn bác sĩ chỉ định trước khi thực hiện kê đơn thuốc", true);
-                cbobacSyChiDinh.Focus();
+                txtBacsi.Focus();
                 return;
             }
             if (objPhieudieutriNoitru != null)
@@ -867,10 +864,10 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 this.cmdSavePres.Enabled = false;
                 this.isSaved = true;
-                if (Utility.Int32Dbnull(cbobacSyChiDinh.SelectedValue, -1) <= 0)
+                if (Utility.Int32Dbnull(txtBacsi.MyID, -1) <= 0)
                 {
                     Utility.SetMsg(lblMsg, "Bạn cần chọn bác sĩ chỉ định trước khi thực hiện kê đơn thuốc", true);
-                    cbobacSyChiDinh.Focus();
+                    txtBacsi.Focus();
                     return;
                 }
                 if (objPhieudieutriNoitru != null)
@@ -921,9 +918,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 this._KcbChandoanKetluan.MaLuotkham = this.objLuotkham.MaLuotkham;
                 this._KcbChandoanKetluan.IdBenhnhan = this.objLuotkham.IdBenhnhan;
                 this._KcbChandoanKetluan.MabenhChinh = Utility.sDbnull(this.txtMaBenhChinh.Text, "");
-                if (this.cbobacSyChiDinh.SelectedIndex > 0)
+                if (Utility.Int16Dbnull(txtBacsi.MyID, -1) > 0)
                 {
-                    this._KcbChandoanKetluan.IdBacsikham = Utility.Int16Dbnull(this.cbobacSyChiDinh.SelectedValue, -1);
+                    this._KcbChandoanKetluan.IdBacsikham = Utility.Int16Dbnull(txtBacsi.MyID, -1);
                 }
                 else
                 {
@@ -1665,7 +1662,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 this.barcode.Data = Utility.sDbnull(this.IdDonthuoc);
                 this.txtLoiDanBS.Text = Utility.sDbnull(donthuoc.LoidanBacsi);
                 this.txtKhamLai.Text = Utility.sDbnull(donthuoc.TaiKham);
-                this.cbobacSyChiDinh.SelectedIndex = Utility.GetSelectedIndex(this.cbobacSyChiDinh, donthuoc.IdBacsiChidinh.ToString());
+                txtBacsi.SetId(Utility.sDbnull(donthuoc.IdBacsiChidinh, ""));
                 dtpCreatedDate.Value = donthuoc.NgayKedon;
                 if (donthuoc.NgayTaikham != null)
                 {
@@ -2143,6 +2140,8 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             int _idthuoc = Utility.Int32Dbnull(txtdrug.MyID, -1);
             txtDrugID.Text = _idthuoc.ToString();
+            txtSoluong.Focus();
+            txtSoluong.SelectAll();
         }
 
         void grd_ICD_ColumnButtonClick(object sender, ColumnActionEventArgs e)

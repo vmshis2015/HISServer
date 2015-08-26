@@ -908,6 +908,9 @@ D:\Projects\VMSTEST\HISClient\newui\obj\Debug\newui.csproj.GenerateResource.Cach
 D:\Projects\VMSTEST\HISClient\newui\obj\Debug\VNS.HIS.UI.dll.licenses
 D:\Projects\VMSTEST\HISClient\newui\obj\Debug\VNS.HIS.UI.dll
 D:\Projects\VMSTEST\HISClient\newui\obj\Debug\VNS.HIS.UI.pdb
+D:\Projects\MyHIS\Running\VNS.HIS.UI.dll.config
+D:\Projects\MyHIS\Running\VNS.HIS.UI.dll
+D:\Projects\MyHIS\Running\VNS.HIS.UI.pdb
 D:\Projects\VMSClient\trunk\newui\obj\Debug\newui.csprojResolveAssemblyReference.cache
 D:\Projects\VMSClient\trunk\newui\obj\Debug\newui.Form1.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_baocaohuytien.resources
@@ -1105,8 +1108,5 @@ D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.THANHTOAN.frm_THANHTOAN_N
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Properties.Resources.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\newui.csproj.GenerateResource.Cache
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.dll.licenses
-D:\Projects\MyHIS\Running\VNS.HIS.UI.dll.config
-D:\Projects\MyHIS\Running\VNS.HIS.UI.dll
-D:\Projects\MyHIS\Running\VNS.HIS.UI.pdb
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.dll
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.pdb

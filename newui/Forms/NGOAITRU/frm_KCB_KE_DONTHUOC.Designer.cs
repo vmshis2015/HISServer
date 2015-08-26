@@ -120,7 +120,6 @@
             this.txtptramdauthe = new Janus.Windows.GridEX.EditControls.EditBox();
             this.label24 = new System.Windows.Forms.Label();
             this.txtdiachiBhyt = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.cbobacSyChiDinh = new System.Windows.Forms.ComboBox();
             this.txtPtramBHYT = new Janus.Windows.GridEX.EditControls.EditBox();
             this.vbLine2 = new VNS.UCs.VBLine();
             this.vbLine1 = new VNS.UCs.VBLine();
@@ -169,6 +168,7 @@
             this.cboA4 = new Janus.Windows.EditControls.UIComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtBacsi = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdPresDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabKeDonThuoc)).BeginInit();
@@ -744,7 +744,7 @@
             // 
             this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.Black;
+            this.label15.ForeColor = System.Drawing.Color.Red;
             this.label15.Location = new System.Drawing.Point(6, 27);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(84, 23);
@@ -888,7 +888,7 @@
             // label17
             // 
             this.label17.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.Color.Black;
+            this.label17.ForeColor = System.Drawing.Color.Red;
             this.label17.Location = new System.Drawing.Point(6, 55);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(84, 23);
@@ -956,7 +956,7 @@
             // label11
             // 
             this.label11.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.ForeColor = System.Drawing.Color.Red;
             this.label11.Location = new System.Drawing.Point(6, 79);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(84, 23);
@@ -981,14 +981,13 @@
             // 
             // panel1
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.txtBacsi);
             this.panel1.Controls.Add(this.pnlChandoanNgoaitru);
             this.panel1.Controls.Add(this.lblphantramdauthe);
             this.panel1.Controls.Add(this.label33);
             this.panel1.Controls.Add(this.txtptramdauthe);
             this.panel1.Controls.Add(this.label24);
             this.panel1.Controls.Add(this.txtdiachiBhyt);
-            this.panel1.Controls.Add(this.cbobacSyChiDinh);
             this.panel1.Controls.Add(this.txtPtramBHYT);
             this.panel1.Controls.Add(this.vbLine2);
             this.panel1.Controls.Add(this.vbLine1);
@@ -1260,16 +1259,6 @@
             this.txtdiachiBhyt.TabIndex = 546;
             this.txtdiachiBhyt.TabStop = false;
             // 
-            // cbobacSyChiDinh
-            // 
-            this.cbobacSyChiDinh.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbobacSyChiDinh.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbobacSyChiDinh.FormattingEnabled = true;
-            this.cbobacSyChiDinh.Location = new System.Drawing.Point(104, 299);
-            this.cbobacSyChiDinh.Name = "cbobacSyChiDinh";
-            this.cbobacSyChiDinh.Size = new System.Drawing.Size(260, 23);
-            this.cbobacSyChiDinh.TabIndex = 16;
-            // 
             // txtPtramBHYT
             // 
             this.txtPtramBHYT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1485,7 +1474,7 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.ForeColor = System.Drawing.Color.Red;
             this.label6.Location = new System.Drawing.Point(7, 302);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(95, 21);
@@ -1579,7 +1568,7 @@
             // label25
             // 
             this.label25.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.ForeColor = System.Drawing.Color.Black;
+            this.label25.ForeColor = System.Drawing.Color.Red;
             this.label25.Location = new System.Drawing.Point(7, 273);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(95, 23);
@@ -1822,6 +1811,45 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // txtBacsi
+            // 
+            this.txtBacsi._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtBacsi._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBacsi._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtBacsi.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtBacsi.AutoCompleteList")));
+            this.txtBacsi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBacsi.CaseSensitive = false;
+            this.txtBacsi.CompareNoID = true;
+            this.txtBacsi.DefaultCode = "-1";
+            this.txtBacsi.DefaultID = "-1";
+            this.txtBacsi.Drug_ID = null;
+            this.txtBacsi.ExtraWidth = 0;
+            this.txtBacsi.FillValueAfterSelect = false;
+            this.txtBacsi.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBacsi.Location = new System.Drawing.Point(103, 301);
+            this.txtBacsi.MaxHeight = 289;
+            this.txtBacsi.MinTypedCharacters = 2;
+            this.txtBacsi.MyCode = "-1";
+            this.txtBacsi.MyID = "-1";
+            this.txtBacsi.MyText = "";
+            this.txtBacsi.Name = "txtBacsi";
+            this.txtBacsi.RaiseEvent = true;
+            this.txtBacsi.RaiseEventEnter = true;
+            this.txtBacsi.RaiseEventEnterWhenEmpty = true;
+            this.txtBacsi.SelectedIndex = -1;
+            this.txtBacsi.Size = new System.Drawing.Size(262, 21);
+            this.txtBacsi.splitChar = '@';
+            this.txtBacsi.splitCharIDAndCode = '#';
+            this.txtBacsi.TabIndex = 16;
+            this.txtBacsi.TakeCode = false;
+            this.txtBacsi.txtMyCode = null;
+            this.txtBacsi.txtMyCode_Edit = null;
+            this.txtBacsi.txtMyID = null;
+            this.txtBacsi.txtMyID_Edit = null;
+            this.txtBacsi.txtMyName = null;
+            this.txtBacsi.txtMyName_Edit = null;
+            this.txtBacsi.txtNext = null;
+            // 
             // frm_KCB_KE_DONTHUOC
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1924,7 +1952,6 @@
         private Janus.Windows.GridEX.EditControls.EditBox txtMaBenhphu;
         internal System.Windows.Forms.Label label24;
         private Janus.Windows.GridEX.EditControls.EditBox txtdiachiBhyt;
-        private System.Windows.Forms.ComboBox cbobacSyChiDinh;
         private Janus.Windows.GridEX.EditControls.EditBox txtPtramBHYT;
         private VNS.UCs.VBLine vbLine2;
         private VNS.UCs.VBLine vbLine1;
@@ -1987,6 +2014,7 @@
         private Janus.Windows.GridEX.EditControls.EditBox txtSobutconlai;
         internal System.Windows.Forms.Label label34;
         private Janus.Windows.GridEX.EditControls.EditBox txtDonvichiaBut;
+        private UCs.AutoCompleteTextbox txtBacsi;
 
     }
 }

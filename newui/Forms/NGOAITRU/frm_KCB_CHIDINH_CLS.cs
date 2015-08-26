@@ -267,17 +267,14 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 DataTable data = THU_VIEN_CHUNG.LaydanhsachBacsi(-1, HosStatus);
-                VNS.Libs.DataBinding.BindDataCombox(this.cbobacSyChiDinh, data, DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.TenNhanvien, "---Bác sỹ chỉ định---", true);
+                txtBacsi.Init(data, new List<string>() { DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.MaNhanvien, DmucNhanvien.Columns.TenNhanvien });
                 if (globalVariables.gv_intIDNhanvien <= 0)
                 {
-                    if (this.cbobacSyChiDinh.Items.Count > 0)
-                    {
-                        this.cbobacSyChiDinh.SelectedIndex = 0;
-                    }
+                    txtBacsi.SetId(-1);
                 }
                 else
                 {
-                    this.cbobacSyChiDinh.SelectedIndex = Utility.GetSelectedIndex(this.cbobacSyChiDinh, globalVariables.gv_intIDNhanvien.ToString());
+                    txtBacsi.SetId(globalVariables.gv_intIDNhanvien);
                 }
             }
             catch (Exception)
@@ -463,10 +460,10 @@ namespace VNS.HIS.UI.NGOAITRU
         /// <returns></returns>
         private bool IsValidData()
         {
-            if (Utility.Int32Dbnull(cbobacSyChiDinh.SelectedValue, -1) <= 0)
+            if (Utility.Int32Dbnull(txtBacsi.MyID, -1) <= 0)
             {
                 Utility.SetMsg(uiStatusBar1.Panels["lblStatus"], "Bạn cần chọn bác sĩ chỉ định trước khi thực hiện lưu chỉ định", true);
-                cbobacSyChiDinh.Focus();
+                txtBacsi.Focus();
                 return false;
             }
             if (objPhieudieutriNoitru != null)
@@ -631,7 +628,7 @@ namespace VNS.HIS.UI.NGOAITRU
             objKcbChidinhcls.MaChidinh = string.Empty;
             objKcbChidinhcls.MaLuotkham = objLuotkham.MaLuotkham;
             objKcbChidinhcls.IdBenhnhan = Utility.Int64Dbnull(objLuotkham.IdBenhnhan, -1);
-            objKcbChidinhcls.IdBacsiChidinh = Utility.Int16Dbnull(cbobacSyChiDinh.SelectedValue,globalVariables.gv_intIDNhanvien);
+            objKcbChidinhcls.IdBacsiChidinh = Utility.Int16Dbnull(txtBacsi.MyID, globalVariables.gv_intIDNhanvien);
             objKcbChidinhcls.IdKhoaChidinh = (Int16)globalVariables.idKhoatheoMay;
             objKcbChidinhcls.NguoiTao = globalVariables.UserName;
             objKcbChidinhcls.NgayTao = globalVariables.SysDate;
@@ -1630,7 +1627,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 txtAssignCode.Text = objKcbChidinhcls.MaChidinh;
                 dtRegDate.Value = objKcbChidinhcls.NgayTao.Value;
-                cbobacSyChiDinh.SelectedIndex = Utility.GetSelectedIndex(cbobacSyChiDinh, objKcbChidinhcls.IdBacsiChidinh.ToString());
+                txtBacsi.SetId(Utility.sDbnull(objKcbChidinhcls.IdBacsiChidinh, ""));
             }
             else
             {
