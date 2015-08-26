@@ -950,7 +950,15 @@ DisplayName("HIS Application Mode")]
             MaDTTuDong = "DV";
           
             GiaCLSNOITRU = "THEOKHOA";
+
+            InsertAfterSelectGroup = true;
+
+
         }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình chuyển cận lâm sàng "),
+        Description("true=Cho phép thêm chỉ định chi tiết ngay sau khi chọn nhóm.False= phải nhấn chấp nhận mới thêm chi tiết chỉ định"),
+        DisplayName("Cho phép thêm chỉ định chi tiết ngay sau khi chọn nhóm")]
+        public bool InsertAfterSelectGroup { get; set; }
 
        
 

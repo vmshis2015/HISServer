@@ -183,10 +183,7 @@ namespace VNS.Libs
         #endregion
         #region "khai báo biến của phần quyền"
 
-        public static bool QUYEN_MOKHOA_TATCA = false;
-        public static bool QUYEN_HUYTHANHTOAN_TATCA = false;
-        public static bool QUYEN_TRALAI_TIEN = false;
-        public static bool QUYEN_SUANGAY_THANHTOAN = false;
+      
        
 
         // public bool gv_Quyen
@@ -274,6 +271,7 @@ namespace VNS.Libs
         /// Mã phòng ban theo UserName
         /// </summary>
         public static Int16 IdKhoaNhanvien = -1;
+        public static DataTable dtQuyennhanvien = null;
         public static Int16 gv_intIDNhanvien = -1;
         public static int AnnounceTime = 10;
         public static int CheckByService = 0;
@@ -333,7 +331,7 @@ namespace VNS.Libs
         ///Bien khai bao cua CUONGDV
         //public static DataTable g_dtDiseaseList = new DataTable();
         public static DataTable gv_dtDmucNhanvien = new DataTable();
-        
+        public static DataTable gv_dtQuyenNhanvien = new DataTable();
         public static int ChophepNhapkhoLe = 0;
         public static string MaKhoaXn = "XN";
         public static DataTable gv_dtQheDoituongThuoc = new DataTable();

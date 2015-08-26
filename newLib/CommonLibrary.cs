@@ -412,6 +412,10 @@ namespace VNS.Libs
     ///</summary>
     public class Utility
     {
+        public static bool Coquyen(string maquyen)
+        {
+            return globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && globalVariables.gv_dtQuyenNhanvien.Select(QheNhanvienQuyensudung.Columns.Ma += "'" + maquyen + "'").Length > 0);
+        }
         public static void LoadProperties()
         {
             PropertyLib._TrathuocthuaProperties = PropertyLib.GetTrathuocthuaProperties();
@@ -3144,7 +3148,11 @@ namespace VNS.Libs
                    dtp.Hour.ToString().PadLeft(2, '0') + dtp.Minute.ToString().PadLeft(2, '0') +
                    dtp.Second.ToString().PadLeft(2, '0');
         }
-
+        public static string GetHHMMSS(DateTime dtp)
+        {
+            return dtp.Hour.ToString().PadLeft(2, '0') + dtp.Minute.ToString().PadLeft(2, '0') +
+                   dtp.Second.ToString().PadLeft(2, '0');
+        }
         /// <summary>
         /// hàm thực hiện việc lấy định dạng là yymmddhhmmss
         /// </summary>
@@ -4305,6 +4313,12 @@ namespace VNS.Libs
         {
             return tDate.Year.ToString() + Strings.Right("0" + tDate.Month.ToString(), 2) +
                    Strings.Right("0" + tDate.Day.ToString(), 2);
+        }
+        public static string GetYYYYMMDD(string sDate)
+        {
+            string[] arrValues = sDate.Split('/');
+            return arrValues[2] + Strings.Right("0" + arrValues[1], 2) +
+                   Strings.Right("0" + arrValues[2], 2);
         }
         public static DateTime FromYYYYMMDD2Datetime(string YYYYMMDD)
         {
