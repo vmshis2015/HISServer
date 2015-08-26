@@ -420,7 +420,7 @@ namespace VNS.HIS.UCs
             {
                 MyID = _Id;
                 var p = (from q in this.AutoCompleteList
-                         where q.Contains(Utility.DoTrim(_Id.ToString()) + "#")
+                         where q.Contains(Utility.sDbnull(_Id) + "#")
                          select q).ToList();
                 if (p.Count > 0)
                     try2getName(p.First());

@@ -51,6 +51,7 @@ namespace VNS.HIS.UCs
 
         void grdListDrug_Click(object sender, EventArgs e)
         {
+            if (!Utility.isValidGrid(grdListDrug)) return;
             grdListDrug_KeyDown(grdListDrug, new KeyEventArgs(Keys.Enter));
         }
 
