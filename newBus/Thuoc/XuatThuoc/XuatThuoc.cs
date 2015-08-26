@@ -838,8 +838,8 @@ namespace VNS.HIS.NGHIEPVU.THUOC
         public DataTable GetObjThuocKhoCollection(int id_kho, int id_thuoc, int id_thuockho, int so_luong, byte id_loaidoituong_kcb, byte Dungtuyen, byte Noitru)
         {
             //Lấy thuốc trong kho
-            
-            
+
+
             DataTable dtData = SPs.ThuocLaythuocTrongkhoKedon(id_kho, id_thuoc, id_thuockho, id_loaidoituong_kcb, Dungtuyen, Noitru).GetDataSet().Tables[0];
             
             DataTable dtReturnData = dtData.Clone();
