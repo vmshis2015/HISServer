@@ -161,7 +161,7 @@ namespace VNS.HIS.UCs
             this.ContextMenuStrip = ctx;
             bool _Visible = globalVariables.IsAdmin;
             if (!_Visible)
-                _Visible = globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenThemdanhmucdungchung);
+                _Visible = globalVariablesPrivate.objNhanvien != null && Utility.Coquyen("quyen_themdanhmucdungchung");
             _item.Visible = _itemSaveas.Visible = _Visible;
         }
 

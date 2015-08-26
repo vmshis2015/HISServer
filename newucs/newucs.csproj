@@ -280,13 +280,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\newdal\newdal.csproj">
-      <Project>{cd0be8e8-b7d8-41ca-95f7-ea03675cfe0d}</Project>
-      <Name>newdal</Name>
-    </ProjectReference>
     <ProjectReference Include="..\newBus\newBus.csproj">
       <Project>{a99e7072-450c-430d-ac3d-63cbb74c01ad}</Project>
       <Name>newBus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\newdal\newdal.csproj">
+      <Project>{cd0be8e8-b7d8-41ca-95f7-ea03675cfe0d}</Project>
+      <Name>newdal</Name>
     </ProjectReference>
     <ProjectReference Include="..\newLib\newLib.csproj">
       <Project>{0400ff7a-0d53-45aa-bbe5-09eedeb50d4e}</Project>
