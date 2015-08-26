@@ -1,4 +1,5 @@
-﻿namespace VNS.HIS.UI.Forms.NGOAITRU
+﻿using VNS.HIS.UCs;
+namespace VNS.HIS.UI.Forms.NGOAITRU
 {
     partial class frm_chuyendoituongkcb
     {
@@ -1172,7 +1173,7 @@
         public System.Windows.Forms.TextBox txtNoiphattheBHYT;
         private Janus.Windows.EditControls.UIComboBox cboDoituongKCB;
         private System.Windows.Forms.Label label13;
-        private UCs.AutoCompleteTextbox_Danhmucchung txtMaDTsinhsong;
+        private AutoCompleteTextbox_Danhmucchung txtMaDTsinhsong;
         private Janus.Windows.EditControls.UICheckBox chkGiayBHYT;
         private System.Windows.Forms.Label lblPtramdauthe;
         private System.Windows.Forms.TextBox txtptramDauthe;

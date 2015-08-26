@@ -63,7 +63,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             Utility.grdExVisiableColName(grdPayment, "cmdHUY_PHIEUTHU", globalVariables.IsAdmin);
             if (grdPayment.RootTable.Columns.Contains(KcbThanhtoan.Columns.NgayThanhtoan))
                 grdPayment.RootTable.Columns[KcbThanhtoan.Columns.NgayThanhtoan].Selectable =
-                    globalVariables.QUYEN_SUANGAY_THANHTOAN || globalVariables.IsAdmin;
+                    Utility.Coquyen("quyen_suangay_thanhtoan") || globalVariables.IsAdmin;
             cmdCauHinh.Visible = globalVariables.IsAdmin;
             LoadLaserPrinters();
             CauHinh();
@@ -566,7 +566,7 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             try
             {
-                dtPaymentDate.Enabled = globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenSuangayThanhtoan));
+                dtPaymentDate.Enabled =  Utility.Coquyen("quyen_suangay_thanhtoan");
                 chkHoixacnhanhuythanhtoan.Checked = PropertyLib._ThanhtoanProperties.Hoitruockhihuythanhtoan;
                 chkHienthiDichvusaukhinhannutthanhtoan.Checked = PropertyLib._ThanhtoanProperties.HienthidichvuNgaysaukhithanhtoan;
                 chkHoixacnhanthanhtoan.Checked = PropertyLib._ThanhtoanProperties.Hoitruockhithanhtoan;

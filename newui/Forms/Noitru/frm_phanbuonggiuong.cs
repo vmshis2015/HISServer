@@ -10,6 +10,7 @@ using VNS.HIS.BusRule.Classes;
 using SubSonic;
 using Janus.Windows.GridEX.EditControls;
 using VNS.HIS.NGHIEPVU;
+using System.Collections.Generic;
 
 
 namespace VNS.HIS.UI.NOITRU
@@ -24,7 +25,7 @@ namespace VNS.HIS.UI.NOITRU
         private KcbLuotkham objPatientExam;
         public DataTable p_DanhSachPhanBuongGiuong = new DataTable();
         private string rowFilter = "1=1";
-
+        private bool AllowGridSelecttionChanged = true;
         public frm_phanbuonggiuong()
         {
             InitializeComponent();
@@ -33,25 +34,89 @@ namespace VNS.HIS.UI.NOITRU
         }
         void InitEvents()
         {
-            this.txtRoom_code.TextChanged += new System.EventHandler(this.txtRoom_code_TextChanged_1);
-            this.txtRoom_code.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRoom_code_KeyDown_1);
             this.Load += new System.EventHandler(this.frm_phanbuonggiuong_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frm_phanbuonggiuong_KeyDown);
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             dtNgayChuyen.TextChanged += new EventHandler(dtNgayChuyen_TextChanged);
             dtNgayChuyen.ValueChanged += new EventHandler(dtNgayChuyen_ValueChanged);
-            grdBuong.KeyDown += new KeyEventHandler(grdBuong_KeyDown);
-            grdBuong.SelectionChanged += new EventHandler(grdBuong_SelectionChanged);
-            grdGiuong.KeyDown += new KeyEventHandler(grdGiuong_KeyDown);
-            grdGiuong.MouseDoubleClick += grdGiuong_MouseDoubleClick;
-            txtBedCode.TextChanged+=txtBedCode_TextChanged;
-            txtBedCode.KeyDown+=txtBedCode_KeyDown;
             txtMaLanKham.KeyDown += txtMaLanKham_KeyDown;
             cmdChonBNmoi.Click += cmdChonBNmoi_Click;
             txtGia._OnSelectionChanged += txtGia__OnSelectionChanged;
+
+            txtRoom_code._OnEnterMe += txtRoom_code__OnEnterMe;
+            grdBuong.SelectionChanged += grdBuong_SelectionChanged;
+            grdBuong.KeyDown += grdBuong_KeyDown;
+            grdGiuong.KeyDown += grdGiuong_KeyDown;
+            grdGiuong.SelectionChanged += grdGiuong_SelectionChanged;
+            grdGiuong.MouseDoubleClick += grdGiuong_MouseDoubleClick;
+            txtBedCode._OnEnterMe += txtBedCode__OnEnterMe;
+
+        }
+        void grdGiuong_SelectionChanged(object sender, EventArgs e)
+        {
+            if (!AllowGridSelecttionChanged || !Utility.isValidGrid(grdGiuong)) return;
+            ChonGiuong();
+        }
+        void ChonGiuong()
+        {
+            string IdGiuong = Utility.sDbnull(grdGiuong.GetValue(NoitruDmucGiuongbenh.Columns.IdGiuong), -1);
+            txtBedCode.SetId(IdGiuong);
+        }
+        void txtBedCode__OnEnterMe()
+        {
+            Utility.GotoNewRowJanus(grdGiuong, NoitruDmucGiuongbenh.Columns.IdGiuong, Utility.sDbnull(txtBedCode.MyID, ""));
         }
 
+        void txtRoom_code__OnEnterMe()
+        {
+            Utility.GotoNewRowJanus(grdBuong, NoitruDmucBuong.Columns.IdBuong, Utility.sDbnull(txtRoom_code.MyID, ""));
+        }
+        void grdGiuong_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            grdGiuong_KeyDown(sender, new KeyEventArgs(Keys.Enter));
+        }
+        private void grdGiuong_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && Utility.isValidGrid(grdGiuong))
+            {
+                cmdSave_Click(cmdSave, new EventArgs());
+            }
+        }
+        private void grdBuong_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtBedCode.Focus();
+                txtRoom_code.Text = Utility.sDbnull(grdBuong.GetValue(NoitruDmucBuong.Columns.TenBuong));
+            }
+        }
+        private void grdBuong_SelectionChanged(object sender, EventArgs e)
+        {
+            if (!AllowGridSelecttionChanged || !Utility.isValidGrid(grdBuong)) return;
+            ChonBuong();
+        }
+        void ChonBuong()
+        {
+            string IdBuong = Utility.sDbnull(grdBuong.GetValue(NoitruDmucBuong.Columns.IdBuong), -1);
+            txtRoom_code.SetId(IdBuong);
+            m_dtDatabed = THU_VIEN_CHUNG.NoitruTimkiemgiuongTheobuong(Utility.Int32Dbnull(txtDepartment_ID.Text),
+                                                           Utility.Int32Dbnull(IdBuong));
+            Utility.SetDataSourceForDataGridEx_Basic(grdGiuong, m_dtDatabed, true, true, "1=1", "isFull asc,dang_nam ASC,ten_giuong");
+            string oldBed = txtBedCode.MyCode;
+            txtBedCode.Init(m_dtDatabed, new List<string>() { NoitruDmucGiuongbenh.Columns.IdGiuong, NoitruDmucGiuongbenh.Columns.MaGiuong, NoitruDmucGiuongbenh.Columns.TenGiuong });
+            txtBedCode.SetCode(oldBed);
+            if (grdGiuong.DataSource != null)
+            {
+                grdGiuong.MoveFirst();
+
+            }
+            if (txtBedCode.MyCode == "-1")
+            {
+                string IdGiuong = Utility.sDbnull(grdGiuong.GetValue(NoitruDmucGiuongbenh.Columns.IdGiuong), -1);
+                txtBedCode.SetId(IdGiuong);
+            }
+        }
         void txtGia__OnSelectionChanged()
         {
             cboGia.Text = txtGia.MyText;
@@ -86,10 +151,7 @@ namespace VNS.HIS.UI.NOITRU
 
             }
         }
-        void grdGiuong_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            grdGiuong_KeyDown(sender, new KeyEventArgs(Keys.Enter));
-        }
+        
       
         void dtNgayChuyen_ValueChanged(object sender, EventArgs e)
         {
@@ -303,10 +365,22 @@ namespace VNS.HIS.UI.NOITRU
                     m_dtDataRoom = THU_VIEN_CHUNG.NoitruTimkiembuongTheokhoa(Utility.Int32Dbnull(txtDepartment_ID.Text));
 
                     Utility.SetDataSourceForDataGridEx_Basic(grdBuong, m_dtDataRoom, true, true, "1=1", "sluong_giuong_trong desc,ten_buong");
+                    txtRoom_code.Init(m_dtDataRoom, new List<string>() { NoitruDmucBuong.Columns.IdBuong, NoitruDmucBuong.Columns.MaBuong, NoitruDmucBuong.Columns.TenBuong });
                     if (grdBuong.DataSource != null)
                     {
                         grdBuong.MoveFirst();
                     }
+                   
+                }
+                else
+                {
+                    string tempt = txtMaLanKham.Text;
+                    ClearControl();
+                    if (m_dtDataRoom != null) m_dtDataRoom.Clear();
+                    if (m_dtDatabed != null) m_dtDataRoom.Clear();
+                    txtMaLanKham.Text = tempt;
+                    txtMaLanKham.SelectAll();
+                    txtMaLanKham.Focus();
                 }
             }
         }
@@ -355,84 +429,6 @@ namespace VNS.HIS.UI.NOITRU
         }
 
 
-        /// <summary>
-        /// Lọc thông tin giường bệnh
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void txtBedCode_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                rowFilter = "1=1";
-
-                rowFilter = "ma_giuong like '%" + Utility.DoTrim(txtBedCode.Text) + "%' OR ten_giuong like '%" +Utility.DoTrim( txtBedCode.Text) + "%'";
-                   
-            }
-            catch (Exception exception)
-            {
-                log.Error("loi trong qua trinh loc thong tin ", exception);
-                rowFilter = "1=2";
-            }
-            finally
-            {
-                m_dtDatabed.DefaultView.RowFilter = "1=1";
-                m_dtDatabed.DefaultView.RowFilter = rowFilter;
-                m_dtDatabed.AcceptChanges();
-                grdGiuong.MoveFirst();
-            }
-        }
-
-        private void grdBuong_SelectionChanged(object sender, EventArgs e)
-        {
-            string IdBuong = Utility.sDbnull(grdBuong.GetValue(NoitruDmucBuong.Columns.IdBuong), -1);
-            m_dtDatabed = THU_VIEN_CHUNG.NoitruTimkiemgiuongTheobuong(Utility.Int32Dbnull(txtDepartment_ID.Text),
-                                                           Utility.Int32Dbnull(IdBuong));
-            Utility.SetDataSourceForDataGridEx_Basic(grdGiuong, m_dtDatabed, true, true, "1=1", "isFull asc,dang_nam ASC,ten_giuong");
-          
-            if (grdGiuong.DataSource != null)
-            {
-                grdGiuong.MoveFirst();
-            }
-        }
-
-        private void txtBedCode_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (m_dtDatabed.Rows.Count > 0)
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    if (Utility.isValidGrid(grdGiuong))
-                        cmdSave_Click(cmdSave, new EventArgs());
-                }
-                if (e.KeyCode == Keys.Down)
-                {
-                    grdGiuong.Focus();
-                    grdGiuong.MoveFirst();
-                }
-            }
-            else
-            {
-                Utility.ShowMsg("Không có giường cho bạn chọn", "Thông báo", MessageBoxIcon.Warning);
-            }
-        }
-
-        private void grdBuong_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtBedCode.Focus();
-                txtRoom_code.Text = Utility.sDbnull(grdBuong.GetValue(NoitruDmucBuong.Columns.TenBuong));
-            }
-        }
-
-        private void grdGiuong_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter && Utility.isValidGrid(grdGiuong))
-            {
-                cmdSave_Click(cmdSave, new EventArgs());
-            }
-        }
 
         private void frm_phanbuonggiuong_Load(object sender, EventArgs e)
         {
@@ -456,47 +452,6 @@ namespace VNS.HIS.UI.NOITRU
             }
         }
 
-        private void txtRoom_code_KeyDown_1(object sender, KeyEventArgs e)
-        {
-            if (m_dtDataRoom.Rows.Count > 0)
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                   // txtBedCode.Focus();
-                    txtRoom_code.Text = Utility.sDbnull(grdBuong.GetValue(NoitruDmucBuong.Columns.TenBuong));
-                }
-                if (e.KeyCode == Keys.Down)
-                {
-                    grdBuong.Focus();
-                    grdBuong.MoveFirst();
-                }
-            }
-            else
-            {
-                Utility.ShowMsg("Không có Buồng cho bạn chọn", "Thông báo", MessageBoxIcon.Warning);
-            }
-        }
-
-        private void txtRoom_code_TextChanged_1(object sender, EventArgs e)
-        {
-            try
-            {
-                rowFilter = "1=1";
-                rowFilter = "ma_buong like '%" + Utility.DoTrim(txtRoom_code.Text.ToUpper()) + "%' OR ten_buong like '%" + Utility.DoTrim(txtRoom_code.Text.ToUpper()) + "%'";
-            }
-            catch (Exception exception)
-            {
-                log.Error("loi trong qua trinh loc thong tin ", exception);
-                rowFilter = "1=1";
-            }
-            finally
-            {
-                m_dtDataRoom.DefaultView.RowFilter = "1=1";
-                m_dtDataRoom.DefaultView.RowFilter = rowFilter;
-                m_dtDataRoom.AcceptChanges();
-                grdBuong.MoveFirst();
-                txtBedCode.Focus();
-            }
-        }
+       
     }
 }

@@ -30,6 +30,7 @@ using VNS.HIS.UI.NOITRU;
 using VNS.HIS.UI.DANHMUC;
 using VNS.HIS.Classes;
 using VNS.UCs;
+using VNS.HIS.UI.Forms.Cauhinh;
 
 namespace VNS.HIS.UI.NGOAITRU
 {
@@ -337,7 +338,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm.noitru = 0;
                 frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
                     txtMaBenhChinh.Text = frm._MabenhChinh;
                     txtChanDoan._Text = frm._Chandoan;
@@ -409,7 +410,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         frm.txtPres_ID.Text = Utility.sDbnull(objPrescription.IdDonthuoc);
                         frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
                         frm.ShowDialog();
-                        if (frm.b_Cancel)
+                        if (!frm.m_blnCancel)
                         {
                             txtMaBenhChinh.Text = frm._MabenhChinh;
                             txtChanDoan._Text = frm._Chandoan;
@@ -512,7 +513,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             foreach (GridEXRow gridExRow in grdVTTH.GetCheckedRows())
             {
-                if (globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && !Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenSuadonthuoc)) || Utility.sDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
+                if (Utility.Coquyen("quyen_suadonthuoc") || Utility.sDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
                 {
                 }
                 else
@@ -584,7 +585,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 grdVTTH.Focus();
                 return false;
             }
-            if (globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && !Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenSuadonthuoc)) || Utility.sDbnull(grdVTTH.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
+            if (Utility.Coquyen("quyen_suadonthuoc") || Utility.sDbnull(grdVTTH.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
             {
             }
             else
@@ -2172,7 +2173,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     {
                        
                         cmdUnlock.Visible =objLuotkham.TrangthaiNoitru==0 && objLuotkham.Locked.ToString() == "1";
-                        cmdUnlock.Enabled = cmdUnlock.Visible && (globalVariables.QUYEN_MOKHOA_TATCA || objLuotkham.NguoiKetthuc == globalVariables.UserName);
+                        cmdUnlock.Enabled = cmdUnlock.Visible && (Utility.Coquyen("quyen_mokhoa_tatca") || objLuotkham.NguoiKetthuc == globalVariables.UserName);
                         if (!cmdUnlock.Enabled)
                             toolTip1.SetToolTip(cmdUnlock, "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ " + TenNhanvien + "(" + objLuotkham.NguoiKetthuc + " - Là người khóa BN này) để được họ mở khóa. Hoặc liên hệ Quản trị hệ thống");
                         else
@@ -3676,7 +3677,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         if (objStaff != null)
                             TenNhanvien = objStaff.TenNhanvien;
                         cmdUnlock.Visible = objLuotkham.TrangthaiNoitru == 0 && objLuotkham.Locked.ToString() == "1";
-                        cmdUnlock.Enabled = cmdUnlock.Visible && (globalVariables.QUYEN_MOKHOA_TATCA || objLuotkham.NguoiKetthuc == globalVariables.UserName);
+                        cmdUnlock.Enabled = cmdUnlock.Visible && (Utility.Coquyen("quyen_mokhoa_tatca") || objLuotkham.NguoiKetthuc == globalVariables.UserName);
                         if (!cmdUnlock.Enabled)
                             toolTip1.SetToolTip(cmdUnlock, "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ " + TenNhanvien + "(" + objLuotkham.NguoiKetthuc + " - Là người khóa BN này) để được họ mở khóa. Hoặc liên hệ Quản trị hệ thống");
                         else
@@ -4011,7 +4012,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             foreach (GridEXRow gridExRow in grdAssignDetail.GetCheckedRows())
             {
-                if (globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && !Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenSuaphieuchidinhcls)) || Utility.sDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
+                if (Utility.Coquyen("quyen_suaphieuchidinhcls") || Utility.sDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
                 {
                 }
                 else
@@ -4158,7 +4159,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm.m_eAction = action.Update;
                 frm.txtAssign_ID.Text = Utility.sDbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), "-1");
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel )
                 {
                     Laythongtinchidinhngoaitru();
 
@@ -4208,7 +4209,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm.txtAssign_ID.Text = "-1";
                 frm.HosStatus = 0;
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
                     
                     Laythongtinchidinhngoaitru();
@@ -4410,7 +4411,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm.noitru = 0;
                 frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
                     txtMaBenhChinh.Text = frm._MabenhChinh;
                     txtChanDoan._Text = frm._Chandoan;
@@ -4552,7 +4553,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             frm.txtPres_ID.Text = Utility.sDbnull(objPrescription.IdDonthuoc);
                             frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
                             frm.ShowDialog();
-                            if (frm.b_Cancel)
+                            if (!frm.m_blnCancel)
                             {
                                 txtMaBenhChinh.Text = frm._MabenhChinh;
                                 txtChanDoan._Text = frm._Chandoan;
@@ -4727,7 +4728,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 return false;
             }
 
-            if (globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && !Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenSuaphieuchidinhcls)) || Utility.sDbnull(grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
+            if (Utility.Coquyen("quyen_suaphieuchidinhcls") || Utility.sDbnull(grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
             {
             }
             else
@@ -4797,7 +4798,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 grdPresDetail.Focus();
                 return false;
             }
-            if (globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && !Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenSuadonthuoc)) || Utility.sDbnull(grdPresDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
+            if (Utility.Coquyen("quyen_suadonthuoc") || Utility.sDbnull(grdPresDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
             {
             }
             else

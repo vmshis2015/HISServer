@@ -1,4 +1,5 @@
-﻿namespace VNS.HIS.UI.Forms.NGOAITRU
+﻿using VNS.HIS.UCs;
+namespace VNS.HIS.UI.Forms.NGOAITRU
 {
     partial class frm_chuyenvien
     {
@@ -1059,9 +1060,9 @@
         private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label21;
-        private UCs.AutoCompleteTextbox_Danhmucchung txtphuongtienvc;
-        private UCs.AutoCompleteTextbox_Danhmucchung txtHuongdieutri;
-        private UCs.AutoCompleteTextbox_Danhmucchung txtdauhieucls;
+        private AutoCompleteTextbox_Danhmucchung txtphuongtienvc;
+        private AutoCompleteTextbox_Danhmucchung txtHuongdieutri;
+        private AutoCompleteTextbox_Danhmucchung txtdauhieucls;
         private System.Windows.Forms.TextBox txtThuocsudung;
         private Janus.Windows.EditControls.UIButton cmdHuy;
         private Janus.Windows.EditControls.UIButton cmdChuyen;
@@ -1073,8 +1074,8 @@
         private Janus.Windows.EditControls.UIButton cmdExit;
         private Janus.Windows.EditControls.UIButton cmdGetBV;
         private FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE baocaO_TIEUDE1=new FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
-        private UCs.AutoCompleteTextbox txtNoichuyenden;
-        private UCs.AutoCompleteTextbox_Danhmucchung txtTrangthainguoibenh;
+        private AutoCompleteTextbox txtNoichuyenden;
+        private AutoCompleteTextbox_Danhmucchung txtTrangthainguoibenh;
         private System.Windows.Forms.Label lblMsg;
         private System.Windows.Forms.TextBox txtIdravien;
         private System.Windows.Forms.TextBox txtidgiuong;

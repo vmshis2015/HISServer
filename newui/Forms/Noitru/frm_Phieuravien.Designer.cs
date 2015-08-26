@@ -1,4 +1,5 @@
-﻿namespace VNS.HIS.UI.Forms.NGOAITRU
+﻿using VNS.HIS.UCs;
+namespace VNS.HIS.UI.Forms.NGOAITRU
 {
     partial class frm_Phieuravien
     {
@@ -1508,17 +1509,17 @@
         private Janus.Windows.GridEX.EditControls.EditBox txtYkien;
         internal System.Windows.Forms.Label label21;
         private Janus.Windows.GridEX.EditControls.EditBox txtLoidanBS;
-        private UCs.AutoCompleteTextbox_Danhmucchung txtPhuongphapdieutri;
-        private UCs.AutoCompleteTextbox txtBenhgiaiphau;
-        private UCs.AutoCompleteTextbox txtNoichuyenden;
+        private AutoCompleteTextbox_Danhmucchung txtPhuongphapdieutri;
+        private AutoCompleteTextbox txtBenhgiaiphau;
+        private AutoCompleteTextbox txtNoichuyenden;
         private Janus.Windows.EditControls.UIButton cmdGetBV;
-        private UCs.AutoCompleteTextbox_Danhmucchung txtKieuchuyenvien;
-        private UCs.AutoCompleteTextbox_Danhmucchung txtTinhtrangravien;
-        private UCs.AutoCompleteTextbox_Danhmucchung txtKqdieutri;
-        private UCs.AutoCompleteTextbox txtBenhphu;
-        private UCs.AutoCompleteTextbox txtBenhnguyennhan;
-        private UCs.AutoCompleteTextbox txtBenhbienchung;
-        private UCs.AutoCompleteTextbox txtBenhchinh;
+        private AutoCompleteTextbox_Danhmucchung txtKieuchuyenvien;
+        private AutoCompleteTextbox_Danhmucchung txtTinhtrangravien;
+        private AutoCompleteTextbox_Danhmucchung txtKqdieutri;
+        private AutoCompleteTextbox txtBenhphu;
+        private AutoCompleteTextbox txtBenhnguyennhan;
+        private AutoCompleteTextbox txtBenhbienchung;
+        private AutoCompleteTextbox txtBenhchinh;
         internal System.Windows.Forms.Label label27;
         private Janus.Windows.EditControls.UICheckBox chkDaCapGiayRaVien;
         private Janus.Windows.GridEX.EditControls.MaskedEditBox txtTongSoNgayDtri;
@@ -1539,7 +1540,7 @@
         private Janus.Windows.GridEX.EditControls.MaskedEditBox txtGioRaVien;
         private System.Windows.Forms.Label label24;
         private Janus.Windows.CalendarCombo.CalendarCombo dtpNgayravien;
-        private UCs.AutoCompleteTextbox_Danhmucchung txtphuongtienvc;
+        private AutoCompleteTextbox_Danhmucchung txtphuongtienvc;
         private System.Windows.Forms.TextBox txtNguoivanchuyen;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;

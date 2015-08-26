@@ -26,7 +26,6 @@ using VNS.HIS.UI.Forms.NGOAITRU;
 using VNS.HIS.UI.HOADONDO;
 using VNS.HIS.UI.Forms.Cauhinh;
 using VNS.HIS.UI.DANHMUC;
-
 namespace  VNS.HIS.UI.THANHTOAN
 {
     public partial class frm_THANHTOAN_NOITRU : Form
@@ -65,10 +64,10 @@ namespace  VNS.HIS.UI.THANHTOAN
             Utility.grdExVisiableColName(grdPhieuChi, "cmdHuyPhieuChi", globalVariables.IsAdmin);
             if (grdPayment.RootTable.Columns.Contains(KcbThanhtoan.Columns.NgayThanhtoan))
                 grdPayment.RootTable.Columns[KcbThanhtoan.Columns.NgayThanhtoan].Selectable =
-                    globalVariables.QUYEN_SUANGAY_THANHTOAN || globalVariables.IsAdmin;
+                     Utility.Coquyen("quyen_suangay_thanhtoan") || globalVariables.IsAdmin;
             if (grdPhieuChi.RootTable.Columns.Contains(KcbThanhtoan.Columns.NgayThanhtoan))
                 grdPhieuChi.RootTable.Columns[KcbThanhtoan.Columns.NgayThanhtoan].Selectable =
-                    globalVariables.QUYEN_SUANGAY_THANHTOAN || globalVariables.IsAdmin;
+                     Utility.Coquyen("quyen_suangay_thanhtoan") || globalVariables.IsAdmin;
             cmdCauHinh.Visible = globalVariables.IsAdmin;
             LoadLaserPrinters();
             CauHinh();
@@ -587,7 +586,7 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             try
             {
-                dtPaymentDate.Enabled = globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenSuangayThanhtoan));
+                dtPaymentDate.Enabled = Utility.Coquyen("quyen_suangay_thanhtoan");
                 chkHoixacnhanhuythanhtoan.Checked = PropertyLib._ThanhtoanProperties.Hoitruockhihuythanhtoan;
                 chkHienthiDichvusaukhinhannutthanhtoan.Checked = PropertyLib._ThanhtoanProperties.HienthidichvuNgaysaukhithanhtoan;
                 chkHoixacnhanthanhtoan.Checked = PropertyLib._ThanhtoanProperties.Hoitruockhithanhtoan;
@@ -976,9 +975,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                                 break;
                         }
                         cmdCapnhatngayBHYT.Visible =
-                                Utility.sDbnull(dr[KcbLuotkham.Columns.MaDoituongKcb], "DV") == "BHYT" && (globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenSuathongtintheBHYTKhithanhtoan)));
-                        txtICD.ReadOnly = !(globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenNhapICDKhithanhtoan)));
-                        cmdSaveICD.Visible = globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenNhapICDKhithanhtoan));
+                                Utility.sDbnull(dr[KcbLuotkham.Columns.MaDoituongKcb], "DV") == "BHYT" &&  Utility.Coquyen("quyen_suathongtintheBHYT_khithanhtoan");
+                        txtICD.ReadOnly = !Utility.Coquyen("quyen_nhapICD_khithanhtoan");
+                        cmdSaveICD.Visible =  Utility.Coquyen("quyen_nhapICD_khithanhtoan");
                         
                         txtObjectType_Code.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.MaDoituongKcb], "");
                         
@@ -1000,7 +999,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         .And(NoitruTamung.Columns.KieuTamung).IsEqualTo(1)//Hoàn ứng. Có thể kiểm tra bằng trường trạng thái=1
                         .ExecuteSingle<NoitruTamung>();
                     //}
-                    ucTamung1.ChangePatients(objLuotkham);
+                    ucTamung1.ChangePatients(objLuotkham,string.Empty);
                     cmdHoanung.Text=objTamung==null?"Hoàn ứng":"Hủy hoàn ứng";
                     cmdHoanung.Tag = objTamung == null ? "0" : "1";
                     KiemTraDaInPhoiBHYT();

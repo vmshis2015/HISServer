@@ -32,6 +32,7 @@ using VNS.HIS.Classes;
 using VNS.Libs.AppUI;
 using VNS.UCs;
 using VNS.HIS.NGHIEPVU.THUOC;
+using VNS.HIS.UI.Forms.Cauhinh;
 
 namespace VNS.HIS.UI.NOITRU
 {
@@ -675,9 +676,9 @@ namespace VNS.HIS.UI.NOITRU
                 string sMaICDPHU = GetDanhsachBenhphu();
                 objKcbChandoanKetluan.MabenhPhu = Utility.sDbnull(sMaICDPHU.ToString(), "");
                 objKcbChandoanKetluan.IdKhoanoitru = objLuotkham.IdKhoanoitru;
-                objKcbChandoanKetluan.IdBuongNoitru = objLuotkham.IdBuong;
-                objKcbChandoanKetluan.IdGiuongNoitru = objLuotkham.IdGiuong;
-                objKcbChandoanKetluan.IdBuongGiuong = objLuotkham.IdRavien;
+                objKcbChandoanKetluan.IdBuong = objLuotkham.IdBuong;
+                objKcbChandoanKetluan.IdGiuong = objLuotkham.IdGiuong;
+                objKcbChandoanKetluan.IdBuonggiuong = objLuotkham.IdRavien;
 
                 objKcbChandoanKetluan.IdKham = objPhieudieutri == null ? -1 : objPhieudieutri.IdPhieudieutri;
                 objKcbChandoanKetluan.NgayTao = dtpCreatedDate.Value;
@@ -941,7 +942,7 @@ namespace VNS.HIS.UI.NOITRU
                 frm.m_eAction = action.Update;
                 frm.txtAssign_ID.Text = Utility.sDbnull(grdGoidichvu.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), "-1");
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
                     LaythongtinPhieudieutri();
                     TinhtoanTongchiphi();
@@ -974,7 +975,7 @@ namespace VNS.HIS.UI.NOITRU
                 frm.txtAssign_ID.Text = "-1";
                 frm.HosStatus = 1;
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
 
                     LaythongtinPhieudieutri();
@@ -1762,8 +1763,8 @@ namespace VNS.HIS.UI.NOITRU
                 int Status = -1;
                 int SoKham = -1;
 
-                
-                m_dtPatients = _KCB_THAMKHAM.NoitruTimkiembenhnhan(!chkByDate.Checked ? "01/01/1900" : dt_FormDate.ToString("dd/MM/yyyy"), !chkByDate.Checked ? "01/01/1900" : dt_ToDate.ToString("dd/MM/yyyy"), txtTenBN.Text, Status, Utility.DoTrim(txtMaluotkham.Text),
+
+                m_dtPatients = _KCB_THAMKHAM.NoitruTimkiembenhnhan(!chkByDate.Checked ? "01/01/1900" : dt_FormDate.ToString("dd/MM/yyyy"), !chkByDate.Checked ? "01/01/1900" : dt_ToDate.ToString("dd/MM/yyyy"), txtTenBN.Text, Utility.Int16Dbnull(-1), Utility.DoTrim(txtMaluotkham.Text),
                                                           Utility.Int32Dbnull(cboKhoanoitru.SelectedValue, -1),
                                                           -1,chkChuyenkhoa.Checked?1:0);
 
@@ -2576,7 +2577,7 @@ namespace VNS.HIS.UI.NOITRU
                 string IdKhoanoitru = Utility.sDbnull(objLuotkham.IdKhoanoitru, "-1");
                 if(objNoitruPhanbuonggiuong!=null)
                     IdKhoanoitru = Utility.sDbnull(objNoitruPhanbuonggiuong.IdKhoanoitru, "-1");
-                bool IsAdmin = globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenXemphieudieutricuabacsinoitrukhac))
+                bool IsAdmin = Utility.Coquyen("quyen_xemphieudieutricuabacsinoitrukhac")
                     || THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_CHOPHEPXEM_PHIEUDIEUTRI_CUABACSIKHAC", "0", false) == "1";
                 m_dtPhieudieutri = _KCB_THAMKHAM.NoitruTimkiemphieudieutriTheoluotkham(Utility.Bool2byte(IsAdmin),chkViewAll.Checked?"01/01/1900": dtpNgaylapphieu.Value.ToString("dd/MM/yyyy"),
                     objLuotkham.MaLuotkham, (int)objLuotkham.IdBenhnhan, IdKhoanoitru, Utility.Int32Dbnull(Utility.DecimaltoDbnull(txtSongay.Text, -1)));
@@ -3822,7 +3823,7 @@ namespace VNS.HIS.UI.NOITRU
                 frm.m_eAction = action.Update;
                 frm.txtAssign_ID.Text = Utility.sDbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), "-1");
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
                     LaythongtinPhieudieutri();
                     TinhtoanTongchiphi();
@@ -3874,7 +3875,7 @@ namespace VNS.HIS.UI.NOITRU
                 frm.txtAssign_ID.Text = "-1";
                 frm.HosStatus = 1;
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
                     
                     LaythongtinPhieudieutri();
@@ -4072,7 +4073,7 @@ namespace VNS.HIS.UI.NOITRU
                 frm.noitru = 1;
                 frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
                     txtMaBenhChinh.Text = frm._MabenhChinh;
                     txtChanDoan._Text = frm._Chandoan;
@@ -4227,7 +4228,7 @@ namespace VNS.HIS.UI.NOITRU
                             frm.txtPres_ID.Text = Utility.sDbnull(objPrescription.IdDonthuoc);
                             frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
                             frm.ShowDialog();
-                            if (frm.b_Cancel)
+                            if (!frm.m_blnCancel)
                             {
                                 txtMaBenhChinh.Text = frm._MabenhChinh;
                                 txtChanDoan._Text = frm._Chandoan;
@@ -4394,7 +4395,7 @@ namespace VNS.HIS.UI.NOITRU
                 frm.noitru = 1;
                 frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
                     txtMaBenhChinh.Text = frm._MabenhChinh;
                     txtChanDoan._Text = frm._Chandoan;
@@ -4476,7 +4477,7 @@ namespace VNS.HIS.UI.NOITRU
                         frm.txtPres_ID.Text = Utility.sDbnull(objPrescription.IdDonthuoc);
                         frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
                         frm.ShowDialog();
-                        if (frm.b_Cancel)
+                        if (!frm.m_blnCancel)
                         {
                             txtMaBenhChinh.Text = frm._MabenhChinh;
                             txtChanDoan._Text = frm._Chandoan;
@@ -4644,7 +4645,7 @@ namespace VNS.HIS.UI.NOITRU
                 frm.noitru = 1;
                 frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
                     txtMaBenhChinh.Text = frm._MabenhChinh;
                     txtChanDoan._Text = frm._Chandoan;
@@ -4716,7 +4717,7 @@ namespace VNS.HIS.UI.NOITRU
                         frm.txtPres_ID.Text = Utility.sDbnull(objPrescription.IdDonthuoc);
                         frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
                         frm.ShowDialog();
-                        if (frm.b_Cancel)
+                        if (!frm.m_blnCancel)
                         {
                             txtMaBenhChinh.Text = frm._MabenhChinh;
                             txtChanDoan._Text = frm._Chandoan;

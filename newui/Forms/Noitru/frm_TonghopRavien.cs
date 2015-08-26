@@ -31,6 +31,7 @@ using VNS.HIS.UI.DANHMUC;
 using VNS.HIS.Classes;
 using VNS.Libs.AppUI;
 using VNS.UCs;
+using VNS.HIS.UI.Forms.Cauhinh;
 
 namespace VNS.HIS.UI.NOITRU
 {
@@ -688,7 +689,7 @@ namespace VNS.HIS.UI.NOITRU
                 frm.m_eAction = action.Update;
                 frm.txtAssign_ID.Text = Utility.sDbnull(grdChiphithem.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), "-1");
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
                     LaythongtinPhieudieutri();
                     TinhtoanTongchiphi();
@@ -728,7 +729,7 @@ namespace VNS.HIS.UI.NOITRU
                     frm.txtAssign_ID.Text = "-1";
                     frm.HosStatus = 1;
                     frm.ShowDialog();
-                    if (frm.b_Cancel)
+                    if (!frm.m_blnCancel)
                     {
 
                         LaythongtinPhieudieutri();
@@ -1005,7 +1006,7 @@ namespace VNS.HIS.UI.NOITRU
                 frm.m_eAction = action.Update;
                 frm.txtAssign_ID.Text = Utility.sDbnull(grdGoidichvu.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), "-1");
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
                     LaythongtinPhieudieutri();
                     TinhtoanTongchiphi();
@@ -1037,7 +1038,7 @@ namespace VNS.HIS.UI.NOITRU
                 frm.txtAssign_ID.Text = "-1";
                 frm.HosStatus = 1;
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
 
                     LaythongtinPhieudieutri();
@@ -1213,7 +1214,7 @@ namespace VNS.HIS.UI.NOITRU
         bool viewAll = false;
         private void LaythongtinPhieudieutri()
         {
-            bool IsAdmin = globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenXemphieudieutricuabacsinoitrukhac))
+            bool IsAdmin = Utility.Coquyen("quyen_xemphieudieutricuabacsinoitrukhac")
                    || THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_CHOPHEPXEM_PHIEUDIEUTRI_CUABACSIKHAC", "0", false) == "1";
             IsAdmin = IsAdmin || !Khoanoitrutonghop;
             ds =
@@ -1490,7 +1491,7 @@ namespace VNS.HIS.UI.NOITRU
         {
             try
             {
-                bool IsAdmin = globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenXemphieudieutricuabacsinoitrukhac))
+                bool IsAdmin =  Utility.Coquyen("quyen_xemphieudieutricuabacsinoitrukhac")
                     || THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_CHOPHEPXEM_PHIEUDIEUTRI_CUABACSIKHAC", "0", false) == "1";
                 IsAdmin = IsAdmin || !Khoanoitrutonghop;
                 m_dtBuongGiuong = _KCB_THAMKHAM.NoitruTimkiemlichsuBuonggiuong(objLuotkham.MaLuotkham, (int)objLuotkham.IdBenhnhan, IsAdmin?"-1":Utility.sDbnull(cboKhoanoitru.SelectedValue,"0"));
@@ -1521,7 +1522,7 @@ namespace VNS.HIS.UI.NOITRU
         {
             try
             {
-                bool IsAdmin = globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenXemphieudieutricuabacsinoitrukhac))
+                bool IsAdmin =Utility.Coquyen("quyen_xemphieudieutricuabacsinoitrukhac")
                     || THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_CHOPHEPXEM_PHIEUDIEUTRI_CUABACSIKHAC", "0", false) == "1";
                 IsAdmin = IsAdmin || !Khoanoitrutonghop;
                 short idkhoanoitru = Utility.Int16Dbnull(cboKhoanoitru.SelectedValue, 0);//Khoa nội trú tổng hợp để chuyển khoa

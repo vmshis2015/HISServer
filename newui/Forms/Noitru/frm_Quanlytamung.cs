@@ -38,7 +38,7 @@ namespace VNS.HIS.UI.NOITRU
             InitializeComponent();
             LoadConfig();
             InitEvents();
-            dtToDate.Value = dtFromDate.Value =globalVariables.SysDate;
+            dtToDate.Value = dtFromDate.Value = globalVariables.SysDate;
             Utility.VisiableGridEx(grdList,"ID",globalVariables.IsAdmin);
         }
         void InitEvents()
@@ -61,6 +61,7 @@ namespace VNS.HIS.UI.NOITRU
             cmdConfig.Click+=cmdConfig_Click;
             chkSaveAndPrint.CheckedChanged += chkSaveAndPrint_CheckedChanged;
             chkPrintPreview.CheckedChanged += chkPrintPreview_CheckedChanged;
+          
         }
 
         void chkPrintPreview_CheckedChanged(object sender, EventArgs e)
@@ -694,7 +695,7 @@ namespace VNS.HIS.UI.NOITRU
                                                 txtPatientCode.Text, 1,
                                                 chkByDate.Checked ? dtFromDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
                                                 chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
-                                                string.Empty, (int?) _TrangthaiNoitru,-1,0).
+                                                string.Empty, Utility.Int16Dbnull( - 1), -1, 0).
                     GetDataSet().Tables[0];
             _rowFilter = "1=1";
                 //if (PropertyLib._NoitruProperties.HienthiKhoatheonguoidung)

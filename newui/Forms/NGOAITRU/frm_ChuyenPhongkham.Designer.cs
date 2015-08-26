@@ -1,4 +1,5 @@
-﻿namespace VNS.HIS.UI.Forms.NGOAITRU
+﻿using VNS.HIS.UCs;
+namespace VNS.HIS.UI.Forms.NGOAITRU
 {
     partial class frm_ChuyenPhongkham
     {
@@ -405,6 +406,6 @@
         public VNS.HIS.UCs.AutoCompleteTextbox txtPhongkham;
         public System.Windows.Forms.TextBox txtPhonghientai;
         private System.Windows.Forms.Label label4;
-        private UCs.AutoCompleteTextbox_Danhmucchung txtLydo;
+        private AutoCompleteTextbox_Danhmucchung txtLydo;
     }
 }

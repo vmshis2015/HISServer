@@ -1767,7 +1767,7 @@
             this.grdChandoan.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
             this.grdChandoan.FocusCellFormatStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.grdChandoan.FocusCellFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
-            this.grdChandoan.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdChandoan.Font = new System.Drawing.Font("Arial", 8.25F);
             this.grdChandoan.FrozenColumns = -1;
             this.grdChandoan.GroupByBoxVisible = false;
             this.grdChandoan.LinkFormatStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);

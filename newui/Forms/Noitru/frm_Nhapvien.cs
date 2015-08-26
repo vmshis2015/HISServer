@@ -261,7 +261,7 @@ namespace VNS.HIS.UI.NOITRU
             txtKhoanoitru.Focus();
 
         }
-        private NoitruPhanbuonggiuong CreatePatientDept()
+        private NoitruPhanbuonggiuong TaoBuonggiuong()
         {
             NoitruPhanbuonggiuong objPatientDept = new NoitruPhanbuonggiuong();
             objPatientDept.MaLuotkham = Utility.sDbnull(objLuotkham.MaLuotkham);
@@ -348,7 +348,7 @@ namespace VNS.HIS.UI.NOITRU
             //{
                 objLuotkham.SoBenhAn = Utility.sDbnull(txtSoBenhAn.Text);
                 objLuotkham.MotaNhapvien =Utility.DoTrim( txtGhiChu.Text);
-                ActionResult actionResult = new noitru_nhapvien().Nhapvien(CreatePatientDept(), objLuotkham, null);
+                ActionResult actionResult = new noitru_nhapvien().Nhapvien(TaoBuonggiuong(), objLuotkham, null);
                 switch (actionResult)
                 {
                     case ActionResult.Success:

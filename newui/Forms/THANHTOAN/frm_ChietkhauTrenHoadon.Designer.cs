@@ -1,4 +1,5 @@
-﻿namespace VNS.HIS.UI.Forms.NGOAITRU
+﻿using VNS.HIS.UCs;
+namespace VNS.HIS.UI.Forms.NGOAITRU
 {
     partial class frm_ChietkhauTrenHoadon
     {
@@ -489,7 +490,7 @@
         private System.Windows.Forms.Label label3;
         private Janus.Windows.GridEX.EditControls.EditBox txtTongtienchietkhau;
         private Janus.Windows.GridEX.EditControls.EditBox txtCKChitiet;
-        private UCs.AutoCompleteTextbox_Danhmucchung txtLydochietkhau;
+        private AutoCompleteTextbox_Danhmucchung txtLydochietkhau;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblMsg;

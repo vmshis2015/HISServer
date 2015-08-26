@@ -41,7 +41,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private ActionResult _temp = ActionResult.Success;
         private bool AllowTextChanged = false;
         private bool APDUNG_GIATHUOC_DOITUONG = (Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("APDUNG_GIATHUOC_DOITUONG", "0", true), 0) == 1);
-        public bool b_Cancel;
+        public bool m_blnCancel=true;
         private bool blnHasLoaded = false;
         public CallActionKieuKeDon CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
 
@@ -58,7 +58,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private bool hasChanged = false;
         private bool hasMorethanOne = true;
         public int id_kham = -1;
-        private int IdDonthuoc = -1;
+        private long IdDonthuoc = -1;
         private bool isLike = true;
         public bool isLoaded = false;
         private bool isSaved = false;
@@ -231,6 +231,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                 DataRow row = this.m_dtDonthuocChitiet.NewRow();
                                 row[DmucThuoc.Columns.TenThuoc] = Utility.sDbnull(this.txtDrug_Name.Text, "");
                                 row[KcbDonthuocChitiet.Columns.SoLuong] = _soluong;
+                                
                                 row[KcbDonthuocChitiet.Columns.PhuThu] = Utility.DecimaltoDbnull(thuockho["phu_thu"], 0); ;// !this.Giathuoc_quanhe ? 0M : Utility.DecimaltoDbnull(this.txtSurcharge.Text, 0);
                                 row[KcbDonthuocChitiet.Columns.PhuthuDungtuyen] = Utility.DecimaltoDbnull(thuockho[TThuockho.Columns.PhuthuDungtuyen], 0);
                                 row[KcbDonthuocChitiet.Columns.PhuthuTraituyen] = Utility.DecimaltoDbnull(thuockho[TThuockho.Columns.PhuthuTraituyen],0);
@@ -238,6 +239,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                 row[KcbDonthuocChitiet.Columns.IdThuoc] = Utility.Int32Dbnull(this.txtDrugID.Text, -1);
                                 row[KcbDonthuocChitiet.Columns.IdDonthuoc] = this.IdDonthuoc;
                                 row["IsNew"] = 1;
+                                row[KcbDonthuocChitiet.Columns.MadoituongGia] = madoituong_gia;
                                 row[KcbDonthuocChitiet.Columns.IdThuockho] = Utility.Int64Dbnull(thuockho[TThuockho.Columns.IdThuockho],-1);
                                 row[KcbDonthuocChitiet.Columns.GiaNhap] = Utility.DecimaltoDbnull(thuockho[TThuockho.Columns.GiaNhap],0);
                                 row[KcbDonthuocChitiet.Columns.GiaBan] = Utility.DecimaltoDbnull(thuockho[TThuockho.Columns.GiaBan],0);
@@ -271,6 +273,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                 row[KcbDonthuocChitiet.Columns.PtramBhyt] = this.objLuotkham.PtramBhyt;
                                 row[KcbDonthuocChitiet.Columns.PtramBhytGoc] = this.objLuotkham.PtramBhytGoc;
                                 row[KcbDonthuocChitiet.Columns.MaDoituongKcb] = this.MaDoiTuong;
+                                row[KcbDonthuocChitiet.Columns.KieuBiendong] = thuockho["kieubiendong"];
                                 if (this.em_CallAction == CallAction.FromMenu)
                                 {
                                     if (this.tu_tuc == 0)
@@ -388,6 +391,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             row[KcbDonthuocChitiet.Columns.IdThuoc] = id_thuoc;
                             row[KcbDonthuocChitiet.Columns.IdDonthuoc] = this.IdDonthuoc;
                             row["IsNew"] = 1;
+                            row[KcbDonthuocChitiet.Columns.MadoituongGia] = madoituong_gia;
                             row[KcbDonthuocChitiet.Columns.IdThuockho] = Utility.Int64Dbnull( thuockho[TThuockho.Columns.IdThuockho],0);
                             row[KcbDonthuocChitiet.Columns.GiaNhap] =Utility.DecimaltoDbnull( thuockho[TThuockho.Columns.GiaNhap],0);
                             row[KcbDonthuocChitiet.Columns.GiaBan] = Utility.DecimaltoDbnull( thuockho[TThuockho.Columns.GiaBan],0);
@@ -417,6 +421,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             row[KcbDonthuocChitiet.Columns.PtramBhyt] = this.objLuotkham.PtramBhyt;
                             row[KcbDonthuocChitiet.Columns.PtramBhytGoc] = this.objLuotkham.PtramBhytGoc;
                             row[KcbDonthuocChitiet.Columns.MaDoituongKcb] = this.MaDoiTuong;
+                            row[KcbDonthuocChitiet.Columns.KieuBiendong] = thuockho["kieubiendong"];
                             if (this.em_CallAction == CallAction.FromMenu)
                             {
                                 if (this.tu_tuc == 0)
@@ -809,7 +814,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             this.m_dtDonthuocChitiet.AcceptChanges();
                         }
                         this.m_dtDonthuocChitiet.AcceptChanges();
-                        this.b_Cancel = true;
+                        this.m_blnCancel = false;
                         this.UpdateDataWhenChanged();
                     }
                 }
@@ -1757,7 +1762,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 SluongSua = 0,
                 IdThanhtoan = -1,
                 TrangthaiTonghop=0,
-                MadoituongGia=objLuotkham.MadoituongGia,
+                MadoituongGia = Utility.sDbnull(drv[KcbDonthuocChitiet.Columns.MadoituongGia], objLuotkham.MadoituongGia),
                 TrangthaiChuyen=0,
                 IdGoi=-1,
                 TrongGoi=0,
@@ -2184,7 +2189,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             this.em_Action = action.Update;
                             this.setMsg(this.lblMsg, "Bạn thực hiện lưu đơn "+(KIEU_THUOC_VT == "THUOC" ?"thuốc":"vật tư") +" thành công", false);
                             this.UpdateDetailID(lstChitietDonthuoc);
-                            this.b_Cancel = true;
+                            this.m_blnCancel = false;
                             break;
                     }
                 }
@@ -2225,7 +2230,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             this.em_Action = action.Update;
                             this.setMsg(this.lblMsg, "Bạn thực hiện lưu đơn "+(KIEU_THUOC_VT == "THUOC" ?"thuốc":"vật tư") +" thành công", false);
                             this.UpdateDetailID(lstChitietDonthuoc);
-                            this.b_Cancel = true;
+                            this.m_blnCancel = false;
                             break;
                     }
                 }
@@ -2342,7 +2347,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         this.grdPresDetail.CurrentRow.Delete();
                         this.grdPresDetail.UpdateData();
                         this.deletefromDatatable(vals);
-                        this.b_Cancel = true;
+                        this.m_blnCancel = false;
                         this.UpdateDataWhenChanged();
                     }
                 }
@@ -2550,7 +2555,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             return;
 
                         case CallAction.FromParentFormList:
-                            this.b_Cancel = true;
+                            this.m_blnCancel = false;
                             if (!this.Manual)
                             {
                                 base.Close();
@@ -2558,7 +2563,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             return;
 
                         case CallAction.FromAnotherForm:
-                            this.b_Cancel = true;
+                            this.m_blnCancel = false;
                             if (this.hasChanged)
                             {
                                 this.PerformAction();
@@ -2637,6 +2642,7 @@ namespace VNS.HIS.UI.NGOAITRU
             PropertyLib.SaveProperty(PropertyLib._AppProperties);
         }
         int id_thuockho = -1;
+        string madoituong_gia = "DV";
         private void txtdrug__OnGridSelectionChanged(string ID, int id_thuockho, string _name, string Dongia, string phuthu, int tutuc)
         {
             this.id_thuockho = id_thuockho;
@@ -2674,6 +2680,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 DataRow[] rowArray = this.m_dtDrugDataSource.Select(DmucThuoc.Columns.IdThuoc + "=" + this.txtDrugID.Text);
                 if (rowArray.Length > 0)
                 {
+                    madoituong_gia = rowArray[0]["madoituong_gia"].ToString();
                     this.txtTonKho.Text = CommonLoadDuoc.SoLuongTonTrongKho(-1L, Utility.Int32Dbnull(this.cboStock.SelectedValue), Utility.Int32Dbnull(this.txtDrugID.Text, -1), txtdrug.GridView ? this.id_thuockho : (long)this.txtdrug.id_thuockho, new int?(Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KIEMTRATHUOC_CHOXACNHAN", "1", false), 1)), Utility.ByteDbnull(objLuotkham.Noitru, 0)).ToString();
                     this.txtDonViDung.Text = rowArray[0]["ten_donvitinh"].ToString();
                     this.txtDrug_Name.Text = rowArray[0][DmucThuoc.Columns.TenThuoc].ToString();
@@ -2695,6 +2702,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 else
                 {
+                    madoituong_gia = "DV";
                     this.m_decPrice = 0M;
                     this.tu_tuc = 0;
                     this.txtDrugID.Text = "";
@@ -3042,7 +3050,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         this.UpdateChiDanThem();
                         this.setMsg(this.lblMsg, "Bạn thực hiện lưu đơn "+(KIEU_THUOC_VT == "THUOC" ?"thuốc":"vật tư") +" thành công", false);
                         this.UpdateDetailID(lstChitietDonthuoc);
-                        this.b_Cancel = true;
+                        this.m_blnCancel = false;
                         break;
                 }
             }
@@ -3064,7 +3072,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         this.UpdateChiDanThem();
                         this.setMsg(this.lblMsg, "Bạn thực hiện lưu đơn "+(KIEU_THUOC_VT == "THUOC" ?"thuốc":"vật tư") +" thành công", false);
                         this.UpdateDetailID(lstChitietDonthuoc);
-                        this.b_Cancel = true;
+                        this.m_blnCancel = false;
                         break;
                 }
             }

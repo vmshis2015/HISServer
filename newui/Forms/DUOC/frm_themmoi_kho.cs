@@ -179,7 +179,7 @@ namespace VNS.HIS.UI.THUOC
             objChung.MotaThem = Utility.sDbnull(txtGhiChu.Text);
             objChung.LaQuaythuoc = (byte?)(chkKhoBan.Checked ? 1 : 0);
             objChung.TrangThai = (byte?) (chkHienThi.Checked ? 1 : 0);
-
+            objChung.KieuBiendong = txtKieubiendong.myCode;
             objChung.NgayTao = globalVariables.SysDate;
             objChung.NguoiTao = globalVariables.UserName;
             byte kieukho = 0;
@@ -217,14 +217,14 @@ namespace VNS.HIS.UI.THUOC
         /// <param name="e"></param>
         private void cmdSave_Click(object sender, EventArgs e)
         {
-            if (!InValiData()) return;
+            if (!IsValidData()) return;
             PerformAction();
         }
         /// <summary>
         /// Kiểm tra dữ liệu
         /// </summary>
         /// <returns></returns>
-        private bool InValiData()
+        private bool IsValidData()
         {
             if (string.IsNullOrEmpty(txtMa.Text))
             {
@@ -238,7 +238,7 @@ namespace VNS.HIS.UI.THUOC
                 txtTEN.Focus();
                 return false;
             }
-
+            
             if (em_Action == action.Insert)
             {
                 SqlQuery sqlQuery = new Select().From(TDmucKho.Schema)
@@ -343,6 +343,7 @@ namespace VNS.HIS.UI.THUOC
                 radKhoLe.Checked = objDmucKho.KieuKho == "LE";
                 optChanle.Checked = objDmucKho.KieuKho == "CHANLE";
                 chkChongiakhikedon.Checked = Utility.Byte2Bool(objDmucKho.ChophepChongia);
+                txtKieubiendong.SetCode(objDmucKho.KieuBiendong);
                 if (Utility.sDbnull(objDmucKho.KhoThuocVt) == "VT")
                 {
                     optVT.Checked = true;
@@ -404,6 +405,7 @@ namespace VNS.HIS.UI.THUOC
                             TDmucKho.Columns.SttHthi), 0);
 
                 txt_STT_HTHI.Value = Utility.Int32Dbnull(MaxSTT + 1);
+                txtKieubiendong.Init();
                 //txtID_DICHVU.Text = Utility.sDbnull(Utility.Int32Dbnull(_Query.GetMax(DDichVu.Columns.IdDvu)) + 1, "1");
                 txtMa.Focus();
             }

@@ -278,6 +278,7 @@
             this.grdStaffList.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.grdStaffList.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
             this.grdStaffList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.grdStaffList.GroupByBoxVisible = false;
             this.grdStaffList.GroupRowFormatStyle.ForeColor = System.Drawing.Color.Red;
             this.grdStaffList.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
             this.grdStaffList.Location = new System.Drawing.Point(3, 17);

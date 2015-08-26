@@ -29,6 +29,7 @@ using VNS.HIS.UI.Forms.NGOAITRU;
 using VNS.HIS.UI.NOITRU;
 using VNS.HIS.UI.DANHMUC;
 using VNS.HIS.Classes;
+using VNS.HIS.UI.Forms.Cauhinh;
 
 namespace VNS.HIS.UI.NGOAITRU
 {

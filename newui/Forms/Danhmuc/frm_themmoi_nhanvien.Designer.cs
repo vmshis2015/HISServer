@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Janus.Windows.GridEX.GridEXLayout gridEX1_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_nhanvien));
             Janus.Windows.GridEX.GridEXLayout grdKhoThuoc_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdPhongkham_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
@@ -35,19 +36,9 @@
             Janus.Windows.GridEX.GridEXLayout grdKhoanoitru_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdQuyen_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
-            this.lblMsg = new System.Windows.Forms.Label();
-            this.txtUID = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.chkSuatieudebaocao = new System.Windows.Forms.CheckBox();
-            this.chkXemphieudieutricuaBacsikhac = new System.Windows.Forms.CheckBox();
-            this.chkAllNgoaitru = new System.Windows.Forms.CheckBox();
-            this.chkAllNoitru = new System.Windows.Forms.CheckBox();
-            this.chkThemdanhmucchung = new System.Windows.Forms.CheckBox();
-            this.chkRepay = new System.Windows.Forms.CheckBox();
-            this.chkUnlockAll = new System.Windows.Forms.CheckBox();
-            this.chkChangePaymentdate = new System.Windows.Forms.CheckBox();
-            this.chkCancelPaymentAll = new System.Windows.Forms.CheckBox();
+            this.gridEX1 = new Janus.Windows.GridEX.GridEX();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.grdKhoThuoc = new Janus.Windows.GridEX.GridEX();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -55,6 +46,8 @@
             this.grdKhoa = new Janus.Windows.GridEX.GridEX();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.grdKhoanoitru = new Janus.Windows.GridEX.GridEX();
+            this.lblMsg = new System.Windows.Forms.Label();
+            this.txtUID = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtmotathem = new System.Windows.Forms.TextBox();
             this.chkHienThi = new System.Windows.Forms.CheckBox();
@@ -75,12 +68,11 @@
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.grdQuyen = new Janus.Windows.GridEX.GridEX();
-            this.chkQuyensuaCLS = new System.Windows.Forms.CheckBox();
-            this.chkQuyenSuadonthuoc = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridEX1)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdKhoThuoc)).BeginInit();
             this.tabPage3.SuspendLayout();
@@ -94,9 +86,9 @@
             // uiGroupBox1
             // 
             this.uiGroupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.uiGroupBox1.Controls.Add(this.tabControl1);
             this.uiGroupBox1.Controls.Add(this.lblMsg);
             this.uiGroupBox1.Controls.Add(this.txtUID);
-            this.uiGroupBox1.Controls.Add(this.tabControl1);
             this.uiGroupBox1.Controls.Add(this.label1);
             this.uiGroupBox1.Controls.Add(this.txtmotathem);
             this.uiGroupBox1.Controls.Add(this.chkHienThi);
@@ -122,6 +114,141 @@
             this.uiGroupBox1.Size = new System.Drawing.Size(732, 501);
             this.uiGroupBox1.TabIndex = 0;
             this.uiGroupBox1.Click += new System.EventHandler(this.uiGroupBox1_Click);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl1.Location = new System.Drawing.Point(117, 201);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(610, 211);
+            this.tabControl1.TabIndex = 78;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.gridEX1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(602, 183);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Quyền";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // gridEX1
+            // 
+            gridEX1_DesignTimeLayout.LayoutString = resources.GetString("gridEX1_DesignTimeLayout.LayoutString");
+            this.gridEX1.DesignTimeLayout = gridEX1_DesignTimeLayout;
+            this.gridEX1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridEX1.DynamicFiltering = true;
+            this.gridEX1.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.gridEX1.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.gridEX1.GroupByBoxVisible = false;
+            this.gridEX1.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.gridEX1.Location = new System.Drawing.Point(3, 3);
+            this.gridEX1.Name = "gridEX1";
+            this.gridEX1.Size = new System.Drawing.Size(596, 177);
+            this.gridEX1.TabIndex = 74;
+            this.gridEX1.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.grdKhoThuoc);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(167, 183);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Quan hệ kho thuốc";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // grdKhoThuoc
+            // 
+            grdKhoThuoc_DesignTimeLayout.LayoutString = resources.GetString("grdKhoThuoc_DesignTimeLayout.LayoutString");
+            this.grdKhoThuoc.DesignTimeLayout = grdKhoThuoc_DesignTimeLayout;
+            this.grdKhoThuoc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdKhoThuoc.GroupByBoxVisible = false;
+            this.grdKhoThuoc.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdKhoThuoc.Location = new System.Drawing.Point(3, 3);
+            this.grdKhoThuoc.Name = "grdKhoThuoc";
+            this.grdKhoThuoc.Size = new System.Drawing.Size(161, 177);
+            this.grdKhoThuoc.TabIndex = 72;
+            this.grdKhoThuoc.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.grdPhongkham);
+            this.tabPage3.Controls.Add(this.grdKhoa);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(167, 183);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Khoa ngoại trú";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // grdPhongkham
+            // 
+            grdPhongkham_DesignTimeLayout.LayoutString = resources.GetString("grdPhongkham_DesignTimeLayout.LayoutString");
+            this.grdPhongkham.DesignTimeLayout = grdPhongkham_DesignTimeLayout;
+            this.grdPhongkham.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdPhongkham.DynamicFiltering = true;
+            this.grdPhongkham.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdPhongkham.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdPhongkham.GroupByBoxVisible = false;
+            this.grdPhongkham.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdPhongkham.Location = new System.Drawing.Point(287, 3);
+            this.grdPhongkham.Name = "grdPhongkham";
+            this.grdPhongkham.Size = new System.Drawing.Size(0, 177);
+            this.grdPhongkham.TabIndex = 72;
+            this.grdPhongkham.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // grdKhoa
+            // 
+            grdKhoa_DesignTimeLayout.LayoutString = resources.GetString("grdKhoa_DesignTimeLayout.LayoutString");
+            this.grdKhoa.DesignTimeLayout = grdKhoa_DesignTimeLayout;
+            this.grdKhoa.Dock = System.Windows.Forms.DockStyle.Left;
+            this.grdKhoa.DynamicFiltering = true;
+            this.grdKhoa.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdKhoa.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdKhoa.GroupByBoxVisible = false;
+            this.grdKhoa.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdKhoa.Location = new System.Drawing.Point(3, 3);
+            this.grdKhoa.Name = "grdKhoa";
+            this.grdKhoa.Size = new System.Drawing.Size(284, 177);
+            this.grdKhoa.TabIndex = 73;
+            this.grdKhoa.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.grdKhoanoitru);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(167, 183);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Khoa nội trú";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // grdKhoanoitru
+            // 
+            grdKhoanoitru_DesignTimeLayout.LayoutString = resources.GetString("grdKhoanoitru_DesignTimeLayout.LayoutString");
+            this.grdKhoanoitru.DesignTimeLayout = grdKhoanoitru_DesignTimeLayout;
+            this.grdKhoanoitru.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdKhoanoitru.DynamicFiltering = true;
+            this.grdKhoanoitru.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdKhoanoitru.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdKhoanoitru.GroupByBoxVisible = false;
+            this.grdKhoanoitru.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdKhoanoitru.Location = new System.Drawing.Point(3, 3);
+            this.grdKhoanoitru.Name = "grdKhoanoitru";
+            this.grdKhoanoitru.Size = new System.Drawing.Size(161, 177);
+            this.grdKhoanoitru.TabIndex = 73;
+            this.grdKhoanoitru.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // lblMsg
             // 
@@ -172,243 +299,6 @@
             this.txtUID.txtMyName = null;
             this.txtUID.txtMyName_Edit = null;
             this.txtUID.txtNext = null;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(117, 201);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(610, 211);
-            this.tabControl1.TabIndex = 78;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.chkQuyensuaCLS);
-            this.tabPage1.Controls.Add(this.chkQuyenSuadonthuoc);
-            this.tabPage1.Controls.Add(this.chkSuatieudebaocao);
-            this.tabPage1.Controls.Add(this.chkXemphieudieutricuaBacsikhac);
-            this.tabPage1.Controls.Add(this.chkAllNgoaitru);
-            this.tabPage1.Controls.Add(this.chkAllNoitru);
-            this.tabPage1.Controls.Add(this.chkThemdanhmucchung);
-            this.tabPage1.Controls.Add(this.chkRepay);
-            this.tabPage1.Controls.Add(this.chkUnlockAll);
-            this.tabPage1.Controls.Add(this.chkChangePaymentdate);
-            this.tabPage1.Controls.Add(this.chkCancelPaymentAll);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(602, 183);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Quyền";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // chkSuatieudebaocao
-            // 
-            this.chkSuatieudebaocao.AutoSize = true;
-            this.chkSuatieudebaocao.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkSuatieudebaocao.ForeColor = System.Drawing.Color.Black;
-            this.chkSuatieudebaocao.Location = new System.Drawing.Point(347, 85);
-            this.chkSuatieudebaocao.Name = "chkSuatieudebaocao";
-            this.chkSuatieudebaocao.Size = new System.Drawing.Size(190, 19);
-            this.chkSuatieudebaocao.TabIndex = 79;
-            this.chkSuatieudebaocao.Text = "Sửa trực tiếp tiêu đề báo cáo?";
-            this.chkSuatieudebaocao.UseVisualStyleBackColor = true;
-            // 
-            // chkXemphieudieutricuaBacsikhac
-            // 
-            this.chkXemphieudieutricuaBacsikhac.AutoSize = true;
-            this.chkXemphieudieutricuaBacsikhac.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkXemphieudieutricuaBacsikhac.ForeColor = System.Drawing.Color.Black;
-            this.chkXemphieudieutricuaBacsikhac.Location = new System.Drawing.Point(347, 60);
-            this.chkXemphieudieutricuaBacsikhac.Name = "chkXemphieudieutricuaBacsikhac";
-            this.chkXemphieudieutricuaBacsikhac.Size = new System.Drawing.Size(221, 19);
-            this.chkXemphieudieutricuaBacsikhac.TabIndex = 78;
-            this.chkXemphieudieutricuaBacsikhac.Text = "Xem phiếu điều trị của Bác sĩ khác?";
-            this.chkXemphieudieutricuaBacsikhac.UseVisualStyleBackColor = true;
-            // 
-            // chkAllNgoaitru
-            // 
-            this.chkAllNgoaitru.AutoSize = true;
-            this.chkAllNgoaitru.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkAllNgoaitru.ForeColor = System.Drawing.Color.Black;
-            this.chkAllNgoaitru.Location = new System.Drawing.Point(347, 33);
-            this.chkAllNgoaitru.Name = "chkAllNgoaitru";
-            this.chkAllNgoaitru.Size = new System.Drawing.Size(209, 19);
-            this.chkAllNgoaitru.TabIndex = 77;
-            this.chkAllNgoaitru.Text = "Khám tất cả các phòng ngoại trú?";
-            this.chkAllNgoaitru.UseVisualStyleBackColor = true;
-            // 
-            // chkAllNoitru
-            // 
-            this.chkAllNoitru.AutoSize = true;
-            this.chkAllNoitru.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkAllNoitru.ForeColor = System.Drawing.Color.Black;
-            this.chkAllNoitru.Location = new System.Drawing.Point(347, 6);
-            this.chkAllNoitru.Name = "chkAllNoitru";
-            this.chkAllNoitru.Size = new System.Drawing.Size(187, 19);
-            this.chkAllNoitru.TabIndex = 76;
-            this.chkAllNoitru.Text = "Khám tất cả các khoa nội trú?";
-            this.chkAllNoitru.UseVisualStyleBackColor = true;
-            // 
-            // chkThemdanhmucchung
-            // 
-            this.chkThemdanhmucchung.AutoSize = true;
-            this.chkThemdanhmucchung.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkThemdanhmucchung.ForeColor = System.Drawing.Color.Black;
-            this.chkThemdanhmucchung.Location = new System.Drawing.Point(6, 114);
-            this.chkThemdanhmucchung.Name = "chkThemdanhmucchung";
-            this.chkThemdanhmucchung.Size = new System.Drawing.Size(244, 19);
-            this.chkThemdanhmucchung.TabIndex = 75;
-            this.chkThemdanhmucchung.Text = "Cho phép thêm danh mục dùng chung?";
-            this.chkThemdanhmucchung.UseVisualStyleBackColor = true;
-            // 
-            // chkRepay
-            // 
-            this.chkRepay.AutoSize = true;
-            this.chkRepay.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkRepay.ForeColor = System.Drawing.Color.Black;
-            this.chkRepay.Location = new System.Drawing.Point(6, 87);
-            this.chkRepay.Name = "chkRepay";
-            this.chkRepay.Size = new System.Drawing.Size(136, 19);
-            this.chkRepay.TabIndex = 74;
-            this.chkRepay.Text = "Cho phép trả lại tiền";
-            this.chkRepay.UseVisualStyleBackColor = true;
-            // 
-            // chkUnlockAll
-            // 
-            this.chkUnlockAll.AutoSize = true;
-            this.chkUnlockAll.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkUnlockAll.ForeColor = System.Drawing.Color.Black;
-            this.chkUnlockAll.Location = new System.Drawing.Point(6, 6);
-            this.chkUnlockAll.Name = "chkUnlockAll";
-            this.chkUnlockAll.Size = new System.Drawing.Size(249, 19);
-            this.chkUnlockAll.TabIndex = 71;
-            this.chkUnlockAll.Text = "Cho phép mở khóa tất cả các Bệnh nhân";
-            this.chkUnlockAll.UseVisualStyleBackColor = true;
-            // 
-            // chkChangePaymentdate
-            // 
-            this.chkChangePaymentdate.AutoSize = true;
-            this.chkChangePaymentdate.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkChangePaymentdate.ForeColor = System.Drawing.Color.Black;
-            this.chkChangePaymentdate.Location = new System.Drawing.Point(6, 60);
-            this.chkChangePaymentdate.Name = "chkChangePaymentdate";
-            this.chkChangePaymentdate.Size = new System.Drawing.Size(215, 19);
-            this.chkChangePaymentdate.TabIndex = 73;
-            this.chkChangePaymentdate.Text = "Cho phép thay đổi ngày thanh toán";
-            this.chkChangePaymentdate.UseVisualStyleBackColor = true;
-            // 
-            // chkCancelPaymentAll
-            // 
-            this.chkCancelPaymentAll.AutoSize = true;
-            this.chkCancelPaymentAll.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkCancelPaymentAll.ForeColor = System.Drawing.Color.Black;
-            this.chkCancelPaymentAll.Location = new System.Drawing.Point(6, 33);
-            this.chkCancelPaymentAll.Name = "chkCancelPaymentAll";
-            this.chkCancelPaymentAll.Size = new System.Drawing.Size(163, 19);
-            this.chkCancelPaymentAll.TabIndex = 72;
-            this.chkCancelPaymentAll.Text = "Cho phép hủy thanh toán";
-            this.chkCancelPaymentAll.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.grdKhoThuoc);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(602, 183);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Quan hệ kho thuốc";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // grdKhoThuoc
-            // 
-            grdKhoThuoc_DesignTimeLayout.LayoutString = resources.GetString("grdKhoThuoc_DesignTimeLayout.LayoutString");
-            this.grdKhoThuoc.DesignTimeLayout = grdKhoThuoc_DesignTimeLayout;
-            this.grdKhoThuoc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdKhoThuoc.GroupByBoxVisible = false;
-            this.grdKhoThuoc.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdKhoThuoc.Location = new System.Drawing.Point(3, 3);
-            this.grdKhoThuoc.Name = "grdKhoThuoc";
-            this.grdKhoThuoc.Size = new System.Drawing.Size(596, 177);
-            this.grdKhoThuoc.TabIndex = 72;
-            this.grdKhoThuoc.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.grdPhongkham);
-            this.tabPage3.Controls.Add(this.grdKhoa);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(602, 183);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Khoa ngoại trú";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // grdPhongkham
-            // 
-            grdPhongkham_DesignTimeLayout.LayoutString = resources.GetString("grdPhongkham_DesignTimeLayout.LayoutString");
-            this.grdPhongkham.DesignTimeLayout = grdPhongkham_DesignTimeLayout;
-            this.grdPhongkham.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdPhongkham.DynamicFiltering = true;
-            this.grdPhongkham.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
-            this.grdPhongkham.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
-            this.grdPhongkham.GroupByBoxVisible = false;
-            this.grdPhongkham.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdPhongkham.Location = new System.Drawing.Point(287, 3);
-            this.grdPhongkham.Name = "grdPhongkham";
-            this.grdPhongkham.Size = new System.Drawing.Size(312, 177);
-            this.grdPhongkham.TabIndex = 72;
-            this.grdPhongkham.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
-            // 
-            // grdKhoa
-            // 
-            grdKhoa_DesignTimeLayout.LayoutString = resources.GetString("grdKhoa_DesignTimeLayout.LayoutString");
-            this.grdKhoa.DesignTimeLayout = grdKhoa_DesignTimeLayout;
-            this.grdKhoa.Dock = System.Windows.Forms.DockStyle.Left;
-            this.grdKhoa.DynamicFiltering = true;
-            this.grdKhoa.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
-            this.grdKhoa.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
-            this.grdKhoa.GroupByBoxVisible = false;
-            this.grdKhoa.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdKhoa.Location = new System.Drawing.Point(3, 3);
-            this.grdKhoa.Name = "grdKhoa";
-            this.grdKhoa.Size = new System.Drawing.Size(284, 177);
-            this.grdKhoa.TabIndex = 73;
-            this.grdKhoa.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.grdKhoanoitru);
-            this.tabPage4.Location = new System.Drawing.Point(4, 24);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(602, 183);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Khoa nội trú";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // grdKhoanoitru
-            // 
-            grdKhoanoitru_DesignTimeLayout.LayoutString = resources.GetString("grdKhoanoitru_DesignTimeLayout.LayoutString");
-            this.grdKhoanoitru.DesignTimeLayout = grdKhoanoitru_DesignTimeLayout;
-            this.grdKhoanoitru.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdKhoanoitru.DynamicFiltering = true;
-            this.grdKhoanoitru.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
-            this.grdKhoanoitru.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
-            this.grdKhoanoitru.GroupByBoxVisible = false;
-            this.grdKhoanoitru.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdKhoanoitru.Location = new System.Drawing.Point(3, 3);
-            this.grdKhoanoitru.Name = "grdKhoanoitru";
-            this.grdKhoanoitru.Size = new System.Drawing.Size(596, 177);
-            this.grdKhoanoitru.TabIndex = 73;
-            this.grdKhoanoitru.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // label1
             // 
@@ -643,30 +533,6 @@
             this.grdQuyen.Size = new System.Drawing.Size(605, 148);
             this.grdQuyen.TabIndex = 73;
             // 
-            // chkQuyensuaCLS
-            // 
-            this.chkQuyensuaCLS.AutoSize = true;
-            this.chkQuyensuaCLS.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkQuyensuaCLS.ForeColor = System.Drawing.Color.Black;
-            this.chkQuyensuaCLS.Location = new System.Drawing.Point(6, 162);
-            this.chkQuyensuaCLS.Name = "chkQuyensuaCLS";
-            this.chkQuyensuaCLS.Size = new System.Drawing.Size(288, 19);
-            this.chkQuyensuaCLS.TabIndex = 81;
-            this.chkQuyensuaCLS.Text = "Quyền sửa phiếu chỉ định CLS của người khác?";
-            this.chkQuyensuaCLS.UseVisualStyleBackColor = true;
-            // 
-            // chkQuyenSuadonthuoc
-            // 
-            this.chkQuyenSuadonthuoc.AutoSize = true;
-            this.chkQuyenSuadonthuoc.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkQuyenSuadonthuoc.ForeColor = System.Drawing.Color.Black;
-            this.chkQuyenSuadonthuoc.Location = new System.Drawing.Point(6, 138);
-            this.chkQuyenSuadonthuoc.Name = "chkQuyenSuadonthuoc";
-            this.chkQuyenSuadonthuoc.Size = new System.Drawing.Size(239, 19);
-            this.chkQuyenSuadonthuoc.TabIndex = 80;
-            this.chkQuyenSuadonthuoc.Text = "Quyền sửa đơn thuốc của người khác?";
-            this.chkQuyenSuadonthuoc.UseVisualStyleBackColor = true;
-            // 
             // frm_themmoi_nhanvien
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -690,7 +556,7 @@
             this.uiGroupBox1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridEX1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdKhoThuoc)).EndInit();
             this.tabPage3.ResumeLayout(false);
@@ -725,28 +591,18 @@
         private System.Windows.Forms.CheckBox chkHienThi;
         internal System.Windows.Forms.Label label1;
         internal System.Windows.Forms.TextBox txtmotathem;
-        private System.Windows.Forms.CheckBox chkRepay;
-        private System.Windows.Forms.CheckBox chkChangePaymentdate;
-        private System.Windows.Forms.CheckBox chkCancelPaymentAll;
-        private System.Windows.Forms.CheckBox chkUnlockAll;
         private Janus.Windows.GridEX.GridEX grdKhoThuoc;
         private Janus.Windows.GridEX.GridEX grdQuyen;
         private Janus.Windows.GridEX.GridEX grdPhongkham;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.CheckBox chkThemdanhmucchung;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private Janus.Windows.GridEX.GridEX grdKhoa;
         private System.Windows.Forms.TabPage tabPage4;
         private Janus.Windows.GridEX.GridEX grdKhoanoitru;
-        private System.Windows.Forms.CheckBox chkAllNgoaitru;
-        private System.Windows.Forms.CheckBox chkAllNoitru;
-        private System.Windows.Forms.CheckBox chkXemphieudieutricuaBacsikhac;
         private UCs.AutoCompleteTextbox txtUID;
         internal System.Windows.Forms.Label lblMsg;
-        private System.Windows.Forms.CheckBox chkSuatieudebaocao;
-        private System.Windows.Forms.CheckBox chkQuyensuaCLS;
-        private System.Windows.Forms.CheckBox chkQuyenSuadonthuoc;
+        private Janus.Windows.GridEX.GridEX gridEX1;
     }
 }

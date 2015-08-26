@@ -10,6 +10,7 @@ using Janus.Windows.GridEX;
 using SubSonic;
 using VNS.Libs;
 using VNS.HIS.DAL;
+using VNS.HIS.NGHIEPVU;
 
 namespace VNS.HIS.UI.DANHMUC
 {
@@ -123,24 +124,30 @@ namespace VNS.HIS.UI.DANHMUC
                     .Where(KcbChidinhcl.Columns.IdBacsiChidinh).IsEqualTo(v_StaffList_Id);
                 if (sqlQuery.GetRecordCount() > 0)
                 {
-                    Utility.ShowMsg("Tồn tại bảng cận lâm sàng , Bạn không thể xóa", "Thông báo", MessageBoxIcon.Warning);
+                    Utility.ShowMsg("Nhân viên này đã được sử dụng nên bạn không thể xóa");
                     return false;
                 }
                 sqlQuery = new Select().From(KcbDonthuoc.Schema)
                     .Where(KcbDonthuoc.Columns.IdBacsiChidinh).IsEqualTo(v_StaffList_Id);
                 if (sqlQuery.GetRecordCount() > 0)
                 {
-                    Utility.ShowMsg("Tồn tại bảng kê đơn thuốc , Bạn không thể xóa", "Thông báo", MessageBoxIcon.Warning);
+                    Utility.ShowMsg("Nhân viên này đã được sử dụng nên bạn không thể xóa");
                     return false;
                 }
                 sqlQuery = new Select().From(KcbDangkyKcb.Schema)
                  .Where(KcbDangkyKcb.Columns.IdBacsikham).IsEqualTo(v_StaffList_Id);
                 if (sqlQuery.GetRecordCount() > 0)
                 {
-                    Utility.ShowMsg("Tồn tại bảng phòng khám, Bạn không thể xóa", "Thông báo", MessageBoxIcon.Warning);
+                    Utility.ShowMsg("Nhân viên này đã được sử dụng nên bạn không thể xóa");
                     return false;
                 }
-
+                sqlQuery = new Select().From(KcbThanhtoan.Schema)
+                 .Where(KcbThanhtoan.Columns.IdNhanvienThanhtoan).IsEqualTo(v_StaffList_Id);
+                if (sqlQuery.GetRecordCount() > 0)
+                {
+                    Utility.ShowMsg("Nhân viên này đã được sử dụng nên bạn không thể xóa");
+                    return false;
+                }
                 return true;
             }
             catch(Exception ex)
@@ -153,14 +160,12 @@ namespace VNS.HIS.UI.DANHMUC
             try
             {
                 if (!IsValidData4Delete()) return;
-                if (Utility.AcceptQuestion("Bạn có muốn xóa thông tin bản ghi này không", "Thông báo", true))
+                if (Utility.AcceptQuestion("Bạn có muốn xóa nhân viên đang chọn không", "Thông báo", true))
                 {
                     v_StaffList_Id = Utility.Int32Dbnull(grdStaffList.GetValue(DmucNhanvien.Columns.IdNhanvien), -1);
-                    int record = new Delete().From(DmucNhanvien.Schema)
-                        .Where(DmucNhanvien.Columns.IdNhanvien).IsEqualTo(v_StaffList_Id).Execute();
-                    if (record > 0)
+                    string ErrMsg=dmucnhanvien_busrule.Delete(v_StaffList_Id);
+                    if (ErrMsg==string.Empty)
                     {
-                        Utility.ShowMsg("Bạn xóa thành công bản ghi đang chọn", "Thông báo");
                         DataRow[] arrDr = m_dtStaffList.Select(DmucNhanvien.Columns.IdNhanvien + "=" + v_StaffList_Id);
                         if (arrDr.GetLength(0) > 0)
                         {
@@ -170,7 +175,7 @@ namespace VNS.HIS.UI.DANHMUC
                     }
                     else
                     {
-                        Utility.ShowMsg("Lỗi trong quá trình xóa dữ liệu");
+                        Utility.ShowMsg(ErrMsg);
                     }
                 }
                 ModifyCommand();

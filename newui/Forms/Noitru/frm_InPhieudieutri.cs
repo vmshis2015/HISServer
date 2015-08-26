@@ -49,7 +49,7 @@ namespace VNS.HIS.UI.NOITRU
         {
             if (!m_blnLoaded) return;
             string department_id = Utility.sDbnull(cboKhoanoitru.SelectedValue, globalVariables.idKhoatheoMay.ToString());
-            bool IsAdmin = globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenXemphieudieutricuabacsinoitrukhac));
+            bool IsAdmin = globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Coquyen("quyen_xemphieudieutricuabacsinoitrukhac"));
             m_dtPhieudieutri = new KCB_THAMKHAM().NoitruTimkiemphieudieutriTheoluotkham(Utility.Bool2byte(IsAdmin), "01/01/1900", objLuotkham.MaLuotkham,
                     (int)objLuotkham.IdBenhnhan, department_id, 0);
             _rowFilter = "1=1";
@@ -91,7 +91,7 @@ namespace VNS.HIS.UI.NOITRU
             m_blnLoaded = true;
 
             string department_id = Utility.sDbnull(cboKhoanoitru.SelectedValue, globalVariables.idKhoatheoMay.ToString());
-            bool IsAdmin = globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenXemphieudieutricuabacsinoitrukhac));
+            bool IsAdmin =Utility.Coquyen("quyen_xemphieudieutricuabacsinoitrukhac");
             m_dtPhieudieutri = new KCB_THAMKHAM().NoitruTimkiemphieudieutriTheoluotkham(Utility.Bool2byte(IsAdmin), "01/01/1900", objLuotkham.MaLuotkham,
                      (int)objLuotkham.IdBenhnhan, department_id, 0);
 

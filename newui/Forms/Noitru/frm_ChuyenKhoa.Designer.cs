@@ -516,6 +516,7 @@ namespace VNS.HIS.UI.NOITRU
             this.txtKhoanoitru.MinTypedCharacters = 2;
             this.txtKhoanoitru.MyCode = "-1";
             this.txtKhoanoitru.MyID = "-1";
+            this.txtKhoanoitru.MyText = "";
             this.txtKhoanoitru.Name = "txtKhoanoitru";
             this.txtKhoanoitru.RaiseEvent = true;
             this.txtKhoanoitru.RaiseEventEnter = true;
@@ -719,6 +720,7 @@ namespace VNS.HIS.UI.NOITRU
             // 
             // label13
             // 
+            this.label13.ForeColor = System.Drawing.Color.Red;
             this.label13.Location = new System.Drawing.Point(6, 36);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(111, 18);

@@ -16,6 +16,7 @@ using VNS.HIS.UI.DANHMUC;
 using System.Transactions;
 using CrystalDecisions.CrystalReports.Engine;
 using System.IO;
+using VNS.HIS.UI.Forms.Cauhinh;
 namespace VNS.HIS.UI.Forms.NGOAITRU
 {
     public partial class frm_chuyenvien : Form

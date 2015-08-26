@@ -262,7 +262,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 pnlnutchucnang.Visible = PropertyLib._KCBProperties.Kieuhienthi != Kieuhienthi.Trenluoi;
                 pnlnutchucnang.Height = PropertyLib._KCBProperties.Kieuhienthi == Kieuhienthi.Trenluoi ? 0 : 33;
                 tabPageChiDinh.TabVisible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_CHOPHEP_CHIDINH_KHONGQUAPHONGKHAM","0",false)=="1";
-                tabPageChiDinh.Width = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_CHOPHEP_CHIDINH_KHONGQUAPHONGKHAM", "0", false) == "1" ? 0 : PropertyLib._KCBProperties.Chieurong;
+                tabChiDinh.Width = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_CHOPHEP_CHIDINH_KHONGQUAPHONGKHAM", "0", false) == "1" ? 0 : PropertyLib._KCBProperties.Chieurong;
                 pnlKieuPhongkham.Visible = !PropertyLib._KCBProperties.GoMaDvu;
                 pnlGoMaDvu.Visible = PropertyLib._KCBProperties.GoMaDvu;
                 mnuMaDVu.Checked = PropertyLib._KCBProperties.GoMaDvu;
@@ -290,7 +290,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                                      Utility.Int32Dbnull(cboObjectType.SelectedValue, -1), Hos_status,
                                                      Utility.sDbnull(txtPatientName.Text),
                                                      Utility.Int32Dbnull(txtPatient_ID.Text, -1),
-                                                     Utility.sDbnull(txtPatientCode.Text),"","", globalVariables.MA_KHOA_THIEN,(byte ) 100);
+                                                     Utility.sDbnull(txtPatientCode.Text),"","", globalVariables.MA_KHOA_THIEN,0,(byte ) 100);
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtPatient, true, true, "1=1", KcbDanhsachBenhnhan.Columns.IdBenhnhan + " desc");
                 //Utility.SetMsg(lblTongSo, string.Format("&Tổng số bản ghi :{0}", m_dtPatient.Rows.Count), true);
                 if (grdList.GetDataRows().Length <= 0)
@@ -942,7 +942,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm.m_eAction = action.Insert;
                 frm.HosStatus = 0;
                 frm.ShowDialog();
-                if (frm.b_Cancel)
+                if (!frm.m_blnCancel)
                 {
                     LoadChiDinh();
                     UpdateSumOfChiDinh();
@@ -979,7 +979,7 @@ namespace VNS.HIS.UI.NGOAITRU
                   frm.m_eAction = action.Update;
                   frm.txtAssign_ID.Text = Utility.sDbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), "-1");
                   frm.ShowDialog();
-                  if (frm.b_Cancel)
+                  if (!frm.m_blnCancel)
                   {
                       //  LoadChiDinhCLS();
                       LoadChiDinh();
@@ -1982,7 +1982,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     Utility.ShowMsg("Bạn phải chọn ít nhất 1 bệnh nhân để xóa");
                     return;
                 }
-
+                string ErrMgs = "";
                 string v_MaLuotkham =
                    Utility.sDbnull(
                      grdList.GetValue(KcbLuotkham.Columns.MaLuotkham),
@@ -1994,7 +1994,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (Utility.AcceptQuestion("Bạn có muốn xóa thông tin lần khám này không", "Thông báo", true))
                 {
                     ActionResult actionResult = _KCB_DANGKY.PerformActionDeletePatientExam(v_MaLuotkham,
-                                                                                                       v_Patient_ID);
+                                                                                                       v_Patient_ID, ref ErrMgs);
                     switch (actionResult)
                     {
                         case ActionResult.Success:
@@ -2016,7 +2016,10 @@ namespace VNS.HIS.UI.NGOAITRU
                             //Utility.ShowMsg("Xóa lần khám thành công", "Thành công");
                             break;
                         case ActionResult.Exception:
-                            Utility.ShowMsg("Bệnh nhân đã có thông tin chỉ định dịch vụ hoặc đơn thuốc, /n bạn không thể xóa lần khám này", "Thông báo");
+                            if (ErrMgs != "")
+                                Utility.ShowMsg(ErrMgs);
+                            else
+                                Utility.ShowMsg("Bệnh nhân đã có thông tin chỉ định dịch vụ hoặc đơn thuốc... /n bạn không thể xóa lần khám này", "Thông báo");
                             break;
                         case ActionResult.Error:
                             Utility.ShowMsg("Có lỗi trong quá trình xóa thông tin", "Thông báo");

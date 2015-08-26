@@ -150,8 +150,7 @@ namespace VNS.HIS.UI.NOITRU
             {
                 string department_id = "-1";
                 department_id = Utility.sDbnull(cboKhoanoitru.SelectedValue, globalVariables.idKhoatheoMay.ToString());
-                bool IsAdmin = globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && Utility.Byte2Bool(globalVariablesPrivate.objNhanvien.QuyenXemphieudieutricuabacsinoitrukhac));
-                  // || THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_SAOCHEP_PHIEUDT_THEOKHOA", "0", false) == "0";
+                bool IsAdmin = Utility.Coquyen("quyen_xemphieudieutricuabacsinoitrukhac");
                 m_dtPhieudieutri = new KCB_THAMKHAM().NoitruTimkiemphieudieutriTheoluotkham(Utility.Bool2byte(IsAdmin), PropertyLib._NoitruProperties.Hienthitatcaphieudieutrikhisaochep ? "01/01/1900" : dtNgaylapphieu.Value.ToString("dd/MM/yyyy"), objLuotkham.MaLuotkham,
                     (int)objLuotkham.IdBenhnhan, department_id, 0);
 

@@ -1,4 +1,5 @@
-﻿namespace  VNS.HIS.UI.THANHTOAN
+﻿using VNS.HIS.UCs.Noitru;
+namespace  VNS.HIS.UI.THANHTOAN
 {
     partial class frm_THANHTOAN_NOITRU
     {
@@ -232,7 +233,7 @@
             this.tabpageThongTinThanhToan = new Janus.Windows.UI.Tab.UITabPage();
             this.tabPageThongTinChiTietThanhToan = new Janus.Windows.UI.Tab.UITabPage();
             this.uiTabPage1 = new Janus.Windows.UI.Tab.UITabPage();
-            this.ucTamung1 = new VNS.HIS.UI.Forms.Noitru.UCs.ucTamung();
+            this.ucTamung1 = new ucTamung();
             this.tabPageThongTinDaThanhToan = new Janus.Windows.UI.Tab.UITabPage();
             this.TabpageCauhinh = new Janus.Windows.UI.Tab.UITabPage();
             this.tabpageKCB = new Janus.Windows.UI.Tab.UITabPage();
@@ -3068,6 +3069,6 @@
         private System.Windows.Forms.Label label24;
         private Janus.Windows.GridEX.EditControls.EditBox txtThuathieu;
         private Janus.Windows.UI.Tab.UITabPage uiTabPage1;
-        private Forms.Noitru.UCs.ucTamung ucTamung1;
+        private ucTamung ucTamung1;
     }
 }

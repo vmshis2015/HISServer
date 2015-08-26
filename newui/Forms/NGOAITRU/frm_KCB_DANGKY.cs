@@ -34,12 +34,7 @@ using VNS.Libs.AppUI;
 using VNS.HIS.UI.Forms.Cauhinh;
 namespace VNS.HIS.UI.NGOAITRU
 {
-    public delegate void SetParameterValueDelegate(string value, int IsUuTien);
-
-    public delegate void SetParameterValueDelegateColose(Form frm);
-    /// <summary>
-    /// Đẩy thử code=Github
-    /// </summary>
+   
     public partial class frm_KCB_DANGKY : Form
     {
         public delegate void OnActionSuccess();
@@ -148,7 +143,7 @@ namespace VNS.HIS.UI.NGOAITRU
             cmdThemMoiBN.Click += new System.EventHandler(cmdThemMoiBN_Click);
             cmdSave.Click += new System.EventHandler(cmdSave_Click);
 
-            cmdMoSoKham.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(cmdMoSoKham_LinkClicked);
+            lnkRestoreIgnoreQMS.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(lnkRestoreIgnoreQMS_LinkClicked);
             cmdStart.Click += new System.EventHandler(cmdStart_Click);
             cmdStop.Click += new System.EventHandler(cmdStop_Click);
             cmdGoiSoKham.Click += new System.EventHandler(cmdGoiSoKham_Click);
@@ -195,6 +190,14 @@ namespace VNS.HIS.UI.NGOAITRU
             cmdGetBV.Click += new EventHandler(cmdGetBV_Click);
             cmdThemmoiDiachinh.Click += cmdThemmoiDiachinh_Click;
             chkLaysokham.CheckedChanged += chkLaysokham_CheckedChanged;
+            cmdRestore.Click += cmdRestore_Click;
+        }
+
+        void cmdRestore_Click(object sender, EventArgs e)
+        {
+            var frm = new frm_SoKham_GoiLai();
+            frm._OnActiveQMS += frm__OnActiveQMS;
+            frm.ShowDialog();
         }
 
         void chkLaysokham_CheckedChanged(object sender, EventArgs e)
@@ -3339,7 +3342,12 @@ namespace VNS.HIS.UI.NGOAITRU
             if (e.KeyCode == Keys.T && e.Control) cmdThanhToanKham.PerformClick();
             // if(e.KeyCode==Keys.P&&e.Control)cmdSaveAndPrint.PerformClick();
             if (e.KeyCode == Keys.N && e.Control) cmdThemMoiBN.PerformClick();
-            if (e.KeyCode == Keys.Enter) SendKeys.Send("{TAB}");
+            if (e.KeyCode == Keys.Enter)
+            {
+               // lnkRestoreIgnoreQMS.Enabled = false;
+                SendKeys.Send("{TAB}");
+               // lnkRestoreIgnoreQMS.Enabled = PropertyLib._HISQMSProperties.IsQMS;
+            }
         }
 
 
@@ -3729,10 +3737,11 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (PropertyLib._HISQMSProperties.IsQMS)
                 {
                     pnlTieuDe.SendToBack();
-
+                   // lnkRestoreIgnoreQMS.Enabled = true;
                 }
                 else
                 {
+                    //lnkRestoreIgnoreQMS.Enabled = false;
                     pnlTieuDe.BringToFront();
                 }
                 
@@ -3838,7 +3847,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
         }
 
-        private void cmdMoSoKham_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void lnkRestoreIgnoreQMS_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var frm = new frm_SoKham_GoiLai();
             frm._OnActiveQMS += frm__OnActiveQMS;
@@ -5347,6 +5356,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     objRegExam.IdKieukham = objDichvuKCB.IdKieukham;
                     objRegExam.NhomBaocao = objDichvuKCB.NhomBaocao;
                     objRegExam.DonGia = Utility.DecimaltoDbnull(objDichvuKCB.DonGia, 0);
+                    objRegExam.MadoituongGia = _MaDoituongKcb;
                     objRegExam.NguoiTao = globalVariables.UserName;
                     objRegExam.LaPhidichvukemtheo = 0;
                     objRegExam.SttKham = -1;
@@ -5378,6 +5388,9 @@ namespace VNS.HIS.UI.NGOAITRU
                     objRegExam.PhuThu = !chkTraiTuyen.Checked
                                                     ? Utility.DecimaltoDbnull(objDichvuKCB.PhuthuDungtuyen)
                                                     : Utility.DecimaltoDbnull(objDichvuKCB.PhuthuTraituyen);
+
+                    if (!THU_VIEN_CHUNG.IsBaoHiem(objRegExam.IdLoaidoituongkcb))
+                        objRegExam.PhuThu = 0;
                     objRegExam.NgayDangky = globalVariables.SysDate;
                     objRegExam.IdBenhnhan = Utility.Int32Dbnull(txtMaBN.Text, -1);
                     objRegExam.TrangthaiThanhtoan = 0;
@@ -5755,7 +5768,7 @@ namespace VNS.HIS.UI.NGOAITRU
             
             var objBenhnhan = new KcbDanhsachBenhnhan();
             if (m_enAction == action.Add) objBenhnhan.IdBenhnhan = Utility.Int64Dbnull(txtMaBN.Text, -1);
-            if (m_enAction == action.Update) objBenhnhan.IdBenhnhan = Utility.Int64Dbnull(txtMaBN.Text, -1);
+            if (m_enAction == action.Update) objBenhnhan = KcbDanhsachBenhnhan.FetchByID(Utility.Int64Dbnull(txtMaBN.Text, -1));
             objBenhnhan.TenBenhnhan = txtTEN_BN.Text;
             objBenhnhan.DiaChi = txtDiachi.Text;
             //Tạm REM lại tìm hiểu tại sao lại gán ="" với đối tượng dịch vụ
@@ -5836,6 +5849,7 @@ namespace VNS.HIS.UI.NGOAITRU
             objLuotkham.NgayTao = globalVariables.SysDate;
             objLuotkham.Cmt = Utility.sDbnull(txtCMT.Text, "");
             objLuotkham.DiaChi = txtDiachi.Text;
+            objLuotkham.CachTao = 0;
             objLuotkham.Email = txtEmail.Text;
             objLuotkham.NoiGioithieu = txtNoigioithieu.Text;
             objLuotkham.NhomBenhnhan = txtLoaiBN.myCode;

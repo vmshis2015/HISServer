@@ -171,10 +171,6 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="RicherTextBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Running\RicherTextBox.dll</HintPath>
-    </Reference>
     <Reference Include="SubSonic, Version=2.2.0.0, Culture=neutral, PublicKeyToken=eadb47849839a332, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Running\SubSonic.dll</HintPath>
@@ -197,6 +193,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TabManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyRIS\Running\TabManager.dll</HintPath>
+    </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
@@ -302,6 +302,18 @@
     </Compile>
     <Compile Include="Forms\Baocao\BaocaoNoitru\frm_thongkenhapvien.Designer.cs">
       <DependentUpon>frm_thongkenhapvien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_nhapxuaton_theokhoanoitru.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_nhapxuaton_theokhoanoitru.Designer.cs">
+      <DependentUpon>frm_baocao_nhapxuaton_theokhoanoitru.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_huychot_theoquy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_huychot_theoquy.Designer.cs">
+      <DependentUpon>frm_baocao_huychot_theoquy.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_nhapxuaton_theoquy.cs">
       <SubType>Form</SubType>
@@ -537,10 +549,22 @@
     <Compile Include="Forms\CanLamSang\frm_nhapketquaXN.Designer.cs">
       <DependentUpon>frm_nhapketquaXN.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Cauhinh\frm_cauhinhthamsohethong.cs">
+    <Compile Include="Forms\CanLamSang\frm_ViewImages.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Cauhinh\frm_cauhinhthamsohethong.Designer.cs">
+    <Compile Include="Forms\CanLamSang\frm_ViewImages.Designer.cs">
+      <DependentUpon>frm_ViewImages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dungchung\frm_ChonTrangthai.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Dungchung\frm_ChonTrangthai.Designer.cs">
+      <DependentUpon>frm_ChonTrangthai.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dungchung\frm_cauhinhthamsohethong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Dungchung\frm_cauhinhthamsohethong.Designer.cs">
       <DependentUpon>frm_cauhinhthamsohethong.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Danhmuc\frm_ChonQloiBHYT.cs">
@@ -597,6 +621,30 @@
     <Compile Include="Forms\Danhmuc\frm_ChonDoituongKCB.Designer.cs">
       <DependentUpon>frm_ChonDoituongKCB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Dungchung\frm_QlyLsuthaydoiDoituongKCB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Dungchung\frm_QlyLsuthaydoiDoituongKCB.Designer.cs">
+      <DependentUpon>frm_QlyLsuthaydoiDoituongKCB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dungchung\UCs\ucBHYT_H.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Dungchung\UCs\ucBHYT_H.Designer.cs">
+      <DependentUpon>ucBHYT_H.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dungchung\UCs\ucBHYT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Dungchung\UCs\ucBHYT.Designer.cs">
+      <DependentUpon>ucBHYT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dungchung\UCs\ucTamung.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Dungchung\UCs\ucTamung.Designer.cs">
+      <DependentUpon>ucTamung.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DUOC\frm_NhaplydoHuy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -615,10 +663,10 @@
     <Compile Include="Forms\DUOC\frm_themmoi_phieuxuatthuoctutruc.Designer.cs">
       <DependentUpon>frm_themmoi_phieuxuatthuoctutruc.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DUOC\frm_ChonngayXacnhan.cs">
+    <Compile Include="Forms\Dungchung\frm_ChonngayXacnhan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DUOC\frm_ChonngayXacnhan.Designer.cs">
+    <Compile Include="Forms\Dungchung\frm_ChonngayXacnhan.Designer.cs">
       <DependentUpon>frm_ChonngayXacnhan.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DUOC\frm_IE_Excel.cs">
@@ -771,6 +819,18 @@
     <Compile Include="Forms\DUOC\frm_UpdateSoLuongTon.Designer.cs">
       <DependentUpon>frm_UpdateSoLuongTon.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DUOC\Noitru\frm_PhieuTrathuocthua.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DUOC\Noitru\frm_PhieuTrathuocthua.Designer.cs">
+      <DependentUpon>frm_PhieuTrathuocthua.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DUOC\Noitru\frm_themmoi_phieutrathuocthua.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DUOC\Noitru\frm_themmoi_phieutrathuocthua.Designer.cs">
+      <DependentUpon>frm_themmoi_phieutrathuocthua.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DUOC\Noitru\frm_AddCapPhatThuocNoiTru.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -800,6 +860,12 @@
     </Compile>
     <Compile Include="Forms\CanLamSang\frm_Nhapketqua.Designer.cs">
       <DependentUpon>frm_Nhapketqua.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DUOC\Noitru\frm_PhatThuocBN_Noitru.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DUOC\Noitru\frm_PhatThuocBN_Noitru.Designer.cs">
+      <DependentUpon>frm_PhatThuocBN_Noitru.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Hoadondo\frm_AddRedInvoice.cs">
       <SubType>Form</SubType>
@@ -837,6 +903,18 @@
     <Compile Include="Forms\Hoadondo\frm_Print_RedInvoice.Designer.cs">
       <DependentUpon>frm_Print_RedInvoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Danhmuc\frm_themmoi_nhomcls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Danhmuc\frm_themmoi_nhomcls.Designer.cs">
+      <DependentUpon>frm_themmoi_nhomcls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Danhmuc\frm_quanlynhomchidinh_cls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Danhmuc\frm_quanlynhomchidinh_cls.designer.cs">
+      <DependentUpon>frm_quanlynhomchidinh_cls.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NGOAITRU\frm_chuyenvien.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -861,11 +939,23 @@
     <Compile Include="Forms\NGOAITRU\frm_KCB_Tracuu_lichsu_kcb.Designer.cs">
       <DependentUpon>frm_KCB_Tracuu_lichsu_kcb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Noitru\frm_dmuc_giabuonggiuong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Noitru\frm_dmuc_giabuonggiuong.Designer.cs">
+      <DependentUpon>frm_dmuc_giabuonggiuong.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Noitru\frm_Phieuravien.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Noitru\frm_Phieuravien.Designer.cs">
       <DependentUpon>frm_Phieuravien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Noitru\frm_Taobenhnhancapcuu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Noitru\frm_Taobenhnhancapcuu.Designer.cs">
+      <DependentUpon>frm_Taobenhnhancapcuu.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Noitru\frm_TonghopRavien.cs">
       <SubType>Form</SubType>
@@ -975,10 +1065,10 @@
     <Compile Include="Forms\Quanhe\frm_qhe_doituong_thuoc_coban.Designer.cs">
       <DependentUpon>frm_qhe_doituong_thuoc_coban.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\NGOAITRU\frm_CHON_BENHNHAN.cs">
+    <Compile Include="Forms\Dungchung\frm_CHON_BENHNHAN.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\NGOAITRU\frm_CHON_BENHNHAN.Designer.cs">
+    <Compile Include="Forms\Dungchung\frm_CHON_BENHNHAN.Designer.cs">
       <DependentUpon>frm_CHON_BENHNHAN.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\NGOAITRU\frm_chuyendoituongkcb.cs">
@@ -999,10 +1089,10 @@
     <Compile Include="Forms\NGOAITRU\frm_DanhSach_ICD.Designer.cs">
       <DependentUpon>frm_DanhSach_ICD.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\NGOAITRU\frm_DSACH_BN_TKIEM.cs">
+    <Compile Include="Forms\Dungchung\frm_DSACH_BN_TKIEM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\NGOAITRU\frm_DSACH_BN_TKIEM.Designer.cs">
+    <Compile Include="Forms\Dungchung\frm_DSACH_BN_TKIEM.Designer.cs">
       <DependentUpon>frm_DSACH_BN_TKIEM.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\NGOAITRU\frm_KCB_CHIDINH_CLS.cs">
@@ -1203,6 +1293,12 @@
     <Compile Include="Forms\Quaythuoc\frm_kedonthuoctaiquay.Designer.cs">
       <DependentUpon>frm_kedonthuoctaiquay.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\THANHTOAN\frm_PhanbotientheoPTTT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\THANHTOAN\frm_PhanbotientheoPTTT.Designer.cs">
+      <DependentUpon>frm_PhanbotientheoPTTT.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\THANHTOAN\frm_Tralaitien.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1221,16 +1317,16 @@
     <Compile Include="Forms\THANHTOAN\frm_HuyThanhtoan_Quaythuoc.Designer.cs">
       <DependentUpon>frm_HuyThanhtoan_Quaythuoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\THANHTOAN\frm_Chondanhmucdungchung.cs">
+    <Compile Include="Forms\Dungchung\frm_Chondanhmucdungchung.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\THANHTOAN\frm_Chondanhmucdungchung.Designer.cs">
+    <Compile Include="Forms\Dungchung\frm_Chondanhmucdungchung.Designer.cs">
       <DependentUpon>frm_Chondanhmucdungchung.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\THANHTOAN\frm_ChonngayThanhtoan.cs">
+    <Compile Include="Forms\Dungchung\frm_ChonngayThanhtoan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\THANHTOAN\frm_ChonngayThanhtoan.Designer.cs">
+    <Compile Include="Forms\Dungchung\frm_ChonngayThanhtoan.Designer.cs">
       <DependentUpon>frm_ChonngayThanhtoan.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\THANHTOAN\frm_ChietkhauTrenHoadon.cs">
@@ -1321,6 +1417,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Baocao\BaocaoNoitru\frm_thongkenhapvien.resx">
       <DependentUpon>frm_thongkenhapvien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_nhapxuaton_theokhoanoitru.resx">
+      <DependentUpon>frm_baocao_nhapxuaton_theokhoanoitru.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_huychot_theoquy.resx">
+      <DependentUpon>frm_baocao_huychot_theoquy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_nhapxuaton_theoquy.resx">
       <DependentUpon>frm_baocao_nhapxuaton_theoquy.cs</DependentUpon>
@@ -1439,7 +1541,13 @@
     <EmbeddedResource Include="Forms\CanLamSang\frm_nhapketquaXN.resx">
       <DependentUpon>frm_nhapketquaXN.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Cauhinh\frm_cauhinhthamsohethong.resx">
+    <EmbeddedResource Include="Forms\CanLamSang\frm_ViewImages.resx">
+      <DependentUpon>frm_ViewImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dungchung\frm_ChonTrangthai.resx">
+      <DependentUpon>frm_ChonTrangthai.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dungchung\frm_cauhinhthamsohethong.resx">
       <DependentUpon>frm_cauhinhthamsohethong.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Danhmuc\frm_ChonQloiBHYT.resx">
@@ -1469,6 +1577,18 @@
     <EmbeddedResource Include="Forms\Danhmuc\frm_ChonDoituongKCB.resx">
       <DependentUpon>frm_ChonDoituongKCB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dungchung\frm_QlyLsuthaydoiDoituongKCB.resx">
+      <DependentUpon>frm_QlyLsuthaydoiDoituongKCB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dungchung\UCs\ucBHYT_H.resx">
+      <DependentUpon>ucBHYT_H.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dungchung\UCs\ucBHYT.resx">
+      <DependentUpon>ucBHYT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dungchung\UCs\ucTamung.resx">
+      <DependentUpon>ucTamung.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DUOC\frm_NhaplydoHuy.resx">
       <DependentUpon>frm_NhaplydoHuy.cs</DependentUpon>
     </EmbeddedResource>
@@ -1478,7 +1598,7 @@
     <EmbeddedResource Include="Forms\DUOC\frm_themmoi_phieuxuatthuoctutruc.resx">
       <DependentUpon>frm_themmoi_phieuxuatthuoctutruc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DUOC\frm_ChonngayXacnhan.resx">
+    <EmbeddedResource Include="Forms\Dungchung\frm_ChonngayXacnhan.resx">
       <DependentUpon>frm_ChonngayXacnhan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DUOC\frm_IE_Excel.resx">
@@ -1556,6 +1676,12 @@
     <EmbeddedResource Include="Forms\DUOC\frm_UpdateSoLuongTon.resx">
       <DependentUpon>frm_UpdateSoLuongTon.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DUOC\Noitru\frm_PhieuTrathuocthua.resx">
+      <DependentUpon>frm_PhieuTrathuocthua.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DUOC\Noitru\frm_themmoi_phieutrathuocthua.resx">
+      <DependentUpon>frm_themmoi_phieutrathuocthua.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DUOC\Noitru\frm_AddCapPhatThuocNoiTru.resx">
       <DependentUpon>frm_AddCapPhatThuocNoiTru.cs</DependentUpon>
     </EmbeddedResource>
@@ -1570,6 +1696,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CanLamSang\frm_Nhapketqua.resx">
       <DependentUpon>frm_Nhapketqua.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DUOC\Noitru\frm_PhatThuocBN_Noitru.resx">
+      <DependentUpon>frm_PhatThuocBN_Noitru.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Hoadondo\frm_AddRedInvoice.resx">
       <DependentUpon>frm_AddRedInvoice.cs</DependentUpon>
@@ -1589,6 +1718,12 @@
     <EmbeddedResource Include="Forms\Hoadondo\frm_Print_RedInvoice.resx">
       <DependentUpon>frm_Print_RedInvoice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Danhmuc\frm_themmoi_nhomcls.resx">
+      <DependentUpon>frm_themmoi_nhomcls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Danhmuc\frm_quanlynhomchidinh_cls.resx">
+      <DependentUpon>frm_quanlynhomchidinh_cls.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\NGOAITRU\frm_chuyenvien.resx">
       <DependentUpon>frm_chuyenvien.cs</DependentUpon>
     </EmbeddedResource>
@@ -1601,8 +1736,15 @@
     <EmbeddedResource Include="Forms\NGOAITRU\frm_KCB_Tracuu_lichsu_kcb.resx">
       <DependentUpon>frm_KCB_Tracuu_lichsu_kcb.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Noitru\frm_dmuc_giabuonggiuong.resx">
+      <DependentUpon>frm_dmuc_giabuonggiuong.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Noitru\frm_Phieuravien.resx">
       <DependentUpon>frm_Phieuravien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Noitru\frm_Taobenhnhancapcuu.resx">
+      <DependentUpon>frm_Taobenhnhancapcuu.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Noitru\frm_TonghopRavien.resx">
       <DependentUpon>frm_TonghopRavien.cs</DependentUpon>
@@ -1658,7 +1800,7 @@
     <EmbeddedResource Include="Forms\Quanhe\frm_qhe_doituong_thuoc_coban.resx">
       <DependentUpon>frm_qhe_doituong_thuoc_coban.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\NGOAITRU\frm_CHON_BENHNHAN.resx">
+    <EmbeddedResource Include="Forms\Dungchung\frm_CHON_BENHNHAN.resx">
       <DependentUpon>frm_CHON_BENHNHAN.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NGOAITRU\frm_chuyendoituongkcb.resx">
@@ -1670,7 +1812,7 @@
     <EmbeddedResource Include="Forms\NGOAITRU\frm_DanhSach_ICD.resx">
       <DependentUpon>frm_DanhSach_ICD.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\NGOAITRU\frm_DSACH_BN_TKIEM.resx">
+    <EmbeddedResource Include="Forms\Dungchung\frm_DSACH_BN_TKIEM.resx">
       <DependentUpon>frm_DSACH_BN_TKIEM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NGOAITRU\frm_KCB_CHIDINH_CLS.resx">
@@ -1773,6 +1915,9 @@
     <EmbeddedResource Include="Forms\Quaythuoc\frm_kedonthuoctaiquay.resx">
       <DependentUpon>frm_kedonthuoctaiquay.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\THANHTOAN\frm_PhanbotientheoPTTT.resx">
+      <DependentUpon>frm_PhanbotientheoPTTT.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\THANHTOAN\frm_Tralaitien.resx">
       <DependentUpon>frm_Tralaitien.cs</DependentUpon>
     </EmbeddedResource>
@@ -1782,10 +1927,10 @@
     <EmbeddedResource Include="Forms\THANHTOAN\frm_HuyThanhtoan_Quaythuoc.resx">
       <DependentUpon>frm_HuyThanhtoan_Quaythuoc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\THANHTOAN\frm_Chondanhmucdungchung.resx">
+    <EmbeddedResource Include="Forms\Dungchung\frm_Chondanhmucdungchung.resx">
       <DependentUpon>frm_Chondanhmucdungchung.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\THANHTOAN\frm_ChonngayThanhtoan.resx">
+    <EmbeddedResource Include="Forms\Dungchung\frm_ChonngayThanhtoan.resx">
       <DependentUpon>frm_ChonngayThanhtoan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\THANHTOAN\frm_ChietkhauTrenHoadon.resx">
@@ -1858,17 +2003,25 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\newdal\newdal.csproj">
-      <Project>{cd0be8e8-b7d8-41ca-95f7-ea03675cfe0d}</Project>
-      <Name>newdal</Name>
+    <ProjectReference Include="..\..\..\RicherRichTextBoxPrj\RicherTextBox_src\RicherTextBox\RicherTextBox.csproj">
+      <Project>{8f3074d8-e771-4c5e-a11e-0c0fbae34ae3}</Project>
+      <Name>RicherTextBox</Name>
     </ProjectReference>
     <ProjectReference Include="..\newBus\newBus.csproj">
       <Project>{a99e7072-450c-430d-ac3d-63cbb74c01ad}</Project>
       <Name>newBus</Name>
     </ProjectReference>
+    <ProjectReference Include="..\newdal\newdal.csproj">
+      <Project>{cd0be8e8-b7d8-41ca-95f7-ea03675cfe0d}</Project>
+      <Name>newdal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\newLib\newLib.csproj">
       <Project>{0400ff7a-0d53-45aa-bbe5-09eedeb50d4e}</Project>
       <Name>newLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\newmyreports\newreports.csproj">
+      <Project>{1c96fead-3089-4717-a240-c647f095a11a}</Project>
+      <Name>newreports</Name>
     </ProjectReference>
     <ProjectReference Include="..\newucs\newucs.csproj">
       <Project>{9bea8df5-2c37-4f57-9efb-f09db987b0aa}</Project>

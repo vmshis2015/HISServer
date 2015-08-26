@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.uiTab1 = new Janus.Windows.UI.Tab.UITab();
             this.tabPhieuDieuTri = new Janus.Windows.UI.Tab.UITabPage();
             this.uiTabPage3 = new Janus.Windows.UI.Tab.UITabPage();
@@ -35,8 +37,10 @@
             this.txtSoluong = new MaskedTextBox.MaskedTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.grdList = new Janus.Windows.GridEX.GridEX();
             ((System.ComponentModel.ISupportInitialize)(this.uiTab1)).BeginInit();
             this.uiTab1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
             // 
             // uiTab1
@@ -107,11 +111,40 @@
             this.label2.TabIndex = 24;
             this.label2.Text = "Decimal";
             // 
+            // grdList
+            // 
+            this.grdList.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
+            this.grdList.BackColor = System.Drawing.Color.Silver;
+            this.grdList.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
+    " thông tin bệnh nhân</FilterRowInfoText></LocalizableData>";
+            grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
+            this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
+            this.grdList.DynamicFiltering = true;
+            this.grdList.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdList.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle;
+            this.grdList.FocusCellFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.grdList.FocusCellFormatStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.grdList.FocusCellFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
+            this.grdList.Font = new System.Drawing.Font("Arial", 9F);
+            this.grdList.FrozenColumns = 3;
+            this.grdList.GroupByBoxVisible = false;
+            this.grdList.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdList.Location = new System.Drawing.Point(600, 210);
+            this.grdList.Name = "grdList";
+            this.grdList.RecordNavigator = true;
+            this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdList.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
+            this.grdList.Size = new System.Drawing.Size(270, 191);
+            this.grdList.TabIndex = 26;
+            this.grdList.TabStop = false;
+            this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(811, 475);
+            this.Controls.Add(this.grdList);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtDongia);
@@ -121,6 +154,7 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.uiTab1)).EndInit();
             this.uiTab1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,6 +170,7 @@
         private MaskedTextBox.MaskedTextBox txtSoluong;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private Janus.Windows.GridEX.GridEX grdList;
 
     }
 }

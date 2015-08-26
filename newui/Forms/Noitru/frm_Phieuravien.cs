@@ -16,6 +16,8 @@ using VNS.HIS.UI.DANHMUC;
 using System.Transactions;
 using CrystalDecisions.CrystalReports.Engine;
 using System.IO;
+using VNS.HIS.UI.Forms.Cauhinh;
+using VNS.HIS.UCs;
 namespace VNS.HIS.UI.Forms.NGOAITRU
 {
     public partial class frm_Phieuravien : Form
@@ -37,17 +39,17 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.KeyDown += new KeyEventHandler(frm_Phieuravien_KeyDown);
             this.Load += new EventHandler(frm_Phieuravien_Load);
 
-            txtKieuchuyenvien._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtKieuchuyenvien__OnSaveAs);
-            txtKieuchuyenvien._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtKieuchuyenvien__OnShowData);
+            txtKieuchuyenvien._OnSaveAs += new AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtKieuchuyenvien__OnSaveAs);
+            txtKieuchuyenvien._OnShowData += new AutoCompleteTextbox_Danhmucchung.OnShowData(txtKieuchuyenvien__OnShowData);
 
-            txtKqdieutri._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtKqdieutri__OnSaveAs);
-            txtKqdieutri._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtKqdieutri__OnShowData);
+            txtKqdieutri._OnSaveAs += new AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtKqdieutri__OnSaveAs);
+            txtKqdieutri._OnShowData += new AutoCompleteTextbox_Danhmucchung.OnShowData(txtKqdieutri__OnShowData);
 
-            txtTinhtrangravien._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtTinhtrangravien__OnSaveAs);
-            txtTinhtrangravien._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtTinhtrangravien__OnShowData);
+            txtTinhtrangravien._OnSaveAs += new AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtTinhtrangravien__OnSaveAs);
+            txtTinhtrangravien._OnShowData += new AutoCompleteTextbox_Danhmucchung.OnShowData(txtTinhtrangravien__OnShowData);
 
-            txtPhuongphapdieutri._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtPhuongphapdieutri__OnSaveAs);
-            txtPhuongphapdieutri._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtPhuongphapdieutri__OnShowData);
+            txtPhuongphapdieutri._OnSaveAs += new AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtPhuongphapdieutri__OnSaveAs);
+            txtPhuongphapdieutri._OnShowData += new AutoCompleteTextbox_Danhmucchung.OnShowData(txtPhuongphapdieutri__OnShowData);
 
             cmdExit.Click += new EventHandler(cmdExit_Click);
             cmdChuyen.Click += new EventHandler(cmdChuyen_Click);

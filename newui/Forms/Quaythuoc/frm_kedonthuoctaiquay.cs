@@ -55,7 +55,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private bool hasChanged = false;
         private bool hasMorethanOne = true;
         public int id_kham = -1;
-        private int IdDonthuoc = -1;
+        private long IdDonthuoc = -1;
         private bool isLike = true;
         public bool isLoaded = false;
         private bool isSaved = false;

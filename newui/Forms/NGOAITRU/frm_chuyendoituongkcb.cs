@@ -12,6 +12,7 @@ using SubSonic;
 using VNS.Libs;
 using VNS.HIS.BusRule.Classes;
 using VNS.Properties;
+using VNS.HIS.UI.Forms.Cauhinh;
 
 namespace VNS.HIS.UI.Forms.NGOAITRU
 {
@@ -115,12 +116,6 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             }
         }
         DmucDoituongkcb objDoituongKCB = null;
-
-      
-
-      
-
-       
         void cmdClose_Click(object sender, EventArgs e)
         {
             m_blnSuccess = false;
@@ -444,7 +439,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 }
                 if (Utility.AcceptQuestion(msg, "Xác nhận", true))
                 {
-                    ActionResult actionResult = ChuyenDoituongKCB.Chuyendoituong(objLuotkhamMoi,PtramBhytCu);
+                    ActionResult actionResult = ChuyenDoituongKCB.Chuyendoituong(objLuotkhamMoi, objLuotkham,PtramBhytCu);
                     switch (actionResult)
                     {
                         case ActionResult.Success:
@@ -530,7 +525,8 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             }
             _newitem.PtramBhytGoc = Utility.DecimaltoDbnull(txtptramDauthe.Text, 0);
             _newitem.PtramBhyt = Utility.DecimaltoDbnull(txtPtramBHYT.Text, 0);
-
+            _newitem.TrangthaiNoitru = objLuotkham.TrangthaiNoitru;
+            _newitem.IdLichsuDoituongKcb = objLuotkham.IdLichsuDoituongKcb;
             return _newitem;
         }
         private bool isValidData()

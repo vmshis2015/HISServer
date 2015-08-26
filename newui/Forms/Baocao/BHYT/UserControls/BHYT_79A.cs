@@ -133,7 +133,7 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
                                 true, mdtReport.Rows.Count <= 0 ? false : true);
                         Utility.UpdateLogotoDatatable(ref mdtReport);
                         crpt.SetDataSource(mdtReport);
-                        objForm.crptViewer.ReportSource = crpt;
+                       
                         objForm.mv_sReportFileName = Path.GetFileName(reportname);
                         objForm.mv_sReportCode = "BHYT_79A_CT";
                         Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
@@ -145,7 +145,7 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
                         Utility.SetParameterValue(crpt,"sTitleReport", baocaO_TIEUDE1.txtTieuDe.Text);
                         Utility.SetParameterValue(crpt,"NTN", Utility.FormatDateTimeWithThanhPho(dtCreateDate.Value));
                         Utility.SetParameterValue(crpt,"TongTien", ChuyenDoiSoThanhChu());
-
+                        objForm.crptViewer.ReportSource = crpt;
                         if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai, view))
                         {
                             objForm.SetDefaultPrinter(PropertyLib._MayInProperties.TenMayInBienlai, 1);
@@ -168,7 +168,7 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
                                 baocaO_TIEUDE1.txtTieuDe.Text, crpt, true, mdtReport.Rows.Count <= 0 ? false : true);
                         Utility.UpdateLogotoDatatable(ref mdtReport);
                         crpt.SetDataSource(mdtReport);
-                        objForm.crptViewer.ReportSource = crpt;
+                       
                         objForm.mv_sReportFileName = Path.GetFileName(reportname);
                         objForm.mv_sReportCode = "BHYT_79A_TH";
                         Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
@@ -180,7 +180,7 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
                         Utility.SetParameterValue(crpt,"sTitleReport", baocaO_TIEUDE1.txtTieuDe.Text);
                         Utility.SetParameterValue(crpt,"NTN", Utility.FormatDateTimeWithThanhPho(dtCreateDate.Value));
                         Utility.SetParameterValue(crpt,"TongTien", ChuyenDoiSoThanhChu());
-
+                        objForm.crptViewer.ReportSource = crpt;
                         if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai, view))
                         {
                             objForm.SetDefaultPrinter(PropertyLib._MayInProperties.TenMayInBienlai, 1);

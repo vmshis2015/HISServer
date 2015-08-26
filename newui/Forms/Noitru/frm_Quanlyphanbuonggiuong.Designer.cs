@@ -35,16 +35,17 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.cmdThemMoiBN = new System.Windows.Forms.ToolStripButton();
             this.cmdSuaThongTinBN = new System.Windows.Forms.ToolStripButton();
-            this.cmdNhapvien = new System.Windows.Forms.ToolStripButton();
+            this.cmdXoaBN = new System.Windows.Forms.ToolStripButton();
             this.cmdPhanGiuong = new System.Windows.Forms.ToolStripButton();
             this.cmdHuyphangiuong = new System.Windows.Forms.ToolStripButton();
             this.cmdChuyenKhoa = new System.Windows.Forms.ToolStripButton();
             this.cmdHuychuyenkhoa = new System.Windows.Forms.ToolStripButton();
             this.cmdChuyenGiuong = new System.Windows.Forms.ToolStripButton();
             this.cmdConfig = new System.Windows.Forms.ToolStripButton();
-            this.cmdLichSu = new System.Windows.Forms.ToolStripButton();
+            this.cmdNhapvien = new System.Windows.Forms.ToolStripButton();
             this.cmdExit = new System.Windows.Forms.ToolStripButton();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
+            this.chkCapcuu = new Janus.Windows.EditControls.UICheckBox();
             this.cmdTimKiem = new Janus.Windows.EditControls.UIButton();
             this.label11 = new System.Windows.Forms.Label();
             this.cboKhoaChuyenDen = new Janus.Windows.EditControls.UIComboBox();
@@ -73,6 +74,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmdThemMoiBN,
             this.cmdSuaThongTinBN,
+            this.cmdXoaBN,
             this.cmdNhapvien,
             this.cmdPhanGiuong,
             this.cmdHuyphangiuong,
@@ -80,7 +82,6 @@
             this.cmdHuychuyenkhoa,
             this.cmdChuyenGiuong,
             this.cmdConfig,
-            this.cmdLichSu,
             this.cmdExit});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -96,32 +97,32 @@
             this.cmdThemMoiBN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdThemMoiBN.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdThemMoiBN.Name = "cmdThemMoiBN";
-            this.cmdThemMoiBN.Size = new System.Drawing.Size(91, 36);
-            this.cmdThemMoiBN.Text = "Thêm mới";
-            this.cmdThemMoiBN.Visible = false;
-            this.cmdThemMoiBN.Click += new System.EventHandler(this.cmdThemMoiBN_Click);
+            this.cmdThemMoiBN.Size = new System.Drawing.Size(87, 36);
+            this.cmdThemMoiBN.Text = "Thêm BN";
+            this.cmdThemMoiBN.ToolTipText = "Thêm mới Bệnh nhân cấp cứu";
             // 
             // cmdSuaThongTinBN
             // 
+            this.cmdSuaThongTinBN.Enabled = false;
             this.cmdSuaThongTinBN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.cmdSuaThongTinBN.Image = ((System.Drawing.Image)(resources.GetObject("cmdSuaThongTinBN.Image")));
             this.cmdSuaThongTinBN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdSuaThongTinBN.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdSuaThongTinBN.Name = "cmdSuaThongTinBN";
-            this.cmdSuaThongTinBN.Size = new System.Drawing.Size(107, 36);
-            this.cmdSuaThongTinBN.Text = "Sửa thông tin";
-            this.cmdSuaThongTinBN.Visible = false;
-            this.cmdSuaThongTinBN.Click += new System.EventHandler(this.cmdSuaThongTinBN_Click);
+            this.cmdSuaThongTinBN.Size = new System.Drawing.Size(77, 36);
+            this.cmdSuaThongTinBN.Text = "Sửa BN";
+            this.cmdSuaThongTinBN.ToolTipText = "Sửa thông tin Bệnh nhân cấp cứu(Điều kiện sửa là BN cấp cứu chưa chuyển khoa-buồn" +
+    "g giường và chưa lập phiếu điều trị)";
             // 
-            // cmdNhapvien
+            // cmdXoaBN
             // 
-            this.cmdNhapvien.Image = ((System.Drawing.Image)(resources.GetObject("cmdNhapvien.Image")));
-            this.cmdNhapvien.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cmdNhapvien.Name = "cmdNhapvien";
-            this.cmdNhapvien.Size = new System.Drawing.Size(90, 36);
-            this.cmdNhapvien.Text = "Nhập viện";
-            this.cmdNhapvien.Visible = false;
-            this.cmdNhapvien.Click += new System.EventHandler(this.cmdNhapvien_Click);
+            this.cmdXoaBN.Enabled = false;
+            this.cmdXoaBN.Image = ((System.Drawing.Image)(resources.GetObject("cmdXoaBN.Image")));
+            this.cmdXoaBN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cmdXoaBN.Name = "cmdXoaBN";
+            this.cmdXoaBN.Size = new System.Drawing.Size(76, 36);
+            this.cmdXoaBN.Text = "Xóa BN";
+            this.cmdXoaBN.ToolTipText = "Nhập viện cho Bệnh nhân cấp cứu";
             // 
             // cmdPhanGiuong
             // 
@@ -132,7 +133,6 @@
             this.cmdPhanGiuong.Size = new System.Drawing.Size(107, 36);
             this.cmdPhanGiuong.Text = "Phân giường";
             this.cmdPhanGiuong.ToolTipText = "Phân giường nằm cho Bệnh nhân vừa nhập viện hoặc vừa chuyển Khoa nội trú";
-            this.cmdPhanGiuong.Click += new System.EventHandler(this.cmdPhanGiuong_Click);
             // 
             // cmdHuyphangiuong
             // 
@@ -143,7 +143,6 @@
             this.cmdHuyphangiuong.Size = new System.Drawing.Size(128, 36);
             this.cmdHuyphangiuong.Text = "Hủy phân giường";
             this.cmdHuyphangiuong.ToolTipText = "Hủy phân buồng giường";
-            this.cmdHuyphangiuong.Click += new System.EventHandler(this.cmdHuyphangiuong_Click);
             // 
             // cmdChuyenKhoa
             // 
@@ -155,7 +154,6 @@
             this.cmdChuyenKhoa.Size = new System.Drawing.Size(114, 36);
             this.cmdChuyenKhoa.Text = "Chuyển khoa";
             this.cmdChuyenKhoa.ToolTipText = "Chuyển khoa cho các Bệnh nhân đang nằm ở khoa khác";
-            this.cmdChuyenKhoa.Click += new System.EventHandler(this.cmdChuyenKhoa_Click);
             // 
             // cmdHuychuyenkhoa
             // 
@@ -165,7 +163,6 @@
             this.cmdHuychuyenkhoa.Size = new System.Drawing.Size(128, 36);
             this.cmdHuychuyenkhoa.Text = "Hủy chuyển khoa";
             this.cmdHuychuyenkhoa.ToolTipText = "Hủy chuyển khoa nội trú để quay về khoa cũ";
-            this.cmdHuychuyenkhoa.Click += new System.EventHandler(this.cmdHuychuyenkhoa_Click);
             // 
             // cmdChuyenGiuong
             // 
@@ -177,27 +174,26 @@
             this.cmdChuyenGiuong.Size = new System.Drawing.Size(125, 36);
             this.cmdChuyenGiuong.Text = "Chuyển giường";
             this.cmdChuyenGiuong.ToolTipText = "Chuyển giường cùng khoa nội trú";
-            this.cmdChuyenGiuong.Click += new System.EventHandler(this.cmdChuyenGiuong_Click);
             // 
             // cmdConfig
             // 
             this.cmdConfig.Image = ((System.Drawing.Image)(resources.GetObject("cmdConfig.Image")));
             this.cmdConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdConfig.Name = "cmdConfig";
-            this.cmdConfig.Size = new System.Drawing.Size(85, 36);
+            this.cmdConfig.Size = new System.Drawing.Size(85, 28);
             this.cmdConfig.Text = "Cấu hình";
-            this.cmdConfig.Click += new System.EventHandler(this.cmdConfig_Click);
             // 
-            // cmdLichSu
+            // cmdNhapvien
             // 
-            this.cmdLichSu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.cmdLichSu.Image = ((System.Drawing.Image)(resources.GetObject("cmdLichSu.Image")));
-            this.cmdLichSu.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.cmdLichSu.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cmdLichSu.Name = "cmdLichSu";
-            this.cmdLichSu.Size = new System.Drawing.Size(74, 36);
-            this.cmdLichSu.Text = "Lịch sử";
-            this.cmdLichSu.Click += new System.EventHandler(this.cmdLichSu_Click);
+            this.cmdNhapvien.Enabled = false;
+            this.cmdNhapvien.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.cmdNhapvien.Image = ((System.Drawing.Image)(resources.GetObject("cmdNhapvien.Image")));
+            this.cmdNhapvien.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.cmdNhapvien.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cmdNhapvien.Name = "cmdNhapvien";
+            this.cmdNhapvien.Size = new System.Drawing.Size(98, 36);
+            this.cmdNhapvien.Text = "Nhập viện";
+            this.cmdNhapvien.Visible = false;
             // 
             // cmdExit
             // 
@@ -208,10 +204,10 @@
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(74, 36);
             this.cmdExit.Text = "Thoát";
-            this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
             // 
             // uiGroupBox1
             // 
+            this.uiGroupBox1.Controls.Add(this.chkCapcuu);
             this.uiGroupBox1.Controls.Add(this.cmdTimKiem);
             this.uiGroupBox1.Controls.Add(this.label11);
             this.uiGroupBox1.Controls.Add(this.cboKhoaChuyenDen);
@@ -229,6 +225,15 @@
             this.uiGroupBox1.TabIndex = 5;
             this.uiGroupBox1.Text = "&Thông tin tìm kiếm";
             // 
+            // chkCapcuu
+            // 
+            this.chkCapcuu.Location = new System.Drawing.Point(239, 25);
+            this.chkCapcuu.Name = "chkCapcuu";
+            this.chkCapcuu.Size = new System.Drawing.Size(133, 27);
+            this.chkCapcuu.TabIndex = 19;
+            this.chkCapcuu.TabStop = false;
+            this.chkCapcuu.Text = "BN cấp cứu?";
+            // 
             // cmdTimKiem
             // 
             this.cmdTimKiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -237,7 +242,6 @@
             this.cmdTimKiem.Size = new System.Drawing.Size(147, 59);
             this.cmdTimKiem.TabIndex = 18;
             this.cmdTimKiem.Text = "Tìm kiếm(F3)";
-            this.cmdTimKiem.Click += new System.EventHandler(this.cmdTimKiem_Click);
             // 
             // label11
             // 
@@ -293,7 +297,6 @@
             this.txtPatientCode.Size = new System.Drawing.Size(133, 21);
             this.txtPatientCode.TabIndex = 3;
             this.txtPatientCode.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center;
-            this.txtPatientCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPatientCode_KeyDown);
             // 
             // dtToDate
             // 
@@ -318,7 +321,6 @@
             this.chkByDate.Size = new System.Drawing.Size(83, 27);
             this.chkByDate.TabIndex = 1;
             this.chkByDate.Text = "Từ ngày:";
-            this.chkByDate.CheckedChanged += new System.EventHandler(this.chkByDate_CheckedChanged);
             // 
             // dtFromDate
             // 
@@ -418,8 +420,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý thông tin phân buồng giường";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.frm_Quanlyphanbuonggiuong_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frm_Quanlyphanbuonggiuong_KeyDown);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).EndInit();
@@ -453,13 +453,14 @@
         private System.Windows.Forms.ToolStripButton cmdChuyenKhoa;
         private System.Windows.Forms.ToolStripButton cmdChuyenGiuong;
         private System.Windows.Forms.ToolStripButton cmdPhanGiuong;
-        private System.Windows.Forms.ToolStripButton cmdLichSu;
-        private System.Windows.Forms.ToolStripButton cmdHuychuyenkhoa;
         private System.Windows.Forms.ToolStripButton cmdNhapvien;
+        private System.Windows.Forms.ToolStripButton cmdHuychuyenkhoa;
+        private System.Windows.Forms.ToolStripButton cmdXoaBN;
         private System.Windows.Forms.ToolStripButton cmdConfig;
         private Janus.Windows.GridEX.GridEX grdBuongGiuong;
         private Janus.Windows.GridEX.GridEX grdList;
         private System.Windows.Forms.ToolTip toolTip1;
+        private Janus.Windows.EditControls.UICheckBox chkCapcuu;
         
     }
 }
