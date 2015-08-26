@@ -24,6 +24,31 @@ namespace VNS.HIS.BusRule.Classes
          {
              SPs.ChidinhclsXoaChitiet(IdChitietchidinh).Execute();
          }
+         public DataTable DmucTimkiemNhomchidinhCls(int? IdNhom, string Manhom, string TenNhom, string Loainhom, int? IdDichvuChitiet)
+         {
+             return SPs.DmucTimkiemNhomchidinhCls(IdNhom, Manhom, TenNhom, Loainhom, IdDichvuChitiet).GetDataSet().Tables[0];
+         }
+         public ActionResult Xoanhom(int IdNhom)
+         {
+             try
+             {
+                 using (var scope = new TransactionScope())
+                 {
+                     using (var sh = new SharedDbConnectionScope())
+                     {
+                         new Delete().From(DmucNhomcanlamsang.Schema).Where(DmucNhomcanlamsang.Columns.Id).IsEqualTo(IdNhom).Execute();
+                         new Delete().From(DmucNhomcanlamsangChitiet.Schema).Where(DmucNhomcanlamsangChitiet.Columns.IdNhom).IsEqualTo(IdNhom).Execute();
+                     }
+                     scope.Complete();
+                     return ActionResult.Success;
+                 }
+             }
+             catch (Exception exception)
+             {
+                 return ActionResult.Error;
+             }
+             
+         }
          public void XoaCLSChitietKhoinhom(long IdChitiet)
          {
              new Delete().From(DmucNhomcanlamsangChitiet.Schema).Where(DmucNhomcanlamsangChitiet.Columns.IdChitiet).IsEqualTo(IdChitiet).Execute();
@@ -90,6 +115,126 @@ namespace VNS.HIS.BusRule.Classes
              {
                  return ActionResult.Error;
              }
+<<<<<<< .mine
+         }
+         public ActionResult InsertDataChiDinhCLS(KcbChidinhcl objKcbChidinhcls, KcbLuotkham objLuotkham, KcbChidinhclsChitiet[] arrAssignDetails)
+         {
+             try
+             {
+                 using (var scope = new TransactionScope())
+                 {
+                     using (var sh = new SharedDbConnectionScope())
+                     {
+                         if (objKcbChidinhcls != null)
+                         {
+                             if (objLuotkham == null)
+                             {
+                                 objLuotkham = new Select().From(KcbLuotkham.Schema)
+                                     .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objKcbChidinhcls.MaLuotkham)
+                                     .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(
+                                         Utility.Int32Dbnull(objKcbChidinhcls.IdBenhnhan)).ExecuteSingle<KcbLuotkham>();
+                             }
+                             if (objLuotkham != null)
+                             {
+                                 objKcbChidinhcls.MaChidinh = THU_VIEN_CHUNG.SinhMaChidinhCLS();
+                                 objKcbChidinhcls.MaDoituongKcb = objLuotkham.MaDoituongKcb;
+                                 objKcbChidinhcls.IdLoaidoituongKcb = objLuotkham.IdLoaidoituongKcb;
+                                 objKcbChidinhcls.IdDoituongKcb = objLuotkham.IdDoituongKcb;
+                                 objKcbChidinhcls.MaKhoaChidinh = globalVariables.MA_KHOA_THIEN;
+                                 objKcbChidinhcls.IsNew = true;
+                                 objKcbChidinhcls.Save();
+                                 InsertAssignDetail(objKcbChidinhcls, objLuotkham, arrAssignDetails);
+                             }
+                             else
+                             {
+                                 return ActionResult.Error;
+                             }
+                         }
+                     }
+                     scope.Complete();
+                     return ActionResult.Success;
+                 }
+             }
+             catch (Exception exception)
+             {
+                 log.InfoException("Loi thong tin {0}", exception);
+                 return ActionResult.Error;
+             }
+         }
+         public void InsertAssignDetail(KcbChidinhcl objKcbChidinhcls, KcbLuotkham objLuotkham, KcbChidinhclsChitiet[] assignDetail)
+         {
+             using (var scope = new TransactionScope())
+             {
+                 if (objLuotkham == null) return;
+                 foreach (KcbChidinhclsChitiet objAssignDetail in assignDetail)
+                 {
+                     log.Info("Them moi thong tin cua phieu chi dinh chi tiet voi ma phieu Assign_ID=" +
+                              objKcbChidinhcls.IdChidinh);
+                     objAssignDetail.IdDoituongKcb = Utility.Int16Dbnull(objLuotkham.IdDoituongKcb);
+                     objAssignDetail.IdChidinh = Utility.Int32Dbnull(objKcbChidinhcls.IdChidinh);
+                     objAssignDetail.IdKham = Utility.Int32Dbnull(objKcbChidinhcls.IdKham, -1);
+                     decimal PtramBHYT = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0);
+                     TinhCLS.GB_TinhPhtramBHYT(objAssignDetail, objLuotkham,Utility.Byte2Bool(objKcbChidinhcls.Noitru), PtramBHYT);
+                     objAssignDetail.MaLuotkham = objKcbChidinhcls.MaLuotkham;
+                     objAssignDetail.IdBenhnhan = objKcbChidinhcls.IdBenhnhan;
+                     if (Utility.Int32Dbnull(objAssignDetail.SoLuong) <= 0) objAssignDetail.SoLuong = 1;
+                     if (objAssignDetail.IdChitietchidinh <= 0)
+                     {
+
+                         objAssignDetail.IsNew = true;
+                         objAssignDetail.Save();
+                     }
+                     else
+                     {
+                         objAssignDetail.MarkOld();
+                         objAssignDetail.IsNew = false;
+                         objAssignDetail.Save();
+                     }
+                 }
+                 scope.Complete();
+             }
+         }
+        
+         public ActionResult UpdateDataChiDinhCLS(KcbChidinhcl objKcbChidinhcls, KcbLuotkham objLuotkham, KcbChidinhclsChitiet[] arrAssignDetails)
+         {
+             try
+             {
+                 using (var scope = new TransactionScope())
+                 {
+                     using (var sh = new SharedDbConnectionScope())
+                     {
+                         if (objLuotkham == null)
+                         {
+                             objLuotkham = new Select().From(KcbLuotkham.Schema)
+                                 .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objKcbChidinhcls.MaLuotkham)
+                                 .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(
+                                     Utility.Int32Dbnull(objKcbChidinhcls.IdBenhnhan)).ExecuteSingle<KcbLuotkham>();
+                         }
+                         new Update(KcbChidinhcl.Schema)
+                             .Set(KcbChidinhcl.Columns.IdBacsiChidinh).EqualTo(objKcbChidinhcls.IdBacsiChidinh)
+                             .Set(KcbChidinhcl.Columns.NgaySua).EqualTo(globalVariables.SysDate)
+                             .Set(KcbChidinhcl.Columns.NguoiSua).EqualTo(globalVariables.UserName)
+                             .Where(KcbChidinhcl.Columns.IdChidinh).IsEqualTo(Utility.Int32Dbnull(objKcbChidinhcls.IdChidinh)).Execute();
+                         if (Utility.Int32Dbnull(objKcbChidinhcls.IdKham) > 0)
+                         {
+                             new Update(KcbDangkyKcb.Schema)
+                                 .Set(KcbDangkyKcb.Columns.IdBacsikham).EqualTo(objKcbChidinhcls.IdBacsiChidinh)
+                                 .Where(KcbDangkyKcb.IdKhamColumn).IsEqualTo(objKcbChidinhcls.IdKham).Execute();
+                         }
+                         log.Info("Cap nhap lai thong tin cua phieu chi dinh voi Assign_ID=" + objKcbChidinhcls.IdChidinh);
+                         InsertAssignDetail(objKcbChidinhcls, objLuotkham, arrAssignDetails);
+                     }
+                     scope.Complete();
+                     return ActionResult.Success;
+                 }
+             }
+             catch (Exception exception)
+             {
+                 log.InfoException("Loi thong tin ", exception);
+                 return ActionResult.Error;
+             }
+=======
+>>>>>>> .r108
          }
          public ActionResult InsertDataChiDinhCLS(KcbChidinhcl objKcbChidinhcls, KcbLuotkham objLuotkham, KcbChidinhclsChitiet[] arrAssignDetails)
          {
