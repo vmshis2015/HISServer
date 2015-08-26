@@ -18,7 +18,7 @@
   <MaKhoaThuchien>KKB</MaKhoaThuchien>
   <FontSize>400</FontSize>
   <PrinterName>doPDF v7</PrinterName>
-  <PrintStatus>false</PrintStatus>
+  <PrintStatus>true</PrintStatus>
   <MaKhoaKhamBenh>KKB</MaKhoaKhamBenh>
   <Chilaysouutien>false</Chilaysouutien>
   <Chopheplaysouutien>false</Chopheplaysouutien>
