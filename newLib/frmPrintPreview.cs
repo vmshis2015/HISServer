@@ -181,6 +181,7 @@ namespace VNS.Libs
 
             try
             {
+                this.crptViewer.ReportSource = this.RptDoc;
                 reportTitle1.Init(mv_sReportCode);
                 addTrinhKy_OnFormLoad();
                 cmdPrint.Focus();
@@ -370,7 +371,7 @@ namespace VNS.Libs
                     }
 
                 }
-               // Utility.ShowMsg("No trinhky");
+                this.Text = this.Text + "- KoCo trình ký";
                 return null;
             }
             catch (Exception ex)
@@ -384,35 +385,50 @@ namespace VNS.Libs
             
                 errTrinhky = "";
                 bool hasTrinhky = false;
+                string _log = "";
                 for (int i = 0; i <= p.Count - 1; i++)
                 {
+                    string _plog = "";
                     try
                     {
+                        _plog = p[i].ParameterFieldName.ToUpper() + ":";
                         if (p[i].ParameterFieldName.ToUpper() == "txtTrinhky".ToUpper())
                         {
+                            
                             hasTrinhky = true;
                             if (mv_bSetContent)
                             {
                                 string sPvalue = mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
                                 sPvalue = sPvalue.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
                                 sPvalue = sPvalue.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
+                                _plog += sPvalue + "\n";
                                 RptDoc.SetParameterValue(p[i].ParameterFieldName, sPvalue);
                             }
                             else
                             {
+                                _plog += "Empty\n";
                                 RptDoc.SetParameterValue(p[i].ParameterFieldName, "");
                             }
                         }
                         else
                         {
-                            if (p[i].CurrentValues!=null && p[i].CurrentValues.Count > 0)
+                            if (p[i].CurrentValues != null && p[i].CurrentValues.Count > 0)
+                            {
+                                
+                                _plog +=Utility.sDbnull( ((CrystalDecisions.Shared.ParameterDiscreteValue)p[i].CurrentValues[0]).Value," NULL") + "\n";
                                 RptDoc.SetParameterValue(p[i].ParameterFieldName, ((CrystalDecisions.Shared.ParameterDiscreteValue)p[i].CurrentValues[0]).Value);
+                            }
                             else
+                            {
+                                _plog += getDefaultValue(p[i].ParameterValueType) + "\n";
                                 RptDoc.SetParameterValue(p[i].ParameterFieldName, getDefaultValue(p[i].ParameterValueType));
+                            }
                         }
+                        _log += _plog;
                     }
                     catch (Exception ex)
                     {
+                        Utility.ShowMsg(_log);
                         Utility.CatchException("SetParamAgain-->", ex);
                     }
                 }
@@ -573,6 +589,7 @@ namespace VNS.Libs
         {
             try
             {
+                return;
                 String tempFolder = Environment.ExpandEnvironmentVariables("%TEMP%");
                 EmptyFolderContents(tempFolder);
             }
