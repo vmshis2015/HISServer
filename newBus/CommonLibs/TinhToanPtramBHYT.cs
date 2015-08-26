@@ -47,26 +47,26 @@ namespace VNS.Libs
        /// <param name="objPatientExam"></param>
        public static void TinhPtramBHYTForCLS(KcbLuotkham objPatientExam)
        {
-           SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
-               .Where(KcbChidinhclsChitiet.Columns.IdChidinh).In(
-                   new Select(KcbChidinhcl.Columns.IdChidinh).From(KcbChidinhcl.Schema).Where(
-                       KcbChidinhcl.Columns.MaLuotkham).IsEqualTo(
-                           objPatientExam.MaLuotkham).And(KcbChidinhcl.Columns.IdBenhnhan).IsEqualTo(
-                               objPatientExam.IdBenhnhan).And(KcbChidinhcl.Columns.Noitru).IsEqualTo(1));
-           KcbChidinhclsChitietCollection objAssignDetailCollection = sqlQuery.ExecuteAsCollection<KcbChidinhclsChitietCollection>();
-           decimal PtramBHYT = Utility.DecimaltoDbnull(objPatientExam.PtramBhyt);
-           foreach (KcbChidinhclsChitiet objAssignDetail in objAssignDetailCollection)
-           {
-               TinhCLS.GB_TinhPhtramBHYT(objAssignDetail, objPatientExam, PtramBHYT);
-               new Update(KcbChidinhclsChitiet.Schema)
-                   .Set(KcbChidinhclsChitiet.Columns.NgaySua).EqualTo(globalVariables.SysDate)
-                   .Set(KcbChidinhclsChitiet.Columns.NguoiSua).EqualTo(globalVariables.UserName)
-                   .Set(KcbChidinhclsChitiet.Columns.PtramBhyt).EqualTo(objAssignDetail.PtramBhyt)
-                   .Set(KcbChidinhclsChitiet.Columns.BnhanChitra).EqualTo(objAssignDetail.BnhanChitra)
-                   .Set(KcbChidinhclsChitiet.Columns.BhytChitra).EqualTo(objAssignDetail.BhytChitra)
-                   .Set(KcbChidinhclsChitiet.Columns.PhuThu).EqualTo(objAssignDetail.PhuThu)
-                   .Where(KcbChidinhclsChitiet.Columns.IdChitietchidinh).IsEqualTo(objAssignDetail.IdChitietchidinh).Execute();
-           }
+           //SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
+           //    .Where(KcbChidinhclsChitiet.Columns.IdChidinh).In(
+           //        new Select(KcbChidinhcl.Columns.IdChidinh).From(KcbChidinhcl.Schema).Where(
+           //            KcbChidinhcl.Columns.MaLuotkham).IsEqualTo(
+           //                objPatientExam.MaLuotkham).And(KcbChidinhcl.Columns.IdBenhnhan).IsEqualTo(
+           //                    objPatientExam.IdBenhnhan).And(KcbChidinhcl.Columns.Noitru).IsEqualTo(1));
+           //KcbChidinhclsChitietCollection objAssignDetailCollection = sqlQuery.ExecuteAsCollection<KcbChidinhclsChitietCollection>();
+           //decimal PtramBHYT = Utility.DecimaltoDbnull(objPatientExam.PtramBhyt);
+           //foreach (KcbChidinhclsChitiet objAssignDetail in objAssignDetailCollection)
+           //{
+           //    TinhCLS.GB_TinhPhtramBHYT(objAssignDetail, objPatientExam, PtramBHYT);
+           //    new Update(KcbChidinhclsChitiet.Schema)
+           //        .Set(KcbChidinhclsChitiet.Columns.NgaySua).EqualTo(globalVariables.SysDate)
+           //        .Set(KcbChidinhclsChitiet.Columns.NguoiSua).EqualTo(globalVariables.UserName)
+           //        .Set(KcbChidinhclsChitiet.Columns.PtramBhyt).EqualTo(objAssignDetail.PtramBhyt)
+           //        .Set(KcbChidinhclsChitiet.Columns.BnhanChitra).EqualTo(objAssignDetail.BnhanChitra)
+           //        .Set(KcbChidinhclsChitiet.Columns.BhytChitra).EqualTo(objAssignDetail.BhytChitra)
+           //        .Set(KcbChidinhclsChitiet.Columns.PhuThu).EqualTo(objAssignDetail.PhuThu)
+           //        .Where(KcbChidinhclsChitiet.Columns.IdChitietchidinh).IsEqualTo(objAssignDetail.IdChitietchidinh).Execute();
+           //}
 
        }
        

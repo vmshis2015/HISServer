@@ -616,6 +616,7 @@ namespace VNS.Libs
                 return DateTime.Now;
             }
         }
+       
         public static int LayIDPhongbanTheoUser(string sUserName)
         {
             int vDepartment_Id = -1;
@@ -630,12 +631,6 @@ namespace VNS.Libs
                     globalVariables.gv_strTenNhanvien = Utility.sDbnull(objStaff.TenNhanvien);
                     globalVariables.gv_intIDNhanvien = Utility.Int16Dbnull(objStaff.IdNhanvien);
                     globalVariables.gv_intPhongNhanvien = Utility.Int16Dbnull(objStaff.IdPhong);
-
-                    globalVariables.QUYEN_HUYTHANHTOAN_TATCA = globalVariables.IsAdmin || Utility.Int32Dbnull(objStaff.QuyenHuythanhtoanTatca, 0) == 1;
-                    globalVariables.QUYEN_MOKHOA_TATCA = globalVariables.IsAdmin || Utility.Int32Dbnull(objStaff.QuyenMokhoaTatca, 0) == 1;
-                    globalVariables.QUYEN_TRALAI_TIEN = globalVariables.IsAdmin || Utility.Int32Dbnull(objStaff.QuyenTralaiTien, 0) == 1;
-
-                    globalVariables.QUYEN_SUANGAY_THANHTOAN = globalVariables.IsAdmin || Utility.Int32Dbnull(objStaff.QuyenSuangayThanhtoan, 0) == 1;
                 }
             }
             catch (Exception ex)
@@ -719,7 +714,7 @@ namespace VNS.Libs
                 globalVariables.gv_strTenNhanvien = globalVariablesPrivate.objNhanvien.TenNhanvien;
                 globalVariables.gv_intIDNhanvien = globalVariablesPrivate.objNhanvien.IdNhanvien;
             }
-
+            globalVariables.gv_dtQuyenNhanvien = new Select().From(QheNhanvienQuyensudung.Schema).Where(QheNhanvienQuyensudung.Columns.IdNhanvien).IsEqualTo( globalVariables.gv_intIDNhanvien).ExecuteDataSet().Tables[0];
         }
         public static string GetIP4Address()
         {

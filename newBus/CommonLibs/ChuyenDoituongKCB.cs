@@ -14,7 +14,7 @@ namespace VNS.Libs
 {
     public class ChuyenDoituongKCB
     {
-        public static ActionResult Chuyendoituong(KcbLuotkham objLuotkham,decimal PtramBHYTcu)
+        public static ActionResult Chuyendoituong(KcbLuotkham objLuotkham, KcbLuotkham objLuotkhamCu, decimal PtramBHYTcu)
         {
             try
             {
@@ -23,12 +23,50 @@ namespace VNS.Libs
                 {
                     using (var dbScope = new SharedDbConnectionScope())
                     {
-                        //if (PtramBHYTcu != objLuotkham.PtramBhyt.Value )
-                           _ActionResult= CapnhatGiatheodoituong(objLuotkham);
+                        long _IdLichsuDoituongKcb = Utility.Int64Dbnull(objLuotkhamCu.IdLichsuDoituongKcb, -1);
+                        if (objLuotkham.MaDoituongKcb != objLuotkhamCu.MaDoituongKcb || THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb))
+                        {
+                            KcbLichsuDoituongKcb objLichsuKcb = new KcbLichsuDoituongKcb();
+                            objLichsuKcb.IsNew = true;
+                            objLichsuKcb.IdBenhnhan = objLuotkham.IdBenhnhan;
+                            objLichsuKcb.MaLuotkham = objLuotkham.MaLuotkham;
+                            objLichsuKcb.NgayHieuluc = objLuotkham.NgayTiepdon;
+                            objLichsuKcb.IdDoituongKcb = objLuotkham.IdDoituongKcb;
+                            objLichsuKcb.MaDoituongKcb = objLuotkham.MaDoituongKcb;
+                            objLichsuKcb.IdLoaidoituongKcb = objLuotkham.IdLoaidoituongKcb;
+                            objLichsuKcb.MatheBhyt = objLuotkham.MatheBhyt;
+                            objLichsuKcb.PtramBhyt = objLuotkham.PtramBhyt;
+                            objLichsuKcb.PtramBhytGoc = objLuotkham.PtramBhytGoc;
+                            objLichsuKcb.NgaybatdauBhyt = objLuotkham.NgaybatdauBhyt;
+                            objLichsuKcb.NgayketthucBhyt = objLuotkham.NgayketthucBhyt;
+                            objLichsuKcb.NoicapBhyt = objLuotkham.NoicapBhyt;
+                            objLichsuKcb.MaNoicapBhyt = objLuotkham.MaNoicapBhyt;
+                            objLichsuKcb.MaDoituongBhyt = objLuotkham.MaDoituongBhyt;
+                            objLichsuKcb.MaQuyenloi = objLuotkham.MaQuyenloi;
+                            objLichsuKcb.NoiDongtrusoKcbbd = objLuotkham.NoiDongtrusoKcbbd;
+
+                            objLichsuKcb.MaKcbbd = objLuotkham.MaKcbbd;
+                            objLichsuKcb.TrangthaiNoitru = objLuotkhamCu.TrangthaiNoitru;
+                            objLichsuKcb.DungTuyen = objLuotkham.DungTuyen;
+                            objLichsuKcb.Cmt = objLuotkham.Cmt;
+                            objLichsuKcb.IdRavien = objLuotkhamCu.IdRavien;
+                            objLichsuKcb.IdBuong = objLuotkhamCu.IdBuong;
+                            objLichsuKcb.IdGiuong = objLuotkhamCu.IdGiuong;
+                            objLichsuKcb.IdKhoanoitru = objLuotkhamCu.IdKhoanoitru;
+                            objLichsuKcb.NguoiTao = globalVariables.UserName;
+                            objLichsuKcb.NgayTao = globalVariables.SysDate;
+
+                            objLichsuKcb.IsNew = true;
+                            objLichsuKcb.Save();
+                            _IdLichsuDoituongKcb = objLichsuKcb.IdLichsuDoituongKcb;
+                        }
+                        objLuotkham.IdLichsuDoituongKcb = _IdLichsuDoituongKcb;
+                           _ActionResult= CapnhatGiatheodoituong(objLuotkham,objLuotkhamCu);
                         if (_ActionResult == ActionResult.Cancel)
                         {
                             return _ActionResult;
                         }
+                       
                         new Update(KcbLuotkham.Schema)
                            .Set(KcbLuotkham.Columns.LuongCoban).EqualTo(objLuotkham.LuongCoban)
                            .Set(KcbLuotkham.Columns.TthaiChuyendi).EqualTo(objLuotkham.TthaiChuyendi)
@@ -51,9 +89,13 @@ namespace VNS.Libs
                            .Set(KcbLuotkham.Columns.PtramBhyt).EqualTo(objLuotkham.PtramBhyt)
                            .Set(KcbLuotkham.Columns.PtramBhytGoc).EqualTo(objLuotkham.PtramBhytGoc)
                            .Set(KcbLuotkham.Columns.DiachiBhyt).EqualTo(objLuotkham.DiachiBhyt)
+                           .Set(KcbLuotkham.Columns.IdLichsuDoituongKcb).EqualTo(_IdLichsuDoituongKcb)
+                           
                            .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
                            .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                            .Execute();
+
+                       
                     }
                     Scope.Complete();
                     return ActionResult.Success;
@@ -65,19 +107,19 @@ namespace VNS.Libs
                 return ActionResult.Exception;
             }
         }
-        public static ActionResult CapnhatGiatheodoituong(KcbLuotkham objLuotkham)
+        public static ActionResult CapnhatGiatheodoituong(KcbLuotkham objLuotkham,KcbLuotkham objLuotkhamCu )
         {
             using (var Scope = new TransactionScope())
             {
                 ActionResult _ActionResult = ActionResult.Success;
 
-                _ActionResult = CapnhatChiphiKCB(objLuotkham);
+                _ActionResult = CapnhatChiphiKCB(objLuotkham, objLuotkhamCu);
                 if (_ActionResult == ActionResult.Cancel)
                     return _ActionResult;
-                _ActionResult = CapnhatChiphiCLS(objLuotkham);
+                _ActionResult = CapnhatChiphiCLS(objLuotkham, objLuotkhamCu);
                 if (_ActionResult == ActionResult.Cancel)
                     return _ActionResult;
-                _ActionResult = CapnhatChiphiThuoc(objLuotkham);
+                _ActionResult = CapnhatChiphiThuoc(objLuotkham, objLuotkhamCu);
                 if (_ActionResult == ActionResult.Cancel)
                     return _ActionResult;
                 Scope.Complete();
@@ -85,134 +127,156 @@ namespace VNS.Libs
             }
 
         }
-        private static ActionResult CapnhatChiphiThuoc(KcbLuotkham objLuotkham)
+        private static ActionResult CapnhatChiphiThuoc(KcbLuotkham objLuotkham, KcbLuotkham objLuotkhamCu)
         {
             using (var Scope = new TransactionScope())
             {
                 decimal BHYT_PTRAM_TRAITUYENNOITRU =Utility.DecimaltoDbnull( THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false),0m);
                 THUOC_GIATHEO_KHOAKCB = THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_GIATHEO_KHOAKCB", "0", true) == "1";
-                SqlQuery sqlQuery;
-                sqlQuery = new Select().From(KcbDonthuocChitiet.Schema)
-                    .Where(KcbDonthuocChitiet.Columns.IdDonthuoc).In(
-                        new Select(KcbDonthuoc.Columns.IdDonthuoc).From(KcbDonthuoc.Schema).Where(
-                            KcbDonthuoc.Columns.MaLuotkham).
-                            IsEqualTo(objLuotkham.MaLuotkham).And(KcbDonthuoc.Columns.IdBenhnhan).
-                            IsEqualTo(objLuotkham.IdBenhnhan));
-                var objChitietDonthuocCollection =
-                    sqlQuery.ExecuteAsCollection<KcbDonthuocChitietCollection>();
+
+                KcbDonthuocCollection lstDonthuoc=
+                    new Select(KcbDonthuoc.Columns.IdDonthuoc)
+                    .From(KcbDonthuoc.Schema)
+                    .Where(KcbDonthuoc.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                    .And(KcbDonthuoc.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                    .ExecuteAsCollection<KcbDonthuocCollection>();
+                
+                KcbDonthuocChitietCollection lstChitiet =
+                    new Select().From(KcbDonthuocChitiet.Schema)
+                    .Where(KcbDonthuocChitiet.Columns.IdDonthuoc).In(lstDonthuoc.Select(c=>c.IdDonthuoc).Distinct().ToList<long>())
+                    .ExecuteAsCollection<KcbDonthuocChitietCollection>();
 
                 bool ApdunggiathuocDoituong = THU_VIEN_CHUNG.Laygiatrithamsohethong("APDUNG_GIATHUOC_DOITUONG", "0", true) == "1";
 
                 DmucDoituongkcb _DmucDoituongkcb = new Select().From(DmucDoituongkcb.Schema).Where(DmucDoituongkcb.Columns.MaDoituongKcb).IsEqualTo(objLuotkham.MaDoituongKcb).ExecuteSingle<DmucDoituongkcb>();
                 if (_DmucDoituongkcb == null) return ActionResult.Success;
-                decimal PtramBHYT = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt);
-                if (Utility.ByteDbnull(objLuotkham.TrangthaiNoitru, 0) > 0)
-                    PtramBHYT = Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc);
-
-                foreach (KcbDonthuocChitiet objChitietDonthuoc in objChitietDonthuocCollection)
+                //Kiểm tra nếu đối tượng ngoại trú đã có đơn thuốc thanh toán-->Ko cho phép chuyển nữa
+                if (Utility.Byte2Bool(objLuotkham.TrangthaiNoitru) && lstChitiet.Select(c => c.TrangthaiThanhtoan > 0).Any())
                 {
-                    if (Utility.Int16Dbnull(objChitietDonthuoc.TrangthaiThanhtoan, 0) == 0)
+                    return ActionResult.Cancel;
+                }
+                bool saveParent = false;
+                foreach (KcbDonthuoc objKcbDonthuoc in lstDonthuoc)
+                {
+                    objKcbDonthuoc.IdLichsuDoituongKcb = objLuotkham.IdLichsuDoituongKcb;
+                    objKcbDonthuoc.MaDoituongKcb = objLuotkham.MaDoituongKcb;
+                    
+                    foreach (KcbDonthuocChitiet objChitietDonthuoc in lstChitiet.Where(c => c.IdDonthuoc.Equals(objKcbDonthuoc.IdDonthuoc)))
                     {
-                        DmucThuoc _DmucThuoc = DmucThuoc.FetchByID(objChitietDonthuoc.IdThuoc);
-                        if (ApdunggiathuocDoituong || Utility.Byte2Bool( _DmucDoituongkcb.GiathuocQuanhe.Value))// globalVariables.gv_GiathuoctheoGiatrongKho)
+                        objChitietDonthuoc.MaDoituongKcb = objLuotkham.MaDoituongKcb;
+                        objChitietDonthuoc.IdLichsuDoituongKcb = objLuotkham.IdLichsuDoituongKcb;
+                        if (Utility.Int16Dbnull(objChitietDonthuoc.TrangthaiThanhtoan, 0) == 0)
                         {
-                            //Giá theo quan he-->
-                            QheDoituongThuoc _item = THU_VIEN_CHUNG.LayQheDoituongThuoc(objLuotkham.MaDoituongKcb,
-                                                                      objChitietDonthuoc.IdThuoc,
-                                                                      objLuotkham.MaKhoaThuchien, CLS_GIATHEO_KHOAKCB);
-                            if (_item != null)
+                            saveParent = true;
+                            objChitietDonthuoc.MadoituongGia = objLuotkham.MaDoituongKcb;
+                            objChitietDonthuoc.PtramBhyt = objLuotkham.PtramBhyt;
+                            objChitietDonthuoc.PtramBhytGoc = objLuotkham.PtramBhytGoc;
+                            DmucThuoc _DmucThuoc = DmucThuoc.FetchByID(objChitietDonthuoc.IdThuoc);
+                            if (ApdunggiathuocDoituong || Utility.Byte2Bool(_DmucDoituongkcb.GiathuocQuanhe.Value))//Giá theo bảng quan hệ-->
                             {
-                                objChitietDonthuoc.DonGia = Utility.DecimaltoDbnull(_item.DonGia);
-                                objChitietDonthuoc.PhuThu = (Utility.isTrue(objLuotkham.DungTuyen.Value) ? Utility.DecimaltoDbnull(_item.PhuthuDungtuyen) : Utility.DecimaltoDbnull(_item.PhuthuTraituyen));
-                                objChitietDonthuoc.TuTuc = 0;
-                                objChitietDonthuoc.PtramBhyt = Utility.DecimaltoDbnull(PtramBHYT);
-                            }
-                            else
-                            {
-                                _item = THU_VIEN_CHUNG.LayQheDoituongThuoc("DV",
-                                                                       objChitietDonthuoc.IdThuoc,
-                                                                       objLuotkham.MaKhoaThuchien, THUOC_GIATHEO_KHOAKCB);
-                                if (_item != null)
+                                QheDoituongThuoc _item = THU_VIEN_CHUNG.LayQheDoituongThuoc(objLuotkham.MaDoituongKcb,
+                                                                          objChitietDonthuoc.IdThuoc,
+                                                                          objLuotkham.MaKhoaThuchien, THUOC_GIATHEO_KHOAKCB);
+                                if (_item != null)//Tìm thấy quan hệ giá
                                 {
                                     objChitietDonthuoc.DonGia = Utility.DecimaltoDbnull(_item.DonGia);
                                     objChitietDonthuoc.PhuThu = (Utility.isTrue(objLuotkham.DungTuyen.Value) ? Utility.DecimaltoDbnull(_item.PhuthuDungtuyen) : Utility.DecimaltoDbnull(_item.PhuthuTraituyen));
-                                    objChitietDonthuoc.TuTuc = 1;
-                                    objChitietDonthuoc.PtramBhyt = 0;
+                                    objChitietDonthuoc.TuTuc = 0;
+                                }
+                                else//Tìm giá dịch vụ, chỉ xảy ra khi đối tượng BHYT ko tìm thấy giá, 
+                                //còn đối tượng DV chắc chắn do thiếu quan hệ giá nên ko thay đổi gì dòng giá thuốc này
+                                {
+                                    _item = THU_VIEN_CHUNG.LayQheDoituongThuoc("DV",
+                                                                           objChitietDonthuoc.IdThuoc,
+                                                                           objLuotkham.MaKhoaThuchien, THUOC_GIATHEO_KHOAKCB);
+                                    if (_item != null)
+                                    {
+                                        objChitietDonthuoc.MadoituongGia = "DV";
+                                        objChitietDonthuoc.DonGia = Utility.DecimaltoDbnull(_item.DonGia);
+                                        objChitietDonthuoc.PhuThu = (Utility.isTrue(objLuotkham.DungTuyen.Value) ? Utility.DecimaltoDbnull(_item.PhuthuDungtuyen) : Utility.DecimaltoDbnull(_item.PhuthuTraituyen));
+                                        objChitietDonthuoc.TuTuc = 1;
+                                        objChitietDonthuoc.PtramBhyt = 0;
+                                    }
                                 }
                             }
-                            
-                        }
-                        else //Giá theo kho-->
-                        {
-                           
-                            TThuockho objTK = TThuockho.FetchByID(objChitietDonthuoc.IdThuockho);
-                            if (objTK != null)
+                            else //Giá theo kho-->
                             {
-                                objChitietDonthuoc.DonGia = objLuotkham.IdLoaidoituongKcb == 0 ? Utility.DecimaltoDbnull(objTK.GiaBhyt.Value, objChitietDonthuoc.DonGia) : objTK.GiaBan;
+                                TThuockho objTK = TThuockho.FetchByID(objChitietDonthuoc.IdThuockho);
+                                if (objTK != null)
+                                {
+                                    objChitietDonthuoc.DonGia = THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb) ? Utility.DecimaltoDbnull(objTK.GiaBhyt.Value, objChitietDonthuoc.DonGia) : objTK.GiaBan;
+                                    objChitietDonthuoc.PhuThu = (Utility.Byte2Bool(objLuotkham.DungTuyen)  ? Utility.DecimaltoDbnull(objTK.PhuthuDungtuyen) : Utility.DecimaltoDbnull(objTK.PhuthuTraituyen));
+                                    if (!THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb))//Đối tượng dịch vụ-->Ko tính phụ thu
+                                        objChitietDonthuoc.PhuThu = 0;
+                                }
                             }
+                            //Tính lại các mục tự túc, BHYT chi trả, BN chi trả
+                            if (_DmucThuoc != null && Utility.Int32Dbnull(_DmucThuoc.TuTuc, 0) == 1)
+                                objChitietDonthuoc.TuTuc = 1;//Ke ca co trong bang quan he
                             if (objLuotkham.IdLoaidoituongKcb == 1)//Đối tượng dịch vụ-->ko cần phải đánh dấu tự túc
                                 objChitietDonthuoc.TuTuc = 0;
-                            if (Utility.Int32Dbnull(objChitietDonthuoc.TuTuc, 0) == 1)
+                            if (!Utility.Byte2Bool(objChitietDonthuoc.TuTuc))//Nếu ko phải dịch vụ tự túc
                             {
+                                decimal BHCT = 0m;
+                                if (objLuotkham.DungTuyen == 1)//Chỉ xảy ra với đối tượng BHYT
+                                {
+                                    BHCT = Utility.DecimaltoDbnull(objChitietDonthuoc.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                                }
+                                else//Đối tượng DV hoặc BHYT trái tuyến
+                                {
+                                    if (objLuotkham.TrangthaiNoitru <= 0 || !Utility.Byte2Bool( objKcbDonthuoc.Noitru))//Ngoại trú
+                                        BHCT = Utility.DecimaltoDbnull(objChitietDonthuoc.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                                    else//Nội trú cần tính=đơn giá * % đầu thẻ * % tuyến
+                                        BHCT = Utility.DecimaltoDbnull(objChitietDonthuoc.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) / 100) * (BHYT_PTRAM_TRAITUYENNOITRU / 100);
+                                }
+                                decimal _BnhanChitra = Utility.DecimaltoDbnull(objChitietDonthuoc.DonGia, 0) - BHCT;
+                                objChitietDonthuoc.BhytChitra = BHCT;
+                                objChitietDonthuoc.BnhanChitra = _BnhanChitra;
+                            }
+                            else//Là tự túc
+                            {
+                                objChitietDonthuoc.PtramBhyt = 0;
                                 objChitietDonthuoc.BhytChitra = 0;
                                 objChitietDonthuoc.BnhanChitra = Utility.DecimaltoDbnull(objChitietDonthuoc.DonGia, 0);
-                                objChitietDonthuoc.PtramBhyt = 0;
                             }
-                            else
-                            {
-                                objChitietDonthuoc.BhytChitra = Utility.DecimaltoDbnull(objChitietDonthuoc.DonGia) *
-                                                            Utility.DecimaltoDbnull(PtramBHYT) / 100;
-
-                                objChitietDonthuoc.BnhanChitra = Utility.DecimaltoDbnull(objChitietDonthuoc.DonGia, 0) -
-                                                          Utility.DecimaltoDbnull(objChitietDonthuoc.BhytChitra, 0);
-                                objChitietDonthuoc.PtramBhyt = Utility.DecimaltoDbnull(PtramBHYT);
-                            }
-                        }
-                        //Tính lại các mục tự túc, BHYT chi trả, BN chi trả
-                        if (_DmucThuoc!=null && Utility.Int32Dbnull(_DmucThuoc.TuTuc, 0) == 1)
-                            objChitietDonthuoc.TuTuc = 1;//Ke ca co trong bang quan he
-
-                        if (objLuotkham.IdLoaidoituongKcb == 1)//Đối tượng dịch vụ-->ko cần phải đánh dấu tự túc
-                            objChitietDonthuoc.TuTuc = 0;
-                        if (Utility.Int32Dbnull(objChitietDonthuoc.TuTuc, 0) == 0)
-                        {
-                            decimal BHCT = 0m;
-                            if (objLuotkham.DungTuyen == 1)
-                            {
-                                BHCT = Utility.DecimaltoDbnull(objChitietDonthuoc.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
-                            }
-                            else
-                            {
-                                if (objLuotkham.TrangthaiNoitru <= 0)
-                                    BHCT = Utility.DecimaltoDbnull(objChitietDonthuoc.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
-                                else//Nội trú cần tính=đơn giá * % đầu thẻ * % tuyến
-                                    BHCT = Utility.DecimaltoDbnull(objChitietDonthuoc.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) / 100) * (BHYT_PTRAM_TRAITUYENNOITRU / 100);
-                            }
-                            // decimal num2 = (Utility.DecimaltoDbnull(row[KcbDonthuocChitiet.Columns.DonGia], 0) * Utility.DecimaltoDbnull(this.objLuotkham.PtramBhyt, 0)) / 100M;
-                            decimal num3 = Utility.DecimaltoDbnull(objChitietDonthuoc.DonGia, 0) - BHCT;
-                            objChitietDonthuoc.BhytChitra = BHCT;
-                            objChitietDonthuoc.BnhanChitra = num3;
                         }
                         else
                         {
-                            objChitietDonthuoc.PtramBhyt = 0;
-                            objChitietDonthuoc.BhytChitra = 0;
-                            objChitietDonthuoc.BnhanChitra = Utility.DecimaltoDbnull(objChitietDonthuoc.DonGia, 0);
+                            //nếu đã thanh toán thì chỉ xử lý khi đối tượng đang ở trạng thái nội trú.
+                            if (Utility.Byte2Bool(objLuotkham.TrangthaiNoitru))
+                            {
+                                saveParent = true;
+                                if (THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb))
+                                {
+                                    //Đối tượng mới là BHYT thì kiểm tra đổi các dịch vụ có giá DV về tự túc. 
+                                    //Các dịch vụ có giá khác DV thì để nguyên(để nếu đối tượng cũ là BHYT thì ko bị thay đổi giá trị tự túc)
+                                    if (objChitietDonthuoc.MadoituongGia == "DV")
+                                        objChitietDonthuoc.TuTuc = 1;
+                                }
+                                else//Nếu đối tượng từ BHYT chuyển sang dịch vụ thì chuyển thành ko tự túc hết
+                                {
+                                    if (objLuotkham.MaDoituongKcb != objLuotkhamCu.MaDoituongKcb)//Mới=DV, Cũ=BHYT. Còn lại ko làm gì cả
+                                        objChitietDonthuoc.TuTuc = 0;
+                                }
+                            }
+                            else
+                                return ActionResult.Cancel;
                         }
+                        objChitietDonthuoc.Save();
                     }
-                    else
+                    if (saveParent)
                     {
-                        return ActionResult.Cancel;
+                        objKcbDonthuoc.Save();
+                        saveParent = false;
                     }
                 }
-                objChitietDonthuocCollection.SaveAll();
                 Scope.Complete();
                 return ActionResult.Success;
             }
         }
         static bool CLS_GIATHEO_KHOAKCB = false;
         static bool THUOC_GIATHEO_KHOAKCB = false;
-        private static ActionResult CapnhatChiphiCLS_old(KcbLuotkham objLuotkham)
+        private static ActionResult CapnhatChiphiCLS_old(KcbLuotkham objLuotkham, KcbLuotkham objLuotkhamCu)
         {
             using (var Scope = new TransactionScope())
             {
@@ -223,51 +287,51 @@ namespace VNS.Libs
                         .Where(KcbChidinhcl.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
                         .And(KcbChidinhcl.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                         );
-                var objAssignDetailCollection =
+                var objChidinhChitietCollection =
                     sqlQuery.ExecuteAsCollection<KcbChidinhclsChitietCollection>();
-                foreach (KcbChidinhclsChitiet objAssignDetail in objAssignDetailCollection)
+                foreach (KcbChidinhclsChitiet objChidinhChitiet in objChidinhChitietCollection)
                 {
-                    if (objAssignDetail.TrangthaiThanhtoan == 0)
+                    if (objChidinhChitiet.TrangthaiThanhtoan == 0)
                     {
-                        QheDoituongDichvucl _Items = THU_VIEN_CHUNG.LayQheDoituongCLS(objLuotkham.MaDoituongKcb, objAssignDetail.IdChitietdichvu, objLuotkham.MaKhoaThuchien, CLS_GIATHEO_KHOAKCB);
+                        QheDoituongDichvucl _Items = THU_VIEN_CHUNG.LayQheDoituongCLS(objLuotkham.MaDoituongKcb, objChidinhChitiet.IdChitietdichvu, objLuotkham.MaKhoaThuchien, CLS_GIATHEO_KHOAKCB);
                         if (_Items != null)
                         {
 
-                            objAssignDetail.DonGia = Utility.DecimaltoDbnull(_Items.DonGia);
-                            objAssignDetail.PhuThu = (Utility.isTrue(objLuotkham.DungTuyen) ? Utility.DecimaltoDbnull(_Items.PhuthuDungtuyen) : Utility.DecimaltoDbnull(_Items.PhuthuTraituyen));
-                            objAssignDetail.TuTuc = 0;
-                            objAssignDetail.IdDoituongKcb = objLuotkham.IdDoituongKcb;
-                            objAssignDetail.PtramBhyt = objLuotkham.PtramBhyt;
+                            objChidinhChitiet.DonGia = Utility.DecimaltoDbnull(_Items.DonGia);
+                            objChidinhChitiet.PhuThu = (Utility.isTrue(objLuotkham.DungTuyen) ? Utility.DecimaltoDbnull(_Items.PhuthuDungtuyen) : Utility.DecimaltoDbnull(_Items.PhuthuTraituyen));
+                            objChidinhChitiet.TuTuc = 0;
+                            objChidinhChitiet.IdDoituongKcb = objLuotkham.IdDoituongKcb;
+                            objChidinhChitiet.PtramBhyt = objLuotkham.PtramBhyt;
                         }
                         else
                         {
-                            _Items = THU_VIEN_CHUNG.LayQheDoituongCLS("DV", objAssignDetail.IdChitietdichvu, objLuotkham.MaKhoaThuchien, CLS_GIATHEO_KHOAKCB);
+                            _Items = THU_VIEN_CHUNG.LayQheDoituongCLS("DV", objChidinhChitiet.IdChitietdichvu, objLuotkham.MaKhoaThuchien, CLS_GIATHEO_KHOAKCB);
                             if (_Items != null)
                             {
-                                objAssignDetail.DonGia = Utility.DecimaltoDbnull(_Items.DonGia);
-                                objAssignDetail.PhuThu = (Utility.isTrue(objLuotkham.DungTuyen) ? Utility.DecimaltoDbnull(_Items.PhuthuDungtuyen) : Utility.DecimaltoDbnull(_Items.PhuthuTraituyen));
-                                objAssignDetail.TuTuc = 1;
-                                objAssignDetail.IdDoituongKcb = objLuotkham.IdDoituongKcb;
-                                objAssignDetail.PtramBhyt = 0;
+                                objChidinhChitiet.DonGia = Utility.DecimaltoDbnull(_Items.DonGia);
+                                objChidinhChitiet.PhuThu = (Utility.isTrue(objLuotkham.DungTuyen) ? Utility.DecimaltoDbnull(_Items.PhuthuDungtuyen) : Utility.DecimaltoDbnull(_Items.PhuthuTraituyen));
+                                objChidinhChitiet.TuTuc = 1;
+                                objChidinhChitiet.IdDoituongKcb = objLuotkham.IdDoituongKcb;
+                                objChidinhChitiet.PtramBhyt = 0;
                             }
                         }
-                        DmucDichvuclsChitiet _DmucDichvuclsChitiet = DmucDichvuclsChitiet.FetchByID(objAssignDetail.IdChitietdichvu);
+                        DmucDichvuclsChitiet _DmucDichvuclsChitiet = DmucDichvuclsChitiet.FetchByID(objChidinhChitiet.IdChitietdichvu);
                         if (_DmucDichvuclsChitiet != null && Utility.Int32Dbnull(_DmucDichvuclsChitiet.TuTuc, 0) == 1)
-                            objAssignDetail.TuTuc = 1;//Ke ca co trong bang quan he
+                            objChidinhChitiet.TuTuc = 1;//Ke ca co trong bang quan he
                         if (objLuotkham.IdLoaidoituongKcb == 1)//Đối tượng dịch vụ-->ko cần phải đánh dấu tự túc
-                            objAssignDetail.TuTuc = 0;
+                            objChidinhChitiet.TuTuc = 0;
 
-                        objAssignDetail.NguoiSua = globalVariables.UserName;
-                        objAssignDetail.NgaySua = DateTime.Now;
+                        objChidinhChitiet.NguoiSua = globalVariables.UserName;
+                        objChidinhChitiet.NgaySua = DateTime.Now;
                         decimal PtramBHYT = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt);
-                        TinhCLS.GB_TinhPhtramBHYT(objAssignDetail, objLuotkham, PtramBHYT);
+                        TinhCLS.GB_TinhPhtramBHYT(objChidinhChitiet, objLuotkham,false, PtramBHYT);
                     }
                     else
                     {
                         return ActionResult.Cancel;
                     }
                 }
-                objAssignDetailCollection.SaveAll();
+                objChidinhChitietCollection.SaveAll();
                 Scope.Complete();
                 return ActionResult.Success;
             }
@@ -277,88 +341,136 @@ namespace VNS.Libs
         /// </summary>
         /// <param name="objLuotkham"></param>
         /// <returns></returns>
-        private static ActionResult CapnhatChiphiCLS(KcbLuotkham objLuotkham)
+        private static ActionResult CapnhatChiphiCLS(KcbLuotkham objLuotkham, KcbLuotkham objLuotkhamCu)
         {
             using (var Scope = new TransactionScope())
             {
                 DataTable m_dtServiceDetail = new KCB_CHIDINH_CANLAMSANG().LaydanhsachCLS_chidinh(objLuotkham.MaDoituongKcb, objLuotkham.TrangthaiNoitru, Utility.ByteDbnull(objLuotkham.GiayBhyt, 0), -1, Utility.Int32Dbnull(objLuotkham.DungTuyen.Value, 0), objLuotkham.MaKhoaThuchien, "-GOI,-TIEN");//Ko lấy dữ liệu liên quan đến gói dịch vụ+tiền phí phụ thêm
-                SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
-                    .Where(KcbChidinhclsChitiet.Columns.IdChidinh).In(
-                        new Select(KcbChidinhcl.Columns.IdChidinh).From(KcbChidinhcl.Schema)
-                        .Where(KcbChidinhcl.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
-                        .And(KcbChidinhcl.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
-                        );
-                var objAssignDetailCollection =
-                    sqlQuery.ExecuteAsCollection<KcbChidinhclsChitietCollection>();
-                foreach (KcbChidinhclsChitiet objAssignDetail in objAssignDetailCollection)
+                
+                KcbChidinhclCollection lstChidinh= 
+                    new Select(KcbChidinhcl.Columns.IdChidinh)
+                    .From(KcbChidinhcl.Schema)
+                    .Where(KcbChidinhcl.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                    .And(KcbChidinhcl.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                    .ExecuteAsCollection<KcbChidinhclCollection>();
+
+                KcbChidinhclsChitietCollection lstChitiet = new Select().From(KcbChidinhclsChitiet.Schema)
+                    .Where(KcbChidinhclsChitiet.Columns.IdChidinh).In(lstChidinh.Select(c=>c.IdChidinh).Distinct().ToList<long>())
+                .ExecuteAsCollection<KcbChidinhclsChitietCollection>();
+                if (lstChitiet.Count > 0)
                 {
-                   
-                    if (objAssignDetail.TrangthaiThanhtoan == 0)//Chưa thanh toán
-                    {
-                         DataRow[] arrDr = m_dtServiceDetail.Select(KcbChidinhclsChitiet.Columns.IdChitietdichvu + "=" + Utility.Int32Dbnull(objAssignDetail.IdChitietdichvu, -1));
-                         if (arrDr.Length > 0)
-                         {
-                             objAssignDetail.IdDoituongKcb = objLuotkham.IdDoituongKcb;
-                             objAssignDetail.PtramBhyt = objLuotkham.PtramBhyt;
-                             objAssignDetail.DonGia =Utility.DecimaltoDbnull(arrDr[0][KcbChidinhclsChitiet.Columns.DonGia], 0);
-                             objAssignDetail.GiaDanhmuc = Utility.DecimaltoDbnull(arrDr[0][KcbChidinhclsChitiet.Columns.DonGia], 0);
-                             objAssignDetail.TuTuc = Utility.ByteDbnull(arrDr[0][KcbChidinhclsChitiet.Columns.TuTuc],0);
-                             objAssignDetail.PhuThu = Utility.DecimaltoDbnull(arrDr[0][KcbChidinhclsChitiet.Columns.PhuThu], 0);
-                             objAssignDetail.NguoiSua = globalVariables.UserName;
-                             objAssignDetail.NgaySua = DateTime.Now;
-                             TinhCLS.GB_TinhPhtramBHYT(objAssignDetail, objLuotkham, Utility.DecimaltoDbnull(objLuotkham.PtramBhyt));
-
-                         }
-                         else//Rất khó nhảy vào nhánh này trừ phi lỗi dữ liệu đặc biệt nào đó
-                         {
-                             CLS_GIATHEO_KHOAKCB = THU_VIEN_CHUNG.Laygiatrithamsohethong("CLS_GIATHEO_KHOAKCB", "0", true) == "1";
-                             QheDoituongDichvucl _Items = THU_VIEN_CHUNG.LayQheDoituongCLS(objLuotkham.MaDoituongKcb, objAssignDetail.IdChitietdichvu, objLuotkham.MaKhoaThuchien, CLS_GIATHEO_KHOAKCB);
-                             if (_Items != null)
-                             {
-
-                                 objAssignDetail.DonGia = Utility.DecimaltoDbnull(_Items.DonGia);
-                                 objAssignDetail.PhuThu = (Utility.isTrue(objLuotkham.DungTuyen) ? Utility.DecimaltoDbnull(_Items.PhuthuDungtuyen) : Utility.DecimaltoDbnull(_Items.PhuthuTraituyen));
-                                 objAssignDetail.TuTuc = 0;
-                                 objAssignDetail.IdDoituongKcb = objLuotkham.IdDoituongKcb;
-                                 objAssignDetail.PtramBhyt = objLuotkham.PtramBhyt;
-                             }
-                             else
-                             {
-                                 _Items = THU_VIEN_CHUNG.LayQheDoituongCLS("DV", objAssignDetail.IdChitietdichvu, objLuotkham.MaKhoaThuchien, CLS_GIATHEO_KHOAKCB);
-                                 if (_Items != null)
-                                 {
-                                     objAssignDetail.DonGia = Utility.DecimaltoDbnull(_Items.DonGia);
-                                     objAssignDetail.PhuThu = (Utility.isTrue(objLuotkham.DungTuyen) ? Utility.DecimaltoDbnull(_Items.PhuthuDungtuyen) : Utility.DecimaltoDbnull(_Items.PhuthuTraituyen));
-                                     objAssignDetail.TuTuc = 1;
-                                     objAssignDetail.IdDoituongKcb = objLuotkham.IdDoituongKcb;
-                                     objAssignDetail.PtramBhyt = 0;
-                                 }
-                             }
-                             DmucDichvuclsChitiet _DmucDichvuclsChitiet = DmucDichvuclsChitiet.FetchByID(objAssignDetail.IdChitietdichvu);
-                             if (_DmucDichvuclsChitiet != null && Utility.Int32Dbnull(_DmucDichvuclsChitiet.TuTuc, 0) == 1)
-                                 objAssignDetail.TuTuc = 1;//Ke ca co trong bang quan he
-                             if (objLuotkham.IdLoaidoituongKcb == 1)//Đối tượng dịch vụ-->ko cần phải đánh dấu tự túc
-                                 objAssignDetail.TuTuc = 0;
-
-                             objAssignDetail.NguoiSua = globalVariables.UserName;
-                             objAssignDetail.NgaySua = DateTime.Now;
-                             decimal PtramBHYT = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt);
-                             TinhCLS.GB_TinhPhtramBHYT(objAssignDetail, objLuotkham, PtramBHYT);
-                         }
-                       
-                    }
-                    else//Đã thanh toán-->Ko đổi
+                    //Kiểm tra nếu đối tượng ngoại trú đã có dịch vụ thanh toán-->Ko cho phép chuyển nữa
+                    if (Utility.Byte2Bool(objLuotkham.TrangthaiNoitru) && lstChitiet.Select(c => c.TrangthaiThanhtoan > 0).Any())
                     {
                         return ActionResult.Cancel;
                     }
+                    bool saveParent = false;
+                    foreach (KcbChidinhcl objChidinh in lstChidinh)
+                    {
+                        objChidinh.IdLichsuDoituongKcb = objLuotkham.IdLichsuDoituongKcb;
+                        objChidinh.MaDoituongKcb = objLuotkham.MaDoituongKcb;
+                        objChidinh.IdLoaidoituongKcb = objLuotkham.IdLoaidoituongKcb;
+                        objChidinh.IdDoituongKcb = objLuotkham.IdDoituongKcb;
+                        foreach (KcbChidinhclsChitiet objChidinhChitiet in lstChitiet.Where(c => c.IdChidinh.Equals(objChidinh.IdChidinh)))
+                        {
+                            objChidinhChitiet.IdDoituongKcb = objLuotkham.IdDoituongKcb;
+                            if (objChidinhChitiet.TrangthaiThanhtoan == 0)//Chưa thanh toán
+                            {
+                                saveParent = true;
+                                objChidinhChitiet.IdLichsuDoituongKcb = objLuotkham.IdLichsuDoituongKcb;
+                                objChidinhChitiet.MadoituongGia = objLuotkham.MaDoituongKcb;
+                                objChidinhChitiet.PtramBhyt = objLuotkham.PtramBhyt;
+                                objChidinhChitiet.PtramBhytGoc = objLuotkham.PtramBhytGoc;
+                                DataRow[] arrDr = m_dtServiceDetail.Select(KcbChidinhclsChitiet.Columns.IdChitietdichvu + "=" + Utility.Int32Dbnull(objChidinhChitiet.IdChitietdichvu, -1));
+                                if (arrDr.Length > 0)
+                                {
+                                 
+                                    objChidinhChitiet.PtramBhyt = objLuotkham.PtramBhyt;
+                                    objChidinhChitiet.DonGia = Utility.DecimaltoDbnull(arrDr[0][KcbChidinhclsChitiet.Columns.DonGia], 0);
+                                    objChidinhChitiet.GiaDanhmuc = Utility.DecimaltoDbnull(arrDr[0][KcbChidinhclsChitiet.Columns.DonGia], 0);
+                                    objChidinhChitiet.TuTuc = Utility.ByteDbnull(arrDr[0][KcbChidinhclsChitiet.Columns.TuTuc], 0);
+                                    objChidinhChitiet.PhuThu = Utility.DecimaltoDbnull(arrDr[0][KcbChidinhclsChitiet.Columns.PhuThu], 0);
+                                    objChidinhChitiet.NguoiSua = globalVariables.UserName;
+                                    objChidinhChitiet.NgaySua = DateTime.Now;
+                                    TinhCLS.GB_TinhPhtramBHYT(objChidinhChitiet, objLuotkham, Utility.Byte2Bool(objChidinh.Noitru), Utility.DecimaltoDbnull(objLuotkham.PtramBhyt));
+
+                                }
+                                else//Rất khó nhảy vào nhánh này trừ phi lỗi dữ liệu đặc biệt nào đó
+                                {
+                                    CLS_GIATHEO_KHOAKCB = THU_VIEN_CHUNG.Laygiatrithamsohethong("CLS_GIATHEO_KHOAKCB", "0", true) == "1";
+                                    QheDoituongDichvucl _Items = THU_VIEN_CHUNG.LayQheDoituongCLS(objLuotkham.MaDoituongKcb, objChidinhChitiet.IdChitietdichvu, objLuotkham.MaKhoaThuchien, CLS_GIATHEO_KHOAKCB);
+                                    if (_Items != null)
+                                    {
+                                        objChidinhChitiet.DonGia = Utility.DecimaltoDbnull(_Items.DonGia);
+                                        objChidinhChitiet.PhuThu = (Utility.isTrue(objLuotkham.DungTuyen) ? Utility.DecimaltoDbnull(_Items.PhuthuDungtuyen) : Utility.DecimaltoDbnull(_Items.PhuthuTraituyen));
+                                        objChidinhChitiet.TuTuc = 0;
+                                        objChidinhChitiet.IdDoituongKcb = objLuotkham.IdDoituongKcb;
+                                        objChidinhChitiet.PtramBhyt = objLuotkham.PtramBhyt;
+                                    }
+                                    else
+                                    {
+                                        _Items = THU_VIEN_CHUNG.LayQheDoituongCLS("DV", objChidinhChitiet.IdChitietdichvu, objLuotkham.MaKhoaThuchien, CLS_GIATHEO_KHOAKCB);
+                                        if (_Items != null)
+                                        {
+                                            objChidinhChitiet.MadoituongGia = "DV";
+                                            objChidinhChitiet.DonGia = Utility.DecimaltoDbnull(_Items.DonGia);
+                                            objChidinhChitiet.PhuThu = (Utility.isTrue(objLuotkham.DungTuyen) ? Utility.DecimaltoDbnull(_Items.PhuthuDungtuyen) : Utility.DecimaltoDbnull(_Items.PhuthuTraituyen));
+                                            objChidinhChitiet.TuTuc = 1;
+                                            objChidinhChitiet.IdDoituongKcb = objLuotkham.IdDoituongKcb;
+                                            objChidinhChitiet.PtramBhyt = 0;
+                                        }
+                                    }
+                                    DmucDichvuclsChitiet _DmucDichvuclsChitiet = DmucDichvuclsChitiet.FetchByID(objChidinhChitiet.IdChitietdichvu);
+                                    if (_DmucDichvuclsChitiet != null && Utility.Int32Dbnull(_DmucDichvuclsChitiet.TuTuc, 0) == 1)
+                                        objChidinhChitiet.TuTuc = 1;//Ke ca co trong bang quan he
+                                    if (objLuotkham.IdLoaidoituongKcb == 1)//Đối tượng dịch vụ-->ko cần phải đánh dấu tự túc
+                                        objChidinhChitiet.TuTuc = 0;
+
+                                    objChidinhChitiet.NguoiSua = globalVariables.UserName;
+                                    objChidinhChitiet.NgaySua = DateTime.Now;
+                                    decimal PtramBHYT = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt);
+                                    TinhCLS.GB_TinhPhtramBHYT(objChidinhChitiet, objLuotkham, Utility.Byte2Bool(objChidinh.Noitru), PtramBHYT);
+                                }
+
+                            }
+                            else
+                            {
+                                //nếu đã thanh toán thì chỉ xử lý khi đối tượng đang ở trạng thái nội trú.
+                                if (Utility.Byte2Bool(objLuotkham.TrangthaiNoitru))
+                                {
+                                    saveParent = true;
+                                    if (THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb))
+                                    {
+                                        //Đối tượng mới là BHYT thì kiểm tra đổi các dịch vụ có giá DV về tự túc. 
+                                        //Các dịch vụ có giá khác DV thì để nguyên(để nếu đối tượng cũ là BHYT thì ko bị thay đổi giá trị tự túc)
+                                        if (objChidinhChitiet.MadoituongGia == "DV")
+                                            objChidinhChitiet.TuTuc = 1;
+                                    }
+                                    else//Nếu đối tượng từ BHYT chuyển sang dịch vụ thì chuyển thành ko tự túc hết
+                                    {
+                                        if (objLuotkham.MaDoituongKcb != objLuotkhamCu.MaDoituongKcb)//Mới=DV, Cũ=BHYT. Còn lại ko làm gì cả
+                                            objChidinhChitiet.TuTuc = 0;
+                                    }
+                                }
+                                else
+                                    return ActionResult.Cancel;
+                            }
+                            objChidinhChitiet.Save();
+                            saveParent = true;
+                        }
+                        if (saveParent)
+                        {
+                            objChidinh.Save();
+                            saveParent = false;
+                        }
+                    }
                 }
-                objAssignDetailCollection.SaveAll();
                 Scope.Complete();
                 return ActionResult.Success;
             }
         }
 
-        private static ActionResult CapnhatChiphiKCB(KcbLuotkham objLuotkham)
+        private static ActionResult CapnhatChiphiKCB(KcbLuotkham objLuotkham, KcbLuotkham objLuotkhamCu)
         {
             using (var Scope = new TransactionScope())
             {
@@ -369,10 +481,19 @@ namespace VNS.Libs
                         .ExecuteAsCollection<KcbDangkyKcbCollection>();
                 if (objRegExamCollection.Count > 0)
                 {
+                    //Kiểm tra nếu đối tượng ngoại trú đã có dịch vụ thanh toán-->Ko cho phép chuyển nữa
+                    if (Utility.Byte2Bool(objLuotkham.TrangthaiNoitru) && objRegExamCollection.Select(c => c.TrangthaiThanhtoan > 0).Any())
+                    {
+                        return ActionResult.Cancel;
+                    }
                     //CHUYỂN GIÁ KHÁM BỆNH VÀO PHÒNG
                     foreach (KcbDangkyKcb objRegExam in objRegExamCollection)
                     {
-                        if (objRegExam.TrangthaiThanhtoan == 0)
+                        objRegExam.MaDoituongkcb = objLuotkham.MaDoituongKcb;
+                        objRegExam.IdDoituongkcb = objLuotkham.IdDoituongKcb;
+                        objRegExam.IdLoaidoituongkcb = objLuotkham.IdLoaidoituongKcb;
+                        objRegExam.IdLichsuDoituongKcb = objLuotkham.IdLichsuDoituongKcb;
+                        if (objRegExam.TrangthaiThanhtoan == 0)//Các mục chưa thanh toán thì cho phép chuyển
                         {
                            
                             DmucDichvukcb _DichvukcbCu =
@@ -397,7 +518,10 @@ namespace VNS.Libs
                                 objRegExam.PhuThu = !Utility.Byte2Bool(objLuotkham.DungTuyen)
                                                    ? Utility.DecimaltoDbnull(_DichvukcbMoi.PhuthuDungtuyen)
                                                    : Utility.DecimaltoDbnull(_DichvukcbMoi.PhuthuTraituyen);
+                                if (!THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb))
+                                    objRegExam.PhuThu = 0;
                                 objRegExam.PtramBhyt = objLuotkham.PtramBhyt;//% BHYT ngoại trú
+                                objRegExam.PtramBhytGoc = objLuotkham.PtramBhytGoc;
                                 if (Utility.Byte2Bool( objRegExam.KhamNgoaigio))
                                 {
                                     objRegExam.KhamNgoaigio = 1;
@@ -421,7 +545,24 @@ namespace VNS.Libs
                         }
                         else
                         {
-                            return ActionResult.Cancel;
+                            //nếu đã thanh toán thì chỉ xử lý khi đối tượng đang ở trạng thái nội trú.
+                            if (Utility.Byte2Bool(objLuotkham.TrangthaiNoitru))
+                            {
+                                if (THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb))
+                                {
+                                    //Đối tượng mới là BHYT thì kiểm tra đổi các dịch vụ có giá DV về tự túc. 
+                                    //Các dịch vụ có giá khác DV thì để nguyên(để nếu đối tượng cũ là BHYT thì ko bị thay đổi giá trị tự túc)
+                                    if (objRegExam.MadoituongGia == "DV")
+                                        objRegExam.TuTuc = 1;
+                                }
+                                else//Nếu đối tượng từ BHYT chuyển sang dịch vụ thì chuyển thành ko tự túc hết
+                                {
+                                    if (objLuotkham.MaDoituongKcb != objLuotkhamCu.MaDoituongKcb)//Mới=DV, Cũ=BHYT. Còn lại ko làm gì cả
+                                        objRegExam.TuTuc = 0;
+                                }
+                            }
+                            else 
+                                return ActionResult.Cancel;
                         }
                     }
                     objRegExamCollection.SaveAll();
