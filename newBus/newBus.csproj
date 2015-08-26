@@ -97,6 +97,8 @@
     <Compile Include="CommonLibs\TinhCLS.cs" />
     <Compile Include="CommonLibs\TinhGiaThuoc.cs" />
     <Compile Include="CommonLibs\TinhToanPtramBHYT.cs" />
+    <Compile Include="danhmuc\dmucnhanvien_busrule.cs" />
+    <Compile Include="danhmuc\dmucgiagiuong_busrule.cs" />
     <Compile Include="danhmuc\dmuckieukham_busrule.cs" />
     <Compile Include="danhmuc\DMUC_CHUNG_BUSRULE.cs" />
     <Compile Include="danhmuc\DMUC_KIEUDMUC_BUSRULE.cs" />
@@ -128,14 +130,23 @@
     <Compile Include="Thuoc\ChotThuoc\ChotThuoc.cs" />
     <Compile Include="Thuoc\DanhMuc\QuanHeDoiTuongKho.cs" />
     <Compile Include="Thuoc\NhapKho\THUOC_NHAPKHO.cs" />
+    <Compile Include="Thuoc\Noitru\Trathuocthua.cs" />
+    <Compile Include="Thuoc\Noitru\DuocNoitru.cs" />
     <Compile Include="Thuoc\Quaythuoc\Quaythuoc.cs" />
     <Compile Include="Thuoc\TraLaiKho\PhieuTraLai.cs" />
     <Compile Include="Thuoc\TraLaiKho\PhieuTralaiThuocKhoaVeKho.cs" />
-    <Compile Include="Thuoc\XuatThuoc\CapphatThuocKhoa.cs" />
+    <Compile Include="Thuoc\Noitru\CapphatThuocKhoa.cs" />
     <Compile Include="Thuoc\XuatThuoc\XuatThuoc.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Thuoc\BanThuoc\" />
+    <ProjectReference Include="..\newdal\newdal.csproj">
+      <Project>{cd0be8e8-b7d8-41ca-95f7-ea03675cfe0d}</Project>
+      <Name>newdal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\newLib\newLib.csproj">
+      <Project>{0400ff7a-0d53-45aa-bbe5-09eedeb50d4e}</Project>
+      <Name>newLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -153,16 +164,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\newdal\newdal.csproj">
-      <Project>{cd0be8e8-b7d8-41ca-95f7-ea03675cfe0d}</Project>
-      <Name>newdal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\newLib\newLib.csproj">
-      <Project>{0400ff7a-0d53-45aa-bbe5-09eedeb50d4e}</Project>
-      <Name>newLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
