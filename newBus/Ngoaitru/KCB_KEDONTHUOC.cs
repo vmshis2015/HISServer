@@ -85,7 +85,7 @@ namespace VNS.HIS.BusRule.Classes
          {
              return SPs.DonthuocLaythongtinDein(id_donthuoc).GetDataSet().Tables[0];
          }
-         public DataTable Laythongtinchitietdonthuoc(int id_donthuoc)
+         public DataTable Laythongtinchitietdonthuoc(long id_donthuoc)
          {
              return SPs.DonthuocLaythongtinDexem(id_donthuoc).GetDataSet().Tables[0];
          }
@@ -164,7 +164,7 @@ namespace VNS.HIS.BusRule.Classes
                  return ActionResult.Error;
              }
          }
-         public ActionResult ThemDonThuoc(KcbDanhsachBenhnhan objBenhnhan,  KcbDonthuoc objDonthuoc, KcbDonthuocChitiet[] arrDonthuocChitiet, ref int p_intIdDonthuoc, ref Dictionary<long, long> lstChitietDonthuoc)
+         public ActionResult ThemDonThuoc(KcbDanhsachBenhnhan objBenhnhan,  KcbDonthuoc objDonthuoc, KcbDonthuocChitiet[] arrDonthuocChitiet, ref long p_intIdDonthuoc, ref Dictionary<long, long> lstChitietDonthuoc)
          {
              try
              {
@@ -215,7 +215,7 @@ namespace VNS.HIS.BusRule.Classes
              }
 
          }
-         public ActionResult ThemDonThuoc(KcbLuotkham objLuotkham, KcbDonthuoc objDonthuoc, KcbDonthuocChitiet[] arrDonthuocChitiet,KcbChandoanKetluan _KcbChandoanKetluan, ref int p_intIdDonthuoc, ref Dictionary<long, long> lstChitietDonthuoc)
+         public ActionResult ThemDonThuoc(KcbLuotkham objLuotkham, KcbDonthuoc objDonthuoc, KcbDonthuocChitiet[] arrDonthuocChitiet, KcbChandoanKetluan _KcbChandoanKetluan, ref long p_intIdDonthuoc, ref Dictionary<long, long> lstChitietDonthuoc)
          {
              // Query _Query = KcbDonthuoc.CreateQuery();
              try
@@ -296,7 +296,7 @@ namespace VNS.HIS.BusRule.Classes
 
 
          }
-         public ActionResult CapnhatDonthuoc(KcbDanhsachBenhnhan objBenhnhan, KcbDonthuoc objDonthuoc, KcbDonthuocChitiet[] arrDonthuocChitiet,  ref int p_intIdDonthuoc, ref Dictionary<long, long> lstChitietDonthuoc)
+         public ActionResult CapnhatDonthuoc(KcbDanhsachBenhnhan objBenhnhan, KcbDonthuoc objDonthuoc, KcbDonthuocChitiet[] arrDonthuocChitiet, ref long p_intIdDonthuoc, ref Dictionary<long, long> lstChitietDonthuoc)
          {
              try
              {
@@ -356,7 +356,7 @@ namespace VNS.HIS.BusRule.Classes
              }
          }
 
-         public ActionResult CapnhatDonthuoc(KcbLuotkham objLuotkham, KcbDonthuoc objDonthuoc, KcbDonthuocChitiet[] arrDonthuocChitiet,KcbChandoanKetluan  _KcbChandoanKetluan,ref int p_intIdDonthuoc, ref Dictionary<long, long> lstChitietDonthuoc)
+         public ActionResult CapnhatDonthuoc(KcbLuotkham objLuotkham, KcbDonthuoc objDonthuoc, KcbDonthuocChitiet[] arrDonthuocChitiet, KcbChandoanKetluan _KcbChandoanKetluan, ref long p_intIdDonthuoc, ref Dictionary<long, long> lstChitietDonthuoc)
          {
              try
              {

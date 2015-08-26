@@ -181,9 +181,9 @@ namespace VNS.HIS.BusRule.Classes
                 return ActionResult.Error;
             }
         }
-        public DataTable NoitruTimkiembenhnhan(string regFrom, string regTo, string patientName, int HosStatus, string maluotkham, int DepartmentID, int tthaiBuonggiuong, int chuyenkhoa)
+        public DataTable NoitruTimkiembenhnhan(string regFrom, string regTo, string patientName, Int16 capcuu, string maluotkham, int DepartmentID, int tthaiBuonggiuong, int chuyenkhoa)
         {
-            return SPs.NoitruTimkiembenhnhan(DepartmentID, maluotkham, 1, regFrom, regTo, patientName, HosStatus, tthaiBuonggiuong,chuyenkhoa).
+            return SPs.NoitruTimkiembenhnhan(DepartmentID, maluotkham, 1, regFrom, regTo, patientName, capcuu, tthaiBuonggiuong, chuyenkhoa).
                     GetDataSet().Tables[0];
         }
 
