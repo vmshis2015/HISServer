@@ -479,7 +479,7 @@ namespace VNS.HIS.BusRule.Classes
                     {
                         foreach (KcbDonthuoc pre in lstPres)
                         {
-                            int oldPreID = pre.IdDonthuoc;
+                            long oldPreID = pre.IdDonthuoc;
                             pre.IdPhieudieutri = CurrentTreatID;
                             pre.NgayKedon = pres_date;
                             pre.NguoiTao = globalVariables.UserName;
