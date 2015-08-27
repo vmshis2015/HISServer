@@ -36,7 +36,7 @@ namespace VNS.HIS.BusRule.Classes
                         {
                             objKcbLuotkham.IsNew = false;
                             objKcbLuotkham.MarkOld();
-                            if (Utility.ByteDbnull(objKcbLuotkham.TrangthaiNoitru, 0) <= 1)
+                            if (Utility.ByteDbnull(objKcbLuotkham.TrangthaiNoitru, 0) == 1)
                             {
                                 objKcbLuotkham.TrangthaiNoitru = 2;
                                 objKcbLuotkham.Save();
@@ -80,7 +80,7 @@ namespace VNS.HIS.BusRule.Classes
                         new Delete().From(NoitruTamung.Schema).Where(NoitruTamung.Columns.Id).IsEqualTo(objTamung.Id).Execute();
                         NoitruPhieudieutri objNoitruPhieudieutri = Utility.getNoitruPhieudieutri(objTamung.IdBenhnhan, objTamung.MaLuotkham);
                         KcbLuotkham objKcbLuotkham = Utility.getKcbLuotkham(objTamung.IdBenhnhan, objTamung.MaLuotkham);
-                        if (objNoitruPhieudieutri == null && !VanConTamung)
+                        if (Utility.Byte2Bool(objKcbLuotkham.TrangthaiNoitru) && objNoitruPhieudieutri == null && !VanConTamung)//Chỉ update nếu là nội trú
                         {
                             objKcbLuotkham.IsNew = false;
                             objKcbLuotkham.TrangthaiNoitru = 1;
