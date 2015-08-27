@@ -27,7 +27,7 @@ namespace VNS.Libs
         {
             try
             {
-                DataTable dtTamung = SPs.NoitruTimkiemlichsuNoptientamung(objLuotkham.MaLuotkham, (int)objLuotkham.IdBenhnhan, 0, -1).GetDataSet().Tables[0];
+                DataTable dtTamung = SPs.NoitruTimkiemlichsuNoptientamung(objLuotkham.MaLuotkham, (int)objLuotkham.IdBenhnhan, 0, -1,(byte)( objLuotkham.TrangthaiNoitru > 0 ? 1 : 0)).GetDataSet().Tables[0];
                 DataSet dsData = SPs.NoitruTongchiphi(objLuotkham.MaLuotkham, (int)objLuotkham.IdBenhnhan).GetDataSet();
                 decimal Tong_CLS = Utility.DecimaltoDbnull(dsData.Tables[0].Compute("SUM(TT_BN)", "1=1"));
                 decimal Tong_Thuoc = Utility.DecimaltoDbnull(dsData.Tables[1].Compute("SUM(TT_BN)", "1=1"));
