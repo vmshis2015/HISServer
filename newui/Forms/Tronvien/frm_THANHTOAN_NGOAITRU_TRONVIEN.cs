@@ -1466,7 +1466,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                     objLuotkham.IpMaysua = globalVariables.gv_strIPAddress;
                     objLuotkham.TenMaysua = globalVariables.gv_strComputerName;
 
-                    ActionResult actionResult = _THANHTOAN.Payment4SelectedItems_Ao(CreatePayment(), objLuotkham, lstItems, ref v_Payment_ID, IdHdonLog, chkLayHoadon.Checked && THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_SUDUNGHOADONDO", "0", false)=="1");
+                    ActionResult actionResult = _THANHTOAN.ThanhtoanChiphiDVuKCB_Ao(CreatePayment(), objLuotkham, lstItems, ref v_Payment_ID, IdHdonLog, chkLayHoadon.Checked && THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_SUDUNGHOADONDO", "0", false)=="1");
 
                     switch (actionResult)
                     {
