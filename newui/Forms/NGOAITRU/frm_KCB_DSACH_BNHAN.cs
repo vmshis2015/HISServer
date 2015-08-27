@@ -1764,7 +1764,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 KcbThanhtoan objPayment = CreatePayment();
                 List<int> lstRegID = new List<int>();
                 decimal TTBN_Chitrathucsu = 0;
-                ActionResult actionResult = new KCB_THANHTOAN().Payment4SelectedItems(objPayment, objLuotkham, CreatePaymmentDetail(ref lstRegID).ToList<KcbThanhtoanChitiet>(), ref Payment_Id, -1, false, ref TTBN_Chitrathucsu);
+                ActionResult actionResult = new KCB_THANHTOAN().ThanhtoanChiphiDVuKCB(objPayment, objLuotkham, CreatePaymmentDetail(ref lstRegID).ToList<KcbThanhtoanChitiet>(), ref Payment_Id, -1, false, ref TTBN_Chitrathucsu);
 
                 switch (actionResult)
                 {
