@@ -532,7 +532,7 @@ namespace VNS.HIS.BusRule.Classes
         /// <param name="Layhoadondo"></param>
         /// <param name="TongtienBNchitra"></param>
         /// <returns></returns>
-        public ActionResult Payment4SelectedItems(KcbThanhtoan objThanhtoan, KcbLuotkham objLuotkham, List<KcbThanhtoanChitiet> objArrPaymentDetail, ref int id_thanhtoan, long IdHdonLog, bool Layhoadondo, ref decimal TongtienBNchitra)
+        public ActionResult ThanhtoanChiphiDVuKCB(KcbThanhtoan objThanhtoan, KcbLuotkham objLuotkham, List<KcbThanhtoanChitiet> objArrPaymentDetail, ref int id_thanhtoan, long IdHdonLog, bool Layhoadondo, ref decimal TongtienBNchitra)
         {
 
             decimal PtramBHYT = 0;
@@ -550,7 +550,14 @@ namespace VNS.HIS.BusRule.Classes
                         {
                             if (THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_TUDONGHOANUNG_KHITHANHTOANNOITRU", "0", false) == "1")
                             {
-                                SPs.NoitruHoanung(objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, objThanhtoan.NgayThanhtoan, globalVariables.gv_intIDNhanvien, globalVariables.UserName, (int)objLuotkham.IdKhoanoitru, (long)objLuotkham.IdRavien, (int)objLuotkham.IdBuong, (int)objLuotkham.IdGiuong).Execute();
+                                SPs.NoitruHoanung(objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, objThanhtoan.NgayThanhtoan, globalVariables.gv_intIDNhanvien, globalVariables.UserName, (int)objLuotkham.IdKhoanoitru, (long)objLuotkham.IdRavien, (int)objLuotkham.IdBuong, (int)objLuotkham.IdGiuong, (byte)1).Execute();
+                            }
+                        }
+                        else
+                        {
+                            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("NGOAITRU_TUDONGHOANUNG_KHITHANHTOANNGOAITRU", "0", false) == "1")
+                            {
+                                SPs.NoitruHoanung(objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, objThanhtoan.NgayThanhtoan, globalVariables.gv_intIDNhanvien, globalVariables.UserName, (int)objLuotkham.IdKhoanoitru, (long)objLuotkham.IdRavien, (int)objLuotkham.IdBuong, (int)objLuotkham.IdGiuong, (byte)0).Execute();
                             }
                         }
                         ///Tính tổng tiền đồng chi trả
@@ -773,7 +780,7 @@ namespace VNS.HIS.BusRule.Classes
             }
 
         }
-        public ActionResult Payment4SelectedItems_Ao(KcbThanhtoan objThanhtoan, KcbLuotkham objLuotkham, List<KcbThanhtoanChitiet> objArrPaymentDetail, ref int id_thanhtoan, long IdHdonLog, bool Layhoadondo)
+        public ActionResult ThanhtoanChiphiDVuKCB_Ao(KcbThanhtoan objThanhtoan, KcbLuotkham objLuotkham, List<KcbThanhtoanChitiet> objArrPaymentDetail, ref int id_thanhtoan, long IdHdonLog, bool Layhoadondo)
         {
 
             decimal PtramBHYT = 0;
@@ -1277,7 +1284,11 @@ namespace VNS.HIS.BusRule.Classes
                     {
                         if (Utility.Byte2Bool(objLuotkham.TrangthaiNoitru) && Utility.Byte2Bool(objThanhtoan.NoiTru))
                         {
-                            SPs.NoitruHuyhoanung(objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan).Execute();
+                            SPs.NoitruHuyhoanung(objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan,(byte)1).Execute();
+                        }
+                        else
+                        {
+                            SPs.NoitruHuyhoanung(objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, (byte)0).Execute();
                         }
                         if (IdHdonLog > 0)
                             if (HuyBienlai) 

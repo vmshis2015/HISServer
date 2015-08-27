@@ -214,9 +214,9 @@ namespace VNS.HIS.BusRule.Classes
         {
             return SPs.NoitruTimkiemlichsuBuonggiuong( PatientCode, PatientID,idKhoanoitru).GetDataSet().Tables[0];
         }
-        public DataTable NoitruTimkiemlichsuNoptientamung(string PatientCode, int PatientID, short kieutamung, int idkhoanoitru)
+        public DataTable NoitruTimkiemlichsuNoptientamung(string PatientCode, int PatientID, short kieutamung, int idkhoanoitru, byte noitru)
         {
-            return SPs.NoitruTimkiemlichsuNoptientamung(PatientCode, PatientID,kieutamung,idkhoanoitru).GetDataSet().Tables[0];
+            return SPs.NoitruTimkiemlichsuNoptientamung(PatientCode, PatientID,kieutamung,idkhoanoitru,noitru).GetDataSet().Tables[0];
         }
         public DataTable TimkiemBenhnhan(string PatientCode, int DepartmentId,byte noitru, int Locked)
         {
