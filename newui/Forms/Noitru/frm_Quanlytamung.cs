@@ -32,10 +32,11 @@ namespace VNS.HIS.UI.NOITRU
         public TrangthaiNoitru _TrangthaiNoitru = TrangthaiNoitru.NoiTru;
         public bool callfromMenu = true;
         public KcbLuotkham objLuotkham = null;
-
+       
         public frm_Quanlytamung()
         {
             InitializeComponent();
+           
             LoadConfig();
             InitEvents();
             dtToDate.Value = dtFromDate.Value = globalVariables.SysDate;
@@ -759,7 +760,7 @@ namespace VNS.HIS.UI.NOITRU
                 m_dtTamung = new KCB_THAMKHAM().NoitruTimkiemlichsuNoptientamung(Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham)),
                     Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan)),
                     0,
-                    Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdKhoanoitru))
+                    Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdKhoanoitru)),(byte) 1
                     );
                 Utility.SetDataSourceForDataGridEx_Basic(grdTamung, m_dtTamung, false, true, "1=1", NoitruTamung.Columns.NgayTamung + " desc");
                 grdTamung.MoveFirst();
