@@ -722,57 +722,29 @@ namespace VNS.HIS.UI.THUOC
         }
         private void AutocompleteLoaithuoc()
         {
+
             DataTable dtLoaithuoc = null;
-            try
+            dtLoaithuoc = new Select().From(DmucLoaithuoc.Schema)
+ .Where(DmucLoaithuoc.KieuThuocvattuColumn).IsEqualTo(cboKIEU_THUOC_VT.SelectedValue.ToString())
+ .ExecuteDataSet().Tables[0];
+            if (dtLoaithuoc == null) return;
+            if (!dtLoaithuoc.Columns.Contains("ShortCut"))
+                dtLoaithuoc.Columns.Add(new DataColumn("ShortCut", typeof(string)));
+            DataTable m_dtLoaithuoc_new = dtLoaithuoc.Clone();
+            if (globalVariables.gv_dtQuyenNhanvien_Dmuc.Select(QheNhanvienDanhmuc.Columns.Loai + "= 1").Length <= 0)
+                m_dtLoaithuoc_new = dtLoaithuoc.Copy();
+            else
             {
-                dtLoaithuoc = new Select().From(DmucLoaithuoc.Schema)
-     .Where(DmucLoaithuoc.KieuThuocvattuColumn).IsEqualTo(cboKIEU_THUOC_VT.SelectedValue.ToString())
-     .ExecuteDataSet().Tables[0];
-                if (dtLoaithuoc == null) return;
-                if (!dtLoaithuoc.Columns.Contains("ShortCut"))
-                    dtLoaithuoc.Columns.Add(new DataColumn("ShortCut", typeof(string)));
                 foreach (DataRow dr in dtLoaithuoc.Rows)
                 {
-                    string shortcut = "";
-                    string realName = dr[DmucLoaithuoc.TenLoaithuocColumn.ColumnName].ToString().Trim() + " " +
-                                      Utility.Bodau(dr[DmucLoaithuoc.TenLoaithuocColumn.ColumnName].ToString().Trim());
-                    shortcut = dr[DmucLoaithuoc.MaLoaithuocColumn.ColumnName].ToString().Trim();
-                    string[] arrWords = realName.ToLower().Split(' ');
-                    string _space = "";
-                    string _Nospace = "";
-                    foreach (string word in arrWords)
+                    if (Utility.CoquyenTruycapDanhmuc(Utility.sDbnull(dr[DmucLoaithuoc.Columns.IdLoaithuoc]), "1"))
                     {
-                        if (word.Trim() != "")
-                        {
-                            _space += word + " ";
-                            //_Nospace += word;
-                        }
+                        m_dtLoaithuoc_new.ImportRow(dr);
                     }
-                    shortcut += _space; // +_Nospace;
-                    foreach (string word in arrWords)
-                    {
-                        if (word.Trim() != "")
-                            shortcut += word.Substring(0, 1);
-                    }
-                    dr["ShortCut"] = shortcut;
                 }
             }
-            catch
-            {
-            }
-            finally
-            {
-                var source = new List<string>();
-                var query = from p in dtLoaithuoc.AsEnumerable()
-                            select p[DmucLoaithuoc.IdLoaithuocColumn.ColumnName].ToString() + "#" + p[DmucLoaithuoc.MaLoaithuocColumn.ColumnName].ToString()
-                            + "@" + p[DmucLoaithuoc.TenLoaithuocColumn.ColumnName].ToString() + "@" + p.Field<string>("shortcut").ToString();
-                source = query.ToList();
-                this.txtLoaithuoc.AutoCompleteList = source;
-                this.txtLoaithuoc.TextAlign = HorizontalAlignment.Left;
-                this.txtLoaithuoc.CaseSensitive = false;
-                this.txtLoaithuoc.MinTypedCharacters = 1;
+            txtLoaithuoc.Init(m_dtLoaithuoc_new, new List<string>() { DmucLoaithuoc.Columns.IdLoaithuoc, DmucLoaithuoc.Columns.MaLoaithuoc, DmucLoaithuoc.Columns.TenLoaithuoc });
 
-            }
         }
         private void cmdRemoveObject_Click(object sender, EventArgs e)
         {
