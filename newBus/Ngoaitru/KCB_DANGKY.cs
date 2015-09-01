@@ -454,7 +454,7 @@ namespace VNS.HIS.BusRule.Classes
                 return ActionResult.Error;
             }
         }
-        public ActionResult ThemmoiLuotkhamCapcuu(KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham, KcbDangkySokham objSoKCB, NoitruPhanbuonggiuong objBuonggiuong, DateTime ngaychuyenkhoa, ref string Msg)
+        public ActionResult ThemmoiLuotkhamCapcuu(SysTrace mytrace, KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham, KcbDangkySokham objSoKCB, NoitruPhanbuonggiuong objBuonggiuong, DateTime ngaychuyenkhoa, ref string Msg)
         {
             try
             {
@@ -524,7 +524,7 @@ namespace VNS.HIS.BusRule.Classes
                        .And(KcbDmucLuotkham.Columns.Nam).IsEqualTo(globalVariables.SysDate.Year)
                        .And(KcbDmucLuotkham.Columns.UsedBy).IsLessThanOrEqualTo(globalVariables.UserName)
                        .Execute();
-                        ;
+                       
                         if (objSoKCB != null)
                         {
                             //Kiểm tra xem có sổ KCB hay chưa
@@ -594,6 +594,10 @@ namespace VNS.HIS.BusRule.Classes
                             objLuotkham.IdRavien = objBuonggiuong.Id;
                             objLuotkham.IdNhapvien = objBuonggiuong.Id;
                         }
+                        mytrace.Desc = string.Format("Thêm mới lượt khám cấp cứu ID={0}, Code={1}, Name={2}", objKcbDanhsachBenhnhan.IdBenhnhan.ToString(), objLuotkham.MaLuotkham, objKcbDanhsachBenhnhan.TenBenhnhan);
+                        mytrace.Lot = 0;
+                        mytrace.IsNew = true;
+                        mytrace.Save();
                         scope.Complete();
                         return ActionResult.Success;
                     }
@@ -604,7 +608,7 @@ namespace VNS.HIS.BusRule.Classes
                 return ActionResult.Error;
             }
         }
-        public ActionResult UpdateBenhnhanCapcuu(KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham, KcbDangkySokham objSoKCB, NoitruPhanbuonggiuong objBuonggiuong, DateTime ngaychuyenkhoa, decimal PtramBhytCu, decimal PtramBhytgoc, ref string Msg)
+        public ActionResult UpdateBenhnhanCapcuu(SysTrace mytrace, KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham, KcbDangkySokham objSoKCB, NoitruPhanbuonggiuong objBuonggiuong, DateTime ngaychuyenkhoa, decimal PtramBhytCu, decimal PtramBhytgoc, ref string Msg)
         {
             ActionResult _ActionResult = ActionResult.Success;
             try
@@ -613,8 +617,7 @@ namespace VNS.HIS.BusRule.Classes
                 {
                     using (var dbscope = new SharedDbConnectionScope())
                     {
-
-                      
+                       
                         objKcbDanhsachBenhnhan.IsNew = false;
                         objKcbDanhsachBenhnhan.IsLoaded = true;
                         objKcbDanhsachBenhnhan.MarkOld();
@@ -753,6 +756,10 @@ namespace VNS.HIS.BusRule.Classes
                             objLuotkham.IdRavien = objBuonggiuong.Id;
                             objLuotkham.IdNhapvien = objBuonggiuong.Id;
                         }
+                        mytrace.Desc = string.Format("Cập nhật BN cấp cứu ID={0}, Code={1}, Name={2}", objKcbDanhsachBenhnhan.IdBenhnhan.ToString(), objLuotkham.MaLuotkham, objKcbDanhsachBenhnhan.TenBenhnhan);
+                        mytrace.Lot = 0;
+                        mytrace.IsNew = true;
+                        mytrace.Save();
                         scope.Complete();
                         return ActionResult.Success;
                     }
@@ -764,7 +771,7 @@ namespace VNS.HIS.BusRule.Classes
                 return ActionResult.Error;
             }
         }
-        public ActionResult ThemmoiBenhnhanCapcuu(KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham, KcbDangkySokham objSoKCB, NoitruPhanbuonggiuong objBuonggiuong, DateTime ngaychuyenkhoa, ref string Msg)
+        public ActionResult ThemmoiBenhnhanCapcuu(SysTrace mytrace, KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham, KcbDangkySokham objSoKCB, NoitruPhanbuonggiuong objBuonggiuong, DateTime ngaychuyenkhoa, ref string Msg)
         {
             int v_IdBenhnhan = -1;
             try
@@ -913,6 +920,10 @@ namespace VNS.HIS.BusRule.Classes
                             objLuotkham.IdRavien = objBuonggiuong.Id;
                             objLuotkham.IdNhapvien = objBuonggiuong.Id;
                         }
+                        mytrace.Desc = string.Format("Thêm mới Bệnh nhân cấp cứu ID={0}, Code={1}, Name={2}", objKcbDanhsachBenhnhan.IdBenhnhan.ToString(), objLuotkham.MaLuotkham, objKcbDanhsachBenhnhan.TenBenhnhan);
+                        mytrace.Lot = 0;
+                        mytrace.IsNew = true;
+                        mytrace.Save();
                         scope.Complete();
                         return ActionResult.Success;
                     }
@@ -923,7 +934,7 @@ namespace VNS.HIS.BusRule.Classes
                 return ActionResult.Error;
             }
         }
-        public ActionResult PerformActionDeletePatientExam(string v_MaLuotkham, int v_Patient_ID, ref string ErrMsg)
+        public ActionResult PerformActionDeletePatientExam(SysTrace mytrace, string v_MaLuotkham, int v_Patient_ID, ref string ErrMsg)
         {
             int record = -1;
             try
@@ -1018,7 +1029,10 @@ namespace VNS.HIS.BusRule.Classes
                             new Delete().From(KcbDanhsachBenhnhan.Schema).Where(KcbDanhsachBenhnhan.Columns.IdBenhnhan).IsEqualTo(
                                v_Patient_ID).Execute();
                         }
-
+                        mytrace.Desc = string.Format("Xóa Bệnh nhân ID={0}, Code={1}, Name={2}", v_Patient_ID.ToString(), v_MaLuotkham, v_MaLuotkham);
+                        mytrace.Lot = 0;
+                        mytrace.IsNew = true;
+                        mytrace.Save();
                     }
                     scope.Complete();
                     return ActionResult.Success;
@@ -1359,7 +1373,7 @@ namespace VNS.HIS.BusRule.Classes
             }
 
         }
-        public ActionResult ThemmoiLuotkham(KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham, KcbDangkyKcb objKcbDangkyKcb, KcbDangkySokham objSoKCB, int KieuKham, ref long id_kham, ref string Msg)
+        public ActionResult ThemmoiLuotkham(SysTrace mytrace, KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham, KcbDangkyKcb objKcbDangkyKcb, KcbDangkySokham objSoKCB, int KieuKham, ref long id_kham, ref string Msg)
         {
             try
             {
@@ -1489,6 +1503,10 @@ namespace VNS.HIS.BusRule.Classes
                             objKcbDangkyKcb.IdLichsuDoituongKcb = objLichsuKcb.IdLichsuDoituongKcb;
                            id_kham= AddRegExam(objKcbDangkyKcb,objLuotkham, false, KieuKham);
                         }
+                        mytrace.Desc = string.Format("Thêm mới lượt khám ID={0}, Code={1}, Name={2}", objKcbDanhsachBenhnhan.IdBenhnhan.ToString(), objLuotkham.MaLuotkham, objKcbDanhsachBenhnhan.TenBenhnhan);
+                        mytrace.Lot = 0;
+                        mytrace.IsNew = true;
+                        mytrace.Save();
                         scope.Complete();
                         return ActionResult.Success;
                     }
@@ -1547,7 +1565,7 @@ namespace VNS.HIS.BusRule.Classes
             }
         }
 
-        public ActionResult ThemmoiBenhnhan(KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham, KcbDangkyKcb objKcbDangkyKcb,KcbDangkySokham objSoKCB, int KieuKham,ref long id_kham,ref string Msg)
+        public ActionResult ThemmoiBenhnhan(SysTrace mytrace, KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham, KcbDangkyKcb objKcbDangkyKcb, KcbDangkySokham objSoKCB, int KieuKham, ref long id_kham, ref string Msg)
         {
             int v_IdBenhnhan = -1;
             try
@@ -1691,7 +1709,10 @@ namespace VNS.HIS.BusRule.Classes
                             objKcbDangkyKcb.IdLichsuDoituongKcb = objLichsuKcb.IdLichsuDoituongKcb;
                             id_kham = AddRegExam(objKcbDangkyKcb, objLuotkham, false, KieuKham);
                         }
-
+                        mytrace.Desc = string.Format("Thêm mới Bệnh nhân ID={0}, Code={1}, Name={2}", objKcbDanhsachBenhnhan.IdBenhnhan.ToString(), objLuotkham.MaLuotkham, objKcbDanhsachBenhnhan.TenBenhnhan);
+                        mytrace.Lot = 0;
+                        mytrace.IsNew = true;
+                        mytrace.Save();
                         scope.Complete();
                         return ActionResult.Success;
                     }
@@ -1703,7 +1724,7 @@ namespace VNS.HIS.BusRule.Classes
                 return ActionResult.Error;
             }
         }
-        public ActionResult UpdateLanKham(KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham, KcbDangkyKcb objKcbDangkyKcb, KcbDangkySokham objSoKCB, int KieuKham, decimal PtramBhytCu, decimal PtramBhytgoc, ref string Msg)
+        public ActionResult UpdateLanKham(SysTrace mytrace, KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham, KcbDangkyKcb objKcbDangkyKcb, KcbDangkySokham objSoKCB, int KieuKham, decimal PtramBhytCu, decimal PtramBhytgoc, ref string Msg)
         {
             ActionResult _ActionResult = ActionResult.Success;
             try
@@ -1712,6 +1733,7 @@ namespace VNS.HIS.BusRule.Classes
                 {
                     using (var dbscope = new SharedDbConnectionScope())
                     {
+                       
                         UpdatePatientInfo(objKcbDanhsachBenhnhan);
                         long IdLichsuDoituongKcb = KcbLayIdDoituongKCBHientai(objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham);
                         KcbLichsuDoituongKcb objLichsuKcb = null;
@@ -1835,6 +1857,10 @@ namespace VNS.HIS.BusRule.Classes
                             objKcbDangkyKcb.IdBenhnhan = Utility.Int32Dbnull(objLuotkham.IdBenhnhan);
                             AddRegExam(objKcbDangkyKcb, objLuotkham, false, KieuKham);
                         }
+                        mytrace.Desc = string.Format("Cập nhật  Bệnh nhân ID={0}, Code={1}, Name={2}", objKcbDanhsachBenhnhan.IdBenhnhan.ToString(), objLuotkham.MaLuotkham, objKcbDanhsachBenhnhan.TenBenhnhan);
+                        mytrace.Lot = 0;
+                        mytrace.IsNew = true;
+                        mytrace.Save();
                         scope.Complete();
                         return ActionResult.Success;
                     }
