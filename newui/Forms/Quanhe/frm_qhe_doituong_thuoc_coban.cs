@@ -451,10 +451,23 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                DataTable m_dtDataService = new Select().From(DmucLoaithuoc.Schema).
+                DataTable m_dtLoaithuoc = new Select().From(DmucLoaithuoc.Schema).
                     Where(DmucLoaithuoc.Columns.KieuThuocvattu).IsEqualTo(Kieuthuoc_vt)
                     .ExecuteDataSet().Tables[0];
-                DataBinding.BindDataCombobox(cboloaithuoc, m_dtDataService, DmucLoaithuoc.Columns.IdLoaithuoc, DmucLoaithuoc.Columns.TenLoaithuoc, "Chọn", true);
+                DataTable m_dtLoaithuoc_new = m_dtLoaithuoc.Clone();
+                if (globalVariables.gv_dtQuyenNhanvien_Dmuc.Select(QheNhanvienDanhmuc.Columns.Loai + "= 0").Length <= 0)
+                    m_dtLoaithuoc_new = m_dtLoaithuoc.Copy();
+                else
+                {
+                    foreach (DataRow dr in m_dtLoaithuoc.Rows)
+                    {
+                        if (Utility.CoquyenTruycapDanhmuc(Utility.sDbnull(dr[DmucLoaithuoc.Columns.IdLoaithuoc]), "1"))
+                        {
+                            m_dtLoaithuoc_new.ImportRow(dr);
+                        }
+                    }
+                }
+                DataBinding.BindDataCombobox(cboloaithuoc, m_dtLoaithuoc_new, DmucLoaithuoc.Columns.IdLoaithuoc, DmucLoaithuoc.Columns.TenLoaithuoc, "Chọn", false);
                 dt_KhoaThucHien = THU_VIEN_CHUNG.Laydanhmuckhoa("NGOAI", 0);
                 DataBinding.BindDataCombobox_Basic(cboKhoaTH, dt_KhoaThucHien, DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong);
                 Laydanhmucthuoc();
@@ -999,19 +1012,17 @@ namespace VNS.HIS.UI.THUOC
 
         private void cmdThemMoi_Click(object sender, EventArgs e)
         {
-            if (grdList.CurrentRow != null && grdList.CurrentRow.RowType == RowType.Record)
-            {
-                if (m_dataThuoc.DefaultView.Count <= 0) return;
-                frm_themmoi_thuoc frmNewDrug = new frm_themmoi_thuoc("DRUGONLY");
-                frmNewDrug.m_dtDrugDataSource = m_dataThuoc;
-                frmNewDrug.m_enAction = action.Insert;
-                frmNewDrug.m_blnCallFromMenu = false;
-                frmNewDrug.grdList = grdList;
-                frmNewDrug.CallFrom = CallAction.FromMenu;
-                frmNewDrug.objThuoc = GetObjectForUpdateOrDelete();
-                if (frmNewDrug.objThuoc == null && frmNewDrug.m_enAction == action.Update) return;
-                frmNewDrug.ShowDialog();
-            }
+
+            frm_themmoi_thuoc frmNewDrug = new frm_themmoi_thuoc("DRUGONLY");
+            frmNewDrug.m_dtDrugDataSource = m_dataThuoc;
+            frmNewDrug.m_enAction = action.Insert;
+            frmNewDrug.m_blnCallFromMenu = false;
+            frmNewDrug.grdList = grdList;
+            frmNewDrug.CallFrom = CallAction.FromMenu;
+            frmNewDrug.objThuoc = GetObjectForUpdateOrDelete();
+            if (frmNewDrug.objThuoc == null && frmNewDrug.m_enAction == action.Update) return;
+            frmNewDrug.ShowDialog();
+
             ModifyCommand();
             ModifyCommand_Quanhe();
         }

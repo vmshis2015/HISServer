@@ -315,16 +315,19 @@ namespace VNS.HIS.UI.DANHMUC
         {
             try
             {
-              DataTable  m_dtDataService = new Select().From(DmucDichvucl.Schema).ExecuteDataSet().Tables[0];
-              DataBinding.BindDataCombobox(cboService, m_dtDataService, DmucDichvucl.Columns.IdDichvu, DmucDichvucl.Columns.TenDichvu, "---Chọn---", true);
-              m_dtDataDetailService = SPs.DmucLaydanhmucDichvuclsChitiet(Utility.Int16Dbnull(cboService.SelectedValue, -1)).GetDataSet().Tables[0];
-                //new Select().From(VDmucDichvuclsChitiet.Schema)
-                //   .Where(VDmucDichvuclsChitiet.Columns.IdDichvu).IsEqualTo(Utility.Int32Dbnull(cboService.SelectedValue, -1))
-                //   .AndExpression (VDmucDichvuclsChitiet.Columns
-                //   .OrderAsc(VDmucDichvuclsChitiet.Columns.SttHthiLoaidvu, VDmucDichvuclsChitiet.Columns.SttHthiDichvu,VDmucDichvuclsChitiet.Columns.SttHthi)
-                //   .ExecuteDataSet().Tables[0];
+                DataTable m_dtDichvuCLS = new Select().From(DmucDichvucl.Schema).ExecuteDataSet().Tables[0];
+                DataTable m_dtDichvuCLS_new = m_dtDichvuCLS.Clone();
+                foreach (DataRow dr in m_dtDichvuCLS.Rows)
+                {
+                    if (Utility.CoquyenTruycapDanhmuc(Utility.sDbnull(dr[DmucDichvucl.Columns.IdLoaidichvu]), "0"))
+                    {
+                        m_dtDichvuCLS_new.ImportRow(dr);
+                    }
+                }
+                DataBinding.BindDataCombobox(cboService, m_dtDichvuCLS_new, DmucDichvucl.Columns.IdDichvu, DmucDichvucl.Columns.TenDichvu, "---Chọn---", true);
+                m_dtDataDetailService = SPs.DmucLaydanhmucDichvuclsChitiet(Utility.Int16Dbnull(cboService.SelectedValue, -1)).GetDataSet().Tables[0];
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtDataDetailService, true, true, "1=1", "stt_hthi_dichvu,stt_hthi_chitiet," + DmucDichvuclsChitiet.Columns.TenChitietdichvu);
-                dt_KhoaThucHien = THU_VIEN_CHUNG.Laydanhmuckhoa("NGOAI",0);
+                dt_KhoaThucHien = THU_VIEN_CHUNG.Laydanhmuckhoa("NGOAI", 0);
                 cboKhoaTH.DataSource = dt_KhoaThucHien;
                 cboKhoaTH.ValueMember = DmucKhoaphong.Columns.MaKhoaphong;
                 cboKhoaTH.DisplayMember = DmucKhoaphong.Columns.TenKhoaphong;
@@ -333,7 +336,7 @@ namespace VNS.HIS.UI.DANHMUC
             }
             catch (Exception)
             {
-                Utility.ShowMsg("Có lỗi trong quá trình lấy thông tin khoa");                
+                Utility.ShowMsg("Có lỗi trong quá trình lấy thông tin khoa");
             }
         }
         bool CLS_GIATHEO_KHOAKCB = false;
@@ -784,7 +787,7 @@ namespace VNS.HIS.UI.DANHMUC
                 frm_themmoi_dichvucls_chitiet frm = new frm_themmoi_dichvucls_chitiet();
                 frm.txtID.Text = Utility.sDbnull(v_ServiceDetail_ID);
                 frm.m_enAction = action.Update;
-                frm.dsServiceDetail = m_dtDataDetailService;
+                frm.dtDataServiceDetail = m_dtDataDetailService;
                 if (grdList.CurrentRow != null)
                     frm.drServiceDetail = Utility.FetchOnebyCondition(m_dtDataDetailService, DmucDichvuclsChitiet.Columns.IdChitietdichvu+ "=" + v_ServiceDetail_ID);
                 frm.ShowDialog();
@@ -906,7 +909,7 @@ namespace VNS.HIS.UI.DANHMUC
                 frm.grdlist = grdList;
                 frm.txtID.Text = "-1";
                 frm.m_enAction = action.Insert;
-                frm.dsServiceDetail = m_dtDataDetailService;
+                frm.dtDataServiceDetail = m_dtDataDetailService;
                 if (grdList.CurrentRow != null)
                     frm.drServiceDetail = Utility.FetchOnebyCondition(m_dtDataDetailService, DmucDichvuclsChitiet.Columns.IdChitietdichvu+ "=" + v_ServiceDetail_ID);
                 frm.ShowDialog();
