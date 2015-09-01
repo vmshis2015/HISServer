@@ -906,6 +906,22 @@ namespace VNS.HIS.UI.NGOAITRU
             string _tempt = "";
             List<string> lstKey = new List<string>();
             string _key = "";
+            //Kiểm tra dịch vụ đang thêm có phải là dạng Single-Service hay không?
+            DataRow[] _arrSingle = m_dtServiceDetail.Select(DmucDichvuclsChitiet.Columns.SingleService + "=1 AND " + DmucDichvuclsChitiet.Columns.IdChitietdichvu + "=" + id_dichvuchitiet);
+            if (_arrSingle.Length > 0 && m_dtAssignDetail.Select(KcbChidinhclsChitiet.Columns.IdChitietdichvu + "<>" + id_dichvuchitiet.ToString()).Length > 0)
+            {
+                return string.Format("Single-Service: {0}", ten_chitiet);
+            }
+            //Kiểm tra các dịch vụ đã thêm có cái nào là Single-Service hay không?
+            List<int> lstID=m_dtAssignDetail.AsEnumerable().Select(c=>Utility.Int32Dbnull( c[KcbChidinhclsChitiet.Columns.IdChitietdichvu],0)).Distinct().ToList<int>();
+            var q = from p in m_dtServiceDetail.AsEnumerable()
+                    where Utility.ByteDbnull(p[DmucDichvuclsChitiet.Columns.SingleService], 0) == 1
+                    && lstID.Contains(Utility.Int32Dbnull(p[DmucDichvuclsChitiet.Columns.IdChitietdichvu], 0))
+                    select p;
+            if (q.Any())
+            {
+                return string.Format("Single-Service: {0}",Utility.sDbnull( q.FirstOrDefault()[DmucDichvuclsChitiet.Columns.TenChitietdichvu],""));
+            }
             //Lấy các cặp cấm chỉ định chung cùng nhau
             DataRow[] arrDr = m_dtqheCamchidinhCLSChungphieu.Select(QheCamchidinhCLSChungphieu.Columns.IdChitietdichvu + "=" + id_dichvuchitiet );
             DataRow[] arrDr1 = m_dtqheCamchidinhCLSChungphieu.Select(QheCamchidinhCLSChungphieu.Columns.IdChitietdichvuCamchidinhcung + "=" + id_dichvuchitiet);
@@ -981,8 +997,6 @@ namespace VNS.HIS.UI.NGOAITRU
                             Utility.Int32Dbnull(gridExRow.Cells["stt_hthi_dichvu"].Value, -1);
                         newDr["stt_hthi_chitiet"] =
                             Utility.Int32Dbnull(gridExRow.Cells["stt_hthi_chitiet"].Value, -1);
-
-
                         newDr[KcbChidinhclsChitiet.Columns.IdChidinh] = v_AssignId;
                         newDr[KcbChidinhclsChitiet.Columns.IdDichvu] =
                             Utility.Int32Dbnull(gridExRow.Cells[DmucDichvuclsChitiet.Columns.IdDichvu].Value, -1);
@@ -1062,7 +1076,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 if (errMsg != string.Empty)
                 {
-                    Utility.ShowMsg("Các cặp dịch vụ sau đã được thiết lập chống chỉ định chung phiếu. Đề nghị bạn kiểm tra lại:\n" + errMsg);
+                    if (errMsg.Contains("Single-Service:"))
+                    {
+                        Utility.ShowMsg("Dịch vụ sau được đánh dấu không được phép kê chung với bất kỳ dịch vụ nào. Đề nghị bạn kiểm tra lại:\n" + Utility.DoTrim(errMsg.Replace("Single-Service:", "")));
+                    }
+                    else
+                        Utility.ShowMsg("Các cặp dịch vụ sau đã được thiết lập chống chỉ định chung phiếu. Đề nghị bạn kiểm tra lại:\n" + errMsg);
                 }
                 m_dtAssignDetail.AcceptChanges();
                 //UpdateDataWhenChanged();
@@ -1558,7 +1577,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 if (errMsg != string.Empty)
                 {
-                    Utility.ShowMsg("Các cặp dịch vụ sau đã được thiết lập chống chỉ định chung phiếu. Đề nghị bạn kiểm tra lại:\n" + errMsg);
+                    if (errMsg.Contains("Single-Service:"))
+                    {
+                        Utility.ShowMsg("Dịch vụ sau được đánh dấu không được phép kê chung với bất kỳ dịch vụ nào. Đề nghị bạn kiểm tra lại:\n" + Utility.DoTrim(errMsg.Replace("Single-Service:", "")));
+                    }
+                    else
+                        Utility.ShowMsg("Các cặp dịch vụ sau đã được thiết lập chống chỉ định chung phiếu. Đề nghị bạn kiểm tra lại:\n" + errMsg);
                 }
             }
             catch
