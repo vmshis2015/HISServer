@@ -196,7 +196,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                     Utility.ShowMsg("Bệnh nhân chưa được xác nhận chuyển thanh toán nội trú nên bạn không được phép hoàn ứng");
                     return;
                 }
-                SPs.NoitruHoanung(objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, dtPaymentDate.Value, globalVariables.gv_intIDNhanvien, globalVariables.UserName, (int)objLuotkham.IdKhoanoitru, (long)objLuotkham.IdRavien, (int)objLuotkham.IdBuong, (int)objLuotkham.IdGiuong,(byte)1).Execute();
+                SPs.NoitruHoanung(objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, dtPaymentDate.Value, globalVariables.gv_intIDNhanvien, globalVariables.UserName, Utility.Int32Dbnull(objLuotkham.IdKhoanoitru, -1), Utility.Int64Dbnull(objLuotkham.IdRavien, -1), Utility.Int32Dbnull(objLuotkham.IdBuong, -1), Utility.Int32Dbnull(objLuotkham.IdGiuong, -1), (byte)1).Execute();
                 cmdHoanung.Tag = "1";
                 cmdHoanung.Text = "Hủy hoàn ứng";
             }
@@ -1924,6 +1924,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 NoitruTamung objTamung = new Select().From(NoitruTamung.Schema).Where(NoitruTamung.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                     .And(NoitruTamung.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
                     .And(NoitruTamung.Columns.TrangThai).IsEqualTo(0)
+                    .And(NoitruTamung.Columns.KieuTamung).IsEqualTo(0)
                     .And(NoitruTamung.Columns.Noitru).IsEqualTo(1)
                     .ExecuteSingle<NoitruTamung>();
                 if (objTamung != null)

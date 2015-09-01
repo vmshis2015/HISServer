@@ -232,9 +232,9 @@ namespace VNS.HIS.UI.THANHTOAN
         }
         void cmdAccept_Click(object sender, EventArgs e)
         {
-            if (Utility.DecimaltoDbnull(m_dtData.Compute("SUM(so_tien)", "1=1"), 0) != Utility.DecimaltoDbnull(txtTongtien.Text, 0))
+            if (m_dtData.Select("so_tien<0").Length>0 || Utility.DecimaltoDbnull(m_dtData.Compute("SUM(so_tien)", "1=1"), 0) != Utility.DecimaltoDbnull(txtTongtien.Text, 0))
             {
-                errorProvider1.SetError(txtTongtien, "Tổng tiền phân bổ theo các phương thức thanh toán cần phải bằng tổng tiền thanh toán. Mời bạn kiểm tra lại");
+                errorProvider1.SetError(txtTongtien, "Tổng tiền phân bổ theo các phương thức thanh toán cần phải bằng tổng tiền thanh toán và tiền PTTT không được phép chứa giá trị nhỏ hơn không. Mời bạn kiểm tra lại");
                 return;
             }
             string errMsg = "";
