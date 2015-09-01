@@ -39,7 +39,7 @@ namespace VNS.HIS.UI.NOITRU
     /// <summary>
     /// Đẩy thử code=Github
     /// </summary>
-    public partial class frm_Taobenhnhancapcuu : Form
+    public partial class frm_Taobenhnhancapcuu : BaseForm
     {
         public delegate void OnActionSuccess();
         public event OnActionSuccess _OnActionSuccess;
@@ -1874,12 +1874,14 @@ namespace VNS.HIS.UI.NOITRU
                                              Utility.Int32Dbnull(txtPhut.Text), 00);
             objBenhnhan = TaoBenhNhan();
             objLuotkham = TaoLuotkham();
-          objBuonggiuong = TaodulieuBuonggiuong();
+            objBuonggiuong = TaodulieuBuonggiuong();
             KcbDangkySokham objSokham = TaosoKCB();
             long v_id_kham = -1;
             string msg = "";
             errorProvider1.Clear();
-            ActionResult actionResult = _KCB_DANGKY.ThemmoiLuotkhamCapcuu(objBenhnhan, objLuotkham, objSokham, objBuonggiuong, ngaychuyenkhoa, ref msg);
+            this.myTrace.FunctionID = globalVariables.FunctionID;
+            this.myTrace.FunctionName = globalVariables.FunctionName;
+            ActionResult actionResult = _KCB_DANGKY.ThemmoiLuotkhamCapcuu(this.myTrace, objBenhnhan, objLuotkham, objSokham, objBuonggiuong, ngaychuyenkhoa, ref msg);
 
             if (msg.Trim() != "")
             {
@@ -2006,7 +2008,9 @@ namespace VNS.HIS.UI.NOITRU
             long v_id_kham = -1;
             string msg = "";
             errorProvider1.Clear();
-            ActionResult actionResult = _KCB_DANGKY.ThemmoiBenhnhanCapcuu(objBenhnhan, objLuotkham, objSokham,objBuonggiuong,
+            this.myTrace.FunctionID = globalVariables.FunctionID;
+            this.myTrace.FunctionName = globalVariables.FunctionName;
+            ActionResult actionResult = _KCB_DANGKY.ThemmoiBenhnhanCapcuu(this.myTrace, objBenhnhan, objLuotkham, objSokham, objBuonggiuong,
                                                                             ngaychuyenkhoa, ref msg);
 
             if (msg.Trim() != "")
@@ -2098,7 +2102,9 @@ namespace VNS.HIS.UI.NOITRU
             KcbDangkySokham objSokham = TaosoKCB();
             string msg = "";
             errorProvider1.Clear();
-            ActionResult actionResult = _KCB_DANGKY.UpdateBenhnhanCapcuu(objBenhnhan, objLuotkham, objSokham, objBuonggiuong, ngaychuyenkhoa, PtramBhytCu, PtramBhytGocCu, ref msg);
+            this.myTrace.FunctionID = globalVariables.FunctionID;
+            this.myTrace.FunctionName = globalVariables.FunctionName;
+            ActionResult actionResult = _KCB_DANGKY.UpdateBenhnhanCapcuu(this.myTrace, objBenhnhan, objLuotkham, objSokham, objBuonggiuong, ngaychuyenkhoa, PtramBhytCu, PtramBhytGocCu, ref msg);
             // THEM_PHI_DVU_KYC(objLuotkham);
             if (msg.Trim() != "")
             {
@@ -2225,7 +2231,7 @@ namespace VNS.HIS.UI.NOITRU
             }
             objLuotkham.SoBenhAn = Utility.sDbnull(txtSoBenhAn.Text);
             objLuotkham.MotaNhapvien = Utility.DoTrim(txtGhiChu.Text);
-
+            objLuotkham.Ksk = 0;
             objLuotkham.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
             objLuotkham.Noitru = 0;
             objLuotkham.IdDoituongKcb = _IdDoituongKcb;

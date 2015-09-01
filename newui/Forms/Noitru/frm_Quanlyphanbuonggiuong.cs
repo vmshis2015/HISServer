@@ -14,7 +14,7 @@ using VNS.HIS.BusRule.Classes;
 using SubSonic;
 namespace VNS.HIS.UI.NOITRU
 {
-    public partial class frm_Quanlyphanbuonggiuong : Form
+    public partial class frm_Quanlyphanbuonggiuong : BaseForm
     {
         private DataTable m_dtTimKiembenhNhan=new DataTable();
         public TrangthaiNoitru _TrangthaiNoitru = TrangthaiNoitru.NoiTru;
@@ -806,7 +806,10 @@ namespace VNS.HIS.UI.NOITRU
                 if (!isValidDeleteData()) return;
                 if (Utility.AcceptQuestion("Bạn có muốn xóa Bệnh nhân cấp cứu này không", "Thông báo", true))
                 {
-                    ActionResult actionResult = new KCB_DANGKY().PerformActionDeletePatientExam(v_MaLuotkham,
+                    
+                     myTrace.FunctionID = globalVariables.FunctionID;
+                    myTrace.FunctionName = globalVariables.FunctionName;
+                    ActionResult actionResult = new KCB_DANGKY().PerformActionDeletePatientExam(myTrace,v_MaLuotkham,
                                                                                                        v_Patient_ID, ref ErrMgs);
                     switch (actionResult)
                     {
