@@ -230,11 +230,11 @@ namespace VNS.HIS.UI.Forms.CanLamSang
                     if (Utility.DoTrim(_itemchitiet.KetQua) == "")
                         _itemchitiet.TrangThai = 1;//Quay ve trang thai chuyen can
 
-                    if (_itemchitietcha.TrangThai < 3)
+                    if (_itemchitietcha!=null && _itemchitietcha.TrangThai < 3)
                         _itemchitietcha.TrangThai = 3;
-                    if (chkSaveAndConfirm.Checked)
+                    if (_itemchitietcha != null && chkSaveAndConfirm.Checked)
                         _itemchitietcha.TrangThai = 4;//Duyệt luôn để hiển thị trên form thăm khám của bác sĩ
-                    if (Utility.DoTrim(Utility.sDbnull(e.Value, "")) == "")
+                    if (_itemchitietcha != null && Utility.DoTrim(Utility.sDbnull(e.Value, "")) == "")
                         _itemchitietcha.TrangThai = 1;//Quay ve trang thai chuyen can
 
                     _item.TenThongso = "";
@@ -265,9 +265,9 @@ namespace VNS.HIS.UI.Forms.CanLamSang
             if (currRowIdx == -1 || currRowIdx != tempRowIdx)
             {
                 currRowIdx = tempRowIdx;
-                 id_dichvu = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdChidinh,VKcbChidinhcl.Columns.IdDichvu),0);
-                 IdChitietdichvu = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdChidinh, VKcbChidinhcl.Columns.IdChitietdichvu), 0);
-                 co_chitiet = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdChidinh, VKcbChidinhcl.Columns.CoChitiet), 0);
+                id_dichvu = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdChidinh, VKcbChidinhcl.Columns.IdDichvu), 0);
+                IdChitietdichvu = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdChidinh, VKcbChidinhcl.Columns.IdChitietdichvu), 0);
+                co_chitiet = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdChidinh, VKcbChidinhcl.Columns.CoChitiet), 0);
                 id_chidinh = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdChidinh, VKcbChidinhcl.Columns.IdChidinh), 0);
                 ma_luotkham = Utility.GetValueFromGridColumn(grdChidinh, VKcbChidinhcl.Columns.MaLuotkham);
                 MaChidinh = Utility.GetValueFromGridColumn(grdChidinh, VKcbChidinhcl.Columns.MaChidinh);

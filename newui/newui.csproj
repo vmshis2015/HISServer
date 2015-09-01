@@ -849,7 +849,9 @@
     <Compile Include="Forms\CanLamSang\frm_KetLuan.Designer.cs">
       <DependentUpon>frm_KetLuan.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CanLamSang\frm_quanlycacphongchucnang.cs" />
+    <Compile Include="Forms\CanLamSang\frm_quanlycacphongchucnang.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\CanLamSang\frm_quanlycacphongchucnang.Designer.cs">
       <DependentUpon>frm_quanlycacphongchucnang.cs</DependentUpon>
     </Compile>
@@ -1981,6 +1983,8 @@
     <Folder Include="Forms\DUOC\Danhmuc\" />
     <Folder Include="Forms\DUOC\Ngoaitru\" />
     <Folder Include="Forms\NGOAITRU\Backup\" />
+    <Folder Include="Forms\QuanlyGoikham\" />
+    <Folder Include="Forms\QuanlyMauXNNgoai\" />
     <Folder Include="Forms\THANHTOAN\backup\" />
   </ItemGroup>
   <ItemGroup>

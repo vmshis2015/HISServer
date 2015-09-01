@@ -624,7 +624,18 @@ namespace VNS.HIS.UI.NGOAITRU
         /// <returns></returns>
         private KcbChidinhcl CreateAssignInfo()
         {
-            var objKcbChidinhcls = new KcbChidinhcl();
+            KcbChidinhcl objKcbChidinhcls = null;
+            objKcbChidinhcls = KcbChidinhcl.FetchByID(Utility.Int32Dbnull(txtAssign_ID.Text, -1));
+            if (objKcbChidinhcls != null)
+            {
+                objKcbChidinhcls.IsNew = false;
+                objKcbChidinhcls.MarkOld();
+            }
+            else
+            {
+                objKcbChidinhcls = new KcbChidinhcl();
+                objKcbChidinhcls.IsNew = true;
+            }
             objKcbChidinhcls.MaChidinh = string.Empty;
             objKcbChidinhcls.MaLuotkham = objLuotkham.MaLuotkham;
             objKcbChidinhcls.IdBenhnhan = Utility.Int64Dbnull(objLuotkham.IdBenhnhan, -1);
@@ -662,7 +673,7 @@ namespace VNS.HIS.UI.NGOAITRU
             objKcbChidinhcls.Noitru = (byte?)HosStatus;
             if (m_eAction == action.Update)
             {
-                objKcbChidinhcls.IdChidinh = Utility.Int32Dbnull(txtAssign_ID.Text, -1);
+               
                 objKcbChidinhcls.NgaySua = globalVariables.SysDate;
                 objKcbChidinhcls.NguoiSua = globalVariables.UserName;
                 objKcbChidinhcls.IpMaysua = globalVariables.gv_strIPAddress;
@@ -670,11 +681,9 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             else
             {
-                 objKcbChidinhcls.IpMaytao = globalVariables.gv_strIPAddress;
+                objKcbChidinhcls.IpMaytao = globalVariables.gv_strIPAddress;
                 objKcbChidinhcls.TenMaytao = globalVariables.gv_strComputerName;
             }
-
-
             return objKcbChidinhcls;
         }
 
