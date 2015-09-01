@@ -332,6 +332,7 @@ namespace VNS.Libs
         //public static DataTable g_dtDiseaseList = new DataTable();
         public static DataTable gv_dtDmucNhanvien = new DataTable();
         public static DataTable gv_dtQuyenNhanvien = new DataTable();
+        public static DataTable gv_dtQuyenNhanvien_Dmuc = new DataTable();
         public static int ChophepNhapkhoLe = 0;
         public static string MaKhoaXn = "XN";
         public static DataTable gv_dtQheDoituongThuoc = new DataTable();

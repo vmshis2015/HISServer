@@ -414,7 +414,12 @@ namespace VNS.Libs
     {
         public static bool Coquyen(string maquyen)
         {
-            return globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && globalVariables.gv_dtQuyenNhanvien.Select(QheNhanvienQuyensudung.Columns.Ma += "'" + maquyen + "'").Length > 0);
+            return globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && globalVariables.gv_dtQuyenNhanvien.Select(QheNhanvienQuyensudung.Columns.Ma + "='" + maquyen + "'").Length > 0);
+        }
+        public static bool CoquyenTruycapDanhmuc(string id_danhmuc,string loai)
+        {
+            return globalVariables.IsAdmin ||
+                (globalVariablesPrivate.objNhanvien != null && globalVariables.gv_dtQuyenNhanvien_Dmuc.Select(QheNhanvienDanhmuc.Columns.IdDichvu + "='" + id_danhmuc + "' AND " + QheNhanvienDanhmuc.Columns.Loai + "='" + loai+ "'").Length > 0);
         }
         public static void LoadProperties()
         {
@@ -6582,6 +6587,7 @@ namespace VNS.Libs
             }
             catch (Exception ex)
             {
+                CatchException(ex);
             }
         }
         public static void SetDataSourceForDataGridEx_BasicNofilter(Janus.Windows.GridEX.GridEX varDataGridView, DataTable DataSource,
