@@ -1073,6 +1073,8 @@ namespace CIS.CoreApp
                                     {
                                         UIMdiChildTab _item = PanelManager.FindMdiTab(dic[_ID].Form);
                                         this.ActivateMdiChild(dic[_ID].Form);
+                                        globalVariables.FunctionID = Utility.Int32Dbnull(dic[_ID].Form.Tag, -1);
+                                        globalVariables.FunctionName = dic[_ID].Text;
                                     }
                                 }
 
@@ -1101,6 +1103,8 @@ namespace CIS.CoreApp
                                     {
                                         UIMdiChildTab _item = PanelManager.FindMdiTab(dic[_ID].Form);
                                         this.ActivateMdiChild(dic[_ID].Form);
+                                        globalVariables.FunctionID = Utility.Int32Dbnull(dic[_ID].Form.Tag, -1);
+                                        globalVariables.FunctionName = dic[_ID].Text;
                                     }
                                 }
                             }
@@ -1180,6 +1184,8 @@ namespace CIS.CoreApp
                                         {
                                             UIMdiChildTab _item = PanelManager.FindMdiTab(dic[_ID].Form);
                                             this.ActivateMdiChild(dic[_ID].Form);
+                                            globalVariables.FunctionID = Utility.Int32Dbnull(dic[_ID].Form.Tag, -1);
+                                            globalVariables.FunctionName = dic[_ID].Text;
                                         }
                                         //frm.MdiParent = null;
                                         //frm.Hide();
@@ -1211,6 +1217,8 @@ namespace CIS.CoreApp
                                         {
                                             UIMdiChildTab _item = PanelManager.FindMdiTab(dic[_ID].Form);
                                             this.ActivateMdiChild(dic[_ID].Form);
+                                            globalVariables.FunctionID = Utility.Int32Dbnull(dic[_ID].Form.Tag, -1);
+                                            globalVariables.FunctionName = dic[_ID].Text;
                                         }
                                     }
                                 }
@@ -1366,6 +1374,8 @@ namespace CIS.CoreApp
                                         {
                                             UIMdiChildTab _item = PanelManager.FindMdiTab(dic[_ID].Form);
                                             this.ActivateMdiChild(dic[_ID].Form);
+                                            globalVariables.FunctionID = Utility.Int32Dbnull(dic[_ID].Form.Tag, -1);
+                                            globalVariables.FunctionName = dic[_ID].Text;
                                         }
                                         //frm.MdiParent = null;
                                         //frm.Hide();
@@ -1397,6 +1407,8 @@ namespace CIS.CoreApp
                                         {
                                             UIMdiChildTab _item = PanelManager.FindMdiTab(dic[_ID].Form);
                                             this.ActivateMdiChild(dic[_ID].Form);
+                                            globalVariables.FunctionID = Utility.Int32Dbnull(dic[_ID].Form.Tag, -1);
+                                            globalVariables.FunctionName = dic[_ID].Text;
                                         }
                                     }
                                 }
@@ -1472,9 +1484,8 @@ namespace CIS.CoreApp
                                         UIMdiChildTab _item = PanelManager.FindMdiTab(dic[_ID].Form);
                                         Form frm = dic[_ID].Form;
                                         this.ActivateMdiChild(dic[_ID].Form);
-                                        //frm.MdiParent = null;
-                                        //frm.Visible = false;
-                                        //frm.ShowDialog();
+                                        globalVariables.FunctionID = Utility.Int32Dbnull(_ID, -1);
+                                        globalVariables.FunctionName = dic[_ID].Text;
                                     }
 
                                 }
@@ -1501,9 +1512,8 @@ namespace CIS.CoreApp
                                         this.ActivateMdiChild(dic[_ID].Form);
                                         Form frm = dic[_ID].Form;
                                         this.ActivateMdiChild(dic[_ID].Form);
-                                        //frm.MdiParent = null;
-                                        //frm.Visible = false;
-                                        //frm.ShowDialog();
+                                        globalVariables.FunctionID = Utility.Int32Dbnull(_ID, -1);
+                                        globalVariables.FunctionName = dic[_ID].Text;
                                     }
                                 }
                             }
@@ -1708,6 +1718,8 @@ namespace CIS.CoreApp
         private void PanelManager_MdiTabCreated(object sender, MdiTabEventArgs e)
         {
             PropertyLib._AppProperties.CurrentOpenning = Utility.sDbnull(e.Tab.Form.Tag, "-1");
+            globalVariables.FunctionID = Utility.Int32Dbnull(e.Tab.Form.Tag, -1);
+            globalVariables.FunctionName = e.Tab.Text;
             if (!lstTab.Contains(e.Tab.Form.Tag.ToString())) lstTab.Add(e.Tab.Form.Tag.ToString());
             if (!dic.ContainsKey(e.Tab.Form.Tag.ToString())) dic.Add(e.Tab.Form.Tag.ToString(), e.Tab);
         }
@@ -1724,6 +1736,8 @@ namespace CIS.CoreApp
             try
             {
                 PropertyLib._AppProperties.CurrentOpenning = Utility.sDbnull(e.Tab.Form.Tag, "-1");
+                globalVariables.FunctionID =Utility.Int32Dbnull( e.Tab.Form.Tag,-1);
+                globalVariables.FunctionName = e.Tab.Text;
             }
             catch
             {
