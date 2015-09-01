@@ -1309,16 +1309,19 @@ namespace  VNS.HIS.UI.THANHTOAN
                 if (ucTamung1.m_dtTamung != null)
                 {
                     Tong_Tamung = Utility.DecimaltoDbnull(ucTamung1.m_dtTamung.Compute("SUM(so_tien)", "1=1"), 0);
-                    decimal chenhlech = Tong_Tamung - Chuathanhtoan;
-                    if (chenhlech > 0)
+                    if (Math.Abs(Tong_Tamung) != 0)
                     {
-                        lblThuathieu.Text = "BN Nộp tiền";
-                        txtThuathieu.Text = chenhlech.ToString();
-                    }
-                    else
-                    {
-                        lblThuathieu.Text = "Trả lại BN";
-                        txtThuathieu.Text = chenhlech.ToString();
+                        decimal chenhlech = Chuathanhtoan - Tong_Tamung;
+                        if (chenhlech > 0)
+                        {
+                            lblThuathieu.Text = "BN Nộp tiền";
+                            txtThuathieu.Text = chenhlech.ToString();
+                        }
+                        else
+                        {
+                            lblThuathieu.Text = "Trả lại BN";
+                            txtThuathieu.Text = Math.Abs(chenhlech).ToString();
+                        }
                     }
                 }
 
