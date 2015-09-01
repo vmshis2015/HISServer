@@ -97,6 +97,7 @@
     <Compile Include="CommonLibs\TinhCLS.cs" />
     <Compile Include="CommonLibs\TinhGiaThuoc.cs" />
     <Compile Include="CommonLibs\TinhToanPtramBHYT.cs" />
+    <Compile Include="danhmuc\dmucDichvuCLS_busrule.cs" />
     <Compile Include="danhmuc\dmucnhanvien_busrule.cs" />
     <Compile Include="danhmuc\dmucgiagiuong_busrule.cs" />
     <Compile Include="danhmuc\dmuckieukham_busrule.cs" />

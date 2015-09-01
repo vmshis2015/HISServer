@@ -211,11 +211,7 @@ namespace VNS.HIS.BusRule.Classes
                                  .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(
                                      Utility.Int32Dbnull(objKcbChidinhcls.IdBenhnhan)).ExecuteSingle<KcbLuotkham>();
                          }
-                         new Update(KcbChidinhcl.Schema)
-                             .Set(KcbChidinhcl.Columns.IdBacsiChidinh).EqualTo(objKcbChidinhcls.IdBacsiChidinh)
-                             .Set(KcbChidinhcl.Columns.NgaySua).EqualTo(globalVariables.SysDate)
-                             .Set(KcbChidinhcl.Columns.NguoiSua).EqualTo(globalVariables.UserName)
-                             .Where(KcbChidinhcl.Columns.IdChidinh).IsEqualTo(Utility.Int32Dbnull(objKcbChidinhcls.IdChidinh)).Execute();
+                         objKcbChidinhcls.Save();
                          if (Utility.Int32Dbnull(objKcbChidinhcls.IdKham) > 0)
                          {
                              new Update(KcbDangkyKcb.Schema)
