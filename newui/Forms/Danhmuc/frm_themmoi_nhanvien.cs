@@ -45,7 +45,6 @@ namespace VNS.HIS.UI.DANHMUC
             
             InitEvents();
             txtName.LostFocus+=new EventHandler(txtName_LostFocus);
-          //  cboStatus.SelectedIndex = 0;
         }
         void InitEvents()
         {
@@ -123,7 +122,11 @@ namespace VNS.HIS.UI.DANHMUC
                 m_dtKhoanoitru = THU_VIEN_CHUNG.Laydanhmuckhoa("NOI",0);
                 Utility.SetDataSourceForDataGridEx(grdKhoanoitru, m_dtKhoanoitru, false, true, "1=1", VDmucKhoaphong.Columns.SttHthi);
 
-                Utility.SetDataSourceForDataGridEx(grdQuyen, new Select().From(DmucChung.Schema).Where(DmucChung.Columns.Loai).IsEqualTo("QUYENNHANVIEN").ExecuteDataSet().Tables[0], false, true, "1=1", DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten);
+                DataTable dtQuyen=new Select().From(DmucChung.Schema).Where(DmucChung.Columns.Loai).IsEqualTo("QUYENNHANVIEN").ExecuteDataSet().Tables[0];
+                Utility.SetDataSourceForDataGridEx_Basic(grdQuyen, dtQuyen, false, true, "1=1", DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten);
+
+                Utility.SetDataSourceForDataGridEx_Basic(grdLoaiThuoc, new Select().From(DmucLoaithuoc.Schema).ExecuteDataSet().Tables[0], false, true, "1=1", DmucLoaithuoc.Columns.SttHthi + "," + DmucLoaithuoc.Columns.TenLoaithuoc);
+                Utility.SetDataSourceForDataGridEx_Basic(grdDichvuCls, new Select().From(DmucChung.Schema).Where(DmucChung.Columns.Loai).IsEqualTo("LOAIDICHVUCLS").ExecuteDataSet().Tables[0], false, true, "1=1", DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten);
 
             }
             catch (Exception ex)
@@ -249,11 +252,11 @@ namespace VNS.HIS.UI.DANHMUC
         private void PerformActionInsert()
         {
              DmucNhanvien objDmucNhanvien = TaoDoituongNhanvien();
-            objDmucNhanvien.IsNew = true;
+            QheNhanvienDanhmucCollection lstQheDmuc = GetQheNhanvienDanhmuc(objDmucNhanvien);
            QheNhanvienKhoCollection lstQhekho= GetQuanheNhanVienKho(objDmucNhanvien);
            QheBacsiKhoaphongCollection lstQhekhoa= GetQuanheBsi_khoaphong(objDmucNhanvien);
            QheNhanvienQuyensudungCollection lstQheQuyensudung = GetQuanheNhanVienQuyen(objDmucNhanvien);
-            string ErrMsg=dmucnhanvien_busrule.Insert(objDmucNhanvien, lstQhekho, lstQhekhoa, lstQheQuyensudung);
+           string ErrMsg = dmucnhanvien_busrule.Insert(objDmucNhanvien, lstQhekho, lstQhekhoa, lstQheQuyensudung, lstQheDmuc);
             if (ErrMsg == string.Empty)
            {
 
@@ -290,8 +293,7 @@ namespace VNS.HIS.UI.DANHMUC
         private QheNhanvienKhoCollection GetQuanheNhanVienKho(DmucNhanvien objDmucNhanvien)
         {
             QheNhanvienKhoCollection lst = new QheNhanvienKhoCollection();
-            new Delete().From(QheNhanvienKho.Schema)
-                .Where(QheNhanvienKho.Columns.IdNhanvien).IsEqualTo(objDmucNhanvien.IdNhanvien).Execute();
+           
             foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdKhoThuoc.GetCheckedRows())
             {
                 QheNhanvienKho objDNhanvienKho = new QheNhanvienKho();
@@ -305,8 +307,7 @@ namespace VNS.HIS.UI.DANHMUC
         private QheNhanvienQuyensudungCollection GetQuanheNhanVienQuyen(DmucNhanvien objDmucNhanvien)
         {
             QheNhanvienQuyensudungCollection lst=new QheNhanvienQuyensudungCollection();
-            new Delete().From(QheNhanvienQuyensudung.Schema)
-                .Where(QheNhanvienQuyensudung.Columns.IdNhanvien).IsEqualTo(objDmucNhanvien.IdNhanvien).Execute();
+          
             foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdQuyen.GetCheckedRows())
             {
                 QheNhanvienQuyensudung objQheNhanvienQuyensudung = new QheNhanvienQuyensudung();
@@ -321,9 +322,7 @@ namespace VNS.HIS.UI.DANHMUC
         private QheBacsiKhoaphongCollection GetQuanheBsi_khoaphong(DmucNhanvien objDmucNhanvien)
         {
             QheBacsiKhoaphongCollection lst = new QheBacsiKhoaphongCollection();
-            new Delete().From(QheBacsiKhoaphong.Schema)
-                .Where(QheBacsiKhoaphong.Columns.IdBacsi).IsEqualTo(objDmucNhanvien.IdNhanvien)
-                .Execute();
+          
             foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdKhoanoitru.GetCheckedRows())
             {
                 QheBacsiKhoaphong objQheBacsiKhoaphong = new QheBacsiKhoaphong();
@@ -347,7 +346,31 @@ namespace VNS.HIS.UI.DANHMUC
             }
             return lst;
         }
+        private QheNhanvienDanhmucCollection GetQheNhanvienDanhmuc(DmucNhanvien objDmucNhanvien)
+        {
+            QheNhanvienDanhmucCollection lst = new QheNhanvienDanhmucCollection();
+           
+            foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdLoaiThuoc.GetCheckedRows())
+            {
+                QheNhanvienDanhmuc objQheNhanvienDanhmuc = new QheNhanvienDanhmuc();
+                objQheNhanvienDanhmuc.IdDichvu = Utility.sDbnull(gridExRow.Cells[DmucLoaithuoc.Columns.IdLoaithuoc].Value);
+                objQheNhanvienDanhmuc.IdNhanvien = objDmucNhanvien.IdNhanvien;
+                objQheNhanvienDanhmuc.Loai = 1;
+                objQheNhanvienDanhmuc.IsNew = true;
+                lst.Add(objQheNhanvienDanhmuc);
+            }
 
+            foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdDichvuCls.GetCheckedRows())
+            {
+                QheNhanvienDanhmuc objQheNhanvienDanhmuc = new QheNhanvienDanhmuc();
+                objQheNhanvienDanhmuc.IdDichvu = Utility.sDbnull(gridExRow.Cells[DmucChung.Columns.Ma].Value);
+                objQheNhanvienDanhmuc.IdNhanvien = objDmucNhanvien.IdNhanvien;
+                objQheNhanvienDanhmuc.Loai = 0;
+                objQheNhanvienDanhmuc.IsNew = true;
+                lst.Add(objQheNhanvienDanhmuc);
+            }
+            return lst;
+        }
      
 
         private DmucNhanvien TaoDoituongNhanvien()
@@ -357,6 +380,7 @@ namespace VNS.HIS.UI.DANHMUC
             {
                 objDmucNhanvien = DmucNhanvien.FetchByID(Utility.Int16Dbnull(txtID.Text, -1));
                 objDmucNhanvien.MarkOld();
+                objDmucNhanvien.IsNew = false;
                 objDmucNhanvien.IsLoaded = true;
             }
             else
@@ -385,12 +409,12 @@ namespace VNS.HIS.UI.DANHMUC
             try
             {
 
-                 DmucNhanvien objDmucNhanvien = TaoDoituongNhanvien();
-            objDmucNhanvien.IsNew = true;
+            DmucNhanvien objDmucNhanvien = TaoDoituongNhanvien();
+            QheNhanvienDanhmucCollection lstQheDmuc = GetQheNhanvienDanhmuc(objDmucNhanvien);
            QheNhanvienKhoCollection lstQhekho= GetQuanheNhanVienKho(objDmucNhanvien);
            QheBacsiKhoaphongCollection lstQhekhoa= GetQuanheBsi_khoaphong(objDmucNhanvien);
            QheNhanvienQuyensudungCollection lstQheQuyensudung = GetQuanheNhanVienQuyen(objDmucNhanvien);
-            string ErrMsg=dmucnhanvien_busrule.Insert(objDmucNhanvien, lstQhekho, lstQhekhoa, lstQheQuyensudung);
+           string ErrMsg = dmucnhanvien_busrule.Insert(objDmucNhanvien, lstQhekho, lstQhekhoa, lstQheQuyensudung, lstQheDmuc);
             if (ErrMsg == string.Empty)
             {
                 DataRow[] dr = p_dtStaffList.Select(DmucNhanvien.Columns.IdNhanvien + "=" + Utility.Int32Dbnull(txtID.Text, -1));
@@ -479,6 +503,58 @@ namespace VNS.HIS.UI.DANHMUC
                 LoadQuanHeNhanVienQuyen();
                 LoadQheBS_khoanoitru();
                 LoadQheBS_khoangoaitru();
+                LoadQheLoaithuoc();
+                LoadQheDichvuCLS();
+            }
+        }
+        private void LoadQheLoaithuoc()
+        {
+            QheNhanvienDanhmucCollection lstQhenhanviendanhmucthuoc = new Select().From(QheNhanvienDanhmuc.Schema)
+                .Where(QheNhanvienDanhmuc.Columns.IdNhanvien).IsEqualTo(Utility.Int32Dbnull(txtID.Text))
+                .And(QheNhanvienDanhmuc.Columns.Loai).IsEqualTo(1)
+                .ExecuteAsCollection<QheNhanvienDanhmucCollection>();
+            foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdLoaiThuoc.GetDataRows())
+            {
+                gridExRow.BeginEdit();
+                var query = from kho in lstQhenhanviendanhmucthuoc.AsEnumerable()
+                            where kho.IdDichvu == Utility.sDbnull(gridExRow.Cells[DmucLoaithuoc.Columns.IdLoaithuoc].Value)
+                            select kho;
+                if (query.Count() > 0)
+                {
+                    gridExRow.IsChecked = true;
+                }
+
+                else
+                {
+                    gridExRow.IsChecked = false;
+                }
+                gridExRow.EndEdit();
+
+            }
+        }
+        private void LoadQheDichvuCLS()
+        {
+            QheNhanvienDanhmucCollection lstQhenhanviendanhmucdichvucls = new Select().From(QheNhanvienDanhmuc.Schema)
+               .Where(QheNhanvienDanhmuc.Columns.IdNhanvien).IsEqualTo(Utility.Int32Dbnull(txtID.Text))
+               .And(QheNhanvienDanhmuc.Columns.Loai).IsEqualTo(0)
+               .ExecuteAsCollection<QheNhanvienDanhmucCollection>();
+            foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdDichvuCls.GetDataRows())
+            {
+                gridExRow.BeginEdit();
+                var query = from kho in lstQhenhanviendanhmucdichvucls.AsEnumerable()
+                            where kho.IdDichvu == Utility.sDbnull(gridExRow.Cells[DmucChung.Columns.Ma].Value)
+                            select kho;
+                if (query.Count() > 0)
+                {
+                    gridExRow.IsChecked = true;
+                }
+
+                else
+                {
+                    gridExRow.IsChecked = false;
+                }
+                gridExRow.EndEdit();
+
             }
         }
         private void LoadQheBS_khoanoitru()
@@ -562,13 +638,11 @@ namespace VNS.HIS.UI.DANHMUC
                             select kho;
                 if (query.Count() > 0)
                 {
-                    gridExRow.Cells["IsChon"].Value = 1;
                     gridExRow.IsChecked = true;
                 }
 
                 else
                 {
-                    gridExRow.Cells["IsChon"].Value = 0;
                     gridExRow.IsChecked = false;
                 }
                 gridExRow.EndEdit();

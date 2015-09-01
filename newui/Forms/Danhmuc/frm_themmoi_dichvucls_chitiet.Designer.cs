@@ -31,7 +31,19 @@ namespace VNS.HIS.UI.DANHMUC
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_dichvucls_chitiet));
+            Janus.Windows.GridEX.GridEXLayout grdDanhsachCamChidinhChungphieu_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.grpControl = new System.Windows.Forms.GroupBox();
+            this.txtDichvu = new VNS.HIS.UCs.AutoCompleteTextbox();
+            this.vbLine2 = new VNS.UCs.VBLine();
+            this.grdDanhsachCamChidinhChungphieu = new Janus.Windows.GridEX.GridEX();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtKihieuDat = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.vbLine1 = new VNS.UCs.VBLine();
+            this.txtPhuongphapthu = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
+            this.txtsoluongchitieu = new MaskedTextBox.MaskedTextBox();
+            this.chkLachiphithem = new System.Windows.Forms.CheckBox();
             this.cboDepartment = new System.Windows.Forms.ComboBox();
             this.cboPhongthuchien = new System.Windows.Forms.ComboBox();
             this.cboService = new System.Windows.Forms.ComboBox();
@@ -55,7 +67,6 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtBTNu = new System.Windows.Forms.TextBox();
             this.txtMotathem = new System.Windows.Forms.TextBox();
             this.txtDonvitinh = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
-            this.label8 = new System.Windows.Forms.Label();
             this.txtchidan = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -75,17 +86,30 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtServiceDetailName = new System.Windows.Forms.TextBox();
             this.lblServiceDetail = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.btnNew = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkThemmoilientuc = new Janus.Windows.EditControls.UICheckBox();
-            this.chkLachiphithem = new System.Windows.Forms.CheckBox();
+            this.chkSingle = new System.Windows.Forms.CheckBox();
             this.grpControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdDanhsachCamChidinhChungphieu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtIntOrder)).BeginInit();
             this.SuspendLayout();
             // 
             // grpControl
             // 
+            this.grpControl.Controls.Add(this.chkSingle);
+            this.grpControl.Controls.Add(this.txtDichvu);
+            this.grpControl.Controls.Add(this.vbLine2);
+            this.grpControl.Controls.Add(this.grdDanhsachCamChidinhChungphieu);
+            this.grpControl.Controls.Add(this.label21);
+            this.grpControl.Controls.Add(this.txtKihieuDat);
+            this.grpControl.Controls.Add(this.label19);
+            this.grpControl.Controls.Add(this.label20);
+            this.grpControl.Controls.Add(this.vbLine1);
+            this.grpControl.Controls.Add(this.txtPhuongphapthu);
+            this.grpControl.Controls.Add(this.txtsoluongchitieu);
             this.grpControl.Controls.Add(this.chkLachiphithem);
             this.grpControl.Controls.Add(this.cboDepartment);
             this.grpControl.Controls.Add(this.cboPhongthuchien);
@@ -110,7 +134,6 @@ namespace VNS.HIS.UI.DANHMUC
             this.grpControl.Controls.Add(this.txtBTNu);
             this.grpControl.Controls.Add(this.txtMotathem);
             this.grpControl.Controls.Add(this.txtDonvitinh);
-            this.grpControl.Controls.Add(this.label8);
             this.grpControl.Controls.Add(this.txtchidan);
             this.grpControl.Controls.Add(this.label10);
             this.grpControl.Controls.Add(this.label11);
@@ -130,23 +153,210 @@ namespace VNS.HIS.UI.DANHMUC
             this.grpControl.Controls.Add(this.txtServiceDetailName);
             this.grpControl.Controls.Add(this.lblServiceDetail);
             this.grpControl.Controls.Add(this.label5);
+            this.grpControl.Controls.Add(this.label8);
             this.grpControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.grpControl.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpControl.Location = new System.Drawing.Point(0, 0);
             this.grpControl.Name = "grpControl";
-            this.grpControl.Size = new System.Drawing.Size(790, 493);
+            this.grpControl.Size = new System.Drawing.Size(1065, 517);
             this.grpControl.TabIndex = 0;
             this.grpControl.TabStop = false;
             this.grpControl.Text = "Thông tin chi tiết";
+            // 
+            // txtDichvu
+            // 
+            this.txtDichvu._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtDichvu._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDichvu._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtDichvu.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtDichvu.AutoCompleteList")));
+            this.txtDichvu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDichvu.CaseSensitive = false;
+            this.txtDichvu.CompareNoID = true;
+            this.txtDichvu.DefaultCode = "-1";
+            this.txtDichvu.DefaultID = "-1";
+            this.txtDichvu.Drug_ID = null;
+            this.txtDichvu.ExtraWidth = 0;
+            this.txtDichvu.FillValueAfterSelect = false;
+            this.txtDichvu.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDichvu.Location = new System.Drawing.Point(749, 55);
+            this.txtDichvu.MaxHeight = 289;
+            this.txtDichvu.MinTypedCharacters = 2;
+            this.txtDichvu.MyCode = "-1";
+            this.txtDichvu.MyID = "-1";
+            this.txtDichvu.MyText = "";
+            this.txtDichvu.Name = "txtDichvu";
+            this.txtDichvu.RaiseEvent = true;
+            this.txtDichvu.RaiseEventEnter = true;
+            this.txtDichvu.RaiseEventEnterWhenEmpty = true;
+            this.txtDichvu.SelectedIndex = -1;
+            this.txtDichvu.Size = new System.Drawing.Size(310, 21);
+            this.txtDichvu.splitChar = '@';
+            this.txtDichvu.splitCharIDAndCode = '#';
+            this.txtDichvu.TabIndex = 24;
+            this.txtDichvu.TabStop = false;
+            this.txtDichvu.TakeCode = false;
+            this.txtDichvu.txtMyCode = null;
+            this.txtDichvu.txtMyCode_Edit = null;
+            this.txtDichvu.txtMyID = null;
+            this.txtDichvu.txtMyID_Edit = null;
+            this.txtDichvu.txtMyName = null;
+            this.txtDichvu.txtMyName_Edit = null;
+            this.txtDichvu.txtNext = null;
+            // 
+            // vbLine2
+            // 
+            this.vbLine2._FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.vbLine2.BackColor = System.Drawing.Color.Transparent;
+            this.vbLine2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.vbLine2.FontText = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.vbLine2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.vbLine2.Location = new System.Drawing.Point(749, 30);
+            this.vbLine2.Margin = new System.Windows.Forms.Padding(4);
+            this.vbLine2.Name = "vbLine2";
+            this.vbLine2.Size = new System.Drawing.Size(310, 22);
+            this.vbLine2.TabIndex = 1641;
+            this.vbLine2.TabStop = false;
+            this.vbLine2.YourText = "Cấm chỉ định cùng các dịch vụ sau:";
+            // 
+            // grdDanhsachCamChidinhChungphieu
+            // 
+            grdDanhsachCamChidinhChungphieu_DesignTimeLayout.LayoutString = resources.GetString("grdDanhsachCamChidinhChungphieu_DesignTimeLayout.LayoutString");
+            this.grdDanhsachCamChidinhChungphieu.DesignTimeLayout = grdDanhsachCamChidinhChungphieu_DesignTimeLayout;
+            this.grdDanhsachCamChidinhChungphieu.DynamicFiltering = true;
+            this.grdDanhsachCamChidinhChungphieu.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdDanhsachCamChidinhChungphieu.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.grdDanhsachCamChidinhChungphieu.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdDanhsachCamChidinhChungphieu.GroupByBoxVisible = false;
+            this.grdDanhsachCamChidinhChungphieu.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdDanhsachCamChidinhChungphieu.Location = new System.Drawing.Point(749, 84);
+            this.grdDanhsachCamChidinhChungphieu.Name = "grdDanhsachCamChidinhChungphieu";
+            this.grdDanhsachCamChidinhChungphieu.Size = new System.Drawing.Size(310, 336);
+            this.grdDanhsachCamChidinhChungphieu.TabIndex = 25;
+            this.grdDanhsachCamChidinhChungphieu.TabStop = false;
+            this.grdDanhsachCamChidinhChungphieu.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // label21
+            // 
+            this.label21.Location = new System.Drawing.Point(579, 397);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(78, 23);
+            this.label21.TabIndex = 1639;
+            this.label21.Text = "Kí hiệu đạt:";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtKihieuDat
+            // 
+            this.txtKihieuDat.BackColor = System.Drawing.Color.White;
+            this.txtKihieuDat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtKihieuDat.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtKihieuDat.Location = new System.Drawing.Point(663, 399);
+            this.txtKihieuDat.Name = "txtKihieuDat";
+            this.txtKihieuDat.Size = new System.Drawing.Size(80, 21);
+            this.txtKihieuDat.TabIndex = 19;
+            // 
+            // label19
+            // 
+            this.label19.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(248, 399);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(122, 23);
+            this.label19.TabIndex = 1637;
+            this.label19.Text = "Phương pháp thử";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label20
+            // 
+            this.label20.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(20, 398);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(115, 23);
+            this.label20.TabIndex = 1636;
+            this.label20.Text = "Số lượng chỉ tiêu:";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // vbLine1
+            // 
+            this.vbLine1._FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.vbLine1.BackColor = System.Drawing.Color.Transparent;
+            this.vbLine1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.vbLine1.FontText = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.vbLine1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.vbLine1.Location = new System.Drawing.Point(11, 370);
+            this.vbLine1.Margin = new System.Windows.Forms.Padding(4);
+            this.vbLine1.Name = "vbLine1";
+            this.vbLine1.Size = new System.Drawing.Size(732, 22);
+            this.vbLine1.TabIndex = 1635;
+            this.vbLine1.TabStop = false;
+            this.vbLine1.YourText = "Thông tin kiểm nghiệm(Nếu là dịch vụ kiểm nghiệm)";
+            // 
+            // txtPhuongphapthu
+            // 
+            this.txtPhuongphapthu._backcolor = System.Drawing.SystemColors.Control;
+            this.txtPhuongphapthu._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPhuongphapthu.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtPhuongphapthu.AutoCompleteList")));
+            this.txtPhuongphapthu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPhuongphapthu.CaseSensitive = false;
+            this.txtPhuongphapthu.CompareNoID = true;
+            this.txtPhuongphapthu.DefaultCode = "-1";
+            this.txtPhuongphapthu.DefaultID = "-1";
+            this.txtPhuongphapthu.Drug_ID = null;
+            this.txtPhuongphapthu.ExtraWidth = 0;
+            this.txtPhuongphapthu.FillValueAfterSelect = false;
+            this.txtPhuongphapthu.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPhuongphapthu.LOAI_DANHMUC = "PHUONGPHAPTHUMAU";
+            this.txtPhuongphapthu.Location = new System.Drawing.Point(376, 399);
+            this.txtPhuongphapthu.MaxHeight = -1;
+            this.txtPhuongphapthu.MinTypedCharacters = 2;
+            this.txtPhuongphapthu.MyCode = "-1";
+            this.txtPhuongphapthu.MyID = "-1";
+            this.txtPhuongphapthu.Name = "txtPhuongphapthu";
+            this.txtPhuongphapthu.RaiseEvent = false;
+            this.txtPhuongphapthu.RaiseEventEnter = false;
+            this.txtPhuongphapthu.RaiseEventEnterWhenEmpty = false;
+            this.txtPhuongphapthu.SelectedIndex = -1;
+            this.txtPhuongphapthu.Size = new System.Drawing.Size(197, 21);
+            this.txtPhuongphapthu.splitChar = '@';
+            this.txtPhuongphapthu.splitCharIDAndCode = '#';
+            this.txtPhuongphapthu.TabIndex = 18;
+            this.txtPhuongphapthu.TakeCode = false;
+            this.txtPhuongphapthu.txtMyCode = null;
+            this.txtPhuongphapthu.txtMyCode_Edit = null;
+            this.txtPhuongphapthu.txtMyID = null;
+            this.txtPhuongphapthu.txtMyID_Edit = null;
+            this.txtPhuongphapthu.txtMyName = null;
+            this.txtPhuongphapthu.txtMyName_Edit = null;
+            this.txtPhuongphapthu.txtNext = null;
+            // 
+            // txtsoluongchitieu
+            // 
+            this.txtsoluongchitieu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtsoluongchitieu.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtsoluongchitieu.Location = new System.Drawing.Point(155, 399);
+            this.txtsoluongchitieu.Masked = MaskedTextBox.Mask.Digit;
+            this.txtsoluongchitieu.Name = "txtsoluongchitieu";
+            this.txtsoluongchitieu.Size = new System.Drawing.Size(87, 21);
+            this.txtsoluongchitieu.TabIndex = 17;
+            this.txtsoluongchitieu.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // chkLachiphithem
+            // 
+            this.chkLachiphithem.AutoSize = true;
+            this.chkLachiphithem.Location = new System.Drawing.Point(630, 431);
+            this.chkLachiphithem.Name = "chkLachiphithem";
+            this.chkLachiphithem.Size = new System.Drawing.Size(113, 19);
+            this.chkLachiphithem.TabIndex = 23;
+            this.chkLachiphithem.TabStop = false;
+            this.chkLachiphithem.Text = "là chi phí thêm?";
+            this.chkLachiphithem.UseVisualStyleBackColor = true;
             // 
             // cboDepartment
             // 
             this.cboDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDepartment.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboDepartment.FormattingEnabled = true;
-            this.cboDepartment.Location = new System.Drawing.Point(150, 283);
+            this.cboDepartment.Location = new System.Drawing.Point(155, 261);
             this.cboDepartment.Name = "cboDepartment";
-            this.cboDepartment.Size = new System.Drawing.Size(588, 24);
+            this.cboDepartment.Size = new System.Drawing.Size(211, 24);
             this.cboDepartment.TabIndex = 13;
             // 
             // cboPhongthuchien
@@ -154,9 +364,9 @@ namespace VNS.HIS.UI.DANHMUC
             this.cboPhongthuchien.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboPhongthuchien.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboPhongthuchien.FormattingEnabled = true;
-            this.cboPhongthuchien.Location = new System.Drawing.Point(150, 310);
+            this.cboPhongthuchien.Location = new System.Drawing.Point(478, 260);
             this.cboPhongthuchien.Name = "cboPhongthuchien";
-            this.cboPhongthuchien.Size = new System.Drawing.Size(588, 24);
+            this.cboPhongthuchien.Size = new System.Drawing.Size(265, 24);
             this.cboPhongthuchien.TabIndex = 14;
             // 
             // cboService
@@ -164,7 +374,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.cboService.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboService.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboService.FormattingEnabled = true;
-            this.cboService.Location = new System.Drawing.Point(150, 78);
+            this.cboService.Location = new System.Drawing.Point(155, 55);
             this.cboService.Name = "cboService";
             this.cboService.Size = new System.Drawing.Size(588, 24);
             this.cboService.TabIndex = 2;
@@ -174,7 +384,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.cboParent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboParent.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboParent.FormattingEnabled = true;
-            this.cboParent.Location = new System.Drawing.Point(150, 103);
+            this.cboParent.Location = new System.Drawing.Point(155, 81);
             this.cboParent.Name = "cboParent";
             this.cboParent.Size = new System.Drawing.Size(588, 24);
             this.cboParent.TabIndex = 3;
@@ -182,7 +392,7 @@ namespace VNS.HIS.UI.DANHMUC
             // label16
             // 
             this.label16.ForeColor = System.Drawing.Color.Red;
-            this.label16.Location = new System.Drawing.Point(6, 104);
+            this.label16.Location = new System.Drawing.Point(11, 82);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(138, 23);
             this.label16.TabIndex = 1631;
@@ -192,10 +402,10 @@ namespace VNS.HIS.UI.DANHMUC
             // chkCochitiet
             // 
             this.chkCochitiet.AutoSize = true;
-            this.chkCochitiet.Location = new System.Drawing.Point(150, 445);
+            this.chkCochitiet.Location = new System.Drawing.Point(155, 460);
             this.chkCochitiet.Name = "chkCochitiet";
             this.chkCochitiet.Size = new System.Drawing.Size(87, 19);
-            this.chkCochitiet.TabIndex = 1629;
+            this.chkCochitiet.TabIndex = 24;
             this.chkCochitiet.TabStop = false;
             this.chkCochitiet.Text = "Có chi tiết?";
             this.chkCochitiet.UseVisualStyleBackColor = true;
@@ -204,7 +414,7 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             this.txtGiaBHYT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGiaBHYT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGiaBHYT.Location = new System.Drawing.Point(473, 204);
+            this.txtGiaBHYT.Location = new System.Drawing.Point(478, 182);
             this.txtGiaBHYT.Masked = MaskedTextBox.Mask.Decimal;
             this.txtGiaBHYT.Name = "txtGiaBHYT";
             this.txtGiaBHYT.Size = new System.Drawing.Size(265, 21);
@@ -214,7 +424,7 @@ namespace VNS.HIS.UI.DANHMUC
             // label15
             // 
             this.label15.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(370, 211);
+            this.label15.Location = new System.Drawing.Point(375, 189);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(97, 15);
             this.label15.TabIndex = 1628;
@@ -225,7 +435,7 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             this.txtDongia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDongia.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDongia.Location = new System.Drawing.Point(150, 204);
+            this.txtDongia.Location = new System.Drawing.Point(155, 182);
             this.txtDongia.Masked = MaskedTextBox.Mask.Decimal;
             this.txtDongia.Name = "txtDongia";
             this.txtDongia.Size = new System.Drawing.Size(211, 21);
@@ -236,7 +446,7 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             this.txtPTDT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPTDT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPTDT.Location = new System.Drawing.Point(150, 231);
+            this.txtPTDT.Location = new System.Drawing.Point(155, 209);
             this.txtPTDT.Masked = MaskedTextBox.Mask.Decimal;
             this.txtPTDT.Name = "txtPTDT";
             this.txtPTDT.Size = new System.Drawing.Size(211, 21);
@@ -247,7 +457,7 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             this.txtPTTT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPTTT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPTTT.Location = new System.Drawing.Point(473, 229);
+            this.txtPTTT.Location = new System.Drawing.Point(478, 207);
             this.txtPTTT.Masked = MaskedTextBox.Mask.Decimal;
             this.txtPTTT.Name = "txtPTTT";
             this.txtPTTT.Size = new System.Drawing.Size(265, 21);
@@ -257,7 +467,7 @@ namespace VNS.HIS.UI.DANHMUC
             // label17
             // 
             this.label17.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(370, 231);
+            this.label17.Location = new System.Drawing.Point(375, 209);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(97, 15);
             this.label17.TabIndex = 1627;
@@ -267,7 +477,7 @@ namespace VNS.HIS.UI.DANHMUC
             // label18
             // 
             this.label18.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(6, 233);
+            this.label18.Location = new System.Drawing.Point(11, 211);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(138, 15);
             this.label18.TabIndex = 1626;
@@ -277,10 +487,10 @@ namespace VNS.HIS.UI.DANHMUC
             // chkTutuc
             // 
             this.chkTutuc.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkTutuc.Location = new System.Drawing.Point(345, 416);
+            this.chkTutuc.Location = new System.Drawing.Point(350, 431);
             this.chkTutuc.Name = "chkTutuc";
-            this.chkTutuc.Size = new System.Drawing.Size(227, 23);
-            this.chkTutuc.TabIndex = 19;
+            this.chkTutuc.Size = new System.Drawing.Size(122, 23);
+            this.chkTutuc.TabIndex = 22;
             this.chkTutuc.TabStop = false;
             this.chkTutuc.Text = "Dịch vụ tự túc?";
             this.toolTip1.SetToolTip(this.chkTutuc, "Chọn mục này nếu muốn đánh dấu chi tiết CLS này luôn coi là tự túc đối với đối tư" +
@@ -290,9 +500,9 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             this.lblMsg.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblMsg.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMsg.Location = new System.Drawing.Point(3, 467);
+            this.lblMsg.Location = new System.Drawing.Point(3, 491);
             this.lblMsg.Name = "lblMsg";
-            this.lblMsg.Size = new System.Drawing.Size(784, 23);
+            this.lblMsg.Size = new System.Drawing.Size(1059, 23);
             this.lblMsg.TabIndex = 125;
             this.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -300,14 +510,14 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             this.txtTenBHYT.BackColor = System.Drawing.Color.White;
             this.txtTenBHYT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTenBHYT.Location = new System.Drawing.Point(150, 152);
+            this.txtTenBHYT.Location = new System.Drawing.Point(155, 130);
             this.txtTenBHYT.Name = "txtTenBHYT";
             this.txtTenBHYT.Size = new System.Drawing.Size(588, 21);
             this.txtTenBHYT.TabIndex = 4;
             // 
             // label13
             // 
-            this.label13.Location = new System.Drawing.Point(6, 151);
+            this.label13.Location = new System.Drawing.Point(11, 129);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(138, 23);
             this.label13.TabIndex = 124;
@@ -319,17 +529,17 @@ namespace VNS.HIS.UI.DANHMUC
             this.chkTrangthai.AutoSize = true;
             this.chkTrangthai.Checked = true;
             this.chkTrangthai.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkTrangthai.Location = new System.Drawing.Point(150, 420);
+            this.chkTrangthai.Location = new System.Drawing.Point(155, 435);
             this.chkTrangthai.Name = "chkTrangthai";
             this.chkTrangthai.Size = new System.Drawing.Size(79, 19);
-            this.chkTrangthai.TabIndex = 17;
+            this.chkTrangthai.TabIndex = 20;
             this.chkTrangthai.TabStop = false;
             this.chkTrangthai.Text = "Hiệu lực?";
             this.chkTrangthai.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(574, 178);
+            this.label6.Location = new System.Drawing.Point(579, 156);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 23);
             this.label6.TabIndex = 121;
@@ -341,7 +551,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtBTNam.BackColor = System.Drawing.Color.White;
             this.txtBTNam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBTNam.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBTNam.Location = new System.Drawing.Point(473, 180);
+            this.txtBTNam.Location = new System.Drawing.Point(478, 158);
             this.txtBTNam.Name = "txtBTNam";
             this.txtBTNam.Size = new System.Drawing.Size(95, 21);
             this.txtBTNam.TabIndex = 6;
@@ -351,7 +561,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtBTNu.BackColor = System.Drawing.Color.White;
             this.txtBTNu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBTNu.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBTNu.Location = new System.Drawing.Point(639, 180);
+            this.txtBTNu.Location = new System.Drawing.Point(644, 158);
             this.txtBTNu.Name = "txtBTNu";
             this.txtBTNu.Size = new System.Drawing.Size(99, 21);
             this.txtBTNu.TabIndex = 7;
@@ -360,7 +570,7 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             this.txtMotathem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMotathem.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMotathem.Location = new System.Drawing.Point(150, 380);
+            this.txtMotathem.Location = new System.Drawing.Point(155, 331);
             this.txtMotathem.Multiline = true;
             this.txtMotathem.Name = "txtMotathem";
             this.txtMotathem.Size = new System.Drawing.Size(588, 34);
@@ -381,7 +591,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtDonvitinh.FillValueAfterSelect = false;
             this.txtDonvitinh.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDonvitinh.LOAI_DANHMUC = "DONVITINH";
-            this.txtDonvitinh.Location = new System.Drawing.Point(150, 176);
+            this.txtDonvitinh.Location = new System.Drawing.Point(155, 154);
             this.txtDonvitinh.MaxHeight = -1;
             this.txtDonvitinh.MinTypedCharacters = 2;
             this.txtDonvitinh.MyCode = "-1";
@@ -404,21 +614,11 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtDonvitinh.txtMyName_Edit = null;
             this.txtDonvitinh.txtNext = null;
             // 
-            // label8
-            // 
-            this.label8.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(6, 314);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(138, 23);
-            this.label8.TabIndex = 114;
-            this.label8.Text = "Phòng thực hiện";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // txtchidan
             // 
             this.txtchidan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtchidan.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtchidan.Location = new System.Drawing.Point(150, 340);
+            this.txtchidan.Location = new System.Drawing.Point(155, 291);
             this.txtchidan.Multiline = true;
             this.txtchidan.Name = "txtchidan";
             this.txtchidan.Size = new System.Drawing.Size(588, 34);
@@ -427,7 +627,7 @@ namespace VNS.HIS.UI.DANHMUC
             // label10
             // 
             this.label10.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(6, 343);
+            this.label10.Location = new System.Drawing.Point(11, 294);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(138, 23);
             this.label10.TabIndex = 111;
@@ -437,7 +637,7 @@ namespace VNS.HIS.UI.DANHMUC
             // label11
             // 
             this.label11.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(6, 286);
+            this.label11.Location = new System.Drawing.Point(11, 264);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(138, 23);
             this.label11.TabIndex = 110;
@@ -447,7 +647,7 @@ namespace VNS.HIS.UI.DANHMUC
             // label12
             // 
             this.label12.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(6, 258);
+            this.label12.Location = new System.Drawing.Point(11, 236);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(138, 23);
             this.label12.TabIndex = 108;
@@ -459,14 +659,14 @@ namespace VNS.HIS.UI.DANHMUC
             this.cbonhombaocao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbonhombaocao.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbonhombaocao.FormattingEnabled = true;
-            this.cbonhombaocao.Location = new System.Drawing.Point(150, 256);
+            this.cbonhombaocao.Location = new System.Drawing.Point(155, 234);
             this.cbonhombaocao.Name = "cbonhombaocao";
             this.cbonhombaocao.Size = new System.Drawing.Size(588, 24);
             this.cbonhombaocao.TabIndex = 12;
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(6, 383);
+            this.label4.Location = new System.Drawing.Point(11, 334);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(138, 23);
             this.label4.TabIndex = 67;
@@ -478,7 +678,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtServiceDetailCode.BackColor = System.Drawing.Color.White;
             this.txtServiceDetailCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtServiceDetailCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtServiceDetailCode.Location = new System.Drawing.Point(473, 54);
+            this.txtServiceDetailCode.Location = new System.Drawing.Point(478, 32);
             this.txtServiceDetailCode.Name = "txtServiceDetailCode";
             this.txtServiceDetailCode.Size = new System.Drawing.Size(95, 21);
             this.txtServiceDetailCode.TabIndex = 0;
@@ -486,17 +686,17 @@ namespace VNS.HIS.UI.DANHMUC
             // label1
             // 
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(378, 52);
+            this.label1.Location = new System.Drawing.Point(383, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 23);
             this.label1.TabIndex = 66;
-            this.label1.Text = "&Mã dịch vụ";
+            this.label1.Text = "Mã dịch vụ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label7
             // 
             this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(6, 176);
+            this.label7.Location = new System.Drawing.Point(11, 154);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(138, 23);
             this.label7.TabIndex = 64;
@@ -507,7 +707,7 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             this.txtID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtID.Enabled = false;
-            this.txtID.Location = new System.Drawing.Point(150, 54);
+            this.txtID.Location = new System.Drawing.Point(155, 32);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(211, 21);
             this.txtID.TabIndex = 0;
@@ -516,7 +716,7 @@ namespace VNS.HIS.UI.DANHMUC
             // label14
             // 
             this.label14.ForeColor = System.Drawing.Color.Red;
-            this.label14.Location = new System.Drawing.Point(6, 52);
+            this.label14.Location = new System.Drawing.Point(11, 30);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(138, 23);
             this.label14.TabIndex = 58;
@@ -525,7 +725,7 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             // txtIntOrder
             // 
-            this.txtIntOrder.Location = new System.Drawing.Point(639, 51);
+            this.txtIntOrder.Location = new System.Drawing.Point(644, 29);
             this.txtIntOrder.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -540,7 +740,7 @@ namespace VNS.HIS.UI.DANHMUC
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(592, 56);
+            this.label9.Location = new System.Drawing.Point(597, 34);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(31, 15);
             this.label9.TabIndex = 51;
@@ -548,7 +748,7 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(6, 207);
+            this.label3.Location = new System.Drawing.Point(11, 185);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(138, 23);
             this.label3.TabIndex = 33;
@@ -560,18 +760,19 @@ namespace VNS.HIS.UI.DANHMUC
             this.chkHienThi.AutoSize = true;
             this.chkHienThi.Checked = true;
             this.chkHienThi.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkHienThi.Location = new System.Drawing.Point(249, 420);
+            this.chkHienThi.Location = new System.Drawing.Point(254, 435);
             this.chkHienThi.Name = "chkHienThi";
             this.chkHienThi.Size = new System.Drawing.Size(68, 19);
-            this.chkHienThi.TabIndex = 18;
+            this.chkHienThi.TabIndex = 21;
             this.chkHienThi.TabStop = false;
             this.chkHienThi.Text = "Hiển thị";
             this.chkHienThi.UseVisualStyleBackColor = true;
+            this.chkHienThi.Visible = false;
             // 
             // label2
             // 
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(6, 80);
+            this.label2.Location = new System.Drawing.Point(11, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(138, 23);
             this.label2.TabIndex = 31;
@@ -582,7 +783,7 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             this.txtServiceDetailName.BackColor = System.Drawing.Color.White;
             this.txtServiceDetailName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtServiceDetailName.Location = new System.Drawing.Point(150, 128);
+            this.txtServiceDetailName.Location = new System.Drawing.Point(155, 106);
             this.txtServiceDetailName.Name = "txtServiceDetailName";
             this.txtServiceDetailName.Size = new System.Drawing.Size(588, 21);
             this.txtServiceDetailName.TabIndex = 3;
@@ -590,7 +791,7 @@ namespace VNS.HIS.UI.DANHMUC
             // lblServiceDetail
             // 
             this.lblServiceDetail.ForeColor = System.Drawing.Color.Red;
-            this.lblServiceDetail.Location = new System.Drawing.Point(6, 127);
+            this.lblServiceDetail.Location = new System.Drawing.Point(11, 105);
             this.lblServiceDetail.Name = "lblServiceDetail";
             this.lblServiceDetail.Size = new System.Drawing.Size(138, 23);
             this.lblServiceDetail.TabIndex = 9;
@@ -599,22 +800,32 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(370, 180);
+            this.label5.Location = new System.Drawing.Point(375, 158);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 23);
             this.label5.TabIndex = 120;
             this.label5.Text = "BT.Nam:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // label8
+            // 
+            this.label8.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(361, 261);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(111, 23);
+            this.label8.TabIndex = 114;
+            this.label8.Text = "Phòng thực hiện";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // btnNew
             // 
             this.btnNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNew.Image = ((System.Drawing.Image)(resources.GetObject("btnNew.Image")));
             this.btnNew.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnNew.Location = new System.Drawing.Point(492, 512);
+            this.btnNew.Location = new System.Drawing.Point(386, 523);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(138, 35);
-            this.btnNew.TabIndex = 20;
+            this.btnNew.TabIndex = 26;
             this.btnNew.Text = "Ghi (Ctrl+S)";
             // 
             // cmdExit
@@ -622,10 +833,10 @@ namespace VNS.HIS.UI.DANHMUC
             this.cmdExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdExit.Image = ((System.Drawing.Image)(resources.GetObject("cmdExit.Image")));
             this.cmdExit.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdExit.Location = new System.Drawing.Point(639, 512);
+            this.cmdExit.Location = new System.Drawing.Point(533, 523);
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(129, 35);
-            this.cmdExit.TabIndex = 21;
+            this.cmdExit.TabIndex = 31;
             this.cmdExit.Text = "Thoát(Esc)";
             // 
             // toolTip1
@@ -636,39 +847,41 @@ namespace VNS.HIS.UI.DANHMUC
             // chkThemmoilientuc
             // 
             this.chkThemmoilientuc.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkThemmoilientuc.Location = new System.Drawing.Point(6, 523);
+            this.chkThemmoilientuc.Location = new System.Drawing.Point(11, 532);
             this.chkThemmoilientuc.Name = "chkThemmoilientuc";
             this.chkThemmoilientuc.Size = new System.Drawing.Size(184, 23);
-            this.chkThemmoilientuc.TabIndex = 22;
+            this.chkThemmoilientuc.TabIndex = 27;
             this.chkThemmoilientuc.TabStop = false;
             this.chkThemmoilientuc.Text = "Thêm mới liên tục?";
             this.toolTip1.SetToolTip(this.chkThemmoilientuc, "Chọn mục này nếu muốn đánh dấu chi tiết CLS này luôn coi là tự túc đối với đối tư" +
         "ợng BHYT cho dù có được áp quan hệ giá hay không!");
             // 
-            // chkLachiphithem
+            // chkSingle
             // 
-            this.chkLachiphithem.AutoSize = true;
-            this.chkLachiphithem.Checked = true;
-            this.chkLachiphithem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLachiphithem.Location = new System.Drawing.Point(577, 420);
-            this.chkLachiphithem.Name = "chkLachiphithem";
-            this.chkLachiphithem.Size = new System.Drawing.Size(113, 19);
-            this.chkLachiphithem.TabIndex = 1632;
-            this.chkLachiphithem.TabStop = false;
-            this.chkLachiphithem.Text = "là chi phí thêm?";
-            this.chkLachiphithem.UseVisualStyleBackColor = true;
+            this.chkSingle.AutoSize = true;
+            this.chkSingle.Checked = true;
+            this.chkSingle.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSingle.Location = new System.Drawing.Point(497, 431);
+            this.chkSingle.Name = "chkSingle";
+            this.chkSingle.Size = new System.Drawing.Size(104, 19);
+            this.chkSingle.TabIndex = 1642;
+            this.chkSingle.TabStop = false;
+            this.chkSingle.Text = "Dịch vụ đơn lẻ";
+            this.toolTip1.SetToolTip(this.chkSingle, "Chọn mục này nếu muốn Dịch vụ này không được phép kê cùng các dịch vụ khác và ngư" +
+        "ợc lại");
+            this.chkSingle.UseVisualStyleBackColor = true;
             // 
             // frm_themmoi_dichvucls_chitiet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(790, 568);
+            this.ClientSize = new System.Drawing.Size(1065, 568);
             this.Controls.Add(this.chkThemmoilientuc);
             this.Controls.Add(this.grpControl);
             this.Controls.Add(this.btnNew);
             this.Controls.Add(this.cmdExit);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -680,6 +893,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmServiceDetail_KeyDown);
             this.grpControl.ResumeLayout(false);
             this.grpControl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdDanhsachCamChidinhChungphieu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtIntOrder)).EndInit();
             this.ResumeLayout(false);
 
@@ -737,5 +951,16 @@ namespace VNS.HIS.UI.DANHMUC
         private System.Windows.Forms.ComboBox cboService;
         private System.Windows.Forms.ComboBox cboParent;
         private System.Windows.Forms.CheckBox chkLachiphithem;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox txtKihieuDat;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private VNS.UCs.VBLine vbLine1;
+        private UCs.AutoCompleteTextbox_Danhmucchung txtPhuongphapthu;
+        private MaskedTextBox.MaskedTextBox txtsoluongchitieu;
+        private VNS.UCs.VBLine vbLine2;
+        private UCs.AutoCompleteTextbox txtDichvu;
+        private Janus.Windows.GridEX.GridEX grdDanhsachCamChidinhChungphieu;
+        private System.Windows.Forms.CheckBox chkSingle;
     }
 }

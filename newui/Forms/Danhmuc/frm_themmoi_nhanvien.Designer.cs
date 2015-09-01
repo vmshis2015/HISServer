@@ -28,17 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Janus.Windows.GridEX.GridEXLayout gridEX1_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout grdQuyen_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_nhanvien));
             Janus.Windows.GridEX.GridEXLayout grdKhoThuoc_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdPhongkham_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdKhoa_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdKhoanoitru_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.GridEX.GridEXLayout grdQuyen_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout grdDichvuCls_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout grdLoaiThuoc_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.gridEX1 = new Janus.Windows.GridEX.GridEX();
+            this.grdQuyen = new Janus.Windows.GridEX.GridEX();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.grdKhoThuoc = new Janus.Windows.GridEX.GridEX();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -46,6 +47,10 @@
             this.grdKhoa = new Janus.Windows.GridEX.GridEX();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.grdKhoanoitru = new Janus.Windows.GridEX.GridEX();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.grdDichvuCls = new Janus.Windows.GridEX.GridEX();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.grdLoaiThuoc = new Janus.Windows.GridEX.GridEX();
             this.lblMsg = new System.Windows.Forms.Label();
             this.txtUID = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.label1 = new System.Windows.Forms.Label();
@@ -67,12 +72,11 @@
             this.txtID = new System.Windows.Forms.TextBox();
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
-            this.grdQuyen = new Janus.Windows.GridEX.GridEX();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridEX1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdQuyen)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdKhoThuoc)).BeginInit();
             this.tabPage3.SuspendLayout();
@@ -80,7 +84,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdKhoa)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdKhoanoitru)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdQuyen)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdDichvuCls)).BeginInit();
+            this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdLoaiThuoc)).BeginInit();
             this.SuspendLayout();
             // 
             // uiGroupBox1
@@ -121,6 +128,8 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(117, 201);
             this.tabControl1.Name = "tabControl1";
@@ -130,7 +139,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.gridEX1);
+            this.tabPage1.Controls.Add(this.grdQuyen);
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -139,21 +148,22 @@
             this.tabPage1.Text = "Quyền";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // gridEX1
+            // grdQuyen
             // 
-            gridEX1_DesignTimeLayout.LayoutString = resources.GetString("gridEX1_DesignTimeLayout.LayoutString");
-            this.gridEX1.DesignTimeLayout = gridEX1_DesignTimeLayout;
-            this.gridEX1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridEX1.DynamicFiltering = true;
-            this.gridEX1.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
-            this.gridEX1.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
-            this.gridEX1.GroupByBoxVisible = false;
-            this.gridEX1.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.gridEX1.Location = new System.Drawing.Point(3, 3);
-            this.gridEX1.Name = "gridEX1";
-            this.gridEX1.Size = new System.Drawing.Size(596, 177);
-            this.gridEX1.TabIndex = 74;
-            this.gridEX1.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            grdQuyen_DesignTimeLayout.LayoutString = resources.GetString("grdQuyen_DesignTimeLayout.LayoutString");
+            this.grdQuyen.DesignTimeLayout = grdQuyen_DesignTimeLayout;
+            this.grdQuyen.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdQuyen.DynamicFiltering = true;
+            this.grdQuyen.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdQuyen.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdQuyen.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdQuyen.GroupByBoxVisible = false;
+            this.grdQuyen.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdQuyen.Location = new System.Drawing.Point(3, 3);
+            this.grdQuyen.Name = "grdQuyen";
+            this.grdQuyen.Size = new System.Drawing.Size(596, 177);
+            this.grdQuyen.TabIndex = 74;
+            this.grdQuyen.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // tabPage2
             // 
@@ -161,9 +171,9 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(167, 183);
+            this.tabPage2.Size = new System.Drawing.Size(602, 183);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Quan hệ kho thuốc";
+            this.tabPage2.Text = "Kho thuốc";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // grdKhoThuoc
@@ -171,11 +181,12 @@
             grdKhoThuoc_DesignTimeLayout.LayoutString = resources.GetString("grdKhoThuoc_DesignTimeLayout.LayoutString");
             this.grdKhoThuoc.DesignTimeLayout = grdKhoThuoc_DesignTimeLayout;
             this.grdKhoThuoc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdKhoThuoc.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grdKhoThuoc.GroupByBoxVisible = false;
             this.grdKhoThuoc.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
             this.grdKhoThuoc.Location = new System.Drawing.Point(3, 3);
             this.grdKhoThuoc.Name = "grdKhoThuoc";
-            this.grdKhoThuoc.Size = new System.Drawing.Size(161, 177);
+            this.grdKhoThuoc.Size = new System.Drawing.Size(596, 177);
             this.grdKhoThuoc.TabIndex = 72;
             this.grdKhoThuoc.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
@@ -186,7 +197,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(167, 183);
+            this.tabPage3.Size = new System.Drawing.Size(602, 183);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Khoa ngoại trú";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -203,7 +214,7 @@
             this.grdPhongkham.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
             this.grdPhongkham.Location = new System.Drawing.Point(287, 3);
             this.grdPhongkham.Name = "grdPhongkham";
-            this.grdPhongkham.Size = new System.Drawing.Size(0, 177);
+            this.grdPhongkham.Size = new System.Drawing.Size(312, 177);
             this.grdPhongkham.TabIndex = 72;
             this.grdPhongkham.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
@@ -229,7 +240,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(167, 183);
+            this.tabPage4.Size = new System.Drawing.Size(602, 183);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Khoa nội trú";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -246,9 +257,62 @@
             this.grdKhoanoitru.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
             this.grdKhoanoitru.Location = new System.Drawing.Point(3, 3);
             this.grdKhoanoitru.Name = "grdKhoanoitru";
-            this.grdKhoanoitru.Size = new System.Drawing.Size(161, 177);
+            this.grdKhoanoitru.Size = new System.Drawing.Size(596, 177);
             this.grdKhoanoitru.TabIndex = 73;
             this.grdKhoanoitru.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.grdDichvuCls);
+            this.tabPage5.Location = new System.Drawing.Point(4, 24);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(602, 183);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Loại Dịch vụ CLS";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // grdDichvuCls
+            // 
+            grdDichvuCls_DesignTimeLayout.LayoutString = resources.GetString("grdDichvuCls_DesignTimeLayout.LayoutString");
+            this.grdDichvuCls.DesignTimeLayout = grdDichvuCls_DesignTimeLayout;
+            this.grdDichvuCls.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdDichvuCls.DynamicFiltering = true;
+            this.grdDichvuCls.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdDichvuCls.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdDichvuCls.GroupByBoxVisible = false;
+            this.grdDichvuCls.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdDichvuCls.Location = new System.Drawing.Point(0, 0);
+            this.grdDichvuCls.Name = "grdDichvuCls";
+            this.grdDichvuCls.Size = new System.Drawing.Size(602, 183);
+            this.grdDichvuCls.TabIndex = 75;
+            this.grdDichvuCls.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.grdLoaiThuoc);
+            this.tabPage6.Location = new System.Drawing.Point(4, 24);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(602, 183);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Loại thuốc";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // grdLoaiThuoc
+            // 
+            grdLoaiThuoc_DesignTimeLayout.LayoutString = resources.GetString("grdLoaiThuoc_DesignTimeLayout.LayoutString");
+            this.grdLoaiThuoc.DesignTimeLayout = grdLoaiThuoc_DesignTimeLayout;
+            this.grdLoaiThuoc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdLoaiThuoc.DynamicFiltering = true;
+            this.grdLoaiThuoc.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdLoaiThuoc.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdLoaiThuoc.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdLoaiThuoc.GroupByBoxVisible = false;
+            this.grdLoaiThuoc.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdLoaiThuoc.Location = new System.Drawing.Point(0, 0);
+            this.grdLoaiThuoc.Name = "grdLoaiThuoc";
+            this.grdLoaiThuoc.Size = new System.Drawing.Size(602, 183);
+            this.grdLoaiThuoc.TabIndex = 74;
+            this.grdLoaiThuoc.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // lblMsg
             // 
@@ -521,18 +585,6 @@
             this.cmdExit.ToolTipText = "Thoát Form hiện tại";
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
             // 
-            // grdQuyen
-            // 
-            grdQuyen_DesignTimeLayout.LayoutString = resources.GetString("grdQuyen_DesignTimeLayout.LayoutString");
-            this.grdQuyen.DesignTimeLayout = grdQuyen_DesignTimeLayout;
-            this.grdQuyen.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdQuyen.GroupByBoxVisible = false;
-            this.grdQuyen.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdQuyen.Location = new System.Drawing.Point(0, 0);
-            this.grdQuyen.Name = "grdQuyen";
-            this.grdQuyen.Size = new System.Drawing.Size(605, 148);
-            this.grdQuyen.TabIndex = 73;
-            // 
             // frm_themmoi_nhanvien
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -556,7 +608,7 @@
             this.uiGroupBox1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridEX1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdQuyen)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdKhoThuoc)).EndInit();
             this.tabPage3.ResumeLayout(false);
@@ -564,7 +616,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdKhoa)).EndInit();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdKhoanoitru)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdQuyen)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdDichvuCls)).EndInit();
+            this.tabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdLoaiThuoc)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -592,7 +647,6 @@
         internal System.Windows.Forms.Label label1;
         internal System.Windows.Forms.TextBox txtmotathem;
         private Janus.Windows.GridEX.GridEX grdKhoThuoc;
-        private Janus.Windows.GridEX.GridEX grdQuyen;
         private Janus.Windows.GridEX.GridEX grdPhongkham;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
@@ -603,6 +657,10 @@
         private Janus.Windows.GridEX.GridEX grdKhoanoitru;
         private UCs.AutoCompleteTextbox txtUID;
         internal System.Windows.Forms.Label lblMsg;
-        private Janus.Windows.GridEX.GridEX gridEX1;
+        private Janus.Windows.GridEX.GridEX grdQuyen;
+        private System.Windows.Forms.TabPage tabPage5;
+        private Janus.Windows.GridEX.GridEX grdDichvuCls;
+        private System.Windows.Forms.TabPage tabPage6;
+        private Janus.Windows.GridEX.GridEX grdLoaiThuoc;
     }
 }

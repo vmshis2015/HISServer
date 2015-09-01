@@ -263,6 +263,12 @@ namespace VNS.HIS.UI.DANHMUC
                 {
                     int _IdDichvukcb = Utility.Int32Dbnull(grd_Insurance_Objects.CurrentRow.Cells[DmucDichvukcb.Columns.IdDichvukcb].Value,
                                                           -1);
+                    KcbDangkyKcb item = new Select().From(KcbDangkyKcb.Schema).Where(KcbDangkyKcb.Columns.IdDichvuKcb).IsEqualTo(_IdDichvukcb).ExecuteSingle<KcbDangkyKcb>();
+                    if (item != null)
+                    {
+                        Utility.ShowMsg("Dịch vụ KCB bạn đang chọn xóa đã được áp dụng cho một số Bệnh nhân nên bạn không thể xóa");
+                        return;
+                    }
                     int record = new Delete().From(DmucDichvukcb.Schema)
                         .Where(DmucDichvukcb.Columns.IdDichvukcb).IsEqualTo(_IdDichvukcb).Execute();
                     if (record > 0)

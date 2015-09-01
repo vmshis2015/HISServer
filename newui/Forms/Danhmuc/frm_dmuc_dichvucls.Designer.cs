@@ -112,7 +112,7 @@
             this.cmdNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdNew.Name = "cmdNew";
             this.cmdNew.Size = new System.Drawing.Size(143, 36);
-            this.cmdNew.Text = "&Thêm mới (Ctrl+N)";
+            this.cmdNew.Text = "Thêm mới (Ctrl+N)";
             this.cmdNew.Click += new System.EventHandler(this.cmdNew_Click);
             // 
             // toolStripSeparator1
@@ -128,7 +128,7 @@
             this.cmdEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdEdit.Name = "cmdEdit";
             this.cmdEdit.Size = new System.Drawing.Size(103, 36);
-            this.cmdEdit.Text = "&Sửa(Ctrl+E)";
+            this.cmdEdit.Text = "Sửa(Ctrl+E)";
             this.cmdEdit.Click += new System.EventHandler(this.cmdEdit_Click);
             // 
             // toolStripSeparator2
@@ -144,7 +144,7 @@
             this.cmdDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdDelete.Name = "cmdDelete";
             this.cmdDelete.Size = new System.Drawing.Size(104, 36);
-            this.cmdDelete.Text = "&Xoá(Ctrl+D)";
+            this.cmdDelete.Text = "Xoá(Ctrl+D)";
             this.cmdDelete.Click += new System.EventHandler(this.cmdDelete_Click);
             // 
             // toolStripSeparator4
@@ -159,7 +159,7 @@
             this.cmdSaveAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdSaveAll.Name = "cmdSaveAll";
             this.cmdSaveAll.Size = new System.Drawing.Size(107, 36);
-            this.cmdSaveAll.Text = "&Lưu toàn bộ";
+            this.cmdSaveAll.Text = "Lưu toàn bộ";
             this.cmdSaveAll.Click += new System.EventHandler(this.cmdSaveAll_Click);
             // 
             // cmdDeleteALL
@@ -170,7 +170,7 @@
             this.cmdDeleteALL.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdDeleteALL.Name = "cmdDeleteALL";
             this.cmdDeleteALL.Size = new System.Drawing.Size(142, 36);
-            this.cmdDeleteALL.Text = "&Xoá nhiều bản ghi";
+            this.cmdDeleteALL.Text = "Xoá nhiều bản ghi";
             this.cmdDeleteALL.Click += new System.EventHandler(this.cmdDeleteALL_Click);
             // 
             // toolStripSeparator3
@@ -186,7 +186,7 @@
             this.cmdPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdPrint.Name = "cmdPrint";
             this.cmdPrint.Size = new System.Drawing.Size(113, 36);
-            this.cmdPrint.Text = "&In danh sách";
+            this.cmdPrint.Text = "In danh sách";
             this.cmdPrint.Click += new System.EventHandler(this.cmdPrint_Click);
             // 
             // toolStripSeparator5
@@ -247,8 +247,8 @@
             // 
             // cboPhongthuchien
             // 
-            this.cboPhongthuchien.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboPhongthuchien.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboPhongthuchien.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboPhongthuchien.Location = new System.Drawing.Point(550, 40);
             this.cboPhongthuchien.Name = "cboPhongthuchien";
@@ -287,8 +287,8 @@
             // 
             // cbonhombaocao
             // 
-            this.cbonhombaocao.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbonhombaocao.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbonhombaocao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbonhombaocao.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbonhombaocao.FormattingEnabled = true;
@@ -306,17 +306,17 @@
             this.cmdSearch.Name = "cmdSearch";
             this.cmdSearch.Size = new System.Drawing.Size(193, 53);
             this.cmdSearch.TabIndex = 4;
-            this.cmdSearch.Text = "&Tìm kiếm(F3)";
+            this.cmdSearch.Text = "Tìm kiếm(F3)";
             this.cmdSearch.UseVisualStyleBackColor = true;
             this.cmdSearch.Click += new System.EventHandler(this.cmdSearch_Click);
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(3, 18);
+            this.label1.Location = new System.Drawing.Point(3, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(125, 23);
             this.label1.TabIndex = 1;
-            this.label1.Text = "&Kiểu dịch vụ";
+            this.label1.Text = "Kiểu dịch vụ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cboServiceType
@@ -514,6 +514,7 @@
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "frm_dmuc_dichvucls";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "DANH SÁCH DỊCH VỤ";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

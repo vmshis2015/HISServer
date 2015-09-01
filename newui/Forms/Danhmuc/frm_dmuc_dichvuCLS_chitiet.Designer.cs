@@ -325,7 +325,7 @@
             this.groupBox1.Size = new System.Drawing.Size(1000, 52);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "&Thông tin tìm kiếm";
+            this.groupBox1.Text = "Thông tin tìm kiếm";
             // 
             // cboService
             // 
@@ -505,9 +505,10 @@
             this.ClientSize = new System.Drawing.Size(1014, 736);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.sysColor);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "frm_dmuc_dichvuCLS_chitiet";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DANH MỤC CHI TIẾT DỊCH VỤ";

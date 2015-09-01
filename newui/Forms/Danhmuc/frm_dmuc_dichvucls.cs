@@ -15,7 +15,7 @@ namespace VNS.HIS.UI.DANHMUC
 {
     public partial class frm_dmuc_dichvucls : Form
     {
-        private  DataTable m_dtDataServiceType=new DataTable();
+        private  DataTable m_dtLoaiDichvuCLS=new DataTable();
         private  DataTable dtDataCLS=new DataTable();
         private string RowFilter = "1=1";
         bool m_blnLoaded = false;
@@ -71,12 +71,27 @@ namespace VNS.HIS.UI.DANHMUC
             Search();
             ModifyCommand();
         }
+        bool hanchequyendanhmuc = false;
         void InitData()
         {
             try
             {
-                m_dtDataServiceType = THU_VIEN_CHUNG.LayDulieuDanhmucChung("LOAIDICHVUCLS", true);
-                DataBinding.BindDataCombox(cboServiceType, m_dtDataServiceType, DmucChung.Columns.Ma, DmucChung.Columns.Ten);
+                m_dtLoaiDichvuCLS = THU_VIEN_CHUNG.LayDulieuDanhmucChung("LOAIDICHVUCLS", true);
+                DataTable m_dtLoaiDichvuCLS_new = m_dtLoaiDichvuCLS.Clone();
+                if (globalVariables.gv_dtQuyenNhanvien_Dmuc.Select(QheNhanvienDanhmuc.Columns.Loai + "= 0").Length <= 0)
+                    m_dtLoaiDichvuCLS_new = m_dtLoaiDichvuCLS.Copy();
+                else
+                {
+                    foreach (DataRow dr in m_dtLoaiDichvuCLS.Rows)
+                    {
+                        if (Utility.CoquyenTruycapDanhmuc(Utility.sDbnull(dr[DmucChung.Columns.Ma]), "0"))
+                        {
+                            hanchequyendanhmuc = true;
+                            m_dtLoaiDichvuCLS_new.ImportRow(dr);
+                        }
+                    }
+                }
+                DataBinding.BindDataCombox(cboServiceType, m_dtLoaiDichvuCLS_new, DmucChung.Columns.Ma, DmucChung.Columns.Ten,"---Chọn---", false);
                 DataTable m_dtNhomDichVu = THU_VIEN_CHUNG.LayDulieuDanhmucChung("NHOMBAOCAOCLS", true);
                 DataBinding.BindDataCombox(cbonhombaocao, m_dtNhomDichVu, DmucChung.Columns.Ma, DmucChung.Columns.Ten);
                 DataTable m_dtKhoaChucNang = THU_VIEN_CHUNG.Laydanhmuckhoa("ALL",1);
@@ -90,11 +105,11 @@ namespace VNS.HIS.UI.DANHMUC
         void Search()
         {
             SqlQuery _sqlquery = new Select().From(VDmucDichvucl.Schema);
-            if (Utility.Int32Dbnull(cboServiceType.SelectedValue, -1) != -1)
+            if (Utility.Int32Dbnull(cboServiceType.SelectedValue, -1) != -1 || hanchequyendanhmuc)
                 if (_sqlquery.HasWhere)
-                    _sqlquery.Where(VDmucDichvucl.Columns.IdLoaidichvu).IsEqualTo(Utility.Int32Dbnull(cboServiceType.SelectedValue, -1));
+                    _sqlquery.Where(VDmucDichvucl.Columns.IdLoaidichvu).IsEqualTo(Utility.sDbnull(cboServiceType.SelectedValue, hanchequyendanhmuc?"0": "-1"));
                 else
-                    _sqlquery.And(VDmucDichvucl.Columns.IdLoaidichvu).IsEqualTo(Utility.Int32Dbnull(cboServiceType.SelectedValue, -1));
+                    _sqlquery.And(VDmucDichvucl.Columns.IdLoaidichvu).IsEqualTo(Utility.sDbnull(cboServiceType.SelectedValue, hanchequyendanhmuc ? "0" : "-1"));
 
             if (Utility.sDbnull(cbonhombaocao.SelectedValue, "-1") != "-1")
                 if (_sqlquery.HasWhere)
@@ -168,7 +183,13 @@ namespace VNS.HIS.UI.DANHMUC
                     return;
 
                 }
-                if (Utility.AcceptQuestion("Bạn có muốn xoá 1 bản ghi đang chọn không ", "Thông báo", true))
+                DmucDichvuclsChitiet item = new Select().From(DmucDichvuclsChitiet.Schema).Where(DmucDichvuclsChitiet.Columns.IdDichvu).IsEqualTo(v_Service_ID).ExecuteSingle<DmucDichvuclsChitiet>();
+                if (item != null)
+                {
+                    Utility.ShowMsg("Dịch vụ bạn chọn xóa đã có chi tiết nên bạn không thể xóa");
+                    return;
+                }
+                if (Utility.AcceptQuestion("Bạn có muốn xoá dịch vụ đang chọn không ", "Thông báo", true))
                 {
                     if (grdList.CurrentRow != null)
                     {
@@ -204,7 +225,6 @@ namespace VNS.HIS.UI.DANHMUC
             {
                 Janus.Windows.GridEX.GridEXRow[] checkedRows;
                 checkedRows = grdList.GetCheckedRows();
-
                 if (checkedRows.Length == 0)
                 {
 
@@ -212,6 +232,7 @@ namespace VNS.HIS.UI.DANHMUC
                     grdList.Focus();
                     return;
                 }
+                string lstError = "";
                 if (grdList.CurrentRow != null)
                 {
                     string message = string.Format("Bạn có muốn xoá {0} bản ghi đang chọn không", checkedRows.Length);
@@ -219,18 +240,27 @@ namespace VNS.HIS.UI.DANHMUC
                     {
                         foreach (Janus.Windows.GridEX.GridEXRow row in checkedRows)
                         {
+                            int iddichvu = Utility.Int32Dbnull(row.Cells[DmucDichvucl.Columns.IdDichvu].Value, 0);
+                            DmucDichvuclsChitiet item = new Select().From(DmucDichvuclsChitiet.Schema).Where(DmucDichvuclsChitiet.Columns.IdDichvu).IsEqualTo(iddichvu).ExecuteSingle<DmucDichvuclsChitiet>();
+                            if (item != null)
+                            {
+                                lstError =lstError+ Utility.sDbnull(row.Cells[DmucDichvucl.Columns.TenDichvu].Value, "")+";";
+                            }
+                            else
+                            {
                             ((DataRowView)row.DataRow).Delete();
 
                             new Delete()
                                 .From(DmucDichvucl.Schema)
                                 .Where(DmucDichvucl.Columns.IdDichvu)
-                                .IsEqualTo(row.Cells[DmucDichvucl.Columns.IdDichvu].Value)
+                                .IsEqualTo(iddichvu)
                                 .Execute();
-
+                            }
                         }
-
-
-
+                        if (Utility.DoTrim(lstError) != "")
+                        {
+                            Utility.ShowMsg("Một số dịch vụ chi tiết sau đã có chi tiết nên bạn không thể xóa\n" + lstError);
+                        }
                     }
                 }
             }

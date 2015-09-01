@@ -30,6 +30,7 @@ namespace VNS.HIS.UI.DANHMUC
 
         private void frm_dmuc_benh_Load(object sender, EventArgs e)
         {
+            
             IntialData();
             SearchMethod();
             ModifyCommand();
@@ -152,7 +153,7 @@ namespace VNS.HIS.UI.DANHMUC
         {
             try
             {
-                if (!InVali()) return;
+                if (!isValidDelete()) return;
                 if (Utility.AcceptQuestion("Bạn có muốn xóa thông tin đang chọn  hay không", "Thông báo", true))
                 {
                     int record = new Delete().From(DmucBenh.Schema)
@@ -183,19 +184,20 @@ namespace VNS.HIS.UI.DANHMUC
           
         }
 
-        private bool InVali()
+        private bool isValidDelete()
         {
+            
             SqlQuery q = new Select().From(KcbChandoanKetluan.Schema);
             SqlQuery q1 = new Select().From(KcbChandoanKetluan.Schema);
 
             if (q.Where(KcbChandoanKetluan.Columns.MabenhChinh).IsEqualTo(v_Disease_Id).GetRecordCount() > 0)
             {
-                Utility.ShowMsg("Bệnh này đã được lưu thông tin bệnh chính bên bản chẩn đoán,Bạn không thể xóa");
+                Utility.ShowMsg("ICD bạn đang chọn xóa đã được sử dụng nên bạn không thể xóa");
                 return false;
             }
             if (q1.Where(KcbChandoanKetluan.Columns.MabenhPhu).IsEqualTo(v_Disease_Id).GetRecordCount() > 0)
             {
-                Utility.ShowMsg("Bệnh này đã được lưu thông tin bệnh phụ bên bản chẩn đoán,Bạn không thể xóa");
+                Utility.ShowMsg("ICD bạn đang chọn xóa đã được sử dụng nên bạn không thể xóa");
                 return false;
             }
             return true;

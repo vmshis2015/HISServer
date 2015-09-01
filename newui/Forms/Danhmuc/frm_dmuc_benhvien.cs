@@ -373,11 +373,35 @@ namespace VNS.HIS.UI.DANHMUC
         /// </summary>
         private void PerformDeleteAction()
         {
+            int v_intObjectTypeID = Convert.ToInt32(txtID.Text.Trim());
+            KcbPhieuchuyenvien item0 = new Select().From(KcbPhieuchuyenvien.Schema)
+               .Where(KcbPhieuchuyenvien.Columns.IdBenhvienChuyenden).IsEqualTo(v_intObjectTypeID)
+               .ExecuteSingle<KcbPhieuchuyenvien>();
+            if (item0 != null)
+            {
+                Utility.ShowMsg("Bệnh viện bạn đang chọn xóa đã được sử dụng trong các phiếu chuyển viện nên bạn không thể xóa");
+                return;
+            }
+            KcbLuotkham item = new Select().From(KcbLuotkham.Schema)
+                .WhereExpression(KcbLuotkham.Columns.IdBenhvienDen).IsEqualTo(v_intObjectTypeID)
+                .OrExpression(KcbLuotkham.Columns.IdBenhvienDi).IsEqualTo(v_intObjectTypeID).CloseExpression()
+                .ExecuteSingle<KcbLuotkham>();
+            if (item != null)
+            {
+                Utility.ShowMsg("Bệnh viện bạn đang chọn xóa đã được sử dụng trong hệ thống nên bạn không thể xóa");
+                return;
+            }
+            NoitruPhieuravien item1 = new Select().From(NoitruPhieuravien.Schema)
+               .Where(NoitruPhieuravien.Columns.IdBenhvienDi).IsEqualTo(v_intObjectTypeID)
+               .ExecuteSingle<NoitruPhieuravien>();
+            if (item != null)
+            {
+                Utility.ShowMsg("Bệnh viện bạn đang chọn xóa đã được sử dụng trong các phiếu ra viện nên bạn không thể xóa");
+                return;
+            }
             if (Utility.AcceptQuestion("Bạn có muốn xóa bệnh viện đang chọn hay không?", "Xác nhận xóa", true))
             {
-                int v_intObjectTypeID = Convert.ToInt32(txtID.Text.Trim());
                 //Kiểm tra ko được xóa nếu đã sử dụng trong bảng khác
-                //Sẽ kiểm tra thêm trong bảng L_Service_Objects và L_Patient_Exam
                
                 DataRow [] v_DeleteObject = dsTable.Select(DmucBenhvien.Columns.IdBenhvien+ "=" + v_intObjectTypeID);
                 
@@ -402,17 +426,23 @@ namespace VNS.HIS.UI.DANHMUC
         /// </summary>
         private void PerformAction()
         {
-            //Kiểm tra tính hợp lệ của dữ liệu trước khi thêm mới
-            if (!IsValidData())
-            {
-                return;
-            }
+            
             switch (m_enAction)
             {
                 case action.Insert:
+                    //Kiểm tra tính hợp lệ của dữ liệu trước khi thêm mới
+                    if (!IsValidData())
+                    {
+                        return;
+                    }
                     PerformInsertAction();
                     break;
                 case action.Update:
+                    //Kiểm tra tính hợp lệ của dữ liệu trước khi thêm mới
+                    if (!IsValidData())
+                    {
+                        return;
+                    }
                     PerformUpdateAction();
                     break;
                 case action.Delete:
