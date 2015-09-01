@@ -55,7 +55,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private bool b_HasLoaded;
         private bool b_HasSecondScreen;
         private bool b_NhapNamSinh;
-
+        public SysTrace myTrace;
         public GridEX grdList;
         private bool hasjustpressBACKKey;
         private bool isAutoFinding;
@@ -1156,7 +1156,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         txtSoKcb.SetDefaultItem();
                     }
                     m_strMaluotkham = objLuotkham.MaLuotkham;
-
+                    chkKSK.Checked = Utility.Byte2Bool(objLuotkham.Ksk);
                     txtSolankham.Text = Utility.sDbnull(objLuotkham.SolanKham);
                     _IdDoituongKcb = objLuotkham.IdDoituongKcb;
                     dtpInputDate.Value = objLuotkham.NgayTiepdon;
@@ -3709,6 +3709,7 @@ namespace VNS.HIS.UI.NGOAITRU
             dtpBOD.Value = globalVariables.SysDate;
             dtpBOD.Visible=THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "1";
             txtNamSinh.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "0";
+            chkKSK.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_KSK", false) == "1";
             if (dtpBOD.Visible)
                 txtTuoi.Text = Utility.sDbnull(globalVariables.SysDate.Year - dtpBOD.Value.Year);
             if (PropertyLib._KCBProperties != null)
@@ -4476,7 +4477,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     return;
                 }
                 if (objLuotkham == null)
-                    objLuotkham = CreatePatientExam();
+                    objLuotkham = TaoLuotkham();
                 if (objLuotkham != null)
                     KCB_INPHIEU.INPHIEU_KHAM(Utility.sDbnull(objLuotkham.MaDoituongKcb), v_dtData,
                                                   "PHIẾU KHÁM BỆNH", PropertyLib._MayInProperties.CoGiayInPhieuKCB == Papersize.A5 ? "A5" : "A4");
@@ -4623,7 +4624,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
                 if (objLuotkham == null)
                 {
-                    objLuotkham = CreatePatientExam();
+                    objLuotkham = TaoLuotkham();
                 }
                 if (objLuotkham == null)
                 {
@@ -4759,7 +4760,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
                 int Payment_Id = -1;
                 if (objLuotkham == null)
-                    objLuotkham = CreatePatientExam();
+                    objLuotkham = TaoLuotkham();
                 if (Utility.Int32Dbnull(objLuotkham.TrangthaiNoitru, 0) >= Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_CHAN_THANHTOANNGOAITRU", "2", false), 2))
                 {
                     Utility.ShowMsg("Bệnh nhân này đã ở trạng thái nội trú nên hệ thống không cho phép thanh toán ngoại trú nữa");
@@ -4827,7 +4828,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
                 int Payment_Id = -1;
                 if (objLuotkham == null)
-                    objLuotkham = CreatePatientExam();
+                    objLuotkham = TaoLuotkham();
                 if (Utility.Int32Dbnull(objLuotkham.TrangthaiNoitru, 0) >= Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_CHAN_THANHTOANNGOAITRU", "2", false), 2))
                 {
                     Utility.ShowMsg("Bệnh nhân này đã ở trạng thái nội trú nên hệ thống không cho phép thanh toán ngoại trú nữa");
@@ -5262,14 +5263,14 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void ThemLanKham()
         {
-            KcbDanhsachBenhnhan objBenhnhan = CreatePatientInfo();
-            objLuotkham = CreatePatientExam();
-            KcbDangkyKcb objRegExam = CreateNewRegExam();
+            KcbDanhsachBenhnhan objBenhnhan = TaoBenhnhan();
+            objLuotkham = TaoLuotkham();
+            KcbDangkyKcb objRegExam = TaoDangkyKCB();
             KcbDangkySokham objSokham = TaosoKCB();
             long v_id_kham = -1;
             string msg = "";
             errorProvider1.Clear();
-            ActionResult actionResult = _KCB_DANGKY.ThemmoiLuotkham(objBenhnhan, objLuotkham, objRegExam,objSokham,
+            ActionResult actionResult = _KCB_DANGKY.ThemmoiLuotkham(this.myTrace, objBenhnhan, objLuotkham, objRegExam,objSokham,
                                                                              Utility.Int32Dbnull(cboKieuKham.Value, -1), ref v_id_kham, ref msg);
 
             if (msg.Trim() != "")
@@ -5323,7 +5324,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
 
 
-        private KcbDangkyKcb CreateNewRegExam()
+        private KcbDangkyKcb TaoDangkyKCB()
         {
             bool b_HasKham = false;
             EnumerableRowCollection<DataRow> query = from phong in m_dataDataRegExam.AsEnumerable().Cast<DataRow>()
@@ -5524,14 +5525,14 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void InsertPatient()
         {
-            KcbDanhsachBenhnhan objBenhnhan = CreatePatientInfo();
-            objLuotkham = CreatePatientExam();
-            KcbDangkyKcb objRegExam = CreateNewRegExam();
+            KcbDanhsachBenhnhan objBenhnhan = TaoBenhnhan();
+            objLuotkham = TaoLuotkham();
+            KcbDangkyKcb objRegExam = TaoDangkyKCB();
             KcbDangkySokham objSokham = TaosoKCB();
             long v_id_kham = -1;
             string msg = "";
             errorProvider1.Clear();
-            ActionResult actionResult = _KCB_DANGKY.ThemmoiBenhnhan(objBenhnhan, objLuotkham, objRegExam, objSokham,
+            ActionResult actionResult = _KCB_DANGKY.ThemmoiBenhnhan(this.myTrace, objBenhnhan, objLuotkham, objRegExam, objSokham,
                                                                             Utility.Int32Dbnull(cboKieuKham.Value, -1), ref v_id_kham, ref msg);
 
             if (msg.Trim() != "")
@@ -5691,13 +5692,13 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void UpdatePatient()
         {
-            KcbDanhsachBenhnhan objBenhnhan = CreatePatientInfo();
-            objLuotkham = CreatePatientExam();
-            KcbDangkyKcb objRegExam = CreateNewRegExam();
+            KcbDanhsachBenhnhan objBenhnhan = TaoBenhnhan();
+            objLuotkham = TaoLuotkham();
+            KcbDangkyKcb objRegExam = TaoDangkyKCB();
             KcbDangkySokham objSokham = TaosoKCB();
             string msg = "";
             errorProvider1.Clear();
-            ActionResult actionResult = _KCB_DANGKY.UpdateLanKham(objBenhnhan, objLuotkham, objRegExam, objSokham,
+            ActionResult actionResult = _KCB_DANGKY.UpdateLanKham(this.myTrace, objBenhnhan, objLuotkham, objRegExam, objSokham,
                                                                          Utility.Int32Dbnull(cboKieuKham.Value, -1), PtramBhytCu, PtramBhytGocCu, ref msg);
             // THEM_PHI_DVU_KYC(objLuotkham);
             if (msg.Trim() != "")
@@ -5763,7 +5764,7 @@ namespace VNS.HIS.UI.NGOAITRU
         /// <summary>
         /// Insert dữ liệu khi thêm mới hoàn toàn
         /// </summary>hàm chen du lieu moi tin day, benhnhan kham benh moi tinh
-        private KcbDanhsachBenhnhan CreatePatientInfo()
+        private KcbDanhsachBenhnhan TaoBenhnhan()
         {
             
             var objBenhnhan = new KcbDanhsachBenhnhan();
@@ -5822,7 +5823,7 @@ namespace VNS.HIS.UI.NGOAITRU
         /// hàm thực hiện việc khwoir tạo thoog tin PatietnExam
         /// </summary>
         /// <returns></returns>
-        private KcbLuotkham CreatePatientExam()
+        private KcbLuotkham TaoLuotkham()
         {
             objLuotkham = new KcbLuotkham();
             if (m_enAction == action.Insert || m_enAction == action.Add)
@@ -5836,7 +5837,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 objLuotkham.MarkOld();
                 objLuotkham.IsNew = false;
             }
-            
+            objLuotkham.Ksk = Utility.Bool2byte(chkKSK.Visible && chkKSK.Checked);
             objLuotkham.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
             objLuotkham.Noitru = 0;
             objLuotkham.IdDoituongKcb = _IdDoituongKcb;
