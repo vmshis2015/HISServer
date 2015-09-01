@@ -356,7 +356,7 @@ namespace VNS.HIS.UCs
             {
                 var source = new List<string>();
                 var query = from p in dtData.AsEnumerable()
-                            select Utility.sDbnull(p[lstIdCodeName[0]], "") + "#" + Utility.sDbnull(p[lstIdCodeName[1]], "") + "@" + Utility.sDbnull(p[lstIdCodeName[2]], "") + "@" + p.Field<string>("shortcut").ToString();
+                            select Utility.sDbnull(p[lstIdCodeName[0]], "") + "#" + Utility.sDbnull(p[lstIdCodeName[1]], "") + "@" + Utility.sDbnull(p[lstIdCodeName[2]], "") + "@" +Utility.sDbnull( p["shortcut"],"");
                 source = query.ToList();
                 this.AutoCompleteList = source;
                 this.TextAlign = _TextAlign;
