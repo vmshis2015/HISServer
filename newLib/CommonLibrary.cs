@@ -4319,6 +4319,15 @@ namespace VNS.Libs
             return tDate.Year.ToString() + Strings.Right("0" + tDate.Month.ToString(), 2) +
                    Strings.Right("0" + tDate.Day.ToString(), 2);
         }
+        public static string GetYYYYMMDD(System.DateTime? tDate,DateTime defaultVal)
+        {
+            if(tDate.Equals(null) || tDate.Equals(DBNull.Value))
+                return defaultVal.Year.ToString() + Strings.Right("0" + defaultVal.Month.ToString(), 2) +
+                   Strings.Right("0" + defaultVal.Day.ToString(), 2);
+            else
+            return tDate.Value.Year.ToString() + Strings.Right("0" + tDate.Value.Month.ToString(), 2) +
+                   Strings.Right("0" + tDate.Value.Day.ToString(), 2);
+        }
         public static string GetYYYYMMDD(string sDate)
         {
             string[] arrValues = sDate.Split('/');
