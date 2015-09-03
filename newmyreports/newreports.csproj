@@ -77,375 +77,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Baocao\crpt_BaocaochidinhCLS.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_BaocaochidinhCLS.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\crpt_BaocaotienKCBvaCLS.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_BaocaotienKCBvaCLS.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAOTONKHO.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAOTONKHO.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_CPHI_KCB_THEONGUOINHAP1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_CPHI_KCB_THEONGUOINHAP.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_DICHVU_CLS.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_DICHVU_CLS.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_DTHU_PKHAM1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_DTHU_PKHAM.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_HUYBIENLAI_CHITIET.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_HUYBIENLAI_CHITIET.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_HUYBIENLAI_TONGHOP.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_HUYBIENLAI_TONGHOP.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_PHIEUKHAMBENH_BAOHIEMYTE.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_PHIEUKHAMBENH_BAOHIEMYTE.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_PHIEUKHAMBENH_BHYT_A5.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_PHIEUKHAMBENH_BHYT_A5.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_PHIEUKHAMBENH_DICHVU.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_PHIEUKHAMBENH_DICHVU.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_PHIEUKHAMBENH_DICHVU_A5.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_PHIEUKHAMBENH_DICHVU_A5.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_THEOKHOA_CHITIET.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_THEOKHOA_CHITIET.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_THEO_DOI_BACSY1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_THEO_DOI_BACSY.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_THEO_DOI_NHANVIEN_THUNGAN.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_THEO_DOI_NHANVIEN_THUNGAN.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\crpt_BAOCAO_THOP_NGUOITHU_VPHI1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_BAOCAO_THOP_NGUOITHU_VPHI.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_THUPHI_THEO_BACSY.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_THUPHI_THEO_BACSY.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_THUTIEN_BENHNHAN_KHONG_KETTHUC.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_THUTIEN_BENHNHAN_KHONG_KETTHUC.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_THUTIEN_DONGCHITRA_CHECHLECH_CHITIET1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_THUTIEN_DONGCHITRA_CHECHLECH_CHITIET.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_THUTIEN_DONGCHITRA_CHECHLECH_TONGHOP1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_THUTIEN_DONGCHITRA_CHECHLECH_TONGHOP.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_THUTIEN_DONG_CHITRA1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_THUTIEN_DONG_CHITRA.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_THUTIEN_KHAMDOITUONG_THUPHI.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_THUTIEN_KHAMDOITUONG_THUPHI.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_THUTIEN_THEOKHOA.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_THUTIEN_THEOKHOA.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_THUTIEN_THEOKHOA_TONGHOP.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_THUTIEN_THEOKHOA_TONGHOP.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_THU_DVXN_THUPHI_TONGHOP.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_THU_DVXN_THUPHI_TONGHOP.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_THU_TIENKHAM_THUPHI_TONGHOP.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_THU_TIENKHAM_THUPHI_TONGHOP.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_TONGHOP.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_TONGHOP.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BAOCAO_TONGHOP_KKB_DOITUONG_THUPHI.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BAOCAO_TONGHOP_KKB_DOITUONG_THUPHI.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\crpt_BCAO_CTIET_THU_VPHI1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_BCAO_CTIET_THU_VPHI.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\crpt_BCAO_DSACH_HDON_TPHI1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_BCAO_DSACH_HDON_TPHI.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_BIENLAI_THUTIEN.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_BIENLAI_THUTIEN.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\crpt_Baocaotiendongchitra_thugon.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_Baocaotiendongchitra_thugon.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_DANHSACH_DENGHI_THANHTOAN_CPHI_NGOAITRU_THUCTHU.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_DANHSACH_DENGHI_THANHTOAN_CPHI_NGOAITRU_THUCTHU.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_DANHSACH_DENGHI_THANHTOAN_THUNGAN_THUCTHU.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_DANHSACH_DENGHI_THANHTOAN_THUNGAN_THUCTHU.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_DON_THUOC.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_DON_THUOC.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_DON_THUOC_A5.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_DON_THUOC_A5.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_DON_THUOC_HIEUCHINH.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_DON_THUOC_HIEUCHINH.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_LAOKHOA_INPHIEU_NOISOI.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_LAOKHOA_INPHIEU_NOISOI.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_LAOKHOA_INPHIEU_SIEUAM.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_LAOKHOA_INPHIEU_SIEUAM.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\CRPT_NOITIET_BAOCAO_SL_DV_THUOC_BACSY.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRPT_NOITIET_BAOCAO_SL_DV_THUOC_BACSY.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="BenhAn\datasets\DS_BENHAN_NGOAITRU.cs">
-      <DependentUpon>DS_BENHAN_NGOAITRU.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="BenhAn\datasets\DS_BENHAN_NGOAITRU.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DS_BENHAN_NGOAITRU.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="BenhAn\datasets\DS_NOITIET_BENHAN_NOITRU.cs">
-      <DependentUpon>DS_NOITIET_BENHAN_NOITRU.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="BenhAn\datasets\DS_NOITIET_BENHAN_NOITRU.designer.cs">
-      <DependentUpon>DS_NOITIET_BENHAN_NOITRU.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BenhAn\datasets\DS_NOITIET_BENHAN_NOITRU1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DS_NOITIET_BENHAN_NOITRU.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="BenhAn\datasets\sub_BENHAN_NOITRU.cs">
-      <DependentUpon>sub_BENHAN_NOITRU.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="BenhAn\datasets\sub_BENHAN_NOITRU.designer.cs">
-      <DependentUpon>sub_BENHAN_NOITRU.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BenhAn\datasets\sub_BENHAN_NOITRU1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>sub_BENHAN_NOITRU.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="crpt_PhieuDieuTri.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_PhieuDieuTri.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Dataset\dsPhieunhapxuat.cs">
-      <DependentUpon>dsPhieunhapxuat.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Dataset\dsPhieunhapxuat.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsPhieunhapxuat.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Dataset\dsQheDoituongDichvuCLS.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsQheDoituongDichvuCLS.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\crtp_LAOKHOA_BAOCAO_25a_TONGHOP.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crtp_LAOKHOA_BAOCAO_25a_TONGHOP.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\DM_crpt_BaoCaoBNTT1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DM_crpt_BaoCaoBNTT.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\KYDONG_CRPT_BAOCAO_DTHU_PKHAM_BAOHIEM1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KYDONG_CRPT_BAOCAO_DTHU_PKHAM_BAOHIEM.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\KYDONG_CRPT_TKE_THOP_SDUNG_DVKT.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KYDONG_CRPT_TKE_THOP_SDUNG_DVKT.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\rpt_BaoCaoTHSoLuongDoiTuong4.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>rpt_BaoCaoTHSoLuongDoiTuong.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\rpt_BaoCaoTiepDonBN_TheoDoiTuong4.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>rpt_BaoCaoTiepDonBN_TheoDoiTuong.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Baocao\TAMPHUC_CRPT_BAOCAO_DTHU_PKHAM_BAOHIEM_THUCTHU.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TAMPHUC_CRPT_BAOCAO_DTHU_PKHAM_BAOHIEM_THUCTHU.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Common\crpt_Disease1.cs">
-      <DependentUpon>crpt_Disease.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Common\crpt_DrugType1.cs">
-      <DependentUpon>crpt_DrugType.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Common\crpt_HongPhuc_Phieu_SIEUAM1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_HongPhuc_Phieu_SIEUAM.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Common\crpt_KD_AssignInfo1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_KD_AssignInfo.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Common\crpt_KyDong_Phieu_NOISOI1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_KyDong_Phieu_NOISOI.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Common\crpt_KyDong_Phieu_SIEUAM1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_KyDong_Phieu_SIEUAM.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Common\crpt_Phieu_HinhAnh1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_Phieu_HinhAnh.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Common\crpt_PhieuKCB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_PhieuKCB.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Common\crpt_StaffList1.cs">
-      <DependentUpon>crpt_StaffList.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Common\crpt_Stock1.cs">
-      <DependentUpon>crpt_Stock.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Common\crpt_YHHQ_PHIEU_DIENTIM1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_YHHQ_PHIEU_DIENTIM.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Common\crpt_YHHQ_PHIEU_DIENTIM_A51.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_YHHQ_PHIEU_DIENTIM_A5.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Common\crpt_YHHQ_Phieu_NOISOI1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_YHHQ_Phieu_NOISOI.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Common\crpt_YHHQ_Phieu_NOISOI_A51.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_YHHQ_Phieu_NOISOI_A5.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Common\crpt_YHHQ_Phieu_NOISOI_YHHQ1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_YHHQ_Phieu_NOISOI_YHHQ.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Common\crpt_YHHQ_Phieu_SIEUAM1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crpt_YHHQ_Phieu_SIEUAM.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Common\rpt_CreateDeposit2.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>rpt_CreateDeposit.rpt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\baocao_thutientheokhoa_chitiet.cs">
       <DependentUpon>baocao_thutientheokhoa_chitiet.rpt</DependentUpon>
@@ -567,6 +198,54 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\noitru_tonghopchiphiravien_theokhoa.cs">
+      <DependentUpon>noitru_tonghopchiphiravien_theokhoa.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\noitru_tonghopchiphiravien_theokhoa_dichvu.cs">
+      <DependentUpon>noitru_tonghopchiphiravien_theokhoa_dichvu.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\noitru_tonghopchiphiravien_dichvu.cs">
+      <DependentUpon>noitru_tonghopchiphiravien_dichvu.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\thuoc_baocao_nhapxuatton_theokhoanoitru.cs">
+      <DependentUpon>thuoc_baocao_nhapxuatton_theokhoanoitru.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\thuoc_baocao_nhapxuatton_theokhoanoitru_theonhom.cs">
+      <DependentUpon>thuoc_baocao_nhapxuatton_theokhoanoitru_theonhom.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\noitru_phieuravien.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>noitru_phieuravien.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\thuoc_baocao_huychot.cs">
+      <DependentUpon>thuoc_baocao_huychot.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\thuoc_baocao_huychot_theonhom.cs">
+      <DependentUpon>thuoc_baocao_huychot_theonhom.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\thanhtoan_phieuchi.cs">
       <DependentUpon>thanhtoan_phieuchi.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -649,6 +328,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PhieuThongKeDieuTriNoitru.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\thuoc_noitru_phieutrathuocthua.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>thuoc_noitru_phieutrathuocthua.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\thuoc_noitru_phieutrathuocthua_chitiet.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>thuoc_noitru_phieutrathuocthua_chitiet.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\thuoc_thethuoc_tutruc.cs">
@@ -897,431 +588,6 @@
       <DependentUpon>YHHQ_rptPhieuChi.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Thuoc\thuoc_baocaonhapkhotheokho.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_baocaonhapkhotheokho.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocaonhapkho_theongay.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_baocaonhapkho_theongay.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocaonhapkho_theothuoc.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_baocaonhapkho_theothuoc.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocaothanhlythuoc.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_baocaothanhlythuoc.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocaothuochethan_theokho.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_baocaothuochethan_theokho.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocaothuochethan_theongay.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_baocaothuochethan_theongay.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocaothuochethan_theothuoc.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_baocaothuochethan_theothuoc.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocaothuocton_theokho.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_baocaothuocton_theokho.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocaothuocton_theothuoc.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_baocaothuocton_theothuoc.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocaovanchuyennoibo_theokho.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_baocaovanchuyennoibo_theokho.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocaovanchuyennoibo_theongay.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_baocaovanchuyennoibo_theongay.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocaovanchuyennoibo_theothuoc.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_baocaovanchuyennoibo_theothuoc.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_danhmucthuoc.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_danhmucthuoc.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_giathuoc_doituong.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_giathuoc_doituong.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_noitru_phieudenghicapphatthuoc.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_noitru_phieudenghicapphatthuoc.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_noitru_phieuxacnhan_phatthuoc_benhnhan.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_noitru_phieuxacnhan_phatthuoc_benhnhan.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_phieucapphatthuocnoitru.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_phieucapphatthuocnoitru.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_phieucapphat_thuockhoa_PHIEUCAPPHATTHUOCKHOA.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_phieucapphat_thuockhoa_PHIEUCAPPHATTHUOCKHOA.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_phieunhapkho.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_phieunhapkho.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_phieunhaptrakho.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_phieunhaptrakho.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_phieuxacnhan_trathuoc_benhnhan.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_phieuxacnhan_trathuoc_benhnhan.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_phieuxuatkho.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_phieuxuatkho.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_phieuxuatthuoc_gaynghien.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_phieuxuatthuoc_gaynghien.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_phieu_xuatkho_1lien.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_phieu_xuatkho_1lien.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_phieu_xuatkho_2lien.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_phieu_xuatkho_2lien.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_Tinhhinhcapphatthuoctheongay.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_Tinhhinhcapphatthuoctheongay.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_tke_thop_thuocTKE_THOP_THUOC.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_tke_thop_thuocTKE_THOP_THUOC.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_tke_xnhan_thuoc_theongay.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_tke_xnhan_thuoc_theongay.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_Tonghoptonthuoctheongay.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_Tonghoptonthuoctheongay.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_TonGia.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_TonGia.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_TonKho.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_TonKho.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_YHHQInDSGiaTheoDoiTuong.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_YHHQInDSGiaTheoDoiTuong.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_YHHQInDSThuocTheoDoiTuong.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_YHHQInDSThuocTheoDoiTuong.rpt</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Baocao\crpt_BaocaotienKCBvaCLS.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_BaocaotienKCBvaCLS.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAOTONKHO.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAOTONKHO.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\crpt_BaocaochidinhCLS.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_BaocaochidinhCLS.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_CPHI_KCB_THEONGUOINHAP.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_CPHI_KCB_THEONGUOINHAP1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_DICHVU_CLS.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_DICHVU_CLS.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_DTHU_PKHAM.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_DTHU_PKHAM1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_HUYBIENLAI_CHITIET.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_HUYBIENLAI_CHITIET.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_HUYBIENLAI_TONGHOP.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_HUYBIENLAI_TONGHOP.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_PHIEUKHAMBENH_BAOHIEMYTE.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_PHIEUKHAMBENH_BAOHIEMYTE.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_PHIEUKHAMBENH_BHYT_A5.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_PHIEUKHAMBENH_BHYT_A5.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_PHIEUKHAMBENH_DICHVU.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_PHIEUKHAMBENH_DICHVU.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_PHIEUKHAMBENH_DICHVU_A5.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_PHIEUKHAMBENH_DICHVU_A5.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_THEOKHOA_CHITIET.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_THEOKHOA_CHITIET.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_THEO_DOI_BACSY.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_THEO_DOI_BACSY1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_THEO_DOI_NHANVIEN_THUNGAN.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_THEO_DOI_NHANVIEN_THUNGAN.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\crpt_BAOCAO_THOP_NGUOITHU_VPHI.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_BAOCAO_THOP_NGUOITHU_VPHI1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_THUPHI_THEO_BACSY.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_THUPHI_THEO_BACSY.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_THUTIEN_BENHNHAN_KHONG_KETTHUC.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_THUTIEN_BENHNHAN_KHONG_KETTHUC.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_THUTIEN_DONGCHITRA_CHECHLECH_CHITIET.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_THUTIEN_DONGCHITRA_CHECHLECH_CHITIET1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_THUTIEN_DONGCHITRA_CHECHLECH_TONGHOP.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_THUTIEN_DONGCHITRA_CHECHLECH_TONGHOP1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_THUTIEN_DONG_CHITRA.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_THUTIEN_DONG_CHITRA1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_THUTIEN_KHAMDOITUONG_THUPHI.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_THUTIEN_KHAMDOITUONG_THUPHI.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_THUTIEN_THEOKHOA.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_THUTIEN_THEOKHOA.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_THUTIEN_THEOKHOA_TONGHOP.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_THUTIEN_THEOKHOA_TONGHOP.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_THU_DVXN_THUPHI_TONGHOP.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_THU_DVXN_THUPHI_TONGHOP.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_THU_TIENKHAM_THUPHI_TONGHOP.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_THU_TIENKHAM_THUPHI_TONGHOP.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_TONGHOP.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_TONGHOP.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BAOCAO_TONGHOP_KKB_DOITUONG_THUPHI.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_TONGHOP_KKB_DOITUONG_THUPHI.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\crpt_BCAO_CTIET_THU_VPHI.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_BCAO_CTIET_THU_VPHI1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\crpt_BCAO_DSACH_HDON_TPHI.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_BCAO_DSACH_HDON_TPHI1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_BIENLAI_THUTIEN.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BIENLAI_THUTIEN.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\crpt_Baocaotiendongchitra_thugon.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_Baocaotiendongchitra_thugon.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_DANHSACH_DENGHI_THANHTOAN_CPHI_NGOAITRU_THUCTHU.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_DANHSACH_DENGHI_THANHTOAN_CPHI_NGOAITRU_THUCTHU.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_DANHSACH_DENGHI_THANHTOAN_THUNGAN_THUCTHU.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_DANHSACH_DENGHI_THANHTOAN_THUNGAN_THUCTHU.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_DON_THUOC.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_DON_THUOC.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_DON_THUOC_A5.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_DON_THUOC_A5.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_DON_THUOC_HIEUCHINH.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_DON_THUOC_HIEUCHINH.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_LAOKHOA_INPHIEU_NOISOI.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_LAOKHOA_INPHIEU_NOISOI.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_LAOKHOA_INPHIEU_SIEUAM.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_LAOKHOA_INPHIEU_SIEUAM.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\CRPT_NOITIET_BAOCAO_SL_DV_THUOC_BACSY.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_NOITIET_BAOCAO_SL_DV_THUOC_BACSY.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\crtp_LAOKHOA_BAOCAO_25a_TONGHOP.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crtp_LAOKHOA_BAOCAO_25a_TONGHOP.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\DM_crpt_BaoCaoBNTT.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>DM_crpt_BaoCaoBNTT1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\KYDONG_CRPT_BAOCAO_DTHU_PKHAM_BAOHIEM.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>KYDONG_CRPT_BAOCAO_DTHU_PKHAM_BAOHIEM1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\KYDONG_CRPT_TKE_THOP_SDUNG_DVKT.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>KYDONG_CRPT_TKE_THOP_SDUNG_DVKT.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\rpt_BaoCaoTHSoLuongDoiTuong.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rpt_BaoCaoTHSoLuongDoiTuong4.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\rpt_BaoCaoTiepDonBN_TheoDoiTuong.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rpt_BaoCaoTiepDonBN_TheoDoiTuong4.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Baocao\TAMPHUC_CRPT_BAOCAO_DTHU_PKHAM_BAOHIEM_THUCTHU.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>TAMPHUC_CRPT_BAOCAO_DTHU_PKHAM_BAOHIEM_THUCTHU.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_Disease.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_Disease1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_DrugType.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_DrugType1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_HongPhuc_Phieu_SIEUAM.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_HongPhuc_Phieu_SIEUAM1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_KD_AssignInfo.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_KD_AssignInfo1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_KyDong_Phieu_NOISOI.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_KyDong_Phieu_NOISOI1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_KyDong_Phieu_SIEUAM.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_KyDong_Phieu_SIEUAM1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_Phieu_HinhAnh.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_Phieu_HinhAnh1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_PhieuKCB.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_PhieuKCB.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_StaffList.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_StaffList1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_Stock.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_Stock1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_YHHQ_PHIEU_DIENTIM.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_YHHQ_PHIEU_DIENTIM1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_YHHQ_PHIEU_DIENTIM_A5.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_YHHQ_PHIEU_DIENTIM_A51.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_YHHQ_Phieu_NOISOI.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_YHHQ_Phieu_NOISOI1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_YHHQ_Phieu_NOISOI_A5.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_YHHQ_Phieu_NOISOI_A51.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_YHHQ_Phieu_NOISOI_YHHQ.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_YHHQ_Phieu_NOISOI_YHHQ1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\crpt_YHHQ_Phieu_SIEUAM.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_YHHQ_Phieu_SIEUAM1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\rpt_CreateDeposit.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rpt_CreateDeposit2.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="crpt_PhieuDieuTri.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_PhieuDieuTri.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -1467,6 +733,38 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>baocao_huytien_L.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\noitru_tonghopchiphiravien_theokhoa.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>noitru_tonghopchiphiravien_theokhoa.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\noitru_tonghopchiphiravien_theokhoa_dichvu.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>noitru_tonghopchiphiravien_theokhoa_dichvu.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\noitru_tonghopchiphiravien_dichvu.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>noitru_tonghopchiphiravien_dichvu.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\thuoc_baocao_nhapxuatton_theokhoanoitru.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>thuoc_baocao_nhapxuatton_theokhoanoitru.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\thuoc_baocao_nhapxuatton_theokhoanoitru_theonhom.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>thuoc_baocao_nhapxuatton_theokhoanoitru_theonhom.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\noitru_phieuravien.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>noitru_phieuravien.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\thuoc_baocao_huychot.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>thuoc_baocao_huychot.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\thuoc_baocao_huychot_theonhom.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>thuoc_baocao_huychot_theonhom.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\thanhtoan_phieuchi.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>thanhtoan_phieuchi.cs</LastGenOutput>
@@ -1522,6 +820,14 @@
     <EmbeddedResource Include="Reports\PhieuThongKeDieuTriNoitru.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>PhieuThongKeDieuTriNoitru.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\thuoc_noitru_phieutrathuocthua.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>thuoc_noitru_phieutrathuocthua.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\thuoc_noitru_phieutrathuocthua_chitiet.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>thuoc_noitru_phieutrathuocthua_chitiet.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\thuoc_thethuoc_tutruc.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2151,317 +1457,19 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>YHHQ_rptPhieuChi.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ThamKham\thamkham_InphieuchidinhCLS_A4.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thamkham_InphieuchidinhCLS_A4.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ThamKham\thamkham_InphieuchidinhCLS_A5.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thamkham_InphieuchidinhCLS_A5.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ThamKham\thamkham_InphieuchidinhCLS_RIENG_A4.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thamkham_InphieuchidinhCLS_RIENG_A4.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ThamKham\thamkham_InphieuchidinhCLS_RIENG_A5.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thamkham_InphieuchidinhCLS_RIENG_A5.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\BCSoLuongNhapXuatTonKhoChanKhongNhom_HD.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>BCSoLuongNhapXuatTonKhoChanKhongNhom_HD1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\BCSoLuongNhapXuatTonKhoChan_HD.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>BCSoLuongNhapXuatTonKhoChan_HD1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\BCTongHopKhoLeKhongNhom.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>BCTongHopKhoLeKhongNhom1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaochitiet_nhapkho.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaochitiet_nhapkho.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaonhapkhotheokho.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaonhapkhotheokho.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaonhapkho_theongay.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaonhapkho_theongay.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaonhapkho_theothuoc.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaonhapkho_theothuoc.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaothanhlythuoc.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaothanhlythuoc.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaothuochethan_theokho.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaothuochethan_theokho.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaothuochethan_theongay.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaothuochethan_theongay.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaothuochethan_theothuoc.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaothuochethan_theothuoc.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaothuocton_theokho.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaothuocton_theokho.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaothuocton_theothuoc.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaothuocton_theothuoc.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaovanchuyennoibo_theokho.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaovanchuyennoibo_theokho.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaovanchuyennoibo_theongay.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaovanchuyennoibo_theongay.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaovanchuyennoibo_theothuoc.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaovanchuyennoibo_theothuoc.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocao_thuochethan.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocao_thuochethan.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocao_nhapxuatton_khochan.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocao_nhapxuatton_khochan.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\CRPT_BAOCAO_SLUONG_NHAPXUAT_TON_KHOCHAN_NHOM_LOAI.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_SLUONG_NHAPXUAT_TON_KHOCHAN_NHOM_LOAI2.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\CRPT_BAOCAO_SLUONG_NHAPXUAT_TON_KHOCHAN_NHOM_LOAI1.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_BAOCAO_SLUONG_NHAPXUAT_TON_KHOCHAN_NHOM_LOAI11.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocao_nhapxuattonkhole.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocao_nhapxuattonkhole.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\crpt_PHIEUNHAPKHO_TAMPHUC.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crpt_PHIEUNHAPKHO_TAMPHUC1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocao_nhapkho_theonhacungcap.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocao_nhapkho_theonhacungcap.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\CRPT_PHIEU_CAPPHATNOITRU_NEW.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRPT_PHIEU_CAPPHATNOITRU_NEW1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocaokedon_theobacsy.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocaokedon_theobacsy.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocao_chitiet_thuoccapphat_benhnhan.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocao_chitiet_thuoccapphat_benhnhan.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_baocao_danhsachBenhnhan_linhthuoc.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_baocao_danhsachBenhnhan_linhthuoc.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\KYDONG_CRPT_TKE_THOP_THUOC.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>KYDONG_CRPT_TKE_THOP_THUOC1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\ListDrug.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ListDrug1.cs</LastGenOutput>
-    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Thuoc\thuoc_danhmucthuoc.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_danhmucthuoc.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_giathuoc_doituong.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_giathuoc_doituong.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_noitru_phieudenghicapphatthuoc.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_noitru_phieudenghicapphatthuoc.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_noitru_phieuxacnhan_phatthuoc_benhnhan.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_noitru_phieuxacnhan_phatthuoc_benhnhan.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_phieucapphatthuocnoitru.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_phieucapphatthuocnoitru.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_phieucapphat_thuockhoa_PHIEUCAPPHATTHUOCKHOA.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_phieucapphat_thuockhoa_PHIEUCAPPHATTHUOCKHOA.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_phieunhapkho.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_phieunhapkho.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_phieunhaptrakho.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_phieunhaptrakho.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_phieuxacnhan_trathuoc_benhnhan.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_phieuxacnhan_trathuoc_benhnhan.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_phieuxuatkho.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_phieuxuatkho.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_phieuxuatthuoc_gaynghien.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_phieuxuatthuoc_gaynghien.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_phieu_xuatkho_1lien.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_phieu_xuatkho_1lien.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_phieu_xuatkho_2lien.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_phieu_xuatkho_2lien.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_Tinhhinhcapphatthuoctheongay.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_Tinhhinhcapphatthuoctheongay.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_tke_thop_thuocTKE_THOP_THUOC.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_tke_thop_thuocTKE_THOP_THUOC.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_tke_xnhan_thuoc_theongay.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_tke_xnhan_thuoc_theongay.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_Tonghoptonthuoctheongay.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_Tonghoptonthuoctheongay.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_TonGia.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_TonGia.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_TonKho.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_TonKho.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_YHHQInDSGiaTheoDoiTuong.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_YHHQInDSGiaTheoDoiTuong.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Thuoc\thuoc_YHHQInDSThuocTheoDoiTuong.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>thuoc_YHHQInDSThuocTheoDoiTuong.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="BenhAn\datasets\DS_BENHAN_NGOAITRU.xsc">
-      <DependentUpon>DS_BENHAN_NGOAITRU.xsd</DependentUpon>
-    </None>
-    <None Include="BenhAn\datasets\DS_BENHAN_NGOAITRU.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DS_BENHAN_NGOAITRU.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="BenhAn\datasets\DS_BENHAN_NGOAITRU.xss">
-      <DependentUpon>DS_BENHAN_NGOAITRU.xsd</DependentUpon>
-    </None>
-    <None Include="BenhAn\datasets\DS_NOITIET_BENHAN_NOITRU.xsc">
-      <DependentUpon>DS_NOITIET_BENHAN_NOITRU.xsd</DependentUpon>
-    </None>
-    <None Include="BenhAn\datasets\DS_NOITIET_BENHAN_NOITRU.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DS_NOITIET_BENHAN_NOITRU1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="BenhAn\datasets\DS_NOITIET_BENHAN_NOITRU.xss">
-      <DependentUpon>DS_NOITIET_BENHAN_NOITRU.xsd</DependentUpon>
-    </None>
-    <None Include="BenhAn\datasets\sub_BENHAN_NOITRU.xsc">
-      <DependentUpon>sub_BENHAN_NOITRU.xsd</DependentUpon>
-    </None>
-    <None Include="BenhAn\datasets\sub_BENHAN_NOITRU.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>sub_BENHAN_NOITRU1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="BenhAn\datasets\sub_BENHAN_NOITRU.xss">
-      <DependentUpon>sub_BENHAN_NOITRU.xsd</DependentUpon>
-    </None>
-    <None Include="Dataset\dsPhieunhapxuat.xsc">
-      <DependentUpon>dsPhieunhapxuat.xsd</DependentUpon>
-    </None>
-    <None Include="Dataset\dsPhieunhapxuat.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsPhieunhapxuat.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Dataset\dsPhieunhapxuat.xss">
-      <DependentUpon>dsPhieunhapxuat.xsd</DependentUpon>
-    </None>
-    <None Include="Dataset\dsQheDoituongDichvuCLS.xsc">
-      <DependentUpon>dsQheDoituongDichvuCLS.xsd</DependentUpon>
-    </None>
-    <None Include="Dataset\dsQheDoituongDichvuCLS.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsQheDoituongDichvuCLS.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Dataset\dsQheDoituongDichvuCLS.xss">
-      <DependentUpon>dsQheDoituongDichvuCLS.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="RedInvoice\RedInvoice.xsc">
-      <DependentUpon>RedInvoice.xsd</DependentUpon>
-    </None>
-    <None Include="RedInvoice\RedInvoice.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>RedInvoice1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="RedInvoice\RedInvoice.xss">
-      <DependentUpon>RedInvoice.xsd</DependentUpon>
-    </None>
-    <None Include="ThamKham\dsPhieusieuam.xsc">
-      <DependentUpon>dsPhieusieuam.xsd</DependentUpon>
-    </None>
-    <None Include="ThamKham\dsPhieusieuam.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsPhieusieuam.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ThamKham\dsPhieusieuam.xss">
-      <DependentUpon>dsPhieusieuam.xsd</DependentUpon>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="RedInvoice\RedInvoice1.Designer.cs">
-      <DependentUpon>RedInvoice.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reports\BCSoLuongNhapXuatTonKhoChanKhongNhom_HD.cs">
       <AutoGen>True</AutoGen>
@@ -3213,119 +2221,6 @@
       <DependentUpon>tiepdon_PHIEUKHAM_NHIET.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ThamKham\thamkham_InphieuchidinhCLS_A4.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thamkham_InphieuchidinhCLS_A4.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="ThamKham\thamkham_InphieuchidinhCLS_A5.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thamkham_InphieuchidinhCLS_A5.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="ThamKham\thamkham_InphieuchidinhCLS_RIENG_A4.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thamkham_InphieuchidinhCLS_RIENG_A4.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="ThamKham\thamkham_InphieuchidinhCLS_RIENG_A5.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thamkham_InphieuchidinhCLS_RIENG_A5.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\BCSoLuongNhapXuatTonKhoChanKhongNhom_HD1.cs">
-      <DependentUpon>BCSoLuongNhapXuatTonKhoChanKhongNhom_HD.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\BCSoLuongNhapXuatTonKhoChan_HD1.cs">
-      <DependentUpon>BCSoLuongNhapXuatTonKhoChan_HD.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\BCTongHopKhoLeKhongNhom1.cs">
-      <DependentUpon>BCTongHopKhoLeKhongNhom.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocaochitiet_nhapkho.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>thuoc_baocaochitiet_nhapkho.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocao_thuochethan.cs">
-      <DependentUpon>thuoc_baocao_thuochethan.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocao_nhapxuatton_khochan.cs">
-      <DependentUpon>thuoc_baocao_nhapxuatton_khochan.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\CRPT_BAOCAO_SLUONG_NHAPXUAT_TON_KHOCHAN_NHOM_LOAI11.cs">
-      <DependentUpon>CRPT_BAOCAO_SLUONG_NHAPXUAT_TON_KHOCHAN_NHOM_LOAI1.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\CRPT_BAOCAO_SLUONG_NHAPXUAT_TON_KHOCHAN_NHOM_LOAI2.cs">
-      <DependentUpon>CRPT_BAOCAO_SLUONG_NHAPXUAT_TON_KHOCHAN_NHOM_LOAI.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocao_nhapxuattonkhole.cs">
-      <DependentUpon>thuoc_baocao_nhapxuattonkhole.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\crpt_PHIEUNHAPKHO_TAMPHUC1.cs">
-      <DependentUpon>crpt_PHIEUNHAPKHO_TAMPHUC.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocao_nhapkho_theonhacungcap.cs">
-      <DependentUpon>thuoc_baocao_nhapkho_theonhacungcap.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\CRPT_PHIEU_CAPPHATNOITRU_NEW1.cs">
-      <DependentUpon>CRPT_PHIEU_CAPPHATNOITRU_NEW.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocaokedon_theobacsy.cs">
-      <DependentUpon>thuoc_baocaokedon_theobacsy.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocao_chitiet_thuoccapphat_benhnhan.cs">
-      <DependentUpon>thuoc_baocao_chitiet_thuoccapphat_benhnhan.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\thuoc_baocao_danhsachBenhnhan_linhthuoc.cs">
-      <DependentUpon>thuoc_baocao_danhsachBenhnhan_linhthuoc.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\KYDONG_CRPT_TKE_THOP_THUOC1.cs">
-      <DependentUpon>KYDONG_CRPT_TKE_THOP_THUOC.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Thuoc\ListDrug1.cs">
-      <DependentUpon>ListDrug.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="ThamKham\dsPhieusieuam.cs">
-      <DependentUpon>dsPhieusieuam.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ThamKham\dsPhieusieuam.Designer.cs">
-      <DependentUpon>dsPhieusieuam.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
@@ -3349,9 +2244,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BHYT\" />
-    <Folder Include="Thanhtoan\" />
-    <Folder Include="TiepdonBenhnhanKCB\" />
+    <Folder Include="Test\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
