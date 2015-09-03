@@ -148,7 +148,8 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             {
                 m_blnhasLoaded = false;
                 AllowTextChanged = false;
-                //chkTraiTuyen.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_CHOPHEPTIEPDON_TRAITUYEN", "1", false) == "1";
+                Utility.SetColor(lblDiachiBHYT, THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_BATNHAP_DIACHI_BHYT", "1", false) == "1" ? lblMatheBHYT.ForeColor : lblPtram.ForeColor);
+                chkTraiTuyen.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_CHOPHEPTIEPDON_TRAITUYEN", "1", false) == "1";
                 txtMaDTsinhsong.Init();
                 AddAutoCompleteDiaChi();
                 Getdata();
@@ -700,8 +701,8 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             var objDiachinh = sqlQuery.ExecuteSingle<DmucDiachinh>();
             if (objDiachinh != null)
             {
+                lblNoiCapThe.Visible = true;
                 Utility.SetMsg(lblNoiCapThe, Utility.sDbnull(objDiachinh.TenDiachinh), true);
-                //LoadClinicCode();
             }
             else
             {
@@ -930,10 +931,10 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             }
             if (!string.IsNullOrEmpty(txtNoiDKKCBBD.Text))
             {
-
+                string ma_diachinh = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_DANGKY_CACHXACDINH_NOIDKKCBBD", true) == "0" ? txtNoiphattheBHYT.Text : txtNoiDongtrusoKCBBD.Text;
                 SqlQuery sqlQuery = new Select().From(DmucNoiKCBBD.Schema)
                     .Where(DmucNoiKCBBD.Columns.MaKcbbd).IsEqualTo(txtNoiDKKCBBD.Text)
-                    .And(DmucNoiKCBBD.Columns.MaDiachinh).IsEqualTo(txtNoiphattheBHYT.Text);
+                    .And(DmucNoiKCBBD.Columns.MaDiachinh).IsEqualTo(ma_diachinh);
                 if (sqlQuery.GetRecordCount() <= 0)
                 {
                     Utility.ShowMsg(
@@ -1034,8 +1035,9 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
         {
             try
             {
+                string ma_diachinh = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_DANGKY_CACHXACDINH_NOIDKKCBBD", true) == "0" ? txtNoiphattheBHYT.Text : txtNoiDongtrusoKCBBD.Text;
                 //Lấy mã Cơ sở KCBBD
-                string v_CliniCode = txtNoiDongtrusoKCBBD.Text.Trim() + txtNoiDKKCBBD.Text.Trim();
+                string v_CliniCode = ma_diachinh + txtNoiDKKCBBD.Text.Trim();
                 string strClinicName = "";
                 DataTable dataTable = _KCB_DANGKY.GetClinicCode(v_CliniCode);
                 if (dataTable.Rows.Count > 0)
@@ -1047,6 +1049,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 {
                     Utility.SetMsg(lblClinicName, strClinicName, false);
                 }
+                lblClinicName.Visible = dataTable.Rows.Count > 0;
                 lnkThem.Visible = dataTable.Rows.Count <= 0;
                 //txtNamePresent.Text = strClinicName;
                 //Check đúng tuyến cần lấy mã nơi cấp BHYT+mã kcbbd thay vì mã cơ sở kcbbd
