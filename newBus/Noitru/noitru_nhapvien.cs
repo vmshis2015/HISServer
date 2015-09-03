@@ -574,6 +574,75 @@ namespace VNS.HIS.BusRule.Classes
                 return ActionResult.Error;
             }
         }
+        public static void LayThongTinGia(NoitruPhanbuonggiuong objPhanbuonggiuong, KcbLichsuDoituongKcb objLichsu)
+        {
+            objPhanbuonggiuong.TuTuc = 0;
+            NoitruGiabuonggiuong objGia = NoitruGiabuonggiuong.FetchByID(objPhanbuonggiuong.IdGia);
+            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_APGIABUONGGIUONG_THEODANHMUCGIA", "0", true) == "0")
+                objGia = null;
+            NoitruDmucGiuongbenh objGiuong = NoitruDmucGiuongbenh.FetchByID(objPhanbuonggiuong.IdGiuong);
+            if (objGia != null)
+            {
+                objPhanbuonggiuong.DonGia = (objLichsu.MaDoituongKcb == "DV" ? Utility.DecimaltoDbnull(objGia.GiaDichvu) : (objLichsu.MaDoituongKcb == "BHYT" ? Utility.DecimaltoDbnull(objGia.GiaBhyt) : Utility.DecimaltoDbnull(objGia.GiaKhac)));
+                objPhanbuonggiuong.PhuThu = (objLichsu.MaDoituongKcb == "BHYT" ? (Utility.Byte2Bool(objLichsu.DungTuyen) ? Utility.DecimaltoDbnull(objGia.PhuthuDungtuyen) : Utility.DecimaltoDbnull(objGia.PhuthuTraituyen)) : 0);
+                objPhanbuonggiuong.TuTuc = objGiuong.TthaiTunguyen;
+                objPhanbuonggiuong.TenHienthi = Utility.sDbnull(objGiuong.TenGiuong);
+                objPhanbuonggiuong.GiaGoc = objPhanbuonggiuong.DonGia;
+                objPhanbuonggiuong.KieuThue = "GIUONG";
+            }
+            else if (objGiuong != null)
+            {
+                objPhanbuonggiuong.DonGia = (objLichsu.MaDoituongKcb == "DV" ? Utility.DecimaltoDbnull(objGiuong.GiaDichvu) : (objLichsu.MaDoituongKcb == "BHYT" ? Utility.DecimaltoDbnull(objGiuong.GiaBhyt) : Utility.DecimaltoDbnull(objGiuong.GiaKhac)));
+                objPhanbuonggiuong.PhuThu = (objLichsu.MaDoituongKcb == "BHYT" ? (Utility.Byte2Bool(objLichsu.DungTuyen) ? Utility.DecimaltoDbnull(objGiuong.PhuthuDungtuyen) : Utility.DecimaltoDbnull(objGiuong.PhuthuTraituyen)) : 0);
+                objPhanbuonggiuong.TuTuc = objGiuong.TthaiTunguyen;
+                objPhanbuonggiuong.TenHienthi = Utility.sDbnull(objGiuong.TenGiuong);
+                objPhanbuonggiuong.GiaGoc = objPhanbuonggiuong.DonGia;
+                objPhanbuonggiuong.KieuThue = "GIUONG";
+            }
+            else//Tìm vào các bảng quan hệ
+            {
+                SqlQuery sqlQuery = new Select().From<NoitruQheDoituongBuonggiuong>()
+                    .Where(NoitruQheDoituongBuonggiuong.Columns.IdGiuong).IsEqualTo(objPhanbuonggiuong.IdGiuong)
+                    .And(NoitruQheDoituongBuonggiuong.Columns.MaDoituongKcb).IsEqualTo(objLichsu.MaDoituongKcb);
+                NoitruQheDoituongBuonggiuong objQhe = sqlQuery.ExecuteSingle<NoitruQheDoituongBuonggiuong>();
+                if (objQhe != null)
+                {
+                    objPhanbuonggiuong.DonGia = Utility.DecimaltoDbnull(objQhe.DonGia);
+                    objPhanbuonggiuong.PhuThu = Utility.Byte2Bool(objLichsu.DungTuyen) ? Utility.DecimaltoDbnull(objQhe.PhuthuDungtuyen) : Utility.DecimaltoDbnull(objQhe.PhuthuTraituyen);
+                    NoitruDmucGiuongbenh objLBed = NoitruDmucGiuongbenh.FetchByID(objPhanbuonggiuong.IdGiuong);
+                    {
+                        objPhanbuonggiuong.TuTuc = objLBed.TthaiTunguyen;
+                        objPhanbuonggiuong.TenHienthi = Utility.sDbnull(objLBed.TenGiuong);
+                        objPhanbuonggiuong.GiaGoc = Utility.DecimaltoDbnull(objLBed.GiaDichvu);
+                        objPhanbuonggiuong.KieuThue = "GIUONG";
+                    }
+                }
+                else
+                {
+                    NoitruDmucGiuongbenh objLBed = NoitruDmucGiuongbenh.FetchByID(objPhanbuonggiuong.IdGiuong);
+                    if (objLBed != null)
+                    {
+                        objPhanbuonggiuong.TenHienthi = Utility.sDbnull(objLBed.TenGiuong);
+                        objPhanbuonggiuong.DonGia = Utility.DecimaltoDbnull(objLBed.GiaDichvu);
+                        objPhanbuonggiuong.PhuThu = Utility.DecimaltoDbnull(0);
+                        objPhanbuonggiuong.TuTuc = objLBed.TthaiTunguyen;
+                        objPhanbuonggiuong.KieuThue = "GIUONG";
+                        objPhanbuonggiuong.GiaGoc = Utility.DecimaltoDbnull(objLBed.GiaDichvu);
+                        if (!THU_VIEN_CHUNG.IsBaoHiem(objLichsu.IdLoaidoituongKcb))
+                        {
+                            objPhanbuonggiuong.TuTuc = 0;
+                        }
+                    }
+                }
+            }
+            if (!THU_VIEN_CHUNG.IsBaoHiem(objLichsu.IdLoaidoituongKcb))
+            {
+                objPhanbuonggiuong.TuTuc = 0;
+            }
+            objPhanbuonggiuong.TrongGoi = 0;
+            if (objPhanbuonggiuong.IdGiuong > 0 || objPhanbuonggiuong.IdBuong > 0)//Có giường thì mới tính
+                TinhToanPtramBHYT.TinhPhanTramBHYT(objPhanbuonggiuong, objLichsu, Utility.DecimaltoDbnull(objLichsu.PtramBhytGoc));
+        }
         public static void LayThongTinGia(NoitruPhanbuonggiuong objPhanbuonggiuong, KcbLuotkham objPatientExam)
         {
             objPhanbuonggiuong.TuTuc = 0;
