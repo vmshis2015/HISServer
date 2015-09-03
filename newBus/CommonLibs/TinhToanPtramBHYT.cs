@@ -105,6 +105,53 @@ namespace VNS.Libs
        {
            return PhanTramBHYT * DON_GIA / 100;
        }
+       public static void TinhPhanTramBHYT(NoitruPhanbuonggiuong objNoitruPhanbuonggiuong, KcbLichsuDoituongKcb objLichsu, decimal PtramBHYT)
+       {
+           try
+           {
+               decimal BHYT_PTRAM_TRAITUYENNOITRU = Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0m);
+               if (Utility.Int32Dbnull(objNoitruPhanbuonggiuong.TrongGoi, 0) == 1)
+               {
+                   objNoitruPhanbuonggiuong.BhytChitra = 0;// Utility.DecimaltoDbnull(objNoitruPhanbuonggiuong.DonGia, 0) * PtramBHYT / 100;
+                   objNoitruPhanbuonggiuong.BnhanChitra = 0;
+               }
+               else//Ngoài gói
+               {
+                   if (objNoitruPhanbuonggiuong.TuTuc == 1)
+                   {
+                       objNoitruPhanbuonggiuong.BhytChitra = 0;
+                       objNoitruPhanbuonggiuong.BnhanChitra = Utility.DecimaltoDbnull(objNoitruPhanbuonggiuong.DonGia, 0);
+                   }
+                   else
+                   {
+                       decimal BHCT = 0m;
+                       if (objLichsu.DungTuyen == 1)
+                       {
+                           BHCT = Utility.DecimaltoDbnull(objNoitruPhanbuonggiuong.DonGia, 0) * (Utility.DecimaltoDbnull(objLichsu.PtramBhytGoc, 0) / 100);
+                       }
+                       else
+                       {
+                           if (objLichsu.TrangthaiNoitru <= 0)
+                               BHCT = Utility.DecimaltoDbnull(objNoitruPhanbuonggiuong.DonGia, 0) * (Utility.DecimaltoDbnull(objLichsu.PtramBhyt, 0) / 100);
+                           else//Nội trú cần tính=đơn giá * % đầu thẻ * % tuyến
+                               BHCT = Utility.DecimaltoDbnull(objNoitruPhanbuonggiuong.DonGia, 0) * (Utility.DecimaltoDbnull(objLichsu.PtramBhytGoc, 0) / 100) * (BHYT_PTRAM_TRAITUYENNOITRU / 100);
+                       }
+
+                       objNoitruPhanbuonggiuong.BhytChitra = BHCT;// Utility.DecimaltoDbnull(objNoitruPhanbuonggiuong.DonGia, 0) * PtramBHYT / 100;
+                       objNoitruPhanbuonggiuong.BnhanChitra = Utility.DecimaltoDbnull(objNoitruPhanbuonggiuong.DonGia, 0) -
+                                               BHCT;
+                   }
+               }
+               
+
+           }
+           catch (Exception)
+           {
+
+               // throw;
+           }
+
+       }
        public static void TinhPhanTramBHYT(NoitruPhanbuonggiuong objNoitruPhanbuonggiuong,KcbLuotkham objLuotkham, decimal PtramBHYT)
        {
            try
