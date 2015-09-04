@@ -494,7 +494,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 _newitem.MatheBhyt = Laymathe_BHYT();
                 _newitem.MaDoituongBhyt = Utility.sDbnull(txtMaDtuong_BHYT.Text);
                 _newitem.MaQuyenloi = Utility.Int32Dbnull(txtMaQuyenloi_BHYT.Text, null);
-                _newitem.DungTuyen = Utility.ByteDbnull(chkTraiTuyen.Checked ? 0 : 1);
+                _newitem.DungTuyen = !chkTraiTuyen.Visible ? 1 : (((byte?)(chkTraiTuyen.Checked ? 0 : 1))); // Utility.ByteDbnull(chkTraiTuyen.Checked ? 0 : 1);
                 _newitem.TthaiChuyenden = (byte)(chkChuyenVien.Checked ? 1 : 0);
                 _newitem.NgayketthucBhyt = dtInsToDate.Value.Date;
                 _newitem.NgaybatdauBhyt = dtInsFromDate.Value.Date;
@@ -999,7 +999,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                         objLuotkham.NoiDongtrusoKcbbd = Utility.sDbnull(txtNoiDongtrusoKCBBD.Text);
                         objLuotkham.MatheBhyt = Laymathe_BHYT();
                         objLuotkham.MaDoituongBhyt = txtMaDtuong_BHYT.Text;
-                        objLuotkham.DungTuyen = (byte?)(chkTraiTuyen.Checked ? 0 : 1);
+                        objLuotkham.DungTuyen = !chkTraiTuyen.Visible ? 1 : (((byte?)(chkTraiTuyen.Checked ? 0 : 1))); // (byte?)(chkTraiTuyen.Checked ? 0 : 1);
                         objLuotkham.MaKcbbd = Utility.sDbnull(txtNoiDKKCBBD.Text);
                         objLuotkham.IdDoituongKcb = _IdDoituongKcb;
                         objLuotkham.MaQuyenloi = Utility.Int32Dbnull(txtMaQuyenloi_BHYT.Text);
