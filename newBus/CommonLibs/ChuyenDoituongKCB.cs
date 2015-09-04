@@ -59,8 +59,8 @@ namespace VNS.Libs
                             lstChidinhChitiet = new Select().From(KcbChidinhclsChitiet.Schema)
                            .Where(KcbChidinhclsChitiet.Columns.IdChidinh).In(lstID)
                            .ExecuteAsCollection<KcbChidinhclsChitietCollection>();
-
-                        new Delete().From(KcbLichsuDoituongKcb.Schema).Where(KcbLichsuDoituongKcb.Columns.IdLichsuDoituongKcb).In(lstDelete).Execute();
+                        if (lstDelete.Count > 0)
+                            new Delete().From(KcbLichsuDoituongKcb.Schema).Where(KcbLichsuDoituongKcb.Columns.IdLichsuDoituongKcb).In(lstDelete).Execute();
                         foreach (KcbLichsuDoituongKcb objLichsu in lstLichsu)
                         {
 
@@ -80,6 +80,9 @@ namespace VNS.Libs
                                 }
                             }
                             objLichsu.Save();
+                           _ActionResult= CapnhatChiphiKCB(objLichsu, lstDangkyKCB.ToList<KcbDangkyKcb>());
+                            if (_ActionResult == ActionResult.Cancel)
+                                return _ActionResult;
                             List<KcbChidinhcl> _chidinhCLS = (from p in lstChidinh
                                                               where Utility.Int32Dbnull(Utility.GetYYYYMMDD(p.NgayChidinh), 0) >= Utility.Int32Dbnull(Utility.GetYYYYMMDD(objLichsu.NgayHieuluc), 0)
                                                               && Utility.Int32Dbnull(Utility.GetYYYYMMDD(p.NgayChidinh), 0) <= Utility.Int32Dbnull(Utility.GetYYYYMMDD(objLichsu.NgayHethieuluc,new DateTime(2099,1,1)), 0)
@@ -90,8 +93,9 @@ namespace VNS.Libs
                                                                              where lstID.Contains(p.IdChidinh)
                                                                              select p).ToList<KcbChidinhclsChitiet>();
                            
-                            CapnhatChiphiCLS(objLichsu, _chidinhCLS, _chidinhCLsChitiet);
-
+                          _ActionResult=  CapnhatChiphiCLS(objLichsu, _chidinhCLS, _chidinhCLsChitiet);
+                            if (_ActionResult == ActionResult.Cancel)
+                                return _ActionResult;
                             List<KcbDonthuoc> _donthuoc = (from p in lstDonthuoc
                                                            where Utility.Int32Dbnull(Utility.GetYYYYMMDD(p.NgayKedon), 0) >= Utility.Int32Dbnull(Utility.GetYYYYMMDD(objLichsu.NgayHieuluc), 0)
                                                              && Utility.Int32Dbnull(Utility.GetYYYYMMDD(p.NgayKedon), 0) <= Utility.Int32Dbnull(Utility.GetYYYYMMDD(objLichsu.NgayHethieuluc, new DateTime(2099, 1, 1)), 0)
@@ -102,12 +106,15 @@ namespace VNS.Libs
                                                                          where lstID.Contains(p.IdDonthuoc)
                                                                          select p).ToList<KcbDonthuocChitiet>();
 
-                            CapnhatChiphiThuoc(objLichsu, _donthuoc, _donthuocChitiet);
-
+                           _ActionResult= CapnhatChiphiThuoc(objLichsu, _donthuoc, _donthuocChitiet);
+                            if (_ActionResult == ActionResult.Cancel)
+                                return _ActionResult;
                             List<NoitruPhanbuonggiuong> _Bg = (from p in lstbuonggiuong
                                                                      where p.NgayVaokhoa >= objLichsu.NgayHieuluc && p.NgayVaokhoa <= objLichsu.NgayHethieuluc
                                                                      select p).ToList<NoitruPhanbuonggiuong>();
-                            CapnhatBuonggiuong(objLichsu, _Bg);
+                          _ActionResult=  CapnhatBuonggiuong(objLichsu, _Bg);
+                            if (_ActionResult == ActionResult.Cancel)
+                                return _ActionResult;
                            
                         }
                         DateTime maxDate = lstLichsu.Max(c => c.NgayHieuluc);

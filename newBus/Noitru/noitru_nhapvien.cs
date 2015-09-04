@@ -576,6 +576,7 @@ namespace VNS.HIS.BusRule.Classes
         }
         public static void LayThongTinGia(NoitruPhanbuonggiuong objPhanbuonggiuong, KcbLichsuDoituongKcb objLichsu)
         {
+            
             objPhanbuonggiuong.TuTuc = 0;
             NoitruGiabuonggiuong objGia = NoitruGiabuonggiuong.FetchByID(objPhanbuonggiuong.IdGia);
             if (THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_APGIABUONGGIUONG_THEODANHMUCGIA", "0", true) == "0")
