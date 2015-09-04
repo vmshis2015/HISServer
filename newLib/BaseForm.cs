@@ -15,7 +15,6 @@ namespace VNS.Libs
         #endregion
         public BaseForm(): base()
         {
-            VMSInitialize();
             this.Text = this.Text + "-" + globalVariables.Branch_Name + "-@Copyright by VMS";
             //this.Icon=
             //string sPath = Application.StartupPath;
@@ -32,7 +31,7 @@ namespace VNS.Libs
         /// <summary>
         /// Thiết lập các giá trị mặc định cho class
         /// </summary>
-        private void VMSInitialize()
+        public void InitTrace()
         {
             //Lấy về tên DLL. ManifestModule.Name ban đầu có dạng "DLLName.dll"-->Ta chỉ lấy phần "DLLName"
             AssName = this.GetType().Assembly.ManifestModule.Name;// System.Reflection.Assembly.GetExecutingAssembly().ManifestModule.Name;
