@@ -222,48 +222,25 @@ namespace VNS.Libs
         }
         private void cmdTrinhKy_Click(object sender, System.EventArgs e)
         {
-            //XuanDT Them ham nay vao
             addTrinhKy_OnButtonClick();
         }
 
         public void addTrinhKy_OnFormLoad()
         {
-            //Ham nay XuanDT them vao
             try
             {
                 LoadPrintNumberByReportCode();
 
                 mv_oRptFieldObj = GetTrinhky(this.crptViewer.ParameterFieldInfo);
-                //if (mv_oRptFieldObj == null) return;
                 mv_oNguoiKy = new cls_SignInfor(string.IsNullOrEmpty(mv_sReportFileName) ? RptDoc.ToString() : mv_sReportFileName, "");
                 if (mv_oNguoiKy != null)
                 {
-                    //chkPrint_CheckedChanged(chkPrint, New System.EventArgs)
                     if (mv_oNguoiKy._TonTai)
                     {
                         SetParamAgain(this.crptViewer.ParameterFieldInfo);
-                        //if (mv_bSetContent)
-                        //{
-
-                        //    mv_oRptDoc.ReportDefinition.ReportObjects["txtTrinhky"]..Text = mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
-
-                        //}
-                        //else
-                        //{
-                        //    mv_oRptDoc.DataDefinition.FormulaFields["Formula_1"].Text = "";
-                        //}
-
                     }
                     else
                     {
-                        SetParamAgain(this.crptViewer.ParameterFieldInfo);
-                        if (string.IsNullOrEmpty(mv_sReportFileName))
-                            mv_oNguoiKy = new cls_SignInfor(mv_oRptFieldObj, "", RptDoc.ToString(), "");
-                        else
-                        {
-                            mv_oNguoiKy = new cls_SignInfor(mv_oRptFieldObj, "", mv_sReportFileName, "");
-                        }
-
                     }
                 }
                 this.crptViewer.ReportSource = RptDoc;
@@ -382,65 +359,15 @@ namespace VNS.Libs
         }
         private void SetParamAgain(CrystalDecisions.Shared.ParameterFields p)
         {
-            
-                errTrinhky = "";
-                bool hasTrinhky = false;
-                string _log = "";
-                for (int i = 0; i <= p.Count - 1; i++)
-                {
-                    string _plog = "";
-                    try
-                    {
-                        _plog = p[i].ParameterFieldName.ToUpper() + ":";
-                        if (p[i].ParameterFieldName.ToUpper() == "txtTrinhky".ToUpper())
-                        {
-                            
-                            hasTrinhky = true;
-                            if (mv_bSetContent)
-                            {
-                                string sPvalue = mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
-                                sPvalue = sPvalue.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
-                                sPvalue = sPvalue.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
-                                _plog += sPvalue + "\n";
-                                RptDoc.SetParameterValue(p[i].ParameterFieldName, sPvalue);
-                            }
-                            else
-                            {
-                                _plog += "Empty\n";
-                                RptDoc.SetParameterValue(p[i].ParameterFieldName, "");
-                            }
-                        }
-                        else
-                        {
-                            if (p[i].CurrentValues != null && p[i].CurrentValues.Count > 0)
-                            {
-                                
-                                _plog +=Utility.sDbnull( ((CrystalDecisions.Shared.ParameterDiscreteValue)p[i].CurrentValues[0]).Value," NULL") + "\n";
-                                RptDoc.SetParameterValue(p[i].ParameterFieldName, ((CrystalDecisions.Shared.ParameterDiscreteValue)p[i].CurrentValues[0]).Value);
-                            }
-                            else
-                            {
-                                _plog += getDefaultValue(p[i].ParameterValueType) + "\n";
-                                RptDoc.SetParameterValue(p[i].ParameterFieldName, getDefaultValue(p[i].ParameterValueType));
-                            }
-                        }
-                        _log += _plog;
-                    }
-                    catch (Exception ex)
-                    {
-                        Utility.ShowMsg(_log);
-                        Utility.CatchException("SetParamAgain-->", ex);
-                    }
-                }
-                if (mv_bSetContent && hasTrinhky)
-                {
-                    string sPvalue = mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
-                    sPvalue = sPvalue.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
-                    sPvalue = sPvalue.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
-                    Utility.SetParameterValue(RptDoc, "txtTrinhky", sPvalue);
-                }
-           
+            if (mv_bSetContent)
+            {
+                string sPvalue = mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
+                sPvalue = sPvalue.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
+                sPvalue = sPvalue.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
+                Utility.SetParameterValue(RptDoc, "txtTrinhky", sPvalue);
+            }
         }
+     
         object getDefaultValue(ParameterValueKind kind)
         {
             if (kind == ParameterValueKind.StringParameter)
@@ -540,7 +467,6 @@ namespace VNS.Libs
             {
                 if (Utility.Int32Dbnull(txtCopyPage.Text) <= 0)
                 {
-                    //Utility.ShowMsg("Số lượng bản in phải>=1", "Thông báo", MessageBoxIcon.Warning);
                     txtCopyPage.Focus();
                     txtCopyPage.SelectAll();
                     txtCopyPage.Text = "1";
