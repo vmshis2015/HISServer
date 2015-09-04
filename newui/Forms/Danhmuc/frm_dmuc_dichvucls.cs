@@ -105,7 +105,7 @@ namespace VNS.HIS.UI.DANHMUC
         void Search()
         {
             SqlQuery _sqlquery = new Select().From(VDmucDichvucl.Schema);
-            if (Utility.Int32Dbnull(cboServiceType.SelectedValue, -1) != -1 || hanchequyendanhmuc)
+            if (Utility.sDbnull(cboServiceType.SelectedValue, "-1") != "-1" || hanchequyendanhmuc)
                 if (_sqlquery.HasWhere)
                     _sqlquery.Where(VDmucDichvucl.Columns.IdLoaidichvu).IsEqualTo(Utility.sDbnull(cboServiceType.SelectedValue, hanchequyendanhmuc?"0": "-1"));
                 else

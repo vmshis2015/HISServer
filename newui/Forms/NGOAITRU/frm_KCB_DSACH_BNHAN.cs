@@ -31,19 +31,12 @@ namespace VNS.HIS.UI.NGOAITRU
         private DataTable m_PhongKham = new DataTable();
         private DataTable m_kieuKham;
         private DataTable m_dtChiDinhCLS = new DataTable();
-        private int Distance = 488;
-        private string FileName = string.Format("{0}/{1}", Application.StartupPath,string.Format("SplitterDistanceTiepDonf.txt"));
         private bool m_blnHasloaded = false;
       
-        private int SplitterDistance
-        {
-            get { return Distance; }
-            set { Distance = value; }
-        }
-        
         public frm_KCB_DSACH_BNHAN()
         {
             InitializeComponent();
+            this.InitTrace();
             this.KeyPreview = true;
             dtmFrom.Value = globalVariables.SysDate;
             dtmTo.Value = globalVariables.SysDate;

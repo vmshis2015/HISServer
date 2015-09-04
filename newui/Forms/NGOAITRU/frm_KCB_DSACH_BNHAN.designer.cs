@@ -964,7 +964,7 @@
             this.cmdXoaChiDinh.Size = new System.Drawing.Size(93, 29);
             this.cmdXoaChiDinh.TabIndex = 702;
             this.cmdXoaChiDinh.TabStop = false;
-            this.cmdXoaChiDinh.Text = "&Xóa";
+            this.cmdXoaChiDinh.Text = "Xóa";
             // 
             // cmdSuaChiDinh
             // 
@@ -977,7 +977,7 @@
             this.cmdSuaChiDinh.Size = new System.Drawing.Size(85, 29);
             this.cmdSuaChiDinh.TabIndex = 701;
             this.cmdSuaChiDinh.TabStop = false;
-            this.cmdSuaChiDinh.Text = "&Sửa";
+            this.cmdSuaChiDinh.Text = "Sửa";
             // 
             // cmdThemChiDinh
             // 
@@ -990,7 +990,7 @@
             this.cmdThemChiDinh.Size = new System.Drawing.Size(103, 29);
             this.cmdThemChiDinh.TabIndex = 700;
             this.cmdThemChiDinh.TabStop = false;
-            this.cmdThemChiDinh.Text = "&Thêm";
+            this.cmdThemChiDinh.Text = "Thêm";
             // 
             // contextMenuStrip1
             // 
@@ -1295,7 +1295,6 @@
             this.Controls.Add(this.toolStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frm_KCB_DSACH_BNHAN";
