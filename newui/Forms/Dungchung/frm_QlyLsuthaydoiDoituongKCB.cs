@@ -713,10 +713,11 @@ namespace VNS.HIS.UI.Forms.Dungchung
         {
             try
             {
+                Utility.SetMsg(lblMsg, "", false);
                 cmdSave.Enabled = false;
                 if (m_dtData.Rows.Count <= 0)
                 {
-                    Utility.ShowMsg("Không có dữ liệu để ghi. Đề nghị bạn kiểm tra lại");
+                    Utility.SetMsg(lblMsg, "Không có dữ liệu để ghi. Đề nghị bạn kiểm tra lại", true);
                     return;
                 }
                 if (!CheckDayRangeConflict()) return;
@@ -726,7 +727,12 @@ namespace VNS.HIS.UI.Forms.Dungchung
                     Utility.ShowMsg("Cần ít nhất 1 dòng lịch sử đối tượng KCB trước khi thực hiện nhấn nút chấp nhận");
                     return;
                 }
-                ChuyenDoituongKCB.CapnhatLichsuDoituongKCB(lstLichsu, lstIDDelete);
+               ActionResult act= ChuyenDoituongKCB.CapnhatLichsuDoituongKCB(lstLichsu, lstIDDelete);
+               if (act == ActionResult.Success)
+               {
+                   Utility.SetMsg(lblMsg, "Đã cập nhật lịch sử thay đổi đối tượng KCB của Bệnh nhân thành công", false);
+                   lstIDDelete.Clear();
+               }
             }
             catch(Exception ex)
             {

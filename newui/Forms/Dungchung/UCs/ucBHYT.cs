@@ -39,7 +39,7 @@ namespace VNS.HIS.UI.Forms.Dungchung.UCs
         {
             dtInsFromDate.Value = new DateTime(globalVariables.SysDate.Year, 1, 1);
             dtInsToDate.Value = new DateTime(globalVariables.SysDate.Year, 12, 31);
-            Utility.SetColor(lblDiachiBHYT, THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_BATNHAP_DIACHI_BHYT", "1", false) == "1" ? lblMatheBHYT.ForeColor : lblMatheBHYT.ForeColor);
+            Utility.SetColor(lblDiachiBHYT, THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_BATNHAP_DIACHI_BHYT", "1", false) == "1" ? lblMatheBHYT.ForeColor : lblDoituongSinhsong.ForeColor);
             chkTraiTuyen.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_CHOPHEPTIEPDON_TRAITUYEN", "1", false) == "1";
             txtMaDTsinhsong.Init();
         }
@@ -146,27 +146,54 @@ namespace VNS.HIS.UI.Forms.Dungchung.UCs
         }
         public void GetData(ref DataRow drData)
         {
-            drData[KcbLichsuDoituongKcb.Columns.TrangthaiCapcuu] = Utility.Bool2byte(chkCapCuu.Checked);
-            drData[KcbLichsuDoituongKcb.Columns.DungTuyen] = Utility.Bool2byte(chkTraiTuyen.Checked);
-            drData[KcbLichsuDoituongKcb.Columns.DiachiBhyt] = Utility.DoTrim(txtDiachi_bhyt.Text);
-            drData[KcbLichsuDoituongKcb.Columns.NgaybatdauBhyt] = dtInsFromDate.Value;
-            drData[KcbLichsuDoituongKcb.Columns.NgayketthucBhyt] = dtInsToDate.Value;
+            if (pnlBHYT.Enabled)
+            {
+                drData[KcbLichsuDoituongKcb.Columns.TrangthaiCapcuu] = Utility.Bool2byte(chkCapCuu.Checked);
+                drData[KcbLichsuDoituongKcb.Columns.DungTuyen] = !chkTraiTuyen.Visible ? 1 : (((byte?)(chkTraiTuyen.Checked ? 0 : 1)));
+                drData[KcbLichsuDoituongKcb.Columns.DiachiBhyt] = Utility.DoTrim(txtDiachi_bhyt.Text);
+                drData[KcbLichsuDoituongKcb.Columns.NgaybatdauBhyt] = dtInsFromDate.Value;
+                drData[KcbLichsuDoituongKcb.Columns.NgayketthucBhyt] = dtInsToDate.Value;
 
-            drData[KcbLichsuDoituongKcb.Columns.PtramBhyt] = Utility.DecimaltoDbnull(txtPtramBHYT.Text, 0);
-            drData[KcbLichsuDoituongKcb.Columns.PtramBhytGoc] = Utility.DecimaltoDbnull(txtptramDauthe.Text, 0);
-            drData[KcbLichsuDoituongKcb.Columns.MaDoituongBhyt] = txtMaDtuong_BHYT.Text;
+                drData[KcbLichsuDoituongKcb.Columns.PtramBhyt] = Utility.DecimaltoDbnull(txtPtramBHYT.Text, 0);
+                drData[KcbLichsuDoituongKcb.Columns.PtramBhytGoc] = Utility.DecimaltoDbnull(txtptramDauthe.Text, 0);
+                drData[KcbLichsuDoituongKcb.Columns.MaDoituongBhyt] = txtMaDtuong_BHYT.Text;
 
-            drData[KcbLichsuDoituongKcb.Columns.MaQuyenloi] =Utility.Int32Dbnull( txtMaQuyenloi_BHYT.Text,-1);
-            drData[KcbLichsuDoituongKcb.Columns.NoiDongtrusoKcbbd] = txtNoiDongtrusoKCBBD.Text;
+                drData[KcbLichsuDoituongKcb.Columns.MaQuyenloi] = Utility.Int32Dbnull(txtMaQuyenloi_BHYT.Text, -1);
+                drData[KcbLichsuDoituongKcb.Columns.NoiDongtrusoKcbbd] = txtNoiDongtrusoKCBBD.Text;
 
-            drData[KcbLichsuDoituongKcb.Columns.MatheBhyt] = Laymathe_BHYT();
-            drData[KcbLichsuDoituongKcb.Columns.MadtuongSinhsong] = txtMaDTsinhsong.myCode;
-            drData[KcbLichsuDoituongKcb.Columns.GiayBhyt] = Utility.Bool2byte(chkGiayBHYT.Checked);
-            
+                drData[KcbLichsuDoituongKcb.Columns.MatheBhyt] = Laymathe_BHYT();
+                drData[KcbLichsuDoituongKcb.Columns.MadtuongSinhsong] = txtMaDTsinhsong.myCode;
+                drData[KcbLichsuDoituongKcb.Columns.GiayBhyt] = Utility.Bool2byte(chkGiayBHYT.Checked);
 
-            drData[KcbLichsuDoituongKcb.Columns.MaNoicapBhyt] = txtNoiphattheBHYT.Text;
-            drData[KcbLichsuDoituongKcb.Columns.NoicapBhyt] = lblNoiCapThe.Text;
-            drData[KcbLichsuDoituongKcb.Columns.MaKcbbd] = txtNoiDKKCBBD.Text;
+
+                drData[KcbLichsuDoituongKcb.Columns.MaNoicapBhyt] = txtNoiphattheBHYT.Text;
+                drData[KcbLichsuDoituongKcb.Columns.NoicapBhyt] = lblNoiCapThe.Text;
+                drData[KcbLichsuDoituongKcb.Columns.MaKcbbd] = txtNoiDKKCBBD.Text;
+            }
+            else
+            {
+                drData[KcbLichsuDoituongKcb.Columns.TrangthaiCapcuu] = Utility.Bool2byte(chkCapCuu.Checked);
+                drData[KcbLichsuDoituongKcb.Columns.DungTuyen] = 0;
+                drData[KcbLichsuDoituongKcb.Columns.DiachiBhyt] = "";
+                drData[KcbLichsuDoituongKcb.Columns.NgaybatdauBhyt] = DBNull.Value;
+                drData[KcbLichsuDoituongKcb.Columns.NgayketthucBhyt] = DBNull.Value;
+
+                drData[KcbLichsuDoituongKcb.Columns.PtramBhyt] = 0;
+                drData[KcbLichsuDoituongKcb.Columns.PtramBhytGoc] =0;
+                drData[KcbLichsuDoituongKcb.Columns.MaDoituongBhyt] = "";
+
+                drData[KcbLichsuDoituongKcb.Columns.MaQuyenloi] = 1;
+                drData[KcbLichsuDoituongKcb.Columns.NoiDongtrusoKcbbd] = "";
+
+                drData[KcbLichsuDoituongKcb.Columns.MatheBhyt] = "";
+                drData[KcbLichsuDoituongKcb.Columns.MadtuongSinhsong] = "";
+                drData[KcbLichsuDoituongKcb.Columns.GiayBhyt] = 0;
+
+
+                drData[KcbLichsuDoituongKcb.Columns.MaNoicapBhyt] = "";
+                drData[KcbLichsuDoituongKcb.Columns.NoicapBhyt] = "";
+                drData[KcbLichsuDoituongKcb.Columns.MaKcbbd] = "";
+            }
         }
         public void ChangeObjectRegion(DmucDoituongkcb objDoituongKCB)
         {

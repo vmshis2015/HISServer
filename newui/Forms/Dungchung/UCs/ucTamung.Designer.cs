@@ -441,6 +441,6 @@
         private Janus.Windows.EditControls.UIButton cmdxoa;
         private System.Windows.Forms.Label lblTongtien;
         private Janus.Windows.EditControls.UIButton cmdConfig;
-        private Janus.Windows.GridEX.GridEX grdTamung;
+        public Janus.Windows.GridEX.GridEX grdTamung;
     }
 }

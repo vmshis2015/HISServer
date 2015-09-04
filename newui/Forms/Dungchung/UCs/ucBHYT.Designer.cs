@@ -34,7 +34,7 @@
             this.lblPtramdauthe = new System.Windows.Forms.Label();
             this.txtptramDauthe = new System.Windows.Forms.TextBox();
             this.lblTuyenBHYT = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lblDoituongSinhsong = new System.Windows.Forms.Label();
             this.txtMaDTsinhsong = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.chkGiayBHYT = new Janus.Windows.EditControls.UICheckBox();
             this.txtMaDtuong_BHYT2 = new VNS.HIS.UCs.AutoCompleteTextbox();
@@ -72,7 +72,7 @@
             this.pnlBHYT.Controls.Add(this.lblPtramdauthe);
             this.pnlBHYT.Controls.Add(this.txtptramDauthe);
             this.pnlBHYT.Controls.Add(this.lblTuyenBHYT);
-            this.pnlBHYT.Controls.Add(this.label13);
+            this.pnlBHYT.Controls.Add(this.lblDoituongSinhsong);
             this.pnlBHYT.Controls.Add(this.txtMaDTsinhsong);
             this.pnlBHYT.Controls.Add(this.chkGiayBHYT);
             this.pnlBHYT.Controls.Add(this.txtMaDtuong_BHYT2);
@@ -146,16 +146,16 @@
             this.lblTuyenBHYT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblTuyenBHYT.Visible = false;
             // 
-            // label13
+            // lblDoituongSinhsong
             // 
-            this.label13.BackColor = System.Drawing.Color.Transparent;
-            this.label13.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(8, 83);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(111, 21);
-            this.label13.TabIndex = 541;
-            this.label13.Text = "Mã ĐT sinh sống:";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblDoituongSinhsong.BackColor = System.Drawing.Color.Transparent;
+            this.lblDoituongSinhsong.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDoituongSinhsong.Location = new System.Drawing.Point(8, 83);
+            this.lblDoituongSinhsong.Name = "lblDoituongSinhsong";
+            this.lblDoituongSinhsong.Size = new System.Drawing.Size(111, 21);
+            this.lblDoituongSinhsong.TabIndex = 541;
+            this.lblDoituongSinhsong.Text = "Mã ĐT sinh sống:";
+            this.lblDoituongSinhsong.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtMaDTsinhsong
             // 
@@ -309,6 +309,7 @@
             // 
             this.label39.BackColor = System.Drawing.Color.Transparent;
             this.label39.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label39.ForeColor = System.Drawing.Color.Red;
             this.label39.Location = new System.Drawing.Point(6, 35);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(115, 21);
@@ -379,6 +380,7 @@
             this.label40.AutoSize = true;
             this.label40.BackColor = System.Drawing.SystemColors.Control;
             this.label40.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label40.ForeColor = System.Drawing.Color.Red;
             this.label40.Location = new System.Drawing.Point(258, 38);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(57, 15);
@@ -387,6 +389,7 @@
             // 
             // lblMatheBHYT
             // 
+            this.lblMatheBHYT.ForeColor = System.Drawing.Color.Red;
             this.lblMatheBHYT.Location = new System.Drawing.Point(8, 9);
             this.lblMatheBHYT.Name = "lblMatheBHYT";
             this.lblMatheBHYT.Size = new System.Drawing.Size(113, 21);
@@ -593,7 +596,7 @@
         private System.Windows.Forms.Panel pnlBHYT;
         private System.Windows.Forms.Label lblPtramdauthe;
         private System.Windows.Forms.Label lblTuyenBHYT;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblDoituongSinhsong;
         private HIS.UCs.AutoCompleteTextbox txtMaDtuong_BHYT2;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label40;
