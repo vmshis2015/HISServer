@@ -29,26 +29,26 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node0");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node2");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Node3");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node4");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Node5");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Node6");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Node7");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Node8");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Node10");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Node11");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Node12");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Node13");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Node14");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Node9", new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11,
-            treeNode12,
-            treeNode13,
-            treeNode14});
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Node0");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Node1");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Node2");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Node3");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Node4");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Node5");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Node6");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Node7");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Node8");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Node10");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Node11");
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Node12");
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Node13");
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Node14");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Node9", new System.Windows.Forms.TreeNode[] {
+            treeNode25,
+            treeNode26,
+            treeNode27,
+            treeNode28,
+            treeNode29});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_MainForm_new));
             this.treeView = new System.Windows.Forms.TreeView();
             this.pMainConent = new Janus.Windows.UI.Dock.UIPanelGroup();
@@ -74,6 +74,7 @@
             this.lblDepartment = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblUser = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblIP = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblCopyright = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblUpdateVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.PanelManager = new Janus.Windows.UI.Dock.UIPanelManager(this.components);
@@ -83,7 +84,6 @@
             this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.lblTime = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pMainConent)).BeginInit();
             this.pnlHeader.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -100,47 +100,47 @@
             this.treeView.LineColor = System.Drawing.Color.Empty;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
-            treeNode1.Name = "Node0";
-            treeNode1.Text = "Node0";
-            treeNode2.Name = "Node1";
-            treeNode2.Text = "Node1";
-            treeNode3.Name = "Node2";
-            treeNode3.Text = "Node2";
-            treeNode4.Name = "Node3";
-            treeNode4.Text = "Node3";
-            treeNode5.Name = "Node4";
-            treeNode5.Text = "Node4";
-            treeNode6.Name = "Node5";
-            treeNode6.Text = "Node5";
-            treeNode7.Name = "Node6";
-            treeNode7.Text = "Node6";
-            treeNode8.Name = "Node7";
-            treeNode8.Text = "Node7";
-            treeNode9.Name = "Node8";
-            treeNode9.Text = "Node8";
-            treeNode10.Name = "Node10";
-            treeNode10.Text = "Node10";
-            treeNode11.Name = "Node11";
-            treeNode11.Text = "Node11";
-            treeNode12.Name = "Node12";
-            treeNode12.Text = "Node12";
-            treeNode13.Name = "Node13";
-            treeNode13.Text = "Node13";
-            treeNode14.Name = "Node14";
-            treeNode14.Text = "Node14";
-            treeNode15.Name = "Node9";
-            treeNode15.Text = "Node9";
+            treeNode16.Name = "Node0";
+            treeNode16.Text = "Node0";
+            treeNode17.Name = "Node1";
+            treeNode17.Text = "Node1";
+            treeNode18.Name = "Node2";
+            treeNode18.Text = "Node2";
+            treeNode19.Name = "Node3";
+            treeNode19.Text = "Node3";
+            treeNode20.Name = "Node4";
+            treeNode20.Text = "Node4";
+            treeNode21.Name = "Node5";
+            treeNode21.Text = "Node5";
+            treeNode22.Name = "Node6";
+            treeNode22.Text = "Node6";
+            treeNode23.Name = "Node7";
+            treeNode23.Text = "Node7";
+            treeNode24.Name = "Node8";
+            treeNode24.Text = "Node8";
+            treeNode25.Name = "Node10";
+            treeNode25.Text = "Node10";
+            treeNode26.Name = "Node11";
+            treeNode26.Text = "Node11";
+            treeNode27.Name = "Node12";
+            treeNode27.Text = "Node12";
+            treeNode28.Name = "Node13";
+            treeNode28.Text = "Node13";
+            treeNode29.Name = "Node14";
+            treeNode29.Text = "Node14";
+            treeNode30.Name = "Node9";
+            treeNode30.Text = "Node9";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6,
-            treeNode7,
-            treeNode8,
-            treeNode9,
-            treeNode15});
+            treeNode16,
+            treeNode17,
+            treeNode18,
+            treeNode19,
+            treeNode20,
+            treeNode21,
+            treeNode22,
+            treeNode23,
+            treeNode24,
+            treeNode30});
             this.treeView.Size = new System.Drawing.Size(196, 461);
             this.treeView.TabIndex = 0;
             // 
@@ -166,9 +166,12 @@
             // 
             this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
             this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "OPEN2.PNG");
-            this.imageList.Images.SetKeyName(1, "Folder.png");
-            this.imageList.Images.SetKeyName(2, "Folder.png");
+            this.imageList.Images.SetKeyName(0, "arrow_left_1.ico");
+            this.imageList.Images.SetKeyName(1, "UserFolderClosedLarge.png");
+            this.imageList.Images.SetKeyName(2, "FolderClosedLarge.png");
+            this.imageList.Images.SetKeyName(3, "FolderOpenLarge.png");
+            this.imageList.Images.SetKeyName(4, "NextPageToolLarge.png");
+            this.imageList.Images.SetKeyName(5, "next_color.png");
             // 
             // imageList1
             // 
@@ -191,7 +194,7 @@
             this.imageList1.Images.SetKeyName(14, "STOP_gray.PNG");
             this.imageList1.Images.SetKeyName(15, "PASTE.PNG");
             this.imageList1.Images.SetKeyName(16, "FOLDER.PNG");
-            this.imageList1.Images.SetKeyName(17, "Folder.png");
+            this.imageList1.Images.SetKeyName(17, "FolderClosedLarge.png");
             // 
             // ntfSystemInfo
             // 
@@ -221,7 +224,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1360, 45);
+            this.pnlHeader.Size = new System.Drawing.Size(1008, 45);
             this.pnlHeader.TabIndex = 8;
             this.toolTip1.SetToolTip(this.pnlHeader, "Nhấn F12 để ẩn(hiện) tiêu đề");
             // 
@@ -233,7 +236,7 @@
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label1.Location = new System.Drawing.Point(57, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(713, 45);
+            this.label1.Size = new System.Drawing.Size(361, 45);
             this.label1.TabIndex = 10;
             this.label1.Text = "QUẢN LÝ THÔNG TIN BỆNH VIỆN - HIS.NET";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -249,7 +252,7 @@
             this.flowLayoutPanel1.Controls.Add(this.cmdMainPanel);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(770, 0);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(418, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(590, 45);
             this.flowLayoutPanel1.TabIndex = 9;
@@ -381,10 +384,10 @@
             this.lblTime,
             this.lblCopyright,
             this.lblUpdateVersion});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 718);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 708);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1360, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1008, 22);
             this.statusStrip1.TabIndex = 9;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -422,10 +425,18 @@
             this.lblIP.Text = "IP:";
             this.lblIP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // lblTime
+            // 
+            this.lblTime.ActiveLinkColor = System.Drawing.Color.Navy;
+            this.lblTime.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(35, 17);
+            this.lblTime.Text = "Time";
+            // 
             // lblCopyright
             // 
             this.lblCopyright.Name = "lblCopyright";
-            this.lblCopyright.Size = new System.Drawing.Size(902, 17);
+            this.lblCopyright.Size = new System.Drawing.Size(581, 17);
             this.lblCopyright.Spring = true;
             this.lblCopyright.Text = "COPYRIGHT © Công ty cổ phần CNTT VINASOFT";
             this.lblCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -442,6 +453,8 @@
             // PanelManager
             // 
             this.PanelManager.AllowAutoHideAnimation = false;
+            this.PanelManager.AllowPanelDrag = false;
+            this.PanelManager.AllowPanelDrop = false;
             this.PanelManager.BackColorSplitter = System.Drawing.Color.Navy;
             this.PanelManager.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><AutoHidePanelToolTip>" +
     "Tự động ẩn</AutoHidePanelToolTip><CloseMdiToolTip>Đóng Form hiện tại</CloseMdiTo" +
@@ -510,7 +523,7 @@
             this.menuStrip.Location = new System.Drawing.Point(0, 45);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip.Size = new System.Drawing.Size(1360, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1008, 24);
             this.menuStrip.TabIndex = 11;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -520,31 +533,23 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // lblTime
-            // 
-            this.lblTime.ActiveLinkColor = System.Drawing.Color.Navy;
-            this.lblTime.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(35, 17);
-            this.lblTime.Text = "Time";
-            // 
             // frm_MainForm_new
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoSize = true;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1360, 740);
+            this.ClientSize = new System.Drawing.Size(1008, 730);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.pnlHeader);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
-            this.MaximizeBox = false;
             this.Name = "frm_MainForm_new";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý thông tin Bệnh viện - HIS.NET";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

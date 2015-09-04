@@ -70,7 +70,19 @@ namespace CIS.CoreApp
                 
                 lblCopyright.Click += new EventHandler(lblCopyright_Click);
                 InitLogs();
-                WS._AdminWS.Url = PropertyLib._ConfigProperties.WSURL;
+                try
+                {
+                    if (Utility.DoTrim(PropertyLib._ConfigProperties.WSURL) == string.Empty)
+                        WS._AdminWS.Url = "http://localhost:1695/AdminWS.asmx";
+                    else
+                        WS._AdminWS.Url = PropertyLib._ConfigProperties.WSURL;
+                }
+                catch (Exception exWS)
+                {
+                    Utility.CatchException("Lỗi khởi tạo Webservice.Url", exWS);
+                }
+
+              
                 if (PropertyLib._ConfigProperties.HIS_AppMode!=VNS.Libs.AppType.AppEnum.AppMode.Demo && PropertyLib._ConfigProperties.RunUnderWS)
                 {
                     string DataBaseServer = "";
@@ -99,8 +111,9 @@ namespace CIS.CoreApp
                     treeView.ExpandAll();
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.CatchException("Lỗi khởi tạo HIS", ex);
             }
             finally
             {
