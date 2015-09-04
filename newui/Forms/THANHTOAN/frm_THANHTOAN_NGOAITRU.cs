@@ -1088,6 +1088,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                        ucTamung1.ChangePatients(objLuotkham, string.Empty);
                        cmdHoanung.Text = objTamung == null ? "Hoàn ứng" : "Hủy hoàn ứng";
                        cmdHoanung.Tag = objTamung == null ? "0" : "1";
+                       cmdHoanung.Enabled = ucTamung1.grdTamung.GetDataRows().Length > 0;
                     KiemTraDaInPhoiBHYT();
                     GetDataChiTiet();
                     LaydanhsachLichsuthanhtoan_phieuchi();
