@@ -594,7 +594,7 @@ namespace CIS.CoreApp
             {
                 lblHospital.Text = globalVariables.Branch_Name + " Tuyến: " + THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_TUYEN", "NONE", true);
                 lblUser.Text = globalVariables.UserName;
-                lblIP.Text = THU_VIEN_CHUNG.GetIP4Address();
+                lblIP.Text = globalVariables.gv_strIPAddress;
                 DmucKhoaphong objDepartment = new Select().From(DmucKhoaphong.Schema)
                    .Where(DmucKhoaphong.Columns.MaKhoaphong).IsEqualTo(globalVariables.MA_KHOA_THIEN).ExecuteSingle
                    <DmucKhoaphong>();

@@ -435,7 +435,7 @@ namespace CIS.CoreApp
             finally
             {
                 THU_VIEN_CHUNG.GetIP4Address();
-                //THU_VIEN_CHUNG.GetMACAddress();
+                THU_VIEN_CHUNG.GetMACAddress();
                 THU_VIEN_CHUNG.LoadThamSoHeThong();
                 
                 
