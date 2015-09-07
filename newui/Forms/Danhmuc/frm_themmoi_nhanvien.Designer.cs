@@ -72,6 +72,8 @@
             this.txtID = new System.Windows.Forms.TextBox();
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
+            this.cboUserName = new System.Windows.Forms.ComboBox();
+            this.txtKhoa = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -93,6 +95,8 @@
             // uiGroupBox1
             // 
             this.uiGroupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.uiGroupBox1.Controls.Add(this.txtKhoa);
+            this.uiGroupBox1.Controls.Add(this.cboUserName);
             this.uiGroupBox1.Controls.Add(this.tabControl1);
             this.uiGroupBox1.Controls.Add(this.lblMsg);
             this.uiGroupBox1.Controls.Add(this.txtUID);
@@ -340,7 +344,7 @@
             this.txtUID.ExtraWidth = 0;
             this.txtUID.FillValueAfterSelect = false;
             this.txtUID.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUID.Location = new System.Drawing.Point(118, 147);
+            this.txtUID.Location = new System.Drawing.Point(670, 149);
             this.txtUID.MaxHeight = 289;
             this.txtUID.MinTypedCharacters = 2;
             this.txtUID.MyCode = "-1";
@@ -351,7 +355,7 @@
             this.txtUID.RaiseEventEnter = true;
             this.txtUID.RaiseEventEnterWhenEmpty = true;
             this.txtUID.SelectedIndex = -1;
-            this.txtUID.Size = new System.Drawing.Size(355, 21);
+            this.txtUID.Size = new System.Drawing.Size(53, 21);
             this.txtUID.splitChar = '@';
             this.txtUID.splitCharIDAndCode = '#';
             this.txtUID.TabIndex = 7;
@@ -363,6 +367,7 @@
             this.txtUID.txtMyName = null;
             this.txtUID.txtMyName_Edit = null;
             this.txtUID.txtNext = null;
+            this.txtUID.Visible = false;
             // 
             // label1
             // 
@@ -585,6 +590,32 @@
             this.cmdExit.ToolTipText = "Thoát Form hiện tại";
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
             // 
+            // cboUserName
+            // 
+            this.cboUserName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboUserName.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboUserName.FormattingEnabled = true;
+            this.cboUserName.Items.AddRange(new object[] {
+            "Nhân viên phục vụ",
+            "Lãnh đạo đơn vị"});
+            this.cboUserName.Location = new System.Drawing.Point(117, 146);
+            this.cboUserName.Name = "cboUserName";
+            this.cboUserName.Size = new System.Drawing.Size(355, 24);
+            this.cboUserName.TabIndex = 80;
+            this.cboUserName.SelectedValueChanged += new System.EventHandler(this.cboUserName_SelectedValueChanged);
+            // 
+            // txtKhoa
+            // 
+            this.txtKhoa.BackColor = System.Drawing.Color.White;
+            this.txtKhoa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtKhoa.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtKhoa.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKhoa.Location = new System.Drawing.Point(479, 32);
+            this.txtKhoa.MaxLength = 50;
+            this.txtKhoa.Name = "txtKhoa";
+            this.txtKhoa.Size = new System.Drawing.Size(187, 22);
+            this.txtKhoa.TabIndex = 81;
+            // 
             // frm_themmoi_nhanvien
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -662,5 +693,7 @@
         private Janus.Windows.GridEX.GridEX grdDichvuCls;
         private System.Windows.Forms.TabPage tabPage6;
         private Janus.Windows.GridEX.GridEX grdLoaiThuoc;
+        internal System.Windows.Forms.ComboBox cboUserName;
+        internal System.Windows.Forms.TextBox txtKhoa;
     }
 }

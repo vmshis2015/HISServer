@@ -219,6 +219,7 @@ namespace VNS.HIS.UI.DANHMUC
             frm_themmoi_nhanvien frm = new frm_themmoi_nhanvien();
             frm.em_Action = action.Update;
             frm.txtID.Text = v_StaffList_Id.ToString();
+            frm.UserName = Utility.sDbnull(grdStaffList.GetValue("user_name"));
             frm.p_dtStaffList = m_dtStaffList;
             frm.ShowDialog();
             ModifyCommand();
