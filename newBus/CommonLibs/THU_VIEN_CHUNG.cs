@@ -717,6 +717,10 @@ namespace VNS.Libs
             globalVariables.gv_dtQuyenNhanvien = new Select().From(QheNhanvienQuyensudung.Schema).Where(QheNhanvienQuyensudung.Columns.IdNhanvien).IsEqualTo( globalVariables.gv_intIDNhanvien).ExecuteDataSet().Tables[0];
             globalVariables.gv_dtQuyenNhanvien_Dmuc = new Select().From(QheNhanvienDanhmuc.Schema).Where(QheNhanvienDanhmuc.Columns.IdNhanvien).IsEqualTo(globalVariables.gv_intIDNhanvien).ExecuteDataSet().Tables[0];
         }
+        /// <summary>
+        /// Hàm thực hiện lấy về IpAddress của máy đang login
+        /// </summary>
+        /// <returns></returns>
         public static string GetIP4Address()
         {
             try
@@ -742,35 +746,35 @@ namespace VNS.Libs
             catch
             { return "NO-IP"; }
         }
-        /// <summary>
-        /// hàm thực hiện việc lấy thông tin của địa chỉ mac cho máy tính
-        /// </summary>
-        /// <returns></returns>
+         //<summary>
+         //hàm thực hiện việc lấy thông tin của địa chỉ mac cho máy tính
+         //</summary>
+         //<returns></returns>
 
-        //public static string GetMACAddress()
-        //{
-        //    try
-        //    {
-        //        if (string.IsNullOrEmpty(globalVariables.IpMacAddress))
-        //        {
-        //            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-        //            String sMacAddress = string.Empty;
-        //            foreach (NetworkInterface adapter in nics)
-        //            {
-        //                if (sMacAddress == String.Empty)// only return MAC Address from first card  
-        //                {
-        //                    IPInterfaceProperties properties = adapter.GetIPProperties();
-        //                    sMacAddress = adapter.GetPhysicalAddress().ToString();
-        //                    globalVariables.IpMacAddress = sMacAddress;
-        //                }
-        //            }
-        //        }
-        //        //  Utility.sDbnull()
-        //        return globalVariables.IpMacAddress;
-        //    }
-        //    catch
-        //    { return "NO-ADDRESS"; }
-        //}
+        public static string GetMACAddress()
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(globalVariables.gv_strMacAddress))
+                {
+                    NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+                    String sMacAddress = string.Empty;
+                    foreach (NetworkInterface adapter in nics)
+                    {
+                        if (sMacAddress == String.Empty)// only return MAC Address from first card  
+                        {
+                            IPInterfaceProperties properties = adapter.GetIPProperties();
+                            sMacAddress = adapter.GetPhysicalAddress().ToString();
+                            globalVariables.gv_strMacAddress = sMacAddress;
+                        }
+                    }
+                }
+                //  Utility.sDbnull()
+                return globalVariables.gv_strMacAddress;
+            }
+            catch
+            { return "NO-ADDRESS"; }
+        }
         public static DataTable Laydanhsachnhanvienthuockhoa(int id_khoa)
         {
             DataTable dataTable = new DataTable();

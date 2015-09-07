@@ -192,7 +192,6 @@ namespace VNS.Libs
                                 objLichsuKcb.MaDoituongBhyt = objLuotkham.MaDoituongBhyt;
                                 objLichsuKcb.MaQuyenloi = objLuotkham.MaQuyenloi;
                                 objLichsuKcb.NoiDongtrusoKcbbd = objLuotkham.NoiDongtrusoKcbbd;
-
                                 objLichsuKcb.MaKcbbd = objLuotkham.MaKcbbd;
                                 objLichsuKcb.TrangthaiNoitru = objLuotkhamCu.TrangthaiNoitru;
                                 objLichsuKcb.DungTuyen = objLuotkham.DungTuyen;
@@ -203,7 +202,6 @@ namespace VNS.Libs
                                 objLichsuKcb.IdKhoanoitru = objLuotkhamCu.IdKhoanoitru;
                                 objLichsuKcb.NguoiTao = globalVariables.UserName;
                                 objLichsuKcb.NgayTao = globalVariables.SysDate;
-
                                 objLichsuKcb.IsNew = true;
                                 objLichsuKcb.Save();
                                 _IdLichsuDoituongKcb = objLichsuKcb.IdLichsuDoituongKcb;
@@ -238,8 +236,8 @@ namespace VNS.Libs
                            .Set(KcbLuotkham.Columns.PtramBhyt).EqualTo(objLuotkham.PtramBhyt)
                            .Set(KcbLuotkham.Columns.PtramBhytGoc).EqualTo(objLuotkham.PtramBhytGoc)
                            .Set(KcbLuotkham.Columns.DiachiBhyt).EqualTo(objLuotkham.DiachiBhyt)
+                           .Set(KcbLuotkham.Columns.IdLoaidoituongKcb).EqualTo(objLuotkham.IdLoaidoituongKcb)
                            .Set(KcbLuotkham.Columns.IdLichsuDoituongKcb).EqualTo(_IdLichsuDoituongKcb)
-                           
                            .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
                            .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                            .Execute();
