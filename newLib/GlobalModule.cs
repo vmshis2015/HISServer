@@ -52,8 +52,9 @@ namespace VNS.Libs
        // public static int gv_intPhantramLuongcoban = 15;
         public static string gv_strMaUutien = "1,2,3";
 
-        public static string gv_strIPAddress = "127.0.0.1";
-        public static string gv_strComputerName = "MyComputer";
+        public static string gv_strIPAddress = "";
+        public static string gv_strComputerName = "";
+        public static string gv_strMacAddress = "";
 
         public static string gv_strMaQuyenLoiHuongBHYT100Phantram = "1,2";
         public static DataTable gv_dtSysparams = new DataTable();
