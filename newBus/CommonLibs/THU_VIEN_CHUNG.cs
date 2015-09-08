@@ -684,6 +684,7 @@ namespace VNS.Libs
         }
         public static void LoadThamSoHeThong()
         {
+            globalVariables.FORMTITLE=THU_VIEN_CHUNG.Laygiatrithamsohethong("FORMTITLE", false);
             globalVariables.LUONGCOBAN = Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_LUONGCOBAN", "83000", false), 83000);
             globalVariables.gv_strNoiDKKCBBD = THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_NOIDANGKY_KCBBD", "016", false);
             globalVariables.gv_strDiadiem = THU_VIEN_CHUNG.Laygiatrithamsohethong("DIA_DIEM", "Hà Nội", false);
