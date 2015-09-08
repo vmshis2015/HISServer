@@ -18,7 +18,7 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
             txtTieuDe.LostFocus += new EventHandler(txtTieuDe_LostFocus);
             txtTieuDe.GotFocus += new EventHandler(txtTieuDe_GotFocus);
             txtTieuDe.KeyDown += new KeyEventHandler(txtTieuDe_KeyDown);
-            cmdSave.Visible = globalVariablesPrivate.objNhanvien != null && Utility.Coquyen("quyen_suatieudebaocao");
+            
             cmdSave.Click += new EventHandler(cmdSave_Click);
         }
         
@@ -111,6 +111,7 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
         public void Init()
         {
             txtTieuDe.Text = THU_VIEN_CHUNG.LaygiatriTieudebaocao(MA_BAOCAO, txtTieuDe.Text, true);
+            cmdSave.Visible = globalVariablesPrivate.objNhanvien != null && Utility.Coquyen("quyen_suatieudebaocao");
         }
     }
 }
