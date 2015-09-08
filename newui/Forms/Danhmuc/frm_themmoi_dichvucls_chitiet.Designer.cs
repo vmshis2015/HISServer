@@ -33,6 +33,7 @@ namespace VNS.HIS.UI.DANHMUC
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_dichvucls_chitiet));
             Janus.Windows.GridEX.GridEXLayout grdDanhsachCamChidinhChungphieu_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.grpControl = new System.Windows.Forms.GroupBox();
+            this.chkSingle = new System.Windows.Forms.CheckBox();
             this.txtDichvu = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.vbLine2 = new VNS.UCs.VBLine();
             this.grdDanhsachCamChidinhChungphieu = new Janus.Windows.GridEX.GridEX();
@@ -91,7 +92,6 @@ namespace VNS.HIS.UI.DANHMUC
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkThemmoilientuc = new Janus.Windows.EditControls.UICheckBox();
-            this.chkSingle = new System.Windows.Forms.CheckBox();
             this.grpControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdDanhsachCamChidinhChungphieu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtIntOrder)).BeginInit();
@@ -158,10 +158,25 @@ namespace VNS.HIS.UI.DANHMUC
             this.grpControl.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpControl.Location = new System.Drawing.Point(0, 0);
             this.grpControl.Name = "grpControl";
-            this.grpControl.Size = new System.Drawing.Size(1065, 517);
+            this.grpControl.Size = new System.Drawing.Size(1008, 517);
             this.grpControl.TabIndex = 0;
             this.grpControl.TabStop = false;
             this.grpControl.Text = "Thông tin chi tiết";
+            // 
+            // chkSingle
+            // 
+            this.chkSingle.AutoSize = true;
+            this.chkSingle.Checked = true;
+            this.chkSingle.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSingle.Location = new System.Drawing.Point(497, 431);
+            this.chkSingle.Name = "chkSingle";
+            this.chkSingle.Size = new System.Drawing.Size(104, 19);
+            this.chkSingle.TabIndex = 1642;
+            this.chkSingle.TabStop = false;
+            this.chkSingle.Text = "Dịch vụ đơn lẻ";
+            this.toolTip1.SetToolTip(this.chkSingle, "Chọn mục này nếu muốn Dịch vụ này không được phép kê cùng các dịch vụ khác và ngư" +
+        "ợc lại");
+            this.chkSingle.UseVisualStyleBackColor = true;
             // 
             // txtDichvu
             // 
@@ -189,7 +204,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtDichvu.RaiseEventEnter = true;
             this.txtDichvu.RaiseEventEnterWhenEmpty = true;
             this.txtDichvu.SelectedIndex = -1;
-            this.txtDichvu.Size = new System.Drawing.Size(310, 21);
+            this.txtDichvu.Size = new System.Drawing.Size(253, 21);
             this.txtDichvu.splitChar = '@';
             this.txtDichvu.splitCharIDAndCode = '#';
             this.txtDichvu.TabIndex = 24;
@@ -213,7 +228,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.vbLine2.Location = new System.Drawing.Point(749, 30);
             this.vbLine2.Margin = new System.Windows.Forms.Padding(4);
             this.vbLine2.Name = "vbLine2";
-            this.vbLine2.Size = new System.Drawing.Size(310, 22);
+            this.vbLine2.Size = new System.Drawing.Size(253, 22);
             this.vbLine2.TabIndex = 1641;
             this.vbLine2.TabStop = false;
             this.vbLine2.YourText = "Cấm chỉ định cùng các dịch vụ sau:";
@@ -230,7 +245,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.grdDanhsachCamChidinhChungphieu.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
             this.grdDanhsachCamChidinhChungphieu.Location = new System.Drawing.Point(749, 84);
             this.grdDanhsachCamChidinhChungphieu.Name = "grdDanhsachCamChidinhChungphieu";
-            this.grdDanhsachCamChidinhChungphieu.Size = new System.Drawing.Size(310, 336);
+            this.grdDanhsachCamChidinhChungphieu.Size = new System.Drawing.Size(253, 336);
             this.grdDanhsachCamChidinhChungphieu.TabIndex = 25;
             this.grdDanhsachCamChidinhChungphieu.TabStop = false;
             this.grdDanhsachCamChidinhChungphieu.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
@@ -502,7 +517,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.lblMsg.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMsg.Location = new System.Drawing.Point(3, 491);
             this.lblMsg.Name = "lblMsg";
-            this.lblMsg.Size = new System.Drawing.Size(1059, 23);
+            this.lblMsg.Size = new System.Drawing.Size(1002, 23);
             this.lblMsg.TabIndex = 125;
             this.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -856,27 +871,12 @@ namespace VNS.HIS.UI.DANHMUC
             this.toolTip1.SetToolTip(this.chkThemmoilientuc, "Chọn mục này nếu muốn đánh dấu chi tiết CLS này luôn coi là tự túc đối với đối tư" +
         "ợng BHYT cho dù có được áp quan hệ giá hay không!");
             // 
-            // chkSingle
-            // 
-            this.chkSingle.AutoSize = true;
-            this.chkSingle.Checked = true;
-            this.chkSingle.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSingle.Location = new System.Drawing.Point(497, 431);
-            this.chkSingle.Name = "chkSingle";
-            this.chkSingle.Size = new System.Drawing.Size(104, 19);
-            this.chkSingle.TabIndex = 1642;
-            this.chkSingle.TabStop = false;
-            this.chkSingle.Text = "Dịch vụ đơn lẻ";
-            this.toolTip1.SetToolTip(this.chkSingle, "Chọn mục này nếu muốn Dịch vụ này không được phép kê cùng các dịch vụ khác và ngư" +
-        "ợc lại");
-            this.chkSingle.UseVisualStyleBackColor = true;
-            // 
             // frm_themmoi_dichvucls_chitiet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1065, 568);
+            this.ClientSize = new System.Drawing.Size(1008, 562);
             this.Controls.Add(this.chkThemmoilientuc);
             this.Controls.Add(this.grpControl);
             this.Controls.Add(this.btnNew);
