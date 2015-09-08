@@ -448,7 +448,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             if (e.Control && e.KeyCode == Keys.P) cmdPrint.PerformClick();
         }
 
-        void txtMaluotkham_KeyDown(object sender, KeyEventArgs e)
+        public void txtMaluotkham_KeyDown(object sender, KeyEventArgs e)
         {
             try
             {

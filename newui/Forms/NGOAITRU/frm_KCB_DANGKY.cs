@@ -3611,7 +3611,8 @@ namespace VNS.HIS.UI.NGOAITRU
                         .Where(KcbQm.Columns.TrangThai).IsEqualTo(1)
                         .And(KcbQm.Columns.MaQuay).IsEqualTo(PropertyLib._HISQMSProperties.MaQuay)
                         .AndExpression(KcbQm.Columns.MaDoituongKcb).IsEqualTo("ALL").Or(KcbQm.Columns.MaDoituongKcb).IsEqualTo(PropertyLib._HISQMSProperties.MaDoituongKCB).CloseExpression()
-                        //.And(KcbQm.Columns.LoaiQms).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                        .And(KcbQm.Columns.UuTien).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                        .And(KcbQm.Columns.LoaiQms).IsEqualTo(PropertyLib._HISQMSProperties.LoaiQMS)
                         .And(KcbQm.Columns.MaKhoakcb).IsEqualTo(globalVariables.MA_KHOA_THIEN)
                         .Execute();
                     if (_QMSScreen != null && (!isQMSActive(_QMSScreen.Name)))
@@ -3775,7 +3776,8 @@ namespace VNS.HIS.UI.NGOAITRU
                   .And(KcbQm.Columns.MaQuay).IsEqualTo(PropertyLib._HISQMSProperties.MaQuay)
                   .And(KcbQm.Columns.MaKhoakcb).IsEqualTo(globalVariables.MA_KHOA_THIEN)
                   .AndExpression(KcbQm.Columns.MaDoituongKcb).IsEqualTo("ALL").Or(KcbQm.Columns.MaDoituongKcb).IsEqualTo(PropertyLib._HISQMSProperties.MaDoituongKCB).CloseExpression()
-                  .And(KcbQm.Columns.LoaiQms).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                  .And(KcbQm.Columns.UuTien).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                  .And(KcbQm.Columns.LoaiQms).IsEqualTo(PropertyLib._HISQMSProperties.LoaiQMS)
                   .Execute();
                     if (_QMSScreen != null && (!isQMSActive(_QMSScreen.Name)))
                     {
@@ -3815,7 +3817,8 @@ namespace VNS.HIS.UI.NGOAITRU
                         .Where(KcbQm.Columns.MaQuay).IsEqualTo(PropertyLib._HISQMSProperties.MaQuay)
                         .And(KcbQm.Columns.MaKhoakcb).IsEqualTo(globalVariables.MA_KHOA_THIEN)
                         .AndExpression(KcbQm.Columns.MaDoituongKcb).IsEqualTo("ALL").Or(KcbQm.Columns.MaDoituongKcb).IsEqualTo(PropertyLib._HISQMSProperties.MaDoituongKCB).CloseExpression()
-                        .And(KcbQm.Columns.LoaiQms).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                        .And(KcbQm.Columns.UuTien).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                        .And(KcbQm.Columns.LoaiQms).IsEqualTo(PropertyLib._HISQMSProperties.LoaiQMS)
                         .And(KcbQm.Columns.TrangThai).IsEqualTo(1)
                         .Execute();
                     Thread.Sleep(200);
@@ -3872,7 +3875,8 @@ namespace VNS.HIS.UI.NGOAITRU
                     .And(KcbQm.Columns.TrangThai).IsEqualTo(1)
                     .And(KcbQm.Columns.MaQuay).IsEqualTo(PropertyLib._HISQMSProperties.MaQuay)
                     .AndExpression(KcbQm.Columns.MaDoituongKcb).IsEqualTo("ALL").Or(KcbQm.Columns.MaDoituongKcb).IsEqualTo(PropertyLib._HISQMSProperties.MaDoituongKCB).CloseExpression()
-                    .And(KcbQm.Columns.LoaiQms).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                    .And(KcbQm.Columns.UuTien).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                    .And(KcbQm.Columns.LoaiQms).IsEqualTo(PropertyLib._HISQMSProperties.LoaiQMS)
                     .Execute();
                 LaySokham(2);
                 DmucDichvukcb objDmucDichvukcb = DmucDichvukcb.FetchByID(QMS_IdDichvuKcb);
@@ -3938,7 +3942,8 @@ namespace VNS.HIS.UI.NGOAITRU
                     .And(KcbQm.Columns.TrangThai).IsEqualTo(1)
                     .And(KcbQm.Columns.MaQuay).IsEqualTo(PropertyLib._HISQMSProperties.MaQuay)
                     .AndExpression(KcbQm.Columns.MaDoituongKcb).IsEqualTo("ALL").Or(KcbQm.Columns.MaDoituongKcb).IsEqualTo(PropertyLib._HISQMSProperties.MaDoituongKCB).CloseExpression()
-                    .And(KcbQm.Columns.LoaiQms).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                    .And(KcbQm.Columns.UuTien).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                    .And(KcbQm.Columns.LoaiQms).IsEqualTo(PropertyLib._HISQMSProperties.LoaiQMS)
                     .Execute();
                 LaySokham(2);
                 DmucDichvukcb objDmucDichvukcb = DmucDichvukcb.FetchByID(QMS_IdDichvuKcb);
@@ -3988,7 +3993,8 @@ namespace VNS.HIS.UI.NGOAITRU
                         .And(KcbQm.Columns.MaKhoakcb).IsEqualTo(globalVariables.MA_KHOA_THIEN)
                         .And(KcbQm.Columns.TrangThai).IsEqualTo(1)
                         .AndExpression(KcbQm.Columns.MaDoituongKcb).IsEqualTo("ALL").Or(KcbQm.Columns.MaDoituongKcb).IsEqualTo(PropertyLib._HISQMSProperties.MaDoituongKCB).CloseExpression()
-                        .And(KcbQm.Columns.LoaiQms).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                        .And(KcbQm.Columns.UuTien).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                        .And(KcbQm.Columns.LoaiQms).IsEqualTo(PropertyLib._HISQMSProperties.LoaiQMS)
                         .Execute();
                     LaySokham(2);
                     Thread.Sleep(50);
@@ -4031,7 +4037,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     {
                         if (globalVariables.MA_KHOA_THIEN == "KYC")//Chỉ có duy nhất số thường
                         {
-                            _KCB_QMS.LaySoKhamQMS(PropertyLib._HISQMSProperties.MaQuay, globalVariables.MA_KHOA_THIEN, PropertyLib._HISQMSProperties.MaDoituongKCB, ref sokham, ref QMS_IdDichvuKcb, ref IdQMS, 0, PropertyLib._HISQMSProperties.LoaiQMS_bo);
+                            _KCB_QMS.LaySoKhamQMS(PropertyLib._HISQMSProperties.MaQuay, globalVariables.MA_KHOA_THIEN, PropertyLib._HISQMSProperties.MaDoituongKCB, ref sokham, ref QMS_IdDichvuKcb, ref IdQMS,(byte) 0,0, PropertyLib._HISQMSProperties.LoaiQMS_bo);
                         }
                         else//Các khoa khác
                         {
@@ -4043,7 +4049,8 @@ namespace VNS.HIS.UI.NGOAITRU
                                     .Where(KcbQm.Columns.MaKhoakcb).IsEqualTo(globalVariables.MA_KHOA_THIEN)
                                     .And(KcbQm.Columns.TrangThai).In(0, 1)
                                     .AndExpression(KcbQm.Columns.MaDoituongKcb).IsEqualTo("ALL").Or(KcbQm.Columns.MaDoituongKcb).IsEqualTo(PropertyLib._HISQMSProperties.MaDoituongKCB).CloseExpression()
-                                    .And(KcbQm.Columns.LoaiQms).IsEqualTo(1);
+                                    .And(KcbQm.Columns.UuTien).IsEqualTo(1)
+                                    .And(KcbQm.Columns.LoaiQms).IsEqualTo(PropertyLib._HISQMSProperties.LoaiQMS);
                                 isUuTien = sqlQuery1.GetRecordCount() > 0 ? 1 : 0;
                             }
                             if (PropertyLib._HISQMSProperties.Chilaysouutien)
@@ -4053,8 +4060,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             chkUuTien.Checked = isUuTien == 1;
 
                             Utility.SetMsg(lblQMS, isUuTien == 1 ? "SỐ ƯU TIÊN" : (isUuTien == 0 ? "SỐ THƯỜNG" : PropertyLib._HISQMSProperties.TenLoaiQMS), isUuTien == 1);
-                            //Utility.SetMsg(lblThongbaouutien, isUuTien == 1 ? "ĐỐI TƯỢNG ƯU TIÊN" : "ĐỐI TƯỢNG THƯỜNG", isUuTien == 1);
-                            _KCB_QMS.LaySoKhamQMS(PropertyLib._HISQMSProperties.MaQuay, globalVariables.MA_KHOA_THIEN, PropertyLib._HISQMSProperties.MaDoituongKCB, ref sokham, ref QMS_IdDichvuKcb, ref IdQMS, isUuTien, PropertyLib._HISQMSProperties.LoaiQMS_bo);
+                            _KCB_QMS.LaySoKhamQMS(PropertyLib._HISQMSProperties.MaQuay, globalVariables.MA_KHOA_THIEN, PropertyLib._HISQMSProperties.MaDoituongKCB, ref sokham, ref QMS_IdDichvuKcb, ref IdQMS,(byte) isUuTien,PropertyLib._HISQMSProperties.LoaiQMS, PropertyLib._HISQMSProperties.LoaiQMS_bo);
 
                         }
                     }
@@ -4070,12 +4076,12 @@ namespace VNS.HIS.UI.NGOAITRU
                     int tongso = Utility.Int32Dbnull(txtTS.Text);
                     string sTongSo = Utility.sDbnull(tongso);
                     //Lấy tổng số QMS của khoa trong ngày
-                    StoredProcedure sp = SPs.QmsGetQMSCount(globalVariables.MA_KHOA_THIEN, PropertyLib._HISQMSProperties.MaDoituongKCB, tongso,0);
+                    StoredProcedure sp = SPs.QmsGetQMSCount(globalVariables.MA_KHOA_THIEN, PropertyLib._HISQMSProperties.MaDoituongKCB, tongso, PropertyLib._HISQMSProperties.LoaiQMS,0);
                     sp.Execute();
                     tongso = Utility.Int32Dbnull(sp.OutputValues[0]);
                     int tongsoUuTien = 0;
                     //Lấy tổng số QMS ưu tiên của khoa trong ngày
-                    sp = SPs.QmsGetQMSCount(globalVariables.MA_KHOA_THIEN, "ALL", tongsoUuTien, 1);
+                    sp = SPs.QmsGetQMSCount(globalVariables.MA_KHOA_THIEN, "ALL", tongsoUuTien, PropertyLib._HISQMSProperties.LoaiQMS, 1);
                     sp.Execute();
                     tongsoUuTien = Utility.Int32Dbnull(sp.OutputValues[0]);
                     if (!PropertyLib._HISQMSProperties.Chopheplaysouutien)
@@ -5518,7 +5524,8 @@ namespace VNS.HIS.UI.NGOAITRU
                     .And(KcbQm.Columns.MaQuay).IsEqualTo(PropertyLib._HISQMSProperties.MaQuay)
                     .And(KcbQm.Columns.TrangThai).IsEqualTo(1)
                     .AndExpression(KcbQm.Columns.MaDoituongKcb).IsEqualTo("ALL").Or(KcbQm.Columns.MaDoituongKcb).IsEqualTo(PropertyLib._HISQMSProperties.MaDoituongKCB).CloseExpression()
-                    .And(KcbQm.Columns.LoaiQms).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                    .And(KcbQm.Columns.UuTien).IsEqualTo(chkUuTien.Checked ? 1 : 0)
+                    .And(KcbQm.Columns.LoaiQms).IsEqualTo(PropertyLib._HISQMSProperties.LoaiQMS)
                     .And(KcbQm.Columns.MaKhoakcb).IsEqualTo(globalVariables.MA_KHOA_THIEN)
                     .Execute();
                 LaySokham(2);

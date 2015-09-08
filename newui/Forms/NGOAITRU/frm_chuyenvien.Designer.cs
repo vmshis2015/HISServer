@@ -630,6 +630,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // 
             this.txtNoichuyenden._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtNoichuyenden._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNoichuyenden._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtNoichuyenden.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNoichuyenden.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNoichuyenden.AutoCompleteList")));
@@ -647,6 +648,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtNoichuyenden.MinTypedCharacters = 2;
             this.txtNoichuyenden.MyCode = "-1";
             this.txtNoichuyenden.MyID = "-1";
+            this.txtNoichuyenden.MyText = "";
             this.txtNoichuyenden.Name = "txtNoichuyenden";
             this.txtNoichuyenden.RaiseEvent = true;
             this.txtNoichuyenden.RaiseEventEnter = true;
@@ -1042,40 +1044,30 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
         private System.Windows.Forms.TextBox txtKhoanoitru;
         private System.Windows.Forms.TextBox txtDiaChi;
         private System.Windows.Forms.TextBox txtTenBN;
-        private System.Windows.Forms.TextBox txtMaluotkham;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel pnlBottom;
         private System.Windows.Forms.Panel pnlFill;
-        private System.Windows.Forms.TextBox txtNguoivanchuyen;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox txtketquaCls;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label21;
-        private AutoCompleteTextbox_Danhmucchung txtphuongtienvc;
-        private AutoCompleteTextbox_Danhmucchung txtHuongdieutri;
-        private AutoCompleteTextbox_Danhmucchung txtdauhieucls;
-        private System.Windows.Forms.TextBox txtThuocsudung;
         private Janus.Windows.EditControls.UIButton cmdHuy;
         private Janus.Windows.EditControls.UIButton cmdChuyen;
         private System.Windows.Forms.Label label20;
         public Janus.Windows.CalendarCombo.CalendarCombo dtpNgayin;
-        private System.Windows.Forms.TextBox txtChandoan;
         public Janus.Windows.CalendarCombo.CalendarCombo dtNgaychuyenvien;
-        private Janus.Windows.EditControls.UIButton cmdgetPatient;
         private Janus.Windows.EditControls.UIButton cmdExit;
         private Janus.Windows.EditControls.UIButton cmdGetBV;
         private FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE baocaO_TIEUDE1=new FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
         private AutoCompleteTextbox txtNoichuyenden;
-        private AutoCompleteTextbox_Danhmucchung txtTrangthainguoibenh;
         private System.Windows.Forms.Label lblMsg;
         private System.Windows.Forms.TextBox txtIdravien;
         private System.Windows.Forms.TextBox txtidgiuong;
@@ -1084,5 +1076,15 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
         private Janus.Windows.EditControls.UIButton cmdPrint;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox cboDoctorAssign;
+        public System.Windows.Forms.TextBox txtMaluotkham;
+        public Janus.Windows.EditControls.UIButton cmdgetPatient;
+        public System.Windows.Forms.TextBox txtNguoivanchuyen;
+        public System.Windows.Forms.TextBox txtketquaCls;
+        public AutoCompleteTextbox_Danhmucchung txtphuongtienvc;
+        public AutoCompleteTextbox_Danhmucchung txtHuongdieutri;
+        public AutoCompleteTextbox_Danhmucchung txtdauhieucls;
+        public System.Windows.Forms.TextBox txtThuocsudung;
+        public System.Windows.Forms.TextBox txtChandoan;
+        public AutoCompleteTextbox_Danhmucchung txtTrangthainguoibenh;
     }
 }

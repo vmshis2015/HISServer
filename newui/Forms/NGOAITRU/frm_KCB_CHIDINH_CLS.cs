@@ -932,12 +932,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 return string.Format("Single-Service: {0}",Utility.sDbnull( q.FirstOrDefault()[DmucDichvuclsChitiet.Columns.TenChitietdichvu],""));
             }
             //Lấy các cặp cấm chỉ định chung cùng nhau
-            DataRow[] arrDr = m_dtqheCamchidinhCLSChungphieu.Select(QheCamchidinhCLSChungphieu.Columns.IdChitietdichvu + "=" + id_dichvuchitiet );
-            DataRow[] arrDr1 = m_dtqheCamchidinhCLSChungphieu.Select(QheCamchidinhCLSChungphieu.Columns.IdChitietdichvuCamchidinhcung + "=" + id_dichvuchitiet);
+            DataRow[] arrDr = m_dtqheCamchidinhCLSChungphieu.Select(QheCamchidinhChungphieu.Columns.IdDichvu + "=" + id_dichvuchitiet );
+            DataRow[] arrDr1 = m_dtqheCamchidinhCLSChungphieu.Select(QheCamchidinhChungphieu.Columns.IdDichvuCamchidinhchung + "=" + id_dichvuchitiet);
             foreach (DataRow dr in arrDr)
             {
-                
-                DataRow[] arrtemp = m_dtAssignDetail.Select(KcbChidinhclsChitiet.Columns.IdChitietdichvu + "=" + Utility.sDbnull(dr[QheCamchidinhCLSChungphieu.Columns.IdChitietdichvuCamchidinhcung]));
+
+                DataRow[] arrtemp = m_dtAssignDetail.Select(KcbChidinhclsChitiet.Columns.IdChitietdichvu + "=" + Utility.sDbnull(dr[QheCamchidinhChungphieu.Columns.IdDichvuCamchidinhchung]));
                 if (arrtemp.Length > 0)
                 {
 
@@ -959,7 +959,7 @@ namespace VNS.HIS.UI.NGOAITRU
             foreach (DataRow dr in arrDr1)
             {
 
-                DataRow[] arrtemp = m_dtAssignDetail.Select(KcbChidinhclsChitiet.Columns.IdChitietdichvu + "=" + Utility.sDbnull(dr[QheCamchidinhCLSChungphieu.Columns.IdChitietdichvu]));
+                DataRow[] arrtemp = m_dtAssignDetail.Select(KcbChidinhclsChitiet.Columns.IdChitietdichvu + "=" + Utility.sDbnull(dr[QheCamchidinhChungphieu.Columns.IdDichvu]));
                 if (arrtemp.Length > 0)
                 {
 
@@ -1825,7 +1825,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     MA_KHOA_THIEN = THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_GIACLS", false) ?? MA_KHOA_THIEN;
                 }
-                m_dtqheCamchidinhCLSChungphieu = new Select().From(QheCamchidinhCLSChungphieu.Schema).ExecuteDataSet().Tables[0];
+                m_dtqheCamchidinhCLSChungphieu = new Select().From(QheCamchidinhChungphieu.Schema).ExecuteDataSet().Tables[0];
                 m_dtServiceDetail = CHIDINH_CANLAMSANG.LaydanhsachCLS_chidinh(objLuotkham.MaDoituongKcb, objLuotkham.TrangthaiNoitru,Utility.ByteDbnull( objLuotkham.GiayBhyt,0), - 1, Utility.Int32Dbnull(objLuotkham.DungTuyen.Value, 0), MA_KHOA_THIEN, nhomchidinh);
                 //Xử lý phụ thu đúng tuyến-trái tuyến
                 ProcessData();

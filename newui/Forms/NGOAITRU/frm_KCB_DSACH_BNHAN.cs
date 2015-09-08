@@ -255,7 +255,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 pnlnutchucnang.Visible = PropertyLib._KCBProperties.Kieuhienthi != Kieuhienthi.Trenluoi;
                 pnlnutchucnang.Height = PropertyLib._KCBProperties.Kieuhienthi == Kieuhienthi.Trenluoi ? 0 : 33;
                 tabPageChiDinh.TabVisible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_CHOPHEP_CHIDINH_KHONGQUAPHONGKHAM","0",false)=="1";
-                tabChiDinh.Width = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_CHOPHEP_CHIDINH_KHONGQUAPHONGKHAM", "0", false) == "1" ? 0 : PropertyLib._KCBProperties.Chieurong;
+                tabChiDinh.Width = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_CHOPHEP_CHIDINH_KHONGQUAPHONGKHAM", "0", false) == "0" ? 0 : PropertyLib._KCBProperties.Chieurong;
                 pnlKieuPhongkham.Visible = !PropertyLib._KCBProperties.GoMaDvu;
                 pnlGoMaDvu.Visible = PropertyLib._KCBProperties.GoMaDvu;
                 mnuMaDVu.Checked = PropertyLib._KCBProperties.GoMaDvu;
