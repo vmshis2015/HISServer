@@ -117,7 +117,7 @@ namespace VNS.UI.QMS
 
         private void GetData()
         {
-            m_dtData = SPs.QmsLaysoQMSGoilai("-1", globalVariables.MA_KHOA_THIEN).GetDataSet().Tables[0];
+            m_dtData = SPs.QmsLaysoQMSGoilai("-1", globalVariables.MA_KHOA_THIEN, PropertyLib._HISQMSProperties.LoaiQMS).GetDataSet().Tables[0];
             Utility.SetDataSourceForDataGridEx(grdListGoiLaiSoKham,m_dtData,false,true,"trang_thai>=3","So_qms asc");
         }
 
