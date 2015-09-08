@@ -50,7 +50,7 @@ namespace VNS.Libs
        
         
         InitializeEvents();
-	    cmdUpdateAllUser.Visible = globalVariables.IsAdmin;     
+	    //cmdUpdateAllUser.Visible = globalVariables.IsAdmin;     
 	}
     int w = 0;
     private void InitializeEvents()

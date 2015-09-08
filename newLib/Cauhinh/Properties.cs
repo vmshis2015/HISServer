@@ -1850,7 +1850,7 @@ DisplayName("HIS Application Mode")]
             MaDoituongKCB = "ALL";
             LoaiQMS_bo = "NO";
             TenLoaiQMS = "";
-           
+            LoaiQMS = 0;
         }
         [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
     Description("Để trắng=Hệ thống tự phân biệt. Ngược lại, nếu muốn tách riêng phòng tiếp đón sử dụng số KHÁC thì để tên loại số đó. Ví dụ: Số tiêm chủng, Số đặc biệt..."),
@@ -1861,6 +1861,10 @@ DisplayName("HIS Application Mode")]
     DisplayName("Loại QMS bỏ")]
         public string LoaiQMS_bo { get; set; }
 
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
+   Description("Loại QMS lấy.-1= Không xác định. Muốn lấy số thường thì đặt 0. muốn lấy số khác đặt=2. Số ưu tiên hệ thống tự động dò"),
+   DisplayName("Loại QMS lấy")]
+        public int LoaiQMS { get; set; }
 
         [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
      Description("Chỉ hiển thị số ưu tiên tại quầy tiếp đón"),

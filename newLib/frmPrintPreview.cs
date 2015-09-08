@@ -241,6 +241,8 @@ namespace VNS.Libs
                     }
                     else
                     {
+                        string sPvalue = "";
+                        Utility.SetParameterValue(RptDoc, "txtTrinhky", sPvalue);
                     }
                 }
                 this.crptViewer.ReportSource = RptDoc;
@@ -265,7 +267,7 @@ namespace VNS.Libs
             {
                 //Hien form de thay doi tuy chon ky
                 frm_SignInfor sv_fTuyChonKy = new frm_SignInfor();
-                sv_fTuyChonKy.txtBaoCao.Text = this.mv_oNguoiKy.mv_TEN_BIEUBC;
+                sv_fTuyChonKy.txtBaoCao.Text = Utility.DoTrim(this.mv_oNguoiKy.mv_TEN_BIEUBC) == "" ? mv_sReportFileName : Utility.DoTrim(this.mv_oNguoiKy.mv_TEN_BIEUBC);
                 //sv_fTuyChonKy.txtCoChu.Text = Me.mv_oNguoiKy.mv_CO_CHU.ToString()
 
                 //sv_fTuyChonKy.txtKieuFont.Text = Me.mv_oNguoiKy.mv_KIEU_CHU
