@@ -11,6 +11,7 @@ using VNS.HIS.DAL;
 using SubSonic;
 using VNS.Properties;
 using VNS.HIS.UI.DANHMUC;
+using VNS.HIS.NGHIEPVU;
 namespace VNS.HIS.UI.THUOC
 {
     public partial class frm_themmoi_thuoc : Form
@@ -363,12 +364,58 @@ namespace VNS.HIS.UI.THUOC
                     txtDongiachia.Text = Utility.DecimaltoDbnull(objThuoc.DongiaChia, 0).ToString();
                     txtDonvichia.SetCode(objThuoc.MaDvichia);
                     chkChiathuoc.Checked = Utility.Byte2Bool(objThuoc.CoChiathuoc);
+                    LoadQheCamchidinhchung(objThuoc.IdThuoc);
                 }
                 GetSameCodeDrugList();
                 GetObjectList();
+                
             }
             catch
             {
+            }
+        }
+        private QheCamchidinhChungphieuCollection GetQheCamchidinhChungphieuCollection()
+        {
+            QheCamchidinhChungphieuCollection lst = new QheCamchidinhChungphieuCollection();
+            foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdDmucthuoc.GetCheckedRows())
+            {
+                QheCamchidinhChungphieu objQheNhanvienDanhmuc = new QheCamchidinhChungphieu();
+                objQheNhanvienDanhmuc.IdDichvu = -1;
+                objQheNhanvienDanhmuc.Loai = 1;
+                objQheNhanvienDanhmuc.IdDichvuCamchidinhchung = Utility.Int32Dbnull(gridExRow.Cells[QheCamchidinhChungphieu.Columns.IdDichvu].Value);
+                objQheNhanvienDanhmuc.IsNew = true;
+                lst.Add(objQheNhanvienDanhmuc);
+            }
+            return lst;
+        }
+        private void LoadQheCamchidinhchung(int id_thuoc)
+        {
+            DataRow[] arrDr = m_dtqheCamKeChungDonthuoc.Select(QheCamchidinhChungphieu.Columns.IdDichvu + "=" + id_thuoc + " OR " + QheCamchidinhChungphieu.Columns.IdDichvuCamchidinhchung + "=" + id_thuoc);
+            foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdDmucthuoc.GetDataRows())
+            {
+                gridExRow.BeginEdit();
+                if (Utility.Int32Dbnull(gridExRow.Cells[QheCamchidinhChungphieu.Columns.IdDichvu].Value) != id_thuoc)
+                {
+                    var query = from kho in arrDr.AsEnumerable()
+                                where
+                                Utility.Int32Dbnull(kho[QheCamchidinhChungphieu.Columns.IdDichvu], 0)
+                                == Utility.Int32Dbnull(gridExRow.Cells[QheCamchidinhChungphieu.Columns.IdDichvu].Value)
+                                || Utility.Int32Dbnull(kho[QheCamchidinhChungphieu.Columns.IdDichvuCamchidinhchung], 0)
+                                == Utility.Int32Dbnull(gridExRow.Cells[QheCamchidinhChungphieu.Columns.IdDichvu].Value)
+                                select kho;
+                    if (query.Count() > 0)
+                    {
+                        gridExRow.Cells["CHON"].Value = 1;
+                        gridExRow.IsChecked = true;
+                    }
+                    else
+                    {
+                        gridExRow.Cells["CHON"].Value = 0;
+                        gridExRow.IsChecked = false;
+                    }
+                }
+                gridExRow.EndEdit();
+
             }
         }
         private DataTable m_dtQuanHe = new DataTable();
@@ -524,7 +571,7 @@ namespace VNS.HIS.UI.THUOC
                 objnewItems.KieuThuocvattu = Utility.sDbnull(cboKIEU_THUOC_VT.SelectedValue);
                 objnewItems.NoitruNgoaitru = optAll.Checked ? "ALL" : (optNoitru.Checked ? "NOI" : "NGOAI");
                 objnewItems.IsNew = true;
-                objnewItems.Save();
+                dmucThuoc_busrule.Insert(objnewItems, GetQheCamchidinhChungphieuCollection());
                 int v_intNewDrugID = objnewItems.IdThuoc;
                 txtID.Text = Utility.sDbnull(objnewItems.IdThuoc);
                 DataRow dr = m_dtDrugDataSource.NewRow();
@@ -634,7 +681,7 @@ namespace VNS.HIS.UI.THUOC
             objnewItems.KieuThuocvattu = Utility.sDbnull(cboKIEU_THUOC_VT.SelectedValue);
             objnewItems.IsNew = false;
             objnewItems.MarkOld();
-            objnewItems.Save();
+            dmucThuoc_busrule.Insert(objnewItems, GetQheCamchidinhChungphieuCollection());
             //Update to Datasource to reflect on DataGridView
             new Update(KcbThanhtoanChitiet.Schema)
              .Set(KcbThanhtoanChitiet.Columns.DonviTinh).EqualTo(Utility.sDbnull(txtDonvitinh.Text, "Lần"))
@@ -704,7 +751,7 @@ namespace VNS.HIS.UI.THUOC
         }
         #endregion
         #endregion
-
+        DataTable m_dtqheCamKeChungDonthuoc = new DataTable();
         #region "Event Handlers: Form Events,GridView Events, Button Events"
         /// <summary>
         /// Sự kiện Load của Form
@@ -718,6 +765,12 @@ namespace VNS.HIS.UI.THUOC
             txtDonvitinh.Init();
             txtDonvichia.Init();
             txtDangBaoChe.Init(globalVariables.gv_dtDangbaoche);
+            m_dtqheCamKeChungDonthuoc = new Select().From(QheCamchidinhChungphieu.Schema).Where(QheCamchidinhChungphieu.Columns.Loai).IsEqualTo(1).ExecuteDataSet().Tables[0];
+            DataTable dtChitiet = new Select().From(DmucThuoc.Schema).ExecuteDataSet().Tables[0];
+            Utility.AddColumToDataTable(ref dtChitiet, "CHON", typeof(int));
+            txtThuoc.Init(dtChitiet, new List<string>() { DmucThuoc.Columns.IdThuoc, DmucThuoc.Columns.MaThuoc, DmucThuoc.Columns.TenThuoc });
+            Utility.SetDataSourceForDataGridEx_Basic(grdDmucthuoc, dtChitiet, true, true, "1=1", "CHON DESC," + DmucThuoc.Columns.TenThuoc);
+            
             SetControlStatus();
         }
         private void AutocompleteLoaithuoc()
