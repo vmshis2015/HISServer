@@ -12,7 +12,7 @@
   <ButtonFName>Arial</ButtonFName>
   <ButtonFsize>60.25</ButtonFsize>
   <ButtonFstyle>Bold</ButtonFstyle>
-  <TenBenhVien>BỆNH VIỆN NỘI TIẾT TW CƠ SỞ 2</TenBenhVien>
+  <TenBenhVien>TRUNG TÂM Y TẾ DỰ PHÒNG TỈNH BẮC NINH</TenBenhVien>
   <MaQuay>QUAYSO_1</MaQuay>
   <TenQuay>Quầy thu ngân số 1</TenQuay>
   <MaKhoaThuchien>KKB</MaKhoaThuchien>
@@ -33,4 +33,25 @@
   <MauB3>Green</MauB3>
   <MauF3>Navy</MauF3>
   <SleepTime>50</SleepTime>
+  <tensodichvu>Lấy số Dịch vụ</tensodichvu>
+  <tensobhyt>Lấy số BHYT</tensobhyt>
+  <tensokhac>Lấy số tiêm chủng</tensokhac>
+  <tensokhacUutien>Lấy số tiêm chủng ưu tiên</tensokhacUutien>
+  <tensouutien>Lấy số Ưu tiên</tensouutien>
+  <Sodichvu>SỐ THƯỜNG</Sodichvu>
+  <Sobhyt>SỐ THƯỜNG</Sobhyt>
+  <Sokhac>SỐ TIÊM CHỦNG</Sokhac>
+  <SokhacUutien>SỐ TIÊM CHỦNG ƯU TIÊN</SokhacUutien>
+  <Souutien>SỐ ƯU TIÊN</Souutien>
+  <SoYeucau>SỐ YÊU CẦU</SoYeucau>
+  <madoituongdichvu>ALL</madoituongdichvu>
+  <madoituongbhyt>ALL</madoituongbhyt>
+  <madoituongkhac>ALL</madoituongkhac>
+  <madoituonguutien>ALL</madoituonguutien>
+  <hienthiLaysoUutien>true</hienthiLaysoUutien>
+  <hienthiLaysoDV>true</hienthiLaysoDV>
+  <hienthiLaysokhac>true</hienthiLaysokhac>
+  <hienthiLaysokhacUutien>true</hienthiLaysokhacUutien>
+  <hienthiLaysoBHYT>false</hienthiLaysoBHYT>
+  <EnableFKey>true</EnableFKey>
 </QMSProperties>

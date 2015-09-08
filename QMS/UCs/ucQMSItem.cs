@@ -237,7 +237,7 @@ namespace QMS.UCs
             {
                 int num = 0;
                 int sttkham = 0;
-                StoredProcedure procedure = SPs.QmsTaoso(new int?(status), _QMSProperties.MaQuay, MaKhoa, id_KhoaKcb, madoituongkcb, new int?(num), sttkham, _QMSProperties.PrintStatus ? true : false, new int?(IsUuTien), this.id_kieukham, this.id_phongkham, id_dichvukcb);
+                StoredProcedure procedure = SPs.QmsTaoso(new int?(status), _QMSProperties.MaQuay, MaKhoa, id_KhoaKcb, madoituongkcb, new int?(num), sttkham, _QMSProperties.PrintStatus ? true : false,0, new int?(IsUuTien),this.id_kieukham, this.id_phongkham, id_dichvukcb);
                 procedure.Execute();
                 int SttKham = Utility.Int32Dbnull(procedure.OutputValues[1]);
                 UpdateSTTKham(SttKham);

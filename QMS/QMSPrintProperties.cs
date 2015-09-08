@@ -197,7 +197,7 @@ namespace VNS.QMS
         public string TenKhoaYeuCau { get; set; }
 
         [XmlIgnore]
-        [Browsable(true), ReadOnly(false), Category("Cấu hình màu sắc"),
+        [Browsable(false), ReadOnly(false), Category("Cấu hình màu sắc"),
          Description("Màu nền số khám thường"),
          DisplayName("Màu nền thường")]
         public Color MauB1 { get; set; }
@@ -217,7 +217,7 @@ namespace VNS.QMS
         }
 
         [XmlIgnore]
-        [Browsable(true), ReadOnly(false), Category("Cấu hình màu sắc"),
+        [Browsable(false), ReadOnly(false), Category("Cấu hình màu sắc"),
          Description("Màu chữ số khám thường"),
          DisplayName("Màu chữ thường")]
         public Color MauF1 { get; set; }
@@ -237,7 +237,7 @@ namespace VNS.QMS
         }
 
         [XmlIgnore]
-        [Browsable(true), ReadOnly(false), Category("Cấu hình màu sắc"),
+        [Browsable(false), ReadOnly(false), Category("Cấu hình màu sắc"),
          Description("Màu nền số khám yêu cầu/BHYT"),
          DisplayName("Màu nền khám yêu cầu/BHYT")]
         public Color MauB2 { get; set; }
@@ -257,7 +257,7 @@ namespace VNS.QMS
         }
 
         [XmlIgnore]
-        [Browsable(true), ReadOnly(false), Category("Cấu hình màu sắc"),
+        [Browsable(false), ReadOnly(false), Category("Cấu hình màu sắc"),
          Description("Màu chữ số khám yêu cầu/BHYT"),
          DisplayName("Màu chữ khám yêu cầu/BHYT")]
         public Color MauF2 { get; set; }
@@ -277,7 +277,7 @@ namespace VNS.QMS
         }
 
         [XmlIgnore]
-        [Browsable(true), ReadOnly(false), Category("Cấu hình màu sắc"),
+        [Browsable(false), ReadOnly(false), Category("Cấu hình màu sắc"),
          Description("Màu nền số khám ưu tiên"),
          DisplayName("Màu nền ưu tiên")]
         public Color MauB3 { get; set; }
@@ -297,7 +297,7 @@ namespace VNS.QMS
         }
 
         [XmlIgnore]
-        [Browsable(true), ReadOnly(false), Category("Cấu hình màu sắc"),
+        [Browsable(false), ReadOnly(false), Category("Cấu hình màu sắc"),
          Description("Màu chữ số khám ưu tiên"),
          DisplayName("Màu chữ ưu tiên")]
         public Color MauF3 { get; set; }
@@ -336,9 +336,43 @@ namespace VNS.QMS
         public string tensokhac { get; set; }
 
         [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+    Description("Tên hiển thị lấy số khác ưu tiên"),
+    DisplayName("Tên hiển thị lấy số khác ưu tiên")]
+        public string tensokhacUutien { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
     Description("Tên hiển thị lấy số ưu tiên"),
     DisplayName("Tên hiển thị lấy số ưu tiên")]
         public string tensouutien { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+    Description("Tên hiển thị trên phiếu QMS dịch vụ(hoặc số thường)"),
+    DisplayName("Tên hiển thị trên phiếu QMS dịch vụ")]
+        public string Sodichvu { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+     Description("Tên hiển thị trên phiếu QMS BHYT(hoặc số thường)"),
+     DisplayName("Tên hiển thị trên phiếu QMS BHYT")]
+        public string Sobhyt { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+     Description("Tên hiển thị trên phiếu QMS khác(hoặc số tiêm chủng)"),
+     DisplayName("Tên hiển thị trên phiếu QMS khác(hoặc số tiêm chủng)")]
+        public string Sokhac { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+    Description("Tên hiển thị trên phiếu QMS ưu tiên khác(hoặc số tiêm chủng)"),
+    DisplayName("Tên hiển thị trên phiếu QMS ưu tiên khác(hoặc số tiêm chủng)")]
+        public string SokhacUutien { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+    Description("Tên hiển thị trên phiếu QMS Ưu tiên"),
+    DisplayName("Tên hiển thị trên phiếu QMS Ưu tiên")]
+        public string Souutien { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+   Description("Tên hiển thị trên phiếu QMS khoa KCB yêu cầu"),
+   DisplayName("Tên hiển thị trên phiếu QMS khoa KCB yêu cầu")]
+        public string SoYeucau { get; set; }
 
         [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
        Description("Mã đối tượng lấy số khác: ALL,DV hoặc BHYT"),
@@ -376,14 +410,26 @@ namespace VNS.QMS
         public bool hienthiLaysokhac { get; set; }
 
 
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+   Description("Hiển thị lấy số khác ưu tiên"),
+   DisplayName("Hiển thị lấy số khác ưu tiên")]
+        public bool hienthiLaysokhacUutien { get; set; }
+
         [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
     Description("Hiển thị lấy số BHYT"),
     DisplayName("Hiển thị lấy số BHYT")]
         public bool hienthiLaysoBHYT { get; set; }
 
+        [Browsable(true), ReadOnly(false), Category("Phím tắt"),
+   Description("Sử dụng các phím tắt để lấy số: F1=Số thường;F2=Số ưu tiên thường;F3=Số khác;F4=Số ưu tiên khác;F5=Số thường BHYT;F6=Số khoa YC"),
+   DisplayName("Sử dụng phím chức năng")]
+        public bool EnableFKey { get; set; }
+
 
         public QMSProperties()
         {
+            EnableFKey = false;
             madoituonguutien = "ALL";
             madoituongdichvu = "DV";
             madoituongbhyt = "BHYT";
@@ -392,10 +438,12 @@ namespace VNS.QMS
             tensobhyt = "Lấy số BHYT";
             tensodichvu = "Lấy số Dịch vụ";
             tensokhac = "Lấy số tiêm chủng";
+            tensokhacUutien = "Lấy số tiêm chủng ưu tiên";
             hienthiLaysokhac = true;
             hienthiLaysoBHYT = true;
             hienthiLaysoDV = true;
             hienthiLaysoUutien = true;
+            hienthiLaysokhacUutien = true;
             TenBenhVien = "BỆNH VIỆN NỘI TIẾT TRUNG ƯƠNG";
             MaQuay = "QUAYSO_1";
             TenQuay = "Quầy tiếp đón số 1";

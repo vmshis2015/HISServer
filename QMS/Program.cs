@@ -15,7 +15,7 @@ namespace VNS.QMS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frm_QMS());
+            Application.Run(new frm_SoKham());
         }
     }
 }
