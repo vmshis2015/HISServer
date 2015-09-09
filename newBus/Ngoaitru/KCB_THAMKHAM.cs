@@ -118,6 +118,7 @@ namespace VNS.HIS.BusRule.Classes
                             .Set(KcbLuotkham.Columns.NguoiSua).EqualTo(globalVariables.UserName)
                             .Set(KcbLuotkham.Columns.NgaySua).EqualTo(globalVariables.SysDate)
                             .Set(KcbLuotkham.Columns.Locked).EqualTo(objPatientExam.Locked)
+                            .Set(KcbLuotkham.Columns.TrangthaiNgoaitru).EqualTo(objPatientExam.TrangthaiNgoaitru)
                             .Set(KcbLuotkham.Columns.NguoiKetthuc).EqualTo(objPatientExam.NguoiKetthuc)
                             .Set(KcbLuotkham.Columns.NgayKetthuc).EqualTo(objPatientExam.NgayKetthuc)
                             .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objPatientExam.MaLuotkham)

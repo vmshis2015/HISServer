@@ -414,6 +414,11 @@ namespace VNS.Libs
                                 else
                                     continue;
                             }
+                            if (objLichsu.IdLoaidoituongKcb == 1)//Đối tượng dịch vụ-->ko cần phải đánh dấu tự túc
+                            {
+                                objChitietDonthuoc.TuTuc = 0;
+                                objChitietDonthuoc.PhuThu = 0;
+                            }
                             objChitietDonthuoc.Save();
                         }
                     }
@@ -525,7 +530,10 @@ namespace VNS.Libs
                                 if (_DmucThuoc != null && Utility.Int32Dbnull(_DmucThuoc.TuTuc, 0) == 1)
                                     objChitietDonthuoc.TuTuc = 1;//Ke ca co trong bang quan he
                                 if (objLuotkham.IdLoaidoituongKcb == 1)//Đối tượng dịch vụ-->ko cần phải đánh dấu tự túc
+                                {
                                     objChitietDonthuoc.TuTuc = 0;
+                                    objChitietDonthuoc.PhuThu = 0;
+                                }
                                 if (!Utility.Byte2Bool(objChitietDonthuoc.TuTuc))//Nếu ko phải dịch vụ tự túc
                                 {
                                     decimal BHCT = 0m;
@@ -548,6 +556,7 @@ namespace VNS.Libs
                                 {
                                     objChitietDonthuoc.PtramBhyt = 0;
                                     objChitietDonthuoc.BhytChitra = 0;
+                                    objChitietDonthuoc.PhuThu = 0;
                                     objChitietDonthuoc.BnhanChitra = Utility.DecimaltoDbnull(objChitietDonthuoc.DonGia, 0);
                                 }
                             }
@@ -633,7 +642,10 @@ namespace VNS.Libs
                         if (_DmucDichvuclsChitiet != null && Utility.Int32Dbnull(_DmucDichvuclsChitiet.TuTuc, 0) == 1)
                             objChidinhChitiet.TuTuc = 1;//Ke ca co trong bang quan he
                         if (objLuotkham.IdLoaidoituongKcb == 1)//Đối tượng dịch vụ-->ko cần phải đánh dấu tự túc
+                        {
                             objChidinhChitiet.TuTuc = 0;
+                            objChidinhChitiet.PhuThu = 0;
+                        }
 
                         objChidinhChitiet.NguoiSua = globalVariables.UserName;
                         objChidinhChitiet.NgaySua = DateTime.Now;
@@ -744,8 +756,10 @@ namespace VNS.Libs
                                         if (_DmucDichvuclsChitiet != null && Utility.Int32Dbnull(_DmucDichvuclsChitiet.TuTuc, 0) == 1)
                                             objChidinhChitiet.TuTuc = 1;//Ke ca co trong bang quan he
                                         if (_item.IdLoaidoituongKcb == 1)//Đối tượng dịch vụ-->ko cần phải đánh dấu tự túc
+                                        {
                                             objChidinhChitiet.TuTuc = 0;
-
+                                            objChidinhChitiet.PhuThu = 0;
+                                        }
                                         objChidinhChitiet.NguoiSua = globalVariables.UserName;
                                         objChidinhChitiet.NgaySua = DateTime.Now;
                                         decimal PtramBHYT = Utility.DecimaltoDbnull(_item.PtramBhyt);
@@ -773,6 +787,11 @@ namespace VNS.Libs
                                     }
                                     else
                                         continue;
+                                }
+                                if (_item.IdLoaidoituongKcb == 1)//Đối tượng dịch vụ-->ko cần phải đánh dấu tự túc
+                                {
+                                    objChidinhChitiet.TuTuc = 0;
+                                    objChidinhChitiet.PhuThu = 0;
                                 }
                                 objChidinhChitiet.Save();
                                 saveParent = true;
@@ -886,8 +905,10 @@ namespace VNS.Libs
                                             if (_DmucDichvuclsChitiet != null && Utility.Int32Dbnull(_DmucDichvuclsChitiet.TuTuc, 0) == 1)
                                                 objChidinhChitiet.TuTuc = 1;//Ke ca co trong bang quan he
                                             if (objLuotkham.IdLoaidoituongKcb == 1)//Đối tượng dịch vụ-->ko cần phải đánh dấu tự túc
+                                            {
                                                 objChidinhChitiet.TuTuc = 0;
-
+                                                objChidinhChitiet.PhuThu = 0;
+                                            }
                                             objChidinhChitiet.NguoiSua = globalVariables.UserName;
                                             objChidinhChitiet.NgaySua = DateTime.Now;
                                             decimal PtramBHYT = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt);
@@ -1085,6 +1106,11 @@ namespace VNS.Libs
                                 else
                                     continue;
                             }
+                            if (objLichsu.IdLoaidoituongKcb == 1)//Đối tượng dịch vụ-->ko cần phải đánh dấu tự túc, phụ thu=0
+                            {
+                                objDangkyKCB.TuTuc = 0;
+                                objDangkyKCB.PhuThu = 0;
+                            }
                             objDangkyKCB.Save();
                         }
                     }
@@ -1139,7 +1165,10 @@ namespace VNS.Libs
                                     if (Utility.Int32Dbnull(_DichvukcbMoi.TuTuc, 0) == 1)
                                         objDangkyKCB.TuTuc = 1;//Ke ca co trong bang quan he
                                     if (objLuotkham.IdLoaidoituongKcb == 1)//Đối tượng dịch vụ-->ko cần phải đánh dấu tự túc
+                                    {
                                         objDangkyKCB.TuTuc = 0;
+                                        objDangkyKCB.PhuThu = 0;
+                                    }
                                     objDangkyKCB.TenDichvuKcb = _DichvukcbMoi.TenDichvukcb;
                                     objDangkyKCB.DonGia = Utility.DecimaltoDbnull(_DichvukcbMoi.DonGia);
                                     objDangkyKCB.PhuThu = !Utility.Byte2Bool(objLuotkham.DungTuyen)
