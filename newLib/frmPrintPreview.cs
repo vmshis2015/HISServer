@@ -595,12 +595,12 @@ namespace VNS.Libs
         {
             try
             {
-                if (RptDoc != null)
-                {
-                    RptDoc.Close();
-                    RptDoc.Dispose();
-                    GC.Collect();
-                }
+                //if (RptDoc != null)
+                //{
+                //    RptDoc.Close();
+                //    RptDoc.Dispose();
+                //    GC.Collect();
+                //}
             }
             catch (Exception)
             {
