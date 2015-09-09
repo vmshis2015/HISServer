@@ -989,7 +989,9 @@ namespace VNS.HIS.UI.Baocao
              
               //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "  PHÒNG TIẾP ĐÓN   ".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
               objForm.mv_sReportFileName = Path.GetFileName(reportname);
+              
               objForm.mv_sReportCode = tenbaocao;
+              Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
               Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
               Utility.SetParameterValue(crpt,"Address", globalVariables.Branch_Address);
               Utility.SetParameterValue(crpt,"Phone", globalVariables.Branch_Phone);
