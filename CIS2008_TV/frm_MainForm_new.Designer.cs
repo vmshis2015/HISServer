@@ -29,26 +29,26 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Node0");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Node2");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Node3");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Node4");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Node5");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Node6");
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Node7");
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Node8");
-            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Node10");
-            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Node11");
-            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Node12");
-            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Node13");
-            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Node14");
-            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Node9", new System.Windows.Forms.TreeNode[] {
-            treeNode25,
-            treeNode26,
-            treeNode27,
-            treeNode28,
-            treeNode29});
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Node0");
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Node1");
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Node2");
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Node3");
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Node4");
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Node5");
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Node6");
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Node7");
+            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Node8");
+            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Node10");
+            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Node11");
+            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Node12");
+            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("Node13");
+            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Node14");
+            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("Node9", new System.Windows.Forms.TreeNode[] {
+            treeNode40,
+            treeNode41,
+            treeNode42,
+            treeNode43,
+            treeNode44});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_MainForm_new));
             this.treeView = new System.Windows.Forms.TreeView();
             this.pMainConent = new Janus.Windows.UI.Dock.UIPanelGroup();
@@ -100,47 +100,47 @@
             this.treeView.LineColor = System.Drawing.Color.Empty;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
-            treeNode16.Name = "Node0";
-            treeNode16.Text = "Node0";
-            treeNode17.Name = "Node1";
-            treeNode17.Text = "Node1";
-            treeNode18.Name = "Node2";
-            treeNode18.Text = "Node2";
-            treeNode19.Name = "Node3";
-            treeNode19.Text = "Node3";
-            treeNode20.Name = "Node4";
-            treeNode20.Text = "Node4";
-            treeNode21.Name = "Node5";
-            treeNode21.Text = "Node5";
-            treeNode22.Name = "Node6";
-            treeNode22.Text = "Node6";
-            treeNode23.Name = "Node7";
-            treeNode23.Text = "Node7";
-            treeNode24.Name = "Node8";
-            treeNode24.Text = "Node8";
-            treeNode25.Name = "Node10";
-            treeNode25.Text = "Node10";
-            treeNode26.Name = "Node11";
-            treeNode26.Text = "Node11";
-            treeNode27.Name = "Node12";
-            treeNode27.Text = "Node12";
-            treeNode28.Name = "Node13";
-            treeNode28.Text = "Node13";
-            treeNode29.Name = "Node14";
-            treeNode29.Text = "Node14";
-            treeNode30.Name = "Node9";
-            treeNode30.Text = "Node9";
+            treeNode31.Name = "Node0";
+            treeNode31.Text = "Node0";
+            treeNode32.Name = "Node1";
+            treeNode32.Text = "Node1";
+            treeNode33.Name = "Node2";
+            treeNode33.Text = "Node2";
+            treeNode34.Name = "Node3";
+            treeNode34.Text = "Node3";
+            treeNode35.Name = "Node4";
+            treeNode35.Text = "Node4";
+            treeNode36.Name = "Node5";
+            treeNode36.Text = "Node5";
+            treeNode37.Name = "Node6";
+            treeNode37.Text = "Node6";
+            treeNode38.Name = "Node7";
+            treeNode38.Text = "Node7";
+            treeNode39.Name = "Node8";
+            treeNode39.Text = "Node8";
+            treeNode40.Name = "Node10";
+            treeNode40.Text = "Node10";
+            treeNode41.Name = "Node11";
+            treeNode41.Text = "Node11";
+            treeNode42.Name = "Node12";
+            treeNode42.Text = "Node12";
+            treeNode43.Name = "Node13";
+            treeNode43.Text = "Node13";
+            treeNode44.Name = "Node14";
+            treeNode44.Text = "Node14";
+            treeNode45.Name = "Node9";
+            treeNode45.Text = "Node9";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode16,
-            treeNode17,
-            treeNode18,
-            treeNode19,
-            treeNode20,
-            treeNode21,
-            treeNode22,
-            treeNode23,
-            treeNode24,
-            treeNode30});
+            treeNode31,
+            treeNode32,
+            treeNode33,
+            treeNode34,
+            treeNode35,
+            treeNode36,
+            treeNode37,
+            treeNode38,
+            treeNode39,
+            treeNode45});
             this.treeView.Size = new System.Drawing.Size(196, 461);
             this.treeView.TabIndex = 0;
             // 
@@ -195,6 +195,7 @@
             this.imageList1.Images.SetKeyName(15, "PASTE.PNG");
             this.imageList1.Images.SetKeyName(16, "FOLDER.PNG");
             this.imageList1.Images.SetKeyName(17, "FolderClosedLarge.png");
+            this.imageList1.Images.SetKeyName(18, "arrow_left_1.ico");
             // 
             // ntfSystemInfo
             // 
@@ -231,14 +232,14 @@
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label1.Location = new System.Drawing.Point(57, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(361, 45);
             this.label1.TabIndex = 10;
-            this.label1.Text = "QUẢN LÝ THÔNG TIN BỆNH VIỆN - HIS.NET";
+            this.label1.Text = "HỆ THỐNG QUẢN LÝ THÔNG TIN BỆNH VIỆN - VMS HIS";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip1.SetToolTip(this.label1, "Nhấn F12 để ẩn(hiện) tiêu đề");
             // 
@@ -436,9 +437,9 @@
             // lblCopyright
             // 
             this.lblCopyright.Name = "lblCopyright";
-            this.lblCopyright.Size = new System.Drawing.Size(581, 17);
+            this.lblCopyright.Size = new System.Drawing.Size(550, 17);
             this.lblCopyright.Spring = true;
-            this.lblCopyright.Text = "COPYRIGHT © Công ty cổ phần CNTT VINASOFT";
+            this.lblCopyright.Text = "COPYRIGHT © Công ty cổ phần CNTT VMS Việt Nam";
             this.lblCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblUpdateVersion
@@ -551,7 +552,7 @@
             this.Name = "frm_MainForm_new";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Quản lý thông tin Bệnh viện - HIS.NET";
+            this.Text = "Hệ thống Quản lý thông tin Bệnh viện - VMS HIS";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frm_MainForm_new_FormClosing);
             this.Load += new System.EventHandler(this.frm_MainForm_new_Load);

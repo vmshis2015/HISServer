@@ -546,7 +546,7 @@ namespace CIS.CoreApp
                     PanelManager.ContainerControl = this;
                     pnlHeader.Visible = true;
                     this.IsMdiContainer = true;
-                    Text = globalVariables.FORMTITLE;
+                    Text = THU_VIEN_CHUNG.Laygiatrithamsohethong("FORMTITLE", false);
                     Application.DoEvents();
                     SetInfor();
 
@@ -606,7 +606,7 @@ namespace CIS.CoreApp
                 {
                     lblDepartment.Text = globalVariables.MA_KHOA_THIEN;
                 }
-                lblCopyright.Text = THU_VIEN_CHUNG.Laygiatrithamsohethong("TEN_CONGTYPHANMEM","COPYRIGHT © Công ty cổ phần CNTT VINASOFT", true);
+                lblCopyright.Text = THU_VIEN_CHUNG.Laygiatrithamsohethong("TEN_CONGTYPHANMEM","COPYRIGHT © Công ty cổ phần CNTT VMS Việt Nam", true);
                 Text = globalVariables.FORMTITLE;
             }
             catch (Exception ex)
@@ -901,6 +901,7 @@ namespace CIS.CoreApp
                 //Load bảng điều khiển
                 //AutoloadControlPanel();
                 PanelManager.ImageList = imageList1;
+                
                 dtSysRoles = SPs.SysGetroles(globalVariables.UserName, globalVariables.IsAdmin ? 1 : 0, globalVariables.Branch_ID).GetDataSet().Tables[0];
 
                 pMain.Panels.Clear();
@@ -941,7 +942,6 @@ namespace CIS.CoreApp
                     objPanel.ImageIndex = 17;
                     objPanel.LargeImageIndex = 17;
                     objPanel.Font = new Font("Tahoma", 10, FontStyle.Bold);
-                    //lstPanel.Add(objPanel);
 
                     //Duyệt qua từng menu trong phân hệ
                     DataRow[] arrDrTopMenu = dtSysRoles.Select("iParentRoleID=" + Utility.sDbnull(drCha["iRoleID"], "-1"), "iOrder asc ");
