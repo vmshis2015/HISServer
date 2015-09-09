@@ -37,6 +37,8 @@
             Janus.Windows.GridEX.GridEXLayout grdDichvuCls_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdLoaiThuoc_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
+            this.txtKhoa = new System.Windows.Forms.TextBox();
+            this.cboUserName = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.grdQuyen = new Janus.Windows.GridEX.GridEX();
@@ -72,8 +74,6 @@
             this.txtID = new System.Windows.Forms.TextBox();
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
-            this.cboUserName = new System.Windows.Forms.ComboBox();
-            this.txtKhoa = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -125,6 +125,32 @@
             this.uiGroupBox1.Size = new System.Drawing.Size(732, 501);
             this.uiGroupBox1.TabIndex = 0;
             this.uiGroupBox1.Click += new System.EventHandler(this.uiGroupBox1_Click);
+            // 
+            // txtKhoa
+            // 
+            this.txtKhoa.BackColor = System.Drawing.Color.White;
+            this.txtKhoa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtKhoa.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtKhoa.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKhoa.Location = new System.Drawing.Point(479, 32);
+            this.txtKhoa.MaxLength = 50;
+            this.txtKhoa.Name = "txtKhoa";
+            this.txtKhoa.Size = new System.Drawing.Size(187, 22);
+            this.txtKhoa.TabIndex = 81;
+            // 
+            // cboUserName
+            // 
+            this.cboUserName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboUserName.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboUserName.FormattingEnabled = true;
+            this.cboUserName.Items.AddRange(new object[] {
+            "Nhân viên phục vụ",
+            "Lãnh đạo đơn vị"});
+            this.cboUserName.Location = new System.Drawing.Point(117, 146);
+            this.cboUserName.Name = "cboUserName";
+            this.cboUserName.Size = new System.Drawing.Size(355, 24);
+            this.cboUserName.TabIndex = 80;
+            this.cboUserName.SelectedValueChanged += new System.EventHandler(this.cboUserName_SelectedValueChanged);
             // 
             // tabControl1
             // 
@@ -344,7 +370,7 @@
             this.txtUID.ExtraWidth = 0;
             this.txtUID.FillValueAfterSelect = false;
             this.txtUID.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUID.Location = new System.Drawing.Point(670, 149);
+            this.txtUID.Location = new System.Drawing.Point(479, 149);
             this.txtUID.MaxHeight = 289;
             this.txtUID.MinTypedCharacters = 2;
             this.txtUID.MyCode = "-1";
@@ -355,7 +381,7 @@
             this.txtUID.RaiseEventEnter = true;
             this.txtUID.RaiseEventEnterWhenEmpty = true;
             this.txtUID.SelectedIndex = -1;
-            this.txtUID.Size = new System.Drawing.Size(53, 21);
+            this.txtUID.Size = new System.Drawing.Size(244, 21);
             this.txtUID.splitChar = '@';
             this.txtUID.splitCharIDAndCode = '#';
             this.txtUID.TabIndex = 7;
@@ -367,7 +393,6 @@
             this.txtUID.txtMyName = null;
             this.txtUID.txtMyName_Edit = null;
             this.txtUID.txtNext = null;
-            this.txtUID.Visible = false;
             // 
             // label1
             // 
@@ -589,32 +614,6 @@
             this.cmdExit.Text = "Thoát(Esc)";
             this.cmdExit.ToolTipText = "Thoát Form hiện tại";
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
-            // 
-            // cboUserName
-            // 
-            this.cboUserName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboUserName.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboUserName.FormattingEnabled = true;
-            this.cboUserName.Items.AddRange(new object[] {
-            "Nhân viên phục vụ",
-            "Lãnh đạo đơn vị"});
-            this.cboUserName.Location = new System.Drawing.Point(117, 146);
-            this.cboUserName.Name = "cboUserName";
-            this.cboUserName.Size = new System.Drawing.Size(355, 24);
-            this.cboUserName.TabIndex = 80;
-            this.cboUserName.SelectedValueChanged += new System.EventHandler(this.cboUserName_SelectedValueChanged);
-            // 
-            // txtKhoa
-            // 
-            this.txtKhoa.BackColor = System.Drawing.Color.White;
-            this.txtKhoa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtKhoa.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtKhoa.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKhoa.Location = new System.Drawing.Point(479, 32);
-            this.txtKhoa.MaxLength = 50;
-            this.txtKhoa.Name = "txtKhoa";
-            this.txtKhoa.Size = new System.Drawing.Size(187, 22);
-            this.txtKhoa.TabIndex = 81;
             // 
             // frm_themmoi_nhanvien
             // 

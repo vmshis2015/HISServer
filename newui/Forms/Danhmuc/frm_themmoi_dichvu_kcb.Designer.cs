@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_dichvu_kcb));
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
+            this.nmrSTT = new System.Windows.Forms.NumericUpDown();
+            this.lblIntOrder = new System.Windows.Forms.Label();
+            this.txtDesc = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.txtPhuthungoaigio = new MaskedTextBox.MaskedTextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtGiangoaigio = new MaskedTextBox.MaskedTextBox();
@@ -61,10 +65,6 @@
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.txtDesc = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.nmrSTT = new System.Windows.Forms.NumericUpDown();
-            this.lblIntOrder = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmrSTT)).BeginInit();
@@ -110,6 +110,46 @@
             this.uiGroupBox1.Size = new System.Drawing.Size(609, 397);
             this.uiGroupBox1.TabIndex = 0;
             this.uiGroupBox1.Text = "Thông tin cần nhập";
+            // 
+            // nmrSTT
+            // 
+            this.nmrSTT.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nmrSTT.Location = new System.Drawing.Point(154, 317);
+            this.nmrSTT.Name = "nmrSTT";
+            this.nmrSTT.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.nmrSTT.Size = new System.Drawing.Size(171, 22);
+            this.nmrSTT.TabIndex = 12;
+            this.nmrSTT.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            // 
+            // lblIntOrder
+            // 
+            this.lblIntOrder.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIntOrder.Location = new System.Drawing.Point(24, 318);
+            this.lblIntOrder.Name = "lblIntOrder";
+            this.lblIntOrder.Size = new System.Drawing.Size(125, 23);
+            this.lblIntOrder.TabIndex = 137;
+            this.lblIntOrder.Text = "STT hiển thị:";
+            this.lblIntOrder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtDesc
+            // 
+            this.txtDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDesc.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDesc.Location = new System.Drawing.Point(154, 340);
+            this.txtDesc.Name = "txtDesc";
+            this.txtDesc.Size = new System.Drawing.Size(429, 22);
+            this.txtDesc.TabIndex = 14;
+            // 
+            // label11
+            // 
+            this.label11.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(12, 344);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(136, 16);
+            this.label11.TabIndex = 135;
+            this.label11.Text = "Mô tả thêm:";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtPhuthungoaigio
             // 
@@ -426,46 +466,6 @@
             // 
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp";
-            // 
-            // txtDesc
-            // 
-            this.txtDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDesc.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDesc.Location = new System.Drawing.Point(154, 340);
-            this.txtDesc.Name = "txtDesc";
-            this.txtDesc.Size = new System.Drawing.Size(429, 22);
-            this.txtDesc.TabIndex = 14;
-            // 
-            // label11
-            // 
-            this.label11.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(12, 344);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(136, 16);
-            this.label11.TabIndex = 135;
-            this.label11.Text = "Mô tả thêm:";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // nmrSTT
-            // 
-            this.nmrSTT.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nmrSTT.Location = new System.Drawing.Point(154, 317);
-            this.nmrSTT.Name = "nmrSTT";
-            this.nmrSTT.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.nmrSTT.Size = new System.Drawing.Size(171, 22);
-            this.nmrSTT.TabIndex = 12;
-            this.nmrSTT.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
-            // 
-            // lblIntOrder
-            // 
-            this.lblIntOrder.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIntOrder.Location = new System.Drawing.Point(24, 318);
-            this.lblIntOrder.Name = "lblIntOrder";
-            this.lblIntOrder.Size = new System.Drawing.Size(125, 23);
-            this.lblIntOrder.TabIndex = 137;
-            this.lblIntOrder.Text = "STT hiển thị:";
-            this.lblIntOrder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frm_themmoi_dichvu_kcb
             // 

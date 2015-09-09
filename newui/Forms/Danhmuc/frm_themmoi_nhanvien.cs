@@ -108,9 +108,10 @@ namespace VNS.HIS.UI.DANHMUC
                 DataBinding.BindData(cboUpLevel, m_dtDepartmentList, DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong);
                 cboUpLevel_SelectedIndexChanged(cboUpLevel,new EventArgs());
                 //Khởi tạo danh mục User
+                DataTable v_dtUserList = new DataTable();
                 if(em_Action == action.Insert)
                 {
-                    DataTable v_dtUserList =
+                     v_dtUserList =
                         new Select().From(SysUser.Schema).Where(SysUser.Columns.PkSuid).NotIn(
                             new Select(DmucNhanvien.Columns.UserName).From(DmucNhanvien.Schema)).ExecuteDataSet().Tables
                             [0];
@@ -118,14 +119,14 @@ namespace VNS.HIS.UI.DANHMUC
                 }
                 else
                 {
-                    DataTable v_dtUserList =
+                     v_dtUserList =
                         new Select().From(SysUser.Schema).ExecuteDataSet().Tables[0];
                     DataBinding.BindData(cboUserName, v_dtUserList, SysUser.Columns.PkSuid, SysUser.Columns.PkSuid);
                 }
                
                 //Utility.AddColumnAlltoUserDataTable(ref v_dtUserList, SysUser.Columns.PkSuid, "");
                 //v_dtUserList.DefaultView.Sort = SysUser.Columns.PkSuid+" ASC";
-                //txtUID.Init(v_dtUserList, new List<string>() { SysUser.Columns.PkSuid, SysUser.Columns.PkSuid, SysUser.Columns.PkSuid });
+                txtUID.Init(v_dtUserList, new List<string>() { SysUser.Columns.PkSuid, SysUser.Columns.PkSuid, SysUser.Columns.PkSuid });
 
 
                 m_dtKhoThuoc = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_TATCA();
