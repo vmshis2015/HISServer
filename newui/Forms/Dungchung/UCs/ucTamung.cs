@@ -141,7 +141,7 @@ namespace VNS.HIS.UCs.Noitru
                     objTamung.IdBuonggiuong = objLuotkham.IdRavien;
                     objTamung.IdBuong = objLuotkham.IdBuong;
                     objTamung.IdGiuong =objLuotkham.IdGiuong;
-                    objTamung.Noitru = objLuotkham.TrangthaiNoitru;
+                    objTamung.Noitru = (byte)(objLuotkham.TrangthaiNoitru <= 0 ? 0 : 1);
                     objTamung.KieuTamung = 0;
                     objTamung.MotaThem = txtLydo.Text;
                     objTamung.IdTnv = Utility.Int32Dbnull(txtNguoithu.MyID, -1);
@@ -659,7 +659,7 @@ namespace VNS.HIS.UCs.Noitru
             {
                 m_dtTamung = new KCB_THAMKHAM().NoitruTimkiemlichsuNoptientamung(objLuotkham.MaLuotkham,
                   Utility.Int32Dbnull(objLuotkham.IdBenhnhan, 0),
-                  0, objLuotkham.TrangthaiNoitru > 0 ? Utility.Int32Dbnull(objLuotkham.IdKhoanoitru, 0) : -1,(byte)(objLuotkham.TrangthaiNoitru > 0 ?1:0));
+                  0, -1,(byte)(objLuotkham.TrangthaiNoitru > 0 ?1:0));//objLuotkham.TrangthaiNoitru > 0 ? Utility.Int32Dbnull(objLuotkham.IdKhoanoitru, 0) : -1,(byte)(objLuotkham.TrangthaiNoitru > 0 ?1:0));
                 Utility.SetDataSourceForDataGridEx_Basic(grdTamung, m_dtTamung, false, true, "1=1", NoitruTamung.Columns.NgayTamung + " desc");
                 grdTamung.MoveFirst();
                 if (grdTamung.GetDataRows().Length <= 0)
