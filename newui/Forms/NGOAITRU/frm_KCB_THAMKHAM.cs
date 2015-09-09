@@ -1441,23 +1441,19 @@ namespace VNS.HIS.UI.NGOAITRU
             }
         }
 
-        private void BindDoctorAssignInfo()
+        private void LaydanhsachbacsiChidinh()
         {
             try
             {
                 m_dtDoctorAssign = THU_VIEN_CHUNG.LaydanhsachBacsi(-1,0);
-                DataBinding.BindDataCombox(cboDoctorAssign, m_dtDoctorAssign, DmucNhanvien.Columns.IdNhanvien,
-                                           DmucNhanvien.Columns.TenNhanvien, "---Bác sỹ khám---", true);
-                if (globalVariablesPrivate.objNhanvien==null)
+                txtBacsi.Init(m_dtDoctorAssign, new List<string>() { DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.MaNhanvien, DmucNhanvien.Columns.TenNhanvien });
+                if (globalVariables.gv_intIDNhanvien <= 0)
                 {
-                    if (cboDoctorAssign.Items.Count > 0)
-                        cboDoctorAssign.SelectedIndex = 0;
+                    txtBacsi.SetId(-1);
                 }
                 else
                 {
-                    if (cboDoctorAssign.Items.Count > 0 && globalVariablesPrivate.objNhanvien!=null)
-                        cboDoctorAssign.SelectedIndex = Utility.GetSelectedIndex(cboDoctorAssign,
-                                                                                 globalVariablesPrivate.objNhanvien.IdNhanvien.ToString());
+                    txtBacsi.SetId(globalVariables.gv_intIDNhanvien);
                 }
             }
             catch (Exception exception)
@@ -1485,7 +1481,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
                 chkIntach.Enabled = cmdPrintAssign.Enabled;
                 cboServicePrint.Enabled = cmdPrintAssign.Enabled;
-                tabDiagInfo.Enabled = !string.IsNullOrEmpty(m_strMaLuotkham);
+                tabDiagInfo.Enabled =objLuotkham!=null && !string.IsNullOrEmpty(m_strMaLuotkham);
                 cmdPrintPres.Enabled =
                     cmdDeletePres.Enabled =
                     cmdUpdatePres.Enabled = Utility.isValidGrid(grdPresDetail) && !string.IsNullOrEmpty(m_strMaLuotkham);
@@ -1643,7 +1639,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 Load_DSach_ICD();
                 LoadPhongkhamngoaitru();
 
-                BindDoctorAssignInfo();
+                LaydanhsachbacsiChidinh();
                 SearchPatient();
                
                 if (cboServicePrint.Items.Count > 0) cboServicePrint.SelectedIndex = 0;
@@ -1697,7 +1693,7 @@ namespace VNS.HIS.UI.NGOAITRU
             DataBinding.BindDataCombox(cboPhongKhamNgoaiTru,
                                                  THU_VIEN_CHUNG.DmucLaydanhsachCacphongkhamTheoBacsi(globalVariables.UserName,globalVariables.idKhoatheoMay, Utility.Bool2byte(globalVariables.IsAdmin), (byte)0),
                                                  DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
-                                                 "---Chọn phòng khám---", true);
+                                                 "---Chọn phòng khám---",false);
            
         }
         DataTable m_ExamTypeRelationList = new DataTable();
@@ -1741,21 +1737,7 @@ namespace VNS.HIS.UI.NGOAITRU
         }
         private void cboDoctorAssign_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                if (string.IsNullOrEmpty(cboDoctorAssign.Text))
-                {
-                    cboDoctorAssign.DroppedDown = true;
-                }
-                else
-                {
-                    cboDoctorAssign.DroppedDown = false;
-                }
-            }
-            catch (Exception)
-            {
-                // throw;
-            }
+           
         }
 
         /// <summary>
@@ -2169,6 +2151,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         TenNhanvien = objStaff.TenNhanvien;
                     pnlCLS.Enabled = true;
                     pnlDonthuoc.Enabled = true;
+                    pnlVTTH.Enabled = true;
                     if (objkcbdangky != null)
                     {
                        
@@ -2233,17 +2216,8 @@ namespace VNS.HIS.UI.NGOAITRU
                                     }
                                     txtTenDvuKham.Text = Utility.sDbnull(objkcbdangky.TenDichvuKcb);
                                     txtNguoiTiepNhan.Text = Utility.sDbnull(objkcbdangky.NguoiTao);
-                                    try
-                                    {
-                                        cboDoctorAssign.SelectedIndex =
-                                                           Utility.GetSelectedIndex(cboDoctorAssign,
-                                                                                    Utility.sDbnull(
-                                                                                        objkcbdangky.IdBacsikham, -1));
-                                    }
-                                    catch (Exception)
-                                    {
-                                        //throw;
-                                    }
+                                    txtBacsi.SetId(Utility.sDbnull( objkcbdangky.IdBacsikham, -1));
+                                   
 
                                     chkDaThucHien.Checked = Utility.Int32Dbnull(objkcbdangky.TrangThai) == 1;
                                 }
@@ -2511,12 +2485,14 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 new Update(KcbLuotkham.Schema)
                                    .Set(KcbLuotkham.Columns.Locked).EqualTo(0)
+                                   .Set(KcbLuotkham.Columns.TrangthaiNgoaitru).EqualTo(0)
                                    .Set(KcbLuotkham.Columns.NguoiKetthuc).EqualTo(string.Empty)
                                    .Set(KcbLuotkham.Columns.NgayKetthuc).EqualTo(null)
                                    .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(
                                        objLuotkham.MaLuotkham)
                                    .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).Execute();
                 objLuotkham.Locked = 0;
+                objLuotkham.TrangthaiNgoaitru = 0;
                 //ModifyByLockStatus(objLuotkham.Locked);
                 cmdUnlock.Visible = objLuotkham.Locked.ToString() == "1";
                 GetData();
@@ -5056,8 +5032,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 _KcbChandoanKetluan.HuongDieutri = txtHuongdieutri.myCode.Trim();
                 _KcbChandoanKetluan.SongayDieutri = (Int16)Utility.DecimaltoDbnull(txtSongaydieutri.Text, 0);
                 _KcbChandoanKetluan.Ketluan = Utility.sDbnull(txtKet_Luan.Text, "");
-                if (cboDoctorAssign.SelectedIndex > 0)
-                    _KcbChandoanKetluan.IdBacsikham = Utility.Int16Dbnull(cboDoctorAssign.SelectedValue, -1);
+                if (Utility.Int16Dbnull(txtBacsi.MyID,-1)>0)
+                    _KcbChandoanKetluan.IdBacsikham = Utility.Int16Dbnull(txtBacsi.MyID);
                 else
                 {
                     _KcbChandoanKetluan.IdBacsikham = globalVariables.gv_intIDNhanvien;
@@ -5104,10 +5080,10 @@ namespace VNS.HIS.UI.NGOAITRU
         private bool IsValidData()
         {
             Utility.SetMsg(lblMsg, "", false);
-            if (Utility.Int32Dbnull(cboDoctorAssign.SelectedValue, -1) <= 0)
+            if (Utility.Int32Dbnull(txtBacsi.MyID, -1) <= 0)
             {
                 Utility.SetMsg(lblMsg, "Bạn cần chọn bác sĩ khám trước khi kết thúc khám ngoại trú cho Bệnh nhân", true);
-                cboDoctorAssign.Focus();
+                txtBacsi.Focus();
                 return false;
             }
             if (string.IsNullOrEmpty(txtPatient_Code.Text))
@@ -5189,7 +5165,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
                     arrDr[0]["trang_thai"] = chkDaThucHien.Checked ? 1 : 0;
                 }
-                objkcbdangky.IdBacsikham = Utility.Int16Dbnull(cboDoctorAssign.SelectedValue, -1);
+                objkcbdangky.IdBacsikham = Utility.Int16Dbnull(txtBacsi.MyID, -1);
                 objLuotkham.TrieuChung = txtTrieuChungBD.Text;
                 if (!THU_VIEN_CHUNG.IsBaoHiem((byte) objLuotkham.IdLoaidoituongKcb))//Đối tượng dịch vụ được khóa ngay sau khi kết thúc khám
                 {
@@ -5199,6 +5175,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         else
                             objLuotkham.NgayKetthuc = null;
                         objLuotkham.Locked = chkDaThucHien.Checked ? (byte)1 : (byte)0;
+                        objLuotkham.TrangthaiNgoaitru = objLuotkham.Locked;
                 }
                 ActionResult actionResult =
                    _KCB_THAMKHAM.UpdateExamInfo(

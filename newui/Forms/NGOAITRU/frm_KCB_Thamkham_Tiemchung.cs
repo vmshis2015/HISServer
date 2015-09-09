@@ -190,6 +190,55 @@ namespace VNS.HIS.UI.NGOAITRU
             cmdXoaphieuVT.Click += cmdXoaphieuVT_Click;
             cmdInphieuVT.Click += cmdInphieuVT_Click;
             cmdLuuChandoan.Click += cmdLuuChandoan_Click;
+
+            txtPhanungSautiem._OnShowData += txtPhanungSautiem__OnShowData;
+            chkKPL_All.CheckedChanged += chkKPL_All_CheckedChanged;
+            chkKPL_Daochon.CheckedChanged += chkKPL_Daochon_CheckedChanged;
+            chkKL_All.CheckedChanged += chkKL_All_CheckedChanged;
+            chkKL_Daochon.CheckedChanged += chkKL_Daochon_CheckedChanged;
+        }
+
+        void chkKL_Daochon_CheckedChanged(object sender, EventArgs e)
+        {
+            chkKL1.Checked = !chkKL1.Checked;
+            chkKL2.Checked = !chkKL2.Checked;
+            chkKL3.Checked = !chkKL3.Checked; 
+        }
+
+        void chkKL_All_CheckedChanged(object sender, EventArgs e)
+        {
+            chkKL1.Checked = chkKL2.Checked = chkKL3.Checked = chkKL_All.Checked;
+        }
+
+        void chkKPL_Daochon_CheckedChanged(object sender, EventArgs e)
+        {
+            chkKPL1.Checked = !chkKPL1.Checked;
+            chkKPL2.Checked = !chkKPL2.Checked;
+            chkKPL3.Checked = !chkKPL3.Checked;
+            chkKPL4.Checked = !chkKPL4.Checked;
+            chkKPL5.Checked = !chkKPL5.Checked;
+            chkKPL6.Checked = !chkKPL6.Checked;
+            chkKPL7.Checked = !chkKPL7.Checked;
+            chkKPL8.Checked = !chkKPL8.Checked; 
+        }
+
+        void chkKPL_All_CheckedChanged(object sender, EventArgs e)
+        {
+            chkKPL1.Checked = chkKPL2.Checked = chkKPL3.Checked = chkKPL4.Checked = chkKPL5.Checked = chkKPL6.Checked = chkKPL7.Checked = chkKPL8.Checked = chkKPL_All.Checked;
+
+        }
+
+        void txtPhanungSautiem__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtPhanungSautiem.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtPhanungSautiem.myCode;
+                txtPhanungSautiem.Init();
+                txtPhanungSautiem.SetCode(oldCode);
+                txtPhanungSautiem.Focus();
+            } 
         }
 
         void cmdChuyenVien_Click(object sender, EventArgs e)
@@ -999,23 +1048,19 @@ namespace VNS.HIS.UI.NGOAITRU
             }
         }
 
-        private void BindDoctorAssignInfo()
+        private void LaydanhsachbacsiChidinh()
         {
             try
             {
                 m_dtDoctorAssign = THU_VIEN_CHUNG.LaydanhsachBacsi(-1,0);
-                DataBinding.BindDataCombox(cboDoctorAssign, m_dtDoctorAssign, DmucNhanvien.Columns.IdNhanvien,
-                                           DmucNhanvien.Columns.TenNhanvien, "---Bác sỹ khám---", true);
-                if (globalVariablesPrivate.objNhanvien==null)
+                txtBacsi.Init(m_dtDoctorAssign, new List<string>() { DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.MaNhanvien, DmucNhanvien.Columns.TenNhanvien });
+                if (globalVariables.gv_intIDNhanvien <= 0)
                 {
-                    if (cboDoctorAssign.Items.Count > 0)
-                        cboDoctorAssign.SelectedIndex = 0;
+                    txtBacsi.SetId(-1);
                 }
                 else
                 {
-                    if (cboDoctorAssign.Items.Count > 0 && globalVariablesPrivate.objNhanvien!=null)
-                        cboDoctorAssign.SelectedIndex = Utility.GetSelectedIndex(cboDoctorAssign,
-                                                                                 globalVariablesPrivate.objNhanvien.IdNhanvien.ToString());
+                    txtBacsi.SetId(globalVariables.gv_intIDNhanvien);
                 }
             }
             catch (Exception exception)
@@ -1160,7 +1205,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 DataTable dtNhomin = THU_VIEN_CHUNG.LayDulieuDanhmucChung("NHOM_INPHIEU_CLS", true);
                 Load_DSach_ICD();
                 LoadPhongkhamngoaitru();
-                BindDoctorAssignInfo();
+                LaydanhsachbacsiChidinh();
                 SearchPatient();
                 AllowTextChanged = true;
                 hasLoaded = true;
@@ -1208,27 +1253,13 @@ namespace VNS.HIS.UI.NGOAITRU
             DataBinding.BindDataCombox(cboPhongKhamNgoaiTru,
                                                  THU_VIEN_CHUNG.DmucLaydanhsachCacphongkhamTheoBacsi(globalVariables.UserName,globalVariables.idKhoatheoMay, Utility.Bool2byte(globalVariables.IsAdmin), (byte)0),
                                                  DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
-                                                 "---Chọn phòng khám---", true);
+                                                 "---Chọn phòng khám---", false);
            
         }
         
         private void cboDoctorAssign_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                if (string.IsNullOrEmpty(cboDoctorAssign.Text))
-                {
-                    cboDoctorAssign.DroppedDown = true;
-                }
-                else
-                {
-                    cboDoctorAssign.DroppedDown = false;
-                }
-            }
-            catch (Exception)
-            {
-                // throw;
-            }
+           
         }
 
        
@@ -1447,18 +1478,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                     }
                                     txtTenDvuKham.Text = Utility.sDbnull(objkcbdangky.TenDichvuKcb);
                                     txtNguoiTiepNhan.Text = Utility.sDbnull(objkcbdangky.NguoiTao);
-                                    try
-                                    {
-                                        cboDoctorAssign.SelectedIndex =
-                                                           Utility.GetSelectedIndex(cboDoctorAssign,
-                                                                                    Utility.sDbnull(
-                                                                                        objkcbdangky.IdBacsikham, -1));
-                                    }
-                                    catch (Exception)
-                                    {
-                                        //throw;
-                                    }
-
+                                    txtBacsi.SetId(Utility.Int16Dbnull(objkcbdangky.IdBacsikham, -1));
                                     chkDaThucHien.Checked = Utility.Int32Dbnull(objkcbdangky.TrangThai) == 1;
                                 }
                                  _KcbChandoanKetluan = new Select().From(KcbChandoanKetluan.Schema)
@@ -1654,12 +1674,14 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 new Update(KcbLuotkham.Schema)
                                    .Set(KcbLuotkham.Columns.Locked).EqualTo(0)
+                                   .Set(KcbLuotkham.Columns.TrangthaiNgoaitru).EqualTo(0)
                                    .Set(KcbLuotkham.Columns.NguoiKetthuc).EqualTo(string.Empty)
                                    .Set(KcbLuotkham.Columns.NgayKetthuc).EqualTo(null)
                                    .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(
                                        objLuotkham.MaLuotkham)
                                    .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).Execute();
                 objLuotkham.Locked = 0;
+                objLuotkham.TrangthaiNgoaitru = 0;
                 //ModifyByLockStatus(objLuotkham.Locked);
                 cmdUnlock.Visible = objLuotkham.Locked.ToString() == "1";
                 GetData();
@@ -2660,8 +2682,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 _KcbChandoanKetluan.KL2 = Utility.Bool2byte(chkKL2.Checked);
                 _KcbChandoanKetluan.KL3 = Utility.Bool2byte(chkKL3.Checked);
 
-                if (cboDoctorAssign.SelectedIndex > 0)
-                    _KcbChandoanKetluan.IdBacsikham = Utility.Int16Dbnull(cboDoctorAssign.SelectedValue, -1);
+                if (Utility.Int16Dbnull(txtBacsi.MyID,-1)> 0)
+                    _KcbChandoanKetluan.IdBacsikham = Utility.Int16Dbnull(txtBacsi.MyID, -1);
                 else
                 {
                     _KcbChandoanKetluan.IdBacsikham = globalVariables.gv_intIDNhanvien;
@@ -2707,10 +2729,10 @@ namespace VNS.HIS.UI.NGOAITRU
         private bool IsValidData()
         {
             Utility.SetMsg(lblMsg, "", false);
-            if (Utility.Int32Dbnull(cboDoctorAssign.SelectedValue, -1) <= 0)
+            if (Utility.Int32Dbnull(txtBacsi.MyID, -1) <= 0)
             {
                 Utility.SetMsg(lblMsg, "Bạn cần chọn bác sĩ khám trước khi kết thúc khám ngoại trú cho Bệnh nhân", true);
-                cboDoctorAssign.Focus();
+                txtBacsi.Focus();
                 return false;
             }
             if (string.IsNullOrEmpty(txtPatient_Code.Text))
@@ -2767,7 +2789,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
                     arrDr[0]["trang_thai"] = chkDaThucHien.Checked ? 1 : 0;
                 }
-                objkcbdangky.IdBacsikham = Utility.Int16Dbnull(cboDoctorAssign.SelectedValue, -1);
+                objkcbdangky.IdBacsikham = Utility.Int16Dbnull(txtBacsi.MyID, -1);
                 if (!THU_VIEN_CHUNG.IsBaoHiem((byte) objLuotkham.IdLoaidoituongKcb))//Đối tượng dịch vụ được khóa ngay sau khi kết thúc khám
                 {
                         objLuotkham.NguoiKetthuc =chkDaThucHien.Checked? globalVariables.UserName:"";
@@ -2776,6 +2798,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         else
                             objLuotkham.NgayKetthuc = null;
                         objLuotkham.Locked = chkDaThucHien.Checked ? (byte)1 : (byte)0;
+                        objLuotkham.TrangthaiNgoaitru = objLuotkham.Locked;
                 }
                 ActionResult actionResult =
                    _KCB_THAMKHAM.UpdateExamInfo(
