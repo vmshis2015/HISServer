@@ -1804,7 +1804,6 @@ namespace  VNS.HIS.UI.THANHTOAN
             this.label38.TabIndex = 378;
             this.label38.Text = "Đã chiết khấu:";
             this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label38.Visible = false;
             // 
             // label2
             // 
@@ -1816,7 +1815,6 @@ namespace  VNS.HIS.UI.THANHTOAN
             this.label2.TabIndex = 375;
             this.label2.Text = "Sẽ chiết khấu:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label2.Visible = false;
             // 
             // txtDachietkhau
             // 
@@ -1835,7 +1833,6 @@ namespace  VNS.HIS.UI.THANHTOAN
             this.txtDachietkhau.Tag = "NO";
             this.txtDachietkhau.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far;
             this.toolTip1.SetToolTip(this.txtDachietkhau, "Tổng tiền chiết khấu");
-            this.txtDachietkhau.Visible = false;
             this.txtDachietkhau.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2003;
             // 
             // ctxHuyChietkhau
@@ -1869,7 +1866,6 @@ namespace  VNS.HIS.UI.THANHTOAN
             this.txtTienChietkhau.Tag = "NO";
             this.txtTienChietkhau.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far;
             this.toolTip1.SetToolTip(this.txtTienChietkhau, "Tổng tiền chiết khấu");
-            this.txtTienChietkhau.Visible = false;
             this.txtTienChietkhau.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2003;
             // 
             // chkChietkhauthem
@@ -1910,7 +1906,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             // 
             this.label9.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label9.Location = new System.Drawing.Point(0, 217);
+            this.label9.Location = new System.Drawing.Point(0, 216);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(143, 24);
             this.label9.TabIndex = 371;

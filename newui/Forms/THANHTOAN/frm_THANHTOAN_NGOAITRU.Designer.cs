@@ -172,7 +172,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.dtPaymentDate = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.label8 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblTiennop = new System.Windows.Forms.Label();
             this.txtTongChiPhi = new Janus.Windows.GridEX.EditControls.EditBox();
             this.txtTuTuc = new Janus.Windows.GridEX.EditControls.EditBox();
             this.txtSoTienCanNop = new Janus.Windows.GridEX.EditControls.EditBox();
@@ -1598,7 +1598,7 @@
             this.cmdChiphithem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdChiphithem.Image = ((System.Drawing.Image)(resources.GetObject("cmdChiphithem.Image")));
             this.cmdChiphithem.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdChiphithem.Location = new System.Drawing.Point(9, 97);
+            this.cmdChiphithem.Location = new System.Drawing.Point(154, 53);
             this.cmdChiphithem.Name = "cmdChiphithem";
             this.cmdChiphithem.Office2007ColorScheme = Janus.Windows.UI.Office2007ColorScheme.Custom;
             this.cmdChiphithem.Office2007CustomColor = System.Drawing.Color.Yellow;
@@ -1612,7 +1612,7 @@
             this.cmdHoanung.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdHoanung.Image = ((System.Drawing.Image)(resources.GetObject("cmdHoanung.Image")));
             this.cmdHoanung.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdHoanung.Location = new System.Drawing.Point(154, 54);
+            this.cmdHoanung.Location = new System.Drawing.Point(154, 92);
             this.cmdHoanung.Name = "cmdHoanung";
             this.cmdHoanung.Office2007ColorScheme = Janus.Windows.UI.Office2007ColorScheme.Custom;
             this.cmdHoanung.Office2007CustomColor = System.Drawing.Color.White;
@@ -1679,7 +1679,7 @@
             this.pnlThongtintien.Controls.Add(this.label12);
             this.pnlThongtintien.Controls.Add(this.dtPaymentDate);
             this.pnlThongtintien.Controls.Add(this.label8);
-            this.pnlThongtintien.Controls.Add(this.label5);
+            this.pnlThongtintien.Controls.Add(this.lblTiennop);
             this.pnlThongtintien.Controls.Add(this.txtTongChiPhi);
             this.pnlThongtintien.Controls.Add(this.txtTuTuc);
             this.pnlThongtintien.Controls.Add(this.txtSoTienCanNop);
@@ -1950,16 +1950,16 @@
             this.label8.Text = "Tổng tiền ";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label5
+            // lblTiennop
             // 
-            this.label5.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.label5.ForeColor = System.Drawing.Color.Navy;
-            this.label5.Location = new System.Drawing.Point(0, 303);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(143, 24);
-            this.label5.TabIndex = 353;
-            this.label5.Text = "Tổng tiền DV:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblTiennop.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.lblTiennop.ForeColor = System.Drawing.Color.Navy;
+            this.lblTiennop.Location = new System.Drawing.Point(0, 303);
+            this.lblTiennop.Name = "lblTiennop";
+            this.lblTiennop.Size = new System.Drawing.Size(143, 24);
+            this.lblTiennop.TabIndex = 353;
+            this.lblTiennop.Text = "Tổng tiền DV:";
+            this.lblTiennop.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtTongChiPhi
             // 
@@ -2891,7 +2891,7 @@
         private System.Windows.Forms.Button cmdsave;
         private Janus.Windows.GridEX.EditControls.EditBox txtCanhbao;
         private System.Windows.Forms.Label label48;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblTiennop;
         private Janus.Windows.GridEX.EditControls.EditBox txtTuTuc;
         private System.Windows.Forms.Label label11;
         private Janus.Windows.GridEX.EditControls.EditBox txtBNPhaiTra;

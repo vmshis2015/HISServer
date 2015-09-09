@@ -686,9 +686,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                 if (  THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_SUDUNGHOADONDO", "0", false)=="1") LoadInvoiceInfo();
                 bool RedInvoice= THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_SUDUNGHOADONDO", "0", false)=="1";
                 serperator1.Visible = serperator2.Visible = mnuHuyHoaDon.Visible = mnuInLaiBienLai.Visible = mnuLayhoadondo.Visible = mnuSuaSoBienLai.Visible = RedInvoice;
-
-               
-
+                TabPageTamung.TabVisible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_KICHHOAT_TAMUNG_NGOAITRU", "0", false) == "1";
+               cmdHoanung.Visible= lblThuathieu.Visible = txtThuathieu.Visible = TabPageTamung.TabVisible;
+               lblTiennop.Text = TabPageTamung.TabVisible ? "Tổng tiền DV:" : "BN Nộp tiền";
                 grdThongTinChuaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.TileChietkhau].Visible = PropertyLib._ThanhtoanProperties.HienthiChietkhauChitiet;
                 grdThongTinChuaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.TienChietkhau].Visible = PropertyLib._ThanhtoanProperties.HienthiChietkhauChitiet;
                 grdThongTinChuaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.KieuChietkhau].Visible = PropertyLib._ThanhtoanProperties.HienthiChietkhauChitiet;
@@ -1077,18 +1077,22 @@ namespace  VNS.HIS.UI.THANHTOAN
                         //cmdDungChuyenCLS.Enabled = Utility.sDbnull(txtObjectType_Code.Text) == "DV";
                         txtDiaChi.Text = Utility.sDbnull(dr[KcbDanhsachBenhnhan.Columns.DiaChi], "");
                         txtDiachiBHYT.Text = Utility.sDbnull(dr[KcbDanhsachBenhnhan.Columns.DiachiBhyt], "");
+                    
                        toolTip1.SetToolTip(lblBHYT, Utility.DoTrim(txtDiachiBHYT.Text));
-                       NoitruTamung objTamung = new Select().From(NoitruTamung.Schema)
-                            .Where(NoitruTamung.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
-                            .And(NoitruTamung.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
-                            .And(NoitruTamung.Columns.KieuTamung).IsEqualTo(1)//Hoàn ứng. Có thể kiểm tra bằng trường trạng thái=1
-                            .And(NoitruTamung.Columns.Noitru).IsEqualTo(0)
-                            .ExecuteSingle<NoitruTamung>();
-                       //}
-                       ucTamung1.ChangePatients(objLuotkham, string.Empty);
-                       cmdHoanung.Text = objTamung == null ? "Hoàn ứng" : "Hủy hoàn ứng";
-                       cmdHoanung.Tag = objTamung == null ? "0" : "1";
-                       cmdHoanung.Enabled = ucTamung1.grdTamung.GetDataRows().Length > 0;
+                       if (TabPageTamung.TabVisible)
+                       {
+                           NoitruTamung objTamung = new Select().From(NoitruTamung.Schema)
+                                .Where(NoitruTamung.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                                .And(NoitruTamung.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                                .And(NoitruTamung.Columns.KieuTamung).IsEqualTo(1)//Hoàn ứng. Có thể kiểm tra bằng trường trạng thái=1
+                                .And(NoitruTamung.Columns.Noitru).IsEqualTo(0)
+                                .ExecuteSingle<NoitruTamung>();
+                           //}
+                           ucTamung1.ChangePatients(objLuotkham, string.Empty);
+                           cmdHoanung.Text = objTamung == null ? "Hoàn ứng" : "Hủy hoàn ứng";
+                           cmdHoanung.Tag = objTamung == null ? "0" : "1";
+                           cmdHoanung.Enabled = ucTamung1.grdTamung.GetDataRows().Length > 0;
+                       }
                     KiemTraDaInPhoiBHYT();
                     GetDataChiTiet();
                     LaydanhsachLichsuthanhtoan_phieuchi();
@@ -1405,23 +1409,30 @@ namespace  VNS.HIS.UI.THANHTOAN
                 txtBNPhaiTra.Text = Utility.sDbnull(TT_BN);
                 txtSoTienCanNop.Text = Utility.sDbnull(Chuathanhtoan);
                 decimal Tong_Tamung = 0;
-                if (ucTamung1.m_dtTamung != null)
+                if (TabPageTamung.TabVisible)
                 {
-                    Tong_Tamung = Utility.DecimaltoDbnull(ucTamung1.m_dtTamung.Compute("SUM(so_tien)", "1=1"), 0);
-                    if (Math.Abs(Tong_Tamung) != 0)
+                    if (ucTamung1.m_dtTamung != null)
                     {
-                        decimal chenhlech = Chuathanhtoan - Tong_Tamung;
-                        if (chenhlech > 0)
+                        Tong_Tamung = Utility.DecimaltoDbnull(ucTamung1.m_dtTamung.Compute("SUM(so_tien)", "1=1"), 0);
+                        if (Math.Abs(Tong_Tamung) != 0)
                         {
-                            lblThuathieu.Text = "BN Nộp tiền";
-                            txtThuathieu.Text = chenhlech.ToString();
-                        }
-                        else
-                        {
-                            lblThuathieu.Text = "Trả lại BN";
-                            txtThuathieu.Text = Math.Abs(chenhlech).ToString();
+                            decimal chenhlech = Chuathanhtoan - Tong_Tamung;
+                            if (chenhlech > 0)
+                            {
+                                lblThuathieu.Text = "BN Nộp tiền";
+                                txtThuathieu.Text = chenhlech.ToString();
+                            }
+                            else
+                            {
+                                lblThuathieu.Text = "Trả lại BN";
+                                txtThuathieu.Text = Math.Abs(chenhlech).ToString();
+                            }
                         }
                     }
+                }
+                else
+                {
+                    lblTiennop.Text = "BN Nộp tiền";
                 }
                 if (Tong_Tamung == 0)
                 {
@@ -2160,6 +2171,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                     Utility.ShowMsg("Bệnh nhân này đã ở trạng thái nội trú nên hệ thống không cho phép hủy thanh toán ngoại trú nữa");
                     return;
                 }
+                
                 v_Payment_ID = Utility.Int32Dbnull(grdPayment.CurrentRow.Cells[KcbThanhtoan.Columns.IdThanhtoan].Value, -1);
                 KcbThanhtoan objPayment = KcbThanhtoan.FetchByID(v_Payment_ID);
 
