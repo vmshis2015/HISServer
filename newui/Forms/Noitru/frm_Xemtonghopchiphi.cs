@@ -152,6 +152,7 @@ namespace VNS.HIS.UI.NOITRU
                 objForm.mv_sReportFileName = Path.GetFileName(reportname);
                 objForm.mv_sReportCode = reportCode;
                 Utility.SetParameterValue(crpt, "StaffName", StaffName);
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
                 Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
                 Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
                 Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);

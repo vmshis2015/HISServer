@@ -132,6 +132,7 @@ namespace VNS.HIS.UI.NOITRU
                     objTamung.IdGiuong = Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdGiuong));
                     
                     objTamung.KieuTamung = 0;
+                    objTamung.Noitru = 1;
                     objTamung.MotaThem = txtLydo.Text;
                     objTamung.IdTnv = Utility.Int32Dbnull(txtNguoithu.MyID, -1);
                     objTamung.SoTien = Utility.DecimaltoDbnull(txtSotien.Text);
@@ -760,7 +761,7 @@ namespace VNS.HIS.UI.NOITRU
                 m_dtTamung = new KCB_THAMKHAM().NoitruTimkiemlichsuNoptientamung(Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham)),
                     Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan)),
                     0,
-                    Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdKhoanoitru)),(byte) 1
+                    -1,(byte) 1
                     );
                 Utility.SetDataSourceForDataGridEx_Basic(grdTamung, m_dtTamung, false, true, "1=1", NoitruTamung.Columns.NgayTamung + " desc");
                 grdTamung.MoveFirst();

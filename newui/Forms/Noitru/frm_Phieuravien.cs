@@ -102,6 +102,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 objForm.mv_sReportCode = "noitru_phieuravien";
                 Utility.SetParameterValue(crpt, "StaffName", StaffName);
                 Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
                 Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
                 Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
                 Utility.SetParameterValue(crpt, "sTitleReport", baocaO_TIEUDE1.TIEUDE);
@@ -193,7 +194,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                         }
                         scope.Complete();
                         mv_blnCancel = false;
-                        Utility.SetMsg(lblMsg,string.Format( "Hủy chuyển viện cho bệnh nhân {0} thành công",txtTenBN.Text), true);
+                        Utility.SetMsg(lblMsg,string.Format( "Hủy ra viện cho bệnh nhân {0} thành công",txtTenBN.Text), true);
                         cmdHuy.Enabled = false;
                         cmdPrint.Enabled = false;
                         cmdChuyen.Enabled = objLuotkham != null && objLuotkham.TrangthaiNoitru <= 3;
@@ -380,7 +381,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                     scope.Complete();
                 }
                 mv_blnCancel = false;
-                Utility.SetMsg(lblMsg, m_enAct == action.Insert?"Thêm mới phiếu chuyển viện thành công":"Cập nhật phiếu chuyển viện thành công", false);
+                Utility.SetMsg(lblMsg, m_enAct == action.Insert?"Thêm mới phiếu ra viện thành công":"Cập nhật phiếu ra viện thành công", false);
                 if (m_enAct == action.Insert)
                     cmdPrint.Enabled = true;
                 cmdHuy.Enabled = objRavien != null && objLuotkham != null && objLuotkham.TrangthaiNoitru <= 3;
