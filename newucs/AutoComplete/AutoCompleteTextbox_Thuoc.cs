@@ -29,7 +29,7 @@ namespace VNS.HIS.UCs
         public event OnGridSelectionChanged _OnGridSelectionChanged;
         public delegate void OnEnterMe();
         public event OnEnterMe _OnEnterMe;
-        private ucGrid _grid;
+        public ucGrid _grid;
         // string to remember a former input
         private string oldText;
         public DataTable dtData=null;
@@ -844,6 +844,10 @@ namespace VNS.HIS.UCs
                         //    this.Text = arrValues[1];//this.listBox.SelectedItem.ToString();
                         //else
                         _Text = _grid.grdListDrug.GetValue(DmucThuoc.Columns.TenThuoc).ToString();
+                        MyID = Utility.Int32Dbnull(_grid.grdListDrug.GetValue("id_thuoc"), "-1");
+                        MyCode = Utility.sDbnull(_grid.grdListDrug.GetValue("id_thuoc"), "-1");
+                        id_thuockho = Utility.Int32Dbnull(_grid.grdListDrug.CurrentRow.Cells["id_thuockho"].Value, -1);
+
                         this.Select(this.Text.Length, 0);
                         AllowTextChanged = false;
                         _grid.AllowedChanged = AllowTextChanged;

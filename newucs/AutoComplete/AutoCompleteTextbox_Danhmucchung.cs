@@ -357,6 +357,7 @@ namespace VNS.HIS.UCs
         {
             myCode = code;
             MyCode = myCode;
+            if (m_dtDanhmucChung == null) return;
             DataRow[] arrDr = m_dtDanhmucChung.Select("MA='" + code + "'");
             if (arrDr.Length > 0)
                 _Text = arrDr[0]["TEN"].ToString();
@@ -417,6 +418,68 @@ namespace VNS.HIS.UCs
              SetCode(defaultItem);
             }
             catch(Exception ex)
+            {
+                Utility.ShowMsg("Lỗi khi tạo Autocomplete cho danh mục dùng chung\n" + ex.Message);
+            }
+        }
+        public void Init(string IncludeList)
+        {
+            try
+            {
+                IncludeList =","+ IncludeList + ",";
+                m_dtDanhmucChung = LayDulieuDanhmucChung(new List<string>() { LOAI_DANHMUC });
+                DataTable tempt = m_dtDanhmucChung.Clone();
+                foreach (DataRow dr in m_dtDanhmucChung.Rows)
+                {
+                    if (IncludeList.Contains("ALL") || IncludeList.Contains("," + Utility.sDbnull(dr["MA"]) + ","))
+                        tempt.ImportRow(dr);
+                }
+                m_dtDanhmucChung = tempt.Copy();
+                if (m_dtDanhmucChung == null || m_dtDanhmucChung.Columns.Count <= 0) return;
+                if (!m_dtDanhmucChung.Columns.Contains("ShortCut")) m_dtDanhmucChung.Columns.Add(new DataColumn("ShortCut", typeof(string)));
+                m_dtDanhmucChung.DefaultView.Sort = DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten;
+                if(m_dtDanhmucChung.Rows.Count==1)
+                    defaultItem = m_dtDanhmucChung.Rows[0]["MA"].ToString().Trim();
+                foreach (DataRowView dr in m_dtDanhmucChung.DefaultView)
+                {
+                    if (Utility.Byte2Bool(dr[DmucChung.Columns.TrangthaiMacdinh]))
+                        defaultItem = dr["MA"].ToString().Trim();
+                    string shortcut = "";
+                    string realName = dr["TEN"].ToString().Trim() + " " + Utility.Bodau(dr["TEN"].ToString().Trim());
+                    shortcut = dr["MA"].ToString().Trim();
+                    string[] arrWords = realName.ToLower().Split(' ');
+                    string _space = "";
+                    string _Nospace = "";
+                    foreach (string word in arrWords)
+                    {
+                        if (word.Trim() != "")
+                        {
+                            _space += word + " ";
+                            //_Nospace += word;
+                        }
+                    }
+                    shortcut += _space; // +_Nospace;
+                    foreach (string word in arrWords)
+                    {
+                        if (word.Trim() != "")
+                            shortcut += word.Substring(0, 1);
+                    }
+                    dr["ShortCut"] = shortcut;
+                }
+
+                var source = new List<string>();
+                var query = from p in m_dtDanhmucChung.AsEnumerable()
+                           
+                            select "-1#" + p.Field<string>("MA").ToString() + "@" + p.Field<string>("TEN").ToString() + "@" + p.Field<string>("shortcut").ToString();
+
+                source = query.ToList<string>();
+                this.AutoCompleteList = source;
+                //this.TextAlign = HorizontalAlignment.Center;
+                this.CaseSensitive = false;
+                this.MinTypedCharacters = 1;
+                SetCode(defaultItem);
+            }
+            catch (Exception ex)
             {
                 Utility.ShowMsg("Lỗi khi tạo Autocomplete cho danh mục dùng chung\n" + ex.Message);
             }

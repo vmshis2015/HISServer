@@ -17,7 +17,7 @@ namespace VNS.HIS.UCs
     public class AutoCompleteTextbox : TextBox
     {
         #region Fields
-
+        List<string> lstIdCodeName = new List<string>();
         // the ListBox used for suggestions
         private ListBox listBox;
 
@@ -320,6 +320,8 @@ namespace VNS.HIS.UCs
         {
             try
             {
+                this.lstIdCodeName = lstIdCodeName;
+                this.dtData = dtData;
                 if (dtData == null) return;
                 if (!dtData.Columns.Contains("ShortCut"))
                     dtData.Columns.Add(new DataColumn("ShortCut", typeof(string)));
@@ -369,6 +371,7 @@ namespace VNS.HIS.UCs
         {
             try
             {
+                this.dtData = dtData;
                 if (dtData == null) return;
                 if (!dtData.Columns.Contains("ShortCut"))
                     dtData.Columns.Add(new DataColumn("ShortCut", typeof(string)));
@@ -413,6 +416,115 @@ namespace VNS.HIS.UCs
                 this.MinTypedCharacters = 1;
 
             }
+        }
+        public void AddNewItems(DataRow dr, List<string> lstIdCodeName)
+        {
+            try
+            {
+                string shortcut = "";
+                string realName = dr[lstIdCodeName[2]].ToString().Trim() + " " +
+                                  Utility.Bodau(dr[lstIdCodeName[2]].ToString().Trim());
+                shortcut = dr[lstIdCodeName[1]].ToString().Trim();
+                string[] arrWords = realName.ToLower().Split(' ');
+                string _space = "";
+                string _Nospace = "";
+                foreach (string word in arrWords)
+                {
+                    if (word.Trim() != "")
+                    {
+                        _space += word + " ";
+                        //_Nospace += word;
+                    }
+                }
+                shortcut += _space; // +_Nospace;
+                foreach (string word in arrWords)
+                {
+                    if (word.Trim() != "")
+                        shortcut += word.Substring(0, 1);
+                }
+                dr["ShortCut"] = shortcut;
+                string newItem = Utility.sDbnull(dr[lstIdCodeName[0]], "") + "#" + Utility.sDbnull(dr[lstIdCodeName[1]], "") + "@" + Utility.sDbnull(dr[lstIdCodeName[2]], "") + "@" + Utility.sDbnull(dr["shortcut"], "");
+                this.AutoCompleteList.Add(newItem);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        public void AddNewItems(DataRow dr)
+        {
+            try
+            {
+                if (dr != null && !dr.Table.Columns.Contains("ShortCut")) dr.Table.Columns.Add(new DataColumn("ShortCut", typeof(string)));
+                string shortcut = "";
+                string realName = dr[lstIdCodeName[2]].ToString().Trim() + " " +
+                                  Utility.Bodau(dr[lstIdCodeName[2]].ToString().Trim());
+                shortcut = dr[lstIdCodeName[1]].ToString().Trim();
+                string[] arrWords = realName.ToLower().Split(' ');
+                string _space = "";
+                string _Nospace = "";
+                foreach (string word in arrWords)
+                {
+                    if (word.Trim() != "")
+                    {
+                        _space += word + " ";
+                        //_Nospace += word;
+                    }
+                }
+                shortcut += _space; // +_Nospace;
+                foreach (string word in arrWords)
+                {
+                    if (word.Trim() != "")
+                        shortcut += word.Substring(0, 1);
+                }
+                dr["ShortCut"] = shortcut;
+                string newItem = Utility.sDbnull(dr[lstIdCodeName[0]], "") + "#" + Utility.sDbnull(dr[lstIdCodeName[1]], "") + "@" + Utility.sDbnull(dr[lstIdCodeName[2]], "") + "@" + Utility.sDbnull(dr["shortcut"], "");
+                this.AutoCompleteList.Add(newItem);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        public void UpdateItems(DataRow dr)
+        {
+            try
+            {
+                if (dr != null && !dr.Table.Columns.Contains("ShortCut")) dr.Table.Columns.Add(new DataColumn("ShortCut", typeof(string)));
+                string shortcut = "";
+                string realName = dr[lstIdCodeName[2]].ToString().Trim() + " " +
+                                  Utility.Bodau(dr[lstIdCodeName[2]].ToString().Trim());
+                shortcut = dr[lstIdCodeName[1]].ToString().Trim();
+                string[] arrWords = realName.ToLower().Split(' ');
+                string _space = "";
+                string _Nospace = "";
+                foreach (string word in arrWords)
+                {
+                    if (word.Trim() != "")
+                    {
+                        _space += word + " ";
+                        //_Nospace += word;
+                    }
+                }
+                shortcut += _space; // +_Nospace;
+                foreach (string word in arrWords)
+                {
+                    if (word.Trim() != "")
+                        shortcut += word.Substring(0, 1);
+                }
+                dr["ShortCut"] = shortcut;
+                string newItem = Utility.sDbnull(dr[lstIdCodeName[0]], "") + "#" + Utility.sDbnull(dr[lstIdCodeName[1]], "") + "@" + Utility.sDbnull(dr[lstIdCodeName[2]], "") + "@" + Utility.sDbnull(dr["shortcut"], "");
+
+                this.AutoCompleteList[getIndex(Utility.Int32Dbnull(dr[lstIdCodeName[0]], -1))] = newItem;
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        public int getIndex(int ID)
+        {
+            return this.AutoCompleteList.FindIndex(c => Utility.Int32Dbnull(c.Split('#')[0]) == ID);
         }
         public void SetId(object _Id)
         {
@@ -558,6 +670,7 @@ namespace VNS.HIS.UCs
                 listBox.SelectedIndex = -1;
                 AllowChangedListBox = true;
                 if (RaiseEventEnter && _OnEnterMe != null) _OnEnterMe();
+                this.SelectionStart = 0;
                 if (txtNext != null) txtNext.Focus();
                 args.Handled = true;
             }
