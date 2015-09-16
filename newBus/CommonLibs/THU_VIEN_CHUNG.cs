@@ -715,6 +715,11 @@ namespace VNS.Libs
                 globalVariables.gv_strTenNhanvien = globalVariablesPrivate.objNhanvien.TenNhanvien;
                 globalVariables.gv_intIDNhanvien = globalVariablesPrivate.objNhanvien.IdNhanvien;
             }
+            else
+            {
+                globalVariables.gv_strTenNhanvien = globalVariables.UserName;
+                globalVariables.gv_intIDNhanvien = -1;
+            }
             globalVariables.gv_dtQuyenNhanvien = new Select().From(QheNhanvienQuyensudung.Schema).Where(QheNhanvienQuyensudung.Columns.IdNhanvien).IsEqualTo( globalVariables.gv_intIDNhanvien).ExecuteDataSet().Tables[0];
             globalVariables.gv_dtQuyenNhanvien_Dmuc = new Select().From(QheNhanvienDanhmuc.Schema).Where(QheNhanvienDanhmuc.Columns.IdNhanvien).IsEqualTo(globalVariables.gv_intIDNhanvien).ExecuteDataSet().Tables[0];
         }
@@ -1738,9 +1743,9 @@ namespace VNS.Libs
         /// <param name="MA_DTUONG"></param>
         /// <param name="dongia">Nếu không muốn tìm theo đơn giá thì truyền giá trị -1</param>
         /// <returns></returns>
-        public static DataTable LayDsach_Dvu_KCB(string MA_DTUONG, decimal dongia)
+        public static DataTable LayDsach_Dvu_KCB(string MA_DTUONG,string madichvukcb, decimal dongia)
         {
-            return SPs.DmucLaythongtinDvuKcb(MA_DTUONG, globalVariables.MA_KHOA_THIEN, dongia).GetDataSet()
+            return SPs.DmucLaythongtinDvuKcb(MA_DTUONG, globalVariables.MA_KHOA_THIEN,madichvukcb, dongia).GetDataSet()
                          .Tables[0];
         }
         public static int LaySTTKhamTheoDoituong(Int16 ObjectTypeType)

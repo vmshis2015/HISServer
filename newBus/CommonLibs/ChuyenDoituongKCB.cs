@@ -299,6 +299,7 @@ namespace VNS.Libs
                 {
 
                     objKcbDonthuoc.IdLichsuDoituongKcb = objLichsu.IdLichsuDoituongKcb;
+                    objKcbDonthuoc.MatheBhyt = objLichsu.MatheBhyt;
                     objKcbDonthuoc.MaDoituongKcb = objLichsu.MaDoituongKcb;
 
                     string MA_KHOA_THIEN = globalVariables.MA_KHOA_THIEN;
@@ -316,7 +317,6 @@ namespace VNS.Libs
                         if (Utility.Int32Dbnull(objKcbDonthuoc.IdGoi, -1) > 0)
                         {
                             objChitietDonthuoc.MaDoituongKcb = objLichsu.MaDoituongKcb;
-                            objChitietDonthuoc.IdLichsuDoituongKcb = objLichsu.IdLichsuDoituongKcb;
                             if (Utility.Int16Dbnull(objChitietDonthuoc.TrangthaiThanhtoan, 0) == 0)
                             {
                                 saveParent = true;
@@ -473,6 +473,7 @@ namespace VNS.Libs
                 {
 
                     objKcbDonthuoc.IdLichsuDoituongKcb = objLuotkham.IdLichsuDoituongKcb;
+                    objKcbDonthuoc.MatheBhyt = objLuotkham.MatheBhyt;
                     objKcbDonthuoc.MaDoituongKcb = objLuotkham.MaDoituongKcb;
 
                     foreach (KcbDonthuocChitiet objChitietDonthuoc in lstChitiet.Where(c => c.IdDonthuoc.Equals(objKcbDonthuoc.IdDonthuoc)))
@@ -480,7 +481,6 @@ namespace VNS.Libs
                         if (Utility.Int32Dbnull(objChitietDonthuoc.IdGoi, -1) > 0)
                         {
                             objChitietDonthuoc.MaDoituongKcb = objLuotkham.MaDoituongKcb;
-                            objChitietDonthuoc.IdLichsuDoituongKcb = objLuotkham.IdLichsuDoituongKcb;
                             if (Utility.Int16Dbnull(objChitietDonthuoc.TrangthaiThanhtoan, 0) == 0)
                             {
                                 saveParent = true;
@@ -698,6 +698,7 @@ namespace VNS.Libs
                         DataTable m_dtServiceDetail = new KCB_CHIDINH_CANLAMSANG().LaydanhsachCLS_chidinh(_item.MaDoituongKcb, Utility.ByteDbnull(_item.TrangthaiNoitru, 0), Utility.ByteDbnull(_item.GiayBhyt, 0), -1, Utility.Int32Dbnull(_item.DungTuyen.Value, 0), MA_KHOA_THIEN, "-GOI,-TIEN");
 
                         objChidinh.IdLichsuDoituongKcb = _item.IdLichsuDoituongKcb;
+                        objChidinh.MatheBhyt = _item.MatheBhyt;
                         objChidinh.MaDoituongKcb = _item.MaDoituongKcb;
                         objChidinh.IdLoaidoituongKcb = _item.IdLoaidoituongKcb;
                         objChidinh.IdDoituongKcb = _item.IdDoituongKcb;
@@ -709,7 +710,6 @@ namespace VNS.Libs
                                 if (objChidinhChitiet.TrangthaiThanhtoan == 0)//Chưa thanh toán
                                 {
                                     saveParent = true;
-                                    objChidinhChitiet.IdLichsuDoituongKcb = _item.IdLichsuDoituongKcb;
                                     objChidinhChitiet.MadoituongGia = _item.MaDoituongKcb;
                                     objChidinhChitiet.PtramBhyt = _item.PtramBhyt;
                                     objChidinhChitiet.PtramBhytGoc = _item.PtramBhytGoc;
@@ -847,6 +847,7 @@ namespace VNS.Libs
                     {
                         
                             objChidinh.IdLichsuDoituongKcb = objLuotkham.IdLichsuDoituongKcb;
+                            objChidinh.MatheBhyt = objLuotkham.MatheBhyt;
                             objChidinh.MaDoituongKcb = objLuotkham.MaDoituongKcb;
                             objChidinh.IdLoaidoituongKcb = objLuotkham.IdLoaidoituongKcb;
                             objChidinh.IdDoituongKcb = objLuotkham.IdDoituongKcb;
@@ -858,7 +859,6 @@ namespace VNS.Libs
                                     if (objChidinhChitiet.TrangthaiThanhtoan == 0)//Chưa thanh toán
                                     {
                                         saveParent = true;
-                                        objChidinhChitiet.IdLichsuDoituongKcb = objLuotkham.IdLichsuDoituongKcb;
                                         objChidinhChitiet.MadoituongGia = objLuotkham.MaDoituongKcb;
                                         objChidinhChitiet.PtramBhyt = objLuotkham.PtramBhyt;
                                         objChidinhChitiet.PtramBhytGoc = objLuotkham.PtramBhytGoc;
@@ -1034,6 +1034,7 @@ namespace VNS.Libs
                             objDangkyKCB.IdDoituongkcb = objLichsu.IdDoituongKcb;
                             objDangkyKCB.IdLoaidoituongkcb = objLichsu.IdLoaidoituongKcb;
                             objDangkyKCB.IdLichsuDoituongKcb = objLichsu.IdLichsuDoituongKcb;
+                            objDangkyKCB.MatheBhyt = objLichsu.MatheBhyt;
                             if (objDangkyKCB.TrangthaiThanhtoan == 0)//Các mục chưa thanh toán thì cho phép chuyển
                             {
 
@@ -1146,6 +1147,7 @@ namespace VNS.Libs
                             objDangkyKCB.IdDoituongkcb = objLuotkham.IdDoituongKcb;
                             objDangkyKCB.IdLoaidoituongkcb = objLuotkham.IdLoaidoituongKcb;
                             objDangkyKCB.IdLichsuDoituongKcb = objLuotkham.IdLichsuDoituongKcb;
+                            objDangkyKCB.MatheBhyt = objLuotkham.MatheBhyt;
                             if (objDangkyKCB.TrangthaiThanhtoan == 0)//Các mục chưa thanh toán thì cho phép chuyển
                             {
 
