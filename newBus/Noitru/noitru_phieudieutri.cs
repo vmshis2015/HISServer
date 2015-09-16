@@ -50,9 +50,9 @@ namespace VNS.HIS.BusRule.Classes
                         }
                         objDonthuoc.NgayXacnhan = null;
                         objDonthuoc.NgayCapphat = null;
-                        objDonthuoc.DonthuocTaiquay = 0;
                         objDonthuoc.TrangThai = 0;
                         objDonthuoc.TrangthaiThanhtoan = 0;
+                        objDonthuoc.KieuDonthuoc = 0;
                         objDonthuoc.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
                         //objDonthuoc.IdBacsiChidinh = globalVariables.gv_intIDNhanvien;
                         objDonthuoc.MotaThem = "Sao chép";
@@ -139,9 +139,9 @@ namespace VNS.HIS.BusRule.Classes
                                                                                             -1));
                     objDonthuoc.NgayXacnhan = null;
                     objDonthuoc.NgayCapphat = null;
-                    objDonthuoc.DonthuocTaiquay = 0;
                     objDonthuoc.TrangThai = 0;
                     objDonthuoc.TrangthaiThanhtoan = 0;
+                    objDonthuoc.KieuDonthuoc = 0;
                     objDonthuoc.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
                     //objDonthuoc.IdBacsiChidinh = globalVariables.gv_intIDNhanvien;
                     objDonthuoc.MotaThem = "Sao chép";
@@ -483,6 +483,7 @@ namespace VNS.HIS.BusRule.Classes
                             pre.IdPhieudieutri = CurrentTreatID;
                             pre.NgayKedon = pres_date;
                             pre.NguoiTao = globalVariables.UserName;
+                            pre.KieuDonthuoc = 0;
                             pre.Noitru = 1;
                             pre.IdKham = -1;
                             pre.IdGoi = -1;
