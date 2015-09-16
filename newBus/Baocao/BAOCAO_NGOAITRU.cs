@@ -20,9 +20,9 @@ namespace VNS.HIS.BusRule.Classes
         {
             log = LogManager.GetCurrentClassLogger();
         }
-        public static DataTable BaocaoTiepdonbenhnhanTonghop(DateTime? FromDate, DateTime? ToDate, int? iddoituongkcb, string nguoitao, string DeparmentCODE)
+        public static DataTable BaocaoTiepdonbenhnhanTonghop(DateTime? FromDate, DateTime? ToDate, int? iddoituongkcb, string nguoitao, string DeparmentCODE,string loaiBN)
         {
-            return SPs.BaocaoTiepdonbenhnhanTonghop(FromDate, ToDate, iddoituongkcb, nguoitao, DeparmentCODE).GetDataSet().Tables[0];
+            return SPs.BaocaoTiepdonbenhnhanTonghop(FromDate, ToDate, iddoituongkcb, nguoitao, DeparmentCODE, loaiBN).GetDataSet().Tables[0];
         }
         public static DataTable BaoCaoThongKeBNTheoDotuoiCT(int? iddoituongkcb, DateTime? FromDate, DateTime? ToDate, int gioitinh , string DeparmentCODE)
         {
@@ -33,9 +33,9 @@ namespace VNS.HIS.BusRule.Classes
             return SPs.BaocaoSoluongbenhnhanTheobacsy(FromDate, ToDate,iddoituongkcb,idKhoaPhong,idBsThuchien, DeparmentCODE).GetDataSet().Tables[0];
         }
         
-        public static DataTable BaocaoTiepdonbenhnhanChitiet(int? ObjectType, DateTime? FromDate, DateTime? ToDate, string nguoitao, string DeparmentCODE)
+        public static DataTable BaocaoTiepdonbenhnhanChitiet(int? ObjectType, DateTime? FromDate, DateTime? ToDate, string nguoitao, string DeparmentCODE,string loaiBN)
         {
-            return SPs.BaocaoTiepdonbenhnhanChitiet(ObjectType, FromDate, ToDate, nguoitao, DeparmentCODE).GetDataSet().Tables[0];
+            return SPs.BaocaoTiepdonbenhnhanChitiet(ObjectType, FromDate, ToDate, nguoitao, DeparmentCODE, loaiBN).GetDataSet().Tables[0];
             
         }
         public static DataTable BaocaoMiengiam(int idnhanvienthanhtoan, string tungay, string denngay)
