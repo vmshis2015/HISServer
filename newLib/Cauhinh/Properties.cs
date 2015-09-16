@@ -277,6 +277,7 @@ DisplayName("Số ngày hiển thị phiếu điều trị")]
             Tudongthanhtoan = false;
             Themmoilientuc = false;
             TudonginBienlai = true;
+            BoquaChidanthem = true;
         }
         [Browsable(true), ReadOnly(false), Category("Cấu hình quầy thuốc"),
    Description("Thanh toán ngay sau khi ghi"),
@@ -293,6 +294,10 @@ DisplayName("Số ngày hiển thị phiếu điều trị")]
   DisplayName("Thêm mới liên tục")]
         public bool Themmoilientuc { get; set; }
 
+        [Browsable(true), ReadOnly(false), Category("Cấu hình quầy thuốc"),
+  Description("Bỏ qua không nhảy vào mục Chỉ dẫn thêm"),
+  DisplayName("Bỏ qua không nhảy vào mục Chỉ dẫn thêm")]
+        public bool BoquaChidanthem { get; set; }
     }
 
     public class BenhAnProperties

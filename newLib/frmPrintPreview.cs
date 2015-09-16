@@ -237,13 +237,19 @@ namespace VNS.Libs
                 {
                     if (mv_oNguoiKy._TonTai)
                     {
-                        SetParamAgain(this.crptViewer.ParameterFieldInfo);
+                        this.Text += " Ton tai TK";
+                        SetParamAgain();
                     }
                     else
                     {
+                        this.Text += " Ko Ton tai TK";
                         string sPvalue = "";
                         Utility.SetParameterValue(RptDoc, "txtTrinhky", sPvalue);
                     }
+                }
+                else
+                {
+                    Utility.ShowMsg("No Trình ký");
                 }
                 this.crptViewer.ReportSource = RptDoc;
             }
@@ -295,7 +301,7 @@ namespace VNS.Libs
                     {
                         this.mv_oNguoiKy.updateRPTtoDB();
                     }
-                    SetParamAgain(this.crptViewer.ParameterFieldInfo);
+                    SetParamAgain();
                    
                     this.crptViewer.ReportSource = RptDoc;
                 }
@@ -346,11 +352,12 @@ namespace VNS.Libs
                 {
                     if (Utility.DoTrim( p[i].ParameterFieldName.ToUpper()) == "txtTrinhky".ToUpper())
                     {
+                        this.Text = this.Text + " Có TK";
                         return p[i];
                     }
 
                 }
-                this.Text = this.Text + "- KoCo trình ký";
+                this.Text = this.Text + "- Không có TK";
                 return null;
             }
             catch (Exception ex)
@@ -359,14 +366,14 @@ namespace VNS.Libs
                 return null;
             }
         }
-        private void SetParamAgain(CrystalDecisions.Shared.ParameterFields p)
+        private void SetParamAgain()
         {
             if (mv_bSetContent)
             {
                 string sPvalue = mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
                 sPvalue = sPvalue.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
                 sPvalue = sPvalue.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
-                Utility.SetParameterValue(RptDoc, "txtTrinhky", sPvalue);
+                Utility.SetParameterValueNoCheckExists(RptDoc, "txtTrinhky", sPvalue);
             }
         }
      

@@ -140,10 +140,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Running\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="RicherTextBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Running\RicherTextBox.dll</HintPath>
-    </Reference>
     <Reference Include="RichTextBoxExtended">
       <HintPath>..\..\RicherRichTextBoxPrj\RichTextBoxExtended\RichTextBoxExtended\bin\Debug\RichTextBoxExtended.dll</HintPath>
     </Reference>
@@ -260,6 +256,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\RicherRichTextBoxPrj\RicherTextBox_src\RicherTextBox\RicherTextBox.csproj">
+      <Project>{8f3074d8-e771-4c5e-a11e-0c0fbae34ae3}</Project>
+      <Name>RicherTextBox</Name>
+    </ProjectReference>
     <ProjectReference Include="..\newdal\newdal.csproj">
       <Project>{cd0be8e8-b7d8-41ca-95f7-ea03675cfe0d}</Project>
       <Name>newdal</Name>

@@ -6219,8 +6219,20 @@ namespace VNS.Libs
 
                     }
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.CatchException(ex);
+            }
+        }
+        public static void SetParameterValueNoCheckExists(ReportDocument crpt, string pName, object pVal)
+        {
+            try
+            {
+                crpt.SetParameterValue(pName, pVal);
+            }
+            catch(Exception ex)
+            {
+                Utility.CatchException(ex);
             }
         }
         /// <summary>
