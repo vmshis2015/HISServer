@@ -309,6 +309,7 @@
             this.grdDichvuCls.DynamicFiltering = true;
             this.grdDichvuCls.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
             this.grdDichvuCls.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdDichvuCls.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grdDichvuCls.GroupByBoxVisible = false;
             this.grdDichvuCls.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
             this.grdDichvuCls.Location = new System.Drawing.Point(0, 0);
@@ -335,13 +336,14 @@
             this.grdLoaiThuoc.DynamicFiltering = true;
             this.grdLoaiThuoc.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
             this.grdLoaiThuoc.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
-            this.grdLoaiThuoc.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdLoaiThuoc.Font = new System.Drawing.Font("Arial", 9F);
             this.grdLoaiThuoc.GroupByBoxVisible = false;
             this.grdLoaiThuoc.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
             this.grdLoaiThuoc.Location = new System.Drawing.Point(0, 0);
             this.grdLoaiThuoc.Name = "grdLoaiThuoc";
             this.grdLoaiThuoc.Size = new System.Drawing.Size(602, 183);
             this.grdLoaiThuoc.TabIndex = 74;
+            this.grdLoaiThuoc.UseGroupRowSelector = true;
             this.grdLoaiThuoc.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // lblMsg

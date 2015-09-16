@@ -110,12 +110,99 @@ namespace VNS.HIS.UI.THUOC
             txtDonvitinh._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtDonvitinh__OnShowData);
             txtDonvichia._OnShowData += txtDonvichia__OnShowData;
             chkChiathuoc.CheckedChanged += chkChiathuoc_CheckedChanged;
-            
+            txtThuoc._OnEnterMe += txtThuoc__OnEnterMe;
+            txtCachsudung._OnShowData += txtCachsudung__OnShowData;
+            txtNuocSX._OnShowData += txtNuocSX__OnShowData;
+            txtHangSX._OnShowData += txtHangSX__OnShowData;
+            txtDangBaoChe._OnShowData += txtDangBaoChe__OnShowData;
+            cmdNew.Click += cmdNew_Click;
+        }
+        void cmdNew_Click(object sender, EventArgs e)
+        {
+            m_enAction = action.Insert;
+            SetControlStatus();
+        }
+
+        void txtDangBaoChe__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtDangBaoChe.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtDangBaoChe.myCode;
+                txtDangBaoChe.Init();
+                txtDangBaoChe.SetCode(oldCode);
+                txtDangBaoChe.Focus();
+            }   
+        }
+
+        void txtHangSX__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtHangSX.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtHangSX.myCode;
+                txtHangSX.Init();
+                txtHangSX.SetCode(oldCode);
+                txtHangSX.Focus();
+            }    
+        }
+
+        void txtNuocSX__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtNuocSX.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtNuocSX.myCode;
+                txtNuocSX.Init();
+                txtNuocSX.SetCode(oldCode);
+                txtNuocSX.Focus();
+            }     
+        }
+
+        void txtCachsudung__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtCachsudung.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtCachsudung.myCode;
+                txtCachsudung.Init();
+                txtCachsudung.SetCode(oldCode);
+                txtCachsudung.Focus();
+            }   
+        }
+
+     
+        void txtThuoc__OnEnterMe()
+        {
+            try
+            {
+                foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdDmucthuoc.GetDataRows())
+                {
+                    gridExRow.BeginEdit();
+                    if (Utility.Int32Dbnull(gridExRow.Cells[DmucThuoc.Columns.IdThuoc].Value) == Utility.Int32Dbnull(txtThuoc.MyID))
+                    {
+                        gridExRow.Cells["CHON"].Value = 1;
+                        gridExRow.IsChecked = true;
+                        break;
+                    }
+                    gridExRow.BeginEdit();
+                }
+            }
+            catch (Exception)
+            {
+                
+               
+            }
+           
         }
 
         void chkChiathuoc_CheckedChanged(object sender, EventArgs e)
         {
-            txtDonvichia.Enabled = txtDonvichia.Enabled = txtSoluongchia.Enabled = chkChiathuoc.Checked;
+            txtDonvichia.Enabled = txtDongiachia.Enabled = txtSoluongchia.Enabled = chkChiathuoc.Checked;
         }
 
         void txtDonvichia__OnShowData()
@@ -340,14 +427,14 @@ namespace VNS.HIS.UI.THUOC
                      txtGiaBHYT.Text = Utility.sDbnull(objThuoc.GiaBhyt);
                      txtPTDT.Text = Utility.sDbnull(objThuoc.PhuthuDungtuyen);
                      txtPTTT.Text = Utility.sDbnull(objThuoc.PhuthuTraituyen);
-                    txtName.Text = Utility.sDbnull(objThuoc.TenThuoc);
+                    txtName._Text = Utility.sDbnull(objThuoc.TenThuoc);
                     txtDesc.Text = Utility.sDbnull(objThuoc.MotaThem);
                     txtLoaithuoc.SetId(Utility.sDbnull(objThuoc.IdLoaithuoc));
                     txtDonvitinh.SetCode(objThuoc.MaDonvitinh);
                     cboDrugNature.SelectedIndex = Convert.ToInt32(objThuoc.TinhChat);
                     txtNumber_Register.Text = Utility.sDbnull(objThuoc.SoDangky);
-                    txtNuocSX.Text = Utility.sDbnull(objThuoc.NuocSanxuat);
-                    txtHangSX.Text = Utility.sDbnull(objThuoc.HangSanxuat);
+                    txtNuocSX._Text = Utility.sDbnull(objThuoc.NuocSanxuat);
+                    txtHangSX._Text = Utility.sDbnull(objThuoc.HangSanxuat);
                     txtContent.Text = Utility.sDbnull(objThuoc.HamLuong);
                     txtQD31.Text = objThuoc.QD31;
                     chkTutuc.Checked = Utility.Byte2Bool(objThuoc.TuTuc.Value);
@@ -357,9 +444,9 @@ namespace VNS.HIS.UI.THUOC
                     optAll.Checked = objThuoc.NoitruNgoaitru=="ALL";
                     optNgoai.Checked = objThuoc.NoitruNgoaitru == "NGOAI";
                     optNoitru.Checked = objThuoc.NoitruNgoaitru == "NOI";
-                    txtSoluong.Text = Utility.sDbnull(objThuoc.GioihanKedon,"");
-                    txtBut.Text = Utility.sDbnull(objThuoc.DonviBut, "");
-
+                    txtSoluong.Text = Utility.sDbnull(objThuoc.GioihanKedon,"0");
+                    txtBut.Text = Utility.sDbnull(objThuoc.DonviBut, "0");
+                    txtCachsudung.SetCode(objThuoc.CachSudung);
                     txtSoluongchia.Text = Utility.DecimaltoDbnull(objThuoc.SluongChia, 0).ToString();
                     txtDongiachia.Text = Utility.DecimaltoDbnull(objThuoc.DongiaChia, 0).ToString();
                     txtDonvichia.SetCode(objThuoc.MaDvichia);
@@ -442,17 +529,18 @@ namespace VNS.HIS.UI.THUOC
                     txtCode.Clear();
                     txtContent.Clear();
                     txtNumber_Register.Clear();
-                    txtHangSX.Clear();
-                    txtNuocSX.Clear();
+                    txtHangSX.SetDefaultItem();
+                    txtNuocSX.SetDefaultItem();
                     chkHieuLuc.Checked = true;
                     txtName.Clear();
                     txtTEN_BHYT.Clear();
                     txtLoaithuoc.SetId(-1);
                     txtActice.Clear();
-                    txtDangBaoChe.Clear();
-                    txtDonvitinh.SetCode("-1");
+                    txtDangBaoChe.SetDefaultItem();
+                    txtDonvitinh.SetDefaultItem();
                     txtDongia.Clear();
                     txtGiaBHYT.Clear();
+                    txtCachsudung.SetDefaultItem();
                     txtPTDT.Clear();
                     txtPTTT.Clear();
                     optAll.Checked = true;
@@ -463,9 +551,8 @@ namespace VNS.HIS.UI.THUOC
                     cmdSave.Enabled = true;
                     //Tự động Focus đến mục Code để người dùng nhập liệu
                     txtID.Text = "Tự sinh";
-                    txtCode.Text = "";// BusinessHelper.GenerateDrugCode();
-                    txtName.Focus();
-                    //txtCode.Text = BusinessHelper.MaThuoc();
+                    txtCode.Text = "";
+                    txtCode.Focus();
                     break;
                 case action.Update:
                     //Cho phép nhập liệu mã kho,vị trí, tên kho và mô tả thêm
@@ -483,7 +570,7 @@ namespace VNS.HIS.UI.THUOC
                     //Cho phép nhấn nút Ghi
                     cmdSave.Enabled = true;
                     //Tự động Focus đến mục Code để người dùng nhập liệu
-                    txtName.Focus();
+                    txtCode.Focus();
                     break;
                 case action.FirstOrFinished://Hủy hoặc trạng thái ban đầu khi mới hiển thị Form
                     Utility.DisabledTextBox(txtID);
@@ -499,18 +586,20 @@ namespace VNS.HIS.UI.THUOC
                     txtDonvitinh.SetCode("-1");
                     txtID.Text = "Tự sinh";
                     txtCode.Clear();
-                    txtCode.Text = "";// BusinessHelper.GenerateDrugCode();
+                    txtCode.Text = "";
                     txtName.Clear();
                     txtDongia.Clear();
                     txtGiaBHYT.Clear();
                     txtPTDT.Clear();
                     txtPTTT.Clear();
+                    txtCachsudung.SetDefaultItem();
                     chkTutuc.Checked = false;
                     txtDesc.Clear();
                     //Cho phép nhập mới liên tiếp
                     m_enAction = action.Insert;
                     m_dtObjectDataSource.Clear();
                     m_dtSameCodeDataSource.Clear();
+                    txtCode.Focus();
                     //txtCode.Text = BusinessHelper.MaThuoc();
                     break;
                 default:
@@ -538,51 +627,54 @@ namespace VNS.HIS.UI.THUOC
                     return;
                 }
                 //Bước 0: Thêm mới thuốc
-                DmucThuoc objnewItems = new DmucThuoc();
-                objnewItems.TenThuoc = Utility.sDbnull(txtName.Text);
-                objnewItems.TenBhyt = Utility.sDbnull(txtTEN_BHYT.Text);
-                objnewItems.MaThuoc = Utility.sDbnull(txtCode.Text);
-                objnewItems.IdLoaithuoc = Utility.Int16Dbnull(txtLoaithuoc.MyID);
-                objnewItems.DonGia = Utility.DecimaltoDbnull( txtDongia.Text, 0);
-                objnewItems.GiaBhyt = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
-                objnewItems.PhuthuDungtuyen = Utility.DecimaltoDbnull(txtPTDT.Text, 0);
-                objnewItems.PhuthuTraituyen = Utility.DecimaltoDbnull(txtPTTT.Text, 0);
-                objnewItems.MotaThem = Utility.sDbnull(txtDesc.Text);
-                objnewItems.DangBaoche = Utility.DoTrim(txtDangBaoChe.Text);
-                objnewItems.HamLuong = Utility.sDbnull(txtContent.Text);
-                objnewItems.HangSanxuat = Utility.sDbnull(txtHangSX.Text);
-                objnewItems.TrangThai = chkHieuLuc.Checked ? (byte)1 : (byte)0;
-                objnewItems.TuTuc =Utility.Bool2byte( chkTutuc.Checked );
-                objnewItems.NgayTao = DateTime.Now;
-                objnewItems.QD31 = Utility.DoTrim(txtQD31.Text);
-                objnewItems.NguoiTao = globalVariables.UserName;
-                objnewItems.NuocSanxuat = Utility.sDbnull(txtNuocSX.Text);
-                objnewItems.GioihanKedon = (Int16)Utility.DecimaltoDbnull(txtSoluong.Text,-1);
-                objnewItems.DonviBut = (int)Utility.DecimaltoDbnull(txtBut.Text, -1);
-                objnewItems.MaDonvitinh = txtDonvitinh.myCode;
+                DmucThuoc objThuoc = new DmucThuoc();
+                objThuoc.TenThuoc = Utility.sDbnull(txtName.Text);
+                objThuoc.TenBhyt = Utility.sDbnull(txtTEN_BHYT.Text);
+                objThuoc.MaThuoc = Utility.sDbnull(txtCode.Text);
+                objThuoc.IdLoaithuoc = Utility.Int16Dbnull(txtLoaithuoc.MyID);
+                objThuoc.DonGia = Utility.DecimaltoDbnull( txtDongia.Text, 0);
+                objThuoc.GiaBhyt = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
+                objThuoc.PhuthuDungtuyen = Utility.DecimaltoDbnull(txtPTDT.Text, 0);
+                objThuoc.PhuthuTraituyen = Utility.DecimaltoDbnull(txtPTTT.Text, 0);
+                objThuoc.MotaThem = Utility.sDbnull(txtDesc.Text);
+                objThuoc.DangBaoche = Utility.DoTrim(txtDangBaoChe.Text);
+                objThuoc.HamLuong = Utility.sDbnull(txtContent.Text);
+                objThuoc.HangSanxuat = Utility.sDbnull(txtHangSX.Text);
+                objThuoc.TrangThai = chkHieuLuc.Checked ? (byte)1 : (byte)0;
+                objThuoc.TuTuc =Utility.Bool2byte( chkTutuc.Checked );
+                objThuoc.NgayTao = DateTime.Now;
+                objThuoc.QD31 = Utility.DoTrim(txtQD31.Text);
+                objThuoc.NguoiTao = globalVariables.UserName;
+                objThuoc.NuocSanxuat = Utility.sDbnull(txtNuocSX.Text);
+                objThuoc.GioihanKedon = (Int16)Utility.DecimaltoDbnull(txtSoluong.Text,-1);
+                objThuoc.DonviBut = (int)Utility.DecimaltoDbnull(txtBut.Text, -1);
+                objThuoc.MaDonvitinh = txtDonvitinh.myCode;
+                objThuoc.CachSudung = txtCachsudung.myCode;
 
-                objnewItems.CoChiathuoc = Utility.Bool2byte(chkChiathuoc.Checked);
-                objnewItems.MaDvichia = txtDonvichia.myCode;
-                objnewItems.SluongChia =(int) Utility.DecimaltoDbnull(txtSoluongchia.Text, 0);
-                objnewItems.DongiaChia = Utility.DecimaltoDbnull(txtDongiachia.Text, 0);
+                objThuoc.CoChiathuoc = Utility.Bool2byte(chkChiathuoc.Checked);
+                objThuoc.MaDvichia = txtDonvichia.myCode;
+                objThuoc.SluongChia =(int) Utility.DecimaltoDbnull(txtSoluongchia.Text, 0);
+                objThuoc.DongiaChia = Utility.DecimaltoDbnull(txtDongiachia.Text, 0);
 
-                objnewItems.TinhChat = Convert.ToByte(cboDrugNature.SelectedIndex);
-                objnewItems.HoatChat = Utility.sDbnull(txtActice.Text);
-                objnewItems.KieuThuocvattu = Utility.sDbnull(cboKIEU_THUOC_VT.SelectedValue);
-                objnewItems.NoitruNgoaitru = optAll.Checked ? "ALL" : (optNoitru.Checked ? "NOI" : "NGOAI");
-                objnewItems.IsNew = true;
-                dmucThuoc_busrule.Insert(objnewItems, GetQheCamchidinhChungphieuCollection());
-                int v_intNewDrugID = objnewItems.IdThuoc;
-                txtID.Text = Utility.sDbnull(objnewItems.IdThuoc);
+                objThuoc.TinhChat = Convert.ToByte(cboDrugNature.SelectedIndex);
+                objThuoc.HoatChat = Utility.sDbnull(txtActice.Text);
+                objThuoc.KieuThuocvattu = Utility.sDbnull(cboKIEU_THUOC_VT.SelectedValue);
+                objThuoc.NoitruNgoaitru = optAll.Checked ? "ALL" : (optNoitru.Checked ? "NOI" : "NGOAI");
+                objThuoc.IsNew = true;
+                dmucThuoc_busrule.Insert(objThuoc, GetQheCamchidinhChungphieuCollection());
+                int v_intNewDrugID = objThuoc.IdThuoc;
+                txtID.Text = Utility.sDbnull(objThuoc.IdThuoc);
                 DataRow dr = m_dtDrugDataSource.NewRow();
-                Utility.FromObjectToDatarow(objnewItems, ref dr);
+                Utility.FromObjectToDatarow(objThuoc, ref dr);
                 dr[DmucThuoc.Columns.TinhChat] = Convert.ToByte(cboDrugNature.SelectedIndex);
                 dr["ten_loaithuoc"] = txtLoaithuoc.Text;
                 dr["ten_donvitinh"] = txtDonvitinh.Text;
                 dr["ten_donvichia"] = txtDonvichia.Text;
+                dr["ten_cachsudung"] = txtCachsudung.Text;
                 dr[DmucThuoc.Columns.NguoiTao] = globalVariables.UserName;
                 dr[DmucThuoc.Columns.NgayTao] = DateTime.Now;
                 m_dtDrugDataSource.Rows.Add(dr);
+                txtName.AddNewItems(dr);
                 m_dtDrugDataSource.AcceptChanges();
                 m_enAction = action.Insert;
                 //Nhảy đến bản ghi vừa thêm mới trên lưới. Do txtID chưa bị reset nên dùng luôn
@@ -644,44 +736,45 @@ namespace VNS.HIS.UI.THUOC
             //Create Again to ignore Where Clause
             m_Query = DmucThuoc.CreateQuery();
             //Tạo giá trị mới cho đối tượng đang cần Update
-            DmucThuoc objnewItems = DmucThuoc.FetchByID(objThuoc.IdThuoc);
+            DmucThuoc objThuoc = DmucThuoc.FetchByID(txtID.Text);
             
-            objnewItems.IdThuoc = v_intUpdateDrugID;
-            objnewItems.TenThuoc = Utility.GetValue(txtName.Text, false);
-            objnewItems.TenBhyt = Utility.GetValue(txtTEN_BHYT.Text, false);
-            objnewItems.DonGia = Utility.DecimaltoDbnull( txtDongia.Text,0);
-            objnewItems.GiaBhyt = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
-            objnewItems.PhuthuDungtuyen = Utility.DecimaltoDbnull(txtPTDT.Text, 0);
-            objnewItems.PhuthuTraituyen = Utility.DecimaltoDbnull(txtPTTT.Text, 0);
-            objnewItems.MaThuoc = Utility.GetValue(txtCode.Text, false);
-            objnewItems.IdLoaithuoc = Convert.ToInt16(txtLoaithuoc.MyID);
-            objnewItems.TinhChat = Convert.ToByte(cboDrugNature.SelectedIndex);
-            objnewItems.MaDonvitinh = txtDonvitinh.myCode;
-            objnewItems.TuTuc = Utility.Bool2byte(chkTutuc.Checked);
-            objnewItems.MotaThem = Utility.GetValue(txtDesc.Text, false);
-            objnewItems.HoatChat = Utility.GetValue(txtActice.Text, false);
-            objnewItems.NuocSanxuat = txtNuocSX.Text;
-            objnewItems.HangSanxuat = txtHangSX.Text;
-            objnewItems.HamLuong = txtContent.Text;
-            objnewItems.QD31 = Utility.DoTrim(txtQD31.Text);
-            objnewItems.SoDangky = txtNumber_Register.Text;
-            objnewItems.TrangThai = chkHieuLuc.Checked ? (byte)1 : (byte)0;
-            objnewItems.DangBaoche = Utility.DoTrim(txtDangBaoChe.Text);
-            objnewItems.NguoiSua = globalVariables.UserName;
-            objnewItems.NgaySua = DateTime.Now;
-            objnewItems.GioihanKedon = (Int16)Utility.DecimaltoDbnull(txtSoluong.Text, -1);
-            objnewItems.DonviBut = (int)Utility.DecimaltoDbnull(txtBut.Text, -1);
+            objThuoc.IdThuoc = v_intUpdateDrugID;
+            objThuoc.TenThuoc = Utility.GetValue(txtName.Text, false);
+            objThuoc.TenBhyt = Utility.GetValue(txtTEN_BHYT.Text, false);
+            objThuoc.DonGia = Utility.DecimaltoDbnull( txtDongia.Text,0);
+            objThuoc.GiaBhyt = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
+            objThuoc.PhuthuDungtuyen = Utility.DecimaltoDbnull(txtPTDT.Text, 0);
+            objThuoc.PhuthuTraituyen = Utility.DecimaltoDbnull(txtPTTT.Text, 0);
+            objThuoc.MaThuoc = Utility.GetValue(txtCode.Text, false);
+            objThuoc.IdLoaithuoc = Convert.ToInt16(txtLoaithuoc.MyID);
+            objThuoc.TinhChat = Convert.ToByte(cboDrugNature.SelectedIndex);
+            objThuoc.MaDonvitinh = txtDonvitinh.myCode;
+            objThuoc.TuTuc = Utility.Bool2byte(chkTutuc.Checked);
+            objThuoc.MotaThem = Utility.GetValue(txtDesc.Text, false);
+            objThuoc.HoatChat = Utility.GetValue(txtActice.Text, false);
+            objThuoc.NuocSanxuat = txtNuocSX.Text;
+            objThuoc.HangSanxuat = txtHangSX.Text;
+            objThuoc.HamLuong = txtContent.Text;
+            objThuoc.QD31 = Utility.DoTrim(txtQD31.Text);
+            objThuoc.SoDangky = txtNumber_Register.Text;
+            objThuoc.TrangThai = chkHieuLuc.Checked ? (byte)1 : (byte)0;
+            objThuoc.DangBaoche = Utility.DoTrim(txtDangBaoChe.Text);
+            objThuoc.NguoiSua = globalVariables.UserName;
+            objThuoc.NgaySua = DateTime.Now;
+            objThuoc.GioihanKedon = (Int16)Utility.DecimaltoDbnull(txtSoluong.Text, -1);
+            objThuoc.DonviBut = (int)Utility.DecimaltoDbnull(txtBut.Text, -1);
+            objThuoc.CachSudung = txtCachsudung.myCode;
 
-            objnewItems.CoChiathuoc = Utility.Bool2byte(chkChiathuoc.Checked);
-            objnewItems.MaDvichia = txtDonvichia.myCode;
-            objnewItems.SluongChia = (int)Utility.DecimaltoDbnull(txtSoluongchia.Text, 0);
-            objnewItems.DongiaChia = Utility.DecimaltoDbnull(txtDongiachia.Text, 0);
+            objThuoc.CoChiathuoc = Utility.Bool2byte(chkChiathuoc.Checked);
+            objThuoc.MaDvichia = txtDonvichia.myCode;
+            objThuoc.SluongChia = (int)Utility.DecimaltoDbnull(txtSoluongchia.Text, 0);
+            objThuoc.DongiaChia = Utility.DecimaltoDbnull(txtDongiachia.Text, 0);
 
-            objnewItems.NoitruNgoaitru=optAll.Checked?"ALL":(optNoitru.Checked?"NOI":"NGOAI");
-            objnewItems.KieuThuocvattu = Utility.sDbnull(cboKIEU_THUOC_VT.SelectedValue);
-            objnewItems.IsNew = false;
-            objnewItems.MarkOld();
-            dmucThuoc_busrule.Insert(objnewItems, GetQheCamchidinhChungphieuCollection());
+            objThuoc.NoitruNgoaitru=optAll.Checked?"ALL":(optNoitru.Checked?"NOI":"NGOAI");
+            objThuoc.KieuThuocvattu = Utility.sDbnull(cboKIEU_THUOC_VT.SelectedValue);
+            objThuoc.IsNew = false;
+            objThuoc.MarkOld();
+            dmucThuoc_busrule.Insert(objThuoc, GetQheCamchidinhChungphieuCollection());
             //Update to Datasource to reflect on DataGridView
             new Update(KcbThanhtoanChitiet.Schema)
              .Set(KcbThanhtoanChitiet.Columns.DonviTinh).EqualTo(Utility.sDbnull(txtDonvitinh.Text, "Lần"))
@@ -694,18 +787,19 @@ namespace VNS.HIS.UI.THUOC
             DataRow dr = Utility.FetchOnebyCondition(m_dtDrugDataSource, "id_thuoc=" + v_intUpdateDrugID.ToString().Trim());
             if (dr != null)
             {
-                Utility.FromObjectToDatarow(objnewItems, ref dr);
+                Utility.FromObjectToDatarow(objThuoc, ref dr);
                 dr[DmucThuoc.Columns.TinhChat] = Convert.ToByte(cboDrugNature.SelectedIndex);
                 dr["ten_loaithuoc"] = txtLoaithuoc.Text;
                 dr["ten_donvitinh"] = txtDonvitinh.Text;
                 dr["ten_donvichia"] = txtDonvichia.Text;
+                dr["ten_cachsudung"] = txtCachsudung.Text;
 
 
                 dr[DmucThuoc.Columns.HamLuong] = txtContent.Text;
                 dr[DmucThuoc.Columns.SoDangky] = txtNumber_Register.Text;
                 dr[DmucThuoc.Columns.NuocSanxuat] = txtNuocSX.Text;
                 dr[DmucThuoc.Columns.HangSanxuat] = txtHangSX.Text;
-
+                txtName.UpdateItems(dr);
                 m_dtDrugDataSource.AcceptChanges();
             }
             //Return to the InitialStatus
@@ -764,13 +858,16 @@ namespace VNS.HIS.UI.THUOC
             AutocompleteLoaithuoc();
             txtDonvitinh.Init();
             txtDonvichia.Init();
-            txtDangBaoChe.Init(globalVariables.gv_dtDangbaoche);
+            txtNuocSX.Init();
+            txtHangSX.Init();
+            txtDangBaoChe.Init();
+            txtCachsudung.Init();
+            txtName.Init(m_dtDrugDataSource.Copy(), new List<string>() { DmucThuoc.Columns.IdThuoc, DmucThuoc.Columns.MaThuoc, DmucThuoc.Columns.TenThuoc });
             m_dtqheCamKeChungDonthuoc = new Select().From(QheCamchidinhChungphieu.Schema).Where(QheCamchidinhChungphieu.Columns.Loai).IsEqualTo(1).ExecuteDataSet().Tables[0];
             DataTable dtChitiet = new Select().From(DmucThuoc.Schema).ExecuteDataSet().Tables[0];
             Utility.AddColumToDataTable(ref dtChitiet, "CHON", typeof(int));
             txtThuoc.Init(dtChitiet, new List<string>() { DmucThuoc.Columns.IdThuoc, DmucThuoc.Columns.MaThuoc, DmucThuoc.Columns.TenThuoc });
             Utility.SetDataSourceForDataGridEx_Basic(grdDmucthuoc, dtChitiet, true, true, "1=1", "CHON DESC," + DmucThuoc.Columns.TenThuoc);
-            
             SetControlStatus();
         }
         private void AutocompleteLoaithuoc()

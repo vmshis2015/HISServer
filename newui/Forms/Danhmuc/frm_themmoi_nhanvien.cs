@@ -143,7 +143,7 @@ namespace VNS.HIS.UI.DANHMUC
                 DataTable dtQuyen=new Select().From(DmucChung.Schema).Where(DmucChung.Columns.Loai).IsEqualTo("QUYENNHANVIEN").ExecuteDataSet().Tables[0];
                 Utility.SetDataSourceForDataGridEx_Basic(grdQuyen, dtQuyen, false, true, "1=1", DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten);
 
-                Utility.SetDataSourceForDataGridEx_Basic(grdLoaiThuoc, new Select().From(DmucLoaithuoc.Schema).ExecuteDataSet().Tables[0], false, true, "1=1", DmucLoaithuoc.Columns.SttHthi + "," + DmucLoaithuoc.Columns.TenLoaithuoc);
+                Utility.SetDataSourceForDataGridEx_Basic(grdLoaiThuoc, SPs.DmucLaydanhsachLoaithuoc("-1").GetDataSet().Tables[0], false, true, "1=1", "stt_nhomthuoc," + DmucLoaithuoc.Columns.SttHthi + "," + DmucLoaithuoc.Columns.TenLoaithuoc);
                 Utility.SetDataSourceForDataGridEx_Basic(grdDichvuCls, new Select().From(DmucChung.Schema).Where(DmucChung.Columns.Loai).IsEqualTo("LOAIDICHVUCLS").ExecuteDataSet().Tables[0], false, true, "1=1", DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten);
 
             }

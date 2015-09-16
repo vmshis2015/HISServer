@@ -34,11 +34,7 @@ namespace VNS.HIS.UI.DANHMUC
         public frm_themmoi_dichvucls_chitiet()
         {
             InitializeComponent();
-            txtServiceDetailCode.CharacterCasing = CharacterCasing.Upper;
-            
             this.KeyPreview = true;
-           // sysColor.BackColor = globalVariables.SystemColor;
-           
             cmdExit.Click += new EventHandler(cmdExit_Click);
             btnNew.Click+=new EventHandler(btnNew_Click);
             txtServiceDetailName.LostFocus +=new EventHandler(txtServiceDetailName_LostFocus);

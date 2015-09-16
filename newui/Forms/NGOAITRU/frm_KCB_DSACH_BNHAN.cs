@@ -26,16 +26,17 @@ namespace VNS.HIS.UI.NGOAITRU
     public partial class frm_KCB_DSACH_BNHAN : BaseForm
     {
         KCB_CHIDINH_CANLAMSANG _KCB_CHIDINH_CANLAMSANG = new KCB_CHIDINH_CANLAMSANG();
-        private DataTable m_dtExamTypeRelationList = new DataTable();
+        private DataTable m_dtDanhsachDichvuKCB = new DataTable();
         private DataTable m_dtPatient=new DataTable();
         private DataTable m_PhongKham = new DataTable();
         private DataTable m_kieuKham;
         private DataTable m_dtChiDinhCLS = new DataTable();
         private bool m_blnHasloaded = false;
-      
-        public frm_KCB_DSACH_BNHAN()
+        string Args = "ALL";
+        public frm_KCB_DSACH_BNHAN(string Args)
         {
             InitializeComponent();
+            this.Args = Args;
             this.InitTrace();
             this.KeyPreview = true;
             dtmFrom.Value = globalVariables.SysDate;
@@ -225,7 +226,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     cboKieuKham.SelectedIndex = -1;
                 }
                 DataRow[] arrDr =
-                     m_dtExamTypeRelationList.Select(DmucDoituongkcb.Columns.MaDoituongKcb + "='ALL' OR " + DmucDoituongkcb.Columns.MaDoituongKcb + "='" + MA_DTUONG +"' AND " + DmucKieukham.Columns.IdKieukham + "=" +
+                     m_dtDanhsachDichvuKCB.Select(DmucDoituongkcb.Columns.MaDoituongKcb + "='ALL' OR " + DmucDoituongkcb.Columns.MaDoituongKcb + "='" + MA_DTUONG +"' AND " + DmucKieukham.Columns.IdKieukham + "=" +
                                                   txtIDKieuKham.Text.Trim() + " AND " + DmucDichvukcb.Columns.IdPhongkham + "=" + txtIDPkham.Text.Trim());
                 if (arrDr.Length <= 0)
                 {
@@ -283,7 +284,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                                      Utility.Int32Dbnull(cboObjectType.SelectedValue, -1), Hos_status,
                                                      Utility.sDbnull(txtPatientName.Text),
                                                      Utility.Int32Dbnull(txtPatient_ID.Text, -1),
-                                                     Utility.sDbnull(txtPatientCode.Text),"","", globalVariables.MA_KHOA_THIEN,0,(byte ) 100);
+                                                     Utility.sDbnull(txtPatientCode.Text),"","", globalVariables.MA_KHOA_THIEN,0,(byte ) 100,this.Args.Split('-')[0]);
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtPatient, true, true, "1=1", KcbDanhsachBenhnhan.Columns.IdBenhnhan + " desc");
                 //Utility.SetMsg(lblTongSo, string.Format("&Tổng số bản ghi :{0}", m_dtPatient.Rows.Count), true);
                 if (grdList.GetDataRows().Length <= 0)
@@ -355,21 +356,21 @@ namespace VNS.HIS.UI.NGOAITRU
                 cboKieuKham.DataSource = null;
                 //Khởi tạo danh mục Loại khám
                 string objecttype_code = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaDoituongKcb));
-                m_dtExamTypeRelationList = THU_VIEN_CHUNG.LayDsach_Dvu_KCB(objecttype_code, -1);
+                m_dtDanhsachDichvuKCB = THU_VIEN_CHUNG.LayDsach_Dvu_KCB(objecttype_code,this.Args.Split('-')[1], -1);
                 Get_KIEUKHAM(objecttype_code);
                 Get_PHONGKHAM(objecttype_code);
                 AutocompleteMaDvu();
                 AutocompletePhongKham();
                 AutocompleteKieuKham();
-                m_dtExamTypeRelationList.AcceptChanges();
-                cboKieuKham.DataSource = m_dtExamTypeRelationList;
+                m_dtDanhsachDichvuKCB.AcceptChanges();
+                cboKieuKham.DataSource = m_dtDanhsachDichvuKCB;
                 cboKieuKham.DataMember = DmucDichvukcb.Columns.IdDichvukcb;
                 cboKieuKham.ValueMember = DmucDichvukcb.Columns.IdDichvukcb;
                 cboKieuKham.DisplayMember = DmucDichvukcb.Columns.TenDichvukcb;
              //   cboKieuKham.Visible = globalVariables.UserName == "ADMIN";
-                if (m_dtExamTypeRelationList == null || m_dtExamTypeRelationList.Columns.Count <= 0) return;
+                if (m_dtDanhsachDichvuKCB == null || m_dtDanhsachDichvuKCB.Columns.Count <= 0) return;
                 AllowTextChanged = true;
-                if (m_dtExamTypeRelationList.Rows.Count == 1 )
+                if (m_dtDanhsachDichvuKCB.Rows.Count == 1 )
                 {
                     cboKieuKham.SelectedIndex = 0;
 
@@ -445,7 +446,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-            m_dtExamTypeRelationList = THU_VIEN_CHUNG.LayDsach_Dvu_KCB("ALL",-1);
+            m_dtDanhsachDichvuKCB = THU_VIEN_CHUNG.LayDsach_Dvu_KCB("ALL",this.Args.Split('-')[1], -1);
             m_kieuKham= THU_VIEN_CHUNG.Get_KIEUKHAM("ALL",-1);
             m_PhongKham= THU_VIEN_CHUNG.Get_PHONGKHAM("ALL");
             }
@@ -459,54 +460,22 @@ namespace VNS.HIS.UI.NGOAITRU
             DataRow[] arrDr = null;
             try
             {
-                if (m_dtExamTypeRelationList == null) return;
-                if (!m_dtExamTypeRelationList.Columns.Contains("ShortCut"))
-                    m_dtExamTypeRelationList.Columns.Add(new DataColumn("ShortCut", typeof(string)));
-                arrDr = m_dtExamTypeRelationList.Select(DmucDoituongkcb.Columns.MaDoituongKcb + "='ALL' OR " + DmucDoituongkcb.Columns.MaDoituongKcb + "='" + MA_DTUONG + "'");
+                if (m_dtDanhsachDichvuKCB == null) return;
+                if (!m_dtDanhsachDichvuKCB.Columns.Contains("ShortCut"))
+                    m_dtDanhsachDichvuKCB.Columns.Add(new DataColumn("ShortCut", typeof(string)));
+                arrDr = m_dtDanhsachDichvuKCB.Select(DmucDoituongkcb.Columns.MaDoituongKcb + "='ALL' OR " + DmucDoituongkcb.Columns.MaDoituongKcb + "='" + MA_DTUONG + "'");
                 if (arrDr.Length <= 0)
                 {
                     this.txtExamtypeCode.AutoCompleteList = new List<string>();
                     return;
                 }
-                foreach (DataRow dr in arrDr)
-                {
-                    string shortcut = "";
-                    string realName = dr[DmucDichvukcb.Columns.TenDichvukcb].ToString().Trim() + " " +
-                                      Utility.Bodau(dr[DmucDichvukcb.Columns.TenDichvukcb].ToString().Trim());
-                    shortcut = dr[DmucDichvukcb.Columns.MaDichvukcb].ToString().Trim();
-                    string[] arrWords = realName.ToLower().Split(' ');
-                    string _space = "";
-                    string _Nospace = "";
-                    foreach (string word in arrWords)
-                    {
-                        if (word.Trim() != "")
-                        {
-                            _space += word + " ";
-                            //_Nospace += word;
-                        }
-                    }
-                    shortcut += _space; // +_Nospace;
-                    foreach (string word in arrWords)
-                    {
-                        if (word.Trim() != "")
-                            shortcut += word.Substring(0, 1);
-                    }
-                    dr["ShortCut"] = shortcut;
-                }
+                txtExamtypeCode.Init(m_dtDanhsachDichvuKCB, new List<string>() { DmucDichvukcb.Columns.IdDichvukcb, DmucDichvukcb.Columns.MaDichvukcb, DmucDichvukcb.Columns.TenDichvukcb });
             }
             catch
             {
             }
             finally
             {
-                var source = new List<string>();
-                var query = from p in arrDr.AsEnumerable()
-                            select p[DmucDichvukcb.Columns.IdDichvukcb].ToString() + "#" + p[DmucDichvukcb.Columns.MaDichvukcb].ToString() + "@" + p[DmucDichvukcb.Columns.TenDichvukcb].ToString() + "@" + p["shortcut"].ToString();
-                source = query.ToList();
-                this.txtExamtypeCode.AutoCompleteList = source;
-                this.txtExamtypeCode.TextAlign = HorizontalAlignment.Center;
-                this.txtExamtypeCode.CaseSensitive = false;
-                this.txtExamtypeCode.MinTypedCharacters = 1;
 
             }
         }
@@ -519,45 +488,13 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (m_PhongKham == null) return;
                 if (!m_PhongKham.Columns.Contains("ShortCut"))
                     m_PhongKham.Columns.Add(new DataColumn("ShortCut", typeof(string)));
-                foreach (DataRow dr in m_PhongKham.Rows)
-                {
-                    string shortcut = "";
-                    string realName = dr[DmucKhoaphong.Columns.TenKhoaphong].ToString().Trim() + " " +
-                                      Utility.Bodau(dr[DmucKhoaphong.Columns.TenKhoaphong].ToString().Trim());
-                    shortcut = dr[DmucKhoaphong.Columns.MaKhoaphong].ToString().Trim();
-                    string[] arrWords = realName.ToLower().Split(' ');
-                    string _space = "";
-                    string _Nospace = "";
-                    foreach (string word in arrWords)
-                    {
-                        if (word.Trim() != "")
-                        {
-                            _space += word + " ";
-                            //_Nospace += word;
-                        }
-                    }
-                    shortcut += _space; // +_Nospace;
-                    foreach (string word in arrWords)
-                    {
-                        if (word.Trim() != "")
-                            shortcut += word.Substring(0, 1);
-                    }
-                    dr["ShortCut"] = shortcut;
-                }
+                txtPhongkham.Init(m_PhongKham, new List<string>() { DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong });
             }
             catch
             {
             }
             finally
             {
-                var source = new List<string>();
-                var query = from p in m_PhongKham.AsEnumerable()
-                            select p.Field<Int16>(DmucKhoaphong.Columns.IdKhoaphong).ToString() + "#" + p.Field<string>(DmucKhoaphong.Columns.MaKhoaphong).ToString() + "@" + p.Field<string>(DmucKhoaphong.Columns.TenKhoaphong).ToString() + "@" + p.Field<string>("shortcut").ToString();
-                source = query.ToList();
-                this.txtPhongkham.AutoCompleteList = source;
-                this.txtPhongkham.TextAlign = HorizontalAlignment.Center;
-                this.txtPhongkham.CaseSensitive = false;
-                this.txtPhongkham.MinTypedCharacters = 1;
 
             }
         }
@@ -569,45 +506,13 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (m_kieuKham == null) return;
                 if (!m_kieuKham.Columns.Contains("ShortCut"))
                     m_kieuKham.Columns.Add(new DataColumn("ShortCut", typeof(string)));
-                foreach (DataRow dr in m_kieuKham.Rows)
-                {
-                    string shortcut = "";
-                    string realName = dr[DmucKieukham.Columns.TenKieukham].ToString().Trim() + " " +
-                                      Utility.Bodau(dr[DmucKieukham.Columns.TenKieukham].ToString().Trim());
-                    shortcut = dr[DmucKieukham.Columns.MaKieukham].ToString().Trim();
-                    string[] arrWords = realName.ToLower().Split(' ');
-                    string _space = "";
-                    string _Nospace = "";
-                    foreach (string word in arrWords)
-                    {
-                        if (word.Trim() != "")
-                        {
-                            _space += word + " ";
-                            //_Nospace += word;
-                        }
-                    }
-                    shortcut += _space; // +_Nospace;
-                    foreach (string word in arrWords)
-                    {
-                        if (word.Trim() != "")
-                            shortcut += word.Substring(0, 1);
-                    }
-                    dr["ShortCut"] = shortcut;
-                }
+                txtKieuKham.Init(m_kieuKham, new List<string>() { DmucKieukham.Columns.IdKieukham, DmucKieukham.Columns.MaKieukham, DmucKieukham.Columns.TenKieukham });
             }
             catch
             {
             }
             finally
             {
-                var source = new List<string>();
-                var query = from p in m_kieuKham.AsEnumerable()
-                            select Utility.sDbnull(p[DmucKieukham.Columns.IdKieukham]) + "#" + Utility.sDbnull(p[DmucKieukham.Columns.MaKieukham]) + "@" + p.Field<string>(DmucKieukham.Columns.TenKieukham).ToString() + "@" + p.Field<string>("shortcut").ToString();
-                source = query.ToList();
-                this.txtKieuKham.AutoCompleteList = source;
-                this.txtKieuKham.TextAlign = HorizontalAlignment.Center;
-                this.txtKieuKham.CaseSensitive = false;
-                this.txtKieuKham.MinTypedCharacters = 1;
 
             }
         }
@@ -1105,7 +1010,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-                frm_KCB_DANGKY frm = new frm_KCB_DANGKY();
+                frm_KCB_DANGKY frm = new frm_KCB_DANGKY(this.Args);
                 frm.m_enAction = action.Insert;
                 frm.m_dtPatient = m_dtPatient;
                 this.myTrace.FunctionID = globalVariables.FunctionID;
@@ -1159,7 +1064,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     Utility.ShowMsg("Bệnh nhân đang ở trạng thái nội trú và chưa ra viện nên không thể thêm lần khám mới. Đề nghị bạn xem lại");
                     return ;
                 }
-                frm_KCB_DANGKY frm = new frm_KCB_DANGKY();
+                frm_KCB_DANGKY frm = new frm_KCB_DANGKY(this.Args);
                 frm.txtMaBN.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
                 frm.txtMaLankham.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
                 this.myTrace.FunctionID = globalVariables.FunctionID;
@@ -1202,7 +1107,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     return;
                 }
 
-                frm_KCB_DANGKY frm = new frm_KCB_DANGKY();
+                frm_KCB_DANGKY frm = new frm_KCB_DANGKY(this.Args);
                 frm.txtMaBN.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
                 frm.txtMaLankham.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
                 this.myTrace.FunctionID = globalVariables.FunctionID;

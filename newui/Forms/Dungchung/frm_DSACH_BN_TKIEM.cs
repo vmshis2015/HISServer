@@ -93,7 +93,7 @@ namespace VNS.HIS.UI.Forms.Cauhinh
                                                      Utility.Int32Dbnull(txtPatient_ID.Text, -1),
                                                      Utility.sDbnull(txtPatientCode.Text),
                                                      Utility.sDbnull(txtCMT.Text), 
-                                                     Utility.sDbnull(txtDienthoai.Text),globalVariables.MA_KHOA_THIEN,0,(byte)cboTrangthainoitru.SelectedValue);
+                                                     Utility.sDbnull(txtDienthoai.Text),globalVariables.MA_KHOA_THIEN,0,(byte)cboTrangthainoitru.SelectedValue,"ALL");
               Utility.SetDataSourceForDataGridEx(grdPatient, m_dtPatient, true, true, "1=1", KcbDanhsachBenhnhan.Columns.IdBenhnhan + " desc");
               grdPatient.MoveFirst();
               Utility.focusCell(grdPatient, KcbDanhsachBenhnhan.Columns.TenBenhnhan);

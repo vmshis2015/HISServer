@@ -258,7 +258,7 @@
             this.dtToDate.Location = new System.Drawing.Point(254, 6);
             this.dtToDate.Name = "dtToDate";
             this.dtToDate.ShowUpDown = true;
-            this.dtToDate.Size = new System.Drawing.Size(113, 21);
+            this.dtToDate.Size = new System.Drawing.Size(108, 21);
             this.dtToDate.TabIndex = 266;
             this.dtToDate.Value = new System.DateTime(2011, 10, 19, 0, 0, 0, 0);
             // 
@@ -1256,7 +1256,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.uiStatusBar1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

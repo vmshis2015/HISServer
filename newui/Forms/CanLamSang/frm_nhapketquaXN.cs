@@ -136,7 +136,6 @@ namespace VNS.HIS.UI.Forms.CanLamSang
                         _item.ChophepHienthi = 1;
                         _item.ChophepIn = 1;
                         _item.MotaThem = objcls.MotaThem;
-                        _item.LoaiXn = objcls.IdDichvu;
                         
                     }
                     lstResult.Add(_item);
@@ -173,8 +172,11 @@ namespace VNS.HIS.UI.Forms.CanLamSang
                 if (CoChitiet==1)
                 {
                     _itemchitietcha = KcbChidinhclsChitiet.FetchByID(IdChitietchidinhcha);
-                    _itemchitietcha.IsNew = false;
-                    _itemchitietcha.MarkOld();
+                    if (_itemchitietcha != null)
+                    {
+                        _itemchitietcha.IsNew = false;
+                        _itemchitietcha.MarkOld();
+                    }
                 }
                 _itemchitiet.IsNew = false;
                 _itemchitiet.MarkOld();
@@ -243,7 +245,6 @@ namespace VNS.HIS.UI.Forms.CanLamSang
                     _item.ChophepHienthi = 1;
                     _item.ChophepIn = 1;
                     _item.MotaThem = objcls.MotaThem;
-                    _item.LoaiXn = objcls.IdDichvu;
                     lstResult.Add(_item);
                     lstDetails.Add(_itemchitiet);
                     if(_itemchitietcha!=null)
@@ -280,7 +281,7 @@ namespace VNS.HIS.UI.Forms.CanLamSang
             try
             {
                 DataTable dt = SPs.ClsTimkiemthongsoXNNhapketqua(ma_luotkham, MaChidinh, MaBenhpham, id_chidinh, co_chitiet, id_dichvu, IdChitietdichvu).GetDataSet().Tables[0];
-                Utility.SetDataSourceForDataGridEx_Basic(grdKetqua, dt, true, true, "1=1", VDmucDichvuclsChitiet.Columns.SttHthiChitiet );
+                Utility.SetDataSourceForDataGridEx_Basic(grdKetqua, dt, true, true, "1=1", DmucDichvuclsChitiet.Columns.SttHthi );
 
                 Utility.focusCell(grdKetqua, KcbKetquaCl.Columns.KetQua);
             }

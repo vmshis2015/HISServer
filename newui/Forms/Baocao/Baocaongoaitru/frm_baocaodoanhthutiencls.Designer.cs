@@ -1,6 +1,6 @@
 ﻿namespace VNS.HIS.UI.Baocao
 {
-    partial class fm_baocaodoanhthutienkham
+    partial class frm_baocaodoanhthutiencls
     {
         /// <summary>
         /// Required designer variable.
@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fm_baocaodoanhthutienkham));
-            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_baocaodoanhthutiencls));
             Janus.Windows.GridEX.GridEXLayout grdChitiet_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.cmdExportToExcel = new Janus.Windows.EditControls.UIButton();
             this.dtNgayInPhieu = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,24 +42,24 @@
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.baocaO_TIEUDE1 = new VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
             this.uiGroupBox2 = new Janus.Windows.EditControls.UIGroupBox();
+            this.chkChitiet = new Janus.Windows.EditControls.UICheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.grdChitiet = new Janus.Windows.GridEX.GridEX();
+            this.grdList = new Janus.Windows.GridEX.GridEX();
             this.cboKhoa = new Janus.Windows.EditControls.UIComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cboNhanvien = new Janus.Windows.EditControls.UIComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cboDoituongKCB = new Janus.Windows.EditControls.UIComboBox();
-            this.grdList = new Janus.Windows.GridEX.GridEX();
             this.label1 = new System.Windows.Forms.Label();
             this.dtToDate = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.dtFromDate = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.chkByDate = new Janus.Windows.EditControls.UICheckBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.grdChitiet = new Janus.Windows.GridEX.GridEX();
-            this.chkChitiet = new Janus.Windows.EditControls.UICheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
             this.uiGroupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdChitiet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdExportToExcel
@@ -139,7 +139,7 @@
             this.baocaO_TIEUDE1.BackColor = System.Drawing.SystemColors.Control;
             this.baocaO_TIEUDE1.Dock = System.Windows.Forms.DockStyle.Top;
             this.baocaO_TIEUDE1.Location = new System.Drawing.Point(0, 0);
-            this.baocaO_TIEUDE1.MA_BAOCAO = "THUOC_BCDSACH_BNHANLINHTHUOC";
+            this.baocaO_TIEUDE1.MA_BAOCAO = "";
             this.baocaO_TIEUDE1.Name = "baocaO_TIEUDE1";
             this.baocaO_TIEUDE1.Phimtat = "Bạn có thể sử dụng phím tắt";
             this.baocaO_TIEUDE1.PicImg = ((System.Drawing.Image)(resources.GetObject("baocaO_TIEUDE1.PicImg")));
@@ -153,9 +153,9 @@
             // 
             // uiGroupBox2
             // 
-            this.uiGroupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.uiGroupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.uiGroupBox2.Controls.Add(this.chkChitiet);
             this.uiGroupBox2.Controls.Add(this.panel1);
             this.uiGroupBox2.Controls.Add(this.cboKhoa);
@@ -174,6 +174,62 @@
             this.uiGroupBox2.Size = new System.Drawing.Size(784, 465);
             this.uiGroupBox2.TabIndex = 116;
             this.uiGroupBox2.Text = "Thông tin tìm kiếm";
+            // 
+            // chkChitiet
+            // 
+            this.chkChitiet.Checked = true;
+            this.chkChitiet.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkChitiet.Location = new System.Drawing.Point(546, 108);
+            this.chkChitiet.Name = "chkChitiet";
+            this.chkChitiet.Size = new System.Drawing.Size(209, 23);
+            this.chkChitiet.TabIndex = 58;
+            this.chkChitiet.Text = "Chi tiết theo từng Bệnh nhân?";
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.grdChitiet);
+            this.panel1.Controls.Add(this.grdList);
+            this.panel1.Location = new System.Drawing.Point(6, 146);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(772, 313);
+            this.panel1.TabIndex = 46;
+            // 
+            // grdChitiet
+            // 
+            this.grdChitiet.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
+            grdChitiet_DesignTimeLayout.LayoutString = resources.GetString("grdChitiet_DesignTimeLayout.LayoutString");
+            this.grdChitiet.DesignTimeLayout = grdChitiet_DesignTimeLayout;
+            this.grdChitiet.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdChitiet.GroupByBoxVisible = false;
+            this.grdChitiet.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdChitiet.Location = new System.Drawing.Point(0, 0);
+            this.grdChitiet.Name = "grdChitiet";
+            this.grdChitiet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdChitiet.Size = new System.Drawing.Size(772, 313);
+            this.grdChitiet.TabIndex = 21;
+            this.grdChitiet.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdChitiet.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
+            this.grdChitiet.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // grdList
+            // 
+            this.grdList.ColumnAutoResize = true;
+            grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
+            this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
+            this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdList.GroupByBoxVisible = false;
+            this.grdList.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdList.Location = new System.Drawing.Point(0, 0);
+            this.grdList.Name = "grdList";
+            this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdList.Size = new System.Drawing.Size(772, 313);
+            this.grdList.TabIndex = 20;
+            this.grdList.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdList.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
+            this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // cboKhoa
             // 
@@ -226,23 +282,6 @@
             this.cboDoituongKCB.TabIndex = 27;
             this.cboDoituongKCB.Text = "Đối tượng";
             // 
-            // grdList
-            // 
-            this.grdList.ColumnAutoResize = true;
-            grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
-            this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
-            this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdList.GroupByBoxVisible = false;
-            this.grdList.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdList.Location = new System.Drawing.Point(0, 0);
-            this.grdList.Name = "grdList";
-            this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdList.Size = new System.Drawing.Size(772, 313);
-            this.grdList.TabIndex = 20;
-            this.grdList.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdList.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
-            this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
-            // 
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(13, 55);
@@ -294,46 +333,7 @@
             this.chkByDate.TabIndex = 13;
             this.chkByDate.Text = "Từ ngày";
             // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.grdChitiet);
-            this.panel1.Controls.Add(this.grdList);
-            this.panel1.Location = new System.Drawing.Point(6, 146);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(772, 313);
-            this.panel1.TabIndex = 46;
-            // 
-            // grdChitiet
-            // 
-            this.grdChitiet.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
-            grdChitiet_DesignTimeLayout.LayoutString = resources.GetString("grdChitiet_DesignTimeLayout.LayoutString");
-            this.grdChitiet.DesignTimeLayout = grdChitiet_DesignTimeLayout;
-            this.grdChitiet.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdChitiet.GroupByBoxVisible = false;
-            this.grdChitiet.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdChitiet.Location = new System.Drawing.Point(0, 0);
-            this.grdChitiet.Name = "grdChitiet";
-            this.grdChitiet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdChitiet.Size = new System.Drawing.Size(772, 313);
-            this.grdChitiet.TabIndex = 21;
-            this.grdChitiet.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdChitiet.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
-            this.grdChitiet.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
-            // 
-            // chkChitiet
-            // 
-            this.chkChitiet.Checked = true;
-            this.chkChitiet.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkChitiet.Location = new System.Drawing.Point(546, 108);
-            this.chkChitiet.Name = "chkChitiet";
-            this.chkChitiet.Size = new System.Drawing.Size(209, 23);
-            this.chkChitiet.TabIndex = 58;
-            this.chkChitiet.Text = "Chi tiết theo từng Bệnh nhân?";
-            // 
-            // fm_baocaodoanhthutienkham
+            // frm_baocaodoanhthutiencls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -348,17 +348,17 @@
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "fm_baocaodoanhthutienkham";
+            this.Name = "frm_baocaodoanhthutiencls";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BÁO CÁO THU TIỀN DỊCH VỤ KCB";
+            this.Text = "BÁO CÁO THU TIỀN CẬN LÂM SÀNG";
             this.Load += new System.EventHandler(this.frm_BAOCAO_TONGHOP_TAI_KKB_DTUONG_THUPHI_Load);
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).EndInit();
             this.uiGroupBox2.ResumeLayout(false);
             this.uiGroupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdChitiet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

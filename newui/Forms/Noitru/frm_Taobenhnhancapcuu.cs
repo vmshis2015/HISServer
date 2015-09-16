@@ -2231,7 +2231,6 @@ namespace VNS.HIS.UI.NOITRU
             }
             objLuotkham.SoBenhAn = Utility.sDbnull(txtSoBenhAn.Text);
             objLuotkham.MotaNhapvien = Utility.DoTrim(txtGhiChu.Text);
-            objLuotkham.Ksk = 0;
             objLuotkham.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
             objLuotkham.Noitru = 0;
             objLuotkham.IdDoituongKcb = _IdDoituongKcb;

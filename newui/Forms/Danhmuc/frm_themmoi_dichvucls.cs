@@ -25,7 +25,6 @@ namespace VNS.HIS.UI.DANHMUC
             cmdThoat.Click+=new EventHandler(cmdThoat_Click);
             cmdGhi.Click+=new EventHandler(cmdGhi_Click);
             txtServiceName.LostFocus+=new EventHandler(txtServiceName_LostFocus);
-            txtServiceCode.CharacterCasing = CharacterCasing.Upper;
             cboDepartment.SelectedIndexChanged += new EventHandler(cboDepartment_SelectedIndexChanged);
             txtDonvitinh._OnShowData += txtDonvitinh__OnShowData;
             txtQuychuan._OnShowData += txtQuychuan__OnShowData;

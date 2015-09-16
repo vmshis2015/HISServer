@@ -107,6 +107,7 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
         {
             this.MA_BAOCAO = MA_BAOCAO;
             txtTieuDe.Text = THU_VIEN_CHUNG.LaygiatriTieudebaocao(MA_BAOCAO, txtTieuDe.Text, true);
+            cmdSave.Visible = globalVariablesPrivate.objNhanvien != null && Utility.Coquyen("quyen_suatieudebaocao");
         }
         public void Init()
         {

@@ -236,7 +236,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         void cmdLuuChandoan_Click(object sender, EventArgs e)
         {
-            _KCB_THAMKHAM.LuuHoibenhvaChandoan(TaoDulieuChandoanKetluan());
+            _KCB_THAMKHAM.LuuHoibenhvaChandoan(TaoDulieuChandoanKetluan(),null,false);
         }
 
         void grdPresDetail_UpdatingCell(object sender, UpdatingCellEventArgs e)
@@ -2130,12 +2130,18 @@ namespace VNS.HIS.UI.NGOAITRU
                     int hien_thi = Utility.Int32Dbnull(grdList.GetValue("hien_thi"), 0);
                     if (hien_thi == 0)
                     {
-                        Utility.ShowMsg("Bệnh nhân " + objBenhnhan.TenBenhnhan+" chưa nộp tiền khám trong khi thuộc đối tượng khám chữa bệnh cần phải thanh toán tiền phí KCB trước khi được bác sĩ thăm khám. Mời bạn liên hệ quầy thanh toán để kiểm tra lại");
+                        Utility.ShowMsg("Bệnh nhân " + objBenhnhan.TenBenhnhan+" CHƯA NỘP TIỀN KHÁM trong khi thuộc đối tượng khám chữa bệnh CẦN THANH TOÁN TRƯỚC KHI VÀO PHÒNG KHÁM.\nYêu cầu Bệnh nhân đi NỘP TIỀN KHÁM TRƯỚC");
+                        objLuotkham = null;
+                        objBenhnhan = null;
+                        m_strMaLuotkham = "";
                         return;
                     }
                     if (!KHAMCHEO_CACKHOA  && globalVariables.MA_KHOA_THIEN != objLuotkham.MaKhoaThuchien)
                     {
                         Utility.ShowMsg("Bệnh nhân này được tiếp đón và chỉ định khám cho khoa " + ten_khoaphong + ". Trong khi máy bạn đang cấu hình khám chữa bệnh cho khoa " + globalVariablesPrivate.objKhoaphong.TenKhoaphong + "\nHệ thống không cho phép khám chéo giữa các khoa. Đề nghị liên hệ Bộ phận IT trong đơn vị để được trợ giúp");
+                        objLuotkham = null;
+                        objBenhnhan = null;
+                        m_strMaLuotkham = "";
                         return;
                     }
                     ClearControl();
@@ -2227,7 +2233,8 @@ namespace VNS.HIS.UI.NGOAITRU
                                  if (_KcbChandoanKetluan != null)
                                  {
                                      txtKet_Luan._Text = Utility.sDbnull(_KcbChandoanKetluan.Ketluan);
-                                     txtHuongdieutri.SetCode(_KcbChandoanKetluan.HuongDieutri);
+                                     //txtHuongdieutri.SetCode(_KcbChandoanKetluan.HuongDieutri);
+                                     txtHuongdieutri._Text=_KcbChandoanKetluan.HuongDieutri;
                                      txtSongaydieutri.Text = Utility.sDbnull(_KcbChandoanKetluan.SongayDieutri, "0");
                                      txtHa.Text = Utility.sDbnull(_KcbChandoanKetluan.Huyetap);
                                      txtTrieuChungBD._Text = Utility.sDbnull(_KcbChandoanKetluan.TrieuchungBandau);
@@ -5029,7 +5036,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 _KcbChandoanKetluan.Nhiptho = Utility.sDbnull(txtNhipTho.Text);
                 _KcbChandoanKetluan.Chieucao = Utility.sDbnull(txtChieucao.Text);
                 _KcbChandoanKetluan.Cannang = Utility.sDbnull(txtCannang.Text);
-                _KcbChandoanKetluan.HuongDieutri = txtHuongdieutri.myCode.Trim();
+                _KcbChandoanKetluan.HuongDieutri = txtHuongdieutri.Text;//.myCode.Trim();
                 _KcbChandoanKetluan.SongayDieutri = (Int16)Utility.DecimaltoDbnull(txtSongaydieutri.Text, 0);
                 _KcbChandoanKetluan.Ketluan = Utility.sDbnull(txtKet_Luan.Text, "");
                 if (Utility.Int16Dbnull(txtBacsi.MyID,-1)>0)

@@ -361,6 +361,9 @@ namespace VNS.HIS.UI.THUOC
                         UpdateHasConfirm();
                         Utility.SetMsg(uiStatusBar2.Panels[1], "Bạn thực hiện việc phát thuốc thành công",false);
                         break;
+                    case ActionResult.NotEnoughDrugInStock:
+                        Utility.SetMsg(uiStatusBar2.Panels[1], "Thuốc không đủ cấp phát. Mời bạn kiểm tra lại", true);
+                        break;
                     case ActionResult.Error:
                         Utility.SetMsg(uiStatusBar2.Panels[1], "Lỗi trong quá trình phát thuốc cho bệnh nhân", true);
                         break;

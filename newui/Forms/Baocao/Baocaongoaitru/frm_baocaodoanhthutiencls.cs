@@ -11,7 +11,7 @@ using SubSonic;
 using Microsoft.VisualBasic;
 using VNS.Libs;
 using VNS.HIS.DAL;
-using reports.Baocao;
+
 using VNS.HIS.BusRule.Classes;
 
 
@@ -28,9 +28,6 @@ namespace VNS.HIS.UI.Baocao
             InitializeComponent();
             Initevents();
            
-         
-          
-            Utility.loadIconToForm(this);
             dtNgayInPhieu.Value = globalVariables.SysDate;
         
             dtToDate.Value = dtNgayInPhieu.Value = dtFromDate.Value = globalVariables.SysDate;
@@ -208,7 +205,7 @@ namespace VNS.HIS.UI.Baocao
                 //try
                 //{
                 crpt.SetDataSource(_dtData);
-                objForm.crptTrinhKyName = Path.GetFileName(reportname);
+                objForm.mv_sReportCode = Path.GetFileName(reportname);
                 crpt.SetParameterValue("StaffName", StaffName);
                 crpt.SetParameterValue("BranchName", globalVariables.Branch_Name);
                 crpt.SetParameterValue("Address", globalVariables.Branch_Address);

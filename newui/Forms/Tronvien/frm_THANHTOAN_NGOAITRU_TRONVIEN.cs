@@ -41,6 +41,7 @@ namespace  VNS.HIS.UI.THANHTOAN
         private DataTable m_dtChiPhiDaThanhToan = new DataTable();
         private DataTable m_dtChiPhiThanhtoan;
         bool Bovien = true;
+        string Args = "ALL";
         /// <summary>
         ///     05-11-2013
         /// </summary>
@@ -52,11 +53,11 @@ namespace  VNS.HIS.UI.THANHTOAN
         private string sFileName = "RedInvoicePrinterConfig.txt";
         private int v_Payment_ID = -1;
         #endregion
-        public frm_THANHTOAN_NGOAITRU_TRONVIEN()
+        public frm_THANHTOAN_NGOAITRU_TRONVIEN(string Args)
         {
             InitializeComponent();
             KeyPreview = true;
-            
+            this.Args = Args;
             dtFromDate.Value =
                 dtPaymentDate.Value = dtInput_Date.Value = dtToDate.Value = globalVariables.SysDate;
             //cmdHuyThanhToan.Visible = (globalVariables.IsAdmin || globalVariables.quyenh);
@@ -724,7 +725,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                             ? dtToDate.Value
                             : globalVariables.SysDate,
                         Utility.sDbnull(cboObjectType_ID.SelectedValue), -1,1,
-                        KieuTimKiem, globalVariables.MA_KHOA_THIEN);
+                        KieuTimKiem, globalVariables.MA_KHOA_THIEN,this.Args);
                 Utility.AddColumToDataTable(ref m_dtDataTimKiem, "CHON", typeof(Int32));
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtDataTimKiem, true, true, "1=1", "");
                 ClearControl();
@@ -1576,6 +1577,8 @@ namespace  VNS.HIS.UI.THANHTOAN
                     newItem.TenLoaithanhtoan = THU_VIEN_CHUNG.MaKieuThanhToan(Utility.Int32Dbnull(gridExRow.Cells["Id_Loaithanhtoan"].Value, -1));
                     newItem.TienChietkhau = Utility.DecimaltoDbnull(gridExRow.Cells[KcbThanhtoanChitiet.Columns.TienChietkhau].Value, 0m);
                     newItem.TileChietkhau = Utility.DecimaltoDbnull(gridExRow.Cells[KcbThanhtoanChitiet.Columns.TileChietkhau].Value, 0m);
+                    newItem.IdLichsuDoituongKcb = Utility.Int64Dbnull(gridExRow.Cells[KcbThanhtoanChitiet.Columns.IdLichsuDoituongKcb].Value, -1);
+                    newItem.MatheBhyt = Utility.sDbnull(gridExRow.Cells[KcbThanhtoanChitiet.Columns.MatheBhyt].Value, -1);
                     newItem.MaDoituongKcb = objLuotkham.MaDoituongKcb;
                     newItem.KieuChietkhau = "%";
                     newItem.NguoiHuy = "";

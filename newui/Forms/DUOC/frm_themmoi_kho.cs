@@ -12,6 +12,7 @@ using SubSonic;
 using VNS.Libs;
 using VNS.HIS.DAL;
 using VNS.HIS.NGHIEPVU.THUOC;
+using VNS.HIS.UI.DANHMUC;
 
 
 namespace VNS.HIS.UI.THUOC
@@ -41,23 +42,35 @@ namespace VNS.HIS.UI.THUOC
             txtTEN.LostFocus += new EventHandler(txtTEN_LostFocus);
             txtTEN.TextChanged += new EventHandler(txtTEN_TextChanged);
             optThuoc.Checked = true;
+            txtKieubiendong._OnShowData += txtKieubiendong__OnShowData;
+        }
+
+        void txtKieubiendong__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtKieubiendong.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtKieubiendong.myCode;
+                txtKieubiendong.Init();
+                txtKieubiendong.SetCode(oldCode);
+                txtKieubiendong.Focus();
+            } 
         }
         /// <summary>
         /// hàm thực hiện việc cho phép nhập thông tin của đơn vị tính trạng thía bắt buộc nhập
         /// </summary>
         private void SetCOntrolStatus()
         {
-            Utility.ResetMessageError(errorProvider1);
-            Utility.ResetMessageError(errorProvider2);
             Utility.ResetMessageError(errorProvider3);
             if (string.IsNullOrEmpty(txtMa.Text))
             {
-                Utility.SetMsgError(errorProvider1, txtMa, "Nhập mã danh mục dùng chung");
+                Utility.SetMsgError(errorProvider3, txtMa, "Nhập mã kho thuốc");
             }
 
             if (string.IsNullOrEmpty(txtTEN.Text))
             {
-                Utility.SetMsgError(errorProvider2, txtTEN, "Nhập tên danh mục dùng chung");
+                Utility.SetMsgError(errorProvider3, txtTEN, "Nhập tên kho thuốc");
             }
         }
         /// <summary>
@@ -391,11 +404,11 @@ namespace VNS.HIS.UI.THUOC
         {
             em_Action = action.Insert;
             ClearControl();
-            IntialDataControl();
+            InitData();
 
         }
         private Query _Query = TDmucKho.CreateQuery();
-        private void IntialDataControl()
+        private void InitData()
         {
             if (em_Action == action.Insert)
             {
@@ -405,7 +418,7 @@ namespace VNS.HIS.UI.THUOC
                             TDmucKho.Columns.SttHthi), 0);
 
                 txt_STT_HTHI.Value = Utility.Int32Dbnull(MaxSTT + 1);
-                txtKieubiendong.Init();
+               
                 //txtID_DICHVU.Text = Utility.sDbnull(Utility.Int32Dbnull(_Query.GetMax(DDichVu.Columns.IdDvu)) + 1, "1");
                 txtMa.Focus();
             }
@@ -453,13 +466,14 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
+                txtKieubiendong.Init();
                 AutoFromThemKho();
                 SetCOntrolStatus();
                 Laydanhsachkhoa();
                 if (em_Action == action.Update) Getdata();
                 else
                 {
-                    IntialDataControl();
+                    InitData();
                 }
                 txtTEN.Focus();
                 m_Doituong = new Select().From(DmucDoituongkcb.Schema).OrderAsc(DmucDoituongkcb.Columns.SttHthi).ExecuteDataSet().Tables[0];

@@ -54,6 +54,7 @@
             this.cmdBaoCao = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
+            this.txtKhoanoitru = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.label2 = new System.Windows.Forms.Label();
             this.optNgay = new System.Windows.Forms.RadioButton();
             this.dtpNam = new Janus.Windows.CalendarCombo.CalendarCombo();
@@ -77,7 +78,6 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.gridEXExporter1 = new Janus.Windows.GridEX.Export.GridEXExporter(this.components);
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
-            this.txtKhoanoitru = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
@@ -195,6 +195,45 @@
             this.uiGroupBox1.Size = new System.Drawing.Size(784, 467);
             this.uiGroupBox1.TabIndex = 13;
             this.uiGroupBox1.Text = "Điều kiện báo cáo";
+            // 
+            // txtKhoanoitru
+            // 
+            this.txtKhoanoitru._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtKhoanoitru._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKhoanoitru._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtKhoanoitru.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKhoanoitru.AutoCompleteList")));
+            this.txtKhoanoitru.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtKhoanoitru.CaseSensitive = false;
+            this.txtKhoanoitru.CompareNoID = true;
+            this.txtKhoanoitru.DefaultCode = "-1";
+            this.txtKhoanoitru.DefaultID = "-1";
+            this.txtKhoanoitru.Drug_ID = null;
+            this.txtKhoanoitru.ExtraWidth = 0;
+            this.txtKhoanoitru.FillValueAfterSelect = false;
+            this.txtKhoanoitru.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKhoanoitru.Location = new System.Drawing.Point(140, 29);
+            this.txtKhoanoitru.MaxHeight = 289;
+            this.txtKhoanoitru.MinTypedCharacters = 2;
+            this.txtKhoanoitru.MyCode = "-1";
+            this.txtKhoanoitru.MyID = "-1";
+            this.txtKhoanoitru.MyText = "";
+            this.txtKhoanoitru.Name = "txtKhoanoitru";
+            this.txtKhoanoitru.RaiseEvent = true;
+            this.txtKhoanoitru.RaiseEventEnter = true;
+            this.txtKhoanoitru.RaiseEventEnterWhenEmpty = true;
+            this.txtKhoanoitru.SelectedIndex = -1;
+            this.txtKhoanoitru.Size = new System.Drawing.Size(581, 21);
+            this.txtKhoanoitru.splitChar = '@';
+            this.txtKhoanoitru.splitCharIDAndCode = '#';
+            this.txtKhoanoitru.TabIndex = 50;
+            this.txtKhoanoitru.TakeCode = false;
+            this.txtKhoanoitru.txtMyCode = null;
+            this.txtKhoanoitru.txtMyCode_Edit = null;
+            this.txtKhoanoitru.txtMyID = null;
+            this.txtKhoanoitru.txtMyID_Edit = null;
+            this.txtKhoanoitru.txtMyName = null;
+            this.txtKhoanoitru.txtMyName_Edit = null;
+            this.txtKhoanoitru.txtNext = null;
             // 
             // label2
             // 
@@ -581,47 +620,6 @@
             // printDialog1
             // 
             this.printDialog1.UseEXDialog = true;
-            // 
-            // txtKhoanoitru
-            // 
-            this.txtKhoanoitru._backcolor = System.Drawing.Color.WhiteSmoke;
-            this.txtKhoanoitru._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKhoanoitru._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtKhoanoitru.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtKhoanoitru.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKhoanoitru.AutoCompleteList")));
-            this.txtKhoanoitru.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtKhoanoitru.CaseSensitive = false;
-            this.txtKhoanoitru.CompareNoID = true;
-            this.txtKhoanoitru.DefaultCode = "-1";
-            this.txtKhoanoitru.DefaultID = "-1";
-            this.txtKhoanoitru.Drug_ID = null;
-            this.txtKhoanoitru.ExtraWidth = 0;
-            this.txtKhoanoitru.FillValueAfterSelect = false;
-            this.txtKhoanoitru.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKhoanoitru.Location = new System.Drawing.Point(140, 29);
-            this.txtKhoanoitru.MaxHeight = 289;
-            this.txtKhoanoitru.MinTypedCharacters = 2;
-            this.txtKhoanoitru.MyCode = "-1";
-            this.txtKhoanoitru.MyID = "-1";
-            this.txtKhoanoitru.MyText = "";
-            this.txtKhoanoitru.Name = "txtKhoanoitru";
-            this.txtKhoanoitru.RaiseEvent = true;
-            this.txtKhoanoitru.RaiseEventEnter = true;
-            this.txtKhoanoitru.RaiseEventEnterWhenEmpty = true;
-            this.txtKhoanoitru.SelectedIndex = -1;
-            this.txtKhoanoitru.Size = new System.Drawing.Size(581, 21);
-            this.txtKhoanoitru.splitChar = '@';
-            this.txtKhoanoitru.splitCharIDAndCode = '#';
-            this.txtKhoanoitru.TabIndex = 50;
-            this.txtKhoanoitru.TakeCode = false;
-            this.txtKhoanoitru.txtMyCode = null;
-            this.txtKhoanoitru.txtMyCode_Edit = null;
-            this.txtKhoanoitru.txtMyID = null;
-            this.txtKhoanoitru.txtMyID_Edit = null;
-            this.txtKhoanoitru.txtMyName = null;
-            this.txtKhoanoitru.txtMyName_Edit = null;
-            this.txtKhoanoitru.txtNext = null;
             // 
             // frm_baocao_nhapxuaton_theokhoanoitru
             // 

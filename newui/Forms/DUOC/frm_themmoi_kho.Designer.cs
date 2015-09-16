@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_kho));
             Janus.Windows.GridEX.GridEXLayout grdDoiTuong_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel1 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel2 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel3 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel4 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_kho));
             this.grpControl = new Janus.Windows.EditControls.UIGroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtKieubiendong = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.chkChongiakhikedon = new Janus.Windows.EditControls.UICheckBox();
             this.uiGroupBox3 = new Janus.Windows.EditControls.UIGroupBox();
             this.optChanle = new Janus.Windows.EditControls.UIRadioButton();
@@ -73,12 +75,8 @@
             this.uiStatusBar1 = new Janus.Windows.UI.StatusBar.UIStatusBar();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
-            this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorProvider3 = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.txtKieubiendong = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
-            this.label4 = new System.Windows.Forms.Label();
+            this.errorProvider3 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.grpControl)).BeginInit();
             this.grpControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox3)).BeginInit();
@@ -88,8 +86,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdDoiTuong)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).BeginInit();
             this.SuspendLayout();
             // 
@@ -130,6 +126,53 @@
             this.grpControl.Text = "Thông tin kho thuốc-vật tư";
             this.grpControl.Click += new System.EventHandler(this.grpControl_Click);
             // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(0, 313);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(97, 15);
+            this.label4.TabIndex = 88;
+            this.label4.Text = "Kiểu biến động";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtKieubiendong
+            // 
+            this.txtKieubiendong._backcolor = System.Drawing.SystemColors.Control;
+            this.txtKieubiendong._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKieubiendong.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKieubiendong.AutoCompleteList")));
+            this.txtKieubiendong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtKieubiendong.CaseSensitive = false;
+            this.txtKieubiendong.CompareNoID = true;
+            this.txtKieubiendong.DefaultCode = "-1";
+            this.txtKieubiendong.DefaultID = "-1";
+            this.txtKieubiendong.Drug_ID = null;
+            this.txtKieubiendong.ExtraWidth = 0;
+            this.txtKieubiendong.FillValueAfterSelect = false;
+            this.txtKieubiendong.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKieubiendong.LOAI_DANHMUC = "KIEUBIENDONG";
+            this.txtKieubiendong.Location = new System.Drawing.Point(100, 310);
+            this.txtKieubiendong.MaxHeight = -1;
+            this.txtKieubiendong.MinTypedCharacters = 2;
+            this.txtKieubiendong.MyCode = "-1";
+            this.txtKieubiendong.MyID = "-1";
+            this.txtKieubiendong.Name = "txtKieubiendong";
+            this.txtKieubiendong.RaiseEvent = false;
+            this.txtKieubiendong.RaiseEventEnter = false;
+            this.txtKieubiendong.RaiseEventEnterWhenEmpty = false;
+            this.txtKieubiendong.SelectedIndex = -1;
+            this.txtKieubiendong.Size = new System.Drawing.Size(574, 21);
+            this.txtKieubiendong.splitChar = '@';
+            this.txtKieubiendong.splitCharIDAndCode = '#';
+            this.txtKieubiendong.TabIndex = 10;
+            this.txtKieubiendong.TakeCode = false;
+            this.txtKieubiendong.txtMyCode = null;
+            this.txtKieubiendong.txtMyCode_Edit = null;
+            this.txtKieubiendong.txtMyID = null;
+            this.txtKieubiendong.txtMyID_Edit = null;
+            this.txtKieubiendong.txtMyName = null;
+            this.txtKieubiendong.txtMyName_Edit = null;
+            this.txtKieubiendong.txtNext = null;
+            // 
             // chkChongiakhikedon
             // 
             this.chkChongiakhikedon.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -167,7 +210,7 @@
             this.radKhoChan.Size = new System.Drawing.Size(74, 23);
             this.radKhoChan.TabIndex = 4;
             this.radKhoChan.Tag = "2";
-            this.radKhoChan.Text = "&Kho chẵn";
+            this.radKhoChan.Text = "Kho chẵn";
             // 
             // radKhoLe
             // 
@@ -178,7 +221,7 @@
             this.radKhoLe.TabIndex = 5;
             this.radKhoLe.TabStop = true;
             this.radKhoLe.Tag = "5";
-            this.radKhoLe.Text = "&Kho lẻ";
+            this.radKhoLe.Text = "Kho lẻ";
             // 
             // uiGroupBox2
             // 
@@ -349,7 +392,8 @@
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(373, 141);
+            this.label7.ForeColor = System.Drawing.Color.Red;
+            this.label7.Location = new System.Drawing.Point(373, 140);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 15);
             this.label7.TabIndex = 16;
@@ -358,6 +402,7 @@
             // 
             // label6
             // 
+            this.label6.ForeColor = System.Drawing.Color.Red;
             this.label6.Location = new System.Drawing.Point(6, 137);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 15);
@@ -367,6 +412,7 @@
             // 
             // label5
             // 
+            this.label5.ForeColor = System.Drawing.Color.Red;
             this.label5.Location = new System.Drawing.Point(6, 21);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 23);
@@ -403,6 +449,7 @@
             // 
             // label2
             // 
+            this.label2.ForeColor = System.Drawing.Color.Red;
             this.label2.Location = new System.Drawing.Point(6, 75);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 15);
@@ -419,6 +466,7 @@
             // 
             // label1
             // 
+            this.label1.ForeColor = System.Drawing.Color.Red;
             this.label1.Location = new System.Drawing.Point(6, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 15);
@@ -506,64 +554,9 @@
             this.cmdSave.Text = "Lưu lại";
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
-            // errorProvider2
-            // 
-            this.errorProvider2.ContainerControl = this;
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
             // errorProvider3
             // 
             this.errorProvider3.ContainerControl = this;
-            // 
-            // txtKieubiendong
-            // 
-            this.txtKieubiendong._backcolor = System.Drawing.SystemColors.Control;
-            this.txtKieubiendong._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKieubiendong.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKieubiendong.AutoCompleteList")));
-            this.txtKieubiendong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtKieubiendong.CaseSensitive = false;
-            this.txtKieubiendong.CompareNoID = true;
-            this.txtKieubiendong.DefaultCode = "-1";
-            this.txtKieubiendong.DefaultID = "-1";
-            this.txtKieubiendong.Drug_ID = null;
-            this.txtKieubiendong.ExtraWidth = 0;
-            this.txtKieubiendong.FillValueAfterSelect = false;
-            this.txtKieubiendong.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKieubiendong.LOAI_DANHMUC = "KIEUBIENDONG";
-            this.txtKieubiendong.Location = new System.Drawing.Point(100, 310);
-            this.txtKieubiendong.MaxHeight = -1;
-            this.txtKieubiendong.MinTypedCharacters = 2;
-            this.txtKieubiendong.MyCode = "-1";
-            this.txtKieubiendong.MyID = "-1";
-            this.txtKieubiendong.Name = "txtKieubiendong";
-            this.txtKieubiendong.RaiseEvent = false;
-            this.txtKieubiendong.RaiseEventEnter = false;
-            this.txtKieubiendong.RaiseEventEnterWhenEmpty = false;
-            this.txtKieubiendong.SelectedIndex = -1;
-            this.txtKieubiendong.Size = new System.Drawing.Size(574, 21);
-            this.txtKieubiendong.splitChar = '@';
-            this.txtKieubiendong.splitCharIDAndCode = '#';
-            this.txtKieubiendong.TabIndex = 10;
-            this.txtKieubiendong.TakeCode = false;
-            this.txtKieubiendong.txtMyCode = null;
-            this.txtKieubiendong.txtMyCode_Edit = null;
-            this.txtKieubiendong.txtMyID = null;
-            this.txtKieubiendong.txtMyID_Edit = null;
-            this.txtKieubiendong.txtMyName = null;
-            this.txtKieubiendong.txtMyName_Edit = null;
-            this.txtKieubiendong.txtNext = null;
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(0, 313);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(97, 15);
-            this.label4.TabIndex = 88;
-            this.label4.Text = "Kiểu biến động";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frm_themmoi_kho
             // 
@@ -593,8 +586,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).EndInit();
             this.uiGroupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdDoiTuong)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).EndInit();
             this.ResumeLayout(false);
 
@@ -614,9 +605,6 @@
         private Janus.Windows.EditControls.UIButton cmdSave;
         private System.Windows.Forms.Label label5;
         internal Janus.Windows.GridEX.EditControls.EditBox txtIDKHO;
-        private System.Windows.Forms.ErrorProvider errorProvider2;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.ErrorProvider errorProvider3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private Janus.Windows.EditControls.UIRadioButton radKhoChan;
@@ -646,5 +634,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label4;
         private UCs.AutoCompleteTextbox_Danhmucchung txtKieubiendong;
+        private System.Windows.Forms.ErrorProvider errorProvider3;
     }
 }

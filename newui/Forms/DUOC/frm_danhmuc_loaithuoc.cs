@@ -609,7 +609,7 @@ namespace VNS.HIS.UI.THUOC
         }
         private void txtName_LostFocus(object sender, System.EventArgs e)
         {
-            txtName.Text = Utility.chuanhoachuoi(txtName.Text);
+           // txtName.Text = Utility.chuanhoachuoi(txtName.Text);
         }
       
     }

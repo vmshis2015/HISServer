@@ -50,12 +50,14 @@
             this.cboKhoa = new Janus.Windows.EditControls.UIComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.cboDoituongKCB = new Janus.Windows.EditControls.UIComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dtToDate = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.dtFromDate = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.chkByDate = new Janus.Windows.EditControls.UICheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtLoaikham = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
+            this.cboDoituongKCB = new Janus.Windows.EditControls.UIComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
             this.uiGroupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -158,13 +160,15 @@
             this.uiGroupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.uiGroupBox2.Controls.Add(this.cboDoituongKCB);
+            this.uiGroupBox2.Controls.Add(this.label19);
+            this.uiGroupBox2.Controls.Add(this.txtLoaikham);
             this.uiGroupBox2.Controls.Add(this.txtNhanvientiepdon);
             this.uiGroupBox2.Controls.Add(this.chkChitiet);
             this.uiGroupBox2.Controls.Add(this.panel1);
             this.uiGroupBox2.Controls.Add(this.cboKhoa);
             this.uiGroupBox2.Controls.Add(this.label4);
             this.uiGroupBox2.Controls.Add(this.label8);
-            this.uiGroupBox2.Controls.Add(this.cboDoituongKCB);
             this.uiGroupBox2.Controls.Add(this.label1);
             this.uiGroupBox2.Controls.Add(this.dtToDate);
             this.uiGroupBox2.Controls.Add(this.dtFromDate);
@@ -181,6 +185,7 @@
             // 
             this.txtNhanvientiepdon._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtNhanvientiepdon._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNhanvientiepdon._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtNhanvientiepdon.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNhanvientiepdon.AutoCompleteList")));
             this.txtNhanvientiepdon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNhanvientiepdon.CaseSensitive = false;
@@ -191,18 +196,19 @@
             this.txtNhanvientiepdon.ExtraWidth = 0;
             this.txtNhanvientiepdon.FillValueAfterSelect = false;
             this.txtNhanvientiepdon.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNhanvientiepdon.Location = new System.Drawing.Point(439, 54);
+            this.txtNhanvientiepdon.Location = new System.Drawing.Point(440, 54);
             this.txtNhanvientiepdon.MaxHeight = 289;
             this.txtNhanvientiepdon.MaxLength = 100;
             this.txtNhanvientiepdon.MinTypedCharacters = 2;
             this.txtNhanvientiepdon.MyCode = "-1";
             this.txtNhanvientiepdon.MyID = "-1";
+            this.txtNhanvientiepdon.MyText = "";
             this.txtNhanvientiepdon.Name = "txtNhanvientiepdon";
             this.txtNhanvientiepdon.RaiseEvent = true;
             this.txtNhanvientiepdon.RaiseEventEnter = false;
             this.txtNhanvientiepdon.RaiseEventEnterWhenEmpty = true;
             this.txtNhanvientiepdon.SelectedIndex = -1;
-            this.txtNhanvientiepdon.Size = new System.Drawing.Size(316, 21);
+            this.txtNhanvientiepdon.Size = new System.Drawing.Size(315, 21);
             this.txtNhanvientiepdon.splitChar = '@';
             this.txtNhanvientiepdon.splitCharIDAndCode = '#';
             this.txtNhanvientiepdon.TabIndex = 60;
@@ -282,7 +288,7 @@
             this.cboKhoa.Location = new System.Drawing.Point(123, 27);
             this.cboKhoa.Name = "cboKhoa";
             this.cboKhoa.SelectInDataSource = true;
-            this.cboKhoa.Size = new System.Drawing.Size(632, 21);
+            this.cboKhoa.Size = new System.Drawing.Size(200, 21);
             this.cboKhoa.TabIndex = 0;
             this.cboKhoa.Text = "Khoa thực hiện";
             // 
@@ -297,23 +303,12 @@
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(329, 56);
+            this.label8.Location = new System.Drawing.Point(329, 57);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(104, 15);
             this.label8.TabIndex = 30;
             this.label8.Text = "Người tiếp đón";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cboDoituongKCB
-            // 
-            this.cboDoituongKCB.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboDoituongKCB.ItemsFormatStyle.FontBold = Janus.Windows.UI.TriState.True;
-            this.cboDoituongKCB.Location = new System.Drawing.Point(123, 54);
-            this.cboDoituongKCB.Name = "cboDoituongKCB";
-            this.cboDoituongKCB.SelectInDataSource = true;
-            this.cboDoituongKCB.Size = new System.Drawing.Size(200, 21);
-            this.cboDoituongKCB.TabIndex = 1;
-            this.cboDoituongKCB.Text = "Đối tượng";
             // 
             // label1
             // 
@@ -371,6 +366,66 @@
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp";
             // 
+            // label19
+            // 
+            this.label19.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.ForeColor = System.Drawing.Color.Black;
+            this.label19.Location = new System.Drawing.Point(346, 29);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(87, 21);
+            this.label19.TabIndex = 603;
+            this.label19.Text = "Loại BN";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtLoaikham
+            // 
+            this.txtLoaikham._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtLoaikham._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoaikham.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLoaikham.AutoCompleteList")));
+            this.txtLoaikham.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLoaikham.CaseSensitive = false;
+            this.txtLoaikham.CompareNoID = true;
+            this.txtLoaikham.DefaultCode = "-1";
+            this.txtLoaikham.DefaultID = "-1";
+            this.txtLoaikham.Drug_ID = null;
+            this.txtLoaikham.ExtraWidth = 0;
+            this.txtLoaikham.FillValueAfterSelect = false;
+            this.txtLoaikham.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoaikham.LOAI_DANHMUC = "KIEUKHAM";
+            this.txtLoaikham.Location = new System.Drawing.Point(440, 27);
+            this.txtLoaikham.MaxHeight = -1;
+            this.txtLoaikham.MinTypedCharacters = 2;
+            this.txtLoaikham.MyCode = "-1";
+            this.txtLoaikham.MyID = "-1";
+            this.txtLoaikham.Name = "txtLoaikham";
+            this.txtLoaikham.RaiseEvent = false;
+            this.txtLoaikham.RaiseEventEnter = false;
+            this.txtLoaikham.RaiseEventEnterWhenEmpty = false;
+            this.txtLoaikham.SelectedIndex = -1;
+            this.txtLoaikham.Size = new System.Drawing.Size(315, 21);
+            this.txtLoaikham.splitChar = '@';
+            this.txtLoaikham.splitCharIDAndCode = '#';
+            this.txtLoaikham.TabIndex = 1;
+            this.txtLoaikham.TakeCode = false;
+            this.txtLoaikham.txtMyCode = null;
+            this.txtLoaikham.txtMyCode_Edit = null;
+            this.txtLoaikham.txtMyID = null;
+            this.txtLoaikham.txtMyID_Edit = null;
+            this.txtLoaikham.txtMyName = null;
+            this.txtLoaikham.txtMyName_Edit = null;
+            this.txtLoaikham.txtNext = null;
+            // 
+            // cboDoituongKCB
+            // 
+            this.cboDoituongKCB.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboDoituongKCB.ItemsFormatStyle.FontBold = Janus.Windows.UI.TriState.True;
+            this.cboDoituongKCB.Location = new System.Drawing.Point(123, 54);
+            this.cboDoituongKCB.Name = "cboDoituongKCB";
+            this.cboDoituongKCB.SelectInDataSource = true;
+            this.cboDoituongKCB.Size = new System.Drawing.Size(200, 21);
+            this.cboDoituongKCB.TabIndex = 1;
+            this.cboDoituongKCB.Text = "Đối tượng";
+            // 
             // frm_baocaotiepdonbenhnhan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -419,7 +474,6 @@
         private Janus.Windows.EditControls.UIComboBox cboKhoa;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label8;
-        private Janus.Windows.EditControls.UIComboBox cboDoituongKCB;
         private System.Windows.Forms.Label label1;
         private Janus.Windows.CalendarCombo.CalendarCombo dtToDate;
         private Janus.Windows.CalendarCombo.CalendarCombo dtFromDate;
@@ -428,5 +482,8 @@
         private Janus.Windows.EditControls.UICheckBox chkChitiet;
         public UCs.AutoCompleteTextbox txtNhanvientiepdon;
         private System.Windows.Forms.ToolTip toolTip1;
+        private Janus.Windows.EditControls.UIComboBox cboDoituongKCB;
+        private System.Windows.Forms.Label label19;
+        private UCs.AutoCompleteTextbox_Danhmucchung txtLoaikham;
     }
 }

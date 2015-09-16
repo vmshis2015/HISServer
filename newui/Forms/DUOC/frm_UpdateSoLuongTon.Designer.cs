@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_UpdateSoLuongTon));
-            Janus.Windows.GridEX.GridEXLayout grdDieuchinh_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.GridEX.GridEXLayout grdKho_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout grdKho_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout grdDieuchinh_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
@@ -41,6 +41,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cboKho = new Janus.Windows.EditControls.UIComboBox();
             this.uiGroupBox2 = new Janus.Windows.EditControls.UIGroupBox();
+            this.grdList = new Janus.Windows.GridEX.GridEX();
+            this.grdKho = new Janus.Windows.GridEX.GridEX();
             this.pnlDieuchinh = new System.Windows.Forms.Panel();
             this.optUutien = new System.Windows.Forms.RadioButton();
             this.optExpireDate = new System.Windows.Forms.RadioButton();
@@ -56,17 +58,16 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkAutoupdate = new Janus.Windows.EditControls.UICheckBox();
-            this.grdKho = new Janus.Windows.GridEX.GridEX();
-            this.grdList = new Janus.Windows.GridEX.GridEX();
+            this.cmdRefresh = new Janus.Windows.EditControls.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
             this.uiGroupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdKho)).BeginInit();
             this.pnlDieuchinh.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdDieuchinh)).BeginInit();
             this.pnlNav.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdKho)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdSave
@@ -79,7 +80,7 @@
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(135, 31);
             this.cmdSave.TabIndex = 0;
-            this.cmdSave.Text = "&Lưu thông tin ";
+            this.cmdSave.Text = "Lưu thông tin ";
             // 
             // cmdExit
             // 
@@ -91,11 +92,12 @@
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(115, 31);
             this.cmdExit.TabIndex = 1;
-            this.cmdExit.Text = "&Thoát Form";
+            this.cmdExit.Text = "Thoát Form";
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
             // 
             // uiGroupBox1
             // 
+            this.uiGroupBox1.Controls.Add(this.cmdRefresh);
             this.uiGroupBox1.Controls.Add(this.cmdCauHinh);
             this.uiGroupBox1.Controls.Add(this.chkTamdung);
             this.uiGroupBox1.Controls.Add(this.label1);
@@ -116,6 +118,7 @@
             this.cmdCauHinh.Name = "cmdCauHinh";
             this.cmdCauHinh.Size = new System.Drawing.Size(39, 33);
             this.cmdCauHinh.TabIndex = 462;
+            this.cmdCauHinh.TabStop = false;
             // 
             // chkTamdung
             // 
@@ -145,7 +148,7 @@
             this.cboKho.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboKho.Location = new System.Drawing.Point(172, 19);
             this.cboKho.Name = "cboKho";
-            this.cboKho.Size = new System.Drawing.Size(421, 22);
+            this.cboKho.Size = new System.Drawing.Size(396, 22);
             this.cboKho.TabIndex = 0;
             this.cboKho.Text = "Kho thuốc";
             this.cboKho.SelectedIndexChanged += new System.EventHandler(this.cboKho_SelectedIndexChanged);
@@ -164,6 +167,51 @@
             this.uiGroupBox2.Size = new System.Drawing.Size(1008, 627);
             this.uiGroupBox2.TabIndex = 3;
             this.uiGroupBox2.Text = "&Thông tin số lượng tồn";
+            // 
+            // grdList
+            // 
+            grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
+            this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
+            this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdList.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdList.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown;
+            this.grdList.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.grdList.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdList.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.grdList.GroupByBoxVisible = false;
+            this.grdList.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdList.Location = new System.Drawing.Point(3, 19);
+            this.grdList.Name = "grdList";
+            this.grdList.RecordNavigator = true;
+            this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdList.Size = new System.Drawing.Size(714, 332);
+            this.grdList.TabIndex = 4;
+            this.grdList.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdList.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
+            this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // grdKho
+            // 
+            grdKho_DesignTimeLayout.LayoutString = resources.GetString("grdKho_DesignTimeLayout.LayoutString");
+            this.grdKho.DesignTimeLayout = grdKho_DesignTimeLayout;
+            this.grdKho.Dock = System.Windows.Forms.DockStyle.Right;
+            this.grdKho.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdKho.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown;
+            this.grdKho.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.grdKho.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdKho.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.grdKho.GroupByBoxVisible = false;
+            this.grdKho.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdKho.Location = new System.Drawing.Point(717, 19);
+            this.grdKho.Name = "grdKho";
+            this.grdKho.RecordNavigator = true;
+            this.grdKho.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdKho.Size = new System.Drawing.Size(288, 332);
+            this.grdKho.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.grdKho, "Chọn kho cho phép kê đơn");
+            this.grdKho.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdKho.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
+            this.grdKho.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // pnlDieuchinh
             // 
@@ -351,48 +399,17 @@
             this.toolTip1.SetToolTip(this.chkAutoupdate, "Nếu chọn mục này thì dữ liệu sẽ được cập nhật ngay sau khi thay đổi giá trị thay " +
         "vì phải nhấn nút Lưu thông tin");
             // 
-            // grdKho
+            // cmdRefresh
             // 
-            grdKho_DesignTimeLayout.LayoutString = resources.GetString("grdKho_DesignTimeLayout.LayoutString");
-            this.grdKho.DesignTimeLayout = grdKho_DesignTimeLayout;
-            this.grdKho.Dock = System.Windows.Forms.DockStyle.Right;
-            this.grdKho.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
-            this.grdKho.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown;
-            this.grdKho.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
-            this.grdKho.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.grdKho.GroupByBoxVisible = false;
-            this.grdKho.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdKho.Location = new System.Drawing.Point(717, 19);
-            this.grdKho.Name = "grdKho";
-            this.grdKho.RecordNavigator = true;
-            this.grdKho.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdKho.Size = new System.Drawing.Size(288, 332);
-            this.grdKho.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.grdKho, "Chọn kho cho phép kê đơn");
-            this.grdKho.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdKho.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
-            this.grdKho.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
-            // 
-            // grdList
-            // 
-            grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
-            this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
-            this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdList.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
-            this.grdList.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown;
-            this.grdList.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
-            this.grdList.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.grdList.GroupByBoxVisible = false;
-            this.grdList.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdList.Location = new System.Drawing.Point(3, 19);
-            this.grdList.Name = "grdList";
-            this.grdList.RecordNavigator = true;
-            this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdList.Size = new System.Drawing.Size(714, 332);
-            this.grdList.TabIndex = 4;
-            this.grdList.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdList.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
-            this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            this.cmdRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdRefresh.Image = ((System.Drawing.Image)(resources.GetObject("cmdRefresh.Image")));
+            this.cmdRefresh.ImageSize = new System.Drawing.Size(20, 20);
+            this.cmdRefresh.Location = new System.Drawing.Point(569, 17);
+            this.cmdRefresh.Name = "cmdRefresh";
+            this.cmdRefresh.Size = new System.Drawing.Size(25, 25);
+            this.cmdRefresh.TabIndex = 463;
+            this.cmdRefresh.TabStop = false;
+            this.toolTip1.SetToolTip(this.cmdRefresh, "Làm mới lại dữ liệu thuốc trong kho");
             // 
             // frm_UpdateSoLuongTon
             // 
@@ -416,12 +433,12 @@
             this.uiGroupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).EndInit();
             this.uiGroupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdKho)).EndInit();
             this.pnlDieuchinh.ResumeLayout(false);
             this.pnlDieuchinh.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdDieuchinh)).EndInit();
             this.pnlNav.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdKho)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -453,5 +470,6 @@
         private System.Windows.Forms.RadioButton optFIFO;
         private Janus.Windows.GridEX.GridEX grdList;
         private Janus.Windows.GridEX.GridEX grdKho;
+        private Janus.Windows.EditControls.UIButton cmdRefresh;
     }
 }

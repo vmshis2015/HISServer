@@ -66,6 +66,7 @@ namespace VNS.HIS.UI.THUOC
         void InitEvents()
         {
             cboloaithuoc.SelectedIndexChanged += new EventHandler(cboloaithuoc_SelectedIndexChanged);
+            cboloaithuoc.KeyDown += cboloaithuoc_KeyDown;
             cmdAdd.Click+=new EventHandler(cmdAdd_Click);
             cmdDelete.Click+=new EventHandler(cmdDelete_Click);
             cmdSaveObjectAll.Click+=new EventHandler(cmdSaveObjectAll_Click);
@@ -83,9 +84,9 @@ namespace VNS.HIS.UI.THUOC
             grdList.ApplyingFilter+=new System.ComponentModel.CancelEventHandler(grdList_ApplyingFilter);
             grdList.SelectionChanged+=new EventHandler(grdList_SelectionChanged);
 
-            optTatca.CheckedChanged += new EventHandler(optTatca_CheckedChanged);
-            optHethieuluc.CheckedChanged += new EventHandler(optTatca_CheckedChanged);
-            optHieuluc.CheckedChanged += new EventHandler(optTatca_CheckedChanged);
+            optTatca.CheckedChanged += new EventHandler(_CheckedChanged);
+            optHethieuluc.CheckedChanged += new EventHandler(_CheckedChanged);
+            optHieuluc.CheckedChanged += new EventHandler(_CheckedChanged);
 
             mnuHethieuluc.Click += new EventHandler(mnuHethieuluc_Click);
             mnuUpdate.Click += new EventHandler(mnuUpdate_Click);
@@ -96,9 +97,28 @@ namespace VNS.HIS.UI.THUOC
 
             grdQhe.CellUpdated += new ColumnActionEventHandler(grdQhe_CellUpdated);
             grdQhe.EditingCell += new EditingCellEventHandler(grdQhe_EditingCell);
-            optQhe_tatca.CheckedChanged += new EventHandler(optTatca_CheckedChanged);
-            optCoQhe.CheckedChanged += new EventHandler(optTatca_CheckedChanged);
-            optKhongQhe.CheckedChanged += new EventHandler(optTatca_CheckedChanged);
+            optQhe_tatca.CheckedChanged += new EventHandler(_CheckedChanged);
+            optCoQhe.CheckedChanged += new EventHandler(_CheckedChanged);
+            optKhongQhe.CheckedChanged += new EventHandler(_CheckedChanged);
+            optTatcachia.CheckedChanged += _CheckedChanged;
+            optCochia.CheckedChanged += _CheckedChanged;
+            optKhongchia.CheckedChanged += _CheckedChanged;
+
+        }
+
+        void cboloaithuoc_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Delete && Utility.sDbnull(cboloaithuoc.SelectedValue, "-1") != "-1")
+                {
+                    cboloaithuoc.SelectedIndex = 0;
+                }
+            }
+            catch (Exception)
+            {
+                
+            }
         }
 
        
@@ -223,7 +243,7 @@ namespace VNS.HIS.UI.THUOC
 
        
 
-        void optTatca_CheckedChanged(object sender, EventArgs e)
+        void _CheckedChanged(object sender, EventArgs e)
         {
             cboloaithuoc_SelectedIndexChanged(cboloaithuoc, e);
         }
@@ -249,9 +269,13 @@ namespace VNS.HIS.UI.THUOC
                    _SqlQuery.Where(VDmucThuoc.Columns.KieuThuocvattu).IsEqualTo("THUOC");
                if (!optTatca.Checked)
                    _SqlQuery.And(VDmucThuoc.Columns.TrangThai).IsEqualTo(optHieuluc.Checked ? 1 : 0);
+               if (!optTatcachia.Checked)
+                   _SqlQuery.And(VDmucThuoc.Columns.CoChiathuoc).IsEqualTo(optCochia.Checked ? 1 : 0);
                if (!optQhe_tatca.Checked)
                    _SqlQuery.And(VDmucThuoc.Columns.CoQhe).IsEqualTo(optCoQhe.Checked ? 1 : 0);
-               m_dataThuoc = _SqlQuery.OrderAsc(VDmucThuoc.Columns.SttHthiLoaithuoc).ExecuteDataSet().Tables[0];
+               m_dataThuoc = SPs.DmucLaydanhsachThuocTheoquyennhanvien(globalVariables.gv_intIDNhanvien, Utility.Int32Dbnull(cboloaithuoc.SelectedValue, -1), Kieuthuoc_vt, 
+                   (byte)(optTatca.Checked ? 2 : (optHieuluc.Checked ? 1 : 0)),
+                   (byte)(optQhe_tatca.Checked ? 2 : (optCoQhe.Checked ? 1 : 0))).GetDataSet().Tables[0];
                Utility.SetDataSourceForDataGridEx(grdList, m_dataThuoc, true, true, "1=1", VDmucThuoc.Columns.SttHthiLoaithuoc +","+ DmucThuoc.Columns.TenThuoc);
                grdList.MoveFirst();
                grdList_SelectionChanged(grdList, e);
@@ -455,7 +479,7 @@ namespace VNS.HIS.UI.THUOC
                     Where(DmucLoaithuoc.Columns.KieuThuocvattu).IsEqualTo(Kieuthuoc_vt)
                     .ExecuteDataSet().Tables[0];
                 DataTable m_dtLoaithuoc_new = m_dtLoaithuoc.Clone();
-                if (globalVariables.gv_dtQuyenNhanvien_Dmuc.Select(QheNhanvienDanhmuc.Columns.Loai + "= 0").Length <= 0)
+                if (globalVariables.gv_dtQuyenNhanvien_Dmuc.Select(QheNhanvienDanhmuc.Columns.Loai + "= 1").Length <= 0)
                     m_dtLoaithuoc_new = m_dtLoaithuoc.Copy();
                 else
                 {

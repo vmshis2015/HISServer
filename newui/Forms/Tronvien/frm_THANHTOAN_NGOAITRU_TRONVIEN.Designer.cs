@@ -1163,7 +1163,7 @@
             this.tabpageThongTinThanhToan.Controls.Add(this.grpChucNangThanhToan);
             this.tabpageThongTinThanhToan.Location = new System.Drawing.Point(1, 23);
             this.tabpageThongTinThanhToan.Name = "tabpageThongTinThanhToan";
-            this.tabpageThongTinThanhToan.Size = new System.Drawing.Size(647, 525);
+            this.tabpageThongTinThanhToan.Size = new System.Drawing.Size(637, 525);
             this.tabpageThongTinThanhToan.TabStop = true;
             this.tabpageThongTinThanhToan.Text = "Thông tin tổng hợp";
             // 
@@ -1174,7 +1174,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(317, 525);
+            this.panel4.Size = new System.Drawing.Size(307, 525);
             this.panel4.TabIndex = 363;
             // 
             // uiTabHoadon_chiphi
@@ -1182,7 +1182,7 @@
             this.uiTabHoadon_chiphi.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiTabHoadon_chiphi.Location = new System.Drawing.Point(0, 0);
             this.uiTabHoadon_chiphi.Name = "uiTabHoadon_chiphi";
-            this.uiTabHoadon_chiphi.Size = new System.Drawing.Size(317, 380);
+            this.uiTabHoadon_chiphi.Size = new System.Drawing.Size(307, 380);
             this.uiTabHoadon_chiphi.TabIndex = 363;
             this.uiTabHoadon_chiphi.TabPages.AddRange(new Janus.Windows.UI.Tab.UITabPage[] {
             this.tabpageKCB,
@@ -1195,7 +1195,7 @@
             this.tabpageKCB.Controls.Add(this.pnlSeri);
             this.tabpageKCB.Location = new System.Drawing.Point(1, 23);
             this.tabpageKCB.Name = "tabpageKCB";
-            this.tabpageKCB.Size = new System.Drawing.Size(313, 354);
+            this.tabpageKCB.Size = new System.Drawing.Size(303, 354);
             this.tabpageKCB.TabStop = true;
             this.tabpageKCB.Text = "Chi phí";
             this.tabpageKCB.ToolTipText = "Nhấn phím tắt F8 để chọn Thông tin Khám chữa bệnh";
@@ -1212,7 +1212,7 @@
             this.grdDSKCB.GroupByBoxVisible = false;
             this.grdDSKCB.Location = new System.Drawing.Point(0, 0);
             this.grdDSKCB.Name = "grdDSKCB";
-            this.grdDSKCB.Size = new System.Drawing.Size(313, 305);
+            this.grdDSKCB.Size = new System.Drawing.Size(303, 305);
             this.grdDSKCB.TabIndex = 2;
             this.toolTip1.SetToolTip(this.grdDSKCB, "Danh sách các loại chi phí khám chữa bệnh. Có thể nhấn F2 để xem chi tiết");
             this.grdDSKCB.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
@@ -1227,7 +1227,7 @@
             this.pnlSeri.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlSeri.Location = new System.Drawing.Point(0, 305);
             this.pnlSeri.Name = "pnlSeri";
-            this.pnlSeri.Size = new System.Drawing.Size(313, 49);
+            this.pnlSeri.Size = new System.Drawing.Size(303, 49);
             this.pnlSeri.TabIndex = 1;
             // 
             // txtSerie
@@ -1238,7 +1238,7 @@
             this.txtSerie.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold);
             this.txtSerie.Location = new System.Drawing.Point(80, 14);
             this.txtSerie.Name = "txtSerie";
-            this.txtSerie.Size = new System.Drawing.Size(221, 29);
+            this.txtSerie.Size = new System.Drawing.Size(211, 29);
             this.txtSerie.TabIndex = 41;
             this.txtSerie.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center;
             this.txtSerie.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2003;
@@ -1439,7 +1439,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel5.Location = new System.Drawing.Point(0, 380);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(317, 145);
+            this.panel5.Size = new System.Drawing.Size(307, 145);
             this.panel5.TabIndex = 362;
             // 
             // pnlBHYT
@@ -1449,7 +1449,7 @@
             this.pnlBHYT.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlBHYT.Location = new System.Drawing.Point(0, 42);
             this.pnlBHYT.Name = "pnlBHYT";
-            this.pnlBHYT.Size = new System.Drawing.Size(317, 103);
+            this.pnlBHYT.Size = new System.Drawing.Size(307, 103);
             this.pnlBHYT.TabIndex = 367;
             // 
             // pnlSuangayinphoi
@@ -1461,7 +1461,7 @@
             this.pnlSuangayinphoi.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlSuangayinphoi.Location = new System.Drawing.Point(0, 0);
             this.pnlSuangayinphoi.Name = "pnlSuangayinphoi";
-            this.pnlSuangayinphoi.Size = new System.Drawing.Size(317, 67);
+            this.pnlSuangayinphoi.Size = new System.Drawing.Size(307, 67);
             this.pnlSuangayinphoi.TabIndex = 368;
             // 
             // label17
@@ -1528,7 +1528,7 @@
             this.lblMessage.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMessage.Location = new System.Drawing.Point(0, 67);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(317, 36);
+            this.lblMessage.Size = new System.Drawing.Size(307, 36);
             this.lblMessage.TabIndex = 21;
             this.lblMessage.Text = "In phôi BHYT bởi Nguyễn Thu Hằng lúc 01/01/2050 19:17:26";
             this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1582,7 +1582,7 @@
             this.pnlThongtintien.Controls.Add(this.txtBNCT);
             this.pnlThongtintien.Controls.Add(this.label15);
             this.pnlThongtintien.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlThongtintien.Location = new System.Drawing.Point(317, 0);
+            this.pnlThongtintien.Location = new System.Drawing.Point(307, 0);
             this.pnlThongtintien.Name = "pnlThongtintien";
             this.pnlThongtintien.Size = new System.Drawing.Size(330, 525);
             this.pnlThongtintien.TabIndex = 362;
@@ -2009,7 +2009,7 @@
             this.grpChucNangThanhToan.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.grpChucNangThanhToan.Location = new System.Drawing.Point(0, 525);
             this.grpChucNangThanhToan.Name = "grpChucNangThanhToan";
-            this.grpChucNangThanhToan.Size = new System.Drawing.Size(647, 0);
+            this.grpChucNangThanhToan.Size = new System.Drawing.Size(637, 0);
             this.grpChucNangThanhToan.TabIndex = 355;
             this.grpChucNangThanhToan.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2003;
             // 
@@ -2021,7 +2021,7 @@
             this.flowLayoutPanel1.Controls.Add(this.cmdInphieuDCT);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(55, 8);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(45, 8);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(589, 0);
             this.flowLayoutPanel1.TabIndex = 22;
@@ -2096,7 +2096,7 @@
             this.tabPageThongTinChiTietThanhToan.Controls.Add(this.grdThongTinChuaThanhToan);
             this.tabPageThongTinChiTietThanhToan.Location = new System.Drawing.Point(1, 23);
             this.tabPageThongTinChiTietThanhToan.Name = "tabPageThongTinChiTietThanhToan";
-            this.tabPageThongTinChiTietThanhToan.Size = new System.Drawing.Size(647, 525);
+            this.tabPageThongTinChiTietThanhToan.Size = new System.Drawing.Size(637, 525);
             this.tabPageThongTinChiTietThanhToan.TabStop = true;
             this.tabPageThongTinChiTietThanhToan.Text = "Thông tin Chi tiết";
             // 
@@ -2125,7 +2125,7 @@
             this.grdThongTinChuaThanhToan.RecordNavigator = true;
             this.grdThongTinChuaThanhToan.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdThongTinChuaThanhToan.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
-            this.grdThongTinChuaThanhToan.Size = new System.Drawing.Size(647, 525);
+            this.grdThongTinChuaThanhToan.Size = new System.Drawing.Size(637, 525);
             this.grdThongTinChuaThanhToan.TabIndex = 115;
             this.grdThongTinChuaThanhToan.TableHeaders = Janus.Windows.GridEX.InheritableBoolean.Default;
             this.grdThongTinChuaThanhToan.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;

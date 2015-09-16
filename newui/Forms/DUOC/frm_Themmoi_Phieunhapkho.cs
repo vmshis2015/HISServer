@@ -445,6 +445,7 @@ namespace VNS.HIS.UI.THUOC
                             txtMaDonvitinh.Text = Utility.sDbnull(objMeasureUnit.Ma);
                         }
 
+                        txtDongia.Text = Utility.sDbnull(objDrug.DonGia, "0");
 
                         QheDoituongThuoc _objQhe = new Select().From(QheDoituongThuoc.Schema).Where(QheDoituongThuoc.Columns.IdThuoc).IsEqualTo(objDrug.IdThuoc)
                      .And(QheDoituongThuoc.Columns.IdLoaidoituongKcb).IsEqualTo(0).ExecuteSingle<QheDoituongThuoc>();

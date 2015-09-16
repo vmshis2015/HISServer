@@ -126,7 +126,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             try
             {
                 txtLydo.Init();
-                m_ExamTypeRelationList = THU_VIEN_CHUNG.LayDsach_Dvu_KCB(MA_DTUONG, dongia);
+                m_ExamTypeRelationList = THU_VIEN_CHUNG.LayDsach_Dvu_KCB(MA_DTUONG,"ALL", dongia);
                 Get_PHONGKHAM(MA_DTUONG);
                 Get_KIEUKHAM(MA_DTUONG);
                 AutocompleteKieuKham();

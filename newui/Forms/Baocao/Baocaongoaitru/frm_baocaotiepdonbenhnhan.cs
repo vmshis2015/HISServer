@@ -212,7 +212,7 @@ namespace VNS.HIS.UI.Baocao
                 _dtData =
                    BAOCAO_NGOAITRU.BaocaoTiepdonbenhnhanChitiet(Utility.Int32Dbnull(cboDoituongKCB.SelectedValue, -1),
                     chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
-                    chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,txtNhanvientiepdon.MyCode, Utility.sDbnull(cboKhoa.SelectedValue, -1));
+                    chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,txtNhanvientiepdon.MyCode, Utility.sDbnull(cboKhoa.SelectedValue, -1),txtLoaikham.myCode=="-1"?"ALL":txtLoaikham.myCode);
 
                 Utility.SetDataSourceForDataGridEx(grdChitiet, _dtData, false, true, "1=1", "");
                
@@ -223,7 +223,7 @@ namespace VNS.HIS.UI.Baocao
                   BAOCAO_NGOAITRU.BaocaoTiepdonbenhnhanTonghop(
                     chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
                     chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
-                    Utility.Int32Dbnull(cboDoituongKCB.SelectedValue, -1), txtNhanvientiepdon.MyCode, Utility.sDbnull(cboKhoa.SelectedValue, -1));
+                    Utility.Int32Dbnull(cboDoituongKCB.SelectedValue, -1), txtNhanvientiepdon.MyCode, Utility.sDbnull(cboKhoa.SelectedValue, -1), txtLoaikham.myCode == "-1" ? "ALL" : txtLoaikham.myCode);
 
                 Utility.SetDataSourceForDataGridEx(grdList, _dtData, false, true, "1=1", "");
               

@@ -333,7 +333,7 @@ namespace VNS.HIS.UI.THUOC
                     object idthuoc = Utility.getValueOfGridCell(grdList, TThuockho.Columns.IdThuoc);
                     if (idthuoc != null)
                     {
-                        m_dtkho = SPs.ThuocKhochuathuoc(Utility.Int32Dbnull(idthuoc, 0), kieu_thuocvattu).GetDataSet().Tables[0];
+                        m_dtkho = SPs.ThuocKhochuathuoc(Utility.Int32Dbnull(idthuoc, 0), kieu_thuocvattu,globalVariables.gv_intIDNhanvien).GetDataSet().Tables[0];
                         Utility.SetDataSourceForDataGridEx(grdKho, m_dtkho, true, true, "1=1", TDmucKho.Columns.TenKho);
                         m_dataFull.DefaultView.RowFilter = TThuockho.Columns.IdThuoc + "=" + idthuoc.ToString();
                     }

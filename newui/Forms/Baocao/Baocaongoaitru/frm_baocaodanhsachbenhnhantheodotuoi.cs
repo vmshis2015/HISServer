@@ -134,7 +134,7 @@ namespace VNS.HIS.UI.Baocao
         /// <param name="e"></param>
         private void cmdInPhieuXN_Click(object sender, EventArgs e)
         {
-            
+            baocaO_TIEUDE1.Init();
                 _dtData =
                    BAOCAO_NGOAITRU.BaoCaoThongKeBNTheoDotuoiCT(Utility.Int32Dbnull(cboDoituongKCB.SelectedValue, -1),
                     chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
