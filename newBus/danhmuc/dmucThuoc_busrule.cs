@@ -12,8 +12,6 @@ namespace VNS.HIS.NGHIEPVU
 {
    public class dmucThuoc_busrule
     {
-
-
        public static string Insert(DmucThuoc objThuoc, QheCamchidinhChungphieuCollection lstQhe)
        {
            try
@@ -71,7 +69,5 @@ namespace VNS.HIS.NGHIEPVU
            }
 
        }
-       
-       
     }
 }
