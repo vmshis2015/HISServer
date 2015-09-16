@@ -223,14 +223,19 @@ namespace CIS.CoreApp
                 DataTable dtLastVersion = dtData.Clone();
                 foreach (DataRow dr in dtData.Rows)
                 {
-                    if (!File.Exists(Application.StartupPath + "\\" + Utility.sDbnull(dr["sFileName"], "")))
+                    string fullfilePath = "";
+                    if (Utility.sDbnull(dr["sFolder"], "") != "")
+                        fullfilePath = Application.StartupPath + @"\" + Utility.sDbnull(dr["sFolder"], "") + @"\" + Utility.sDbnull(dr["sFileName"], "");
+                    else
+                        fullfilePath = Application.StartupPath + @"\" + Utility.sDbnull(dr["sFileName"], "");
+                    if (!File.Exists(fullfilePath))
                     {
                         InsertNewRow(dr, dtData, ref dtLastVersion);
                         //Nếu tồn tại thì kiểm tra xem Version có khác nhau không?
                     }
                     else
                     {
-                        FileVersionInfo _FileVersionInfo = FileVersionInfo.GetVersionInfo(Application.StartupPath + "\\" + dr["sFileName"]);
+                        FileVersionInfo _FileVersionInfo = FileVersionInfo.GetVersionInfo(fullfilePath);
                         string sVersion = _FileVersionInfo.ProductVersion;
                         if ((sVersion == null))
                         {
@@ -238,7 +243,7 @@ namespace CIS.CoreApp
                         }
                         else
                         {
-                            if (!sVersion.Equals(dr["sVersion"]) && Utility.Int32Dbnull(dr["isUpdate"], 0) == 1)
+                            if (!sVersion.Equals(dr["sVersion"]))
                             {
                                 InsertNewRow(dr, dtData, ref dtLastVersion);
                             }

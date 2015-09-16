@@ -39,12 +39,12 @@ namespace CIS.CoreApp
         }
         private void cmdSettings_Click(object sender, EventArgs e)
         {
-            oldVal = PropertyLib._ConfigProperties.RunUnderWS;
+            //oldVal = PropertyLib._ConfigProperties.RunUnderWS;
             frm_Properties _Properties = new frm_Properties(PropertyLib._ConfigProperties);
             _Properties.TopMost = true;
             _Properties.ShowDialog();
-            if (oldVal != PropertyLib._ConfigProperties.RunUnderWS)
-            {
+            //if (oldVal != PropertyLib._ConfigProperties.RunUnderWS)
+            //{
                 if (PropertyLib._ConfigProperties.RunUnderWS)
                 {
                     string DataBaseServer = "";
@@ -76,7 +76,7 @@ namespace CIS.CoreApp
                     globalVariables.MAX_STT = PropertyLib._ConfigProperties.Max;
                 }
                 Utility.InitSubSonic(new ConnectionSQL().KhoiTaoKetNoi(), "ORM");
-            }
+            //}
         }
        
         bool b_HasSuccess = false;

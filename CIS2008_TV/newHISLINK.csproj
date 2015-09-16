@@ -109,7 +109,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="xvhrk, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\MyRIS\PACSServer\bin\Debug\xvhrk.dll</HintPath>
+      <HintPath>..\..\..\MyHIS\Running\xvhrk.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
