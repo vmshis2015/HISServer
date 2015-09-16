@@ -850,7 +850,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                                                                   PhieuXuatBnhanCt.IdThuoc, PhieuXuatBnhanCt.IdKho,
                                                                   PhieuXuatBnhanCt.MaNhacungcap, PhieuXuatBnhanCt.SoLo,
                                                                   PhieuXuatBnhanCt.IdThuockho.Value, id_Thuockho_new, PhieuXuatBnhanCt.NgayNhap,
-                                                                  PhieuXuatBnhanCt.DonGia, PhieuXuatBnhanCt.PhuthuDungtuyen, PhieuXuatBnhanCt.PhuthuTraituyen, phieuxuat.KieuThuocvattu);
+                                                                  PhieuXuatBnhanCt.GiaBhyt, PhieuXuatBnhanCt.PhuthuDungtuyen, PhieuXuatBnhanCt.PhuthuTraituyen, phieuxuat.KieuThuocvattu);
                                 sp.Execute();
                                 //Lấy đầu ra iTThuockho nếu thêm mới để update lại presdetail
                                 id_Thuockho_new = Utility.Int32Dbnull(sp.OutputValues[0]);

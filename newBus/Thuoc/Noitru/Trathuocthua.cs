@@ -162,7 +162,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                                                               PhieuXuatBnhanCt.IdThuoc, PhieuXuatBnhanCt.IdKho,
                                                               PhieuXuatBnhanCt.MaNhacungcap, PhieuXuatBnhanCt.SoLo,
                                                               PhieuXuatBnhanCt.IdThuockho.Value, id_Thuockho_new, PhieuXuatBnhanCt.NgayNhap,
-                                                              PhieuXuatBnhanCt.DonGia, PhieuXuatBnhanCt.PhuthuDungtuyen, PhieuXuatBnhanCt.PhuthuTraituyen, _phieutrathuocthua.KieuThuocVt);
+                                                              PhieuXuatBnhanCt.GiaBhyt, PhieuXuatBnhanCt.PhuthuDungtuyen, PhieuXuatBnhanCt.PhuthuTraituyen, _phieutrathuocthua.KieuThuocVt);
                             sp.Execute();
                             
                             id_Thuockho_new = Utility.Int32Dbnull(sp.OutputValues[0]);
