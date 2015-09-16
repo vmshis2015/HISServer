@@ -32,9 +32,9 @@ namespace VNS.HIS.BusRule.Classes
         {
             return SPs.KcbLaythongtinBenhnhan(IdBenhnhan).GetDataSet().Tables[0];
         }
-        public DataTable KcbTiepdonTimkiemBenhnhan(string FromDate, string ToDate, int? ObjectTypeID, int? TrangThai, string TenBenhnhan, int? IdBenhnhan, string MaLuotkham, string CMT, string PHONE, string MAKHOATHIEN, byte cachtao,byte trangthai_noitru)
+        public DataTable KcbTiepdonTimkiemBenhnhan(string FromDate, string ToDate, int? ObjectTypeID, int? TrangThai, string TenBenhnhan, int? IdBenhnhan, string MaLuotkham, string CMT, string PHONE, string MAKHOATHIEN, byte cachtao,byte trangthai_noitru,string loaiBN)
         {
-            return SPs.KcbTiepdonTimkiemBenhnhan(FromDate, ToDate, ObjectTypeID, TrangThai, TenBenhnhan, IdBenhnhan, MaLuotkham, CMT, PHONE, MAKHOATHIEN,cachtao, trangthai_noitru).GetDataSet().Tables[0];
+            return SPs.KcbTiepdonTimkiemBenhnhan(FromDate, ToDate, ObjectTypeID, TrangThai, TenBenhnhan, IdBenhnhan, MaLuotkham, CMT, PHONE, MAKHOATHIEN, cachtao, trangthai_noitru, loaiBN).GetDataSet().Tables[0];
         }
        
         public ActionResult InsertRegExam(KcbDangkyKcb objKcbDangkyKcb,KcbLuotkham objLuotkham, ref long v_RegId, int KieuKham)

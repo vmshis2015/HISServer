@@ -20,7 +20,7 @@ namespace VNS.HIS.BusRule.Classes
         {
             log = LogManager.GetCurrentClassLogger();
         }
-        public ActionResult LuuHoibenhvaChandoan(KcbChandoanKetluan objDiagInfo)
+        public ActionResult DanhdautrangthaiTiem(KcbDonthuocChitiet objChitiet, long _IdKham, bool Da_tiem)
         {
             try
             {
@@ -29,17 +29,73 @@ namespace VNS.HIS.BusRule.Classes
                     using (var sh = new SharedDbConnectionScope())
                     {
 
-
-                        if (objDiagInfo.IsNew)
+                        if (objChitiet != null)
                         {
-                            objDiagInfo.Save();
+                            objChitiet.IsNew = false;
+                            objChitiet.DaDung = Utility.Bool2byte(Da_tiem);
+                            objChitiet.MarkOld();
+                            objChitiet.Save();
                         }
                         else
                         {
-                            objDiagInfo.MarkOld();
-                            objDiagInfo.Save();
+                            new Update(KcbDonthuocChitiet.Schema)
+                                .Set(KcbDonthuocChitiet.Columns.DaDung).EqualTo(Utility.Bool2byte(Da_tiem))
+                                .Where(KcbDonthuocChitiet.Columns.IdKham).IsEqualTo(_IdKham)
+                                .Execute();
                         }
+                    }
+                    scope.Complete();
+                    return ActionResult.Success;
+                }
+            }
+            catch (Exception exception)
+            {
+                log.Error("Loi trong qua trinh chuyen vien khoi noi tru {0}", exception);
+                return ActionResult.Error;
+            }
+        }
+        public ActionResult LuuHoibenhvaChandoan(KcbChandoanKetluan objDiagInfo,KcbDonthuocChitiet objChitiet,bool Luudulieutiemchung)
+        {
+            try
+            {
+                using (var scope = new TransactionScope())
+                {
+                    using (var sh = new SharedDbConnectionScope())
+                    {
 
+                        if (objChitiet != null)
+                        {
+                            objChitiet.IsNew = false;
+                            if (objDiagInfo != null)
+                            {
+                                objChitiet.PhanungSautiem = objDiagInfo.PhanungSautiemchung;
+                                objChitiet.Xutri = objDiagInfo.HuongDieutri;
+                                objChitiet.KetluanNguyennhan = objDiagInfo.Ketluan;
+                            }
+                            objChitiet.MarkOld();
+                            objChitiet.Save();
+                        }
+                        if (objDiagInfo != null)
+                        {
+                            if (objDiagInfo.IsNew)
+                            {
+                                objDiagInfo.Save();
+                            }
+                            else
+                            {
+                                objDiagInfo.MarkOld();
+                                objDiagInfo.Save();
+                            }
+                            if (Luudulieutiemchung && objChitiet == null)
+                            {
+                                new Update(KcbDonthuocChitiet.Schema)
+                                    .Set(KcbDonthuocChitiet.Columns.PhanungSautiem).EqualTo(objDiagInfo.PhanungSautiemchung)
+                                    .Set(KcbDonthuocChitiet.Columns.Xutri).EqualTo(objDiagInfo.HuongDieutri)
+                                    .Set(KcbDonthuocChitiet.Columns.KetluanNguyennhan).EqualTo(objDiagInfo.Ketluan)
+                                    .Where(KcbDonthuocChitiet.Columns.IdKham).IsEqualTo(objDiagInfo.IdKham)
+                                    .Execute();
+                            }
+                        }
                     }
 
                     scope.Complete();

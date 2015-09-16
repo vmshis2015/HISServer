@@ -22,7 +22,7 @@ namespace VNS.HIS.BusRule.Classes
             log = LogManager.GetCurrentClassLogger();
         }
         public DataTable LayDsachBenhnhanThanhtoan(int PatientID, string patient_code, string patientName,
-            DateTime fromDate, DateTime toDate, string MaDoituongKcb, int BHYT,byte? noi_tru, string KieuTimKiem, string MAKHOATHIEN)
+            DateTime fromDate, DateTime toDate, string MaDoituongKcb, int BHYT,byte? noi_tru, string KieuTimKiem, string MAKHOATHIEN,string loaiBN)
         {
             return SPs.KcbThanhtoanLaydanhsachBenhnhanThanhtoan(-1,
                    patient_code,
@@ -30,7 +30,7 @@ namespace VNS.HIS.BusRule.Classes
                    fromDate,
                    toDate,
                   MaDoituongKcb, BHYT,noi_tru,
-                   KieuTimKiem, MAKHOATHIEN).GetDataSet().Tables[0];
+                   KieuTimKiem, MAKHOATHIEN, loaiBN).GetDataSet().Tables[0];
         }
         public DataTable LaythongtininbienlaiDichvu(int? PaymentID, string MaLuotkham, int? PatientID)
         {
@@ -406,12 +406,12 @@ namespace VNS.HIS.BusRule.Classes
                         objThanhtoan.Save();
                         if (id_donthuoc == -1) id_donthuoc = objArrPaymentDetail[0].IdPhieu;
                         KcbDonthuoc objDonthuoc = KcbDonthuoc.FetchByID(id_donthuoc);
-                        KcbDonthuocChitietCollection lstChitiet = new Select().From(KcbDonthuoc.Schema).Where(KcbDonthuoc.Columns.IdDonthuoc).IsEqualTo(id_donthuoc).ExecuteAsCollection<KcbDonthuocChitietCollection>();
+                        KcbDonthuocChitietCollection lstChitiet = new Select().From(KcbDonthuocChitiet.Schema).Where(KcbDonthuocChitiet.Columns.IdDonthuoc).IsEqualTo(id_donthuoc).ExecuteAsCollection<KcbDonthuocChitietCollection>();
                         ActionResult actionResult = ActionResult.Success;
                         if (objDonthuoc != null && lstChitiet.Count>0)
                         {
                             if (!XuatThuoc.InValiKiemTraDonThuoc(lstChitiet,(byte)0)) return ActionResult.NotEnoughDrugInStock;
-                            actionResult = new XuatThuoc().LinhThuocBenhNhan(id_donthuoc, Utility.Int16Dbnull(lstChitiet[0].IdKho, 0), globalVariables.SysDate);
+                            actionResult = new XuatThuoc().LinhThuocBenhNhanTaiQuay(id_donthuoc, Utility.Int16Dbnull(lstChitiet[0].IdKho, 0), globalVariables.SysDate);
                             switch (actionResult)
                             {
                                 case ActionResult.Success:
@@ -1193,11 +1193,11 @@ namespace VNS.HIS.BusRule.Classes
                         if (objThanhtoan != null)
                             HUYTHONGTIN_THANHTOAN(arrPaymentDetails, objThanhtoan);
                         KcbDonthuoc objDonthuoc = KcbDonthuoc.FetchByID(id_donthuoc);
-                        KcbDonthuocChitietCollection lstChitiet = new Select().From(KcbDonthuoc.Schema).Where(KcbDonthuoc.Columns.IdDonthuoc).IsEqualTo(id_donthuoc).ExecuteAsCollection<KcbDonthuocChitietCollection>();
+                        KcbDonthuocChitietCollection lstChitiet = new Select().From(KcbDonthuocChitiet.Schema).Where(KcbDonthuocChitiet.Columns.IdDonthuoc).IsEqualTo(id_donthuoc).ExecuteAsCollection<KcbDonthuocChitietCollection>();
                         ActionResult actionResult = ActionResult.Success;
                         if (objDonthuoc != null && lstChitiet.Count > 0)
                         {
-                           actionResult= new XuatThuoc().HuyXacNhanDonThuocBN(id_donthuoc, Utility.Int16Dbnull(lstChitiet[0].IdKho, 0),DateTime.Now,lydohuy);
+                           actionResult= new XuatThuoc().HuyXacNhanDonThuocBNTaiQuay(id_donthuoc, Utility.Int16Dbnull(lstChitiet[0].IdKho, 0),DateTime.Now,lydohuy);
                             switch (actionResult)
                             {
                                 case ActionResult.Success:

@@ -81,6 +81,10 @@ namespace VNS.HIS.BusRule.Classes
                  scope.Complete();
              }
          }
+         public static DataTable KcbThamkhamDulieuTiemchungTheoBenhnhan(long id_benhnhan)
+         {
+             return SPs.KcbThamkhamDulieuTiemchungTheoBenhnhan(id_benhnhan).GetDataSet().Tables[0];
+         }
          public DataTable LaythongtinDonthuoc_In(int id_donthuoc)
          {
              return SPs.DonthuocLaythongtinDein(id_donthuoc).GetDataSet().Tables[0];

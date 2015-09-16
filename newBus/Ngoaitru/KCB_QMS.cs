@@ -5,12 +5,9 @@ using System.Linq;
 using SubSonic;
 using VNS.Libs;
 using VNS.HIS.DAL;
-
 using System.Text;
-
 using SubSonic;
 using NLog;
-
 namespace VNS.HIS.BusRule.Classes
 {
     public class KCB_QMS
