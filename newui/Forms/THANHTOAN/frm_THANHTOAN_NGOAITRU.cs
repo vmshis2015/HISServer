@@ -1506,31 +1506,8 @@ namespace  VNS.HIS.UI.THANHTOAN
                 if (globalVariables.gv_dtDmucBenh == null) return;
                 if (!globalVariables.gv_dtDmucBenh.Columns.Contains("ShortCut"))
                     globalVariables.gv_dtDmucBenh.Columns.Add(new DataColumn("ShortCut", typeof(string)));
-                foreach (DataRow dr in globalVariables.gv_dtDmucBenh.Rows)
-                {
-                    string shortcut = "";
-                    string realName = dr[DmucBenh.Columns.TenBenh].ToString().Trim() + " " +
-                                      Utility.Bodau(dr[DmucBenh.Columns.TenBenh].ToString().Trim());
-                    shortcut = dr[DmucBenh.Columns.MaBenh].ToString().Trim();
-                    string[] arrWords = realName.ToLower().Split(' ');
-                    string _space = "";
-                    string _Nospace = "";
-                    foreach (string word in arrWords)
-                    {
-                        if (word.Trim() != "")
-                        {
-                            _space += word + " ";
-                            //_Nospace += word;
-                        }
-                    }
-                    shortcut += _space; // +_Nospace;
-                    foreach (string word in arrWords)
-                    {
-                        if (word.Trim() != "")
-                            shortcut += word.Substring(0, 1);
-                    }
-                    dr["ShortCut"] = shortcut;
-                }
+                txtICD.Init(globalVariables.gv_dtDmucBenh, new List<string>() { DmucBenh.Columns.IdBenh, DmucBenh.Columns.MaBenh, DmucBenh.Columns.TenBenh });
+               
             }
             catch(Exception ex)
             {
@@ -1538,15 +1515,6 @@ namespace  VNS.HIS.UI.THANHTOAN
             }
             finally
             {
-                var source = new List<string>();
-                var query = from p in globalVariables.gv_dtDmucBenh.AsEnumerable()
-                            select Utility.sDbnull( p[DmucBenh.Columns.IdBenh]) + "#" + Utility.sDbnull( p[DmucBenh.Columns.MaBenh]) + "@" + Utility.sDbnull( p[DmucBenh.Columns.TenBenh]) + "@" + p.Field<string>("shortcut").ToString();
-                source = query.ToList();
-                this.txtICD.AutoCompleteList = source;
-                this.txtICD.TextAlign = HorizontalAlignment.Center;
-                this.txtICD.CaseSensitive = false;
-                this.txtICD.MinTypedCharacters = 1;
-
             }
         }
         bool hasLoadedRedInvoice = false;
