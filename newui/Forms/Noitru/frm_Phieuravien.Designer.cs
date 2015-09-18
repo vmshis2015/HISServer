@@ -36,6 +36,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtidBuong = new System.Windows.Forms.TextBox();
             this.txtIdkhoanoitru = new System.Windows.Forms.TextBox();
             this.txtIdravien = new System.Windows.Forms.TextBox();
+            this.baocaO_TIEUDE1 = new VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
             this.cmdgetPatient = new Janus.Windows.EditControls.UIButton();
             this.txtGiuong = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -114,7 +115,6 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.lblMsg = new System.Windows.Forms.Label();
             this.txtId = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.baocaO_TIEUDE1 = new VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
             this.pnlTop.SuspendLayout();
             this.pnlBottom.SuspendLayout();
             this.pnlFill.SuspendLayout();
@@ -205,6 +205,23 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtIdravien.TabIndex = 25;
             this.txtIdravien.TabStop = false;
             this.txtIdravien.Visible = false;
+            // 
+            // baocaO_TIEUDE1
+            // 
+            this.baocaO_TIEUDE1.BackColor = System.Drawing.SystemColors.Control;
+            this.baocaO_TIEUDE1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.baocaO_TIEUDE1.Location = new System.Drawing.Point(0, 0);
+            this.baocaO_TIEUDE1.MA_BAOCAO = "NOITRU_PHIEURAVIEN";
+            this.baocaO_TIEUDE1.Name = "baocaO_TIEUDE1";
+            this.baocaO_TIEUDE1.Phimtat = "Bạn có thể sử dụng phím tắt";
+            this.baocaO_TIEUDE1.PicImg = ((System.Drawing.Image)(resources.GetObject("baocaO_TIEUDE1.PicImg")));
+            this.baocaO_TIEUDE1.ShortcutAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.baocaO_TIEUDE1.ShortcutFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.baocaO_TIEUDE1.showHelp = false;
+            this.baocaO_TIEUDE1.Size = new System.Drawing.Size(884, 30);
+            this.baocaO_TIEUDE1.TabIndex = 24;
+            this.baocaO_TIEUDE1.TIEUDE = "PHIẾU RA VIỆN";
+            this.baocaO_TIEUDE1.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 
             // cmdgetPatient
             // 
@@ -832,6 +849,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtBenhgiaiphau.MinTypedCharacters = 2;
             this.txtBenhgiaiphau.MyCode = "-1";
             this.txtBenhgiaiphau.MyID = "-1";
+            this.txtBenhgiaiphau.MyText = "";
             this.txtBenhgiaiphau.Name = "txtBenhgiaiphau";
             this.txtBenhgiaiphau.RaiseEvent = true;
             this.txtBenhgiaiphau.RaiseEventEnter = true;
@@ -871,6 +889,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtNoichuyenden.MinTypedCharacters = 2;
             this.txtNoichuyenden.MyCode = "-1";
             this.txtNoichuyenden.MyID = "-1";
+            this.txtNoichuyenden.MyText = "";
             this.txtNoichuyenden.Name = "txtNoichuyenden";
             this.txtNoichuyenden.RaiseEvent = true;
             this.txtNoichuyenden.RaiseEventEnter = true;
@@ -1035,6 +1054,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtBenhphu.MinTypedCharacters = 2;
             this.txtBenhphu.MyCode = "-1";
             this.txtBenhphu.MyID = "-1";
+            this.txtBenhphu.MyText = "";
             this.txtBenhphu.Name = "txtBenhphu";
             this.txtBenhphu.RaiseEvent = true;
             this.txtBenhphu.RaiseEventEnter = true;
@@ -1073,6 +1093,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtBenhnguyennhan.MinTypedCharacters = 2;
             this.txtBenhnguyennhan.MyCode = "-1";
             this.txtBenhnguyennhan.MyID = "-1";
+            this.txtBenhnguyennhan.MyText = "";
             this.txtBenhnguyennhan.Name = "txtBenhnguyennhan";
             this.txtBenhnguyennhan.RaiseEvent = true;
             this.txtBenhnguyennhan.RaiseEventEnter = true;
@@ -1111,6 +1132,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtBenhbienchung.MinTypedCharacters = 2;
             this.txtBenhbienchung.MyCode = "-1";
             this.txtBenhbienchung.MyID = "-1";
+            this.txtBenhbienchung.MyText = "";
             this.txtBenhbienchung.Name = "txtBenhbienchung";
             this.txtBenhbienchung.RaiseEvent = true;
             this.txtBenhbienchung.RaiseEventEnter = true;
@@ -1149,6 +1171,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtBenhchinh.MinTypedCharacters = 2;
             this.txtBenhchinh.MyCode = "-1";
             this.txtBenhchinh.MyID = "-1";
+            this.txtBenhchinh.MyText = "";
             this.txtBenhchinh.Name = "txtBenhchinh";
             this.txtBenhchinh.RaiseEvent = true;
             this.txtBenhchinh.RaiseEventEnter = true;
@@ -1270,7 +1293,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // label14
             // 
             this.label14.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(9, 131);
+            this.label14.Location = new System.Drawing.Point(9, 129);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(129, 20);
             this.label14.TabIndex = 615;
@@ -1422,23 +1445,6 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.label3.TabIndex = 2;
             this.label3.Text = "Id ra viện:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // baocaO_TIEUDE1
-            // 
-            this.baocaO_TIEUDE1.BackColor = System.Drawing.SystemColors.Control;
-            this.baocaO_TIEUDE1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.baocaO_TIEUDE1.Location = new System.Drawing.Point(0, 0);
-            this.baocaO_TIEUDE1.MA_BAOCAO = "NOITRU_PHIEURAVIEN";
-            this.baocaO_TIEUDE1.Name = "baocaO_TIEUDE1";
-            this.baocaO_TIEUDE1.Phimtat = "Bạn có thể sử dụng phím tắt";
-            this.baocaO_TIEUDE1.PicImg = ((System.Drawing.Image)(resources.GetObject("baocaO_TIEUDE1.PicImg")));
-            this.baocaO_TIEUDE1.ShortcutAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.baocaO_TIEUDE1.ShortcutFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.baocaO_TIEUDE1.showHelp = false;
-            this.baocaO_TIEUDE1.Size = new System.Drawing.Size(884, 30);
-            this.baocaO_TIEUDE1.TabIndex = 24;
-            this.baocaO_TIEUDE1.TIEUDE = "PHIẾU RA VIỆN";
-            this.baocaO_TIEUDE1.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 
             // frm_Phieuravien
             // 
