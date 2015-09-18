@@ -20,6 +20,10 @@ namespace VNS.HIS.BusRule.Classes
         {
             log = LogManager.GetCurrentClassLogger();
         }
+        public DataTable KcbTiemchungInbangketruocTiemchung(long? IdBenhnhan, string maluotkham, long? Idkham, long? Iddonthuoc, int? Idthuoc)
+        {
+            return SPs.KcbTiemchungInbangketruocTiemchung(IdBenhnhan, maluotkham, Idkham, Iddonthuoc, Idthuoc).GetDataSet().Tables[0];
+        }
         public ActionResult DanhdautrangthaiTiem(KcbDonthuocChitiet objChitiet, long _IdKham, bool Da_tiem)
         {
             try

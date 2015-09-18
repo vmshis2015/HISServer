@@ -909,8 +909,8 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             new Delete().From(TXuatthuocTheodon.Schema).Where(TXuatthuocTheodon.IdPhieuXuatColumn).IsEqualTo(phieuxuat.IdPhieu)
                                    .Execute();
                             //Xóa phiếu xuất bệnh nhân
-                            SqlQuery sqlQuery = new Select().From(TPhieuXuatthuocBenhnhanChitiet.Schema)
-                                    .Where(TPhieuXuatthuocBenhnhanChitiet.Columns.IdPhieu).IsEqualTo(
+                            SqlQuery sqlQuery = new Select().From(TPhieuXuatthuocBenhnhan.Schema)
+                                    .Where(TPhieuXuatthuocBenhnhan.Columns.IdPhieu).IsEqualTo(
                                         phieuxuat.IdPhieu);
                             if (sqlQuery.GetRecordCount() <= 0)//100% phải xảy ra nếu ko là lỗi
                             {

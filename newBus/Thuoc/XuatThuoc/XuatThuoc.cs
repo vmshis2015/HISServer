@@ -1837,6 +1837,12 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                            .Where(KcbDonthuocChitiet.IdDonthuocColumn).IsEqualTo(objDonthuoc.IdDonthuoc)
                            .And(KcbDonthuocChitiet.Columns.IdKho).IsEqualTo(id_kho)
                            .ExecuteAsCollection<KcbDonthuocChitietCollection>();
+
+                        var q = from p in lstDetail
+                                where Utility.Byte2Bool(p.DaDung) == true
+                                select p;
+                        if (q.Any())
+                            return ActionResult.DataUsed;
                         foreach (KcbDonthuocChitiet objDetail in lstDetail)
                         {
                             TPhieuXuatthuocBenhnhanChitietCollection objXuatBnhanCtCollection = new Select().From(TPhieuXuatthuocBenhnhanChitiet.Schema)
@@ -1898,7 +1904,10 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                                 Execute();
                         }
                         //Xóa phiếu xuất bệnh nhân theo ID đơn thuốc
-                        new Delete().From(TPhieuXuatthuocBenhnhan.Schema).Where(TPhieuXuatthuocBenhnhan.IdDonthuocColumn).IsEqualTo(Pres_ID).Execute();
+                        new Delete().From(TPhieuXuatthuocBenhnhan.Schema)
+                            .Where(TPhieuXuatthuocBenhnhan.IdDonthuocColumn).IsEqualTo(Pres_ID)
+                            .And(TPhieuXuatthuocBenhnhan.IdKhoColumn).IsEqualTo(id_kho)
+                            .Execute();
                         //Update trạng thái xác nhận của toàn đơn thuốc-->Phần mới 100% sẽ chạy câu Update
                         SqlQuery sqlQuery1 = new Select().From(KcbDonthuocChitiet.Schema)
                               .Where(KcbDonthuocChitiet.Columns.IdDonthuoc).IsEqualTo(objDonthuoc.IdDonthuoc)
@@ -2000,7 +2009,10 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             Execute();
                     }
                     //Xóa phiếu xuất bệnh nhân theo ID đơn thuốc
-                    new Delete().From(TPhieuXuatthuocBenhnhan.Schema).Where(TPhieuXuatthuocBenhnhan.IdDonthuocColumn).IsEqualTo(Pres_ID).Execute();
+                    new Delete().From(TPhieuXuatthuocBenhnhan.Schema)
+                        .Where(TPhieuXuatthuocBenhnhan.IdDonthuocColumn).IsEqualTo(Pres_ID)
+                          .And(TPhieuXuatthuocBenhnhan.IdKhoColumn).IsEqualTo(id_kho)
+                            .Execute();
                     //Update trạng thái xác nhận của toàn đơn thuốc-->Phần mới 100% sẽ chạy câu Update
                     SqlQuery sqlQuery1 = new Select().From(KcbDonthuocChitiet.Schema)
                           .Where(KcbDonthuocChitiet.Columns.IdDonthuoc).IsEqualTo(objDonthuoc.IdDonthuoc)
