@@ -133,7 +133,7 @@
             this.radTatCa.Name = "radTatCa";
             this.radTatCa.Size = new System.Drawing.Size(60, 23);
             this.radTatCa.TabIndex = 6;
-            this.radTatCa.Text = "&Tất cả";
+            this.radTatCa.Text = "Tất cả";
             this.radTatCa.CheckedChanged += new System.EventHandler(this.radTatCa_CheckedChanged_1);
             // 
             // dtToDate

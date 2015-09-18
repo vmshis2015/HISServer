@@ -104,7 +104,7 @@ namespace VNS.HIS.UI.THUOC
 
                         }
                         else
-                            Utility.SetMsg(uiStatusBar2.Panels["Msg"], "Hủy lĩnh thuóc không thành công!Liên hệ VinaSoft để được trợ giúp", true);
+                            Utility.SetMsg(uiStatusBar2.Panels["Msg"], "Hủy lĩnh thuóc không thành công!Liên hệ VMS để được trợ giúp", true);
                         mnuHuyLinhthuocAll.Enabled = m_Donthuoc.Select("da_linh=1").Length > 0 ;
                         mnuLinhthuocAll.Enabled = m_Donthuoc.Select("da_linh=0").Length > 0;
                         mnuHuyLinhthuocCurrent.Enabled = Utility.isValidGrid(grdPres) && Utility.sDbnull(grdPres.GetValue("da_linh"), "-1") == "1";
@@ -147,7 +147,7 @@ namespace VNS.HIS.UI.THUOC
                         Utility.SetMsg(uiStatusBar2.Panels["Msg"], "Hủy lĩnh thuốc thành công!", false);
                     }
                     else
-                        Utility.SetMsg(uiStatusBar2.Panels["Msg"], "Hủy lĩnh thuốc không thành công!Liên hệ VinaSoft để được trợ giúp", true);
+                        Utility.SetMsg(uiStatusBar2.Panels["Msg"], "Hủy lĩnh thuốc không thành công!Liên hệ VMS để được trợ giúp", true);
 
 
 
@@ -200,7 +200,7 @@ namespace VNS.HIS.UI.THUOC
 
                     }
                     else
-                        Utility.SetMsg(uiStatusBar2.Panels["Msg"], "Xác nhận Bệnh nhân lĩnh thuốc không thành công!Liên hệ VinaSoft để được trợ giúp", true);
+                        Utility.SetMsg(uiStatusBar2.Panels["Msg"], "Xác nhận Bệnh nhân lĩnh thuốc không thành công!Liên hệ VMS để được trợ giúp", true);
                     mnuHuyLinhthuocAll.Enabled = m_Donthuoc.Select("da_linh=1").Length > 0;
                     mnuLinhthuocAll.Enabled = m_Donthuoc.Select("da_linh=0").Length > 0;
                     mnuHuyLinhthuocCurrent.Enabled = Utility.isValidGrid(grdPres) && Utility.sDbnull(grdPres.GetValue("da_linh"), "-1") == "1";
@@ -240,7 +240,7 @@ namespace VNS.HIS.UI.THUOC
                     Utility.SetMsg(uiStatusBar2.Panels["Msg"], "Xác nhận Bệnh nhân lĩnh thuốc thành công!", false);
                 }
                 else
-                    Utility.SetMsg(uiStatusBar2.Panels["Msg"], "Xác nhận Bệnh nhân lĩnh thuốc không thành công!Liên hệ VinaSoft để được trợ giúp", true);
+                    Utility.SetMsg(uiStatusBar2.Panels["Msg"], "Xác nhận Bệnh nhân lĩnh thuốc không thành công!Liên hệ VMS để được trợ giúp", true);
                 mnuHuyLinhthuocAll.Enabled = m_Donthuoc.Select("da_linh=1").Length > 0;
                 mnuLinhthuocAll.Enabled = m_Donthuoc.Select("da_linh=0").Length > 0;
                 mnuHuyLinhthuocCurrent.Enabled = Utility.isValidGrid(grdPres) && Utility.sDbnull(grdPres.GetValue("da_linh"), "-1") == "1";

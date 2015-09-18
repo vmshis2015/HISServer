@@ -129,12 +129,11 @@
             this.uiGroupBox1.Controls.Add(this.chkByDate);
             this.uiGroupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.uiGroupBox1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox1.Image = ((System.Drawing.Image)(resources.GetObject("uiGroupBox1.Image")));
             this.uiGroupBox1.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox1.Name = "uiGroupBox1";
             this.uiGroupBox1.Size = new System.Drawing.Size(1014, 81);
             this.uiGroupBox1.TabIndex = 4;
-            this.uiGroupBox1.Text = "&Thông tin tìm kiếm";
+            this.uiGroupBox1.Text = "Thông tin tìm kiếm";
             // 
             // panel2
             // 
@@ -179,7 +178,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(376, 48);
+            this.label2.Location = new System.Drawing.Point(376, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 15);
             this.label2.TabIndex = 461;
@@ -188,7 +187,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 23);
+            this.label1.Location = new System.Drawing.Point(12, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 15);
             this.label1.TabIndex = 460;
@@ -225,7 +224,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 45);
+            this.label4.Location = new System.Drawing.Point(12, 44);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 15);
             this.label4.TabIndex = 15;
@@ -242,7 +241,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(581, 22);
+            this.label3.Location = new System.Drawing.Point(581, 21);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 15);
             this.label3.TabIndex = 10;
@@ -262,7 +261,7 @@
             this.cmdSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdSearch.Image = ((System.Drawing.Image)(resources.GetObject("cmdSearch.Image")));
             this.cmdSearch.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdSearch.Location = new System.Drawing.Point(875, 19);
+            this.cmdSearch.Location = new System.Drawing.Point(875, 18);
             this.cmdSearch.Name = "cmdSearch";
             this.cmdSearch.Size = new System.Drawing.Size(133, 42);
             this.cmdSearch.TabIndex = 8;

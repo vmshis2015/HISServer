@@ -22,6 +22,7 @@ namespace VNS.HIS.UI.THUOC
 {
     public partial class frm_ChotcapphatThuoc_ngoaitru : Form
     {
+        Int16 id_kho = -1;
         private int Distance = 488;
         private bool b_Hasloaded = false;
         private string FileName = string.Format("{0}/{1}", Application.StartupPath, string.Format("SplitterDistancefrm_PhieuXuatBN.txt"));
@@ -83,7 +84,7 @@ namespace VNS.HIS.UI.THUOC
                     _NhaplydoHuy.ShowDialog();
                     if (!_NhaplydoHuy.m_blnCancel)
                     {
-                        if (new ChotThuoc().HUYCHOT_CAPPHAT(lstID_Donthuoc, _NhaplydoHuy.ngay_thuchien, _NhaplydoHuy.ten) == ActionResult.Success)
+                        if (new ChotThuoc().HUYCHOT_CAPPHAT(lstID_Donthuoc, id_kho, _NhaplydoHuy.ngay_thuchien, _NhaplydoHuy.ten) == ActionResult.Success)
                         {
                             foreach (GridEXRow _row in grdPres.GetDataRows())
                             {
@@ -100,7 +101,7 @@ namespace VNS.HIS.UI.THUOC
 
                         }
                         else
-                            Utility.SetMsg(uiStatusBar2.Panels["1"], "Hủy chốt số liệu không thành công!Liên hệ VinaSoft để được trợ giúp", true);
+                            Utility.SetMsg(uiStatusBar2.Panels["1"], "Hủy chốt số liệu không thành công!Liên hệ VMS để được trợ giúp", true);
                         mnuHuychotAll.Enabled = m_dtDataDonThuoc.Select("trangthai_chot=1").Length > 0 && PropertyLib._HisDuocProperties.ChoPhepHuyChotThuoc;
                         mnuChotAll.Enabled = m_dtDataDonThuoc.Select("trangthai_chot=0").Length > 0;
                         mnuHuychotCurrent.Enabled = Utility.isValidGrid(grdPres) && Utility.sDbnull(grdPres.GetValue("trangthai_chot"), "-1") == "1" && PropertyLib._HisDuocProperties.ChoPhepHuyChotThuoc;
@@ -126,7 +127,7 @@ namespace VNS.HIS.UI.THUOC
                      _NhaplydoHuy.ShowDialog();
                      if (!_NhaplydoHuy.m_blnCancel)
                      {
-                         if (new ChotThuoc().HUYCHOT_CAPPHAT(lstID_Donthuoc, _NhaplydoHuy.ngay_thuchien, _NhaplydoHuy.ten) == ActionResult.Success)
+                         if (new ChotThuoc().HUYCHOT_CAPPHAT(lstID_Donthuoc, id_kho, _NhaplydoHuy.ngay_thuchien, _NhaplydoHuy.ten) == ActionResult.Success)
                          {
                              grdPres.CurrentRow.BeginEdit();
                              grdPres.CurrentRow.Cells["trangthai_chot"].Value = 0;
@@ -136,7 +137,7 @@ namespace VNS.HIS.UI.THUOC
                              Utility.SetMsg(uiStatusBar2.Panels["1"], "Hủy chốt số liệu thành công!", false);
                          }
                          else
-                             Utility.SetMsg(uiStatusBar2.Panels["1"], "Hủy chốt số liệu không thành công!Liên hệ VinaSoft để được trợ giúp", true);
+                             Utility.SetMsg(uiStatusBar2.Panels["1"], "Hủy chốt số liệu không thành công!Liên hệ VMS để được trợ giúp", true);
 
 
 
@@ -166,7 +167,7 @@ namespace VNS.HIS.UI.THUOC
                 if (lstID_Donthuoc.Count <= 0) return;
                 if (Utility.AcceptQuestion(string.Format("Bạn có chắc chắn chốt số liệu cấp phát thuốc cho {0} đơn thuốc chưa được chốt hay không?", lstID_Donthuoc.Count.ToString()), "Thông báo", true))
                 {
-                    if (new ChotThuoc().CHOT_CAPPHAT(lstID_Donthuoc, dtNgayPhatThuoc.Value.Date) == ActionResult.Success)
+                    if (new ChotThuoc().CHOT_CAPPHAT(lstID_Donthuoc, id_kho,  dtNgayPhatThuoc.Value.Date) == ActionResult.Success)
                     {
                         foreach (GridEXRow _row in grdPres.GetDataRows())
                         {
@@ -183,7 +184,7 @@ namespace VNS.HIS.UI.THUOC
 
                     }
                     else
-                        Utility.SetMsg(uiStatusBar2.Panels["1"], "Chốt số liệu không thành công!Liên hệ VinaSoft để được trợ giúp", true);
+                        Utility.SetMsg(uiStatusBar2.Panels["1"], "Chốt số liệu không thành công!Liên hệ VMS để được trợ giúp", true);
                     mnuHuychotAll.Enabled = m_dtDataDonThuoc.Select("trangthai_chot=1").Length > 0 && PropertyLib._HisDuocProperties.ChoPhepHuyChotThuoc;
                     mnuChotAll.Enabled = m_dtDataDonThuoc.Select("trangthai_chot=0").Length > 0;
                     mnuHuychotCurrent.Enabled = Utility.isValidGrid(grdPres) && Utility.sDbnull(grdPres.GetValue("trangthai_chot"), "-1") == "1" && PropertyLib._HisDuocProperties.ChoPhepHuyChotThuoc;
@@ -202,7 +203,7 @@ namespace VNS.HIS.UI.THUOC
             List<int> lstID_Donthuoc = new List<int>() { Utility.Int32Dbnull(grdPres.GetValue("id_donthuoc"), -1) };
             if (Utility.AcceptQuestion("Bạn có chắc chắn chốt số liệu cấp phát thuốc cho đơn thuốc đang chọn hay không?", "Thông báo", true))
             {
-                if (new ChotThuoc().CHOT_CAPPHAT(lstID_Donthuoc, dtNgayPhatThuoc.Value.Date) == ActionResult.Success)
+                if (new ChotThuoc().CHOT_CAPPHAT(lstID_Donthuoc,id_kho, dtNgayPhatThuoc.Value.Date) == ActionResult.Success)
                 {
 
                     grdPres.CurrentRow.BeginEdit();
@@ -214,7 +215,7 @@ namespace VNS.HIS.UI.THUOC
 
                 }
                 else
-                    Utility.SetMsg(uiStatusBar2.Panels["1"], "Chốt số liệu không thành công!Liên hệ VinaSoft để được trợ giúp", true);
+                    Utility.SetMsg(uiStatusBar2.Panels["1"], "Chốt số liệu không thành công!Liên hệ VMS để được trợ giúp", true);
                 mnuHuychotAll.Enabled = m_dtDataDonThuoc.Select("trangthai_chot=1").Length > 0 && PropertyLib._HisDuocProperties.ChoPhepHuyChotThuoc;
                 mnuChotAll.Enabled = m_dtDataDonThuoc.Select("trangthai_chot=0").Length > 0;
                 mnuHuychotCurrent.Enabled = Utility.isValidGrid(grdPres) && Utility.sDbnull(grdPres.GetValue("trangthai_chot"), "-1") == "1" && PropertyLib._HisDuocProperties.ChoPhepHuyChotThuoc;
@@ -272,6 +273,7 @@ namespace VNS.HIS.UI.THUOC
                 {
                     MaKho = Utility.sDbnull(cboKho.SelectedValue, "-1");
                 }
+                id_kho = Utility.Int16Dbnull(cboKho.SelectedValue, "-1");
                 m_dtDataDonThuoc =
                     SPs.ThuocTimkiemdonthuocChotcapphat(chkByDate.Checked? dtFromdate.Value.ToString("dd/MM/yyyy"): "01/01/1900",
                                                            chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900", NoiTru, cboObjectType.SelectedValue.ToString(), MaKho, Status,kieuthuoc_vt).GetDataSet().Tables[0];
@@ -384,7 +386,7 @@ namespace VNS.HIS.UI.THUOC
                 {
                     if (cmdPhatThuoc.Tag.ToString() == "CHOT")
                     {
-                        if (new ChotThuoc().CHOT_CAPPHAT(lstID_Donthuoc, dtNgayPhatThuoc.Value.Date) == ActionResult.Success)
+                        if (new ChotThuoc().CHOT_CAPPHAT(lstID_Donthuoc, id_kho, dtNgayPhatThuoc.Value.Date) == ActionResult.Success)
                         {
                             foreach (GridEXRow dr in grdPres.GetCheckedRows())
                             {
@@ -397,7 +399,7 @@ namespace VNS.HIS.UI.THUOC
                             Utility.SetMsg(uiStatusBar2.Panels["1"], "Chốt số liệu thành công!", false);
                         }
                         else
-                            Utility.SetMsg(uiStatusBar2.Panels["1"], "Chốt số liệu không thành công!Liên hệ VinaSoft để được trợ giúp", true);
+                            Utility.SetMsg(uiStatusBar2.Panels["1"], "Chốt số liệu không thành công!Liên hệ VMS để được trợ giúp", true);
                     }
                     else
                     {
@@ -405,7 +407,7 @@ namespace VNS.HIS.UI.THUOC
                         _NhaplydoHuy.ShowDialog();
                         if (!_NhaplydoHuy.m_blnCancel)
                         {
-                            if (new ChotThuoc().HUYCHOT_CAPPHAT(lstID_Donthuoc, _NhaplydoHuy.ngay_thuchien, _NhaplydoHuy.ten) == ActionResult.Success)
+                            if (new ChotThuoc().HUYCHOT_CAPPHAT(lstID_Donthuoc, id_kho, _NhaplydoHuy.ngay_thuchien, _NhaplydoHuy.ten) == ActionResult.Success)
                             {
                                 foreach (GridEXRow dr in grdPres.GetCheckedRows())
                                 {
@@ -418,7 +420,7 @@ namespace VNS.HIS.UI.THUOC
                                 Utility.SetMsg(uiStatusBar2.Panels["1"], "Hủy chốt số liệu thành công!", false);
                             }
                             else
-                                Utility.SetMsg(uiStatusBar2.Panels["1"], "Hủy chốt số liệu không thành công!Liên hệ VinaSoft để được trợ giúp", true);
+                                Utility.SetMsg(uiStatusBar2.Panels["1"], "Hủy chốt số liệu không thành công!Liên hệ VMS để được trợ giúp", true);
                         }
                     }
                 }

@@ -259,22 +259,15 @@ namespace VNS.HIS.UI.THUOC
                 }
                 else
                 {
-                    int _status = Utility.Int32Dbnull(grdPres.GetValue(KcbDonthuoc.Columns.TrangThai));
-                    cmdPhatThuoc.Enabled = _status==0;
+                    int _daphat = m_dtDataPresDetail.Select(KcbDonthuocChitiet.Columns.TrangThai + "=1").Length;// Utility.Int32Dbnull(grdPres.GetValue(KcbDonthuoc.Columns.TrangThai));
+                    cmdPhatThuoc.Enabled = _daphat <= 0;
                     cmdHuyDonThuoc.Enabled = !cmdPhatThuoc.Enabled;
-                    cmdKiemTraSoLuong.Enabled = _status==0;
+                    cmdKiemTraSoLuong.Enabled = _daphat <= 0;
                 }
-                
-
-                
             }
             catch (Exception)
             {
-                
-               
             }
-           
-
         }
         private int Pres_ID=-1;
         private void GetDataPresDetail()
@@ -352,9 +345,10 @@ namespace VNS.HIS.UI.THUOC
             if (!InValiKiemTraDonThuoc()) return;
             //if(Utility.AcceptQuestion("Bạn có muốn thực hiện việc xác nhận lĩnh thuốc cho bệnh nhân không\n Nếu bạn xác nhận thuốc sẽ trừ vào kho mà bạn đang chọn","thông báo",true))
             //{
-                long Pres_ID = Utility.Int64Dbnull(grdPres.GetValue(KcbDonthuoc.Columns.IdDonthuoc), -1); 
+                long Pres_ID = Utility.Int64Dbnull(grdPres.GetValue(KcbDonthuoc.Columns.IdDonthuoc), -1);
+                Int16 stockID = Utility.Int16Dbnull(m_dtDataPresDetail.Rows[0][KcbDonthuocChitiet.Columns.IdKho]);
                 ActionResult actionResult =
-                    new XuatThuoc().LinhThuocBenhNhan(Pres_ID,Utility.Int16Dbnull(cboKho.SelectedValue,0),  dtNgayPhatThuoc.Value);
+                    new XuatThuoc().LinhThuocBenhNhan(Pres_ID, stockID, dtNgayPhatThuoc.Value);
                 switch (actionResult)
                 {
                     case ActionResult.Success:
@@ -499,9 +493,7 @@ namespace VNS.HIS.UI.THUOC
                 Utility.ShowMsg("Đơn thuốc đã được chốt nên không thể hủy. Đề nghị bạn kiểm tra lại", "Thông báo", MessageBoxIcon.Warning);
                 return false;
             }
-            int Pres_ID = Utility.Int32Dbnull(grdPres.GetValue(KcbDonthuoc.Columns.IdDonthuoc), -1);
-            KcbDonthuoc objKcbDonthuoc = KcbDonthuoc.FetchByID(Pres_ID);
-            if (objKcbDonthuoc != null && objKcbDonthuoc.TrangThai==0)
+            if (m_dtDataPresDetail.Select(KcbDonthuocChitiet.Columns.TrangThai + "=1").Length<=0)
             {
                 Utility.ShowMsg("Đơn thuốc chưa phát thuốc nên không thể hủy. Đề nghị bạn kiểm tra lại", "Thông báo", MessageBoxIcon.Warning);
                 return false;
@@ -722,11 +714,15 @@ namespace VNS.HIS.UI.THUOC
                 if (!_NhaplydoHuy.m_blnCancel)
                 {
                     int Pres_ID = Utility.Int32Dbnull(grdPres.GetValue(KcbDonthuoc.Columns.IdDonthuoc), -1);
+                    Int16 stockID = Utility.Int16Dbnull(m_dtDataPresDetail.Rows[0][KcbDonthuocChitiet.Columns.IdKho]);
                     dtNgayPhatThuoc.Value = globalVariables.SysDate;
                     ActionResult actionResult =
-                        new XuatThuoc().HuyXacNhanDonThuocBN(Pres_ID, Utility.Int16Dbnull(cboKho.SelectedValue, 0), _NhaplydoHuy.ngay_thuchien, _NhaplydoHuy.ten);
+                        new XuatThuoc().HuyXacNhanDonThuocBN(Pres_ID, stockID, _NhaplydoHuy.ngay_thuchien, _NhaplydoHuy.ten);
                     switch (actionResult)
                     {
+                        case ActionResult.DataUsed:
+                            Utility.ShowMsg("Một trong các thuốc bạn chọn đã được sử dụng nên bạn không thể thực hiện hủy xác nhận", "thông báo", MessageBoxIcon.Information);
+                            break;
                         case ActionResult.Success:
                             UpdateHuyHasConfirm();
                             Utility.ShowMsg("Bạn thực hiện việc hủy phát thuốc thành công", "thông báo", MessageBoxIcon.Information);
