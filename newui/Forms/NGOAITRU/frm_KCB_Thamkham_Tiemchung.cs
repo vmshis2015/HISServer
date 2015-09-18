@@ -215,6 +215,75 @@ namespace VNS.HIS.UI.NGOAITRU
             cmdLuurieng.Click += cmdLuurieng_Click;
             cmdDatiem.Click += cmdDatiem_Click;
             cmdChuatiem.Click += cmdChuatiem_Click;
+
+            chkMuithu.CheckedChanged += chkMuithu_CheckedChanged;
+            chkHennhaclai.CheckedChanged += chkHennhaclai_CheckedChanged;
+
+            cmdInbangke.Click += cmdInbangke_Click;
+        }
+
+        void cmdInbangke_Click(object sender, EventArgs e)
+        {
+            if (_KcbChandoanKetluan != null && objLuotkham != null && objkcbdangky != null)
+            {
+                DataTable _dtData = _KCB_THAMKHAM.KcbTiemchungInbangketruocTiemchung(objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, _KcbChandoanKetluan.IdKham, -1, -1);
+                THU_VIEN_CHUNG.CreateXML(_dtData, "thamkham_tiemchung_bangketruoctiemchung.xml");
+                if (_dtData.Rows.Count <= 0)
+                {
+                    Utility.ShowMsg("Không tìm thấy dữ liệu báo cáo theo điều kiện bạn chọn", "Thông báo", MessageBoxIcon.Information);
+                    return;
+                }
+                string tieude = "", reportname = "";
+                Utility.UpdateLogotoDatatable(ref _dtData);
+                string reportCode = "thamkham_Inbangketruoctiemchung_nguoilon";
+                Dotuoi _enDotuoi = Utility.Laydotuoi(DateTime.Now.Year - objBenhnhan.NgaySinh.Value.Year);
+                if (_enDotuoi == Dotuoi.TreSosinh)
+                    reportCode = "thamkham_Inbangketruoctiemchung_tresosinh";
+                else if (_enDotuoi == Dotuoi.TreEm)
+                    reportCode = "thamkham_Inbangketruoctiemchung_treem";
+                else
+                    reportCode = "thamkham_Inbangketruoctiemchung_nguoilon";
+                var crpt = Utility.GetReport(reportCode, ref tieude, ref reportname);
+                if (crpt == null) return;
+
+                string StaffName = globalVariables.gv_strTenNhanvien;
+                if (string.IsNullOrEmpty(globalVariables.gv_strTenNhanvien)) StaffName = globalVariables.UserName;
+                try
+                {
+                    frmPrintPreview objForm = new frmPrintPreview(tieude, crpt, true, _dtData.Rows.Count <= 0 ? false : true);
+                    crpt.SetDataSource(_dtData);
+                    objForm.mv_sReportFileName = Path.GetFileName(reportname);
+                    objForm.mv_sReportCode = reportCode;
+                    Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
+                    Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                    Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+                    Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
+                    Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+                    Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                    objForm.crptViewer.ReportSource = crpt;
+                    objForm.ShowDialog();
+                }
+                catch (Exception exception)
+                {
+                    Utility.CatchException(exception);
+
+                }
+            }
+        }
+
+        void chkHennhaclai_CheckedChanged(object sender, EventArgs e)
+        {
+            dtpHennhaclai.Enabled = chkHennhaclai.Checked;
+            if (chkHennhaclai.Checked)
+                dtpHennhaclai.Focus();
+        }
+
+        void chkMuithu_CheckedChanged(object sender, EventArgs e)
+        {
+            txtMuithu.Enabled = chkMuithu.Checked;
+            txtMuithu.ReadOnly = !chkMuithu.Checked;
+            if (chkMuithu.Checked)
+                txtMuithu.Focus();
         }
 
         void cmdChuatiem_Click(object sender, EventArgs e)
@@ -289,6 +358,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 objChitiet.PhanungSautiem = txtPhanungSautiem.Text;
                 objChitiet.Xutri = txtHuongdieutri.Text;
                 objChitiet.KetluanNguyennhan = txtKet_Luan.Text;
+                objChitiet.MuiThu = Utility.ByteDbnull(txtMuithu.Text, 1);
+                if (chkHennhaclai.Checked)
+                    objChitiet.NgayhenMuiketiep = dtpHennhaclai.Value;
+                else
+                    objChitiet.NgayhenMuiketiep = null;
+                objChitiet.NguoiTiem = Utility.Int16Dbnull(txtNguoitiem.MyID,-1);
                 _KCB_THAMKHAM.LuuHoibenhvaChandoan(null, objChitiet, true);
             }
         }
@@ -306,6 +381,13 @@ namespace VNS.HIS.UI.NGOAITRU
                         txtPhanungSautiem._Text = objChitiet.PhanungSautiem;
                         txtHuongdieutri._Text = objChitiet.Xutri;
                         txtKet_Luan._Text = objChitiet.KetluanNguyennhan;
+                        txtMuithu.Text = Utility.sDbnull(objChitiet.MuiThu);
+                        txtNguoitiem.SetId(objChitiet.NguoiTiem);
+                        chkMuithu.Enabled = chkPhanungVacxin.Checked && objChitiet != null;
+                        chkHennhaclai.Enabled = chkPhanungVacxin.Checked && objChitiet != null;
+                        chkHennhaclai.Checked =chkHennhaclai.Enabled && objChitiet.NgayhenMuiketiep != null;
+                        if (chkHennhaclai.Checked) 
+                            dtpHennhaclai.Value = objChitiet.NgayhenMuiketiep.Value;
                     }
                 }
             }
@@ -317,6 +399,9 @@ namespace VNS.HIS.UI.NGOAITRU
         void chkPhanungVacxin_CheckedChanged(object sender, EventArgs e)
         {
             txtVacxin.Enabled = chkPhanungVacxin.Checked;
+            chkMuithu.Enabled = chkPhanungVacxin.Checked;
+            dtpHennhaclai.Enabled = chkPhanungVacxin.Checked;
+            txtNguoitiem.Enabled = chkPhanungVacxin.Checked;
             cmdLuurieng.Visible = chkPhanungVacxin.Checked;
             txtVacxin.Focus();
             txtVacxin.SelectAll();
@@ -1201,6 +1286,13 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     txtBacsi.SetId(globalVariables.gv_intIDNhanvien);
                 }
+
+                txtNguoitiem.Init(m_dtDoctorAssign, new List<string>() { DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.MaNhanvien, DmucNhanvien.Columns.TenNhanvien });
+                txtNguoitiem.SetCode(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEMCHUNG_MANHANVIEN_MACDINH",false));
+                if (txtNguoitiem.MyCode == "-1" && globalVariables.gv_intIDNhanvien > 0)
+                {
+                    txtBacsi.SetId(globalVariables.gv_intIDNhanvien);
+                }
             }
             catch (Exception exception)
             {
@@ -1232,7 +1324,7 @@ namespace VNS.HIS.UI.NGOAITRU
                    cmdXoaphieuVT.Enabled =
                    cmdSuaphieuVT.Enabled =Utility.isValidGrid( grdVTTH)  && !string.IsNullOrEmpty(m_strMaLuotkham);
 
-
+                cmdInbangke.Enabled = grdPresDetail.GetDataRows().Length > 0;
                 chkDaThucHien.Visible = chkDaThucHien.Checked;
                
                 if (objLuotkham.Locked == 1 || objLuotkham.TrangthaiNoitru>=1)
@@ -1253,7 +1345,6 @@ namespace VNS.HIS.UI.NGOAITRU
             {
             }
         }
-
 
         void ModifyButtonTiemChung()
         {
@@ -1332,7 +1423,6 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             //Old-->Utility.SetDataSourceForDataGridEx
             Utility.SetDataSourceForDataGridEx(grdVTTH, m_dtVTTHChitiet_View, false, true, "", KcbDonthuocChitiet.Columns.SttIn);
-
         }
        
         private void Get_DanhmucChung()
@@ -2299,6 +2389,7 @@ namespace VNS.HIS.UI.NGOAITRU
             bool tempt = Enough && !notEnough1 && !notEnough2;
             if (_KcbChandoanKetluan == null)
             {
+                cmdLuuChandoan_Click(cmdLuuChandoan, new EventArgs());
                 return Enough && !notEnough1 && !notEnough2;
             }
             else
@@ -3023,7 +3114,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             m_dtDanhsachbenhnhanthamkham.DefaultView.RowFilter = "1=1";
                             m_dtDanhsachbenhnhanthamkham.DefaultView.RowFilter = "trang_thai=" + Status;
                         }
-                        if (objLuotkham.Locked == 1)//Đối tượng dịch vụ được khóa ngay sau khi kết thúc khám
+                        if (objLuotkham.Locked == 1 && objLuotkham.TrangthaiNoitru <= 0)//Đối tượng dịch vụ được khóa ngay sau khi kết thúc khám
                         {
                             cmdUnlock.Visible = true;
                             cmdUnlock.Enabled = true;

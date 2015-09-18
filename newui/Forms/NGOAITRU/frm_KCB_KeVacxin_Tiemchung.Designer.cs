@@ -63,6 +63,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pnlKedon = new System.Windows.Forms.Panel();
+            this.chkMuithu = new Janus.Windows.EditControls.UICheckBox();
             this.txtVitritiem = new Janus.Windows.GridEX.EditControls.EditBox();
             this.txtLydotiem = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.label8 = new System.Windows.Forms.Label();
@@ -184,7 +185,6 @@
             this.cboA4 = new Janus.Windows.EditControls.UIComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.chkMuithu = new Janus.Windows.EditControls.UICheckBox();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdPresDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabKeDonThuoc)).BeginInit();
@@ -348,7 +348,7 @@
             this.cmdAddDetail.ImageSize = new System.Drawing.Size(20, 20);
             this.cmdAddDetail.Location = new System.Drawing.Point(457, 200);
             this.cmdAddDetail.Name = "cmdAddDetail";
-            this.cmdAddDetail.Size = new System.Drawing.Size(166, 53);
+            this.cmdAddDetail.Size = new System.Drawing.Size(166, 32);
             this.cmdAddDetail.TabIndex = 13;
             this.cmdAddDetail.Text = "Chấp nhận";
             this.toolTip1.SetToolTip(this.cmdAddDetail, "Nhấn vào đây để thêm thuốc đang chọn vào chi tiết đơn thuốc");
@@ -357,7 +357,7 @@
             // 
             this.chkHienthithuoctheonhom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkHienthithuoctheonhom.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkHienthithuoctheonhom.Location = new System.Drawing.Point(6, 11);
+            this.chkHienthithuoctheonhom.Location = new System.Drawing.Point(93, 203);
             this.chkHienthithuoctheonhom.Name = "chkHienthithuoctheonhom";
             this.chkHienthithuoctheonhom.Size = new System.Drawing.Size(176, 23);
             this.chkHienthithuoctheonhom.TabIndex = 546;
@@ -489,7 +489,6 @@
             // panel4
             // 
             this.panel4.Controls.Add(this.cmdDelete);
-            this.panel4.Controls.Add(this.chkHienthithuoctheonhom);
             this.panel4.Controls.Add(this.cmdPrintPres);
             this.panel4.Controls.Add(this.cmdSavePres);
             this.panel4.Controls.Add(this.cmdExit);
@@ -503,6 +502,7 @@
             // pnlKedon
             // 
             this.pnlKedon.Controls.Add(this.chkMuithu);
+            this.pnlKedon.Controls.Add(this.chkHienthithuoctheonhom);
             this.pnlKedon.Controls.Add(this.cmdAddDetail);
             this.pnlKedon.Controls.Add(this.txtVitritiem);
             this.pnlKedon.Controls.Add(this.txtLydotiem);
@@ -538,6 +538,17 @@
             this.pnlKedon.Size = new System.Drawing.Size(630, 259);
             this.pnlKedon.TabIndex = 546;
             this.pnlKedon.TabStop = true;
+            // 
+            // chkMuithu
+            // 
+            this.chkMuithu.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkMuithu.ForeColor = System.Drawing.Color.Navy;
+            this.chkMuithu.Location = new System.Drawing.Point(9, 107);
+            this.chkMuithu.Name = "chkMuithu";
+            this.chkMuithu.Size = new System.Drawing.Size(78, 23);
+            this.chkMuithu.TabIndex = 500;
+            this.chkMuithu.TabStop = false;
+            this.chkMuithu.Text = "Mũi thứ:";
             // 
             // txtVitritiem
             // 
@@ -766,15 +777,17 @@
             this.txtSoluong.Name = "txtSoluong";
             this.txtSoluong.Size = new System.Drawing.Size(88, 21);
             this.txtSoluong.TabIndex = 2;
+            this.txtSoluong.Text = "1";
             this.txtSoluong.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblMsg
             // 
+            this.lblMsg.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblMsg.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMsg.ForeColor = System.Drawing.Color.Red;
-            this.lblMsg.Location = new System.Drawing.Point(0, 201);
+            this.lblMsg.Location = new System.Drawing.Point(0, 235);
             this.lblMsg.Name = "lblMsg";
-            this.lblMsg.Size = new System.Drawing.Size(448, 58);
+            this.lblMsg.Size = new System.Drawing.Size(630, 24);
             this.lblMsg.TabIndex = 554;
             this.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -2100,17 +2113,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // chkMuithu
-            // 
-            this.chkMuithu.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMuithu.ForeColor = System.Drawing.Color.Navy;
-            this.chkMuithu.Location = new System.Drawing.Point(9, 107);
-            this.chkMuithu.Name = "chkMuithu";
-            this.chkMuithu.Size = new System.Drawing.Size(78, 23);
-            this.chkMuithu.TabIndex = 500;
-            this.chkMuithu.TabStop = false;
-            this.chkMuithu.Text = "Mũi thứ:";
             // 
             // frm_KCB_KeVacxin_Tiemchung
             // 

@@ -5220,7 +5220,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             m_dtDanhsachbenhnhanthamkham.DefaultView.RowFilter = "1=1";
                             m_dtDanhsachbenhnhanthamkham.DefaultView.RowFilter = "trang_thai=" + Status;
                         }
-                        if (objLuotkham.Locked == 1)//Đối tượng dịch vụ được khóa ngay sau khi kết thúc khám
+                        if (objLuotkham.Locked == 1 && objLuotkham.TrangthaiNoitru<=0)//Đối tượng dịch vụ được khóa ngay sau khi kết thúc khám
                         {
                             cmdUnlock.Visible = true;
                             cmdUnlock.Enabled = true;

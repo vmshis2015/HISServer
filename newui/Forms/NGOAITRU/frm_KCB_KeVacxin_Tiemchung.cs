@@ -693,7 +693,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 DataTable data = THU_VIEN_CHUNG.LaydanhsachBacsi(departmentID,noitru);
                 txtBacsi.Init(data, new List<string>() { DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.MaNhanvien, DmucNhanvien.Columns.TenNhanvien });
-                txtNguoitiem.Init(data, new List<string>() { DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.MaNhanvien, DmucNhanvien.Columns.TenNhanvien });
+                
                 if (globalVariables.gv_intIDNhanvien <= 0)
                 {
                     txtBacsi.SetId(-1);
@@ -702,6 +702,13 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     txtBacsi.SetId( globalVariables.gv_intIDNhanvien);
                 }
+                txtNguoitiem.Init(data, new List<string>() { DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.MaNhanvien, DmucNhanvien.Columns.TenNhanvien });
+                txtNguoitiem.SetCode(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEMCHUNG_MANHANVIEN_MACDINH", false));
+                if (txtNguoitiem.MyCode == "-1" && globalVariables.gv_intIDNhanvien > 0)
+                {
+                    txtBacsi.SetId(globalVariables.gv_intIDNhanvien);
+                }
+                
             }
             catch (Exception)
             {

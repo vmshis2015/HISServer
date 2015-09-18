@@ -193,6 +193,13 @@ namespace VNS.HIS.UI.NGOAITRU
             chkLaysokham.CheckedChanged += chkLaysokham_CheckedChanged;
             cmdRestore.Click += cmdRestore_Click;
             txtLoaikham._OnShowData += txtLoaikham__OnShowData;
+            mnuBOD.Click += mnuBOD_Click;
+        }
+
+        void mnuBOD_Click(object sender, EventArgs e)
+        {
+            dtpBOD.Visible = mnuBOD.Checked;
+            txtNamSinh.Visible = !mnuBOD.Checked;  
         }
 
         void txtLoaikham__OnShowData()
@@ -233,7 +240,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         void dtpBOD_TextChanged(object sender, EventArgs e)
         {
-            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "1")
+            if (dtpBOD.Visible)
             {
                 txtTuoi.Text = Utility.sDbnull(globalVariables.SysDate.Year - dtpBOD.Value.Year);
             }
@@ -2382,7 +2389,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-                if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "1") return;
+                if (dtpBOD.Visible) return;
                 if (txtNamSinh.Text.Length < 4) return;
                 if (!string.IsNullOrEmpty(txtNamSinh.Text))
                 {
@@ -2421,7 +2428,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 if (!string.IsNullOrEmpty(txtTuoi.Text))
                 {
-                    if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "0")
+                    if (!dtpBOD.Visible)
                         txtNamSinh.Text = Utility.sDbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(txtTuoi.Text, 0));
                     else
                         dtpBOD.Value = new DateTime(Utility.Int32Dbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(txtTuoi.Text, 0)),dtpBOD.Value.Month, dtpBOD.Value.Day);
@@ -2755,7 +2762,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtTEN_BN.Focus();
                 return false;
             }
-            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "0" && string.IsNullOrEmpty(txtNamSinh.Text))
+            if (!dtpBOD.Visible && string.IsNullOrEmpty(txtNamSinh.Text))
             {
                 Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải nhập ngày tháng năm sinh, hoặc năm sinh cho bệnh nhân ", true);
                 txtNamSinh.Focus();
@@ -3249,7 +3256,7 @@ namespace VNS.HIS.UI.NGOAITRU
         }
         private void txtNamSinh_LostFocus(object sender, EventArgs e)
         {
-            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "1") return;
+            if (dtpBOD.Visible) return;
             if (!string.IsNullOrEmpty(txtNamSinh.Text))
             {
                 if (txtNamSinh.Text.Length < 4)
@@ -5679,14 +5686,13 @@ namespace VNS.HIS.UI.NGOAITRU
             objBenhnhan.GioiTinh = cboPatientSex.Text;
             objBenhnhan.IdGioitinh = Utility.ByteDbnull(cboPatientSex.SelectedValue, 0);
             objBenhnhan.NamSinh = txtNamSinh.Visible ? Utility.Int16Dbnull(txtNamSinh.Text, null) : Utility.Int16Dbnull(dtpBOD.Value.Year);
-            string BirthDate = txtNamSinh.Visible ? string.Format("{0}/{1}/{2}", 1, 1, txtNamSinh.Text) : dtpBOD.Value.ToString("dd/MM/yyyy");
-            if (Dates.IsDate(BirthDate))
+            if (dtpBOD.Visible)
             {
-                objBenhnhan.NgaySinh = Convert.ToDateTime(BirthDate);
+                objBenhnhan.NgaySinh = dtpBOD.Value;
             }
             else
             {
-                objBenhnhan.NgaySinh = null;
+                objBenhnhan.NgaySinh = new DateTime(Utility.Int32Dbnull(txtNamSinh.Text), 1, 1);
             }
 
             if (m_enAction == action.Insert)
