@@ -368,7 +368,7 @@ namespace VNS.Libs
         }
         private void SetParamAgain()
         {
-            if (mv_bSetContent)
+            if (mv_oNguoiKy!=null)
             {
                 string sPvalue = mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
                 sPvalue = sPvalue.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));

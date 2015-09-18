@@ -111,6 +111,13 @@ namespace VNS.Libs
         DaThucHien = 2
 
     } ;
+    public enum Dotuoi
+    {
+        TreSosinh = 0,
+        TreEm = 1,
+        Nguoilon = 2
+
+    } ;
     public enum LoaiPhieu
     {
         PhieuNhapKho = 1,
@@ -317,7 +324,8 @@ namespace VNS.Libs
         PresIsConfirmed = 12,
         AssignIsConfirmed = 14,
         Cancel = 15,
-        DataChanged = 15
+        DataChanged = 16,
+        DataUsed=17
     } ;
 
     /// <summary>
@@ -412,6 +420,19 @@ namespace VNS.Libs
     ///</summary>
     public class Utility
     {
+        public static Dotuoi Laydotuoi(int Tuoi)
+        {
+            string treSosinh = Laygiatrithamsohethong("DOTUOI_TRESOSINH","0-1",false);
+            string treEm = Laygiatrithamsohethong("DOTUOI_TREEM", "2-17", false);
+            string Nguoilon = Laygiatrithamsohethong("DOTUOI_NGUOILON", "18-500", false);
+            int min =Utility.Int32Dbnull( treSosinh.Split('-')[0]);
+            int max = Utility.Int32Dbnull(treSosinh.Split('-')[1]);
+            if (Tuoi >= min && Tuoi <= max) return Dotuoi.TreSosinh;
+            min = Utility.Int32Dbnull(treEm.Split('-')[0]);
+            max = Utility.Int32Dbnull(treEm.Split('-')[1]);
+            if (Tuoi >= min && Tuoi <= max) return Dotuoi.TreEm;
+            return Dotuoi.Nguoilon;
+        }
         public static bool Coquyen(string maquyen)
         {
             return globalVariables.IsAdmin || (globalVariablesPrivate.objNhanvien != null && globalVariables.gv_dtQuyenNhanvien.Select(QheNhanvienQuyensudung.Columns.Ma + "='" + maquyen + "'").Length > 0);
@@ -6664,7 +6685,9 @@ namespace VNS.Libs
                     filereport = Utility.DoTrim(_object.FileRieng);
                 fileName = filereport.ToUpper().Replace(".RPT", "") + ".RPT";
                 tieude = _object.TieuDe;
-                string fullPath = Application.StartupPath + @"\reports\" + filereport.ToUpper().Replace(".RPT", "") + ".RPT";
+                string REPORT_FOLDER=Laygiatrithamsohethong("REPORT_FOLDER", "0", true);
+                 REPORT_FOLDER = REPORT_FOLDER == "0" ? Application.StartupPath + @"\reports\" : REPORT_FOLDER;
+                 string fullPath = REPORT_FOLDER + filereport.ToUpper().Replace(".RPT", "") + ".RPT";
                 if (Laygiatrithamsohethong("REPORT_LOADFROMDLL", "0", false) == "1")
                 {
                     Assembly assembly = Assembly.LoadFile(Application.StartupPath + @"\reports.dll");
