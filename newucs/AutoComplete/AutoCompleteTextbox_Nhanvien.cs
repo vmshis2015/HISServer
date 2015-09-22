@@ -92,7 +92,7 @@ namespace VNS.HIS.UCs
             this.listBox.Name = "SuggestionListBox";
             this.listBox.Font = this.Font;
             this.listBox.Visible = true;
-            this.listBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.listBox.BackColor = Color.FromKnownColor(KnownColor.Control);
             this.listBox.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox.ScrollAlwaysVisible = true;
 
