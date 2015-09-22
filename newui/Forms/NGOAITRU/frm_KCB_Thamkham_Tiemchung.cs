@@ -212,7 +212,6 @@ namespace VNS.HIS.UI.NGOAITRU
 
             chkPhanungVacxin.CheckedChanged += chkPhanungVacxin_CheckedChanged;
             txtVacxin._OnEnterMe += txtVacxin__OnEnterMe;
-            cmdLuurieng.Click += cmdLuurieng_Click;
             cmdDatiem.Click += cmdDatiem_Click;
             cmdChuatiem.Click += cmdChuatiem_Click;
 
@@ -220,10 +219,51 @@ namespace VNS.HIS.UI.NGOAITRU
             chkHennhaclai.CheckedChanged += chkHennhaclai_CheckedChanged;
 
             cmdInbangke.Click += cmdInbangke_Click;
+            txtKQ._OnShowData += txtKQ__OnShowData;
+            txtLydotiem._OnShowData += txtLydotiem__OnShowData;
+            chkNgaytiem.CheckedChanged += chkNgaytiem_CheckedChanged;
+        }
+
+        void chkNgaytiem_CheckedChanged(object sender, EventArgs e)
+        {
+            dtpNgaysudung.Enabled = chkNgaytiem.Checked;
+            if (chkNgaytiem.Checked)
+                dtpNgaysudung.Focus();
+        }
+
+        void txtLydotiem__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtLydotiem.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtLydotiem.myCode;
+                txtLydotiem.Init();
+                txtLydotiem.SetCode(oldCode);
+                txtLydotiem.Focus();
+            }    
+        }
+
+        void txtKQ__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtKQ.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtKQ.myCode;
+                txtKQ.Init();
+                txtKQ.SetCode(oldCode);
+                txtKQ.Focus();
+            }    
         }
 
         void cmdInbangke_Click(object sender, EventArgs e)
         {
+            if (_KcbChandoanKetluan == null)
+            {
+                Utility.ShowMsg("Bạn cần lưu thông tin khám phân loại và phải kê đơn vắc xin trước khi thực hiện in bảng kê trước tiêm chủng");
+                return;
+            }
             if (_KcbChandoanKetluan != null && objLuotkham != null && objkcbdangky != null)
             {
                 DataTable _dtData = _KCB_THAMKHAM.KcbTiemchungInbangketruocTiemchung(objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, _KcbChandoanKetluan.IdKham, -1, -1);
@@ -290,9 +330,11 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
+               
                 _KCB_THAMKHAM.DanhdautrangthaiTiem(objChitiet, objkcbdangky.IdKham, false);
                 if (objChitiet != null)
                 {
+                    objChitiet.DaDung = 0;
                     DataRow[] arrDr = m_dtChitietDonthuoc.Select(KcbDonthuocChitiet.Columns.IdChitietdonthuoc + "=" + objChitiet.IdChitietdonthuoc.ToString());
                     if (arrDr.Length > 0)
                     {
@@ -326,6 +368,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 _KCB_THAMKHAM.DanhdautrangthaiTiem(objChitiet, objkcbdangky.IdKham, true);
                 if (objChitiet != null)
                 {
+                    objChitiet.DaDung = 1;
                     DataRow[] arrDr = m_dtChitietDonthuoc.Select(KcbDonthuocChitiet.Columns.IdChitietdonthuoc + "=" + objChitiet.IdChitietdonthuoc.ToString());
                     if (arrDr.Length > 0)
                     {
@@ -351,13 +394,34 @@ namespace VNS.HIS.UI.NGOAITRU
             }
         }
 
-        void cmdLuurieng_Click(object sender, EventArgs e)
+        void Luurieng()
         {
+            if (!chkPhanungVacxin.Checked)
+            {
+                Utility.SetMsg(lblMsg, "Bạn cần chọn vắc xin cần lưu riêng",true);
+                chkPhanungVacxin.Focus();
+                return;
+            }
+            if (chkPhanungVacxin.Checked && objChitiet==null)
+            {
+                Utility.SetMsg(lblMsg, "Bạn cần chọn vắc xin cần lưu riêng", true);
+                txtVacxin.Focus();
+                return;
+            }
+            if (Utility.Int32Dbnull(txtMuithu.Text,-1)<=0)
+            {
+                Utility.SetMsg(lblMsg, "Số mũi phải lớn hơn hoặc bằng 1", true);
+                txtMuithu.Focus();
+                return;
+            }
             if (objChitiet != null)
             {
-                objChitiet.PhanungSautiem = txtPhanungSautiem.Text;
-                objChitiet.Xutri = txtHuongdieutri.Text;
-                objChitiet.KetluanNguyennhan = txtKet_Luan.Text;
+                objChitiet.PhanungSautiem = txtPhanungSautiem.myCode;
+                objChitiet.Xutri = txtHuongdieutri.myCode;
+                objChitiet.KetluanNguyennhan = txtKet_Luan.myCode;
+                objChitiet.NgaySudung = dtpNgaysudung.Value;
+                objChitiet.LydoTiemchung = txtLydotiem.myCode;
+                objChitiet.KetQua = txtKQ.myCode;
                 objChitiet.MuiThu = Utility.ByteDbnull(txtMuithu.Text, 1);
                 if (chkHennhaclai.Checked)
                     objChitiet.NgayhenMuiketiep = dtpHennhaclai.Value;
@@ -378,16 +442,23 @@ namespace VNS.HIS.UI.NGOAITRU
                     objChitiet = KcbDonthuocChitiet.FetchByID(Utility.sDbnull(txtVacxin.MyID, "-1"));
                     if (objChitiet != null)
                     {
-                        txtPhanungSautiem._Text = objChitiet.PhanungSautiem;
-                        txtHuongdieutri._Text = objChitiet.Xutri;
-                        txtKet_Luan._Text = objChitiet.KetluanNguyennhan;
+                        txtPhanungSautiem.SetCode(objChitiet.PhanungSautiem);
+                        txtHuongdieutri.SetCode(objChitiet.Xutri);
+                        txtKet_Luan.SetCode( objChitiet.KetluanNguyennhan);
+                        txtKQ.SetCode(objChitiet.KetQua);
                         txtMuithu.Text = Utility.sDbnull(objChitiet.MuiThu);
                         txtNguoitiem.SetId(objChitiet.NguoiTiem);
+                        txtLydotiem.SetCode(objChitiet.LydoTiemchung);
                         chkMuithu.Enabled = chkPhanungVacxin.Checked && objChitiet != null;
-                        chkHennhaclai.Enabled = chkPhanungVacxin.Checked && objChitiet != null;
+                        chkHennhaclai.Enabled = chkNgaytiem.Enabled = chkMuithu.Enabled;
                         chkHennhaclai.Checked =chkHennhaclai.Enabled && objChitiet.NgayhenMuiketiep != null;
                         if (chkHennhaclai.Checked) 
                             dtpHennhaclai.Value = objChitiet.NgayhenMuiketiep.Value;
+                        dtpNgaysudung.Value = objChitiet.NgaySudung.Value;
+                        cmdChuatiem.Enabled = Utility.Byte2Bool(objChitiet.DaDung);
+                        cmdDatiem.Enabled = !cmdChuatiem.Enabled;
+                        pnlPhanungsautiem.Enabled = cmdChuatiem.Enabled;
+                        if (!pnlPhanungsautiem.Enabled) errorProvider1.SetError(chkPhanungVacxin, "Cần phát vắc xin cho Bệnh nhân và đánh dấu trạng thái Đã tiêm trước khi thực hiện nhập liệu thông tin phản ứng sau tiêm chủng");
                     }
                 }
             }
@@ -395,21 +466,68 @@ namespace VNS.HIS.UI.NGOAITRU
             {
             }
         }
-
+        string code1 = "";
+        string code2 = "";
+        string code3 = "";
+        string code4 = "";
         void chkPhanungVacxin_CheckedChanged(object sender, EventArgs e)
         {
+            code1 = txtPhanungSautiem.myCode;
+            code2 = txtHuongdieutri.myCode;
+            code3 = txtKQ.myCode;
+            code4 = txtKet_Luan.myCode;
+
+            errorProvider1.Clear();
             txtVacxin.Enabled = chkPhanungVacxin.Checked;
             chkMuithu.Enabled = chkPhanungVacxin.Checked;
             dtpHennhaclai.Enabled = chkPhanungVacxin.Checked;
             txtNguoitiem.Enabled = chkPhanungVacxin.Checked;
-            cmdLuurieng.Visible = chkPhanungVacxin.Checked;
+            txtLydotiem.Enabled = txtNguoitiem.Enabled;
+            chkNgaytiem.Enabled = chkMuithu.Enabled;
             txtVacxin.Focus();
             txtVacxin.SelectAll();
-            if (!chkPhanungVacxin.Checked) objChitiet = null;
+            if (!chkPhanungVacxin.Checked)
+            {
+                objChitiet = null;
+                txtPhanungSautiem.SetCode(_KcbChandoanKetluan.PhanungSautiemchung);
+                txtHuongdieutri.SetCode(_KcbChandoanKetluan.HuongDieutri);
+                txtKet_Luan.SetCode(_KcbChandoanKetluan.KetluanNguyennhan);
+                txtKQ.SetCode(_KcbChandoanKetluan.Ketluan);
+
+                ModifyButtonTiemChung();
+            }
             else
             {
                 objChitiet = KcbDonthuocChitiet.FetchByID(Utility.sDbnull(txtVacxin.MyID, "-1"));
+                if (objChitiet != null)
+                {
+                    txtPhanungSautiem.SetCode(objChitiet.PhanungSautiem);
+                    txtHuongdieutri.SetCode(objChitiet.Xutri);
+                    txtKet_Luan.SetCode(objChitiet.KetluanNguyennhan);
+                    txtKQ.SetCode(objChitiet.KetQua);
+                    txtMuithu.Text = Utility.sDbnull(objChitiet.MuiThu);
+                    txtNguoitiem.SetId(objChitiet.NguoiTiem);
+                    txtLydotiem.SetCode(objChitiet.LydoTiemchung);
+                    chkMuithu.Enabled = chkPhanungVacxin.Checked && objChitiet != null;
+                    chkHennhaclai.Checked = chkHennhaclai.Enabled = chkMuithu.Enabled;
+                    if (chkHennhaclai.Checked)
+                        dtpHennhaclai.Value = objChitiet.NgayhenMuiketiep.Value;
+                    dtpNgaysudung.Value = objChitiet.NgaySudung.Value;
+                    cmdChuatiem.Enabled = Utility.Byte2Bool(objChitiet.DaDung);
+                    cmdDatiem.Enabled = !cmdChuatiem.Enabled;
+                    pnlPhanungsautiem.Enabled = cmdChuatiem.Enabled;
+                    if (!pnlPhanungsautiem.Enabled) errorProvider1.SetError(chkPhanungVacxin, "Cần phát vắc xin cho Bệnh nhân và đánh dấu trạng thái Đã tiêm trước khi thực hiện nhập liệu thông tin phản ứng sau tiêm chủng");
+                }
+                else
+                {
+                    txtPhanungSautiem.SetCode("-1");
+                    txtHuongdieutri.SetCode("-1");
+                    txtKet_Luan.SetCode("-1");
+                    chkHennhaclai.Checked = false;
+                    cmdChuatiem.Enabled = cmdDatiem.Enabled = pnlPhanungsautiem.Enabled = false;
+                }
             }
+            
         }
 
         void _CheckedChanged(object sender, EventArgs e)
@@ -485,7 +603,10 @@ namespace VNS.HIS.UI.NGOAITRU
 
         void cmdLuuChandoan_Click(object sender, EventArgs e)
         {
-            _KCB_THAMKHAM.LuuHoibenhvaChandoan(TaoDulieuChandoanKetluan(),objChitiet,true);
+            if (chkPhanungVacxin.Checked)
+                Luurieng();
+            else
+                _KCB_THAMKHAM.LuuHoibenhvaChandoan(TaoDulieuChandoanKetluan(), null, true);
         }
 
         void grdPresDetail_UpdatingCell(object sender, UpdatingCellEventArgs e)
@@ -1324,7 +1445,7 @@ namespace VNS.HIS.UI.NGOAITRU
                    cmdXoaphieuVT.Enabled =
                    cmdSuaphieuVT.Enabled =Utility.isValidGrid( grdVTTH)  && !string.IsNullOrEmpty(m_strMaLuotkham);
 
-                cmdInbangke.Enabled = grdPresDetail.GetDataRows().Length > 0;
+                cmdInbangke.Enabled = _KcbChandoanKetluan != null && grdPresDetail.GetDataRows().Length > 0;
                 chkDaThucHien.Visible = chkDaThucHien.Checked;
                
                 if (objLuotkham.Locked == 1 || objLuotkham.TrangthaiNoitru>=1)
@@ -1351,7 +1472,7 @@ namespace VNS.HIS.UI.NGOAITRU
             cmdDatiem.Enabled =m_dtChitietDonthuoc!=null &&  m_dtChitietDonthuoc.Select("trangthai_chitiet=1").Length > 0;
             cmdChuatiem.Enabled = m_dtChitietDonthuoc != null && m_dtChitietDonthuoc.Select("da_dung=1").Length > 0;
             pnlPhanungsautiem.Enabled = m_dtChitietDonthuoc != null && m_dtChitietDonthuoc.Select("da_dung=1").Length > 0;
-            if (!pnlPhanungsautiem.Enabled) errorProvider1.SetError(chkPhanungVacxin, "Cần phát vắc xin cho Bệnh nhân trước khi thực hiện nhập liệu thông tin phản ứng sau tiêm chủng");
+            if (!pnlPhanungsautiem.Enabled) errorProvider1.SetError(chkPhanungVacxin, "Cần phát vắc xin cho Bệnh nhân và đánh dấu trạng thái Đã tiêm trước khi thực hiện nhập liệu thông tin phản ứng sau tiêm chủng");
         }
         private void Laythongtinchidinhngoaitru()
         {
@@ -1730,10 +1851,10 @@ namespace VNS.HIS.UI.NGOAITRU
                                          <KcbChandoanKetluan>();
                                  if (_KcbChandoanKetluan != null)
                                  {
-                                     txtKet_Luan._Text = Utility.sDbnull(_KcbChandoanKetluan.Ketluan);
-                                    // txtHuongdieutri.SetCode(_KcbChandoanKetluan.HuongDieutri);
-                                     txtHuongdieutri._Text=_KcbChandoanKetluan.HuongDieutri;
-                                     txtPhanungSautiem._Text = Utility.sDbnull(_KcbChandoanKetluan.PhanungSautiemchung);
+                                     txtKQ.SetCode(_KcbChandoanKetluan.Ketluan);
+                                     txtKet_Luan.SetCode(_KcbChandoanKetluan.KetluanNguyennhan);
+                                     txtHuongdieutri.SetCode(_KcbChandoanKetluan.HuongDieutri);
+                                     txtPhanungSautiem.SetCode(_KcbChandoanKetluan.PhanungSautiemchung);
                                      chkKPL1.Checked = Utility.Byte2Bool(_KcbChandoanKetluan.KPL1);
                                      chkKPL2.Checked = Utility.Byte2Bool(_KcbChandoanKetluan.KPL2);
                                      chkKPL3.Checked = Utility.Byte2Bool(_KcbChandoanKetluan.KPL3);
@@ -1779,7 +1900,6 @@ namespace VNS.HIS.UI.NGOAITRU
             finally
             {
                 ModifyCommmands();
-                KiemTraDaInPhoiBHYT();
             }
         }
        
@@ -1790,39 +1910,6 @@ namespace VNS.HIS.UI.NGOAITRU
             cmdDeletePres.Enabled = grdPresDetail.RowCount > 0 && !Utility.isTrue(lockstatus);
             cmdPrintPres.Enabled = grdPresDetail.RowCount > 0 && !string.IsNullOrEmpty(m_strMaLuotkham);
             ctxDelDrug.Enabled = cmdUpdatePres.Enabled;
-        }
-        private void KiemTraDaInPhoiBHYT()
-        {
-            lblMessage.Visible = objLuotkham != null && objLuotkham.MaDoituongKcb == "BHYT";
-            if (objLuotkham != null && objLuotkham.MaDoituongKcb == "BHYT")
-            {
-                SqlQuery sqlQuery = new Select().From(KcbPhieuDct.Schema)
-                    .Where(KcbPhieuDct.Columns.MaLuotkham).IsEqualTo(Utility.sDbnull(txtPatient_Code.Text))
-                    .And(KcbPhieuDct.Columns.IdBenhnhan).IsEqualTo(Utility.Int32Dbnull(txtPatient_ID.Text))
-                    .And(KcbPhieuDct.Columns.LoaiThanhtoan).IsEqualTo(Utility.Int32Dbnull(KieuThanhToan.NgoaiTru));
-                if (sqlQuery.GetRecordCount() > 0)
-                {
-                   
-                    var objPhieuDct = sqlQuery.ExecuteSingle<KcbPhieuDct>();
-                    if (objPhieuDct != null)
-                    {
-                        Utility.SetMsg(lblMessage,
-                            string.Format("Đã in phôi bởi {0}, vào lúc: {1}", objPhieuDct.NguoiTao,
-                                objPhieuDct.NgayTao), true);
-                        cmdSave.Enabled = false;
-                        toolTip1.SetToolTip(cmdSave, "Bệnh nhân đã kết thúc nên bạn không thể sửa thông tin được nữa");
-                        
-                    }
-                }
-                else
-                {
-                    cmdSave.Enabled = true;
-                    toolTip1.SetToolTip(cmdSave, "Nhấn vào đây để kết thúc khám cho Bệnh nhân(Phím tắt Ctrl+S)");
-                    lblMessage.Visible = false;
-                }
-            }//Đối tượng dịch vụ sẽ luôn hiển thị nút lưu
-            else
-                cmdSave.Enabled = true;
         }
         private string GetTenBenh(string MaBenh)
         {
@@ -2394,11 +2481,11 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             else
             {
-                notEnough1 = Utility.Byte2Bool(_KcbChandoanKetluan.KPL1) || Utility.Byte2Bool(_KcbChandoanKetluan.KPL2) || Utility.Byte2Bool(_KcbChandoanKetluan.KPL3)
-                    || Utility.Byte2Bool(_KcbChandoanKetluan.KPL4) || Utility.Byte2Bool(_KcbChandoanKetluan.KPL5)
-                    || Utility.Byte2Bool(_KcbChandoanKetluan.KPL6) || Utility.Byte2Bool(_KcbChandoanKetluan.KPL7) || Utility.Byte2Bool(_KcbChandoanKetluan.KPL8);
-                notEnough2 = Utility.Byte2Bool(_KcbChandoanKetluan.KL2) || Utility.Byte2Bool(_KcbChandoanKetluan.KL3);
-                Enough = Utility.Byte2Bool(_KcbChandoanKetluan.KL1);
+                //notEnough1 = Utility.Byte2Bool(_KcbChandoanKetluan.KPL1) || Utility.Byte2Bool(_KcbChandoanKetluan.KPL2) || Utility.Byte2Bool(_KcbChandoanKetluan.KPL3)
+                //    || Utility.Byte2Bool(_KcbChandoanKetluan.KPL4) || Utility.Byte2Bool(_KcbChandoanKetluan.KPL5)
+                //    || Utility.Byte2Bool(_KcbChandoanKetluan.KPL6) || Utility.Byte2Bool(_KcbChandoanKetluan.KPL7) || Utility.Byte2Bool(_KcbChandoanKetluan.KPL8);
+                //notEnough2 = Utility.Byte2Bool(_KcbChandoanKetluan.KL2) || Utility.Byte2Bool(_KcbChandoanKetluan.KL3);
+                //Enough = Utility.Byte2Bool(_KcbChandoanKetluan.KL1);
                 cmdLuuChandoan_Click(cmdLuuChandoan, new EventArgs());
                 return Enough && !notEnough1 && !notEnough2;
             }
@@ -2947,10 +3034,11 @@ namespace VNS.HIS.UI.NGOAITRU
                 _KcbChandoanKetluan.Nhiptho = "";
                 _KcbChandoanKetluan.Chieucao = "";
                 _KcbChandoanKetluan.Cannang = "";
-                _KcbChandoanKetluan.HuongDieutri = txtHuongdieutri.Text;// myCode.Trim();
+                _KcbChandoanKetluan.HuongDieutri = txtHuongdieutri.myCode.Trim();
                 _KcbChandoanKetluan.SongayDieutri = 0;
-                _KcbChandoanKetluan.Ketluan = Utility.sDbnull(txtKet_Luan.Text, "");
-                _KcbChandoanKetluan.PhanungSautiemchung = Utility.sDbnull(txtPhanungSautiem.Text, "");
+                _KcbChandoanKetluan.Ketluan = txtKQ.myCode;
+                _KcbChandoanKetluan.KetluanNguyennhan = txtKet_Luan.myCode;
+                _KcbChandoanKetluan.PhanungSautiemchung = txtPhanungSautiem.myCode;
                 _KcbChandoanKetluan.KPL1 = Utility.Bool2byte(chkKPL1.Checked);
                 _KcbChandoanKetluan.KPL2 = Utility.Bool2byte(chkKPL2.Checked);
                 _KcbChandoanKetluan.KPL3 = Utility.Bool2byte(chkKPL3.Checked);
@@ -3038,11 +3126,11 @@ namespace VNS.HIS.UI.NGOAITRU
                 cmdSave.Focus();
                 return false;
             }
-            if (Utility.DoTrim( txtKet_Luan.Text)=="")
+            if (Utility.DoTrim(txtKQ.Text) == "")
             {
                 Utility.SetMsg(lblMsg, "Bạn cần nhập kết quả tiêm chủng cho bệnh nhân", true);
                 tabDiagInfo.SelectedTab = tabPageChanDoan;
-                txtKet_Luan.Focus();
+                txtKQ.Focus();
                 return false;
             }
             

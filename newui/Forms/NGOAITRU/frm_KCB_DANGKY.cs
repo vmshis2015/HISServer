@@ -1187,6 +1187,8 @@ namespace VNS.HIS.UI.NGOAITRU
                     chkTraiTuyen.Checked = Utility.Int32Dbnull(objLuotkham.DungTuyen, 0) == 0;
                     lblTuyenBHYT.Text = chkTraiTuyen.Checked ? "TRÁI TUYẾN" : "ĐÚNG TUYẾN";
                     txtEmail.Text = objLuotkham.Email;
+                    txtNguoiLienhe.Text = objLuotkham.NguoiLienhe;
+                    
                     txtNoigioithieu.Text = objLuotkham.NoiGioithieu;
                     txtLoaiBN.SetCode(objLuotkham.NhomBenhnhan);
                     _MaDoituongKcb = Utility.sDbnull(objLuotkham.MaDoituongKcb);
@@ -2506,6 +2508,7 @@ namespace VNS.HIS.UI.NGOAITRU
             txtDantoc.Clear();
             txtTrieuChungBD.Clear();
             txtSoDT.Clear();
+            txtNguoiLienhe.Clear();
             chkChuyenVien.Checked = false;
             txtNoichuyenden.SetCode("-1");
             txtKieuKham.ClearMe();
@@ -2766,6 +2769,12 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải nhập ngày tháng năm sinh, hoặc năm sinh cho bệnh nhân ", true);
                 txtNamSinh.Focus();
+                return false;
+            }
+            if (Utility.Int32Dbnull(txtTuoi.Text,-1)<0)
+            {
+                Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Tuổi Bệnh nhân phải lớn hơn hoặc bằng không. Mời bạn kiểm tra lại", true);
+                txtTuoi.Focus();
                 return false;
             }
             if (cboPatientSex.SelectedIndex<0)
@@ -5749,6 +5758,8 @@ namespace VNS.HIS.UI.NGOAITRU
             objLuotkham.CachTao = 0;
             objLuotkham.Email = txtEmail.Text;
             objLuotkham.NoiGioithieu = txtNoigioithieu.Text;
+            
+            objLuotkham.NguoiLienhe = Utility.sDbnull(txtNguoiLienhe.Text);
             objLuotkham.NhomBenhnhan = txtLoaiBN.myCode;
             objLuotkham.IdBenhvienDen = Utility.Int16Dbnull(txtNoichuyenden.MyID, -1);
             objLuotkham.TthaiChuyenden = (byte)(chkChuyenVien.Checked ? 1 : 0);
