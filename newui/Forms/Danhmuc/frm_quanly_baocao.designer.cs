@@ -143,7 +143,7 @@
             this.cmdThemMoi.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdThemMoi.Name = "cmdThemMoi";
             this.cmdThemMoi.Size = new System.Drawing.Size(90, 28);
-            this.cmdThemMoi.Text = "&Thêm mới";
+            this.cmdThemMoi.Text = "Thêm mới";
             // 
             // toolStripSeparator1
             // 
@@ -157,8 +157,8 @@
             this.cmdSua.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdSua.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdSua.Name = "cmdSua";
-            this.cmdSua.Size = new System.Drawing.Size(115, 28);
-            this.cmdSua.Text = "&Sửa thông tin ";
+            this.cmdSua.Size = new System.Drawing.Size(84, 28);
+            this.cmdSua.Text = "Cập nhật";
             // 
             // toolStripSeparator2
             // 
@@ -172,8 +172,8 @@
             this.cmdXoa.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdXoa.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdXoa.Name = "cmdXoa";
-            this.cmdXoa.Size = new System.Drawing.Size(114, 28);
-            this.cmdXoa.Text = "&Xóa thông tin ";
+            this.cmdXoa.Size = new System.Drawing.Size(55, 28);
+            this.cmdXoa.Text = "Xóa";
             // 
             // cmdXML
             // 
@@ -182,7 +182,7 @@
             this.cmdXML.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdXML.Name = "cmdXML";
             this.cmdXML.Size = new System.Drawing.Size(81, 28);
-            this.cmdXML.Text = "&Xuất XML";
+            this.cmdXML.Text = "Xuất XML";
             this.cmdXML.Click += new System.EventHandler(this.cmdXML_Click);
             // 
             // cmdUpdateXml
@@ -193,7 +193,7 @@
             this.cmdUpdateXml.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdUpdateXml.Name = "cmdUpdateXml";
             this.cmdUpdateXml.Size = new System.Drawing.Size(104, 28);
-            this.cmdUpdateXml.Text = "&Update XML";
+            this.cmdUpdateXml.Text = "Update XML";
             this.cmdUpdateXml.Click += new System.EventHandler(this.cmdUpdateXml_Click);
             // 
             // cmdThoat
@@ -203,7 +203,7 @@
             this.cmdThoat.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdThoat.Name = "cmdThoat";
             this.cmdThoat.Size = new System.Drawing.Size(91, 28);
-            this.cmdThoat.Text = "&Thoát(Esc)";
+            this.cmdThoat.Text = "Thoát(Esc)";
             // 
             // grdList
             // 

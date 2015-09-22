@@ -137,6 +137,10 @@ namespace VNS.HIS.UI.DANHMUC
                 Utility.GonewRowJanus(grdList, SysReport.Columns.MaBaocao, objReport.MaBaocao);
                 if (chkThemlientuc.Checked)
                     ResetControls();
+                else
+                {
+                    this.Text = "Cập nhật";
+                }
             }
             catch (Exception ex) { }
         }
@@ -187,6 +191,7 @@ namespace VNS.HIS.UI.DANHMUC
                 }
             }
             m_enAct = action.Insert;
+            this.Text = "Thêm mới";
             objReport = new SysReport();
             txtMa.Enabled = true;
             txtMa.Focus();

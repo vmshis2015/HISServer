@@ -60,7 +60,7 @@
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(106, 32);
             this.cmdExit.TabIndex = 7;
-            this.cmdExit.Text = "&Thoát(Esc)";
+            this.cmdExit.Text = "Thoát(Esc)";
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
             // 
             // cmdSave
@@ -73,7 +73,7 @@
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(106, 32);
             this.cmdSave.TabIndex = 6;
-            this.cmdSave.Text = "&Lưu lại";
+            this.cmdSave.Text = "Ghi";
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
             // grpControl
