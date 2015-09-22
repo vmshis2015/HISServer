@@ -2260,10 +2260,16 @@ DisplayName("HIS Application Mode")]
      Description("Cho phép nhập giá BHYT"),
      DisplayName("Cho phép nhập giá BHYT")]
         public bool NhapgiaBHYT { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Cấu Hình nhập kho "),
+    Description("Thời gian tự động lưu phiếu nhập kho(tính=giây)"),
+    DisplayName("Tự động lưu phiếu nhập kho sau:")]
+        public int autosaveAfter { get; set; }
        
         // public string Ke { get; set; }
         public NhapkhoProperties()
         {
+            autosaveAfter = 30;
             Themmoilientuc = true;
             CoThangDu = false;
             Nhapgiaban = true;
