@@ -14,7 +14,7 @@ namespace VNS.HIS.UI.Forms.Cauhinh
     {
         public string v_Patient_Code = "";
         public DateTime pdt_InputDate = globalVariables.SysDate;
-        public bool b_Cancel = false;
+        public bool b_Cancel = true;
         public bool _hienthinhanvien = false;
         public frm_ChonngayXacnhan()
         {
@@ -53,7 +53,7 @@ namespace VNS.HIS.UI.Forms.Cauhinh
                 txtNhanvien.Focus();
                 return;
             }
-            b_Cancel = true;
+            b_Cancel = false;
             pdt_InputDate = dtCreateDate.Value;
             this.Close();
         }
