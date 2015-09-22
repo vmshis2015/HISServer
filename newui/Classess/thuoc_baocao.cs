@@ -390,12 +390,10 @@ namespace VNS.HIS.UI.Baocao
               if (theonhom)
               {
                   reportcode = "thuoc_baocao_nhapxuatton_khochan_theonhom";
-                  crpt = Utility.GetReport("thuoc_baocao_nhapxuatton_khochan_theonhom", ref tieude, ref reportname);
               }
               else
               {
                   reportcode = "thuoc_baocao_nhapxuatton_khochan";
-                  crpt = Utility.GetReport("thuoc_baocao_nhapxuatton_khochan", ref tieude, ref reportname);
               }
           }
           else//VTTH
@@ -403,14 +401,13 @@ namespace VNS.HIS.UI.Baocao
               if (theonhom)
               {
                   reportcode = "vt_baocao_nhapxuatton_khochan_theonhom";
-                  crpt = Utility.GetReport("vt_baocao_nhapxuatton_khochan_theonhom", ref tieude, ref reportname);
               }
               else
               {
                   reportcode = "vt_baocao_nhapxuatton_khochan";
-                  crpt = Utility.GetReport("vt_baocao_nhapxuatton_khochan", ref tieude, ref reportname);
               }
           }
+          crpt = Utility.GetReport(reportcode, ref tieude, ref reportname);
           if (crpt == null) return;
           
           MoneyByLetter _moneyByLetter = new MoneyByLetter();
@@ -448,7 +445,135 @@ namespace VNS.HIS.UI.Baocao
               Utility.CatchException(ex);
           }
       }
+      public static void BaocaoPhanungthongthuongSautiemchung(DataTable m_dtReport, DateTime NgayIn, string FromDateToDate, bool theonhom)
+      {
 
+          string tieude = "", reportname = "", reportcode = "vacxin_baocao_phanungthongthuong_sautiemchung_theonhom";
+          ReportDocument crpt = null;
+
+          if (theonhom)
+          {
+              reportcode = "vacxin_baocao_phanungthongthuong_sautiemchung_theonhom";
+          }
+          else
+          {
+              reportcode = "vacxin_baocao_phanungthongthuong_sautiemchung";
+          }
+          crpt = Utility.GetReport(reportcode, ref tieude, ref reportname);
+          if (crpt == null) return;
+
+          MoneyByLetter _moneyByLetter = new MoneyByLetter();
+          var objForm = new frmPrintPreview(tieude, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+          objForm.mv_sReportFileName = Path.GetFileName(reportname);
+          objForm.mv_sReportCode = reportcode;
+          Utility.UpdateLogotoDatatable(ref m_dtReport);
+          try
+          {
+              if (theonhom)
+                  m_dtReport.DefaultView.Sort = "stt_hthi_loaithuoc,ten_benhnhan,tenthuoc_bietduoc";
+              else
+                  m_dtReport.DefaultView.Sort = "ten_benhnhan,tenthuoc_bietduoc";
+              m_dtReport.AcceptChanges();
+              crpt.SetDataSource(m_dtReport.DefaultView);
+              Utility.SetParameterValue(crpt, "FromDateToDate", FromDateToDate);
+              Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
+              Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+              Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+              objForm.crptViewer.ReportSource = crpt;
+              objForm.ShowDialog();
+          }
+          catch (Exception ex)
+          {
+              Utility.CatchException(ex);
+          }
+      }
+      public static void BaocaoPhanungnangSautiemchung(DataTable m_dtReport, DateTime NgayIn, string FromDateToDate, bool theonhom)
+      {
+
+          string tieude = "", reportname = "", reportcode = "vacxin_baocao_phanungnang_sautiemchung";
+          ReportDocument crpt = null;
+
+          if (theonhom)
+          {
+              reportcode = "vacxin_baocao_phanungnang_sautiemchung_theonhom";
+          }
+          else
+          {
+              reportcode = "vacxin_baocao_phanungnang_sautiemchung";
+          }
+          crpt = Utility.GetReport(reportcode, ref tieude, ref reportname);
+          if (crpt == null) return;
+
+          MoneyByLetter _moneyByLetter = new MoneyByLetter();
+          var objForm = new frmPrintPreview(tieude, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+          objForm.mv_sReportFileName = Path.GetFileName(reportname);
+          objForm.mv_sReportCode = reportcode;
+          Utility.UpdateLogotoDatatable(ref m_dtReport);
+          try
+          {
+              if (theonhom)
+                  m_dtReport.DefaultView.Sort = "stt_hthi_loaithuoc,ten_benhnhan,tenthuoc_bietduoc";
+              else
+                  m_dtReport.DefaultView.Sort = "ten_benhnhan,tenthuoc_bietduoc";
+              m_dtReport.AcceptChanges();
+              crpt.SetDataSource(m_dtReport.DefaultView);
+              Utility.SetParameterValue(crpt, "FromDateToDate", FromDateToDate);
+              Utility.SetParameterValue(crpt, "ten_donvi", globalVariables.Branch_Name);
+              Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
+              Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+              Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+              objForm.crptViewer.ReportSource = crpt;
+              objForm.ShowDialog();
+          }
+          catch (Exception ex)
+          {
+              Utility.CatchException(ex);
+          }
+      }
+      public static void BaocaotinhinhsudungVacxin(DataTable m_dtReport, string kieuthuoc_vt, string sTitleReport, string _tondau, string _toncuoi, DateTime NgayIn, string FromDateToDate, string tenkho, bool theonhom)
+      {
+
+          string tieude = "", reportname = "", reportcode = "vacxin_baocao_tinhinhsudung_theonhom";
+          ReportDocument crpt = null;
+
+          if (theonhom)
+          {
+              reportcode = "vacxin_baocao_tinhinhsudung_theonhom";
+          }
+          else
+          {
+              reportcode = "vacxin_baocao_tinhinhsudung";
+          }
+          crpt = Utility.GetReport(reportcode, ref tieude, ref reportname);
+          if (crpt == null) return;
+
+          MoneyByLetter _moneyByLetter = new MoneyByLetter();
+          var objForm = new frmPrintPreview(sTitleReport, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+          objForm.mv_sReportFileName = Path.GetFileName(reportname);
+          objForm.mv_sReportCode = reportcode;
+          Utility.UpdateLogotoDatatable(ref m_dtReport);
+          try
+          {
+              if (theonhom)
+                  m_dtReport.DefaultView.Sort = "stt_hthi_nhom,tenbietduoc";
+              else
+                  m_dtReport.DefaultView.Sort = "tenbietduoc";
+              m_dtReport.AcceptChanges();
+              crpt.SetDataSource(m_dtReport.DefaultView);
+              Utility.SetParameterValue(crpt, "Tondau", _tondau);
+              Utility.SetParameterValue(crpt, "Toncuoi", _toncuoi);
+              Utility.SetParameterValue(crpt, "FromDateToDate", FromDateToDate);
+              Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
+              Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+              Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+              objForm.crptViewer.ReportSource = crpt;
+              objForm.ShowDialog();
+          }
+          catch (Exception ex)
+          {
+              Utility.CatchException(ex);
+          }
+      }
       public static void BaocaoNhapxuattonTheoquy(DataTable m_dtReport, string kieuthuoc_vt, string sTitleReport, string _tondau,string _toncuoi,DateTime NgayIn, string FromDateToDate, string tenkho, bool theonhom)
       {
 
@@ -459,12 +584,10 @@ namespace VNS.HIS.UI.Baocao
               if (theonhom)
               {
                   reportcode = "thuoc_baocao_nhapxuatton_theoquy_theonhom";
-                  crpt = Utility.GetReport("thuoc_baocao_nhapxuatton_theoquy_theonhom", ref tieude, ref reportname);
               }
               else
               {
                   reportcode = "thuoc_baocao_nhapxuatton_theoquy";
-                  crpt = Utility.GetReport("thuoc_baocao_nhapxuatton_theoquy", ref tieude, ref reportname);
               }
           }
           else//VTTH
@@ -472,14 +595,13 @@ namespace VNS.HIS.UI.Baocao
               if (theonhom)
               {
                   reportcode = "vt_baocao_nhapxuatton_theoquy_theonhom";
-                  crpt = Utility.GetReport("vt_baocao_nhapxuatton_theoquy_theonhom", ref tieude, ref reportname);
               }
               else
               {
                   reportcode = "vt_baocao_nhapxuatton_theoquy";
-                  crpt = Utility.GetReport("vt_baocao_nhapxuatton_theoquy", ref tieude, ref reportname);
               }
           }
+          crpt = Utility.GetReport(reportcode, ref tieude, ref reportname);
           if (crpt == null) return;
 
           MoneyByLetter _moneyByLetter = new MoneyByLetter();
@@ -511,7 +633,7 @@ namespace VNS.HIS.UI.Baocao
               Utility.SetParameterValue(crpt, "tenkho", tenkho);
               Utility.SetParameterValue(crpt, "thanhtien_bangchu", _moneyByLetter.sMoneyToLetter(tinhtong.ToString()));
               Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
-              Utility.SetParameterValue(crpt, "sTitleReport", sTitleReport);
+              Utility.SetParameterValue(crpt, "sTitleReport", tieude);
               Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
               objForm.crptViewer.ReportSource = crpt;
               objForm.ShowDialog();
@@ -519,10 +641,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
       public static void BaocaoNhapxuattonTheoKhoanoitru(DataTable m_dtReport, string kieuthuoc_vt, string sTitleReport, string _tondau, string _toncuoi, DateTime NgayIn, string FromDateToDate, string tenkhoa, bool theonhom)
@@ -535,12 +654,10 @@ namespace VNS.HIS.UI.Baocao
               if (theonhom)
               {
                   reportcode = "thuoc_baocao_nhapxuatton_theokhoanoitru_theonhom";
-                  crpt = Utility.GetReport("thuoc_baocao_nhapxuatton_theokhoanoitru_theonhom", ref tieude, ref reportname);
               }
               else
               {
                   reportcode = "thuoc_baocao_nhapxuatton_theokhoanoitru";
-                  crpt = Utility.GetReport("thuoc_baocao_nhapxuatton_theokhoanoitru", ref tieude, ref reportname);
               }
           }
           else//VTTH
@@ -548,14 +665,13 @@ namespace VNS.HIS.UI.Baocao
               if (theonhom)
               {
                   reportcode = "vt_baocao_nhapxuatton_theokhoanoitru_theonhom";
-                  crpt = Utility.GetReport("vt_baocao_nhapxuatton_theokhoanoitru_theonhom", ref tieude, ref reportname);
               }
               else
               {
                   reportcode = "vt_baocao_nhapxuatton_theokhoanoitru";
-                  crpt = Utility.GetReport("vt_baocao_nhapxuatton_theokhoanoitru", ref tieude, ref reportname);
               }
           }
+          crpt = Utility.GetReport(reportcode, ref tieude, ref reportname);
           if (crpt == null) return;
 
           MoneyByLetter _moneyByLetter = new MoneyByLetter();
@@ -586,7 +702,7 @@ namespace VNS.HIS.UI.Baocao
               Utility.SetParameterValue(crpt, "tenkhoa", tenkhoa);
               Utility.SetParameterValue(crpt, "thanhtien_bangchu", _moneyByLetter.sMoneyToLetter(tinhtong.ToString()));
               Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
-              Utility.SetParameterValue(crpt, "sTitleReport", sTitleReport);
+              Utility.SetParameterValue(crpt, "sTitleReport", tieude);
               Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
               objForm.crptViewer.ReportSource = crpt;
               objForm.ShowDialog();
@@ -594,10 +710,7 @@ namespace VNS.HIS.UI.Baocao
           }
           catch (Exception ex)
           {
-              if (globalVariables.IsAdmin)
-              {
-                  Utility.ShowMsg(ex.ToString());
-              }
+              Utility.CatchException(ex);
           }
       }
       public static void Baocaohuychot(DataTable m_dtReport, string kieuthuoc_vt, string sTitleReport,  string dieukienbaocao, bool theonhom)
@@ -610,12 +723,10 @@ namespace VNS.HIS.UI.Baocao
               if (theonhom)
               {
                   reportcode = "thuoc_baocao_huychot_theonhom";
-                  crpt = Utility.GetReport("thuoc_baocao_huychot_theonhom", ref tieude, ref reportname);
               }
               else
               {
                   reportcode = "thuoc_baocao_huychot";
-                  crpt = Utility.GetReport("thuoc_baocao_huychot", ref tieude, ref reportname);
               }
           }
           else//VTTH
@@ -623,14 +734,13 @@ namespace VNS.HIS.UI.Baocao
               if (theonhom)
               {
                   reportcode = "vt_baocao_huychot_theonhom";
-                  crpt = Utility.GetReport("vt_baocao_huychot_theonhom", ref tieude, ref reportname);
               }
               else
               {
                   reportcode = "vt_baocao_huychot";
-                  crpt = Utility.GetReport("vt_baocao_huychot", ref tieude, ref reportname);
               }
           }
+          crpt = Utility.GetReport(reportcode, ref tieude, ref reportname);
           if (crpt == null) return;
 
           MoneyByLetter _moneyByLetter = new MoneyByLetter();
