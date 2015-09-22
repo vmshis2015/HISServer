@@ -268,6 +268,9 @@ namespace VNS.HIS.UI.THUOC
                         frm_ChonngayXacnhan _ChonngayXacnhan = new frm_ChonngayXacnhan();
                         _ChonngayXacnhan.pdt_InputDate = objTPhieuNhapxuatthuoc.NgayHoadon;
                         _ChonngayXacnhan.ShowDialog();
+                        if (_ChonngayXacnhan.b_Cancel)
+                            return;
+                        else
                         _ngayxacnhan = _ChonngayXacnhan.pdt_InputDate;
                     }
                     ActionResult actionResult =

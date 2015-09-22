@@ -257,8 +257,13 @@ namespace VNS.HIS.UI.THUOC
                         frm_ChonngayXacnhan _ChonngayXacnhan = new frm_ChonngayXacnhan();
                         _ChonngayXacnhan.pdt_InputDate = objTPhieutrathuocthua.NgayLapphieu;
                         _ChonngayXacnhan.ShowDialog();
-                        _ngayxacnhan = _ChonngayXacnhan.pdt_InputDate;
-                        _nguoitra = _ChonngayXacnhan.txtNhanvien.Text;
+                        if (_ChonngayXacnhan.b_Cancel)
+                            return;
+                        else
+                        {
+                            _ngayxacnhan = _ChonngayXacnhan.pdt_InputDate;
+                            _nguoitra = _ChonngayXacnhan.txtNhanvien.Text;
+                        }
                         objTPhieutrathuocthua.NgayTra = _ngayxacnhan;
                         objTPhieutrathuocthua.NguoiTra = Utility.Int16Dbnull(_ChonngayXacnhan.txtNhanvien.MyID, -1);
                         ActionResult actionResult =

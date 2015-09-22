@@ -15,6 +15,7 @@ using VNS.HIS.UI.THUOC;
 using VNS.Properties;
 using VNS.HIS.NGHIEPVU.THUOC;
 using VNS.HIS.UI.DANHMUC;
+using System.Threading;
 
 namespace VNS.HIS.UI.THUOC
 {
@@ -39,12 +40,29 @@ namespace VNS.HIS.UI.THUOC
         public frm_Themmoi_Phieunhapkho()
         {
             InitializeComponent();
-           
-            
+            if (PropertyLib._NhapkhoProperties.autosaveAfter > 0)
+            {
+                using (BackgroundWorker _worker = new BackgroundWorker())
+                {
+                    _worker.DoWork += _worker_DoWork;
+                    if (!_worker.IsBusy)
+                        _worker.RunWorkerAsync();
+                }
+            }
             
             dtNgayHetHan.Value = dtNgayNhap.Value =globalVariables.SysDate;
             InitEvents();
             CauHinh();
+        }
+        bool _Autosave = false;
+        void _worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                Thread.Sleep(PropertyLib._NhapkhoProperties.autosaveAfter*1000);
+                _Autosave = true;
+                AutoSave();
+            }
         }
         void InitEvents()
         {
@@ -193,7 +211,7 @@ namespace VNS.HIS.UI.THUOC
             if (!PropertyLib._NhapkhoProperties.CoThangDu) nmrThangDu.Value = 0;
             txtGiaban.Enabled = PropertyLib._NhapkhoProperties.Nhapgiaban;
             txtGiaban.BackColor = PropertyLib._NhapkhoProperties.Nhapgiaban ? txtSoluong.BackColor : txtThanhTien.BackColor;
-
+           
             //chkGiaBHYT.Enabled = BHYT_CHOPHEPNHAPGIA;
             //if (!BHYT_CHOPHEPNHAPGIA) chkGiaBHYT.Checked = false;
             //txtGiaBHYT.Enabled = chkGiaBHYT.Checked && BHYT_CHOPHEPNHAPGIA;
@@ -667,20 +685,23 @@ namespace VNS.HIS.UI.THUOC
             Utility.SetMsg(uiStatusBar1.Panels["MSG"], "", false);
             if (string.IsNullOrEmpty(txtSoHoaDon.Text))
             {
-                Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải nhập số hóa đơn", true);
+                if (!_Autosave)
+                    Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải nhập số hóa đơn", true);
                 txtSoHoaDon.Focus();
                 return false;
 
             }
-            if ( txtNhacungcap.myCode== "-1")
+            if (txtNhacungcap.myCode == "-1")
             {
-                Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải chọn nhà cung cấp", true);
+                if (!_Autosave)
+                    Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải chọn nhà cung cấp", true);
                 txtNhacungcap.Focus();
                 return false;
             }
             if (cboKhoNhap.SelectedValue.ToString() == "-1")
             {
-                Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải chọn kho để nhập thuốc", true);
+                if (!_Autosave)
+                    Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải chọn kho để nhập thuốc", true);
                 cboKhoNhap.Focus();
                 return false;
             }
@@ -688,10 +709,11 @@ namespace VNS.HIS.UI.THUOC
             {
                 txtTongTien.Focus();
                 txtTongTien.SelectAll();
-                Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Tổng tiền hóa đơn phải bằng tổng tiền nhập",true);
+                if (!_Autosave)
+                    Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Tổng tiền hóa đơn phải bằng tổng tiền nhập", true);
                 return false;
             }
-           
+
             return true;
         }
         /// <summary>
@@ -799,8 +821,10 @@ namespace VNS.HIS.UI.THUOC
         /// <param name="e"></param>
         private void cmdSave_Click(object sender, EventArgs e)
         {
+            cmdSave.Enabled = false;
             if(!IsValidNhapKho())return;
             PerformAction();
+            cmdSave.Enabled = true;
         }
         private void PerformAction()
         {
@@ -814,37 +838,56 @@ namespace VNS.HIS.UI.THUOC
                     break;
             }
         }
+        private void AutoSave()
+        {
+            switch (em_Action)
+            {
+                case action.Insert:
+                    AutoInsert();
+                    break;
+                case action.Update:
+                    AutoUpdate();
+                    break;
+            }
+        }
         #region "khai báo các đối tượng để thực hiện việc "
         private TPhieuNhapxuatthuoc CreatePhieuNhapKho()
         {
             TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc=new TPhieuNhapxuatthuoc();
             if(em_Action==action.Update)
             {
-                objTPhieuNhapxuatthuoc.MarkOld();
-                objTPhieuNhapxuatthuoc.IsLoaded = true;
-                objTPhieuNhapxuatthuoc.IdPhieu = Utility.Int32Dbnull(txtIDPhieuNhapKho.Text,-1);
+                objTPhieuNhapxuatthuoc = TPhieuNhapxuatthuoc.FetchByID(Utility.Int32Dbnull(txtIDPhieuNhapKho.Text,-1));
+                
             }
-            objTPhieuNhapxuatthuoc.SoHoadon = Utility.sDbnull(txtSoHoaDon.Text);
-            objTPhieuNhapxuatthuoc.IdKhonhap = Utility.Int16Dbnull(cboKhoNhap.SelectedValue, -1);
-            objTPhieuNhapxuatthuoc.MaNhacungcap = txtNhacungcap.myCode;
-            objTPhieuNhapxuatthuoc.MotaThem = Utility.DoTrim(txtLyDoNhap.Text);
-            objTPhieuNhapxuatthuoc.TrangThai = 0;
-            objTPhieuNhapxuatthuoc.PhieuVay = Utility.Bool2byte(chkPhieuvay.Checked);
-            objTPhieuNhapxuatthuoc.IdNhanvien = Utility.Int16Dbnull(cboNhanVien.SelectedValue, -1);
-            if (Utility.Int32Dbnull(objTPhieuNhapxuatthuoc.IdNhanvien, -1) <= 0)
-                objTPhieuNhapxuatthuoc.IdNhanvien = globalVariables.gv_intIDNhanvien;
-            objTPhieuNhapxuatthuoc.NgayHoadon =dtNgayNhap.Value;
-            objTPhieuNhapxuatthuoc.NgayTao = globalVariables.SysDate;
-            objTPhieuNhapxuatthuoc.NguoiTao = globalVariables.UserName;
-            objTPhieuNhapxuatthuoc.NguoiGiao = Utility.DoTrim(txtNguoiGiao.Text);
-            objTPhieuNhapxuatthuoc.NguoiNhan = Utility.DoTrim(txtNguoinhan.Text);
-            objTPhieuNhapxuatthuoc.TkNo = Utility.DoTrim(txtNo.Text);
-            objTPhieuNhapxuatthuoc.TkCo = Utility.DoTrim(txtCo.Text);
-            objTPhieuNhapxuatthuoc.SoChungtuKemtheo = Utility.DoTrim(txtSoCTkemtheo.Text);
-            objTPhieuNhapxuatthuoc.Vat = Utility.DecimaltoDbnull(txtVAT.Text);
-            objTPhieuNhapxuatthuoc.LoaiPhieu =(byte) LoaiPhieu.PhieuNhapKho;
-            objTPhieuNhapxuatthuoc.TenLoaiphieu = Utility.TenLoaiPhieu(LoaiPhieu.PhieuNhapKho);
-            objTPhieuNhapxuatthuoc.KieuThuocvattu = KIEU_THUOC_VT;
+            if (objTPhieuNhapxuatthuoc != null)
+            {
+                if (objTPhieuNhapxuatthuoc.IdPhieu > 0)
+                {
+                    objTPhieuNhapxuatthuoc.MarkOld();
+                    objTPhieuNhapxuatthuoc.IsNew = false;
+                }
+                objTPhieuNhapxuatthuoc.SoHoadon = Utility.sDbnull(txtSoHoaDon.Text);
+                objTPhieuNhapxuatthuoc.IdKhonhap = Utility.Int16Dbnull(cboKhoNhap.SelectedValue, -1);
+                objTPhieuNhapxuatthuoc.MaNhacungcap = txtNhacungcap.myCode;
+                objTPhieuNhapxuatthuoc.MotaThem = Utility.DoTrim(txtLyDoNhap.Text);
+                objTPhieuNhapxuatthuoc.TrangThai = 0;
+                objTPhieuNhapxuatthuoc.PhieuVay = Utility.Bool2byte(chkPhieuvay.Checked);
+                objTPhieuNhapxuatthuoc.IdNhanvien = Utility.Int16Dbnull(cboNhanVien.SelectedValue, -1);
+                if (Utility.Int32Dbnull(objTPhieuNhapxuatthuoc.IdNhanvien, -1) <= 0)
+                    objTPhieuNhapxuatthuoc.IdNhanvien = globalVariables.gv_intIDNhanvien;
+                objTPhieuNhapxuatthuoc.NgayHoadon = dtNgayNhap.Value;
+                objTPhieuNhapxuatthuoc.NgayTao = globalVariables.SysDate;
+                objTPhieuNhapxuatthuoc.NguoiTao = globalVariables.UserName;
+                objTPhieuNhapxuatthuoc.NguoiGiao = Utility.DoTrim(txtNguoiGiao.Text);
+                objTPhieuNhapxuatthuoc.NguoiNhan = Utility.DoTrim(txtNguoinhan.Text);
+                objTPhieuNhapxuatthuoc.TkNo = Utility.DoTrim(txtNo.Text);
+                objTPhieuNhapxuatthuoc.TkCo = Utility.DoTrim(txtCo.Text);
+                objTPhieuNhapxuatthuoc.SoChungtuKemtheo = Utility.DoTrim(txtSoCTkemtheo.Text);
+                objTPhieuNhapxuatthuoc.Vat = Utility.DecimaltoDbnull(txtVAT.Text);
+                objTPhieuNhapxuatthuoc.LoaiPhieu = (byte)LoaiPhieu.PhieuNhapKho;
+                objTPhieuNhapxuatthuoc.TenLoaiphieu = Utility.TenLoaiPhieu(LoaiPhieu.PhieuNhapKho);
+                objTPhieuNhapxuatthuoc.KieuThuocvattu = KIEU_THUOC_VT;
+            }
             return objTPhieuNhapxuatthuoc;
         }
         /// <summary>
@@ -911,6 +954,7 @@ namespace VNS.HIS.UI.THUOC
             switch (actionResult)
             {
                 case ActionResult.Success:
+                    
                     txtIDPhieuNhapKho.Text = Utility.sDbnull(objPhieuNhap.IdPhieu);
                     txtMaPhieu.Text = Utility.sDbnull(objPhieuNhap.MaPhieu);
                     TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc = TPhieuNhapxuatthuoc.FetchByID(Utility.Int32Dbnull(txtIDPhieuNhapKho.Text));
@@ -923,13 +967,18 @@ namespace VNS.HIS.UI.THUOC
                     Utility.GonewRowJanus(grdList,TPhieuNhapxuatthuoc.Columns.IdPhieu,Utility.sDbnull(txtIDPhieuNhapKho.Text));
                     Utility.SetMsg(uiStatusBar1.Panels["MSG"] ,"Thêm mới phiếu thành công",false);
                     em_Action = action.Update;
-                    ClearControlPhieu();
                     ClearControl();
-                    txtSoHoaDon.Focus();
+                    if (!_Autosave)
+                    {
+                        ClearControlPhieu();
+                        txtSoHoaDon.Focus();
+                    }
                     b_Cancel = true;
-                    if (PropertyLib._NhapkhoProperties.Themmoilientuc) cmdThemPhieuNhap.PerformClick();
+                    if (PropertyLib._NhapkhoProperties.Themmoilientuc && !_Autosave) cmdThemPhieuNhap.PerformClick();
                     else
-                        this.Close();
+                        if (!_Autosave)
+                            this.Close();
+                    _Autosave = false;
                     break;
                 case ActionResult.Error:
                     Utility.ShowMsg("Lỗi trong quá trình thêm phiếu", "Thông báo lỗi",MessageBoxIcon.Error);
@@ -967,15 +1016,90 @@ namespace VNS.HIS.UI.THUOC
                     Utility.GonewRowJanus(grdList, TPhieuNhapxuatthuoc.Columns.IdPhieu, Utility.sDbnull(txtIDPhieuNhapKho.Text));
                     Utility.SetMsg(uiStatusBar1.Panels["MSG"] ,"Bạn sửa  phiếu thành công", false);
                     em_Action = action.Insert;
-                    ClearControlPhieu();
                     ClearControl();
+                    if (!_Autosave)
+                    {
+                        ClearControlPhieu();
+                    }
                     b_Cancel = true;
-                    //if (PropertyLib._NhapkhoProperties.Themmoilientuc) cmdThemPhieuNhap.PerformClick();
-                    //else
+                    if (!_Autosave)
                         this.Close();
+                    _Autosave = false;
                     break;
                 case ActionResult.Error:
                     Utility.ShowMsg("Lỗi trong quá trình sửa phiếu", "Thông báo lỗi", MessageBoxIcon.Error);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// hàm thực hiện việc thêm phiếu nhập kho thuốc
+        /// </summary>
+        private void AutoInsert()
+        {
+            TPhieuNhapxuatthuoc objPhieuNhap = CreatePhieuNhapKho();
+            List<TPhieuNhapxuatthuocChitiet> lstDetail = GetReceiptDetails();
+            if (lstDetail.Count <= 0 || objPhieuNhap==null )
+            {
+
+                return;
+            }
+            ActionResult actionResult = new THUOC_NHAPKHO().ThemPhieuNhapKho(objPhieuNhap, lstDetail);
+            switch (actionResult)
+            {
+                case ActionResult.Success:
+
+                    txtIDPhieuNhapKho.Text = Utility.sDbnull(objPhieuNhap.IdPhieu);
+                    txtMaPhieu.Text = Utility.sDbnull(objPhieuNhap.MaPhieu);
+                    TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc = TPhieuNhapxuatthuoc.FetchByID(Utility.Int32Dbnull(txtIDPhieuNhapKho.Text));
+                    DataRow newDr = p_mDataPhieuNhapKho.NewRow();
+                    Utility.FromObjectToDatarow(objTPhieuNhapxuatthuoc, ref newDr);
+                    TDmucKho objKho = TDmucKho.FetchByID(Utility.Int32Dbnull(cboKhoNhap.SelectedValue, -1));
+                    if (objKho != null)
+                        newDr["ten_khonhap"] = Utility.sDbnull(objKho.TenKho);
+                    p_mDataPhieuNhapKho.Rows.Add(newDr);
+                    Utility.GonewRowJanus(grdList, TPhieuNhapxuatthuoc.Columns.IdPhieu, Utility.sDbnull(txtIDPhieuNhapKho.Text));
+                    em_Action = action.Update;
+                    ClearControl();
+                    b_Cancel = true;
+                    _Autosave = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void AutoUpdate()
+        {
+            TPhieuNhapxuatthuoc objPhieuNhap = CreatePhieuNhapKho();
+            List<TPhieuNhapxuatthuocChitiet> lstDetail = GetReceiptDetails();
+            if (lstDetail.Count <= 0 || objPhieuNhap == null || !m_dtDataPhieuChiTiet.DataSet.HasChanges())
+            {
+
+                return;
+            }
+            ActionResult actionResult = new THUOC_NHAPKHO().UpdatePhieuNhapKho(objPhieuNhap, lstDetail);
+            switch (actionResult)
+            {
+                case ActionResult.Success:
+                    TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc = TPhieuNhapxuatthuoc.FetchByID(Utility.Int32Dbnull(txtIDPhieuNhapKho.Text));
+                    DataRow[] arrDr =
+                        p_mDataPhieuNhapKho.Select(string.Format("{0}={1}", TPhieuNhapxuatthuoc.Columns.IdPhieu,
+                                                                 Utility.Int32Dbnull(txtIDPhieuNhapKho.Text)));
+                    if (arrDr.GetLength(0) > 0)
+                    {
+                        arrDr[0].Delete();
+                    }
+                    DataRow newDr = p_mDataPhieuNhapKho.NewRow();
+                    Utility.FromObjectToDatarow(objTPhieuNhapxuatthuoc, ref newDr);
+                    TDmucKho objKho = TDmucKho.FetchByID(Utility.Int32Dbnull(cboKhoNhap.SelectedValue, -1));
+                    if (objKho != null)
+                        newDr["ten_khonhap"] = Utility.sDbnull(objKho.TenKho);
+                    p_mDataPhieuNhapKho.Rows.Add(newDr);
+                    //Utility.GonewRowJanus(grdList, TPhieuNhapxuatthuoc.Columns.IdPhieu, Utility.sDbnull(txtIDPhieuNhapKho.Text));
+                    b_Cancel = true;
+                    _Autosave = false;
+                    break;
+                default:
                     break;
             }
         }
@@ -1285,6 +1409,8 @@ namespace VNS.HIS.UI.THUOC
         {
 
         }
+        
+       
 
       
     }

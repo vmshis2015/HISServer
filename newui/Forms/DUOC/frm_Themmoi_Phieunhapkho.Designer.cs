@@ -30,12 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Themmoi_Phieunhapkho));
-            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel5 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
-            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel6 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
-            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel7 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
-            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel8 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
+            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel1 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
+            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel2 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
+            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel3 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
+            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel4 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             Janus.Windows.GridEX.GridEXLayout grdPhieuNhapChiTiet_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.grpControl = new Janus.Windows.EditControls.UIGroupBox();
+            this.chkPhieuvay = new Janus.Windows.EditControls.UICheckBox();
             this.txtNguoinhan = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.label29 = new System.Windows.Forms.Label();
             this.txtTongHoaDon = new MaskedTextBox.MaskedTextBox();
@@ -116,7 +117,6 @@
             this.txtSoluong = new MaskedTextBox.MaskedTextBox();
             this.txtDrugName = new VNS.HIS.UCs.AutoCompleteTextbox_Thuoc();
             this.label19 = new System.Windows.Forms.Label();
-            this.chkPhieuvay = new Janus.Windows.EditControls.UICheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.grpControl)).BeginInit();
             this.grpControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
@@ -175,6 +175,15 @@
             this.grpControl.Size = new System.Drawing.Size(928, 166);
             this.grpControl.TabIndex = 0;
             this.grpControl.Text = "Thông tin phiếu nhập kho";
+            // 
+            // chkPhieuvay
+            // 
+            this.chkPhieuvay.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkPhieuvay.Location = new System.Drawing.Point(812, 128);
+            this.chkPhieuvay.Name = "chkPhieuvay";
+            this.chkPhieuvay.Size = new System.Drawing.Size(85, 23);
+            this.chkPhieuvay.TabIndex = 481;
+            this.chkPhieuvay.Text = "Phiếu vay?";
             // 
             // txtNguoinhan
             // 
@@ -610,37 +619,37 @@
             this.uiStatusBar1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiStatusBar1.Location = new System.Drawing.Point(0, 627);
             this.uiStatusBar1.Name = "uiStatusBar1";
-            uiStatusBarPanel5.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            uiStatusBarPanel5.BorderColor = System.Drawing.Color.Empty;
-            uiStatusBarPanel5.Key = "";
-            uiStatusBarPanel5.ProgressBarValue = 0;
-            uiStatusBarPanel5.Text = "Ctrl+N: Thêm phiếu";
-            uiStatusBarPanel5.Width = 122;
-            uiStatusBarPanel6.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            uiStatusBarPanel6.BorderColor = System.Drawing.Color.Empty;
-            uiStatusBarPanel6.Key = "";
-            uiStatusBarPanel6.ProgressBarValue = 0;
-            uiStatusBarPanel6.Text = "Ctrl+S: Lưu lại";
-            uiStatusBarPanel6.Width = 93;
-            uiStatusBarPanel7.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            uiStatusBarPanel7.BorderColor = System.Drawing.Color.Empty;
-            uiStatusBarPanel7.Key = "";
-            uiStatusBarPanel7.ProgressBarValue = 0;
-            uiStatusBarPanel7.Text = "Esc: Thoát Form";
-            uiStatusBarPanel7.Width = 105;
-            uiStatusBarPanel8.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            uiStatusBarPanel8.BorderColor = System.Drawing.Color.Empty;
-            uiStatusBarPanel8.FormatStyle.FontBold = Janus.Windows.UI.TriState.True;
-            uiStatusBarPanel8.FormatStyle.ForeColor = System.Drawing.Color.Navy;
-            uiStatusBarPanel8.Key = "MSG";
-            uiStatusBarPanel8.ProgressBarValue = 0;
-            uiStatusBarPanel8.Text = "Thông báo";
-            uiStatusBarPanel8.Width = 74;
+            uiStatusBarPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            uiStatusBarPanel1.BorderColor = System.Drawing.Color.Empty;
+            uiStatusBarPanel1.Key = "";
+            uiStatusBarPanel1.ProgressBarValue = 0;
+            uiStatusBarPanel1.Text = "Ctrl+N: Thêm phiếu";
+            uiStatusBarPanel1.Width = 122;
+            uiStatusBarPanel2.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            uiStatusBarPanel2.BorderColor = System.Drawing.Color.Empty;
+            uiStatusBarPanel2.Key = "";
+            uiStatusBarPanel2.ProgressBarValue = 0;
+            uiStatusBarPanel2.Text = "Ctrl+S: Lưu lại";
+            uiStatusBarPanel2.Width = 93;
+            uiStatusBarPanel3.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            uiStatusBarPanel3.BorderColor = System.Drawing.Color.Empty;
+            uiStatusBarPanel3.Key = "";
+            uiStatusBarPanel3.ProgressBarValue = 0;
+            uiStatusBarPanel3.Text = "Esc: Thoát Form";
+            uiStatusBarPanel3.Width = 105;
+            uiStatusBarPanel4.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            uiStatusBarPanel4.BorderColor = System.Drawing.Color.Empty;
+            uiStatusBarPanel4.FormatStyle.FontBold = Janus.Windows.UI.TriState.True;
+            uiStatusBarPanel4.FormatStyle.ForeColor = System.Drawing.Color.Navy;
+            uiStatusBarPanel4.Key = "MSG";
+            uiStatusBarPanel4.ProgressBarValue = 0;
+            uiStatusBarPanel4.Text = "Thông báo";
+            uiStatusBarPanel4.Width = 74;
             this.uiStatusBar1.Panels.AddRange(new Janus.Windows.UI.StatusBar.UIStatusBarPanel[] {
-            uiStatusBarPanel5,
-            uiStatusBarPanel6,
-            uiStatusBarPanel7,
-            uiStatusBarPanel8});
+            uiStatusBarPanel1,
+            uiStatusBarPanel2,
+            uiStatusBarPanel3,
+            uiStatusBarPanel4});
             this.uiStatusBar1.Size = new System.Drawing.Size(928, 23);
             this.uiStatusBar1.TabIndex = 2;
             this.uiStatusBar1.TabStop = false;
@@ -1193,15 +1202,6 @@
             this.label19.TabIndex = 520;
             this.label19.Text = "Giá bán BHYT";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // chkPhieuvay
-            // 
-            this.chkPhieuvay.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkPhieuvay.Location = new System.Drawing.Point(812, 128);
-            this.chkPhieuvay.Name = "chkPhieuvay";
-            this.chkPhieuvay.Size = new System.Drawing.Size(85, 23);
-            this.chkPhieuvay.TabIndex = 481;
-            this.chkPhieuvay.Text = "Phiếu vay?";
             // 
             // frm_Themmoi_Phieunhapkho
             // 
