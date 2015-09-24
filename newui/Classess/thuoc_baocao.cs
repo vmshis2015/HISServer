@@ -470,9 +470,9 @@ namespace VNS.HIS.UI.Baocao
           try
           {
               if (theonhom)
-                  m_dtReport.DefaultView.Sort = "stt_hthi_loaithuoc,ten_benhnhan,tenthuoc_bietduoc";
+                  m_dtReport.DefaultView.Sort = "stt_hthi_loaithuoc,tenthuoc_bietduoc";
               else
-                  m_dtReport.DefaultView.Sort = "ten_benhnhan,tenthuoc_bietduoc";
+                  m_dtReport.DefaultView.Sort = "tenthuoc_bietduoc";
               m_dtReport.AcceptChanges();
               crpt.SetDataSource(m_dtReport.DefaultView);
               Utility.SetParameterValue(crpt, "FromDateToDate", FromDateToDate);
@@ -579,7 +579,7 @@ namespace VNS.HIS.UI.Baocao
 
           string tieude = "", reportname = "", reportcode = "thuoc_baocao_nhapxuatton_theoquy_theonhom";
           ReportDocument crpt = null;
-          if (kieuthuoc_vt == "THUOC")
+          if (kieuthuoc_vt.Contains( "THUOC"))
           {
               if (theonhom)
               {
@@ -649,7 +649,7 @@ namespace VNS.HIS.UI.Baocao
 
           string tieude = "", reportname = "", reportcode = "thuoc_baocao_nhapxuatton_theokhoanoitru_theonhom";
           ReportDocument crpt = null;
-          if (kieuthuoc_vt == "THUOC")
+          if (kieuthuoc_vt.Contains( "THUOC"))
           {
               if (theonhom)
               {
@@ -718,7 +718,7 @@ namespace VNS.HIS.UI.Baocao
 
           string tieude = "", reportname = "", reportcode = "thuoc_baocao_huychot_theonhom";
           ReportDocument crpt = null;
-          if (kieuthuoc_vt == "THUOC")
+          if (kieuthuoc_vt .Contains("THUOC"))
           {
               if (theonhom)
               {
@@ -830,7 +830,7 @@ namespace VNS.HIS.UI.Baocao
 
           string tieude = "", reportname = "", reportcode="";
           ReportDocument crpt = null;
-          if (kieuthuoc_vt == "THUOC")
+          if (kieuthuoc_vt.Contains("THUOC"))
           {
               if (Nhomthuoc)
               {
