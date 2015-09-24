@@ -38,8 +38,6 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
             chkByDate.CheckedChanged += chkByDate_CheckedChanged;
             cmdBaoCao.Click+=new EventHandler(cmdBaoCao_Click);
             this.KeyDown+=new KeyEventHandler(frm_thethuoc_KeyDown);
-            txtLoaithuoc._OnSelectionChanged +=new VNS.HIS.UCs.AutoCompleteTextbox_Thuoc.OnSelectionChanged(txtLoaithuoc__OnSelectionChanged);
-            txtLoaithuoc._OnEnterMe +=new VNS.HIS.UCs.AutoCompleteTextbox_Thuoc.OnEnterMe(txtLoaithuoc__OnEnterMe);
             cboKho.SelectedIndexChanged += new EventHandler(cboKho_SelectedIndexChanged);
             gridEXExporter1.GridEX = grdListKhoChan;
             chkThekhochitiet.CheckedChanged += new EventHandler(chkThekhochitiet_CheckedChanged);
@@ -100,64 +98,15 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
         }
         private void AutocompleteLoaithuoc()
         {
-            DataTable dtLoaithuoc = null;
-            try
-            {
-                dtLoaithuoc =
-     new Select().From(DmucLoaithuoc.Schema).Where(DmucLoaithuoc.KieuThuocvattuColumn).IsEqualTo(KIEU_THUOC_VT).ExecuteDataSet().Tables[0];
-
-                if (dtLoaithuoc == null) return;
-                if (!dtLoaithuoc.Columns.Contains("ShortCut"))
-                    dtLoaithuoc.Columns.Add(new DataColumn("ShortCut", typeof(string)));
-                foreach (DataRow dr in dtLoaithuoc.Rows)
-                {
-                    string shortcut = "";
-                    string realName = dr[DmucLoaithuoc.TenLoaithuocColumn.ColumnName].ToString().Trim() + " " +
-                                      Utility.Bodau(dr[DmucLoaithuoc.TenLoaithuocColumn.ColumnName].ToString().Trim());
-                    shortcut = dr[DmucLoaithuoc.MaLoaithuocColumn.ColumnName].ToString().Trim();
-                    string[] arrWords = realName.ToLower().Split(' ');
-                    string _space = "";
-                    string _Nospace = "";
-                    foreach (string word in arrWords)
-                    {
-                        if (word.Trim() != "")
-                        {
-                            _space += word + " ";
-                            //_Nospace += word;
-                        }
-                    }
-                    shortcut += _space; // +_Nospace;
-                    foreach (string word in arrWords)
-                    {
-                        if (word.Trim() != "")
-                            shortcut += word.Substring(0, 1);
-                    }
-                    dr["ShortCut"] = shortcut;
-                }
-            }
-            catch
-            {
-            }
-            finally
-            {
-                var source = new List<string>();
-                var query = from p in dtLoaithuoc.AsEnumerable()
-                            select p[DmucLoaithuoc.IdLoaithuocColumn.ColumnName].ToString() + "#" + p[DmucLoaithuoc.MaLoaithuocColumn.ColumnName].ToString()
-                            + "@" + p[DmucLoaithuoc.TenLoaithuocColumn.ColumnName].ToString() + "@" + p.Field<string>("shortcut").ToString();
-                source = query.ToList();
-                this.txtLoaithuoc.AutoCompleteList = source;
-                this.txtLoaithuoc.TextAlign = HorizontalAlignment.Left;
-                this.txtLoaithuoc.CaseSensitive = false;
-                this.txtLoaithuoc.MinTypedCharacters = 1;
-
-            }
+            DataTable dtLoaithuoc = SPs.ThuocLayDanhmucLoaiThuocTheokho(Utility.Int32Dbnull(cboKho.SelectedValue, -1)).GetDataSet().Tables[0];
+            txtLoaithuoc.Init(dtLoaithuoc, new List<string>() { DmucLoaithuoc.Columns.IdLoaithuoc, DmucLoaithuoc.Columns.MaLoaithuoc, DmucLoaithuoc.Columns.TenLoaithuoc });
         }
         private void AutocompleteThuoc()
         {
 
             try
             {
-                DataTable _dataThuoc = new Select().From(DmucThuoc.Schema).Where(DmucThuoc.KieuThuocvattuColumn).IsEqualTo(KIEU_THUOC_VT).And(DmucThuoc.TrangThaiColumn).IsEqualTo(1).ExecuteDataSet().Tables[0];
+                DataTable _dataThuoc = SPs.ThuocLayDanhmucThuocTheokho(Utility.Int32Dbnull(cboKho.SelectedValue, -1)).GetDataSet().Tables[0];
                 if (_dataThuoc == null)
                 {
                     txtthuoc.dtData = null;

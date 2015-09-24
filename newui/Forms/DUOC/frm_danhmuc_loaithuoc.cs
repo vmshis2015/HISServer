@@ -10,6 +10,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using VNS.Libs;
 using VNS.HIS.DAL;
 using SubSonic;
+using VNS.HIS.UI.DANHMUC;
 
 namespace VNS.HIS.UI.THUOC
 {
@@ -62,17 +63,13 @@ namespace VNS.HIS.UI.THUOC
         private bool m_blnLoaded = false;
         private Int16 m_shtOldPos = 0;
         private SubSonic.Query m_Query ;
-        string Kieuthuoc_vattu = "THUOC";
         #endregion
-        string tenloai = " thuốc";
         //Các phương thức khởi tạo của Class
         #region "Constructors"
-        public frm_danhmuc_loaithuoc(string Kieuthuoc_vattu)
+        public frm_danhmuc_loaithuoc()
         {
             InitializeComponent();
-            this.Kieuthuoc_vattu = Kieuthuoc_vattu;
-            tenloai = Kieuthuoc_vattu == "THUOC" ? " thuốc " : " vật tư ";
-            lbltendanhmuc.Text = Kieuthuoc_vattu == "THUOC" ? " Danh mục loại thuốc " : " Danh mục loại vật tư ";
+           
             m_Query = DmucLoaithuoc.CreateQuery();
             InitEvents();
         }
@@ -91,6 +88,34 @@ namespace VNS.HIS.UI.THUOC
             grdList.DoubleClick += new EventHandler(grdList_DoubleClick);
             grdList.KeyDown += new KeyEventHandler(grdList_KeyDown);
             txtPos.KeyPress += new KeyPressEventHandler(txtPos_KeyPress);
+            txtNhom._OnShowData += txtNhom__OnShowData;
+            txtKieuthuocVT._OnShowData += txtKieuthuocVT__OnShowData;
+        }
+       
+        void txtKieuthuocVT__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtKieuthuocVT.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtKieuthuocVT.myCode;
+                txtKieuthuocVT.Init();
+                txtKieuthuocVT.SetCode(oldCode);
+                txtKieuthuocVT.Focus();
+            }
+        }
+
+        void txtNhom__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtNhom.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtNhom.myCode;
+                txtNhom.Init();
+                txtNhom.SetCode(oldCode);
+                txtNhom.Focus();
+            }
         }
       
         #endregion
@@ -113,7 +138,7 @@ namespace VNS.HIS.UI.THUOC
             Utility.SetMsg(lblMsg, "", false);
             if (String.IsNullOrEmpty(txtID.Text))
             {
-                Utility.SetMsg(lblMsg, "Bạn cần nhập mã chủng loại" + tenloai, true);
+                Utility.SetMsg(lblMsg, "Bạn cần nhập mã chủng loại" , true);
                 txtID.Focus();
                 return false;
             }
@@ -125,8 +150,20 @@ namespace VNS.HIS.UI.THUOC
             }
             if (String.IsNullOrEmpty(txtName.Text))
             {
-                Utility.SetMsg(lblMsg, "Bạn cần nhập tên chủng loại" + tenloai, true);
+                Utility.SetMsg(lblMsg, "Bạn cần nhập tên chủng loại" , true);
                 txtName.Focus();
+                return false;
+            }
+            if (txtNhom.myCode=="-1")
+            {
+                Utility.SetMsg(lblMsg, "Bạn cần nhập Nhóm thuốc" , true);
+                txtNhom.Focus();
+                return false;
+            }
+            if (txtKieuthuocVT.myCode == "-1")
+            {
+                Utility.SetMsg(lblMsg, "Bạn cần nhập Kiểu nhóm thuốc" , true);
+                txtKieuthuocVT.Focus();
                 return false;
             }
             return true;
@@ -146,7 +183,8 @@ namespace VNS.HIS.UI.THUOC
                     Utility.EnabledTextBox(txtPos);
                     Utility.EnabledTextBox(txtName);
                     Utility.EnabledTextBox(txtDesc);
-                    cboNhom.Enabled = true;
+                    txtNhom.Enabled = true;
+                    txtKieuthuocVT.Enabled = true;
                     Utility.EnabledTextBox(txtDrug_Code);
                     txtDrug_Code.Clear();
                     txtPos.Clear();
@@ -178,7 +216,8 @@ namespace VNS.HIS.UI.THUOC
                     Utility.DisabledTextBox(txtID);
                     //Cho phép cập nhật lại vị trí, tên chủng loại thuốc và mô tả thêm
                     Utility.EnabledTextBox(txtName);
-                    cboNhom.Enabled = true;
+                    txtNhom.Enabled = true;
+                    txtKieuthuocVT.Enabled = true;
                     Utility.EnabledTextBox(txtDesc);
                     Utility.EnabledTextBox(txtPos);
                     Utility.EnabledTextBox(txtDrug_Code);
@@ -205,7 +244,8 @@ namespace VNS.HIS.UI.THUOC
                     Utility.DisabledTextBox(txtID);
                     Utility.DisabledTextBox(txtName);
                     Utility.DisabledTextBox(txtDesc);
-                    cboNhom.Enabled = false;
+                    txtNhom.Enabled = false;
+                    txtKieuthuocVT.Enabled = false;
                     Utility.DisabledTextBox(txtPos);
                     Utility.DisabledTextBox(txtDrug_Code);
                     //--------------------------------------------------------------
@@ -272,7 +312,7 @@ namespace VNS.HIS.UI.THUOC
             v_arrSameObject = new DmucLoaithuocController().FetchByQuery(m_Query.AddWhere("ten_loaithuoc", txtName.Text.Trim().ToUpper()));
             if (v_arrSameObject.Count > 0)
             {
-                if (!Utility.AcceptQuestion("Đã có nhóm"+tenloai+"có tên:" + txtName.Text.Trim() + ". Bạn có muốn tiếp tục ghi hay không?", "Cảnh báo", true))
+                if (!Utility.AcceptQuestion("Đã có nhóm có tên:" + txtName.Text.Trim() + ". Bạn có muốn tiếp tục ghi hay không?", "Cảnh báo", true))
                 {
                     //Create Again to ignore Where Clause
                     m_Query = DmucLoaithuoc.CreateQuery();
@@ -288,10 +328,10 @@ namespace VNS.HIS.UI.THUOC
             objDrugType.MaLoaithuoc = Utility.sDbnull(txtDrug_Code.Text);
             objDrugType.TenLoaithuoc = Utility.sDbnull(txtName.Text);
             objDrugType.MotaThem = Utility.sDbnull(txtDesc.Text);
-            objDrugType.MaNhomthuoc= Utility.sDbnull(cboNhom.SelectedValue, "");
+            objDrugType.MaNhomthuoc= Utility.sDbnull(txtNhom.myCode, "");
             objDrugType.SttHthi = Convert.ToInt16(txtPos.Text);
             objDrugType.InRieng = Convert.ToInt16(chkInrieng.Checked ? 1 : 0);
-            objDrugType.KieuThuocvattu = Kieuthuoc_vattu;
+            objDrugType.KieuThuocvattu = txtNhom.myCode; ;
             objDrugType.IsNew = true;
             objDrugType.Save();
             //Lấy về MaxID vừa được thêm vào CSDL
@@ -302,7 +342,7 @@ namespace VNS.HIS.UI.THUOC
             {
                 DataRow newitem=m_dtLoaithuoc.NewRow();
                 Utility.FromObjectToDatarow(v_arrNewObject[0], ref newitem);
-                newitem["ten_nhomthuoc"] = cboNhom.Text;
+                newitem["ten_nhomthuoc"] = txtNhom.Text;
                 m_dtLoaithuoc.Rows.Add(newitem);
                 //Return to the InitialStatus
                 m_enAction = action.FirstOrFinished;
@@ -328,7 +368,7 @@ namespace VNS.HIS.UI.THUOC
             DmucLoaithuocCollection v_arrSameObject = new DmucLoaithuocController().FetchByQuery(m_Query.AddWhere("ma_loaithuoc", txtDrug_Code.Text.Trim().ToUpper()).AND("Id_Loaithuoc", Comparison.NotEquals, v_shtIdLoaithuoc));
             if (v_arrSameObject.Count > 0)
             {
-                if (!Utility.AcceptQuestion("Đã có nhóm"+tenloai+"có mã:" + txtDrug_Code.Text.Trim() + ". Bạn có muốn tiếp tục ghi hay không?", "Cảnh báo", true))
+                if (!Utility.AcceptQuestion("Đã có nhóm có mã:" + txtDrug_Code.Text.Trim() + ". Bạn có muốn tiếp tục ghi hay không?", "Cảnh báo", true))
                 {
                     //Create Again to ignore Where Clause
                     m_Query = DmucDoituongkcb.CreateQuery();
@@ -338,7 +378,7 @@ namespace VNS.HIS.UI.THUOC
             v_arrSameObject = new DmucLoaithuocController().FetchByQuery(m_Query.AddWhere("ten_loaithuoc", txtName.Text.Trim().ToUpper()).AND("Id_Loaithuoc", Comparison.NotEquals, v_shtIdLoaithuoc));
             if (v_arrSameObject.Count > 0)
             {
-                if (!Utility.AcceptQuestion("Đã có nhóm"+tenloai+"có tên:" + txtName.Text.Trim() + ". Bạn có muốn tiếp tục ghi hay không?", "Cảnh báo", true))
+                if (!Utility.AcceptQuestion("Đã có nhóm có tên:" + txtName.Text.Trim() + ". Bạn có muốn tiếp tục ghi hay không?", "Cảnh báo", true))
                 {
                     //Create Again to ignore Where Clause
                     m_Query = DmucDoituongkcb.CreateQuery();
@@ -355,10 +395,10 @@ namespace VNS.HIS.UI.THUOC
                 objDrugType.MaLoaithuoc = Utility.sDbnull(txtDrug_Code.Text);
                 objDrugType.TenLoaithuoc = Utility.sDbnull(txtName.Text);
                 objDrugType.MotaThem = Utility.sDbnull(txtDesc.Text);
-                objDrugType.MaNhomthuoc = Utility.sDbnull(cboNhom.SelectedValue, "");
+                objDrugType.MaNhomthuoc = Utility.sDbnull(txtNhom.myCode, "");
                 objDrugType.SttHthi = Convert.ToInt16(txtPos.Text);
                 objDrugType.InRieng = Convert.ToInt16(chkInrieng.Checked ? 1 : 0);
-                objDrugType.KieuThuocvattu = Kieuthuoc_vattu;
+                objDrugType.KieuThuocvattu = txtKieuthuocVT.myCode; 
                 objDrugType.IsNew = false;
                 objDrugType.MarkOld();
                 objDrugType.Save();
@@ -370,11 +410,11 @@ namespace VNS.HIS.UI.THUOC
                 arrDr[0][DmucLoaithuoc.Columns.MaLoaithuoc] = Utility.sDbnull(txtDrug_Code.Text);
                 arrDr[0][DmucLoaithuoc.Columns.TenLoaithuoc] = Utility.sDbnull(txtName.Text);
                 arrDr[0][DmucLoaithuoc.Columns.MotaThem] = Utility.sDbnull(txtDesc.Text);
-                arrDr[0][DmucLoaithuoc.Columns.MaNhomthuoc] = Utility.sDbnull(cboNhom.SelectedValue, "");
+                arrDr[0][DmucLoaithuoc.Columns.MaNhomthuoc] = Utility.sDbnull(txtNhom.myCode, "");
                 arrDr[0][DmucLoaithuoc.Columns.SttHthi] = Convert.ToInt16(txtPos.Text);
                 arrDr[0][DmucLoaithuoc.Columns.InRieng] = Convert.ToInt16(chkInrieng.Checked ? 1 : 0);
-                arrDr[0][DmucLoaithuoc.Columns.KieuThuocvattu] = Kieuthuoc_vattu;
-                arrDr[0]["ten_nhomthuoc"] = cboNhom.Text;
+                arrDr[0][DmucLoaithuoc.Columns.KieuThuocvattu] = txtKieuthuocVT.myCode;
+                arrDr[0]["ten_nhomthuoc"] = txtNhom.Text;
             }
             //Return to the InitialStatus
             m_enAction = action.FirstOrFinished;
@@ -388,7 +428,7 @@ namespace VNS.HIS.UI.THUOC
         /// </summary>
         private void PerformDeleteAction()
         {
-            if (Utility.AcceptQuestion("Bạn có muốn xóa Loại"+tenloai+"đang chọn hay không?", "Xác nhận xóa", true))
+            if (Utility.AcceptQuestion("Bạn có muốn xóa Loại thuốc đang chọn hay không?", "Xác nhận xóa", true))
             {
                 
 
@@ -397,7 +437,7 @@ namespace VNS.HIS.UI.THUOC
 
                 if (new DmucThuocController().FetchByQuery(DmucThuoc.CreateQuery().AddWhere("Id_Loaithuoc", Comparison.Equals, v_shtIdLoaithuoc)).Count > 0)
                 {
-                    Utility.SetMsg(lblMsg, "Loại"+tenloai+" này đã được sử dụng trong danh mục thuốc(vật tư) nên bạn không thể xóa",true);
+                    Utility.SetMsg(lblMsg, "Loại thuốc này đã được sử dụng trong danh mục thuốc(vật tư) nên bạn không thể xóa",true);
                     return;
                 }
                 DataRow[] arrDr = m_dtLoaithuoc.Select(DmucLoaithuoc.Columns.IdLoaithuoc + "=" + txtID.Text);
@@ -411,10 +451,10 @@ namespace VNS.HIS.UI.THUOC
                     //Return to the InitialStatus
                     m_enAction = action.FirstOrFinished;
                     SetControlStatus();
-                    Utility.SetMsg(lblMsg, "Đã xóa Loại"+tenloai+"có mã: " + v_shtIdLoaithuoc + " ra khỏi hệ thống.",false);
+                    Utility.SetMsg(lblMsg, "Đã xóa Loại có mã: " + v_shtIdLoaithuoc + " ra khỏi hệ thống.",false);
                 }
                 else//Có lỗi xảy ra
-                    Utility.SetMsg(lblMsg, "Lỗi khi xóa loại" + tenloai, true);
+                    Utility.SetMsg(lblMsg, "Lỗi khi xóa loại thuốc" , true);
 
             }
         }
@@ -450,7 +490,7 @@ namespace VNS.HIS.UI.THUOC
         /// </summary>
         private void GetData()
         {
-            m_dtLoaithuoc = SPs.ThuocLaydulieuDanhmucloaithuoc(Kieuthuoc_vattu).GetDataSet().Tables[0];
+            m_dtLoaithuoc = SPs.ThuocLaydulieuDanhmucloaithuoc(txtKieuthuocVT.myCode).GetDataSet().Tables[0];
             Utility.SetDataSourceForDataGridEx(grdList, m_dtLoaithuoc, true, true, "", "stt_hthi,ten_loaithuoc");
         }
         #endregion
@@ -464,9 +504,8 @@ namespace VNS.HIS.UI.THUOC
         /// <param name="e"></param>
         private void frm_danhmuc_loaithuoc_Load(object sender, EventArgs e)
         {
-            //Lấy về danh sách các chủng loại thuốc để hiển thị lên DataGridView
-            DataTable m_dtNhomThuoc = THU_VIEN_CHUNG.LayDulieuDanhmucChung(Kieuthuoc_vattu == "THUOC" ? "NHOMTHUOC" : "NHOMVATTU", true);
-            DataBinding.BindData(cboNhom, m_dtNhomThuoc, DmucChung.Columns.Ma, DmucChung.Columns.Ten);
+            txtNhom.Init();
+            txtKieuthuocVT.Init();
             GetData();
             //Sau khi Binding dữ liệu vào GridView thì mới cho phép thực hiện lệnh trong sự kiện CurrentCellChanged
             m_blnLoaded = true;
@@ -497,7 +536,8 @@ namespace VNS.HIS.UI.THUOC
                 txtName.Text = Utility.GetValueFromGridColumn(grdList, DmucLoaithuoc.Columns.TenLoaithuoc);
                 txtDesc.Text = Utility.GetValueFromGridColumn(grdList, DmucLoaithuoc.Columns.MotaThem);
                 txtPos.Text = Utility.GetValueFromGridColumn(grdList, DmucLoaithuoc.Columns.SttHthi);
-                cboNhom.SelectedValue = Utility.GetValueFromGridColumn(grdList, "MA_NHOMTHUOC");
+                txtNhom.SetCode( Utility.GetValueFromGridColumn(grdList, "MA_NHOMTHUOC"));
+                txtKieuthuocVT.SetCode(Utility.GetValueFromGridColumn(grdList, DmucLoaithuoc.Columns.KieuThuocvattu));
                 chkInrieng.Checked = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdList, "IN_RIENG"), 0)==1;
             }
         }

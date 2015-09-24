@@ -46,7 +46,7 @@
             this.grdListKhoChan = new Janus.Windows.GridEX.GridEX();
             this.grdListKhole = new Janus.Windows.GridEX.GridEX();
             this.txtthuoc = new VNS.HIS.UCs.AutoCompleteTextbox_Thuoc();
-            this.txtLoaithuoc = new VNS.HIS.UCs.AutoCompleteTextbox_Thuoc();
+            this.txtLoaithuoc = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.chkBiendong = new Janus.Windows.EditControls.UICheckBox();
@@ -312,7 +312,6 @@
             this.txtLoaithuoc.ExtraWidth = 0;
             this.txtLoaithuoc.FillValueAfterSelect = false;
             this.txtLoaithuoc.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLoaithuoc.GridView = false;
             this.txtLoaithuoc.Location = new System.Drawing.Point(140, 56);
             this.txtLoaithuoc.MaxHeight = -1;
             this.txtLoaithuoc.MinTypedCharacters = 2;
@@ -516,7 +515,7 @@
         private VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE baocaO_TIEUDE1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private VNS.HIS.UCs.AutoCompleteTextbox_Thuoc txtLoaithuoc;
+        private VNS.HIS.UCs.AutoCompleteTextbox txtLoaithuoc;
         private VNS.HIS.UCs.AutoCompleteTextbox_Thuoc txtthuoc;
         private System.Windows.Forms.Panel panel2;
         private Janus.Windows.GridEX.GridEX grdListKhole;

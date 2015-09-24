@@ -64,7 +64,6 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.pnlKedon = new System.Windows.Forms.Panel();
             this.chkMuithu = new Janus.Windows.EditControls.UICheckBox();
-            this.txtVitritiem = new Janus.Windows.GridEX.EditControls.EditBox();
             this.txtLydotiem = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.label8 = new System.Windows.Forms.Label();
             this.txtNguoitiem = new VNS.HIS.UCs.AutoCompleteTextbox();
@@ -185,6 +184,7 @@
             this.cboA4 = new Janus.Windows.EditControls.UIComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtVitritiem = new Janus.Windows.GridEX.EditControls.EditBox();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdPresDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabKeDonThuoc)).BeginInit();
@@ -550,16 +550,6 @@
             this.chkMuithu.TabStop = false;
             this.chkMuithu.Text = "Mũi thứ:";
             // 
-            // txtVitritiem
-            // 
-            this.txtVitritiem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVitritiem.Location = new System.Drawing.Point(466, 106);
-            this.txtVitritiem.Name = "txtVitritiem";
-            this.txtVitritiem.ReadOnly = true;
-            this.txtVitritiem.Size = new System.Drawing.Size(157, 21);
-            this.txtVitritiem.TabIndex = 9;
-            this.txtVitritiem.TabStop = false;
-            // 
             // txtLydotiem
             // 
             this.txtLydotiem._backcolor = System.Drawing.SystemColors.Control;
@@ -747,12 +737,12 @@
             // 
             this.txtMuithu.BackColor = System.Drawing.Color.White;
             this.txtMuithu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMuithu.Enabled = false;
             this.txtMuithu.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMuithu.ForeColor = System.Drawing.Color.Navy;
             this.txtMuithu.Location = new System.Drawing.Point(93, 105);
             this.txtMuithu.MaxLength = 8;
             this.txtMuithu.Name = "txtMuithu";
-            this.txtMuithu.ReadOnly = true;
             this.txtMuithu.Size = new System.Drawing.Size(70, 21);
             this.txtMuithu.TabIndex = 6;
             this.txtMuithu.Text = "0";
@@ -2114,6 +2104,16 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // txtVitritiem
+            // 
+            this.txtVitritiem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVitritiem.Location = new System.Drawing.Point(466, 106);
+            this.txtVitritiem.Name = "txtVitritiem";
+            this.txtVitritiem.ReadOnly = true;
+            this.txtVitritiem.Size = new System.Drawing.Size(157, 21);
+            this.txtVitritiem.TabIndex = 9;
+            this.txtVitritiem.TabStop = false;
+            // 
             // frm_KCB_KeVacxin_Tiemchung
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -2295,8 +2295,8 @@
         private Janus.Windows.GridEX.EditControls.EditBox txtMota;
         internal System.Windows.Forms.Label label36;
         private Janus.Windows.GridEX.EditControls.EditBox txtLieuluong;
-        private Janus.Windows.GridEX.EditControls.EditBox txtVitritiem;
         private Janus.Windows.EditControls.UICheckBox chkMuithu;
+        private Janus.Windows.GridEX.EditControls.EditBox txtVitritiem;
 
     }
 }

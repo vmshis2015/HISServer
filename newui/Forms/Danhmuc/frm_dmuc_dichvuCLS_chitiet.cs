@@ -182,9 +182,9 @@ namespace VNS.HIS.UI.DANHMUC
             try
             {
                 cboService.SelectedIndex = 0;
-                dsTable = SPs.DmucLaydanhsachChidinhclsChitiet(1, hanchequyendanhmuc ?Utility.Int32Dbnull(cboService.SelectedValue,0) :- 1).GetDataSet().Tables[0];
+                dsTable = SPs.DmucLaydanhmucDichvuclsChitiet(1, hanchequyendanhmuc ?Utility.Int32Dbnull(cboService.SelectedValue,0) :- 1).GetDataSet().Tables[0];
 
-                Utility.SetDataSourceForDataGridEx(grdServiceDetail, dsTable, true, true, "id_cha<=0", DmucDichvuclsChitiet.Columns.SttHthi + "," + DmucDichvuclsChitiet.Columns.TenChitietdichvu);
+                Utility.SetDataSourceForDataGridEx(grdServiceDetail, dsTable, true, true, "id_cha<=0", "stt_hthi_loaidvu,stt_hthi_dichvu,stt_hthi,p.ten_chitietdichvu");
                 _currentGRd = grdServiceDetail;
                 ModifyCommand();
             }

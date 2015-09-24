@@ -249,24 +249,33 @@ namespace VNS.HIS.UI.NGOAITRU
                 string errMsg_temp = string.Empty;
                 this.setMsg(this.lblMsg, "", false);
                 this.tu_tuc = this.chkTutuc.Checked ? 1 : 0;
-                if (Utility.Int32Dbnull(this.txtDrugID.Text) < 0)
+                if (objDKho == null)
+                {
+                    this.setMsg(this.lblMsg, "Bạn cần chọn kho thuốc trước khi chọn thuốc kê đơn", true);
+                    cboStock.Focus();
+                    return;
+                }
+                else if (Utility.Int32Dbnull(this.txtDrugID.Text) < 0)
                 {
                     this.txtdrug.Focus();
                     this.txtdrug.SelectAll();
+                    return;
                 }
                 else if ((noitru==0 && Utility.DecimaltoDbnull(this.txtSoluong.Text,0) <= 0)||(noitru==1 && Utility.DecimaltoDbnull(this.txtSoluong.Text,0) <= 0 && Utility.Int32Dbnull(txtDonvichiaBut.Text,0)<=0))
                 {
                     this.setMsg(this.lblMsg, "Số lượng "+(KIEU_THUOC_VT == "THUOC" ?"thuốc":"vật tư") +" phải lớn hơn 0", true);
                     this.txtSoluong.Focus();
+                    return;
                 }
                 else if (Utility.Int32Dbnull(this.txtGioihanke.Text, -1) > 0 && Utility.DecimaltoDbnull(this.txtSoluong.Text, 0) > Utility.Int32Dbnull(this.txtGioihanke.Text, -1))
                 {
                     this.setMsg(this.lblMsg, "Thuốc đã đặt giới hạn kê tối đa 1 lần nhỏ hơn hoặc bằng " + Utility.Int32Dbnull(this.txtGioihanke.Text, 0).ToString()+" "+txtDonViDung.Text, true);
                     this.txtSoluong.Focus();
+                    return;
                 }
                 else
                 {
-                    if (CommonLoadDuoc.IsKiemTraTonKho(Utility.Int32Dbnull(this.cboStock.SelectedValue, 0)))
+                    if (Utility.Int32Dbnull(objDKho.KtraTon) == 1)
                     {
                         int num = CommonLoadDuoc.SoLuongTonTrongKho(-1L, Utility.Int32Dbnull(this.cboStock.SelectedValue), Utility.Int32Dbnull(this.txtDrugID.Text, -1), txtdrug.GridView ? this.id_thuockho : (long)this.txtdrug.id_thuockho, new int?(Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KIEMTRATHUOC_CHOXACNHAN", "1", false), 1)), Utility.ByteDbnull(objLuotkham.Noitru, 0));
                         if (Utility.DecimaltoDbnull(this.txtSoluong.Text,0) > num)
@@ -349,9 +358,9 @@ namespace VNS.HIS.UI.NGOAITRU
                                 row[KcbDonthuocChitiet.Columns.KieuBiendong] = thuockho["kieubiendong"];
                                
                                 row[KcbDonthuocChitiet.Columns.NguoiTiem] = Utility.Int16Dbnull(txtNguoitiem.MyID,-1);
-                                row[KcbDonthuocChitiet.Columns.LydoTiemchung] = txtLydotiem.Text;
+                                row[KcbDonthuocChitiet.Columns.LydoTiemchung] = txtLydotiem.myCode;
                                 row[KcbDonthuocChitiet.Columns.MuiThu] = Utility.Int16Dbnull(txtMuithu.Text, 1);
-                                row[KcbDonthuocChitiet.Columns.VitriTiem] = txtVitritiem.Text;
+                                row[KcbDonthuocChitiet.Columns.VitriTiem] = Utility.sDbnull(txtVitritiem.Tag, txtVitritiem.Text);
                                 if (chkHennhaclai.Checked)
                                 {
                                     row["hen_nhaclai"] = dtpHennhaclai.Text;
@@ -446,7 +455,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 this.tu_tuc = this.chkTutuc.Checked ? 1 : 0;
                 this.setMsg(this.lblMsg, "", false);
-                if (CommonLoadDuoc.IsKiemTraTonKho(Utility.Int32Dbnull(this.cboStock.SelectedValue, 0)))
+                if (Utility.Int32Dbnull(objDKho.KtraTon) == 1)
                 {
                     int num = CommonLoadDuoc.SoLuongTonTrongKho(-1L, Utility.Int32Dbnull(this.cboStock.SelectedValue), id_thuoc, (long)id_thuockho, new int?(Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KIEMTRATHUOC_CHOXACNHAN", "1", false), 1)),Utility.ByteDbnull( objLuotkham.Noitru,0));
                     if (newQuantity > num)
@@ -759,7 +768,7 @@ namespace VNS.HIS.UI.NGOAITRU
             PropertyLib._MayInProperties.PreviewInDonthuoc = this.cboPrintPreview.SelectedIndex == 0;
             PropertyLib.SaveProperty(PropertyLib._MayInProperties);
         }
-
+        TDmucKho objDKho = null;
         private void cboStock_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -775,15 +784,19 @@ namespace VNS.HIS.UI.NGOAITRU
                     int num = Utility.Int32Dbnull(this.cboStock.SelectedValue, -1);
                     if ((num > 0) && (this.blnHasLoaded && (this.cboStock.Items.Count > 0)))
                     {
-                        this.m_dtDanhmucthuoc = this._KEDONTHUOC.LayThuoctrongkhokedon(num,KIEU_THUOC_VT, Utility.sDbnull(this.objLuotkham.MaDoituongKcb, "DV"), Utility.Int32Dbnull(this.objLuotkham.DungTuyen.Value, 0),noitru, globalVariables.MA_KHOA_THIEN);
+                        this.m_dtDanhmucthuoc = this._KEDONTHUOC.LayThuoctrongkhokedon(num, KIEU_THUOC_VT, Utility.sDbnull(this.objLuotkham.MaDoituongKcb, "DV"), Utility.Int32Dbnull(this.objLuotkham.DungTuyen.Value, 0), noitru, globalVariables.MA_KHOA_THIEN);
                         this.ProcessData();
-                        TDmucKho kho = ReadOnlyRecord<TDmucKho>.FetchByID(num);
+                        objDKho = ReadOnlyRecord<TDmucKho>.FetchByID(num);
                         this.rowFilter = "1=1";
-                        this.txtdrug.AllowedSelectPrice = Utility.Byte2Bool(kho.ChophepChongia);
+                        this.txtdrug.AllowedSelectPrice = Utility.Byte2Bool(objDKho.ChophepChongia);
                         this.txtdrug.dtData = this.m_dtDanhmucthuoc;
                         this.txtdrug.ChangeDataSource();
                         this.txtdrug.Focus();
                         this.txtdrug.SelectAll();
+                    }
+                    else
+                    {
+                        objDKho = null;
                     }
                 }
             }
@@ -1228,7 +1241,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
             }
             donthuoc.TrangthaiThanhtoan = 0;
-            donthuoc.IdBacsiChidinh = new short?(globalVariables.gv_intIDNhanvien);
+            donthuoc.IdBacsiChidinh =Utility.Int16Dbnull(txtBacsi.MyID,globalVariables.gv_intIDNhanvien);
             donthuoc.TrangThai = 0;
             donthuoc.NguoiTao = globalVariables.UserName;
             donthuoc.NgayTao = globalVariables.SysDate;
@@ -2249,7 +2262,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         void chkMuithu_CheckedChanged(object sender, EventArgs e)
         {
-            txtMuithu.ReadOnly = !chkMuithu.Checked;
+            txtMuithu.Enabled = !chkMuithu.Checked;
         }
 
         void txtLydotiem__OnShowData()
@@ -2869,6 +2882,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
                     txtLieuluong.Text = Utility.sDbnull(rowArray[0][DmucThuoc.Columns.HamLuong]);
                     txtVitritiem.Text = Utility.sDbnull(rowArray[0]["ten_cach_sudung"]);
+                    txtVitritiem.Tag = Utility.sDbnull(rowArray[0]["cach_sudung"]);
                     txtLoaivacxin.Text = Utility.sDbnull(rowArray[0]["ten_loaithuoc"]);
                     txtMota.Text = Utility.sDbnull(rowArray[0][DmucThuoc.Columns.MotaThem]);
 
@@ -3082,7 +3096,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 Utility.ResetMessageError(this.errorProvider1);
                 if (Utility.DoTrim(txtTonKho.Text) != "")
                 {
-                    if (CommonLoadDuoc.IsKiemTraTonKho(Utility.Int32Dbnull(this.cboStock.SelectedValue, 0)) && (Utility.DecimaltoDbnull(this.txtSoluong.Text, 0) > Utility.Int32Dbnull(this.txtTonKho.Text, 0)))
+                    if (Utility.Int32Dbnull(objDKho.KtraTon) == 1 && (Utility.DecimaltoDbnull(this.txtSoluong.Text, 0) > Utility.Int32Dbnull(this.txtTonKho.Text, 0)))
                     {
                         Utility.SetMsgError(this.errorProvider1, this.txtSoluong, "Số lượng " + (KIEU_THUOC_VT == "THUOC" ? "thuốc" : "vật tư") + " cấp phát vượt quá số lượng " + (KIEU_THUOC_VT == "THUOC" ? "thuốc" : "vật tư") + " trong kho. Mời bạn kiểm tra lại");
                         this.txtSoluong.Focus();

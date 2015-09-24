@@ -325,7 +325,7 @@ namespace VNS.HIS.UI.DANHMUC
                     }
                 }
                 DataBinding.BindDataCombobox(cboService, m_dtDichvuCLS_new, DmucDichvucl.Columns.IdDichvu, DmucDichvucl.Columns.TenDichvu, "---Chọn---", true);
-                m_dtDataDetailService = SPs.DmucLaydanhmucDichvuclsChitiet(Utility.Int16Dbnull(cboService.SelectedValue, -1)).GetDataSet().Tables[0];
+                m_dtDataDetailService = SPs.DmucLaydanhmucDichvuclsChitietTheoID(Utility.Int16Dbnull(cboService.SelectedValue, -1)).GetDataSet().Tables[0];
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtDataDetailService, true, true, "1=1", "stt_hthi_dichvu,stt_hthi_chitiet," + DmucDichvuclsChitiet.Columns.TenChitietdichvu);
                 dt_KhoaThucHien = THU_VIEN_CHUNG.Laydanhmuckhoa("NGOAI", 0);
                 cboKhoaTH.DataSource = dt_KhoaThucHien;

@@ -5758,7 +5758,7 @@ namespace VNS.HIS.UI.NGOAITRU
             objLuotkham.CachTao = 0;
             objLuotkham.Email = txtEmail.Text;
             objLuotkham.NoiGioithieu = txtNoigioithieu.Text;
-            
+            objLuotkham.KieuBenhnhan = 0;//0= Bệnh nhân thường đến khám chữa bệnh;1= Người gửi mẫu kiểm nghiệm cá nhân;2= Tổ chức gửi mẫu kiểm nghiệm
             objLuotkham.NguoiLienhe = Utility.sDbnull(txtNguoiLienhe.Text);
             objLuotkham.NhomBenhnhan = txtLoaiBN.myCode;
             objLuotkham.IdBenhvienDen = Utility.Int16Dbnull(txtNoichuyenden.MyID, -1);

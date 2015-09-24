@@ -81,7 +81,7 @@ namespace VNS.HIS.UI.THUOC
             txtCode.Enabled = false;
             cboDrugNature.SelectedIndex = 0;
 
-            cboKIEU_THUOC_VT.SelectedIndex = 0;
+          
 
 
         }
@@ -106,7 +106,6 @@ namespace VNS.HIS.UI.THUOC
             txtName.LostFocus += new EventHandler(txtName_LostFocus);
             txtActice.LostFocus += new EventHandler(txtActice_LostFocus);
             txtLoaithuoc._OnEnterMe += new VNS.HIS.UCs.AutoCompleteTextbox.OnEnterMe(txtLoaithuoc__OnEnterMe);
-            cboKIEU_THUOC_VT.SelectedIndexChanged += new EventHandler(cboKIEU_THUOC_VT_SelectedIndexChanged);
             txtDonvitinh._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtDonvitinh__OnShowData);
             txtDonvichia._OnShowData += txtDonvichia__OnShowData;
             chkChiathuoc.CheckedChanged += chkChiathuoc_CheckedChanged;
@@ -115,7 +114,21 @@ namespace VNS.HIS.UI.THUOC
             txtNuocSX._OnShowData += txtNuocSX__OnShowData;
             txtHangSX._OnShowData += txtHangSX__OnShowData;
             txtDangBaoChe._OnShowData += txtDangBaoChe__OnShowData;
+            txtKieuthuocVT._OnShowData += txtKieuthuocVT__OnShowData;
             cmdNew.Click += cmdNew_Click;
+        }
+
+        void txtKieuthuocVT__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtKieuthuocVT.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtKieuthuocVT.myCode;
+                txtKieuthuocVT.Init();
+                txtKieuthuocVT.SetCode(oldCode);
+                txtKieuthuocVT.Focus();
+            }    
         }
         void cmdNew_Click(object sender, EventArgs e)
         {
@@ -256,7 +269,7 @@ namespace VNS.HIS.UI.THUOC
             }
         }
 
-        void cboKIEU_THUOC_VT_SelectedIndexChanged(object sender, EventArgs e)
+        void InitLoaithuoc()
         {
             int id = Utility.Int32Dbnull(txtLoaithuoc.MyID, -1);
             AutocompleteLoaithuoc();
@@ -264,7 +277,9 @@ namespace VNS.HIS.UI.THUOC
         }
         void txtLoaithuoc__OnEnterMe()
         {
-
+            int id = Utility.Int32Dbnull(txtLoaithuoc.MyID, -1);
+            AutocompleteLoaithuoc();
+            txtLoaithuoc.SetId(id);
         }
         void frm_themmoi_thuoc_KeyDown(object sender, KeyEventArgs e)
         {
@@ -293,6 +308,12 @@ namespace VNS.HIS.UI.THUOC
             {
                 Utility.SetMsg(lblMsg, "Bạn cần nhập mã thuốc.",true);
                 txtCode.Focus();
+                return false;
+            }
+            if (txtKieuthuocVT.myCode=="-1")
+            {
+                Utility.SetMsg(lblMsg, "Bạn cần chọn kiểu thuốc vật tư.", true);
+                txtKieuthuocVT.Focus();
                 return false;
             }
             if (!globalVariables.IsAdmin)
@@ -431,6 +452,7 @@ namespace VNS.HIS.UI.THUOC
                     txtDesc.Text = Utility.sDbnull(objThuoc.MotaThem);
                     txtLoaithuoc.SetId(Utility.sDbnull(objThuoc.IdLoaithuoc));
                     txtDonvitinh.SetCode(objThuoc.MaDonvitinh);
+                    txtKieuthuocVT.SetCode(objThuoc.KieuThuocvattu);
                     cboDrugNature.SelectedIndex = Convert.ToInt32(objThuoc.TinhChat);
                     txtNumber_Register.Text = Utility.sDbnull(objThuoc.SoDangky);
                     txtNuocSX._Text = Utility.sDbnull(objThuoc.NuocSanxuat);
@@ -658,7 +680,7 @@ namespace VNS.HIS.UI.THUOC
 
                 objThuoc.TinhChat = Convert.ToByte(cboDrugNature.SelectedIndex);
                 objThuoc.HoatChat = Utility.sDbnull(txtActice.Text);
-                objThuoc.KieuThuocvattu = Utility.sDbnull(cboKIEU_THUOC_VT.SelectedValue);
+                objThuoc.KieuThuocvattu = txtKieuthuocVT.myCode;
                 objThuoc.NoitruNgoaitru = optAll.Checked ? "ALL" : (optNoitru.Checked ? "NOI" : "NGOAI");
                 objThuoc.IsNew = true;
                 dmucThuoc_busrule.Insert(objThuoc, GetQheCamchidinhChungphieuCollection());
@@ -771,7 +793,7 @@ namespace VNS.HIS.UI.THUOC
             objThuoc.DongiaChia = Utility.DecimaltoDbnull(txtDongiachia.Text, 0);
 
             objThuoc.NoitruNgoaitru=optAll.Checked?"ALL":(optNoitru.Checked?"NOI":"NGOAI");
-            objThuoc.KieuThuocvattu = Utility.sDbnull(cboKIEU_THUOC_VT.SelectedValue);
+            objThuoc.KieuThuocvattu = txtKieuthuocVT.myCode;
             objThuoc.IsNew = false;
             objThuoc.MarkOld();
             dmucThuoc_busrule.Insert(objThuoc, GetQheCamchidinhChungphieuCollection());
@@ -854,8 +876,8 @@ namespace VNS.HIS.UI.THUOC
         /// <param name="e"></param>
         private void frmDrug_Load(object sender, EventArgs e)
         {
-            cboKIEU_THUOC_VT.SelectedIndex = 0;
-            AutocompleteLoaithuoc();
+            txtKieuthuocVT.Init();
+            InitLoaithuoc();
             txtDonvitinh.Init();
             txtDonvichia.Init();
             txtNuocSX.Init();
@@ -875,7 +897,7 @@ namespace VNS.HIS.UI.THUOC
 
             DataTable dtLoaithuoc = null;
             dtLoaithuoc = new Select().From(DmucLoaithuoc.Schema)
- .Where(DmucLoaithuoc.KieuThuocvattuColumn).IsEqualTo(cboKIEU_THUOC_VT.SelectedValue.ToString())
+ .Where(DmucLoaithuoc.KieuThuocvattuColumn).IsEqualTo(txtKieuthuocVT.myCode)
  .ExecuteDataSet().Tables[0];
             if (dtLoaithuoc == null) return;
             if (!dtLoaithuoc.Columns.Contains("ShortCut"))

@@ -218,7 +218,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             ModifyCommand();
             txtLoainhom.Init();
-            DataTable m_dtChitietchidinh = SPs.DmucLaydanhsachChidinhclsChitiet(-1, -1).GetDataSet().Tables[0];
+            DataTable m_dtChitietchidinh = SPs.DmucLaydanhmucDichvuclsChitiet(-1, -1).GetDataSet().Tables[0];
             txtDmucDichvuCLS.Init(m_dtChitietchidinh, new List<string>() { VDmucDichvuclsChitiet.Columns.IdChitietdichvu, VDmucDichvuclsChitiet.Columns.MaChitietdichvu, VDmucDichvuclsChitiet.Columns.TenChitietdichvu });
             AllowTextChanged = true;
             TimKiemThongTin();

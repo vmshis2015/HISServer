@@ -59,11 +59,13 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
             DataBinding.BindData(cboKho, KIEU_THUOC_VT == "THUOC" ? CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_TATCA() : CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_TATCA(), TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho);
             AutocompleteThuoc();
         }
+       
         private void AutocompleteThuoc()
         {
+
             try
             {
-                DataTable _dataThuoc = new Select().From(DmucThuoc.Schema).Where(DmucThuoc.KieuThuocvattuColumn).IsEqualTo(KIEU_THUOC_VT).And(DmucThuoc.TrangThaiColumn).IsEqualTo(1).ExecuteDataSet().Tables[0];
+                DataTable _dataThuoc = SPs.ThuocLayDanhmucThuocTheokho(Utility.Int32Dbnull(cboKho.SelectedValue, -1)).GetDataSet().Tables[0];
                 if (_dataThuoc == null)
                 {
                     txtthuoc.dtData = null;

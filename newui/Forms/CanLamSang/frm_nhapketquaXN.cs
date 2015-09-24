@@ -58,6 +58,12 @@ namespace VNS.HIS.UI.Forms.CanLamSang
             grdChidinh.CurrentCellChanged += grdChidinh_CurrentCellChanged;
             grdKetqua.UpdatingCell += grdKetqua_UpdatingCell;
             mnuCancelResult.Click += mnuCancelResult_Click;
+            cmdConfirm.Click += cmdConfirm_Click;
+        }
+
+        void cmdConfirm_Click(object sender, EventArgs e)
+        {
+            
         }
 
         void mnuCancelResult_Click(object sender, EventArgs e)

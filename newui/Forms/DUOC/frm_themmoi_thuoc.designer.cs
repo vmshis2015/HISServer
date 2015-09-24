@@ -29,10 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_thuoc));
             Janus.Windows.GridEX.GridEXLayout grdDmucthuoc_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_thuoc));
             this.GroupBox1 = new System.Windows.Forms.GroupBox();
             this.txtName = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.txtNuocSX = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
@@ -77,7 +75,6 @@
             this.txtTEN_BHYT = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
-            this.cboKIEU_THUOC_VT = new Janus.Windows.EditControls.UIComboBox();
             this.label27 = new System.Windows.Forms.Label();
             this.chkHieuLuc = new Janus.Windows.EditControls.UICheckBox();
             this.txtNumber_Register = new System.Windows.Forms.TextBox();
@@ -102,6 +99,7 @@
             this.chkThemlientuc = new Janus.Windows.EditControls.UICheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmdNew = new Janus.Windows.EditControls.UIButton();
+            this.txtKieuthuocVT = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.GroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdDmucthuoc)).BeginInit();
             this.SuspendLayout();
@@ -109,6 +107,7 @@
             // GroupBox1
             // 
             this.GroupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.GroupBox1.Controls.Add(this.txtKieuthuocVT);
             this.GroupBox1.Controls.Add(this.txtName);
             this.GroupBox1.Controls.Add(this.txtNuocSX);
             this.GroupBox1.Controls.Add(this.txtHangSX);
@@ -152,7 +151,6 @@
             this.GroupBox1.Controls.Add(this.txtTEN_BHYT);
             this.GroupBox1.Controls.Add(this.label29);
             this.GroupBox1.Controls.Add(this.label28);
-            this.GroupBox1.Controls.Add(this.cboKIEU_THUOC_VT);
             this.GroupBox1.Controls.Add(this.label27);
             this.GroupBox1.Controls.Add(this.chkHieuLuc);
             this.GroupBox1.Controls.Add(this.txtNumber_Register);
@@ -945,27 +943,6 @@
             this.label28.Text = "Kiểu thuốc VT";
             this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // cboKIEU_THUOC_VT
-            // 
-            this.cboKIEU_THUOC_VT.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
-            this.cboKIEU_THUOC_VT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            uiComboBoxItem1.FormatStyle.Alpha = 0;
-            uiComboBoxItem1.IsSeparator = false;
-            uiComboBoxItem1.Text = "Thuốc";
-            uiComboBoxItem1.Value = "THUOC";
-            uiComboBoxItem2.FormatStyle.Alpha = 0;
-            uiComboBoxItem2.IsSeparator = false;
-            uiComboBoxItem2.Text = "Vật tư y tế";
-            uiComboBoxItem2.Value = "VT";
-            this.cboKIEU_THUOC_VT.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem1,
-            uiComboBoxItem2});
-            this.cboKIEU_THUOC_VT.Location = new System.Drawing.Point(113, 51);
-            this.cboKIEU_THUOC_VT.Name = "cboKIEU_THUOC_VT";
-            this.cboKIEU_THUOC_VT.Size = new System.Drawing.Size(181, 21);
-            this.cboKIEU_THUOC_VT.TabIndex = 2;
-            this.cboKIEU_THUOC_VT.Text = "Kiểu thuốc vật tư";
-            // 
             // label27
             // 
             this.label27.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1231,6 +1208,44 @@
             this.cmdNew.Text = "&Thêm mới";
             this.cmdNew.ToolTipText = "Nhấn vào đây để thêm mới Bệnh nhân";
             // 
+            // txtKieuthuocVT
+            // 
+            this.txtKieuthuocVT._backcolor = System.Drawing.SystemColors.Control;
+            this.txtKieuthuocVT._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKieuthuocVT.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKieuthuocVT.AutoCompleteList")));
+            this.txtKieuthuocVT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtKieuthuocVT.CaseSensitive = false;
+            this.txtKieuthuocVT.CompareNoID = true;
+            this.txtKieuthuocVT.DefaultCode = "-1";
+            this.txtKieuthuocVT.DefaultID = "-1";
+            this.txtKieuthuocVT.Drug_ID = null;
+            this.txtKieuthuocVT.ExtraWidth = 0;
+            this.txtKieuthuocVT.FillValueAfterSelect = false;
+            this.txtKieuthuocVT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKieuthuocVT.LOAI_DANHMUC = "KIEUTHUOCVT";
+            this.txtKieuthuocVT.Location = new System.Drawing.Point(113, 51);
+            this.txtKieuthuocVT.MaxHeight = -1;
+            this.txtKieuthuocVT.MinTypedCharacters = 2;
+            this.txtKieuthuocVT.MyCode = "-1";
+            this.txtKieuthuocVT.MyID = "-1";
+            this.txtKieuthuocVT.Name = "txtKieuthuocVT";
+            this.txtKieuthuocVT.RaiseEvent = false;
+            this.txtKieuthuocVT.RaiseEventEnter = false;
+            this.txtKieuthuocVT.RaiseEventEnterWhenEmpty = false;
+            this.txtKieuthuocVT.SelectedIndex = -1;
+            this.txtKieuthuocVT.Size = new System.Drawing.Size(181, 21);
+            this.txtKieuthuocVT.splitChar = '@';
+            this.txtKieuthuocVT.splitCharIDAndCode = '#';
+            this.txtKieuthuocVT.TabIndex = 2;
+            this.txtKieuthuocVT.TakeCode = false;
+            this.txtKieuthuocVT.txtMyCode = null;
+            this.txtKieuthuocVT.txtMyCode_Edit = null;
+            this.txtKieuthuocVT.txtMyID = null;
+            this.txtKieuthuocVT.txtMyID_Edit = null;
+            this.txtKieuthuocVT.txtMyName = null;
+            this.txtKieuthuocVT.txtMyName_Edit = null;
+            this.txtKieuthuocVT.txtNext = null;
+            // 
             // frm_themmoi_thuoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1284,7 +1299,6 @@
         internal System.Windows.Forms.Label label27;
         private System.Windows.Forms.ComboBox cboDrugNature;
         internal System.Windows.Forms.Label label28;
-        private Janus.Windows.EditControls.UIComboBox cboKIEU_THUOC_VT;
         internal System.Windows.Forms.TextBox txtTEN_BHYT;
         internal System.Windows.Forms.Label label29;
         private VNS.HIS.UCs.AutoCompleteTextbox txtLoaithuoc;
@@ -1330,5 +1344,6 @@
         private UCs.AutoCompleteTextbox_Danhmucchung txtDonvitinh;
         private UCs.AutoCompleteTextbox txtName;
         private Janus.Windows.EditControls.UIButton cmdNew;
+        private UCs.AutoCompleteTextbox_Danhmucchung txtKieuthuocVT;
     }
 }

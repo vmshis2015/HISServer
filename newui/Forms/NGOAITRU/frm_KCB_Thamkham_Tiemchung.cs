@@ -452,8 +452,11 @@ namespace VNS.HIS.UI.NGOAITRU
                         chkMuithu.Enabled = chkPhanungVacxin.Checked && objChitiet != null;
                         chkHennhaclai.Enabled = chkNgaytiem.Enabled = chkMuithu.Enabled;
                         chkHennhaclai.Checked =chkHennhaclai.Enabled && objChitiet.NgayhenMuiketiep != null;
-                        if (chkHennhaclai.Checked) 
-                            dtpHennhaclai.Value = objChitiet.NgayhenMuiketiep.Value;
+                        if (chkHennhaclai.Checked)
+                            if (objChitiet.NgayhenMuiketiep != null)
+                                dtpHennhaclai.Value = objChitiet.NgayhenMuiketiep.Value;
+                            else
+                                dtpHennhaclai.Value = globalVariables.SysDate;
                         dtpNgaysudung.Value = objChitiet.NgaySudung.Value;
                         cmdChuatiem.Enabled = Utility.Byte2Bool(objChitiet.DaDung);
                         cmdDatiem.Enabled = !cmdChuatiem.Enabled;
@@ -522,6 +525,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     txtPhanungSautiem.SetCode("-1");
                     txtHuongdieutri.SetCode("-1");
+                    txtKQ.SetCode("-1");
                     txtKet_Luan.SetCode("-1");
                     chkHennhaclai.Checked = false;
                     cmdChuatiem.Enabled = cmdDatiem.Enabled = pnlPhanungsautiem.Enabled = false;
@@ -1551,6 +1555,7 @@ namespace VNS.HIS.UI.NGOAITRU
             txtPhanungSautiem.Init();
             txtHuongdieutri.Init();
             txtKet_Luan.Init();
+            txtKQ.Init();
            
         }
 
@@ -1560,6 +1565,8 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 AllowTextChanged = false;
                 Get_DanhmucChung();
+                bool TUDONGDANHDAU_TRANGTHAISUDUNG = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEMCHUNG_TUDONGDANHDAU_TRANGTHAISUDUNG", "0", false) == "1";
+                cmdDatiem.Visible = cmdChuatiem.Visible = !TUDONGDANHDAU_TRANGTHAISUDUNG;
                 DataTable dtNhomin = THU_VIEN_CHUNG.LayDulieuDanhmucChung("NHOM_INPHIEU_CLS", true);
                 Load_DSach_ICD();
                 LoadPhongkhamngoaitru();
@@ -2194,6 +2201,10 @@ namespace VNS.HIS.UI.NGOAITRU
                     else
                     {
                         string sPatientTemp = txtPatient_Code.Text;
+                        m_strMaLuotkham = "";
+                        objLuotkham = null;
+                        objkcbdangky = null;
+                        objBenhnhan = null;
                         ClearControl();
                         
                         txtPatient_Code.Text = sPatientTemp;
@@ -3078,7 +3089,6 @@ namespace VNS.HIS.UI.NGOAITRU
                 _KcbChandoanKetluan.NgayTao = dtpCreatedDate.Value;
                 _KcbChandoanKetluan.NguoiTao = globalVariables.UserName;
                 _KcbChandoanKetluan.NgayChandoan = dtpCreatedDate.Value;
-                _KcbChandoanKetluan.Ketluan = Utility.sDbnull(txtKet_Luan.Text);
                 _KcbChandoanKetluan.Chandoan = objLuotkham.ChanDoan;
                 _KcbChandoanKetluan.ChandoanKemtheo = objLuotkham.ChandoanKemtheo;
                 _KcbChandoanKetluan.IdPhieudieutri = -1;

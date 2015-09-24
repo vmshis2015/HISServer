@@ -225,7 +225,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
 
             try
             {
-                DataTable _dataThuoc = new Select().From(DmucThuoc.Schema).Where(DmucThuoc.KieuThuocvattuColumn).IsEqualTo("THUOC").And(DmucThuoc.TrangThaiColumn).IsEqualTo(1).ExecuteDataSet().Tables[0];
+                DataTable _dataThuoc = new Select().From(DmucThuoc.Schema).ExecuteDataSet().Tables[0];
                 if (_dataThuoc == null)
                 {
                     txtthuoc.dtData = null;

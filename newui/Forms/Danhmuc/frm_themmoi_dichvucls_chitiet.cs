@@ -100,7 +100,7 @@ namespace VNS.HIS.UI.DANHMUC
             txtDonvitinh.Init();
             txtPhuongphapthu.Init();
             m_dtqheCamchidinhCLSChungphieu = new Select().From(QheCamchidinhChungphieu.Schema).Where(QheCamchidinhChungphieu.Columns.Loai).IsEqualTo(0).ExecuteDataSet().Tables[0];
-            DataTable dtChitiet = SPs.DmucLaydanhsachChidinhclsChitiet(1, -1).GetDataSet().Tables[0];
+            DataTable dtChitiet = SPs.DmucLaydanhmucDichvuclsChitiet(1, -1).GetDataSet().Tables[0];
             Utility.AddColumToDataTable(ref dtChitiet, "CHON", typeof(int));
             txtDichvu.Init(dtChitiet, new List<string>() { DmucDichvuclsChitiet.Columns.IdDichvu, DmucDichvuclsChitiet.Columns.MaChitietdichvu, DmucDichvuclsChitiet.Columns.TenChitietdichvu });
             Utility.SetDataSourceForDataGridEx_Basic(grdDanhsachCamChidinhChungphieu, dtChitiet, true, true, "1=1", "CHON DESC," + VDmucDichvuclsChitiet.Columns.SttHthiLoaidvu + "," + VDmucDichvuclsChitiet.Columns.SttHthiDichvu + "," + VDmucDichvuclsChitiet.Columns.SttHthi + "," + VDmucDichvuclsChitiet.Columns.TenChitietdichvu);

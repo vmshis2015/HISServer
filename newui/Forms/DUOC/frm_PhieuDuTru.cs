@@ -6,8 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Shapes;
 using Janus.Windows.GridEX;
 using SubSonic;
+using VNS.HIS.BusRule.Classes;
 using VNS.HIS.DAL;
 using VNS.Libs;
 
@@ -37,7 +39,7 @@ namespace VNS.HIS.UI.THUOC
 
         void chkHienthithuoccoDutru_CheckedChanged(object sender, EventArgs e)
         {
-            m_Thuoc.DefaultView.Sort = chkHienthithuoccoDutru.Checked ? "COQUANHE desc,ten_thuoc,ten_donvitinh" : "ten_thuoc,ten_donvitinh"; ;
+            m_Thuoc.DefaultView.Sort = chkHienthithuoccoDutru.Checked ? "COQUANHE desc,ten_thuoc,ten_donvitinh" : "ten_thuoc,ten_donvitinh"; 
         }
 
         void chkUpdate_CheckedChanged(object sender, EventArgs e)
@@ -235,7 +237,7 @@ namespace VNS.HIS.UI.THUOC
             }
             else
                 m_Thuoc = SPs.ThuocLaythongtinDutruthuoc(Utility.Int16Dbnull(cboKho.SelectedValue), KIEU_THUOC_VT).GetDataSet().Tables[0];
-            Utility.SetDataSourceForDataGridEx_Basic(grdList, m_Thuoc, true, true, "1=1", "ten_thuoc,ten_donvitinh");
+            Utility.SetDataSourceForDataGridEx_Basic(grdList, m_Thuoc, true, true, "1=1", "COQUANHE desc,ten_thuoc,ten_donvitinh");
         }
 
         private void cmdGetData_Click(object sender, EventArgs e)
@@ -427,7 +429,45 @@ namespace VNS.HIS.UI.THUOC
 
         private void cmdPrint_Click(object sender, EventArgs e)
         {
+            try
+            {
+               
+                //Truyền dữ liệu vào datatable
+                DataTable m_dtReport = BAOCAO_THUOC.ThuocLaythongtinInphieuDutruthuoc(Utility.Int16Dbnull(cboKho.SelectedValue, -1), KIEU_THUOC_VT);
+                THU_VIEN_CHUNG.CreateXML(m_dtReport, "thuoc_PhieuDutru.xml");
+                
+                if (m_dtReport.Rows.Count <= 0)
+                {
+                    Utility.ShowMsg("Không tìm thấy dữ liệu cho báo cáo", "Thông báo", MessageBoxIcon.Warning);
+                    return;
+                }
+                
+                //Add logo vào datatable
+                Utility.UpdateLogotoDatatable(ref m_dtReport);
+                string tieude = "", reportname = "";
+                string mabaocao =  "thuoc_PhieuDutru";
+                var crpt = Utility.GetReport(mabaocao, ref tieude, ref reportname);
+                if (crpt == null) return;
 
+                //baocaO_TIEUDE1.TIEUDE
+                frmPrintPreview objForm = new frmPrintPreview(tieude, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+                crpt.SetDataSource(m_dtReport);
+
+                objForm.mv_sReportFileName = System.IO.Path.GetFileName(reportname);
+                objForm.mv_sReportCode = mabaocao;
+                Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+                Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+                Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(globalVariables.SysDate));
+                Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                Utility.SetParameterValue(crpt, "txtTrinhky", "");
+                Utility.SetParameterValue(crpt, "tenkho", cboKho.Text);
+                objForm.crptViewer.ReportSource = crpt;
+                objForm.ShowDialog();
+            }
+            catch (Exception exception)
+            {
+            }
         }
     }
 }

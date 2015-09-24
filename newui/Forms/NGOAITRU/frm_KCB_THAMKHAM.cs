@@ -1660,8 +1660,6 @@ namespace VNS.HIS.UI.NGOAITRU
                 ModifyCommmands();
                 txtPatient_Code.Focus();
                 txtPatient_Code.Select();
-                
-
             }
         }
 
@@ -2866,6 +2864,10 @@ namespace VNS.HIS.UI.NGOAITRU
                     else
                     {
                         string sPatientTemp = txtPatient_Code.Text;
+                        m_strMaLuotkham = "";
+                        objLuotkham = null;
+                        objkcbdangky = null;
+                        objBenhnhan = null;
                         ClearControl();
                         
                         txtPatient_Code.Text = sPatientTemp;
