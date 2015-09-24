@@ -72,8 +72,12 @@ namespace VNS.HIS.BusRule.Classes
                  using (SharedDbConnectionScope sh = new SharedDbConnectionScope())
                  {
                      if (soluong > 0)
+                     {
                          new Update(KcbDonthuocChitiet.Schema).Set(KcbDonthuocChitiet.Columns.SoLuong).EqualTo(soluong)
                              .Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).IsEqualTo(iddetail).Execute();
+                         new Update(TblKedonthuocTempt.Schema).Set(TblKedonthuocTempt.Columns.SoLuong).EqualTo(soluong)
+                          .Where(TblKedonthuocTempt.Columns.IdChitietdonthuoc).IsEqualTo(iddetail).Execute();
+                     }
                      else
                          lstIdChitietDonthuoc = lstIdChitietDonthuoc + "," + iddetail.ToString();
                      SPs.DonthuocXoaChitietNew(lstIdChitietDonthuoc).Execute();
@@ -244,14 +248,28 @@ namespace VNS.HIS.BusRule.Classes
                                  CapnhatChandoan(_KcbChandoanKetluan);
                              p_intIdDonthuoc = objDonthuoc.IdDonthuoc;
                              decimal PtramBH = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0);
-
+                             bool TUDONGDANHDAU_TRANGTHAISUDUNG = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEMCHUNG_TUDONGDANHDAU_TRANGTHAISUDUNG", "0", false) == "1";
                              foreach (KcbDonthuocChitiet objDonthuocChitiet in arrDonthuocChitiet)
                              {
                                  objDonthuocChitiet.IdKham = objDonthuoc.IdKham;
                                  objDonthuocChitiet.MaLuotkham = objDonthuoc.MaLuotkham;
                                  objDonthuocChitiet.IdBenhnhan = objDonthuoc.IdBenhnhan;
                                  objDonthuocChitiet.IdDonthuoc = objDonthuoc.IdDonthuoc;
+                                 objDonthuocChitiet.NgaySudung = objDonthuoc.NgayKedon;
+                                 objDonthuocChitiet.DaDung=Utility.Bool2byte(TUDONGDANHDAU_TRANGTHAISUDUNG);
                                  ThemChitiet(objDonthuoc, objDonthuocChitiet, PtramBH, objLuotkham);
+                                 //Tạo mới dòng dữ liệu tempt để kiểm tra tồn kho theo ngày
+                                 TblKedonthuocTempt newItem = new TblKedonthuocTempt();
+                                 newItem.IdChitietdonthuoc = objDonthuocChitiet.IdChitietdonthuoc;
+                                 newItem.IdDonthuoc = objDonthuocChitiet.IdDonthuoc;
+                                 newItem.IdKho =Utility.Int32Dbnull( objDonthuocChitiet.IdKho,-1);
+                                 newItem.IdThuoc = objDonthuocChitiet.IdThuoc;
+                                 newItem.IdThuockho =Utility.Int64Dbnull( objDonthuocChitiet.IdThuockho,-1);
+                                 newItem.NgayKedon = objDonthuoc.NgayKedon;
+                                 newItem.SoLuong = objDonthuocChitiet.SoLuong;
+                                 newItem.TrangThai = Utility.ByteDbnull(objDonthuocChitiet.TrangThai, 0);
+                                 newItem.IsNew = true;
+                                 newItem.Save();
                                  if (!lstChitietDonthuoc.ContainsKey(objDonthuocChitiet.IdThuockho.Value))
                                      lstChitietDonthuoc.Add(objDonthuocChitiet.IdThuockho.Value, objDonthuocChitiet.IdChitietdonthuoc);
                              }
@@ -409,6 +427,19 @@ namespace VNS.HIS.BusRule.Classes
                                  objDonthuocChitiet.IdDonthuoc = objDonthuoc.IdDonthuoc;
                                  objDonthuocChitiet.CachDung = objDonthuocChitiet.MotaThem;
                                  ThemChitiet(objDonthuoc, objDonthuocChitiet, PtramBH, objLuotkham);
+                                 //Thêm dòng mới
+                                 TblKedonthuocTempt newItem = new TblKedonthuocTempt();
+                                 newItem.IdChitietdonthuoc = objDonthuocChitiet.IdChitietdonthuoc;
+                                 newItem.IdDonthuoc = objDonthuocChitiet.IdDonthuoc;
+                                 newItem.IdKho = Utility.Int32Dbnull(objDonthuocChitiet.IdKho, -1);
+                                 newItem.IdThuoc = objDonthuocChitiet.IdThuoc;
+                                 newItem.IdThuockho = Utility.Int64Dbnull(objDonthuocChitiet.IdThuockho, -1);
+                                 newItem.NgayKedon = objDonthuoc.NgayKedon;
+                                 newItem.SoLuong = objDonthuocChitiet.SoLuong;
+                                 newItem.TrangThai = Utility.ByteDbnull(objDonthuocChitiet.TrangThai, 0);
+                                 newItem.IsNew = true;
+                                 newItem.Save();
+
                                  if (!lstChitietDonthuoc.ContainsKey(objDonthuocChitiet.IdThuockho.Value))
                                      lstChitietDonthuoc.Add(objDonthuocChitiet.IdThuockho.Value, objDonthuocChitiet.IdChitietdonthuoc);
                              }
@@ -423,6 +454,10 @@ namespace VNS.HIS.BusRule.Classes
                                      .Set(KcbDonthuocChitiet.Columns.IpMaysua).EqualTo(objDonthuocChitiet.IpMaysua)
                                      .Set(KcbDonthuocChitiet.Columns.TenMaysua).EqualTo(objDonthuocChitiet.TenMaysua)
                                      .Where(KcbDonthuocChitiet.IdChitietdonthuocColumn).IsEqualTo(objDonthuocChitiet.IdChitietdonthuoc).Execute();
+                                 new Update(TblKedonthuocTempt.Schema)
+                                    .Set(TblKedonthuocTempt.SoLuongColumn).EqualTo(objDonthuocChitiet.SoLuong)
+                                    .Where(TblKedonthuocTempt.IdChitietdonthuocColumn).IsEqualTo(objDonthuocChitiet.IdChitietdonthuoc).Execute();
+
                              }
                          }
                      }

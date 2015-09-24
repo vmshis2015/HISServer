@@ -254,7 +254,7 @@ namespace VNS.Libs
           {
               sqlQuery.Where(TDmucKho.Columns.KieuKho).In(lstKhole);
           }
-          sqlQuery.And(TDmucKho.Columns.KhoThuocVt).IsEqualTo(KIEU_THUOC_VT);
+          sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;

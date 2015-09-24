@@ -74,7 +74,8 @@ namespace VNS.HIS.BusRule.Classes
                             {
                                 objChitiet.PhanungSautiem = objDiagInfo.PhanungSautiemchung;
                                 objChitiet.Xutri = objDiagInfo.HuongDieutri;
-                                objChitiet.KetluanNguyennhan = objDiagInfo.Ketluan;
+                                objChitiet.KetQua = objDiagInfo.Ketluan;
+                                objChitiet.KetluanNguyennhan = objDiagInfo.KetluanNguyennhan;
                             }
                             objChitiet.MarkOld();
                             objChitiet.Save();
@@ -95,7 +96,8 @@ namespace VNS.HIS.BusRule.Classes
                                 new Update(KcbDonthuocChitiet.Schema)
                                     .Set(KcbDonthuocChitiet.Columns.PhanungSautiem).EqualTo(objDiagInfo.PhanungSautiemchung)
                                     .Set(KcbDonthuocChitiet.Columns.Xutri).EqualTo(objDiagInfo.HuongDieutri)
-                                    .Set(KcbDonthuocChitiet.Columns.KetluanNguyennhan).EqualTo(objDiagInfo.Ketluan)
+                                    .Set(KcbDonthuocChitiet.Columns.KetQua).EqualTo(objDiagInfo.Ketluan)
+                                    .Set(KcbDonthuocChitiet.Columns.KetluanNguyennhan).EqualTo(objDiagInfo.KetluanNguyennhan)
                                     .Where(KcbDonthuocChitiet.Columns.IdKham).IsEqualTo(objDiagInfo.IdKham)
                                     .Execute();
                             }
