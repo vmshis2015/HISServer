@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.uiTab1 = new Janus.Windows.UI.Tab.UITab();
@@ -38,6 +39,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.grdList = new Janus.Windows.GridEX.GridEX();
+            this.txtDonvitinh = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
+            this.chkNgaytiem = new Janus.Windows.EditControls.UICheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.uiTab1)).BeginInit();
             this.uiTab1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
@@ -139,11 +142,62 @@
             this.grdList.TabStop = false;
             this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
+            // txtDonvitinh
+            // 
+            this.txtDonvitinh._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtDonvitinh._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDonvitinh.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtDonvitinh.AutoCompleteList")));
+            this.txtDonvitinh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDonvitinh.CaseSensitive = false;
+            this.txtDonvitinh.CompareNoID = true;
+            this.txtDonvitinh.DefaultCode = "-1";
+            this.txtDonvitinh.DefaultID = "-1";
+            this.txtDonvitinh.Drug_ID = null;
+            this.txtDonvitinh.ExtraWidth = 0;
+            this.txtDonvitinh.FillValueAfterSelect = false;
+            this.txtDonvitinh.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDonvitinh.LOAI_DANHMUC = "DONVITINH";
+            this.txtDonvitinh.Location = new System.Drawing.Point(255, 12);
+            this.txtDonvitinh.MaxHeight = -1;
+            this.txtDonvitinh.MinTypedCharacters = 2;
+            this.txtDonvitinh.MyCode = "-1";
+            this.txtDonvitinh.MyID = "-1";
+            this.txtDonvitinh.Name = "txtDonvitinh";
+            this.txtDonvitinh.RaiseEvent = false;
+            this.txtDonvitinh.RaiseEventEnter = false;
+            this.txtDonvitinh.RaiseEventEnterWhenEmpty = false;
+            this.txtDonvitinh.SelectedIndex = -1;
+            this.txtDonvitinh.Size = new System.Drawing.Size(127, 21);
+            this.txtDonvitinh.splitChar = '@';
+            this.txtDonvitinh.splitCharIDAndCode = '#';
+            this.txtDonvitinh.TabIndex = 27;
+            this.txtDonvitinh.TakeCode = false;
+            this.txtDonvitinh.txtMyCode = null;
+            this.txtDonvitinh.txtMyCode_Edit = null;
+            this.txtDonvitinh.txtMyID = null;
+            this.txtDonvitinh.txtMyID_Edit = null;
+            this.txtDonvitinh.txtMyName = null;
+            this.txtDonvitinh.txtMyName_Edit = null;
+            this.txtDonvitinh.txtNext = null;
+            // 
+            // chkNgaytiem
+            // 
+            this.chkNgaytiem.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkNgaytiem.Enabled = false;
+            this.chkNgaytiem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkNgaytiem.Location = new System.Drawing.Point(134, 227);
+            this.chkNgaytiem.Name = "chkNgaytiem";
+            this.chkNgaytiem.Size = new System.Drawing.Size(89, 23);
+            this.chkNgaytiem.TabIndex = 584;
+            this.chkNgaytiem.Text = "Ngày tiêm:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(811, 475);
+            this.Controls.Add(this.chkNgaytiem);
+            this.Controls.Add(this.txtDonvitinh);
             this.Controls.Add(this.grdList);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -171,6 +225,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private Janus.Windows.GridEX.GridEX grdList;
+        private VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung txtDonvitinh;
+        private Janus.Windows.EditControls.UICheckBox chkNgaytiem;
 
     }
 }

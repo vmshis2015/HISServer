@@ -28,6 +28,29 @@ namespace VNS.HIS.UI.DANHMUC
             cboDepartment.SelectedIndexChanged += new EventHandler(cboDepartment_SelectedIndexChanged);
             txtDonvitinh._OnShowData += txtDonvitinh__OnShowData;
             txtQuychuan._OnShowData += txtQuychuan__OnShowData;
+            chkKiemnghiem.CheckedChanged += chkKiemnghiem_CheckedChanged;
+            txtServiceCode.LostFocus += txtServiceCode_LostFocus;
+        }
+
+        void txtServiceCode_LostFocus(object sender, EventArgs e)
+        {
+            if (Utility.DoTrim(txtMaBHYT.Text) == "")
+                txtMaBHYT.Text = txtServiceCode.Text;
+        }
+
+        void chkKiemnghiem_CheckedChanged(object sender, EventArgs e)
+        {
+            txtThetichtoithieu.Enabled = txtQuychuan.Enabled = txtSongaytraKQ.Enabled = txtDonvitinh.Enabled =chkCososanh.Enabled=chkTinhthetichtheochitieu.Enabled= chkKiemnghiem.Checked;
+            if (chkKiemnghiem.Checked) txtThetichtoithieu.Focus();
+            else
+            {
+                txtThetichtoithieu.Clear();
+                txtQuychuan.SetCode("-1");
+                txtSongaytraKQ.Clear();
+                txtDonvitinh.SetCode("-1");
+                chkCososanh.Checked = false;
+                chkTinhthetichtheochitieu.Checked = false;
+            }
         }
 
         void txtQuychuan__OnShowData()
@@ -173,21 +196,29 @@ namespace VNS.HIS.UI.DANHMUC
         {
             SqlQuery q;
             Utility.SetMsg(lblMsg, "", true);
-            if (em_Action == action.Insert)
+            if (string.IsNullOrEmpty(txtServiceCode.Text))
             {
-                q = new Select().From(DmucDichvucl.Schema)
-                    .Where(DmucDichvucl.Columns.MaDichvu).IsEqualTo(Utility.DoTrim( txtServiceCode.Text));
-                if (q.GetRecordCount() > 0)
-                {
-                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có mã như vậy", true);
-                    txtServiceCode.Focus();
-                    return false;
-                }
+                Utility.SetMsg(lblMsg, "Bạn phải nhập Mã dịch vụ", true);
+                txtServiceCode.Focus();
+                return false;
             }
+            if (string.IsNullOrEmpty(txtMaBHYT.Text))
+            {
+                Utility.SetMsg(lblMsg, "Bạn phải nhập Mã dịch vụ theo QĐ 29", true);
+                txtMaBHYT.Focus();
+                return false;
+            }
+            
             if (string.IsNullOrEmpty(txtServiceName.Text))
             {
                 Utility.SetMsg(lblMsg, "Bạn phải nhập tên dịch vụ", true);
                 txtServiceName.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtTenBHYT.Text))
+            {
+                Utility.SetMsg(lblMsg, "Bạn phải nhập tên dịch vụ theo QĐ 29", true);
+                txtTenBHYT.Focus();
                 return false;
             }
             if (cboServiceType.SelectedIndex <= 0)
@@ -200,24 +231,81 @@ namespace VNS.HIS.UI.DANHMUC
             if(em_Action==action.Insert)
             {
                 q = new Select().From(DmucDichvucl.Schema)
-                    .Where(DmucDichvucl.Columns.TenDichvu).IsEqualTo(txtServiceName.Text);
+                    .Where(DmucDichvucl.Columns.MaDichvu).IsEqualTo(Utility.DoTrim(txtServiceCode.Text));
+                if (q.GetRecordCount() > 0)
+                {
+                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có mã như vậy. Mời bạn kiểm tra lại", true);
+                    txtServiceCode.Focus();
+                    return false;
+                }
+                q = new Select().From(DmucDichvucl.Schema)
+                    .Where(DmucDichvucl.Columns.MaBhyt).IsEqualTo(Utility.DoTrim(txtMaBHYT.Text));
+                if (q.GetRecordCount() > 0)
+                {
+                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Mã QĐ 29 như vậy. Mời bạn kiểm tra lại", true);
+                    txtMaBHYT.Focus();
+                    return false;
+                }
+
+                q = new Select().From(DmucDichvucl.Schema)
+                    .Where(DmucDichvucl.Columns.TenDichvu).IsEqualTo(Utility.DoTrim(txtServiceName.Text));
                 if(q.GetRecordCount()>0)
                 {
-                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có tên như vậy", true);
+                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có tên như vậy. Mời bạn kiểm tra lại", true);
                     txtServiceName.Focus();
+                    return false;
+                }
+                q = new Select().From(DmucDichvucl.Schema)
+                    .Where(DmucDichvucl.Columns.TenBhyt).IsEqualTo(Utility.DoTrim(txtTenBHYT.Text));
+                if (q.GetRecordCount() > 0)
+                {
+                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Tên QĐ 29 như vậy. Mời bạn kiểm tra lại", true);
+                    txtTenBHYT.Focus();
                     return false;
                 }
             }
             if (em_Action == action.Update)
             {
                 q = new Select().From(DmucDichvucl.Schema)
-                    .Where(DmucDichvucl.Columns.TenDichvu).IsEqualTo(txtServiceName.Text).And(DmucDichvucl.Columns.IdDichvu).
+                   .Where(DmucDichvucl.Columns.MaDichvu).IsEqualTo(Utility.DoTrim(txtServiceCode.Text)).And(DmucDichvucl.Columns.IdDichvu).
+                   IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
+
+                if (q.GetRecordCount() > 0)
+                {
+                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Mã như vậy. Mời bạn kiểm tra lại", true);
+                    txtServiceCode.Focus();
+                    return false;
+                }
+
+                q = new Select().From(DmucDichvucl.Schema)
+                  .Where(DmucDichvucl.Columns.MaBhyt).IsEqualTo(Utility.DoTrim(txtMaBHYT.Text)).And(DmucDichvucl.Columns.IdDichvu).
+                  IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
+
+                if (q.GetRecordCount() > 0)
+                {
+                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Mã QĐ 29 như vậy. Mời bạn kiểm tra lại", true);
+                    txtMaBHYT.Focus();
+                    return false;
+                }
+
+                q = new Select().From(DmucDichvucl.Schema)
+                    .Where(DmucDichvucl.Columns.TenDichvu).IsEqualTo(Utility.DoTrim(txtServiceName.Text)).And(DmucDichvucl.Columns.IdDichvu).
                     IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
 
                 if (q.GetRecordCount() > 0)
                 {
-                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có tên như vậy", true);
+                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có tên như vậy. Mời bạn kiểm tra lại", true);
                     txtServiceName.Focus();
+                    return false;
+                }
+                q = new Select().From(DmucDichvucl.Schema)
+                   .Where(DmucDichvucl.Columns.TenBhyt).IsEqualTo(Utility.DoTrim(txtTenBHYT.Text)).And(DmucDichvucl.Columns.IdDichvu).
+                   IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
+
+                if (q.GetRecordCount() > 0)
+                {
+                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Tên QĐ 29 như vậy. Mời bạn kiểm tra lại", true);
+                    txtTenBHYT.Focus();
                     return false;
                 }
             }
@@ -243,6 +331,8 @@ namespace VNS.HIS.UI.DANHMUC
                 txtID.Text = objDichVu.IdDichvu.ToString();
                 txtServiceCode.Text = Utility.sDbnull(objDichVu.MaDichvu, "");
                 txtServiceName.Text = Utility.sDbnull(objDichVu.TenDichvu, "");
+                txtMaBHYT.Text = Utility.sDbnull(objDichVu.MaBhyt, "");
+                txtTenBHYT.Text = Utility.sDbnull(objDichVu.TenBhyt, "");
                 nmrDongia.Value = Utility.DecimaltoDbnull(objDichVu.DonGia, 0);
                 if (Utility.Int32Dbnull(objDichVu.IdKhoaThuchien, -1) > 0)
                 {
@@ -258,6 +348,10 @@ namespace VNS.HIS.UI.DANHMUC
                 txtThetichtoithieu.Text = Utility.sDbnull(objDichVu.ThetichToithieu, 0);
                 chkTinhthetichtheochitieu.Checked = Utility.Byte2Bool(objDichVu.TinhthetichTheochitieu);
                 chkCososanh.Checked = Utility.Byte2Bool(objDichVu.CoSosanh);
+
+                chkKiemnghiem.Checked = txtDonvitinh.myCode != "-1" || txtQuychuan.myCode != "-1" || Utility.sDbnull( txtSongaytraKQ.Text) != ""
+                    || Utility.sDbnull(txtThetichtoithieu.Text) != ""
+                    || chkTinhthetichtheochitieu.Checked || chkCososanh.Checked;
                 txtDesc.Text = Utility.sDbnull(objDichVu.MotaThem, "");
                 txtchidan.Text = objDichVu.ChiDan;
                 txtServiceOrder.Value = Utility.DecimaltoDbnull(objDichVu.SttHthi, "1");
@@ -267,6 +361,7 @@ namespace VNS.HIS.UI.DANHMUC
                 chkHaveDetail.Checked = objDichVu.HienthiChitiet == 1 ? true : false;
                 chkHighTech.Checked = objDichVu.DichvuKtc == 1 ? true : false;
                 cboServiceType.SelectedIndex = Utility.GetSelectedIndex(cboServiceType, Utility.sDbnull(objDichVu.IdLoaidichvu, "-1"));
+                chkKiemnghiem_CheckedChanged(chkKiemnghiem, new EventArgs());
             }
         }
 
@@ -288,6 +383,8 @@ namespace VNS.HIS.UI.DANHMUC
                 objDichVu.IdPhongThuchien = Utility.Int16Dbnull(cboDepartment.SelectedValue, -1);
                 objDichVu.MaDichvu = Utility.sDbnull(txtServiceCode.Text, "");
                 objDichVu.TenDichvu = Utility.sDbnull(txtServiceName.Text, "");
+                objDichVu.MaBhyt = Utility.sDbnull(txtMaBHYT.Text, "");
+                objDichVu.TenBhyt = Utility.sDbnull(txtTenBHYT.Text, "");
                 objDichVu.IdLoaidichvu = Utility.sDbnull(cboServiceType.SelectedValue, "-1");
                 objDichVu.SttHthi = Utility.Int16Dbnull(txtServiceOrder.Value, 0);
                 objDichVu.DichvuKtc = chkHighTech.Checked ? Convert.ToInt16(1) : Convert.ToInt16(0);
@@ -319,6 +416,8 @@ namespace VNS.HIS.UI.DANHMUC
             dr[DmucDichvucl.Columns.IdDichvu] =Utility.Int32Dbnull(query.GetMax(DmucDichvucl.Columns.IdDichvu),-1);
             dr[DmucDichvucl.Columns.TenDichvu] = Utility.sDbnull(txtServiceName.Text, "");
             dr[DmucDichvucl.Columns.MaDichvu] = Utility.sDbnull(txtServiceCode.Text, "");
+            dr[DmucDichvucl.Columns.TenBhyt] = Utility.sDbnull(txtTenBHYT.Text, "");
+            dr[DmucDichvucl.Columns.MaBhyt] = Utility.sDbnull(txtMaBHYT.Text, "");
             dr[DmucDichvucl.Columns.HienthiChitiet] = chkHaveDetail.Checked ? Convert.ToByte(1) : Convert.ToByte(0);
             dr[DmucDichvucl.Columns.DichvuKtc] = chkHighTech.Checked ? Convert.ToInt16(1) : Convert.ToInt16(0);
             dr[DmucDichvucl.Columns.IdLoaidichvu] = Utility.sDbnull(cboServiceType.SelectedValue, "-1");
@@ -418,9 +517,11 @@ namespace VNS.HIS.UI.DANHMUC
             new Update(DmucDichvucl.Schema)
                 .Set(DmucDichvucl.Columns.NgaySua).EqualTo(globalVariables.SysDate)
                 .Set(DmucDichvucl.Columns.NguoiSua).EqualTo(globalVariables.UserName)
-                .Set(DmucDichvucl.Columns.TenDichvu).EqualTo(Utility.sDbnull(txtServiceName.Text, ""))
                 .Set(DmucDichvucl.Columns.DonGia).EqualTo(Utility.DecimaltoDbnull(nmrDongia.Value,0))
+                .Set(DmucDichvucl.Columns.TenDichvu).EqualTo(Utility.sDbnull(txtServiceName.Text, ""))
                 .Set(DmucDichvucl.Columns.MaDichvu).EqualTo(Utility.sDbnull(txtServiceCode.Text, ""))
+                .Set(DmucDichvucl.Columns.TenBhyt).EqualTo(Utility.sDbnull(txtTenBHYT.Text, ""))
+                .Set(DmucDichvucl.Columns.MaBhyt).EqualTo(Utility.sDbnull(txtMaBHYT.Text, ""))
                 .Set(DmucDichvucl.Columns.MotaThem).EqualTo(Utility.sDbnull(txtDesc.Text, ""))
                 .Set(DmucDichvucl.Columns.IdLoaidichvu).EqualTo(Utility.sDbnull(cboServiceType.SelectedValue, "-1"))
                 .Set(DmucDichvucl.Columns.TrangThai).EqualTo(chkTrangthai.Checked?1:0)
@@ -463,7 +564,9 @@ namespace VNS.HIS.UI.DANHMUC
                     arrDr[0][DmucDichvucl.Columns.NhomInCls] = Utility.sDbnull(cboNhomin.SelectedValue, "ALL");// getNhominCLS(cboNhomin.SelectedIndex);
                     arrDr[0][DmucDichvucl.Columns.DonGia] = Utility.DecimaltoDbnull(nmrDongia.Value, 0);
                     arrDr[0][DmucDichvucl.Columns.TenDichvu] = Utility.sDbnull(txtServiceName.Text, "");
+                    arrDr[0][DmucDichvucl.Columns.TenBhyt] = Utility.sDbnull(txtTenBHYT.Text, "");
                     arrDr[0][DmucDichvucl.Columns.MaDichvu] = Utility.sDbnull(txtServiceCode.Text, "");
+                    arrDr[0][DmucDichvucl.Columns.MaBhyt] = Utility.sDbnull(txtMaBHYT.Text, "");
                     arrDr[0][DmucDichvucl.Columns.MotaThem] = Utility.sDbnull(txtDesc.Text, "");
                     arrDr[0][DmucDichvucl.Columns.IdLoaidichvu] = Utility.sDbnull(cboServiceType.SelectedValue, "-1");
                     arrDr[0][DmucDichvucl.Columns.HienthiChitiet] = chkHaveDetail.Checked ? 1 : 0;
@@ -494,7 +597,8 @@ namespace VNS.HIS.UI.DANHMUC
         }
         private void txtServiceName_LostFocus(object sender, System.EventArgs e)
         {
-            //txtServiceName.Text = Utility.chuanhoachuoi(txtServiceName.Text);
+            if (Utility.DoTrim(txtTenBHYT.Text) == "")
+                txtTenBHYT.Text = txtServiceName.Text;
         }
         private void txtServicePrice_KeyPress(object sender, KeyPressEventArgs e)
         {

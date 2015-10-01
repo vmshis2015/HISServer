@@ -41,14 +41,37 @@ namespace VNS.HIS.UI.DANHMUC
             grdServiceDetail.SelectionChanged+=new EventHandler(grdServiceDetail_SelectionChanged);
             grdChitiet.SelectionChanged += new EventHandler(grdChitiet_SelectionChanged);
             grdServiceDetail.FilterApplied+=new EventHandler(grdServiceDetail_FilterApplied);
-            cboService.SelectedIndexChanged += new EventHandler(cboService_SelectedIndexChanged);
+           
             grdChitiet.GotFocus += grdChitiet_GotFocus;
             grdServiceDetail.GotFocus += grdServiceDetail_GotFocus;
 
             grdServiceDetail.DoubleClick += new EventHandler(grdServiceDetail_DoubleClick);
             grdChitiet.DoubleClick += new EventHandler(grdChitiet_DoubleClick);
             cmdConfig.Click += cmdConfig_Click;
+            txtLoaiDichvu._OnEnterMe += txtLoaiDichvu__OnEnterMe;
+            txtLoaiDichvu._OnSelectionChanged += txtLoaiDichvu__OnSelectionChanged;
             
+        }
+
+        void txtLoaiDichvu__OnSelectionChanged()
+        {
+            try
+            {
+                
+                SqlQuery _SqlQuery = new Select().From(VDmucDichvuclsChitiet.Schema);
+                if (Utility.Int32Dbnull(txtLoaiDichvu.MyID, -1) > -1)
+                    _SqlQuery.Where(VDmucDichvuclsChitiet.Columns.IdDichvu).IsEqualTo(Utility.Int32Dbnull(txtLoaiDichvu.MyID, -1));
+                dsTable = _SqlQuery.OrderAsc(VDmucDichvuclsChitiet.Columns.SttHthi).ExecuteDataSet().Tables[0];
+                Utility.SetDataSourceForDataGridEx(grdServiceDetail, dsTable, true, true, "id_cha<=0", DmucDichvuclsChitiet.Columns.SttHthi + "," + DmucDichvuclsChitiet.Columns.TenChitietdichvu);
+            }
+            catch
+            {
+            }  
+        }
+
+        void txtLoaiDichvu__OnEnterMe()
+        {
+           
         }
 
         void cmdConfig_Click(object sender, EventArgs e)
@@ -83,16 +106,11 @@ namespace VNS.HIS.UI.DANHMUC
                 {
 
                 }
-
             }
             catch (Exception)
             {
-                
-                
             }
-           
         }
-
         void grdChitiet_DoubleClick(object sender, EventArgs e)
         {
             cmdEdit.PerformClick();
@@ -130,17 +148,7 @@ namespace VNS.HIS.UI.DANHMUC
 
         void cboService_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
-                SqlQuery _SqlQuery = new Select().From(VDmucDichvuclsChitiet.Schema);
-                if (Utility.Int32Dbnull(cboService.SelectedValue, -1) > -1)
-                    _SqlQuery.Where(VDmucDichvuclsChitiet.Columns.IdDichvu).IsEqualTo(Utility.Int32Dbnull(cboService.SelectedValue, -1));
-                 dsTable=   _SqlQuery.OrderAsc(VDmucDichvuclsChitiet.Columns.SttHthi).ExecuteDataSet().Tables[0];
-                 Utility.SetDataSourceForDataGridEx(grdServiceDetail, dsTable, true, true, "id_cha<=0", DmucDichvuclsChitiet.Columns.SttHthi + "," + DmucDichvuclsChitiet.Columns.TenChitietdichvu);
-            }
-            catch
-            {
-            }
+           
         }
         #endregion
 
@@ -168,7 +176,7 @@ namespace VNS.HIS.UI.DANHMUC
                         }
                     }
                 }
-                DataBinding.BindDataCombobox(cboService, m_dtDichvuCLS_new, DmucDichvucl.Columns.IdDichvu, DmucDichvucl.Columns.TenDichvu, "---Chọn---", false);
+                txtLoaiDichvu.Init(m_dtDichvuCLS_new, new List<string>() { DmucDichvucl.Columns.IdDichvu, DmucDichvucl.Columns.MaDichvu, DmucDichvucl.Columns.TenDichvu });
             }
             catch (Exception)
             {
@@ -181,10 +189,10 @@ namespace VNS.HIS.UI.DANHMUC
         {
             try
             {
-                cboService.SelectedIndex = 0;
-                dsTable = SPs.DmucLaydanhmucDichvuclsChitiet(1, hanchequyendanhmuc ?Utility.Int32Dbnull(cboService.SelectedValue,0) :- 1).GetDataSet().Tables[0];
 
-                Utility.SetDataSourceForDataGridEx(grdServiceDetail, dsTable, true, true, "id_cha<=0", "stt_hthi_loaidvu,stt_hthi_dichvu,stt_hthi,p.ten_chitietdichvu");
+                dsTable = SPs.DmucLaydanhmucDichvuclsChitiet(1, hanchequyendanhmuc ? Utility.Int32Dbnull(txtLoaiDichvu.MyID, 0) : -1).GetDataSet().Tables[0];
+
+                Utility.SetDataSourceForDataGridEx(grdServiceDetail, dsTable, true, true, "id_cha<=0", "stt_hthi_loaidvu,stt_hthi_dichvu,stt_hthi,ten_chitietdichvu");
                 _currentGRd = grdServiceDetail;
                 ModifyCommand();
             }
@@ -419,7 +427,7 @@ namespace VNS.HIS.UI.DANHMUC
             frm.m_enAction = action.Insert;
             frm.grdlist = grdServiceDetail;
             frm.dtDataServiceDetail = dsTable;
-            frm.Service_ID = Utility.Int32Dbnull(cboService.SelectedValue, -1);
+            frm.Service_ID = Utility.Int32Dbnull(txtLoaiDichvu.MyID, -1);
             frm.ShowDialog();
             grdServiceDetail_SelectionChanged(grdServiceDetail, e);
             ModifyCommand();

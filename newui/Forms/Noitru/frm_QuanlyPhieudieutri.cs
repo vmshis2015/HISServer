@@ -480,7 +480,7 @@ namespace VNS.HIS.UI.NOITRU
                  _newItem.MaDinhduong = txtChedodinhduong.myCode;
                  _newItem.NgayTao = globalVariables.SysDate;
                  _newItem.NguoiTao = globalVariables.UserName;
-                 _newItem.NgayLap = objPhieudieutri.NgayDieutri;
+                 _newItem.NgayLap = objPhieudieutri.NgayDieutri.Value;
                  _newItem.IsNew = true;
                  _newItem.Save();
                  DataRow newDr = m_dtChedoDinhduong.NewRow();
@@ -3003,7 +3003,7 @@ namespace VNS.HIS.UI.NOITRU
             try
             {
                 PropertyLib._MayInProperties.TenMayInBienlai = Utility.sDbnull(cboLaserPrinters.Text);
-                PropertyLib.SaveProperty(PropertyLib._ThamKhamProperties);
+                PropertyLib.SaveProperty(PropertyLib._MayInProperties);
             }
             catch (Exception ex)
             {

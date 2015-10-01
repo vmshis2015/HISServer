@@ -1057,7 +1057,7 @@ namespace VNS.HIS.UI.NOITRU
             {
                 txtMaBN.Text = "Tự sinh";
             }
-            txtMaLankham.Text = THU_VIEN_CHUNG.KCB_SINH_MALANKHAM();
+            txtMaLankham.Text = THU_VIEN_CHUNG.KCB_SINH_MALANKHAM(0);
             m_strMaluotkham = txtMaLankham.Text;
             //Tạm bỏ
             //LaySoThuTuDoiTuong();

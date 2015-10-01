@@ -30,6 +30,7 @@ namespace VNS.HIS.UI.THUOC
         public Janus.Windows.GridEX.GridEX grdList;
         public string KIEU_THUOC_VT = "THUOC";
         private DataTable m_PhieuDuTru = new DataTable();
+        
         public frm_themmoi_phieuchuyenkho()
         {
             InitializeComponent();
@@ -103,7 +104,7 @@ namespace VNS.HIS.UI.THUOC
             Utility.SetMsg(lblMsg, "", true);
             if (txtthuoc.MyID == txtthuoc.DefaultID)
             {
-                Utility.SetMsg(lblMsg, "Bạn phải chọn "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc"  +" chuyển", true);
+                Utility.SetMsg(lblMsg, "Bạn phải chọn "+(ten_kieuthuoc_vt)  +" chuyển", true);
                 txtthuoc.Focus();
                 return false;
             }
@@ -157,7 +158,7 @@ namespace VNS.HIS.UI.THUOC
             }
             finally
             {
-                Utility.SetMsg(lblMsg, cmdAddDetail.Enabled ? "" : "Chú ý: "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +" bạn chọn không có trong " + cboKhoXuat.Text + " Đề nghị chọn lại "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +"!", false);
+                Utility.SetMsg(lblMsg, cmdAddDetail.Enabled ? "" : "Chú ý: "+(ten_kieuthuoc_vt) +" bạn chọn không có trong " + cboKhoXuat.Text + " Đề nghị chọn lại "+ten_kieuthuoc_vt +"!", false);
             }
         }
 
@@ -378,8 +379,10 @@ namespace VNS.HIS.UI.THUOC
         private void SetStatusControl()
         {
         }
+        string ten_kieuthuoc_vt = "Thuốc";
         private void frm_themmoi_phieuchuyenkho_Load(object sender, EventArgs e)
         {
+            ten_kieuthuoc_vt = KIEU_THUOC_VT == "VT" ? "Vật tư" : "Thuốc";
             txtLyDoXuat.Init();
             txtNguoinhan.Init();
             txtNguoigiao.Init();
@@ -563,7 +566,7 @@ namespace VNS.HIS.UI.THUOC
         }
         #endregion
         /// <summary>
-        /// hàm thực hiện việc thêm phiếu nhập kho "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +"
+        /// hàm thực hiện việc thêm phiếu nhập kho "+ten_kieuthuoc_vt +"
         /// </summary>
         private void ThemPhieuXuatKho()
         {
@@ -635,7 +638,7 @@ namespace VNS.HIS.UI.THUOC
             }
         }
         /// <summary>
-        /// hàm thực hiện việc Invalinhap khoa "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +"
+        /// hàm thực hiện việc Invalinhap khoa "+ten_kieuthuoc_vt +"
         /// </summary>
         /// <returns></returns>
         private bool InValiNhapKho()
@@ -643,7 +646,7 @@ namespace VNS.HIS.UI.THUOC
             Utility.SetMsg(lblMsg, "", false);
             if (Utility.DoTrim( txtLyDoXuat.Text)=="")
             {
-                Utility.SetMsg(lblMsg, "Bạn phải chọn lý do " + (chkPhieudutru.Checked ? " dự trù" : " xuất "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +""), true);
+                Utility.SetMsg(lblMsg, "Bạn phải chọn lý do " + (chkPhieudutru.Checked ? " dự trù" : " xuất "+(ten_kieuthuoc_vt) +""), true);
                 txtLyDoXuat.Focus();
                 return false;
             }
@@ -656,7 +659,7 @@ namespace VNS.HIS.UI.THUOC
 
             if (cboKhoNhap.SelectedValue.ToString() == "-1")
             {
-                Utility.SetMsg(lblMsg, "Bạn phải chọn kho để nhập "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +"", true);
+                Utility.SetMsg(lblMsg, "Bạn phải chọn kho để nhập "+(ten_kieuthuoc_vt) +"", true);
                 cboKhoNhap.Focus();
                 return false;
             }
@@ -691,7 +694,7 @@ namespace VNS.HIS.UI.THUOC
         }
         /// <summary>
         /// hàm thực hiện việc thay đổi thôn gtin của trên lưới 
-        /// loc thông tin của "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +"
+        /// loc thông tin của "+ten_kieuthuoc_vt +"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -750,13 +753,13 @@ namespace VNS.HIS.UI.THUOC
                 int soluongthat = Utility.Int32Dbnull(grdKhoXuat.GetValue("So_luong"));
                 if(soluongchuyen<0)
                 {
-                    Utility.ShowMsg("Số lượng "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +" cần chuyển phải >=0","Thông báo",MessageBoxIcon.Warning);
+                    Utility.ShowMsg("Số lượng "+(ten_kieuthuoc_vt) +" cần chuyển phải >=0","Thông báo",MessageBoxIcon.Warning);
                     e.Cancel = true;
                 }else
                 {
                     if(soluongchuyen>soluongthat)
                     {
-                        Utility.ShowMsg("Số lượng "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +" cần chuyển phải <= số lượng "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +" có trong kho", "Thông báo", MessageBoxIcon.Warning);
+                        Utility.ShowMsg("Số lượng "+(ten_kieuthuoc_vt) +" cần chuyển phải <= số lượng "+(ten_kieuthuoc_vt) +" có trong kho", "Thông báo", MessageBoxIcon.Warning);
                         e.Value = soluongchuyencu;
                         e.Cancel = true;
                     }
@@ -791,7 +794,7 @@ namespace VNS.HIS.UI.THUOC
             }
             catch (Exception ex)
             {
-                Utility.ShowMsg("Lỗi khi chuyển "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +":\n" + ex.Message);
+                Utility.ShowMsg("Lỗi khi chuyển "+ten_kieuthuoc_vt +":\n" + ex.Message);
             }
         }
         private void AddDetail(Janus.Windows.GridEX.GridEXRow gridExRow)
@@ -894,7 +897,7 @@ namespace VNS.HIS.UI.THUOC
             }
             catch (Exception ex)
             {
-                Utility.ShowMsg("Lỗi khi chuyển "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +":\n" + ex.Message);
+                Utility.ShowMsg("Lỗi khi chuyển "+ten_kieuthuoc_vt +":\n" + ex.Message);
             }
         }
         private void RemoveDetails()
@@ -909,7 +912,7 @@ namespace VNS.HIS.UI.THUOC
             }
             catch (Exception ex)
             {
-                Utility.ShowMsg("Lỗi khi hủy chuyển "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +":\n" + ex.Message);
+                Utility.ShowMsg("Lỗi khi hủy chuyển "+ten_kieuthuoc_vt +":\n" + ex.Message);
             }
             finally
             {
@@ -1003,7 +1006,7 @@ namespace VNS.HIS.UI.THUOC
             }
             catch (Exception ex)
             {
-                Utility.ShowMsg("Lỗi khi hủy chuyển "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +":\n" + ex.Message);
+                Utility.ShowMsg("Lỗi khi hủy chuyển "+ten_kieuthuoc_vt +":\n" + ex.Message);
             }
         }
        
@@ -1077,7 +1080,7 @@ namespace VNS.HIS.UI.THUOC
             Dictionary<int, string> lstNotExists = new Dictionary<int, string>();
             if (m_PhieuDuTru.Rows.Count <= 0)
             {
-                Utility.ShowMsg("Chưa có dữ liệu dự trù. Bạn chỉ có thể sử dụng tính năng này sau khi đã lập dự trù cho "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +"-Vật tư tiêu hao");
+                Utility.ShowMsg("Chưa có dữ liệu dự trù. Bạn chỉ có thể sử dụng tính năng này sau khi đã lập dự trù cho "+ten_kieuthuoc_vt +"-Vật tư tiêu hao");
                 return;
             }
             foreach (DataRow drDuTru in m_PhieuDuTru.Rows)
@@ -1085,12 +1088,12 @@ namespace VNS.HIS.UI.THUOC
                 int ID_THUOC=Utility.Int32Dbnull(drDuTru[DmucThuoc.Columns.IdThuoc]);
                 string TEN_THUOC = Utility.sDbnull(drDuTru[DmucThuoc.Columns.TenThuoc], "Unknown");
                 int soluongthuoc_canchuyen = Utility.Int32Dbnull(drDuTru["SO_LUONG_CHUYEN"]);
-                if (soluongthuoc_canchuyen > 0)//Chỉ lấy các "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +" có lượng cần chuyển >0
+                if (soluongthuoc_canchuyen > 0)//Chỉ lấy các "+ten_kieuthuoc_vt +" có lượng cần chuyển >0
                 {
                     int soluong_chuyen = 0;
-                    //Lấy dữ liệu kho xuất "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +" dự trù
+                    //Lấy dữ liệu kho xuất "+ten_kieuthuoc_vt +" dự trù
                     DataRow[] arrDR = m_dtDataThuocKho.Select(DmucThuoc.Columns.IdThuoc+"=" + ID_THUOC,"NGAY_HETHAN ASC");
-                    if (arrDR.Length > 0)//Nếu có "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +" này từ kho xuất
+                    if (arrDR.Length > 0)//Nếu có "+ten_kieuthuoc_vt +" này từ kho xuất
                     {
                         string manhacungcap = "";
                         string NgayHethan = "";
@@ -1205,7 +1208,7 @@ namespace VNS.HIS.UI.THUOC
             if (lstNotExists.Count > 0)//Cảnh báo
             {
                 string msg = string.Join("\n", lstNotExists.Values.ToArray());
-                Utility.ShowMsg("Hệ thống không tự động chuyển một số "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +"(Vật tư) vì lý do sau đây:\n" + msg);
+                Utility.ShowMsg("Hệ thống không tự động chuyển một số "+ten_kieuthuoc_vt +"(Vật tư) vì lý do sau đây:\n" + msg);
             }
             grdKhoXuat.UpdateData();
             grdPhieuXuatChiTiet.UpdateData();

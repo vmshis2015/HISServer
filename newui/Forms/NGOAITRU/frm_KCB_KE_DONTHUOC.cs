@@ -751,7 +751,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 if ((this.blnHasLoaded && (this.cboStock.Items.Count > 0)) && ((this.cboStock.SelectedValue == null) || (this.cboStock.SelectedValue.ToString() != "-1")))
                 {
-                    globalVariables.KHOKEDON = Utility.Int32Dbnull(this.cboStock.SelectedValue.ToString(), -1);
+                    globalVariables.KHOKEDON = Utility.Int32Dbnull(this.cboStock.SelectedValue, -1);
                     if (KIEU_THUOC_VT == "THUOC")
                         PropertyLib._ThamKhamProperties.IDKho = globalVariables.KHOKEDON;
                     else
@@ -1037,7 +1037,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 this._KcbChandoanKetluan.MabenhPhu = Utility.sDbnull(this.GetDanhsachBenhphu().ToString(), "");
                 if (this._KcbChandoanKetluan.IsNew)
                 {
-                    this._KcbChandoanKetluan.NgayTao = new DateTime?(this.dtpCreatedDate.Value);
+                    this._KcbChandoanKetluan.NgayTao = this.dtpCreatedDate.Value;
                     this._KcbChandoanKetluan.NguoiTao = globalVariables.UserName;
 
                     this._KcbChandoanKetluan.IpMaytao = globalVariables.gv_strIPAddress;

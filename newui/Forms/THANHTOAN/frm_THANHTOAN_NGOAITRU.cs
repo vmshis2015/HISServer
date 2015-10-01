@@ -503,7 +503,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                 e.Row.Cells["colChon"].Value = Utility.ByteDbnull(e.CheckState == RowCheckState.Checked ? 1 : 0);
                 e.Row.EndEdit();
             }
-            TinhToanSoTienPhaithu();
+            //Thay hàm TinhToanSoTienPhaithu= hàm SetSumTotalProperties để tính lại tiền BHYT chi trả
+            SetSumTotalProperties();
+            //TinhToanSoTienPhaithu();
             ModifyCommand();
         }
 
@@ -528,7 +530,9 @@ namespace  VNS.HIS.UI.THANHTOAN
             }
             finally
             {
-                TinhToanSoTienPhaithu();
+                //Thay hàm TinhToanSoTienPhaithu= hàm SetSumTotalProperties để tính lại tiền BHYT chi trả
+                SetSumTotalProperties();
+                //TinhToanSoTienPhaithu();
             }
         }
 
@@ -690,6 +694,17 @@ namespace  VNS.HIS.UI.THANHTOAN
                 TabPageTamung.TabVisible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_KICHHOAT_TAMUNG_NGOAITRU", "0", false) == "1";
                cmdHoanung.Visible= lblThuathieu.Visible = txtThuathieu.Visible = TabPageTamung.TabVisible;
                lblTiennop.Text = TabPageTamung.TabVisible ? "Tổng tiền DV:" : "BN Nộp tiền";
+               string HIENTHIPHANTICHGIA_TRENLUOI = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_HIENTHIPHANTICHGIA_TRENLUOI", "0", false);
+               grdThongTinChuaThanhToan.RootTable.Columns["TT_KHONG_PHUTHU"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinChuaThanhToan.RootTable.Columns["TT_BN_KHONG_PHUTHU"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinChuaThanhToan.RootTable.Columns["TT_BHYT"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinChuaThanhToan.RootTable.Columns["TT_PHUTHU"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinChuaThanhToan.RootTable.Columns["TT_BN"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinChuaThanhToan.RootTable.Columns["bnhan_chitra"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinChuaThanhToan.RootTable.Columns["phu_thu"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinChuaThanhToan.RootTable.Columns["bhyt_chitra"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+
+
                 grdThongTinChuaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.TileChietkhau].Visible = PropertyLib._ThanhtoanProperties.HienthiChietkhauChitiet;
                 grdThongTinChuaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.TienChietkhau].Visible = PropertyLib._ThanhtoanProperties.HienthiChietkhauChitiet;
                 grdThongTinChuaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.KieuChietkhau].Visible = PropertyLib._ThanhtoanProperties.HienthiChietkhauChitiet;
@@ -1071,7 +1086,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         
                         txtObjectType_Code.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.MaDoituongKcb], "");
                         
-                        txtPtramBHYT.Text =txtPtramBHChiTra.Text= Utility.sDbnull(dr[KcbLuotkham.Columns.PtramBhyt], "0")+"%";
+                        txtPtramBHYT.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.PtramBhyt], "0")+"%";
                         //txtLuongCoBan.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.SalaryBasic], "0");
                         txtICD._Text = Utility.sDbnull(dr[KcbLuotkham.Columns.MabenhChinh], "");
                         //cmdChuyenCLS.vi = Utility.sDbnull(txtObjectType_Code.Text) == "DV";
@@ -1201,6 +1216,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 Utility.SetDataSourceForDataGridEx(grdThongTinChuaThanhToan, m_dtChiPhiThanhtoan, false, true, "trangthai_huy=0" + (PropertyLib._ThanhtoanProperties.Hienthidichvuchuathanhtoan ? " and trangthai_thanhtoan=0" : ""), "");
                 GetChiPhiDaThanhToan();
                 UpdateTuCheckKhiChuaThanhToan();
+               
                 SetSumTotalProperties();
             }
             catch
@@ -1290,6 +1306,11 @@ namespace  VNS.HIS.UI.THANHTOAN
                 {
                     objLuotkham = CreatePatientExam();
                 }
+                string ErrMsg = "";
+                decimal newBHYT = Utility.DecimaltoDbnull(txtPtramBHChiTra.Text, 0);
+                _THANHTOAN.TinhlaitienBHYTtruocThanhtoan(m_dtChiPhiThanhtoan, TaophieuThanhtoan(), objLuotkham, Taodulieuthanhtoanchitiet(ref ErrMsg), ref newBHYT);
+                txtPtramBHChiTra.Text = newBHYT.ToString();
+
                 GridEXColumn gridExColumntrangthaithanhtoan = getGridExColumn(grdThongTinChuaThanhToan, "trangthai_thanhtoan");
                 GridEXColumn gridExColumn = getGridExColumn(grdThongTinChuaThanhToan, "TT_KHONG_PHUTHU");
                 GridEXColumn gridExColumn_tutuc = getGridExColumn(grdThongTinChuaThanhToan, "TT_BN_KHONG_TUTUC");
@@ -1321,40 +1342,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 gridExFilterConditiontrangthai_huy_va_khongtutuc.AddCondition(gridExFilterConditionKhongTuTuc);
                 GridEXColumn gridExColumnBNCT = getGridExColumn(grdThongTinChuaThanhToan,
                     "bnhan_chitra");
-                // Janus.Windows.GridEX.GridEXColumn gridExColumnTuTuc = getGridExColumn(grdThongTinChuaThanhToan, "bnhan_chitra");
-                //decimal BN_KHONGTUTUC =
-                //  Utility.DecimaltoDbnull(grdThongTinChuaThanhToan.GetTotal(gridExColumn_tutuc, AggregateFunction.Sum),
-                //      gridExFilterCondition_khong_Tutuc);
-                //decimal TT =
-                //    Utility.DecimaltoDbnull(grdThongTinChuaThanhToan.GetTotal(gridExColumnTT, AggregateFunction.Sum),
-                //        gridExFilterConditiontrangthai_huy);
-                //decimal TT_Chietkhau =
-                //   Utility.DecimaltoDbnull(grdThongTinChuaThanhToan.GetTotal(gridExColumnTT_chietkhau, AggregateFunction.Sum),
-                //       gridExFilterConditiontrangthai_huy);
-
-                //decimal TT_KHONG_PHUTHU =
-                //   Utility.DecimaltoDbnull(grdThongTinChuaThanhToan.GetTotal(gridExColumn, AggregateFunction.Sum),
-                //       gridExFilterConditiontrangthai_huy);
-                //decimal TT_BHYT =
-                //    Utility.DecimaltoDbnull(grdThongTinChuaThanhToan.GetTotal(gridExColumnBHYT, AggregateFunction.Sum,
-                //        gridExFilterConditiontrangthai_huy));
-                //decimal TT_BN =
-                //    Utility.DecimaltoDbnull(grdThongTinChuaThanhToan.GetTotal(gridExColumnTTBN, AggregateFunction.Sum,
-                //        gridExFilterConditiontrangthai_huy));
-                //decimal TT_BN_DaTT =
-                //   Utility.DecimaltoDbnull(grdThongTinDaThanhToan.GetTotal(gridExColumnTTBN, AggregateFunction.Sum,
-                //       gridExFilterConditiontrangthai_huy));
-                //Chuathanhtoan =
-                //   Utility.DecimaltoDbnull(grdThongTinChuaThanhToan.GetTotal(gridExColumnTTBN, AggregateFunction.Sum,
-                //       gridExFilterChuathanhtoan));
-                ////Tạm bỏ
-                ////decimal PtramBHYT = 0;
-                ////_THANHTOAN.LayThongPtramBHYT(TongChiphiBHYT, objLuotkham, ref PtramBHYT);
-                //decimal PhuThu =
-                //    Utility.DecimaltoDbnull(grdThongTinChuaThanhToan.GetTotal(gridExColumnPhuThu, AggregateFunction.Sum));
-                //decimal TuTuc =
-                //    Utility.DecimaltoDbnull(grdThongTinChuaThanhToan.GetTotal(gridExColumnBNCT, AggregateFunction.Sum,
-                //        gridExFilterConditionTutuc));
+                
 
                 decimal BN_KHONGTUTUC = 0m;
                 decimal TT = 0m;
@@ -1395,7 +1383,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                     }
                 }
 
-                //txtPtramBHChiTra.Text = Utility.sDbnull(PtramBHYT);
+               
                 txtTongChiPhi.Text = Utility.sDbnull(TT);
                 TT_KHONG_PHUTHU -= TuTuc;
                 txtTongtienDCT.Text = objLuotkham.MaDoituongKcb == "DV" ? "0" : Utility.sDbnull( TT_BHYT  +BN_KHONGTUTUC);// objLuotkham.MaDoituongKcb == "DV" ? "0" : Utility.sDbnull(TT_KHONG_PHUTHU);
@@ -1440,8 +1428,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                     lblThuathieu.Text = "BN Nộp tiền";
                     txtThuathieu.Text = txtSoTienCanNop.Text;
                 }
-                //Tạm bỏ
-                TinhToanSoTienPhaithu();
+               TinhToanSoTienPhaithu();
                 ModifyCommand();
             }
             catch
@@ -1789,7 +1776,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         }
                     }
                     decimal TTBN_Chitrathucsu = 0;
-                    ActionResult actionResult = _THANHTOAN.ThanhtoanChiphiDVuKCB(CreatePayment(), objLuotkham, lstItems, ref v_Payment_ID, IdHdonLog, chkLayHoadon.Checked && THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_SUDUNGHOADONDO", "0", false) == "1", ref TTBN_Chitrathucsu);
+                    ActionResult actionResult = _THANHTOAN.ThanhtoanChiphiDVuKCB(TaophieuThanhtoan(), objLuotkham, lstItems, ref v_Payment_ID, IdHdonLog, chkLayHoadon.Checked && THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_SUDUNGHOADONDO", "0", false) == "1", ref TTBN_Chitrathucsu);
                     IN_HOADON = TTBN_Chitrathucsu > 0;
                     switch (actionResult)
                     {
@@ -1942,7 +1929,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             }
         }
 
-        private KcbThanhtoan CreatePayment()
+        private KcbThanhtoan TaophieuThanhtoan()
         {
             KcbThanhtoan objPayment = new KcbThanhtoan();
             objPayment.IdThanhtoan = -1;
@@ -2156,6 +2143,11 @@ namespace  VNS.HIS.UI.THANHTOAN
                         Utility.ShowMsg("Hệ thống không cho phép bạn hủy thanh toán đã quá ngày. Cần liên hệ quản trị hệ thống để được trợ giúp");
                         return;
                     }
+                    if (Utility.Byte2Bool( objPayment.TrangthaiChot))
+                    {
+                        Utility.ShowMsg("Thanh toán đang chọn đã được chốt nên bạn không thể hủy thanh toán. Mời bạn xem lại!");
+                        return;
+                    }
                     if (PropertyLib._ThanhtoanProperties.Hienthihuythanhtoan)
                     {
                         frm_HuyThanhtoan frm = new frm_HuyThanhtoan();
@@ -2260,6 +2252,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             if (string.IsNullOrEmpty(txtICD.Text))
             {
                 Utility.SetMsg(lblMsg, "Chưa có mã bệnh ICD. Quay lại phòng khám của bác sĩ để nhập",true);
+                txtICD.Focus();
                 return;
             }
             INPHIEU_CLICK = true;
@@ -2446,8 +2439,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                     {
                         row.IsChecked = grdThongTinChuaThanhToan.CurrentRow.IsChecked;
                     }
-                TinhToanSoTienPhaithu();
-                //ModifyCommand();
+                //Thay hàm TinhToanSoTienPhaithu= hàm SetSumTotalProperties để tính lại tiền BHYT chi trả
+                SetSumTotalProperties();
+                //TinhToanSoTienPhaithu();
             }
             catch (Exception exception)
             {
@@ -2694,7 +2688,9 @@ namespace  VNS.HIS.UI.THANHTOAN
         /// <param name="e"></param>
         private void grdThongTinChuaThanhToan_CellUpdated(object sender, ColumnActionEventArgs e)
         {
-            TinhToanSoTienPhaithu();
+            //Thay hàm TinhToanSoTienPhaithu= hàm SetSumTotalProperties để tính lại tiền BHYT chi trả
+            SetSumTotalProperties();
+            //TinhToanSoTienPhaithu();
             e.Column.InputMask = "{0:#,#.##}";
         }
 
@@ -3089,8 +3085,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                    
                     exRow.EndEdit();
                 }
-                //grdThongTinChuaThanhToan.Refetch();
-                TinhToanSoTienPhaithu();
+                //Thay hàm TinhToanSoTienPhaithu= hàm SetSumTotalProperties để tính lại tiền BHYT chi trả
+                SetSumTotalProperties();
+                //TinhToanSoTienPhaithu();
                 ModifyCommand();
             }
             catch
@@ -3127,7 +3124,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                         exRow.EndEdit();
                     }
                 }
-                TinhToanSoTienPhaithu();
+                //Thay hàm TinhToanSoTienPhaithu= hàm SetSumTotalProperties để tính lại tiền BHYT chi trả
+                SetSumTotalProperties();
+                //TinhToanSoTienPhaithu();
                 ModifyCommand();
                 grdDSKCB.RowCheckStateChanged += grdDSKCB_RowCheckStateChanged;
             }
@@ -3443,22 +3442,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             cbomayinphoiBHYT.Text = PropertyLib._MayInProperties.TenMayInBienlai;
         }
        
-        private KcbPhieuthu CreatePhieuThu(int _Payment_ID, decimal TONG_TIEN)
-        {
-            var objPhieuThu = new KcbPhieuthu();
-            objPhieuThu.IdThanhtoan = _Payment_ID;
-            objPhieuThu.MaPhieuthu = THU_VIEN_CHUNG.GetMaPhieuThu(globalVariables.SysDate, 0);
-            objPhieuThu.SoluongChungtugoc = 1;
-            objPhieuThu.LoaiPhieuthu = Convert.ToByte(0);
-            objPhieuThu.NgayThuchien = globalVariables.SysDate;
-            objPhieuThu.SoTien = TONG_TIEN;
-            objPhieuThu.SotienGoc = TONG_TIEN;
-            objPhieuThu.NguoiNop = globalVariables.UserName;
-            objPhieuThu.TaikhoanCo = "";
-            objPhieuThu.TaikhoanNo = "";
-            objPhieuThu.LydoNop = "Thu tiền bệnh nhân";
-            return objPhieuThu;
-        }
+       
         private void InPhieuDichVu(string mau, decimal TONG_TIEN)
         {
             //switch (mau)
@@ -3896,7 +3880,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         Utility.ShowMsg("Bệnh nhân này đã ở trạng thái nội trú nên hệ thống không cho phép trả lại tiền ngoại trú nữa");
                         return;
                     }
-                    KcbThanhtoan objPayment = CreatePaymentHuy();
+                    KcbThanhtoan objPayment = TaophieuThanhtoanHuy();
                     string[] query = (from p in grdThongTinDaThanhToan.GetCheckedRows()
                                       select Utility.sDbnull(p.Cells["ten_chitietdichvu"].Value, "")).ToArray();
                     string noidung = string.Join(";", query);
@@ -3955,7 +3939,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             }
         }
 
-        private KcbThanhtoan CreatePaymentHuy()
+        private KcbThanhtoan TaophieuThanhtoanHuy()
         {
            
             KcbThanhtoan objPayment = new KcbThanhtoan();

@@ -657,7 +657,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 if ((this.blnHasLoaded && (this.cboStock.Items.Count > 0)) && ((this.cboStock.SelectedValue == null) || (this.cboStock.SelectedValue.ToString() != "-1")))
                 {
-                    globalVariables.KHOKEDON = Utility.Int32Dbnull(this.cboStock.SelectedValue.ToString(), -1);
+                    globalVariables.KHOKEDON = Utility.Int32Dbnull(this.cboStock.SelectedValue, -1);
                     PropertyLib._ThamKhamProperties.IDKho = globalVariables.KHOKEDON;
                     PropertyLib.SaveProperty(PropertyLib._ThamKhamProperties);
                     int num = Utility.Int32Dbnull(this.cboStock.SelectedValue, -1);
@@ -1951,7 +1951,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             if (m_enAct == action.Update) objBenhnhan.IdBenhnhan = Utility.Int64Dbnull(txtMaBN.Text, -1);
             objBenhnhan.TenBenhnhan = txtTEN_BN.Text;
-            objBenhnhan.LaBnVanglai = Utility.Bool2byte(chkDefault.Checked);
+            objBenhnhan.KieuBenhnhan = 1;
             objBenhnhan.DiaChi = txtDiachi.Text;
             objBenhnhan.DiachiBhyt = objBenhnhan.DiaChi;
             objBenhnhan.DienThoai = txtSoDT.Text;

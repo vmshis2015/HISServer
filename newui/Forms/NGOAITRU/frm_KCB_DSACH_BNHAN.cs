@@ -1473,7 +1473,7 @@ namespace VNS.HIS.UI.NGOAITRU
         /// hàm thực hiện thanh toán chi tiết 
         /// </summary>
         /// <returns></returns>
-        private KcbThanhtoanChitiet[] CreatePaymmentDetail(ref List<int>lstRegID)
+        private KcbThanhtoanChitiet[] Taodulieuthanhtoanchitiet(ref List<int>lstRegID)
         {
             int IdKham = Utility.Int32Dbnull(grdRegExam.CurrentRow.Cells[KcbDangkyKcb.Columns.IdKham].Value, -1);
             DataRow[] arrDr = null;
@@ -1503,8 +1503,8 @@ namespace VNS.HIS.UI.NGOAITRU
                     newItem.IdPhieu = Utility.Int32Dbnull(dr[KcbDangkyKcb.Columns.IdKham], -1);
                     newItem.IdKham = Utility.Int32Dbnull(dr[KcbDangkyKcb.Columns.IdKham], -1);
                     newItem.IdPhieuChitiet = Utility.Int32Dbnull(dr[KcbDangkyKcb.Columns.IdKham], -1);
-                    newItem.IdDichvu = Utility.Int32Dbnull(dr[KcbDangkyKcb.Columns.IdKham], -1);
-                    newItem.IdChitietdichvu = Utility.Int32Dbnull(dr[KcbDangkyKcb.Columns.IdKham], -1);
+                    newItem.IdDichvu = Utility.Int32Dbnull(dr[KcbDangkyKcb.Columns.IdDichvuKcb], -1);
+                    newItem.IdChitietdichvu = Utility.Int32Dbnull(dr[KcbDangkyKcb.Columns.IdKieukham], -1);
                     newItem.TenChitietdichvu = Utility.sDbnull(dr[KcbDangkyKcb.Columns.TenDichvuKcb], "Không xác định").Trim();
                     newItem.TenBhyt = Utility.sDbnull(dr[KcbDangkyKcb.Columns.TenDichvuKcb], "Không xác định").Trim();
                     newItem.SttIn = 0;
@@ -1545,7 +1545,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 if (objLuotkham == null)
                 {
-                    Utility.ShowMsg("Không lấy được thông tin bệnh nhân dựa vào dữ liệu trên lưới danh sách bệnh nhân. Liên hệ 0915 150148 để được hỗ trợ");
+                    Utility.ShowMsg("Không lấy được thông tin bệnh nhân dựa vào dữ liệu trên lưới danh sách bệnh nhân. Liên hệ bộ phận IT để được trợ giúp");
                     return;
                 }
                 if (Utility.Int32Dbnull(objLuotkham.TrangthaiNoitru, 0) >= Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_CHAN_THANHTOANNGOAITRU", "2", false), 2))
@@ -1553,20 +1553,38 @@ namespace VNS.HIS.UI.NGOAITRU
                     Utility.ShowMsg("Bệnh nhân này đã ở trạng thái nội trú nên hệ thống không cho phép hủy thanh toán ngoại trú nữa");
                     return;
                 }
-                //if (PropertyLib._ThanhtoanProperties.Hoitruockhihuythanhtoan)
-                //    if (!Utility.AcceptQuestion("Bạn có muốn thực hiện việc hủy thanh toán cho dịch vụ KCB đang chọn không ?",
-                //                               "Thông báo", true))
-                //        return;
+                KcbDangkyKcb objDangky = KcbDangkyKcb.FetchByID(Utility.Int32Dbnull(grdRegExam.CurrentRow.Cells[KcbDangkyKcb.Columns.IdKham].Value, -1));
+                if (objDangky == null)
+                {
+                    Utility.ShowMsg("Không lấy được thông tin Đăng ký dịch vụ KCB. Liên hệ bộ phận IT để được trợ giúp");
+                    return;
+                }
+                if (Utility.Byte2Bool(objDangky.DachidinhCls))
+                {
+                    Utility.ShowMsg("Dịch vụ Khám đang chọn đã được bác sĩ chỉ định dịch vụ cận lâm sàng nên bạn không thể hủy thanh toán");
+                    return;
+                }
+                if (Utility.Byte2Bool(objDangky.DakeDonthuoc))
+                {
+                    Utility.ShowMsg("Dịch vụ Khám đang chọn đã được bác sĩ kê đơn thuốc nên bạn không thể hủy thanh toán");
+                    return;
+                }
+                if (Utility.Byte2Bool(objDangky.TrangThai))
+                {
+                    Utility.ShowMsg("Dịch vụ Khám đang chọn đã được khám xong nên bạn không thể hủy thanh toán");
+                    return;
+                }
+               
 
-                int v_Payment_ID = Utility.Int32Dbnull(grdRegExam.CurrentRow.Cells["Id_thanhtoan"].Value, -1);
-                if (v_Payment_ID != -1)
+                int v_intIdThanhtoan = Utility.Int32Dbnull(grdRegExam.CurrentRow.Cells["Id_thanhtoan"].Value, -1);
+                if (v_intIdThanhtoan != -1)
                 {
                     List<int> lstRegID = GetIDKham();
                     if (PropertyLib._ThanhtoanProperties.Hienthihuythanhtoan)
                     {
                         frm_HuyThanhtoan frm = new frm_HuyThanhtoan();
                         frm.objLuotkham = objLuotkham;
-                        frm.v_Payment_Id = v_Payment_ID;
+                        frm.v_Payment_Id = v_intIdThanhtoan;
                         frm.Chuathanhtoan = 0;
                         frm.ShowCancel = true;
                         frm.ShowDialog();
@@ -1586,7 +1604,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     else
                     {
                         if (PropertyLib._ThanhtoanProperties.Hoitruockhihuythanhtoan)
-                            if (!Utility.AcceptQuestion(string.Format("Bạn có muốn hủy lần thanh toán với Mã thanh toán {0}", v_Payment_ID.ToString()), "Thông báo", true))
+                            if (!Utility.AcceptQuestion(string.Format("Bạn có muốn hủy lần thanh toán với Mã thanh toán {0}", v_intIdThanhtoan.ToString()), "Thông báo", true))
                             {
                                 return;
                             }
@@ -1598,7 +1616,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             ma_lydohuy = _Nhaplydohuythanhtoan.ma;
                         }
                         bool HUYTHANHTOAN_HUYBIENLAI = THU_VIEN_CHUNG.Laygiatrithamsohethong("HUYTHANHTOAN_HUYBIENLAI", "1", true) == "1";
-                        ActionResult actionResult = new KCB_THANHTOAN().HuyThanhtoan(KcbThanhtoan.FetchByID(v_Payment_ID), objLuotkham, ma_lydohuy, Utility.Int32Dbnull(grdRegExam.CurrentRow.Cells[KcbThanhtoan.Columns.IdHdonLog], -1), HUYTHANHTOAN_HUYBIENLAI);
+                        ActionResult actionResult = new KCB_THANHTOAN().HuyThanhtoan(KcbThanhtoan.FetchByID(v_intIdThanhtoan), objLuotkham, ma_lydohuy, Utility.Int32Dbnull(grdRegExam.CurrentRow.Cells[KcbThanhtoan.Columns.IdHdonLog], -1), HUYTHANHTOAN_HUYBIENLAI);
                         switch (actionResult)
                         {
                             case ActionResult.Success:
@@ -1670,7 +1688,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 KcbThanhtoan objPayment = CreatePayment();
                 List<int> lstRegID = new List<int>();
                 decimal TTBN_Chitrathucsu = 0;
-                ActionResult actionResult = new KCB_THANHTOAN().ThanhtoanChiphiDVuKCB(objPayment, objLuotkham, CreatePaymmentDetail(ref lstRegID).ToList<KcbThanhtoanChitiet>(), ref Payment_Id, -1, false, ref TTBN_Chitrathucsu);
+                ActionResult actionResult = new KCB_THANHTOAN().ThanhtoanChiphiDVuKCB(objPayment, objLuotkham, Taodulieuthanhtoanchitiet(ref lstRegID).ToList<KcbThanhtoanChitiet>(), ref Payment_Id, -1, false, ref TTBN_Chitrathucsu);
 
                 switch (actionResult)
                 {
@@ -1711,10 +1729,10 @@ namespace VNS.HIS.UI.NGOAITRU
 
 
         }
-        private KcbPhieuthu CreatePhieuThu(int _Payment_ID, decimal TONG_TIEN)
+        private KcbPhieuthu CreatePhieuThu(KcbThanhtoan objPayment, decimal TONG_TIEN)
         {
             var objPhieuThu = new KcbPhieuthu();
-            objPhieuThu.IdThanhtoan = _Payment_ID;
+            objPhieuThu.IdThanhtoan = objPayment.IdThanhtoan;
             objPhieuThu.MaPhieuthu = THU_VIEN_CHUNG.GetMaPhieuThu(globalVariables.SysDate, 0);
             objPhieuThu.SoluongChungtugoc = 1;
             objPhieuThu.LoaiPhieuthu = Convert.ToByte(0);
@@ -1723,6 +1741,8 @@ namespace VNS.HIS.UI.NGOAITRU
             objPhieuThu.NguoiNop = globalVariables.UserName;
             objPhieuThu.IdNhanvien = globalVariables.gv_intIDNhanvien;
             objPhieuThu.IdKhoaThuchien = globalVariables.idKhoatheoMay;
+            objPhieuThu.IdBenhnhan = objPayment.IdBenhnhan;
+            objPhieuThu.MaLuotkham = objPayment.MaLuotkham;
             objPhieuThu.TaikhoanCo = "";
             objPhieuThu.TaikhoanNo = "";
             objPhieuThu.LydoNop = "Thu phí KCB bệnh nhân";
@@ -1741,7 +1761,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     return;
                 }
                 decimal TONG_TIEN = Utility.Int32Dbnull(objPayment.TongTien, -1);
-                ActionResult actionResult = new KCB_THANHTOAN().UpdateDataPhieuThu(CreatePhieuThu(_Payment_ID, TONG_TIEN));
+                ActionResult actionResult = new KCB_THANHTOAN().UpdateDataPhieuThu(CreatePhieuThu(objPayment, TONG_TIEN));
                 switch (actionResult)
                 {
                     case ActionResult.Success:

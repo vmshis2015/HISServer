@@ -64,43 +64,6 @@
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Data.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Running\DevExpress.Data.v13.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Office.v13.1.Core, Version=13.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Running\DevExpress.Office.v13.1.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v13.1.Core, Version=13.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Running\DevExpress.Printing.v13.1.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.1.Core, Version=13.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Running\DevExpress.RichEdit.v13.1.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Running\DevExpress.Utils.v13.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraBars.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Running\DevExpress.XtraBars.v13.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Running\DevExpress.XtraEditors.v13.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v13.1.Extensions, Version=13.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Excel">
       <HintPath>C:\Users\KKYBBNL\Downloads\output\output\net20\Excel.dll</HintPath>
     </Reference>
@@ -249,11 +212,23 @@
     <Compile Include="Forms\Baocao\Baocaongoaitru\frm_baocaochidinhCLS.Designer.cs">
       <DependentUpon>frm_baocaochidinhCLS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Baocao\Baocaongoaitru\frm_baocaodanhsachbenhnhantheodotuoi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocaongoaitru\frm_baocaodanhsachbenhnhantheodotuoi.Designer.cs">
+      <DependentUpon>frm_baocaodanhsachbenhnhantheodotuoi.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Baocao\Baocaongoaitru\frm_baocaodoanhthuphongkham.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Baocao\Baocaongoaitru\frm_baocaodoanhthuphongkham.Designer.cs">
       <DependentUpon>frm_baocaodoanhthuphongkham.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocaongoaitru\frm_baocaosoluongbenhnhantheobacsy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocaongoaitru\frm_baocaosoluongbenhnhantheobacsy.Designer.cs">
+      <DependentUpon>frm_baocaosoluongbenhnhantheobacsy.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Baocao\Baocaongoaitru\frm_baocaotiepdonbenhnhan.cs">
       <SubType>Form</SubType>
@@ -291,6 +266,18 @@
     <Compile Include="Forms\Baocao\Baocaongoaitru\frm_INPHIEU_CLS.Designer.cs">
       <DependentUpon>frm_INPHIEU_CLS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Baocao\Baocaongoaitru\frm_tonghopkhamchuabenh.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocaongoaitru\frm_tonghopkhamchuabenh.Designer.cs">
+      <DependentUpon>frm_tonghopkhamchuabenh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Baocao\BaocaoNoitru\frm_baocaochiphiKCBNoitru.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Baocao\BaocaoNoitru\frm_baocaochiphiKCBNoitru.Designer.cs">
+      <DependentUpon>frm_baocaochiphiKCBNoitru.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Baocao\BaocaoNoitru\frm_thongkechuyenvien.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -302,6 +289,24 @@
     </Compile>
     <Compile Include="Forms\Baocao\BaocaoNoitru\frm_thongkenhapvien.Designer.cs">
       <DependentUpon>frm_thongkenhapvien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_phanungnang_sautiemchung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_phanungnang_sautiemchung.Designer.cs">
+      <DependentUpon>frm_baocao_phanungnang_sautiemchung.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_phanungthongthuong_sautiemchung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_phanungthongthuong_sautiemchung.Designer.cs">
+      <DependentUpon>frm_baocao_phanungthongthuong_sautiemchung.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_tinhhinhsudung_vacxin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_tinhhinhsudung_vacxin.Designer.cs">
+      <DependentUpon>frm_baocao_tinhhinhsudung_vacxin.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_nhapxuaton_theokhoanoitru.cs">
       <SubType>Form</SubType>
@@ -434,12 +439,6 @@
     </Compile>
     <Compile Include="Forms\Baocao\BHYT\frm_BHYT_79A.Designer.cs">
       <DependentUpon>frm_BHYT_79A.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Baocao\BHYT\UserControls\BAOCAO_TIEUDE.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Baocao\BHYT\UserControls\BAOCAO_TIEUDE.Designer.cs">
-      <DependentUpon>BAOCAO_TIEUDE.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Baocao\BHYT\UserControls\BHYT_05A.cs">
       <SubType>UserControl</SubType>
@@ -638,6 +637,12 @@
     </Compile>
     <Compile Include="Forms\Dungchung\UCs\ucBHYT.Designer.cs">
       <DependentUpon>ucBHYT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dungchung\UCs\ucHoibenhChandoanHangngay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Dungchung\UCs\ucHoibenhChandoanHangngay.Designer.cs">
+      <DependentUpon>ucHoibenhChandoanHangngay.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Dungchung\UCs\ucTamung.cs">
       <SubType>UserControl</SubType>
@@ -915,6 +920,18 @@
     <Compile Include="Forms\Danhmuc\frm_quanlynhomchidinh_cls.designer.cs">
       <DependentUpon>frm_quanlynhomchidinh_cls.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\NGOAITRU\frm_KCB_KeVacxin_Tiemchung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NGOAITRU\frm_KCB_KeVacxin_Tiemchung.Designer.cs">
+      <DependentUpon>frm_KCB_KeVacxin_Tiemchung.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NGOAITRU\frm_KCB_Thamkham_Tiemchung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NGOAITRU\frm_KCB_Thamkham_Tiemchung.Designer.cs">
+      <DependentUpon>frm_KCB_Thamkham_Tiemchung.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NGOAITRU\frm_chuyenvien.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -938,6 +955,12 @@
     </Compile>
     <Compile Include="Forms\NGOAITRU\frm_KCB_Tracuu_lichsu_kcb.Designer.cs">
       <DependentUpon>frm_KCB_Tracuu_lichsu_kcb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NGOAITRU\thamkham_Inbangketruoctiemchung_treem.cs">
+      <DependentUpon>thamkham_Inbangketruoctiemchung_treem.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Forms\Noitru\frm_dmuc_giabuonggiuong.cs">
       <SubType>Form</SubType>
@@ -1281,6 +1304,24 @@
     <Compile Include="Forms\Danhmuc\frm_dmuc_benh.Designer.cs">
       <DependentUpon>frm_dmuc_benh.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\QuanlyMauXNNgoai\frm_Dangky_Kiemnghiem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\QuanlyMauXNNgoai\frm_Dangky_Kiemnghiem.Designer.cs">
+      <DependentUpon>frm_Dangky_Kiemnghiem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\QuanlyMauXNNgoai\frm_Chidinh_Maukiemnghiem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\QuanlyMauXNNgoai\frm_Chidinh_Maukiemnghiem.Designer.cs">
+      <DependentUpon>frm_Chidinh_Maukiemnghiem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\QuanlyMauXNNgoai\frm_Quanly_Maukiemnghiem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\QuanlyMauXNNgoai\frm_Quanly_Maukiemnghiem.designer.cs">
+      <DependentUpon>frm_Quanly_Maukiemnghiem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Quaythuoc\frm_banthuoctaiquay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1391,8 +1432,14 @@
     <EmbeddedResource Include="Forms\Baocao\Baocaongoaitru\frm_baocaochidinhCLS.resx">
       <DependentUpon>frm_baocaochidinhCLS.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Baocao\Baocaongoaitru\frm_baocaodanhsachbenhnhantheodotuoi.resx">
+      <DependentUpon>frm_baocaodanhsachbenhnhantheodotuoi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Baocao\Baocaongoaitru\frm_baocaodoanhthuphongkham.resx">
       <DependentUpon>frm_baocaodoanhthuphongkham.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Baocao\Baocaongoaitru\frm_baocaosoluongbenhnhantheobacsy.resx">
+      <DependentUpon>frm_baocaosoluongbenhnhantheobacsy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Baocao\Baocaongoaitru\frm_baocaotiepdonbenhnhan.resx">
       <DependentUpon>frm_baocaotiepdonbenhnhan.cs</DependentUpon>
@@ -1412,11 +1459,26 @@
     <EmbeddedResource Include="Forms\Baocao\Baocaongoaitru\frm_INPHIEU_CLS.resx">
       <DependentUpon>frm_INPHIEU_CLS.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Baocao\Baocaongoaitru\frm_tonghopkhamchuabenh.resx">
+      <DependentUpon>frm_tonghopkhamchuabenh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Baocao\BaocaoNoitru\frm_baocaochiphiKCBNoitru.resx">
+      <DependentUpon>frm_baocaochiphiKCBNoitru.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Baocao\BaocaoNoitru\frm_thongkechuyenvien.resx">
       <DependentUpon>frm_thongkechuyenvien.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Baocao\BaocaoNoitru\frm_thongkenhapvien.resx">
       <DependentUpon>frm_thongkenhapvien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_phanungnang_sautiemchung.resx">
+      <DependentUpon>frm_baocao_phanungnang_sautiemchung.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_phanungthongthuong_sautiemchung.resx">
+      <DependentUpon>frm_baocao_phanungthongthuong_sautiemchung.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_tinhhinhsudung_vacxin.resx">
+      <DependentUpon>frm_baocao_tinhhinhsudung_vacxin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Baocao\Baocao_Thuoc\frm_baocao_nhapxuaton_theokhoanoitru.resx">
       <DependentUpon>frm_baocao_nhapxuaton_theokhoanoitru.cs</DependentUpon>
@@ -1483,9 +1545,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Baocao\BHYT\frm_BHYT_79A.resx">
       <DependentUpon>frm_BHYT_79A.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Baocao\BHYT\UserControls\BAOCAO_TIEUDE.resx">
-      <DependentUpon>BAOCAO_TIEUDE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Baocao\BHYT\UserControls\BHYT_05A.resx">
       <DependentUpon>BHYT_05A.cs</DependentUpon>
@@ -1585,6 +1644,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dungchung\UCs\ucBHYT.resx">
       <DependentUpon>ucBHYT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dungchung\UCs\ucHoibenhChandoanHangngay.resx">
+      <DependentUpon>ucHoibenhChandoanHangngay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dungchung\UCs\ucTamung.resx">
       <DependentUpon>ucTamung.cs</DependentUpon>
@@ -1724,6 +1786,12 @@
     <EmbeddedResource Include="Forms\Danhmuc\frm_quanlynhomchidinh_cls.resx">
       <DependentUpon>frm_quanlynhomchidinh_cls.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NGOAITRU\frm_KCB_KeVacxin_Tiemchung.resx">
+      <DependentUpon>frm_KCB_KeVacxin_Tiemchung.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NGOAITRU\frm_KCB_Thamkham_Tiemchung.resx">
+      <DependentUpon>frm_KCB_Thamkham_Tiemchung.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\NGOAITRU\frm_chuyenvien.resx">
       <DependentUpon>frm_chuyenvien.cs</DependentUpon>
     </EmbeddedResource>
@@ -1735,6 +1803,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NGOAITRU\frm_KCB_Tracuu_lichsu_kcb.resx">
       <DependentUpon>frm_KCB_Tracuu_lichsu_kcb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NGOAITRU\thamkham_Inbangketruoctiemchung_treem.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>thamkham_Inbangketruoctiemchung_treem.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Noitru\frm_dmuc_giabuonggiuong.resx">
       <DependentUpon>frm_dmuc_giabuonggiuong.cs</DependentUpon>
@@ -1909,6 +1981,16 @@
     <EmbeddedResource Include="Forms\Danhmuc\frm_dmuc_benh.resx">
       <DependentUpon>frm_dmuc_benh.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\QuanlyMauXNNgoai\frm_Dangky_Kiemnghiem.resx">
+      <DependentUpon>frm_Dangky_Kiemnghiem.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\QuanlyMauXNNgoai\frm_Chidinh_Maukiemnghiem.resx">
+      <DependentUpon>frm_Chidinh_Maukiemnghiem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\QuanlyMauXNNgoai\frm_Quanly_Maukiemnghiem.resx">
+      <DependentUpon>frm_Quanly_Maukiemnghiem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Quaythuoc\frm_banthuoctaiquay.resx">
       <DependentUpon>frm_banthuoctaiquay.cs</DependentUpon>
     </EmbeddedResource>
@@ -1984,7 +2066,6 @@
     <Folder Include="Forms\DUOC\Ngoaitru\" />
     <Folder Include="Forms\NGOAITRU\Backup\" />
     <Folder Include="Forms\QuanlyGoikham\" />
-    <Folder Include="Forms\QuanlyMauXNNgoai\" />
     <Folder Include="Forms\THANHTOAN\backup\" />
   </ItemGroup>
   <ItemGroup>

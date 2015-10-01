@@ -918,15 +918,22 @@ D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_baocaotonghop_
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_baocaotamung_hoanung.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_baocaomiengiam.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_baocaochidinhCLS.resources
+D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_baocaodanhsachbenhnhantheodotuoi.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_baocaodoanhthuphongkham.resources
+D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_baocaosoluongbenhnhantheobacsy.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_baocaotiepdonbenhnhan.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_baocaothuvienphi.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_baocaodanhsachhoadonthuphi.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_baocaothutientheokhoaphong.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.fm_baocaodoanhthutienkham.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_INPHIEU_CLS.resources
+D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_tonghopkhamchuabenh.resources
+D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_baocaochiphiKCBNoitru.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_thongkechuyenvien.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Baocao.frm_thongkenhapvien.resources
+D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.BaoCao.Form_BaoCao.frm_baocao_phanungnang_sautiemchung.resources
+D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.BaoCao.Form_BaoCao.frm_baocao_phanungthongthuong_sautiemchung.resources
+D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.BaoCao.Form_BaoCao.frm_baocao_tinhhinhsudung_vacxin.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.BaoCao.Form_BaoCao.frm_baocao_nhapxuaton_theokhoanoitru.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.BaoCao.Form_BaoCao.frm_baocao_huychot_theoquy.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.BaoCao.Form_BaoCao.frm_baocao_nhapxuaton_theoquy.resources
@@ -949,7 +956,6 @@ D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.FORMs.BAOCAO.BHYT.frm_BHY
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.FORMs.BAOCAO.BHYT.frm_BHYT_21A.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.FORMs.BAOCAO.BHYT.frm_BHYT_25A.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.FORMs.BAOCAO.BHYT.frm_BHYT_79A.resources
-D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BHYT_05A.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BHYT_14A.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BHYT_20A.resources
@@ -983,6 +989,7 @@ D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.DANHMUC.frm_ChonDoituongK
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Forms.Dungchung.frm_QlyLsuthaydoiDoituongKCB.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Forms.Dungchung.UCs.ucBHYT_H.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Forms.Dungchung.UCs.ucBHYT.resources
+D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Forms.Dungchung.UCs.ucHoibenhChandoanHangngay.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UCs.Noitru.ucTamung.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.THUOC.frm_NhaplydoHuy.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.THUOC.frm_themmoi_NhaptraKhoaveKholeNoitru.resources
@@ -1029,6 +1036,8 @@ D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.HOADONDO.frm_Log_RedInvoi
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.HOADONDO.frm_Print_RedInvoice.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.NGOAITRU.frm_themmoi_nhomcls.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.NGOAITRU.frm_quanlynhomchidinh_cls.resources
+D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.NGOAITRU.frm_KCB_KeVacxin_Tiemchung.resources
+D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.NGOAITRU.frm_KCB_Thamkham_Tiemchung.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Forms.NGOAITRU.frm_chuyenvien.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Forms.NGOAITRU.frm_chuyenVTTHvaotronggoiDV.resources
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.Forms.NGOAITRU.frm_danhsachbenhvien.resources
@@ -1110,3 +1119,6 @@ D:\Projects\VMSClient\trunk\newui\obj\Debug\newui.csproj.GenerateResource.Cache
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.dll.licenses
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.dll
 D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.pdb
+D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.NGOAITRU.frm_Dangky_Kiemnghiem.resources
+D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.NGOAITRU.frm_Quanly_Maukiemnghiem.resources
+D:\Projects\VMSClient\trunk\newui\obj\Debug\VNS.HIS.UI.NGOAITRU.frm_Chidinh_Maukiemnghiem.resources

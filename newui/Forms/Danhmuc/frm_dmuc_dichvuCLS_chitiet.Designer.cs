@@ -55,7 +55,7 @@
             this.grdChitiet = new Janus.Windows.GridEX.GridEX();
             this.uiStatusBar2 = new Janus.Windows.UI.StatusBar.UIStatusBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cboService = new Janus.Windows.EditControls.UIComboBox();
+            this.txtLoaiDichvu = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.label1 = new System.Windows.Forms.Label();
             this.gridEXPrintDocument1 = new Janus.Windows.GridEX.GridEXPrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
@@ -121,8 +121,8 @@
             this.cmdEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdEdit.Name = "cmdEdit";
-            this.cmdEdit.Size = new System.Drawing.Size(106, 36);
-            this.cmdEdit.Text = "Sửa(Ctrl+E)";
+            this.cmdEdit.Size = new System.Drawing.Size(88, 36);
+            this.cmdEdit.Text = "Cập nhật";
             this.cmdEdit.Click += new System.EventHandler(this.cmdEdit_Click);
             // 
             // cmdSaveAll
@@ -134,6 +134,7 @@
             this.cmdSaveAll.Name = "cmdSaveAll";
             this.cmdSaveAll.Size = new System.Drawing.Size(114, 36);
             this.cmdSaveAll.Text = "Lưu toàn bộ";
+            this.cmdSaveAll.Visible = false;
             this.cmdSaveAll.Click += new System.EventHandler(this.cmdSaveAll_Click);
             // 
             // cmdDelete
@@ -143,8 +144,8 @@
             this.cmdDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdDelete.Name = "cmdDelete";
-            this.cmdDelete.Size = new System.Drawing.Size(102, 36);
-            this.cmdDelete.Text = "Xoá(Ctrl+D)";
+            this.cmdDelete.Size = new System.Drawing.Size(57, 36);
+            this.cmdDelete.Text = "Xóa";
             this.cmdDelete.Click += new System.EventHandler(this.cmdDelete_Click);
             // 
             // cmdDeleteALL
@@ -154,8 +155,8 @@
             this.cmdDeleteALL.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdDeleteALL.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdDeleteALL.Name = "cmdDeleteALL";
-            this.cmdDeleteALL.Size = new System.Drawing.Size(138, 36);
-            this.cmdDeleteALL.Text = "Xoá nhiều bản ghi";
+            this.cmdDeleteALL.Size = new System.Drawing.Size(89, 36);
+            this.cmdDeleteALL.Text = "Xóa chọn";
             this.cmdDeleteALL.Click += new System.EventHandler(this.cmdDeleteALL_Click);
             // 
             // cmdImportExcel
@@ -316,7 +317,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox1.Controls.Add(this.cboService);
+            this.groupBox1.Controls.Add(this.txtLoaiDichvu);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -327,17 +328,46 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin tìm kiếm";
             // 
-            // cboService
+            // txtLoaiDichvu
             // 
-            this.cboService.Location = new System.Drawing.Point(97, 20);
-            this.cboService.MaxDropDownItems = 30;
-            this.cboService.Name = "cboService";
-            this.cboService.SelectedItemFormatStyle.BackColor = System.Drawing.Color.Teal;
-            this.cboService.SelectedItemFormatStyle.FontBold = Janus.Windows.UI.TriState.True;
-            this.cboService.SelectInDataSource = true;
-            this.cboService.Size = new System.Drawing.Size(524, 22);
-            this.cboService.TabIndex = 23;
-            this.cboService.Text = "dịch vụ";
+            this.txtLoaiDichvu._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtLoaiDichvu._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoaiDichvu._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtLoaiDichvu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLoaiDichvu.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLoaiDichvu.AutoCompleteList")));
+            this.txtLoaiDichvu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLoaiDichvu.CaseSensitive = false;
+            this.txtLoaiDichvu.CompareNoID = true;
+            this.txtLoaiDichvu.DefaultCode = "-1";
+            this.txtLoaiDichvu.DefaultID = "-1";
+            this.txtLoaiDichvu.Drug_ID = null;
+            this.txtLoaiDichvu.ExtraWidth = 0;
+            this.txtLoaiDichvu.FillValueAfterSelect = false;
+            this.txtLoaiDichvu.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoaiDichvu.Location = new System.Drawing.Point(75, 20);
+            this.txtLoaiDichvu.MaxHeight = 289;
+            this.txtLoaiDichvu.MinTypedCharacters = 2;
+            this.txtLoaiDichvu.MyCode = "-1";
+            this.txtLoaiDichvu.MyID = "-1";
+            this.txtLoaiDichvu.MyText = "";
+            this.txtLoaiDichvu.Name = "txtLoaiDichvu";
+            this.txtLoaiDichvu.RaiseEvent = true;
+            this.txtLoaiDichvu.RaiseEventEnter = true;
+            this.txtLoaiDichvu.RaiseEventEnterWhenEmpty = true;
+            this.txtLoaiDichvu.SelectedIndex = -1;
+            this.txtLoaiDichvu.Size = new System.Drawing.Size(919, 21);
+            this.txtLoaiDichvu.splitChar = '@';
+            this.txtLoaiDichvu.splitCharIDAndCode = '#';
+            this.txtLoaiDichvu.TabIndex = 0;
+            this.txtLoaiDichvu.TakeCode = false;
+            this.txtLoaiDichvu.txtMyCode = null;
+            this.txtLoaiDichvu.txtMyCode_Edit = null;
+            this.txtLoaiDichvu.txtMyID = null;
+            this.txtLoaiDichvu.txtMyID_Edit = null;
+            this.txtLoaiDichvu.txtMyName = null;
+            this.txtLoaiDichvu.txtMyName_Edit = null;
+            this.txtLoaiDichvu.txtNext = null;
             // 
             // label1
             // 
@@ -562,11 +592,11 @@
         private Janus.Windows.GridEX.GridEXPrintDocument gridEXPrintDocument1;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
         private Janus.Windows.UI.StatusBar.UIStatusBar uiStatusBar2;
-        private Janus.Windows.EditControls.UIComboBox cboService;
         private Janus.Windows.GridEX.GridEX grdServiceDetail;
         private Janus.Windows.GridEX.GridEX grdChitiet;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripButton cmdConfig;
+        private UCs.AutoCompleteTextbox txtLoaiDichvu;
 
     }
 }

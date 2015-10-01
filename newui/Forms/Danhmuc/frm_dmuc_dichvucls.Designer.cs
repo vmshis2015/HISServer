@@ -111,8 +111,8 @@
             this.cmdNew.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdNew.Name = "cmdNew";
-            this.cmdNew.Size = new System.Drawing.Size(143, 36);
-            this.cmdNew.Text = "Thêm mới (Ctrl+N)";
+            this.cmdNew.Size = new System.Drawing.Size(96, 36);
+            this.cmdNew.Text = "Thêm mới";
             this.cmdNew.Click += new System.EventHandler(this.cmdNew_Click);
             // 
             // toolStripSeparator1
@@ -127,8 +127,8 @@
             this.cmdEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdEdit.Name = "cmdEdit";
-            this.cmdEdit.Size = new System.Drawing.Size(103, 36);
-            this.cmdEdit.Text = "Sửa(Ctrl+E)";
+            this.cmdEdit.Size = new System.Drawing.Size(89, 36);
+            this.cmdEdit.Text = "Cập nhật";
             this.cmdEdit.Click += new System.EventHandler(this.cmdEdit_Click);
             // 
             // toolStripSeparator2
@@ -143,8 +143,8 @@
             this.cmdDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdDelete.Name = "cmdDelete";
-            this.cmdDelete.Size = new System.Drawing.Size(104, 36);
-            this.cmdDelete.Text = "Xoá(Ctrl+D)";
+            this.cmdDelete.Size = new System.Drawing.Size(60, 36);
+            this.cmdDelete.Text = "Xóa";
             this.cmdDelete.Click += new System.EventHandler(this.cmdDelete_Click);
             // 
             // toolStripSeparator4
@@ -160,6 +160,7 @@
             this.cmdSaveAll.Name = "cmdSaveAll";
             this.cmdSaveAll.Size = new System.Drawing.Size(107, 36);
             this.cmdSaveAll.Text = "Lưu toàn bộ";
+            this.cmdSaveAll.Visible = false;
             this.cmdSaveAll.Click += new System.EventHandler(this.cmdSaveAll_Click);
             // 
             // cmdDeleteALL
@@ -169,8 +170,9 @@
             this.cmdDeleteALL.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdDeleteALL.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdDeleteALL.Name = "cmdDeleteALL";
-            this.cmdDeleteALL.Size = new System.Drawing.Size(142, 36);
-            this.cmdDeleteALL.Text = "Xoá nhiều bản ghi";
+            this.cmdDeleteALL.Size = new System.Drawing.Size(92, 36);
+            this.cmdDeleteALL.Text = "Xoá chọn";
+            this.cmdDeleteALL.ToolTipText = "Xóa các bản ghi đang chọn";
             this.cmdDeleteALL.Click += new System.EventHandler(this.cmdDeleteALL_Click);
             // 
             // toolStripSeparator3

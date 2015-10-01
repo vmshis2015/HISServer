@@ -207,9 +207,10 @@ namespace VNS.HIS.UI.THUOC
             }
             ModifyCommand();
         }
-
+        string ten_kieuthuoc_vt = "Thuốc";
         private void frm_PhieuChuyenKho_Load(object sender, EventArgs e)
         {
+            ten_kieuthuoc_vt = KIEU_THUOC_VT == "VT" ? "Vật tư" : "Thuốc";
             InitData();
             TIMKIEM_THONGTIN();
             ModifyCommand();
@@ -308,10 +309,10 @@ namespace VNS.HIS.UI.THUOC
                             grdList.CurrentRow.EndEdit();
                             break;
                         case ActionResult.Exceed:
-                            Utility.ShowMsg("Không có "+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +" trong kho xuất nên không thể xác nhận phiếu xuất\n" + errMsg, "Thông báo lỗi", MessageBoxIcon.Warning);
+                            Utility.ShowMsg("Không có "+ten_kieuthuoc_vt +" trong kho xuất nên không thể xác nhận phiếu xuất\n" + errMsg, "Thông báo lỗi", MessageBoxIcon.Warning);
                             break;
                         case ActionResult.NotEnoughDrugInStock:
-                            Utility.ShowMsg(""+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +" trong kho xuất không còn đủ số lượng nên không thể xác nhận phiếu xuất\n" + errMsg, "Thông báo lỗi", MessageBoxIcon.Warning);
+                            Utility.ShowMsg(""+ten_kieuthuoc_vt +" trong kho xuất không còn đủ số lượng nên không thể xác nhận phiếu xuất\n" + errMsg, "Thông báo lỗi", MessageBoxIcon.Warning);
                             break;
                         case ActionResult.Error:
                             break;
@@ -489,10 +490,10 @@ namespace VNS.HIS.UI.THUOC
                             grdList.CurrentRow.EndEdit();
                             break;
                         case ActionResult.Exceed:
-                            Utility.ShowMsg(""+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +" nhập từ phiếu này đã được sử dụng hết nên bạn không thể hủy xác nhận phiếu\n" + errMsg, "Thông báo lỗi", MessageBoxIcon.Error);
+                            Utility.ShowMsg(""+ten_kieuthuoc_vt +" nhập từ phiếu này đã được sử dụng hết nên bạn không thể hủy xác nhận phiếu\n" + errMsg, "Thông báo lỗi", MessageBoxIcon.Error);
                             break;
                         case ActionResult.NotEnoughDrugInStock:
-                            Utility.ShowMsg(""+KIEU_THUOC_VT=="VT"?"Vật tư":"Thuốc" +" nhập từ phiếu này đã gần hết nên bạn không thể hủy xác nhận phiếu\n" + errMsg, "Thông báo lỗi", MessageBoxIcon.Error);
+                            Utility.ShowMsg(""+ten_kieuthuoc_vt +" nhập từ phiếu này đã gần hết nên bạn không thể hủy xác nhận phiếu\n" + errMsg, "Thông báo lỗi", MessageBoxIcon.Error);
                             break;
                         case ActionResult.Error:
                             break;

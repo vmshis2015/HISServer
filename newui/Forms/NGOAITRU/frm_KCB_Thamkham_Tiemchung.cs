@@ -2337,7 +2337,7 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 PropertyLib._MayInProperties.TenMayInBienlai = Utility.sDbnull(cboLaserPrinters.Text);
-                PropertyLib.SaveProperty(PropertyLib._ThamKhamProperties);
+                PropertyLib.SaveProperty(PropertyLib._MayInProperties);
             }
             catch (Exception ex)
             {
@@ -2775,13 +2775,11 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 if (gridExRow.RowType == RowType.Record)
                 {
-                    int v_intIDDonthuoc =
+                    int v_IdChitietdonthuoc =
                         Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value, -1);
                     int v_intIDThuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1);
-                    SqlQuery sqlQuery = new Select().From(KcbDonthuocChitiet.Schema)
-                        .Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).IsEqualTo(v_intIDDonthuoc)
-                        .And(KcbDonthuocChitiet.Columns.TrangthaiThanhtoan).IsEqualTo(1);
-                    if (sqlQuery.GetRecordCount() > 0)
+                    KcbDonthuocChitiet _KcbDonthuocChitiet = KcbDonthuocChitiet.FetchByID(v_IdChitietdonthuoc);
+                    if (_KcbDonthuocChitiet != null && (Utility.Byte2Bool(_KcbDonthuocChitiet.TrangthaiThanhtoan) || Utility.Byte2Bool(_KcbDonthuocChitiet.TrangThai)))
                     {
                         b_Cancel = true;
                         break;
@@ -2790,7 +2788,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             if (b_Cancel)
             {
-                Utility.ShowMsg("Bản ghi đã thanh toán, Bạn không thể xóa thông tin được ", "Thông báo",
+                Utility.ShowMsg("Một số thuốc bạn chọn đã thanh toán hoặc đã phát thuốc cho Bệnh nhân nên bạn không được phép xóa. Mời bạn kiểm tra lại ", "Thông báo",
                                 MessageBoxIcon.Warning);
                 grdPresDetail.Focus();
                 return false;
@@ -2804,21 +2802,6 @@ namespace VNS.HIS.UI.NGOAITRU
         private bool IsValidDeleteSelectedDrug()
         {
             bool b_Cancel = false;
-            if (grdPresDetail.RowCount <= 0 || grdPresDetail.CurrentRow.RowType != RowType.Record)
-            {
-                Utility.ShowMsg("Bạn phải chọn một vắc xin để xóa ", "Thông báo",
-                                MessageBoxIcon.Warning);
-                grdPresDetail.Focus();
-                return false;
-            }
-            if (Utility.Coquyen("quyen_suadonthuoc") || Utility.sDbnull(grdPresDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
-            {
-            }
-            else
-            {
-                Utility.ShowMsg("vắc xin đang chọn xóa được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các vắc xin do chính bạn kê để thực hiện xóa");
-                return false;
-            }
             KcbLuotkham _item = Utility.getKcbLuotkham(Utility.Int64Dbnull(txtPatient_ID.Text, 0), m_strMaLuotkham);
             if (_item == null)
             {
@@ -2834,40 +2817,29 @@ namespace VNS.HIS.UI.NGOAITRU
                 cmdSave.Focus();
                 return false;
             }
-            if (grdPresDetail.CurrentRow.RowType == RowType.Record)
+            if (grdPresDetail.RowCount <= 0 || grdPresDetail.CurrentRow.RowType != RowType.Record)
             {
-                int v_intIDDonthuoc =
-                    Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
-                                        -1);
-                int v_intIDThuoc =
-                    Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1);
-                SqlQuery sqlQuery = new Select().From(KcbDonthuocChitiet.Schema)
-                    .Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).IsEqualTo(v_intIDDonthuoc)
-                    .And(KcbDonthuocChitiet.Columns.TrangthaiThanhtoan).IsEqualTo(1);
-                if (sqlQuery.GetRecordCount() > 0)
-                {
-                    b_Cancel = true;
-                }
-            }
-
-            if (b_Cancel)
-            {
-                Utility.ShowMsg("Bản ghi đã thanh toán, Bạn không thể xóa thông tin được ", "Thông báo",
+                Utility.ShowMsg("Bạn phải chọn một vắc xin để xóa ", "Thông báo",
                                 MessageBoxIcon.Warning);
                 grdPresDetail.Focus();
                 return false;
             }
+            if (Utility.Coquyen("quyen_suadonthuoc") || Utility.sDbnull(grdPresDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
+            {
+            }
+            else
+            {
+                Utility.ShowMsg("vắc xin đang chọn xóa được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các vắc xin do chính bạn kê để thực hiện xóa");
+                return false;
+            }
+
             if (grdPresDetail.CurrentRow.RowType == RowType.Record)
             {
-                int v_intIDDonthuoc =
+                int v_IdChitietdonthuoc =
                     Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
                                         -1);
-                int v_intIDThuoc =
-                    Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1);
-                SqlQuery sqlQuery = new Select().From(KcbDonthuocChitiet.Schema)
-                    .Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).IsEqualTo(v_intIDDonthuoc)
-                    .And(KcbDonthuocChitiet.Columns.TrangThai).IsEqualTo(1);
-                if (sqlQuery.GetRecordCount() > 0)
+                KcbDonthuocChitiet _KcbDonthuocChitiet = KcbDonthuocChitiet.FetchByID(v_IdChitietdonthuoc);
+                if (_KcbDonthuocChitiet != null && (Utility.Byte2Bool(_KcbDonthuocChitiet.TrangthaiThanhtoan) || Utility.Byte2Bool(_KcbDonthuocChitiet.TrangThai)))
                 {
                     b_Cancel = true;
                 }
@@ -2875,7 +2847,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
             if (b_Cancel)
             {
-                Utility.ShowMsg("vắc xin đang chọn đã được xác nhận cấp phát cho Bệnh nhân nên bạn không thể xóa", "Thông báo",
+                Utility.ShowMsg("Một số thuốc bạn chọn đã thanh toán hoặc đã phát thuốc cho Bệnh nhân nên bạn không được phép xóa. Mời bạn kiểm tra lại ", "Thông báo",
                                 MessageBoxIcon.Warning);
                 grdPresDetail.Focus();
                 return false;

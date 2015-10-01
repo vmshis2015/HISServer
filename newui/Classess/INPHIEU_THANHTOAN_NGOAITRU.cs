@@ -58,7 +58,7 @@ namespace VNS.HIS.Classes
            if (reportDocument == null) return;
            var crpt = reportDocument;
            var p = (from q in m_dtReportPhieuThu.AsEnumerable()
-                    group q by q.Field<Int32>(KcbThanhtoan.Columns.IdThanhtoan) into r
+                    group q by q.Field<long>(KcbThanhtoan.Columns.IdThanhtoan) into r
                     select new
                     {
                         _key = r.Key,
@@ -127,7 +127,7 @@ namespace VNS.HIS.Classes
            if (reportDocument == null) return;
            var crpt = reportDocument;
            var p = (from q in m_dtReportPhieuThu.AsEnumerable()
-                    group q by q.Field<Int32>(KcbThanhtoan.Columns.IdThanhtoan) into r
+                    group q by q.Field<long>(KcbThanhtoan.Columns.IdThanhtoan) into r
                     select new
                     {
                         _key = r.Key,
@@ -451,7 +451,7 @@ namespace VNS.HIS.Classes
            //try
            //{
            var p = (from q in m_dtReportPhieuThu.AsEnumerable()
-                    group q by q.Field<Int32>(KcbThanhtoan.Columns.IdThanhtoan) into r
+                    group q by q.Field<long>(KcbThanhtoan.Columns.IdThanhtoan) into r
                     select new
                     {
                         _key = r.Key,
@@ -749,8 +749,11 @@ namespace VNS.HIS.Classes
                                Utility.ShowMsg("Không tìm thấy thông tin phiếu đồng chi trả. Bạn cần kiểm tra xem đã in phôi BHYT chưa?", "Thông báo", MessageBoxIcon.Warning);
                                return;
                            }
+                           if(Utility.DecimaltoDbnull( dtData.Compute("SUM(so_tien)","1=1"),0)>0)
                            new VNS.HIS.Classes.INPHIEU_THANHTOAN_NGOAITRU().
                                INPHIEU_DONGCHITRA(dtData, globalVariables.SysDate, "PHIẾU THU ĐỒNG CHI TRẢ");
+                           else
+                               Utility.ShowMsg("Bệnh nhân này đã được BHYT chi trả 100% nên không cần in phiếu đồng chi trả", "Thông báo lỗi", MessageBoxIcon.Error);
                            break;
                        case ActionResult.Error:
                            Utility.ShowMsg("Lỗi trong quá trình cập nhập thông tin đồng  chi trả", "Thông báo lỗi", MessageBoxIcon.Error);
@@ -842,7 +845,7 @@ namespace VNS.HIS.Classes
                        }
                    }
                    m_dtReportPhieuThu.AcceptChanges();
-                   new INPHIEU_THANHTOAN_NGOAITRU(objPhieuDct.NgayTao.Value).INPHOI_BHYT(
+                   new INPHIEU_THANHTOAN_NGOAITRU(objPhieuDct.NgayTao).INPHOI_BHYT(
                        m_dtReportPhieuThu, ngayIn, objLuotkham);
                    
                }
@@ -864,7 +867,7 @@ namespace VNS.HIS.Classes
            objPhieuDct.NgayTao = globalVariables.SysDate;
            objPhieuDct.IpMaytao = globalVariables.gv_strIPAddress;
            objPhieuDct.TenMaytao = globalVariables.gv_strComputerName;
-           objPhieuDct.TongTien = (decimal)m_dtPayment.Compute("SUM(TONGTIEN_GOC)", "1=1");// Utility.DecimaltoDbnull(txtSoTienGoc.Text);
+           objPhieuDct.TongTien = (decimal)m_dtPayment.Compute("SUM(TT_DCT)", "1=1");// Utility.DecimaltoDbnull(txtSoTienGoc.Text);
            objPhieuDct.BnhanChitra = (decimal)m_dtPayment.Compute("SUM(BN_CT)", "1=1"); //Utility.DecimaltoDbnull(txtTienBNCT.Text);
            objPhieuDct.BhytChitra = (decimal)m_dtPayment.Compute("SUM(BHYT_CT)", "1=1"); //Utility.DecimaltoDbnull(txtTienBHCT.Text);
            return objPhieuDct;

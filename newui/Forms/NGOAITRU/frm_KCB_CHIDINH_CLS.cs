@@ -177,7 +177,8 @@ namespace VNS.HIS.UI.NGOAITRU
                                 "Bạn đã thêm mới một số chỉ định chi tiết mà chưa nhấn Ghi.\nBạn nhấn yes để hệ thống tự động lưu thông tin.\nNhấn No để hủy bỏ các chỉ định vừa thêm mới.", "Thông báo",
                                 true))
                         {
-                            cmdSave.PerformClick();
+                            if (!SaveData())
+                                e.Cancel = true;
                         }
                     }
                 }
@@ -300,22 +301,12 @@ namespace VNS.HIS.UI.NGOAITRU
                     grdAssignDetail.Refresh();
                     m_dtChitietPhieuCLS.AcceptChanges();
                 }
-                SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
-                    .Where(KcbChidinhclsChitiet.Columns.IdChidinh).IsEqualTo(Utility.Int32Dbnull(txtAssign_ID.Text, -1));
-                if (sqlQuery.GetRecordCount() <= 0)
+                
+                if (grdAssignDetail.GetDataRows().Length <= 0)
                 {
-                    if (
-                        Utility.AcceptQuestion(
-                            "Phiếu điều trị hiện tại không còn chi tiết nữa, Bạn có muốn xóa phiếu điều trị đi không?",
-                            "Thông báo", true))
-                    {
-                        new Delete().From(KcbChidinhcl.Schema)
-                            .Where(KcbChidinhcl.Columns.IdChidinh).IsEqualTo(Utility.Int32Dbnull(txtAssign_ID.Text, -1)).
-                            Execute();
-                        m_eAction = action.Insert;
-                        txtAssign_ID.Text = "(Tự sinh)";
-                        txtAssignCode.Text = THU_VIEN_CHUNG.SinhMaChidinhCLS();
-                    }
+                    m_eAction = action.Insert;
+                    txtAssign_ID.Text = "(Tự sinh)";
+                    txtAssignCode.Text = THU_VIEN_CHUNG.SinhMaChidinhCLS();
                 }
                 m_blnCancel = false;
                 ModifyCommand();
@@ -448,12 +439,16 @@ namespace VNS.HIS.UI.NGOAITRU
         /// <param name="e"></param>
         private void cmdSave_Click(object sender, EventArgs e)
         {
-            if (!IsValidData()) return;
+            SaveData(); 
+        }
+        bool SaveData()
+        {
+            if (!IsValidData()) return false;
             isSaved = true;
             SetSaveStatus();
             PerformAction();
+            return true;
         }
-
         /// <summary>
         /// hàm thực hiện việc kiểm tra lại thông tin 
         /// </summary>
@@ -839,7 +834,26 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             if ((e.KeyCode == Keys.Enter) || (e.KeyCode == Keys.Down))
             {
-                Utility.focusCell(grdServiceDetail, DmucDichvucl.Columns.TenDichvu);
+                if (grdServiceDetail.GetDataRows().Length == 1)
+                {
+                    foreach (GridEXRow _row in grdServiceDetail.GetDataRows())
+                    {
+                        if (_row.RowType == RowType.Record)
+                        {
+                            _row.IsChecked = true;
+                            if (_row.IsChecked)
+                            {
+                                Utility.focusCell(grdServiceDetail, DmucDichvucl.Columns.TenDichvu);
+                                AddOneRow_ServiceDetail();
+                                txtFilterName.SelectAll();
+                                txtFilterName.Focus();
+                            }
+
+                        }
+                    }
+                }
+                else
+                    Utility.focusCell(grdServiceDetail, DmucDichvucl.Columns.TenDichvu);
             }
         }
        
@@ -1638,8 +1652,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 grdAssignDetail.UpdateData();
                 grdAssignDetail.Refresh();
                 m_dtChitietPhieuCLS.AcceptChanges();
-
-
+                if (grdAssignDetail.GetDataRows().Length <= 0)
+                {
+                    m_eAction = action.Insert;
+                    txtAssign_ID.Text = "(Tự sinh)";
+                    txtAssignCode.Text = THU_VIEN_CHUNG.SinhMaChidinhCLS();
+                }
                 m_blnCancel = false;
                 ModifyCommand();
                 ModifyButtonCommand();

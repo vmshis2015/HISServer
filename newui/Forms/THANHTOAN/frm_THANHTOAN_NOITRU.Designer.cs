@@ -574,7 +574,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             // 
             // txtICD
             // 
-            this.txtICD._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtICD._backcolor = System.Drawing.SystemColors.Window;
             this.txtICD._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtICD._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtICD.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtICD.AutoCompleteList")));
