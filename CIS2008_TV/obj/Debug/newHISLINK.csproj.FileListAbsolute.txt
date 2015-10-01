@@ -83,6 +83,7 @@ D:\Projects\VMSClient\trunk\CIS2008_TV\obj\Debug\CIS.CoreApp.frm_DonVi_LamViec.r
 D:\Projects\VMSClient\trunk\CIS2008_TV\obj\Debug\CIS.CoreApp.frm_Login.resources
 D:\Projects\VMSClient\trunk\CIS2008_TV\obj\Debug\CIS.CoreApp.frm_Profile.resources
 D:\Projects\VMSClient\trunk\CIS2008_TV\obj\Debug\CIS.CoreApp.frm_Settings.resources
+D:\Projects\VMSClient\trunk\CIS2008_TV\obj\Debug\CIS2008.frm_Sysparams.resources
 D:\Projects\VMSClient\trunk\CIS2008_TV\obj\Debug\VNSCore.Properties.Resources.resources
 D:\Projects\VMSClient\trunk\CIS2008_TV\obj\Debug\newHISLINK.csproj.GenerateResource.Cache
 D:\Projects\VMSClient\trunk\CIS2008_TV\obj\Debug\Core.exe.licenses
@@ -91,4 +92,8 @@ D:\Projects\VMSClient\trunk\CIS2008_TV\obj\Debug\Core.exe.manifest
 D:\Projects\VMSClient\trunk\CIS2008_TV\obj\Debug\Core.application
 D:\Projects\VMSClient\trunk\CIS2008_TV\obj\Debug\Core.exe
 D:\Projects\VMSClient\trunk\CIS2008_TV\obj\Debug\Core.pdb
-D:\Projects\VMSClient\trunk\CIS2008_TV\obj\Debug\CIS2008.frm_Sysparams.resources
+C:\Program Files (x86)\VMS\HIS\Core.exe.config
+C:\Program Files (x86)\VMS\HIS\Core.exe.manifest
+C:\Program Files (x86)\VMS\HIS\Core.application
+C:\Program Files (x86)\VMS\HIS\Core.exe
+C:\Program Files (x86)\VMS\HIS\Core.pdb
