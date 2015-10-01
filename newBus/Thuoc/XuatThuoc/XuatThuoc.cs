@@ -334,41 +334,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
             }
         }
         
-        public TPhieuXuatthuocBenhnhan CreatePhieuXuatBenhNhan(KcbDonthuoc objDonthuoc)
-        {
-            KcbDanhsachBenhnhan objBenhnhan = KcbDanhsachBenhnhan.FetchByID(objDonthuoc.IdBenhnhan);
-            KcbLuotkham objLuotkham = new Select().From(KcbLuotkham.Schema)
-                .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objDonthuoc.MaLuotkham)
-                .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objDonthuoc.IdBenhnhan).ExecuteSingle<KcbLuotkham>();
-
-            TPhieuXuatthuocBenhnhan objPhieuXuatBnhan = new TPhieuXuatthuocBenhnhan();
-            objPhieuXuatBnhan.IdBenhnhan = objDonthuoc.IdBenhnhan;
-            objPhieuXuatBnhan.MaLuotkham = objDonthuoc.MaLuotkham;
-
-            objPhieuXuatBnhan.NgayXacnhan =  globalVariables.SysDate;
-            objPhieuXuatBnhan.IdPhongChidinh = Utility.Int16Dbnull(objDonthuoc.IdPhongkham);
-            objPhieuXuatBnhan.IdKhoaChidinh = Utility.Int16Dbnull(objDonthuoc.IdKhoadieutri);
-            objPhieuXuatBnhan.IdBacsiKedon = Utility.Int16Dbnull(objDonthuoc.IdBacsiChidinh);
-            objPhieuXuatBnhan.IdDonthuoc = Utility.Int32Dbnull(objDonthuoc.IdDonthuoc);
-            objPhieuXuatBnhan.IdNhanvien = globalVariables.gv_intIDNhanvien;
-            //objPhieuXuatBnhan.HienThi = 1;
-            objPhieuXuatBnhan.ChanDoan = Utility.sDbnull(objLuotkham.ChanDoan);
-            objPhieuXuatBnhan.MabenhChinh = Utility.sDbnull(objLuotkham.MabenhChinh);
-            objPhieuXuatBnhan.IdDoituongKcb = Utility.Int16Dbnull(objLuotkham.IdDoituongKcb);
-            objPhieuXuatBnhan.MaDoituongKcb = objLuotkham.MaDoituongKcb;
-            objPhieuXuatBnhan.GioiTinh = objBenhnhan.GioiTinh;
-            objPhieuXuatBnhan.TenBenhnhan = Utility.sDbnull(objBenhnhan.TenBenhnhan);
-            objPhieuXuatBnhan.TenKhongdau = Utility.sDbnull(Utility.UnSignedCharacter(objBenhnhan.TenBenhnhan));
-            objPhieuXuatBnhan.DiaChi = Utility.sDbnull(objBenhnhan.DiaChi);
-            objPhieuXuatBnhan.NamSinh = Utility.Int32Dbnull(objBenhnhan.NamSinh);
-            objPhieuXuatBnhan.MatheBhyt = Utility.sDbnull(objLuotkham.MatheBhyt);
-            objPhieuXuatBnhan.NgayKedon = objDonthuoc.NgayKedon;
-            objPhieuXuatBnhan.NgayTao = globalVariables.SysDate;
-            objPhieuXuatBnhan.NguoiTao = globalVariables.UserName;
-            objPhieuXuatBnhan.Noitru = objDonthuoc.Noitru;
-            objPhieuXuatBnhan.LoaiPhieu = (byte?)LoaiPhieu.PhieuXuatKhoBenhNhan;
-            return objPhieuXuatBnhan;
-        }
+       
         public TPhieuXuatthuocBenhnhan CreatePhieuXuatBenhNhan(KcbDonthuoc objDonthuoc, KcbDanhsachBenhnhan objBenhnhan, KcbLuotkham objLuotkham)
         {
            
@@ -410,7 +376,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
             objPhieuXuatBnhan.NgayTao = globalVariables.SysDate;
             objPhieuXuatBnhan.NguoiTao = objDonthuoc.NguoiTao;//Dùng cho báo cáo kê đơn theo bác sĩ(trạng thái đã cấp phát để biết người tạo là Admin)
             objPhieuXuatBnhan.NguoiPhatthuoc = globalVariables.UserName;
-            objPhieuXuatBnhan.QuayThuoc =(byte)( objDonthuoc.KieuDonthuoc == 2 ? 1 : 0);
+            objPhieuXuatBnhan.QuayThuoc = (byte)(objDonthuoc.KieuDonthuoc == 2 ? 1 : 0);//0= Đơn thuốc thường;1= Đơn thuốc bổ sung;2=Đơn thuốc tại quầy;3=Đơn tiêm chủng
             objPhieuXuatBnhan.Noitru = objDonthuoc.Noitru;
             objPhieuXuatBnhan.LoaiPhieu = (byte?)LoaiPhieu.PhieuXuatKhoBenhNhan;
             
@@ -1054,6 +1020,9 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                 objNhapXuat.IdNhanvien = globalVariables.gv_intIDNhanvien;
                 objNhapXuat.NgayNhap = objTThuockho.NgayNhap;
                 objNhapXuat.KieuThuocvattu = objPhieuXuatBnhan.KieuThuocvattu;
+                objNhapXuat.IdBenhnhan = objDetail.IdBenhnhan;
+                objNhapXuat.MaLuotkham = objDetail.MaLuotkham;
+                objNhapXuat.IdDoituongKcb = objPhieuXuatBnhan.IdDoituongKcb;
 
                 objNhapXuat.GiaPhuthuTraituyen = objDetail.PhuthuTraituyen;
                 objNhapXuat.GiaPhuthuDungtuyen = objDetail.PhuthuDungtuyen;
