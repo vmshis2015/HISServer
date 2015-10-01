@@ -244,6 +244,16 @@ namespace VNS.HIS.BusRule.Classes
                                                                                             -1));
 
                              objDonthuoc.Save();
+
+                             KcbDangkyKcb objKCB = KcbDangkyKcb.FetchByID(objDonthuoc.IdKham);
+                             if (objKCB != null)
+                             {
+                                 objKCB.DakeDonthuoc = 1;
+                                 objKCB.IdBacsikham = objDonthuoc.IdBacsiChidinh;
+                                 objKCB.IsNew = false;
+                                 objKCB.Save();
+                             }
+
                              if (!Utility.Byte2Bool(objDonthuoc.Noitru))
                                  CapnhatChandoan(_KcbChandoanKetluan);
                              p_intIdDonthuoc = objDonthuoc.IdDonthuoc;

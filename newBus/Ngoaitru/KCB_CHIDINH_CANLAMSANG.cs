@@ -143,6 +143,15 @@ namespace VNS.HIS.BusRule.Classes
                                  objKcbChidinhcls.MaKhoaChidinh = globalVariables.MA_KHOA_THIEN;
                                  objKcbChidinhcls.IsNew = true;
                                  objKcbChidinhcls.Save();
+
+                                 KcbDangkyKcb objKCB = KcbDangkyKcb.FetchByID(objKcbChidinhcls.IdKham);
+                                 if (objKCB != null)
+                                 {
+                                     objKCB.DachidinhCls = 1;
+                                     objKCB.IdBacsikham = objKcbChidinhcls.IdBacsiChidinh;
+                                     objKCB.IsNew = false;
+                                     objKCB.Save();
+                                 }
                                  InsertAssignDetail(objKcbChidinhcls, objLuotkham, arrAssignDetails);
                              }
                              else

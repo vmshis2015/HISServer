@@ -306,9 +306,9 @@ namespace VNS.HIS.BusRule.Classes
             return SPs.KcbThamkhamTimkiemBnhanSaukhinhapmabn(PatientCODE, DepartmentId, makhoathien)
                             .GetDataSet().Tables[0];
         }
-        public DataSet LaythongtinInphieuTtatDtriNgoaitru(int ExamID)
+        public DataSet LaythongtinInphieuTtatDtriNgoaitru(long IdKham)
         {
-            return SPs.KcbThamkhamLaydulieuInphieuTtatDtriNgoaitru(ExamID).GetDataSet();
+            return SPs.KcbThamkhamLaydulieuInphieuTtatDtriNgoaitru(IdKham).GetDataSet();
         }
         public DataSet LaythongtinCLSVaThuoc(int PatientID, string PatientCode, int ExamID)
         {
