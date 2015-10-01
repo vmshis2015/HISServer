@@ -1222,46 +1222,46 @@ namespace VNS.Libs
                 }
 
             }
-            foreach (KcbThanhtoanChitiet objPaymentDetail in arrPaymentDetail)
+            foreach (KcbThanhtoanChitiet objChitietThanhtoan in arrPaymentDetail)
             {
-                if (objPaymentDetail.TuTuc == 0)//Có thể tính cho BHYT
+                if (objChitietThanhtoan.TuTuc == 0)//Có thể tính cho BHYT
                 {
                     SqlQuery sqlQuery = new Select().From(DmucBhytChitraDacbiet.Schema)
-                        .Where(DmucBhytChitraDacbiet.Columns.IdDichvuChitiet).IsEqualTo(objPaymentDetail.IdChitietdichvu)
-                        .And(DmucBhytChitraDacbiet.Columns.MaLoaithanhtoan).IsEqualTo(objPaymentDetail.IdLoaithanhtoan)
+                        .Where(DmucBhytChitraDacbiet.Columns.IdDichvuChitiet).IsEqualTo(objChitietThanhtoan.IdChitietdichvu)
+                        .And(DmucBhytChitraDacbiet.Columns.MaLoaithanhtoan).IsEqualTo(objChitietThanhtoan.IdLoaithanhtoan)
                         .And(DmucBhytChitraDacbiet.Columns.DungtuyenTraituyen).IsEqualTo(IsDungTuyen)
                         .And(DmucBhytChitraDacbiet.Columns.MaDoituongKcb).IsEqualTo(objPatientExam.MaDoituongKcb);
                     DmucBhytChitraDacbiet objDetailBhytChitra = sqlQuery.ExecuteSingle<DmucBhytChitraDacbiet>();
                     if (objDetailBhytChitra != null)
                     {
-                        objPaymentDetail.MaDoituongKcb = Utility.sDbnull(objPatientExam.MaDoituongKcb);
-                        objPaymentDetail.PtramBhyt = objDetailBhytChitra.TileGiam;
-                        objPaymentDetail.BhytChitra = TinhBhytChitra(objDetailBhytChitra.TileGiam,
+                        objChitietThanhtoan.MaDoituongKcb = Utility.sDbnull(objPatientExam.MaDoituongKcb);
+                        objChitietThanhtoan.PtramBhyt = objDetailBhytChitra.TileGiam;
+                        objChitietThanhtoan.BhytChitra = TinhBhytChitra(objDetailBhytChitra.TileGiam,
                                                       Utility.DecimaltoDbnull(
-                                                          objPaymentDetail.DonGia, 0));
-                        objPaymentDetail.BnhanChitra = TinhBnhanChitra(objDetailBhytChitra.TileGiam,
+                                                          objChitietThanhtoan.DonGia, 0));
+                        objChitietThanhtoan.BnhanChitra = TinhBnhanChitra(objDetailBhytChitra.TileGiam,
                                                                  Utility.DecimaltoDbnull(
-                                                                     objPaymentDetail.DonGia, 0));
+                                                                     objChitietThanhtoan.DonGia, 0));
                     }
                     else
                     {
-                        objPaymentDetail.MaDoituongKcb = Utility.sDbnull(objPatientExam.MaDoituongKcb);
-                        objPaymentDetail.PtramBhyt = v_BhytChitra;
-                        objPaymentDetail.BhytChitra = TinhBhytChitra(v_BhytChitra,
+                        objChitietThanhtoan.MaDoituongKcb = Utility.sDbnull(objPatientExam.MaDoituongKcb);
+                        objChitietThanhtoan.PtramBhyt = v_BhytChitra;
+                        objChitietThanhtoan.BhytChitra = TinhBhytChitra(v_BhytChitra,
                                                        Utility.DecimaltoDbnull(
-                                                           objPaymentDetail.DonGia, 0));
-                        objPaymentDetail.BnhanChitra = TinhBnhanChitra(v_BhytChitra,
+                                                           objChitietThanhtoan.DonGia, 0));
+                        objChitietThanhtoan.BnhanChitra = TinhBnhanChitra(v_BhytChitra,
                                                                  Utility.DecimaltoDbnull(
-                                                                     objPaymentDetail.DonGia, 0));
+                                                                     objChitietThanhtoan.DonGia, 0));
                     }
 
 
                 }
                 else
                 {
-                    objPaymentDetail.MaDoituongKcb = "DV";
-                    objPaymentDetail.BhytChitra = 0;
-                    objPaymentDetail.BnhanChitra = objPaymentDetail.DonGia;
+                    objChitietThanhtoan.MaDoituongKcb = "DV";
+                    objChitietThanhtoan.BhytChitra = 0;
+                    objChitietThanhtoan.BnhanChitra = objChitietThanhtoan.DonGia;
                 }
 
             }
@@ -1286,136 +1286,208 @@ namespace VNS.Libs
            
         }
 
-       
+        public static void TinhPhamTramBHYT(KcbLuotkham objLuotkham, DataTable m_dtData, decimal PtramBHYT)
+        {
+            if (m_dtData != null)
+            {
+                //Tính cho các chi tiết hiện tại
+                foreach (DataRow dr in m_dtData.Rows)
+                {
+                    if (PtramBHYT == 100)//Do tổng tiền < lương cơ bản *Ptram lương cơ bản quy định-->BHYT thanh toán 100%
+                    {
+                        if (Utility.Int32Dbnull(dr["tu_tuc"], 0) == 0)//Chỉ tính với các mục không phải tự túc. Còn các mục tự túc BN vẫn chi trả bình thường
+                        {
+                            dr["bhyt_chitra"] = dr["don_gia"];//BHYT chi trả hết
+                            dr["bnhan_chitra"] = 0;//Không tính tiền
+                        }
+                        else//Là tự túc
+                        {
+                            dr["bhyt_chitra"] = 0;//BHYT chi trả 0 do tự túc
+                            dr["bnhan_chitra"] = dr["don_gia"];
+                        }
+                    }
+                    else if (Utility.Int32Dbnull(dr["tinh_chiphi"], 0) == 1)//Các mục dịch vụ không tính phí khi thanh toán cùng nội trú(phí KCB ngoại trú chưa kịp thanh toán)
+                    {
+                        dr["bhyt_chitra"] = 0;//BHYT chi trả 0 do tự túc
+                        dr["bnhan_chitra"] = 0;//Không tính tiền
+                    }
+                    else if (Utility.Int32Dbnull(dr["tu_tuc"], 0) == 0)//Không phải tự túc-->Tính các khoản chi trả
+                    {
+                        decimal BHCT = 0m;
+                        
+                        if (objLuotkham.DungTuyen == 1)
+                        {
+                            BHCT = Utility.DecimaltoDbnull(dr["don_gia"], 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                        }
+                        else
+                        {
+                            if (objLuotkham.TrangthaiNoitru <= 0)
+                            {
+                                BHCT = Utility.DecimaltoDbnull(dr["don_gia"], 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                            }
+                            else//Nội trú cần tính=đơn giá * % đầu thẻ * % tuyến
+                            {
+                                BHCT = Utility.DecimaltoDbnull(dr["don_gia"], 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) / 100) * (Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0) / 100);
+                            }
+                        }
+
+                        dr["bhyt_chitra"] = BHCT;
+                        dr["bnhan_chitra"] = Utility.DecimaltoDbnull(dr["don_gia"], 0) - BHCT;
+                    }
+                    else if (Utility.Int32Dbnull(dr["tu_tuc"], 0) == 1)
+                    {
+                        dr["bhyt_chitra"] = 0;//BHYT chi trả 0 do tự túc
+                        dr["bnhan_chitra"] = dr["don_gia"];
+                    }
+                    dr["TT_BHYT"] = (Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.BhytChitra], 0)) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    dr["TT_BN"] = (Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) + Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    dr["TT"] = (Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.DonGia], 0) + Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    dr["TT_PHUTHU"] = (Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    dr["TT_KHONG_PHUTHU"] = Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.DonGia], 0) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    dr["TT_BN_KHONG_PHUTHU"] = Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    if (Utility.Int32Dbnull(dr["tu_tuc"], 0) == 1)
+                    {
+                        dr["TT_TUTUC"] = Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                        dr["TT_BN_KHONG_TUTUC"] = 0;
+                    }
+                    else
+                    {
+                        dr["TT_TUTUC"] = 0;
+                        dr["TT_BN_KHONG_TUTUC"] = Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    }
+
+                }
+            }
+        }
         public static void TinhPhamTramBHYT(KcbLuotkham objLuotkham, ref List<KcbThanhtoanChitiet> lstPaymentDetail, ref List<KcbThanhtoanChitiet> lstKcbThanhtoanChitiet_truocdo, decimal PtramBHYT)
         {
-            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_TINHLAI_TOANBODICHVU", "1", false) == "1")
-            {
+            //if (THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_TINHLAI_TOANBODICHVU", "1", false) == "1")//Bỏ đi do chắc chắn phải tính lại
+            //{
                 if (lstKcbThanhtoanChitiet_truocdo != null)
                 {
-                    foreach (KcbThanhtoanChitiet objPaymentDetail in lstKcbThanhtoanChitiet_truocdo)
+                    foreach (KcbThanhtoanChitiet objChitietThanhtoan in lstKcbThanhtoanChitiet_truocdo)
                     {
                         if (PtramBHYT == 100)//Do tổng tiền < lương cơ bản *Ptram lương cơ bản quy định-->BHYT thanh toán 100%
                         {
-                            if (objPaymentDetail.TuTuc == 0)//Chỉ tính với các mục không phải tự túc. Còn các mục tự túc BN vẫn chi trả bình thường
+                            if (objChitietThanhtoan.TuTuc == 0)//Chỉ tính với các mục không phải tự túc. Còn các mục tự túc BN vẫn chi trả bình thường
                             {
-                                objPaymentDetail.PtramBhyt = 100;
-                                objPaymentDetail.BhytChitra = objPaymentDetail.DonGia;//BHYT chi trả hết
-                                objPaymentDetail.BnhanChitra = 0;//Không tính tiền
+                                objChitietThanhtoan.PtramBhyt = 100;
+                                objChitietThanhtoan.BhytChitra = objChitietThanhtoan.DonGia;//BHYT chi trả hết
+                                objChitietThanhtoan.BnhanChitra = 0;//Không tính tiền
                             }
                             else
                             {
-                                objPaymentDetail.PtramBhyt = 0;
-                                objPaymentDetail.BhytChitra = 0;//BHYT chi trả 0 do tự túc
-                                objPaymentDetail.BnhanChitra = objPaymentDetail.DonGia;
+                                objChitietThanhtoan.PtramBhyt = 0;
+                                objChitietThanhtoan.BhytChitra = 0;//BHYT chi trả 0 do tự túc
+                                objChitietThanhtoan.BnhanChitra = objChitietThanhtoan.DonGia;
                             }
                         }
-                        else if (objPaymentDetail.TinhChiphi == 0)//Các mục dịch vụ không tính phí khi thanh toán cùng nội trú(phí KCB ngoại trú chưa kịp thanh toán)
+                        else if (objChitietThanhtoan.TinhChiphi == 0)//Các mục dịch vụ không tính phí khi thanh toán cùng nội trú(phí KCB ngoại trú chưa kịp thanh toán)
                         {
-                            objPaymentDetail.PtramBhyt = 0;
-                            objPaymentDetail.BhytChitra = 0;//BHYT chi trả 0
-                            objPaymentDetail.BnhanChitra = 0;//Không tính tiền
+                            objChitietThanhtoan.PtramBhyt = 0;
+                            objChitietThanhtoan.BhytChitra = 0;//BHYT chi trả 0
+                            objChitietThanhtoan.BnhanChitra = 0;//Không tính tiền
                         }
-                        else if (objPaymentDetail.TuTuc == 0)////Không phải tự túc-->Tính các khoản chi trả
+                        else if (objChitietThanhtoan.TuTuc == 0)////Không phải tự túc-->Tính các khoản chi trả
                         {
                             decimal BHCT = 0m;
                             decimal ptrBHYT_tempt = 0m;
                             if (objLuotkham.DungTuyen == 1)
                             {
                                 ptrBHYT_tempt = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0);
-                                BHCT = Utility.DecimaltoDbnull(objPaymentDetail.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                                BHCT = Utility.DecimaltoDbnull(objChitietThanhtoan.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
                             }
                             else
                             {
                                 if (objLuotkham.TrangthaiNoitru <= 0)
                                 {
                                     ptrBHYT_tempt = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0);
-                                    BHCT = Utility.DecimaltoDbnull(objPaymentDetail.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                                    BHCT = Utility.DecimaltoDbnull(objChitietThanhtoan.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
                                 }
                                 else//Nội trú cần tính=đơn giá * % đầu thẻ * % tuyến
                                 {
                                     ptrBHYT_tempt = (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) * Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0)) / 100;
-                                    BHCT = Utility.DecimaltoDbnull(objPaymentDetail.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) / 100) * (Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0) / 100);
+                                    BHCT = Utility.DecimaltoDbnull(objChitietThanhtoan.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) / 100) * (Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0) / 100);
                                 }
                             }
 
-                            objPaymentDetail.PtramBhyt = ptrBHYT_tempt;
-                            objPaymentDetail.BhytChitra = BHCT;// TinhBhytChitra(PtramBHYT, Utility.DecimaltoDbnull(objPaymentDetail.DonGia, 0));
-                            objPaymentDetail.BnhanChitra = objPaymentDetail.DonGia - BHCT;// TinhBnhanChitra(PtramBHYT, Utility.DecimaltoDbnull(objPaymentDetail.DonGia, 0));
+                            objChitietThanhtoan.PtramBhyt = ptrBHYT_tempt;
+                            objChitietThanhtoan.BhytChitra = BHCT;
+                            objChitietThanhtoan.BnhanChitra = objChitietThanhtoan.DonGia - BHCT;
                         }
-                        else if (objPaymentDetail.TuTuc == 1)
+                        else if (objChitietThanhtoan.TuTuc == 1)
                         {
-                            //objPaymentDetail.MaDoituongKcb = "DV";
-                            objPaymentDetail.PtramBhyt = 0;
-                            objPaymentDetail.BhytChitra = 0;//BHYT chi trả 0 do tự túc
-                            objPaymentDetail.BnhanChitra = objPaymentDetail.DonGia;
+                            //objChitietThanhtoan.MaDoituongKcb = "DV";
+                            objChitietThanhtoan.PtramBhyt = 0;
+                            objChitietThanhtoan.BhytChitra = 0;//BHYT chi trả 0 do tự túc
+                            objChitietThanhtoan.BnhanChitra = objChitietThanhtoan.DonGia;
                         }
                     }
                 }
                 if (lstPaymentDetail != null)
                 {
                     //Tính cho các chi tiết hiện tại
-                    foreach (KcbThanhtoanChitiet objPaymentDetail in lstPaymentDetail)
+                    foreach (KcbThanhtoanChitiet objChitietThanhtoan in lstPaymentDetail)
                     {
                         if (PtramBHYT == 100)//Do tổng tiền < lương cơ bản *Ptram lương cơ bản quy định-->BHYT thanh toán 100%
                         {
-                            if (objPaymentDetail.TuTuc == 0)//Chỉ tính với các mục không phải tự túc. Còn các mục tự túc BN vẫn chi trả bình thường
+                            if (objChitietThanhtoan.TuTuc == 0)//Chỉ tính với các mục không phải tự túc. Còn các mục tự túc BN vẫn chi trả bình thường
                             {
-                                objPaymentDetail.PtramBhyt = 100;
-                                objPaymentDetail.BhytChitra = objPaymentDetail.DonGia;//BHYT chi trả hết
-                                objPaymentDetail.BnhanChitra = 0;//Không tính tiền
+                                objChitietThanhtoan.PtramBhyt = 100;
+                                objChitietThanhtoan.BhytChitra = objChitietThanhtoan.DonGia;//BHYT chi trả hết
+                                objChitietThanhtoan.BnhanChitra = 0;//Không tính tiền
                             }
                             else//Là tự túc
                             {
-                                objPaymentDetail.PtramBhyt = 0;
-                                objPaymentDetail.BhytChitra = 0;//BHYT chi trả 0 do tự túc
-                                objPaymentDetail.BnhanChitra = objPaymentDetail.DonGia;
+                                objChitietThanhtoan.PtramBhyt = 0;
+                                objChitietThanhtoan.BhytChitra = 0;//BHYT chi trả 0 do tự túc
+                                objChitietThanhtoan.BnhanChitra = objChitietThanhtoan.DonGia;
                             }
                         }
-                        else if (objPaymentDetail.TinhChiphi == 0)//Các mục dịch vụ không tính phí khi thanh toán cùng nội trú(phí KCB ngoại trú chưa kịp thanh toán)
+                        else if (objChitietThanhtoan.TinhChiphi == 0)//Các mục dịch vụ không tính phí khi thanh toán cùng nội trú(phí KCB ngoại trú chưa kịp thanh toán)
                         {
-                            objPaymentDetail.PtramBhyt = 0;
-                            objPaymentDetail.BhytChitra = 0;//BHYT chi trả 0 do tự túc
-                            objPaymentDetail.BnhanChitra = 0;//Không tính tiền
+                            objChitietThanhtoan.PtramBhyt = 0;
+                            objChitietThanhtoan.BhytChitra = 0;//BHYT chi trả 0 do tự túc
+                            objChitietThanhtoan.BnhanChitra = 0;//Không tính tiền
                         }
-                        else if (objPaymentDetail.TuTuc == 0)//Không phải tự túc-->Tính các khoản chi trả
+                        else if (objChitietThanhtoan.TuTuc == 0)//Không phải tự túc-->Tính các khoản chi trả
                         {
                             decimal BHCT = 0m;
                             decimal ptrBHYT_tempt = 0m;
                             if (objLuotkham.DungTuyen == 1)
                             {
                                 ptrBHYT_tempt = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0);
-                                BHCT = Utility.DecimaltoDbnull(objPaymentDetail.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                                BHCT = Utility.DecimaltoDbnull(objChitietThanhtoan.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
                             }
                             else
                             {
                                 if (objLuotkham.TrangthaiNoitru <= 0)
                                 {
                                     ptrBHYT_tempt = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0);
-                                    BHCT = Utility.DecimaltoDbnull(objPaymentDetail.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                                    BHCT = Utility.DecimaltoDbnull(objChitietThanhtoan.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
                                 }
                                 else//Nội trú cần tính=đơn giá * % đầu thẻ * % tuyến
                                 {
                                     ptrBHYT_tempt = (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) * Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0)) / 100;
-                                    BHCT = Utility.DecimaltoDbnull(objPaymentDetail.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) / 100) * (Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0) / 100);
+                                    BHCT = Utility.DecimaltoDbnull(objChitietThanhtoan.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) / 100) * (Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0) / 100);
                                 }
                             }
 
-                            objPaymentDetail.PtramBhyt = ptrBHYT_tempt;
-                            objPaymentDetail.BhytChitra = BHCT;// TinhBhytChitra(PtramBHYT, Utility.DecimaltoDbnull(objPaymentDetail.DonGia, 0));
-                            objPaymentDetail.BnhanChitra = objPaymentDetail.DonGia - BHCT;// TinhBnhanChitra(PtramBHYT, Utility.DecimaltoDbnull(objPaymentDetail.DonGia, 0));
+                            objChitietThanhtoan.PtramBhyt = ptrBHYT_tempt;
+                            objChitietThanhtoan.BhytChitra = BHCT;
+                            objChitietThanhtoan.BnhanChitra = objChitietThanhtoan.DonGia - BHCT;
                         }
-                        else if (objPaymentDetail.TuTuc == 1)
+                        else if (objChitietThanhtoan.TuTuc == 1)
                         {
-                            //objPaymentDetail.MaDoituongKcb = "DV";
-                            objPaymentDetail.PtramBhyt = 0;
-                            objPaymentDetail.BhytChitra = 0;//BHYT chi trả 0 do tự túc
-                            objPaymentDetail.BnhanChitra = objPaymentDetail.DonGia;
+                            //objChitietThanhtoan.MaDoituongKcb = "DV";
+                            objChitietThanhtoan.PtramBhyt = 0;
+                            objChitietThanhtoan.BhytChitra = 0;//BHYT chi trả 0 do tự túc
+                            objChitietThanhtoan.BnhanChitra = objChitietThanhtoan.DonGia;
                         }
 
                     }
                 }
-            }
+            //}
         }
         public static ActionResult UpdatePtramBHYT(KcbLuotkham objLuotKham, int option)
         {
@@ -1823,12 +1895,12 @@ namespace VNS.Libs
 
            return Soravien;
        }
-       public static string KCB_SINH_MALANKHAM()
+       public static string KCB_SINH_MALANKHAM(byte loai)
        {
            string MaxPatientCode = "";
            StoredProcedure sp = SPs.KcbSinhMalankham(globalVariables.UserName,
                Utility.Int32Dbnull( THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_SOLUONGSINH_MALUOTKHAM","200",false)),
-               Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_GIOIHAN_TUDONGSINH_MALUOTKHAM", "100", false)),
+               Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_GIOIHAN_TUDONGSINH_MALUOTKHAM", "100", false)),loai,
                MaxPatientCode);
            sp.Execute();
            sp.OutputValues.ForEach(delegate(object objOutput)
