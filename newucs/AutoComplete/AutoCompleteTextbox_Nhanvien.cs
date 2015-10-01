@@ -768,7 +768,7 @@ namespace VNS.HIS.UCs
                 //string[] arrValues = listBox.SelectedItem.ToString().Trim().Split('-');
                 //// set the Text of the TextBox to the selected item of the ListBox
                 //if (arrValues.Length > 1)
-                //    this.Text = arrValues[1];//this.listBox.SelectedItem.ToString();
+                //    this._Text = arrValues[1];//this.listBox.SelectedItem.ToString();
                 //else
                 string[] arrValues = CurrentAutoCompleteList_IDAndCode[listBox.SelectedIndex].ToString().Trim().Split(splitCharIDAndCode);
                 // set the Text of the TextBox to the selected item of the ListBox
@@ -794,10 +794,10 @@ namespace VNS.HIS.UCs
                     if (TakeCode)
                     {
                         if (arrValues.Length > 1)
-                            this.Text = arrValues[1];
+                            this._Text = arrValues[1];
                     }
                     else
-                        this.Text = this.listBox.SelectedItem.ToString();
+                        this._Text = this.listBox.SelectedItem.ToString();
                 }
                 this.Select(this.Text.Length, 0);
                 SelectedIndex = 0;

@@ -106,3 +106,4 @@ D:\Projects\VMSTEST\HISClient\newucs\obj\Debug\newucs.csproj.GenerateResource.Ca
 D:\Projects\VMSTEST\HISClient\newucs\obj\Debug\VNS.UCs.dll.licenses
 D:\Projects\VMSTEST\HISClient\newucs\obj\Debug\VNS.UCs.dll
 D:\Projects\VMSTEST\HISClient\newucs\obj\Debug\VNS.UCs.pdb
+D:\Projects\VMSClient\trunk\newucs\obj\Debug\VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE.resources

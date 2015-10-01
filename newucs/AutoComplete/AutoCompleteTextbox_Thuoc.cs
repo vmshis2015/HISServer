@@ -705,7 +705,7 @@ namespace VNS.HIS.UCs
         {
             try
             {
-                if (!this.TopLevelControl.Controls.Contains(panel)) return;
+                if (!AllowChangedListBox || !this.TopLevelControl.Controls.Contains(panel)) return;
                 if (AllowChangedListBox && (CurrentAutoCompleteList.Count <= 0 || listBox.SelectedItem == null))
                 {
                     setDefaultValue();
@@ -841,7 +841,7 @@ namespace VNS.HIS.UCs
                         //string[] arrValues = listBox.SelectedItem.ToString().Trim().Split('-');
                         //// set the Text of the TextBox to the selected item of the ListBox
                         //if (arrValues.Length > 1)
-                        //    this.Text = arrValues[1];//this.listBox.SelectedItem.ToString();
+                        //    this._Text = arrValues[1];//this.listBox.SelectedItem.ToString();
                         //else
                         _Text = _grid.grdListDrug.GetValue(DmucThuoc.Columns.TenThuoc).ToString();
                         MyID = Utility.Int32Dbnull(_grid.grdListDrug.GetValue("id_thuoc"), "-1");
@@ -861,12 +861,33 @@ namespace VNS.HIS.UCs
                     // if the ListBox is not empty
                     if (((this.listBox.Items.Count > 0) && (this.SelectedIndex > -1)))
                     {
-                        //string[] arrValues = listBox.SelectedItem.ToString().Trim().Split('-');
-                        //// set the Text of the TextBox to the selected item of the ListBox
-                        //if (arrValues.Length > 1)
-                        //    this.Text = arrValues[1];//this.listBox.SelectedItem.ToString();
-                        //else
-                        this.Text = this.listBox.SelectedItem.ToString();
+                        if (CurrentAutoCompleteList.Count != CurrentAutoCompleteList_IDAndCode.Count || listBox.SelectedIndex < 0) return false;
+
+                        string[] arrValues = CurrentAutoCompleteList_IDAndCode[listBox.SelectedIndex].ToString().Trim().Split(splitCharIDAndCode);
+                        // set the Text of the TextBox to the selected item of the ListBox
+                        if (arrValues.Length == 2)
+                        {
+                            if (txtMyID != null)
+                                txtMyID.Text = arrValues[0];
+                            if (txtMyID_Edit != null)
+                                txtMyID_Edit.Text = arrValues[0];
+                            if (txtMyCode != null)
+                                txtMyCode.Text = arrValues[1];
+                            if (txtMyCode_Edit != null)
+                                txtMyCode_Edit.Text = arrValues[1];
+                            MyID = arrValues[0];
+                            MyCode = arrValues[1];
+                            //find id_thuockho
+                            //DataRow[] arrDr = dtData.Select("id_thuoc=" + MyID);
+                            //if (arrDr.Length > 0)
+                            id_thuockho = Utility.Int32Dbnull(CurrentAutoCompleteList_IDThuockho[listBox.SelectedIndex], -1);
+                            if (txtMyName != null)
+                                txtMyName.Text = listBox.SelectedItem.ToString();
+                            if (txtMyName_Edit != null)
+                                txtMyName_Edit.Text = listBox.SelectedItem.ToString();
+                        }
+
+                        this._Text = this.listBox.SelectedItem.ToString();
                         this.Select(this.Text.Length, 0);
                         SelectedIndex = 0;
 
@@ -948,12 +969,32 @@ namespace VNS.HIS.UCs
             // hide if typed chars <= MinCharsTyped
             else
             {
+                AllowChangedListBox = false;
+                listBox.SelectedIndex = -1;
+                AllowChangedListBox = true;
+                CurrentAutoCompleteList.Clear();
+                CurrentAutoCompleteList_IDAndCode.Clear();
+                CurrentAutoCompleteList_IDThuockho.Clear();
                 setDefaultValue();
                 this.HideSuggestionListBox();
             }
             if (Utility.DoTrim(this.Text) == "" && RaiseEventEnterWhenEmpty) _OnEnterMe();
         }
+        public void ClearMe()
+        {
+            AllowTextChanged = false;
+            this.Clear();
+            AllowChangedListBox = false;
+            listBox.SelectedIndex = -1;
+            AllowChangedListBox = true;
+            CurrentAutoCompleteList.Clear();
+            CurrentAutoCompleteList_IDAndCode.Clear();
+            CurrentAutoCompleteList_IDThuockho.Clear();
+            setDefaultValue();
+            AllowTextChanged = true;
+            this.HideSuggestionListBox();
 
+        }
         // This is a timecritical part
         // Fills/ refreshed the CurrentAutoCompleteList with appropreate candidates
         private void UpdateCurrentAutoCompleteList()

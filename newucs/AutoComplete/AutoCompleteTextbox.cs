@@ -628,6 +628,7 @@ namespace VNS.HIS.UCs
             {
                 this._Text = "";
                 setDefaultValue();
+                if (RaiseEventEnterWhenEmpty && _OnSelectionChanged != null) _OnSelectionChanged();
                 if (RaiseEventEnterWhenEmpty && _OnEnterMe!=null) _OnEnterMe();
                 HideSuggestionListBox();
             }
@@ -820,16 +821,16 @@ namespace VNS.HIS.UCs
                     //string[] arrValues = listBox.SelectedItem.ToString().Trim().Split('-');
                     //// set the Text of the TextBox to the selected item of the ListBox
                     //if (arrValues.Length > 1)
-                    //    this.Text = arrValues[1];//this.listBox.SelectedItem.ToString();
+                    //    this._Text = arrValues[1];//this.listBox.SelectedItem.ToString();
                     //else
                     if (TakeCode)
                     {
                        arrValues = CurrentAutoCompleteList_IDAndCode[listBox.SelectedIndex].ToString().Trim().Split(splitCharIDAndCode);
                         if (arrValues.Length > 1)
-                            this.Text = arrValues[1];
+                            this._Text = arrValues[1];
                     }
                     else
-                        this.Text = this.listBox.SelectedItem.ToString();
+                        this._Text = this.listBox.SelectedItem.ToString();
                     // set the Text of the TextBox to the selected item of the ListBox
                     if (arrValues.Length == 2)
                     {
@@ -873,7 +874,7 @@ namespace VNS.HIS.UCs
         private void ShowSuggests()
         {
             if (!AllowTextChanged) return;
-            
+
             // show only if MinTypedCharacters have been typed
             if (this.Text.Length >= MinTypedCharacters)
             {
@@ -932,7 +933,11 @@ namespace VNS.HIS.UCs
                 setDefaultValue();
                 this.HideSuggestionListBox();
             }
-            if (Utility.DoTrim(this.Text) == "" && RaiseEventEnterWhenEmpty && _OnEnterMe != null) _OnEnterMe();
+            if (Utility.DoTrim(this.Text) == "")
+            {
+                if (RaiseEventEnterWhenEmpty && _OnSelectionChanged != null) _OnSelectionChanged();
+                if (RaiseEventEnterWhenEmpty && _OnEnterMe != null) _OnEnterMe();
+            }
         }
         public void setDefaultValue()
         {

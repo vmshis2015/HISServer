@@ -99,17 +99,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Running\Janus.Windows.UI.v3.dll</HintPath>
     </Reference>
-    <Reference Include="RicherTextBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\MyHIS\Running\RicherTextBox.dll</HintPath>
-    </Reference>
     <Reference Include="SubSonic, Version=2.2.0.0, Culture=neutral, PublicKeyToken=eadb47849839a332, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
@@ -126,9 +119,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AutoComplete\AutoCompleteTextbox_Diachi.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="AutoComplete\AutoCompleteTextbox_old.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AutoComplete\AutoCompleteTextbox_Thuoc.cs">
@@ -151,6 +141,12 @@
     </Compile>
     <Compile Include="Banner.Designer.cs">
       <DependentUpon>Banner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BAOCAO_TIEUDE.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BAOCAO_TIEUDE.Designer.cs">
+      <DependentUpon>BAOCAO_TIEUDE.cs</DependentUpon>
     </Compile>
     <Compile Include="ucDynamicParam.cs">
       <SubType>UserControl</SubType>
@@ -195,6 +191,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Banner.resx">
       <DependentUpon>Banner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BAOCAO_TIEUDE.resx">
+      <DependentUpon>BAOCAO_TIEUDE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ucDynamicParam.resx">
       <DependentUpon>ucDynamicParam.cs</DependentUpon>
@@ -280,6 +279,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\RicherRichTextBoxPrj\RicherTextBox_src\RicherTextBox\RicherTextBox.csproj">
+      <Project>{8f3074d8-e771-4c5e-a11e-0c0fbae34ae3}</Project>
+      <Name>RicherTextBox</Name>
+    </ProjectReference>
     <ProjectReference Include="..\newBus\newBus.csproj">
       <Project>{a99e7072-450c-430d-ac3d-63cbb74c01ad}</Project>
       <Name>newBus</Name>

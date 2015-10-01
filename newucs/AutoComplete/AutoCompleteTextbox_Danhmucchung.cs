@@ -21,7 +21,9 @@ namespace VNS.HIS.UCs
 
         // the ListBox used for suggestions
         private ListBox listBox;
-
+        ToolStripMenuItem _item = new ToolStripMenuItem("Cấu hình danh mục");
+        ToolStripMenuItem _itemSaveas = new ToolStripMenuItem("Lưu thành");
+        ToolStripMenuItem _itemRefresh = new ToolStripMenuItem("Refresh");
         public delegate void OnSelectionChanged();
         public event OnSelectionChanged _OnSelectionChanged;
 
@@ -148,9 +150,7 @@ namespace VNS.HIS.UCs
             _ToolTip.SetToolTip(this, "Nhấn chuột phải để cấu hình thêm bớt danh mục");
             // set the input to remember, which is empty so far
             oldText = this.Text;
-            ToolStripMenuItem _item = new ToolStripMenuItem("Cấu hình danh mục");
-            ToolStripMenuItem _itemSaveas = new ToolStripMenuItem("Lưu thành");
-            ToolStripMenuItem _itemRefresh = new ToolStripMenuItem("Refresh");
+           
             _item.Click += new EventHandler(_item_Click);
             _itemSaveas.Click += new EventHandler(_itemSaveas_Click);
             _itemRefresh.Click += _itemRefresh_Click;
@@ -159,10 +159,7 @@ namespace VNS.HIS.UCs
             ctx.Items.Add(_itemSaveas);
             ctx.Items.Add(_itemRefresh);
             this.ContextMenuStrip = ctx;
-            bool _Visible = globalVariables.IsAdmin;
-            if (!_Visible)
-                _Visible = globalVariablesPrivate.objNhanvien != null && Utility.Coquyen("quyen_themdanhmucdungchung");
-            _item.Visible = _itemSaveas.Visible = _Visible;
+           
         }
 
         void _itemRefresh_Click(object sender, EventArgs e)
@@ -225,6 +222,14 @@ namespace VNS.HIS.UCs
         {
             get;
             set;
+        }
+        public bool AllowEdit
+        {
+            set {
+                _item.Visible = value;
+                _itemSaveas.Visible = value;
+            }
+
         }
         public bool TakeCode
         {
@@ -374,11 +379,17 @@ namespace VNS.HIS.UCs
         {
             try
             {
-                
+                bool _Visible = globalVariables.IsAdmin;
+                if (!_Visible)
+                    _Visible = globalVariablesPrivate.objNhanvien != null && Utility.Coquyen("quyen_themdanhmucdungchung");
+                AllowEdit = _Visible;
+
                 m_dtDanhmucChung = LayDulieuDanhmucChung(new List<string>() { LOAI_DANHMUC });
                 if (m_dtDanhmucChung == null || m_dtDanhmucChung.Columns.Count <= 0) return;
              if (!m_dtDanhmucChung.Columns.Contains("ShortCut")) m_dtDanhmucChung.Columns.Add(new DataColumn("ShortCut", typeof(string)));
              m_dtDanhmucChung.DefaultView.Sort = DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten;
+                if(m_dtDanhmucChung.DefaultView.Count==1)
+                    defaultItem = m_dtDanhmucChung.DefaultView[0]["MA"].ToString().Trim();
              foreach (DataRowView dr in m_dtDanhmucChung.DefaultView)
              {
                  if (Utility.Byte2Bool(dr[DmucChung.Columns.TrangthaiMacdinh]))
@@ -426,6 +437,10 @@ namespace VNS.HIS.UCs
         {
             try
             {
+                bool _Visible = globalVariables.IsAdmin;
+                if (!_Visible)
+                    _Visible = globalVariablesPrivate.objNhanvien != null && Utility.Coquyen("quyen_themdanhmucdungchung");
+                AllowEdit = _Visible;
                 IncludeList =","+ IncludeList + ",";
                 m_dtDanhmucChung = LayDulieuDanhmucChung(new List<string>() { LOAI_DANHMUC });
                 DataTable tempt = m_dtDanhmucChung.Clone();
@@ -492,6 +507,11 @@ namespace VNS.HIS.UCs
         {
             try
             {
+                bool _Visible = globalVariables.IsAdmin;
+                if (!_Visible)
+                    _Visible = globalVariablesPrivate.objNhanvien != null && Utility.Coquyen("quyen_themdanhmucdungchung");
+                AllowEdit = _Visible;
+
                 string defaultItem = "";
                 if (dtData == null || dtData.Columns.Count <= 0) return;
                 DataRow[] arrDr = dtData.Select("LOAI='" + LOAI_DANHMUC + "'", DmucChung.Columns.SttHthi);
@@ -503,6 +523,8 @@ namespace VNS.HIS.UCs
                 if (!m_dtDanhmucChung.Columns.Contains("ShortCut")) m_dtDanhmucChung.Columns.Add(new DataColumn("ShortCut", typeof(string)));
 
                 m_dtDanhmucChung.DefaultView.Sort = DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten;
+                if (m_dtDanhmucChung.DefaultView.Count == 1)
+                    defaultItem = m_dtDanhmucChung.DefaultView[0]["MA"].ToString().Trim();
                 foreach (DataRowView dr in m_dtDanhmucChung.DefaultView)
                 {
                     if (Utility.Byte2Bool(dr[DmucChung.Columns.TrangthaiMacdinh]))
@@ -771,7 +793,7 @@ namespace VNS.HIS.UCs
                 //string[] arrValues = listBox.SelectedItem.ToString().Trim().Split('-');
                 //// set the Text of the TextBox to the selected item of the ListBox
                 //if (arrValues.Length > 1)
-                //    this.Text = arrValues[1];//this.listBox.SelectedItem.ToString();
+                //    this._Text = arrValues[1];//this.listBox.SelectedItem.ToString();
                 //else
                 string[] arrValues = CurrentAutoCompleteList_IDAndCode[listBox.SelectedIndex].ToString().Trim().Split(splitCharIDAndCode);
                 // set the Text of the TextBox to the selected item of the ListBox
@@ -796,10 +818,10 @@ namespace VNS.HIS.UCs
                     if (TakeCode)
                     {
                         if (arrValues.Length > 1)
-                            this.Text = arrValues[1];
+                            this._Text = arrValues[1];
                     }
                     else
-                        this.Text = this.listBox.SelectedItem.ToString();
+                        this._Text = this.listBox.SelectedItem.ToString();
                 }
                 this.Select(this.Text.Length, 0);
                 SelectedIndex = 0;
