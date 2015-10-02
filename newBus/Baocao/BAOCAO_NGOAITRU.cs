@@ -140,5 +140,17 @@ namespace VNS.HIS.BusRule.Classes
                 SPs.BaocaoThongkeNhapvienTonghop(FromDate, ToDate, DoiTuong, khoanoitru).GetDataSet().
                     Tables[0];
         }
+        public static DataTable BaoCaoThongkeTheoMaBenhICD10ChiTiet(DateTime? FromDate, DateTime? ToDate, string DoiTuong, string KhoaThucHien, string ListICD)
+        {
+            return
+                SPs.BaocaoThongkeTheomabenhIcdChitiet(FromDate, ToDate,ListICD, DoiTuong, KhoaThucHien,"").GetDataSet().
+                    Tables[0];
+        }
+        public static DataTable BaoCaoThongkeTheoMaBenhICD10TongHop(DateTime? FromDate, DateTime? ToDate, string DoiTuong, string KhoaThucHien, string ListICD)
+        {
+            return
+                SPs.BaocaoThongkeTheomabenhIcdTonghop(FromDate, ToDate, ListICD,DoiTuong, KhoaThucHien, "").GetDataSet().
+                    Tables[0];
+        }
     }
 }
