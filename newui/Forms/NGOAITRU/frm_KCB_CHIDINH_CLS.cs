@@ -23,8 +23,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private int CurrentRowIndex = -1;
         public int Exam_ID = -1;
         decimal BHYT_PTRAM_TRAITUYENNOITRU=0;
-        private string Help =
-            "Lấy thông tin dịch vụ CLS vào lưới chọn dịch vụ=NOITIET_GetDataServiceDetail\n.Lấy thông tin chi tiết CLS đã đăng ký=YHHQ_LAYTHONGTIN_DICHVU_THUOC_VATTU";
+        private string Help = "";
         KCB_CHIDINH_CANLAMSANG CHIDINH_CANLAMSANG = new KCB_CHIDINH_CANLAMSANG();
         KCB_THAMKHAM __THAMKHAM = new KCB_THAMKHAM();
 
@@ -50,20 +49,18 @@ namespace VNS.HIS.UI.NGOAITRU
         private string strSaveandprintPath = Application.StartupPath + @"\CAUHINH\SaveAndPrintConfigKedonthuoc.txt";
         private int v_AssignId = -1;
         string nhomchidinh = "";
-        byte chidinhgoi = 0;
-        byte chidinhchiphithem = 0;
+        byte kieu_chidinh = 0;
         #region "khai báo khởi tạo ban đầu"
         /// <summary>
         /// 
         /// </summary>
         /// <param name="nhomchidinh">Mô tả thêm của nhóm chỉ định CLS dùng cho việc tách form kê chỉ định CLS và kê gói dịch vụ</param>
-        public frm_KCB_CHIDINH_CLS(string nhomchidinh, byte chidinhgoi, byte chidinhchiphithem)
+        public frm_KCB_CHIDINH_CLS(string nhomchidinh, byte kieu_chidinh)
         {
             InitializeComponent();
             InitEvents();
             this.nhomchidinh = nhomchidinh;
-            this.chidinhchiphithem = chidinhchiphithem;
-            this.chidinhgoi = chidinhgoi;
+            this.kieu_chidinh = kieu_chidinh;
             
             log = LogManager.GetCurrentClassLogger();
             dtRegDate.Value = globalVariables.SysDate;
@@ -641,8 +638,6 @@ namespace VNS.HIS.UI.NGOAITRU
             objKcbChidinhcls.NguoiTao = globalVariables.UserName;
             objKcbChidinhcls.NgayTao = globalVariables.SysDate;
             objKcbChidinhcls.NgayChidinh = dtRegDate.Value.Date;
-            objKcbChidinhcls.ChidinhGoidichvu = chidinhgoi;
-            objKcbChidinhcls.ChidinhChiphithem = chidinhchiphithem;
             objKcbChidinhcls.IdKham = Exam_ID;
             if (HosStatus == 0)
             {

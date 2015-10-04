@@ -4142,7 +4142,7 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 if (!IsValidUpdateChidinh()) return;
-                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0, 0);
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0);
                 frm.HosStatus = 0;
                 frm.ObjRegExam = KcbDangkyKcb.FetchByID(Utility.Int32Dbnull(txtReg_ID.Text));
                 frm.Exam_ID = Utility.Int32Dbnull(txtExam_ID.Text, -1);
@@ -4204,7 +4204,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     return;
                 }
                 if (!cmdInsertAssign.Enabled) return;
-                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0, 0);
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0);
                 frm.txtAssign_ID.Text = "-100";
                 frm.Exam_ID = Utility.Int32Dbnull(txtExam_ID.Text, -1);
                 frm.objLuotkham = objLuotkham;// CreatePatientExam();

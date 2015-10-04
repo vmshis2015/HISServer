@@ -833,7 +833,7 @@ namespace VNS.HIS.UI.NGOAITRU
             KcbLuotkham objLuotkham = CreatePatientExam();
             if(objLuotkham!=null)
             {
-                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0,0);
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0);
                 frm.Exam_ID = Utility.Int32Dbnull(-1, -1);
                 frm.txtAssign_ID.Text = "-100";
                 frm.objLuotkham = objLuotkham;
@@ -869,7 +869,7 @@ namespace VNS.HIS.UI.NGOAITRU
               if (objLuotkham != null)
               {
                   if (!InValiUpdateChiDinh()) return;
-                  frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN",0,0);
+                  frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN",0);
                   frm.HosStatus = 0;
                 
                   frm.Exam_ID = Utility.Int32Dbnull(-1, -1);
@@ -1418,11 +1418,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 objPayment.IdBenhnhan = Utility.Int32Dbnull(objLuotkham.IdBenhnhan, -1);
                 objPayment.NgayThanhtoan = globalVariables.SysDate;
                 objPayment.IdNhanvienThanhtoan = globalVariables.gv_intIDNhanvien;
-                objPayment.TrangThai = 0;
-                objPayment.BoVien = 0;
                 objPayment.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
                 objPayment.KieuThanhtoan = 0;//0=Ngoại trú;1=nội trú
-                objPayment.TenKieuThanhtoan = objPayment.KieuThanhtoan == 0 ? "NGOAI" : "NOI";
                 objPayment.TrangthaiIn = 0;
                 objPayment.NgayIn = null;
                 objPayment.NguoiIn = string.Empty;
@@ -1517,8 +1514,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     newItem.KieuChietkhau = "%";
                     newItem.TileChietkhau = 0;
                     newItem.TienChietkhau = 0m;
-                    newItem.NguoiHuy = "";
-                    newItem.NgayHuy = null;
+                    newItem.IdThanhtoanhuy = -1;
                     newItem.TrangthaiHuy = 0;
                     newItem.TrangthaiBhyt = 0;
                     newItem.TrangthaiChuyen = 0;
@@ -1688,7 +1684,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 KcbThanhtoan objPayment = CreatePayment();
                 List<int> lstRegID = new List<int>();
                 decimal TTBN_Chitrathucsu = 0;
-                ActionResult actionResult = new KCB_THANHTOAN().ThanhtoanChiphiDVuKCB(objPayment, objLuotkham, Taodulieuthanhtoanchitiet(ref lstRegID).ToList<KcbThanhtoanChitiet>(), ref Payment_Id, -1, false, ref TTBN_Chitrathucsu);
+                string ErrMsg = "";
+                ActionResult actionResult = new KCB_THANHTOAN().ThanhtoanChiphiDVuKCB(objPayment, objLuotkham, Taodulieuthanhtoanchitiet(ref lstRegID).ToList<KcbThanhtoanChitiet>(), ref Payment_Id, -1, false, ref TTBN_Chitrathucsu, ref ErrMsg);
 
                 switch (actionResult)
                 {
@@ -1716,6 +1713,9 @@ namespace VNS.HIS.UI.NGOAITRU
                         break;
                     case ActionResult.Error:
                         Utility.SetMsg(lblMsg, "Lỗi khi thanh toán", true);
+                        break;
+                    case ActionResult.Cancel:
+                        Utility.ShowMsg(ErrMsg);
                         break;
                 }
             }

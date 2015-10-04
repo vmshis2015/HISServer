@@ -797,7 +797,7 @@ namespace VNS.HIS.UI.NGOAITRU
                       .Set(KcbDmucLuotkham.Columns.UsedBy).EqualTo(DBNull.Value)
                       .Set(KcbDmucLuotkham.Columns.StartTime).EqualTo(DBNull.Value)
                       .Set(KcbDmucLuotkham.Columns.EndTime).EqualTo(null)
-                      .Where(KcbDmucLuotkham.Columns.MaLuotkham).IsEqualTo(Utility.Int32Dbnull(m_strMaluotkham, "-1"))
+                      .Where(KcbDmucLuotkham.Columns.MaLuotkham).IsEqualTo(m_strMaluotkham)
                       .And(KcbDmucLuotkham.Columns.TrangThai).IsEqualTo(1)
                       .And(KcbDmucLuotkham.Columns.UsedBy).IsEqualTo(globalVariables.UserName)
                       .And(KcbDmucLuotkham.Columns.Nam).IsEqualTo(globalVariables.SysDate.Year).Execute();
@@ -4701,8 +4701,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 KcbThanhtoan objPayment = CreatePayment();
                 List<int> lstRegID = new List<int>();
                 decimal TTBN_Chitrathucsu = 0;
+                string ErrMsg = "";
                 ActionResult actionResult = new KCB_THANHTOAN().ThanhtoanChiphiDVuKCB(objPayment, objLuotkham, Taodulieuthanhtoanchitiet(ref lstRegID).ToList<KcbThanhtoanChitiet>(),
-                                                   ref Payment_Id, -1, false, ref TTBN_Chitrathucsu);
+                                                   ref Payment_Id, -1, false, ref TTBN_Chitrathucsu, ref ErrMsg);
 
                 switch (actionResult)
                 {
@@ -4734,6 +4735,9 @@ namespace VNS.HIS.UI.NGOAITRU
                         break;
                     case ActionResult.Error:
                         Utility.ShowMsg("Lỗi trong quá trình thanh toán phí khám chữa bệnh", "Thông báo");
+                        break;
+                    case ActionResult.Cancel:
+                        Utility.ShowMsg(ErrMsg);
                         break;
                 }
             }
@@ -4774,8 +4778,9 @@ namespace VNS.HIS.UI.NGOAITRU
                {
                    return;
                }
+               string ErrMsg = "";
                ActionResult actionResult = new KCB_THANHTOAN().ThanhtoanChiphiDVuKCB(objPayment, objLuotkham, new List<KcbThanhtoanChitiet>() { objTemp },
-                                                   ref Payment_Id, -1, false, ref TTBN_Chitrathucsu);
+                                                   ref Payment_Id, -1, false, ref TTBN_Chitrathucsu, ref ErrMsg);
 
                 switch (actionResult)
                 {
@@ -4797,6 +4802,9 @@ namespace VNS.HIS.UI.NGOAITRU
                         break;
                     case ActionResult.Error:
                         Utility.ShowMsg("Lỗi trong quá trình thanh toán tiền sổ khám", "Thông báo");
+                        break;
+                    case ActionResult.Cancel:
+                        Utility.ShowMsg(ErrMsg);
                         break;
                 }
             }
@@ -4873,12 +4881,9 @@ namespace VNS.HIS.UI.NGOAITRU
             objPayment.IdBenhnhan = Utility.Int32Dbnull(txtMaBN.Text, -1);
             objPayment.NgayThanhtoan = globalVariables.SysDate;
             objPayment.IdNhanvienThanhtoan = globalVariables.gv_intIDNhanvien;
-            objPayment.TrangThai = 0;
             objPayment.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
-            objPayment.KieuThanhtoan = 0;//0=Ngoại trú;1=nội trú
-            objPayment.TenKieuThanhtoan = objPayment.KieuThanhtoan == 0 ? "NGOAI" : "NOI";
+            objPayment.KieuThanhtoan = 0;
             objPayment.TrangthaiIn = 0;
-            objPayment.BoVien = 0;
             objPayment.NoiTru = 0;
             objPayment.NgayIn = null;
             objPayment.NguoiIn = string.Empty;
@@ -4950,8 +4955,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 newItem.KieuChietkhau = "%";
                 newItem.TileChietkhau = 0;
                 newItem.TienChietkhau = 0m;
-                newItem.NguoiHuy = "";
-                newItem.NgayHuy = null;
+                newItem.IdThanhtoanhuy = -1;
                 newItem.TrangthaiHuy = 0;
                 newItem.TrangthaiBhyt = 0;
                 newItem.TrangthaiChuyen = 0;
@@ -5014,8 +5018,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     newItem.KieuChietkhau = "%";
                     newItem.TileChietkhau = 0;
                     newItem.TienChietkhau = 0m;
-                    newItem.NguoiHuy = "";
-                    newItem.NgayHuy = null;
+                    newItem.IdThanhtoanhuy = -1;
                     newItem.TrangthaiHuy = 0;
                     newItem.TrangthaiBhyt = 0;
                     newItem.TrangthaiChuyen = 0;
