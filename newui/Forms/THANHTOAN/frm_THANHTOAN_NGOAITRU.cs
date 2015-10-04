@@ -704,37 +704,22 @@ namespace  VNS.HIS.UI.THANHTOAN
                grdThongTinChuaThanhToan.RootTable.Columns["phu_thu"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
                grdThongTinChuaThanhToan.RootTable.Columns["bhyt_chitra"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
 
+               grdThongTinDaThanhToan.RootTable.Columns["TT_KHONG_PHUTHU"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinDaThanhToan.RootTable.Columns["TT_BN_KHONG_PHUTHU"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinDaThanhToan.RootTable.Columns["TT_BHYT"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinDaThanhToan.RootTable.Columns["TT_PHUTHU"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinDaThanhToan.RootTable.Columns["TT_BN"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinDaThanhToan.RootTable.Columns["bnhan_chitra"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinDaThanhToan.RootTable.Columns["phu_thu"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+               grdThongTinDaThanhToan.RootTable.Columns["bhyt_chitra"].Visible = HIENTHIPHANTICHGIA_TRENLUOI == "1";
+
+
 
                 grdThongTinChuaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.TileChietkhau].Visible = PropertyLib._ThanhtoanProperties.HienthiChietkhauChitiet;
                 grdThongTinChuaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.TienChietkhau].Visible = PropertyLib._ThanhtoanProperties.HienthiChietkhauChitiet;
                 grdThongTinChuaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.KieuChietkhau].Visible = PropertyLib._ThanhtoanProperties.HienthiChietkhauChitiet;
                 grdThongTinChuaThanhToan.RootTable.Columns["CHON"].Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_CHOPHEP_CHONCHITIET_THANHTOAN", "0", false) == "1";
-
-                grdThongTinChuaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.BnhanChitra].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
-                grdThongTinChuaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.BhytChitra].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
-                grdThongTinChuaThanhToan.RootTable.Columns["TT_BN"].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
-                grdThongTinChuaThanhToan.RootTable.Columns["TT_BHYT"].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
-                grdThongTinChuaThanhToan.RootTable.Columns["TT_BN_KHONG_PHUTHU"].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
-                grdThongTinChuaThanhToan.RootTable.Columns["TT_KHONG_PHUTHU"].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
-
-                //----------------------------------------------------------------------------------------
-                grdThongTinChuaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.PhuThu].Visible = PropertyLib._ThanhtoanProperties.Hienthiphuthu;
-                grdThongTinChuaThanhToan.RootTable.Columns["TT_PHUTHU"].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
-
-                grdThongTinDaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.TileChietkhau].Visible = PropertyLib._ThanhtoanProperties.HienthiChietkhauChitiet;
-                grdThongTinDaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.TienChietkhau].Visible = PropertyLib._ThanhtoanProperties.HienthiChietkhauChitiet;
-                grdThongTinDaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.KieuChietkhau].Visible = PropertyLib._ThanhtoanProperties.HienthiChietkhauChitiet;
-
-                grdThongTinDaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.BnhanChitra].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
-                grdThongTinDaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.BhytChitra].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
-                grdThongTinDaThanhToan.RootTable.Columns["TT_BN"].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
-                grdThongTinDaThanhToan.RootTable.Columns["TT_BHYT"].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
-                grdThongTinDaThanhToan.RootTable.Columns["TT_BN_KHONG_PHUTHU"].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
-                grdThongTinDaThanhToan.RootTable.Columns["TT_KHONG_PHUTHU"].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
-
-
-                grdThongTinDaThanhToan.RootTable.Columns[KcbThanhtoanChitiet.Columns.PhuThu].Visible = PropertyLib._ThanhtoanProperties.Hienthiphuthu;
-                grdThongTinDaThanhToan.RootTable.Columns["TT_PHUTHU"].Visible = PropertyLib._ThanhtoanProperties.HienthiChiTra;
+              
                 switch (PropertyLib._ThanhtoanProperties.CachChietkhau)
                 {
                     case 0:
