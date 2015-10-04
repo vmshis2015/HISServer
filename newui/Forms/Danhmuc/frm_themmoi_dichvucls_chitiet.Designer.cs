@@ -33,6 +33,10 @@ namespace VNS.HIS.UI.DANHMUC
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_dichvucls_chitiet));
             Janus.Windows.GridEX.GridEXLayout grdDanhsachCamChidinhChungphieu_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.grpControl = new System.Windows.Forms.GroupBox();
+            this.txtServiceDetailName = new System.Windows.Forms.TextBox();
+            this.lblServiceDetail = new System.Windows.Forms.Label();
+            this.txtServiceDetailCode = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.chkKiemnghiem = new System.Windows.Forms.CheckBox();
             this.txtMaBhyt = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -91,10 +95,6 @@ namespace VNS.HIS.UI.DANHMUC
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkThemmoilientuc = new Janus.Windows.EditControls.UICheckBox();
-            this.txtServiceDetailCode = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtServiceDetailName = new System.Windows.Forms.TextBox();
-            this.lblServiceDetail = new System.Windows.Forms.Label();
             this.grpControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdDanhsachCamChidinhChungphieu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtIntOrder)).BeginInit();
@@ -168,6 +168,45 @@ namespace VNS.HIS.UI.DANHMUC
             this.grpControl.TabIndex = 0;
             this.grpControl.TabStop = false;
             this.grpControl.Text = "Thông tin chi tiết";
+            // 
+            // txtServiceDetailName
+            // 
+            this.txtServiceDetailName.BackColor = System.Drawing.Color.White;
+            this.txtServiceDetailName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtServiceDetailName.Location = new System.Drawing.Point(155, 106);
+            this.txtServiceDetailName.Name = "txtServiceDetailName";
+            this.txtServiceDetailName.Size = new System.Drawing.Size(588, 21);
+            this.txtServiceDetailName.TabIndex = 4;
+            // 
+            // lblServiceDetail
+            // 
+            this.lblServiceDetail.ForeColor = System.Drawing.Color.Red;
+            this.lblServiceDetail.Location = new System.Drawing.Point(11, 105);
+            this.lblServiceDetail.Name = "lblServiceDetail";
+            this.lblServiceDetail.Size = new System.Drawing.Size(138, 23);
+            this.lblServiceDetail.TabIndex = 1648;
+            this.lblServiceDetail.Text = "Tên dịch vụ:";
+            this.lblServiceDetail.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtServiceDetailCode
+            // 
+            this.txtServiceDetailCode.BackColor = System.Drawing.Color.White;
+            this.txtServiceDetailCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtServiceDetailCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtServiceDetailCode.Location = new System.Drawing.Point(333, 31);
+            this.txtServiceDetailCode.Name = "txtServiceDetailCode";
+            this.txtServiceDetailCode.Size = new System.Drawing.Size(95, 21);
+            this.txtServiceDetailCode.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(251, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 23);
+            this.label1.TabIndex = 1646;
+            this.label1.Text = "Mã dịch vụ";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // chkKiemnghiem
             // 
@@ -840,7 +879,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(622, 35);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(31, 15);
+            this.label9.Size = new System.Drawing.Size(32, 15);
             this.label9.TabIndex = 51;
             this.label9.Text = "STT:";
             // 
@@ -934,45 +973,6 @@ namespace VNS.HIS.UI.DANHMUC
             this.chkThemmoilientuc.Text = "Thêm mới liên tục?";
             this.toolTip1.SetToolTip(this.chkThemmoilientuc, "Chọn mục này nếu muốn đánh dấu chi tiết CLS này luôn coi là tự túc đối với đối tư" +
         "ợng BHYT cho dù có được áp quan hệ giá hay không!");
-            // 
-            // txtServiceDetailCode
-            // 
-            this.txtServiceDetailCode.BackColor = System.Drawing.Color.White;
-            this.txtServiceDetailCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtServiceDetailCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtServiceDetailCode.Location = new System.Drawing.Point(333, 31);
-            this.txtServiceDetailCode.Name = "txtServiceDetailCode";
-            this.txtServiceDetailCode.Size = new System.Drawing.Size(95, 21);
-            this.txtServiceDetailCode.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(251, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 23);
-            this.label1.TabIndex = 1646;
-            this.label1.Text = "Mã dịch vụ";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtServiceDetailName
-            // 
-            this.txtServiceDetailName.BackColor = System.Drawing.Color.White;
-            this.txtServiceDetailName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtServiceDetailName.Location = new System.Drawing.Point(155, 106);
-            this.txtServiceDetailName.Name = "txtServiceDetailName";
-            this.txtServiceDetailName.Size = new System.Drawing.Size(588, 21);
-            this.txtServiceDetailName.TabIndex = 4;
-            // 
-            // lblServiceDetail
-            // 
-            this.lblServiceDetail.ForeColor = System.Drawing.Color.Red;
-            this.lblServiceDetail.Location = new System.Drawing.Point(11, 105);
-            this.lblServiceDetail.Name = "lblServiceDetail";
-            this.lblServiceDetail.Size = new System.Drawing.Size(138, 23);
-            this.lblServiceDetail.TabIndex = 1648;
-            this.lblServiceDetail.Text = "Tên dịch vụ:";
-            this.lblServiceDetail.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frm_themmoi_dichvucls_chitiet
             // 

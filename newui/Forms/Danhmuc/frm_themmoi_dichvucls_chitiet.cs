@@ -296,14 +296,14 @@ namespace VNS.HIS.UI.DANHMUC
             foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdDanhsachCamChidinhChungphieu.GetDataRows())
             {
                 gridExRow.BeginEdit();
-                if (Utility.Int32Dbnull(gridExRow.Cells[QheCamchidinhChungphieu.Columns.IdDichvu].Value) != id_chitiet)
+                if (Utility.Int32Dbnull(gridExRow.Cells[DmucDichvuclsChitiet.Columns.IdChitietdichvu].Value) != id_chitiet)
                 {
                     var query = from kho in arrDr.AsEnumerable()
                                 where
                                 Utility.Int32Dbnull(kho[QheCamchidinhChungphieu.Columns.IdDichvu], 0)
-                                == Utility.Int32Dbnull(gridExRow.Cells[QheCamchidinhChungphieu.Columns.IdDichvu].Value)
+                                == Utility.Int32Dbnull(gridExRow.Cells[DmucDichvuclsChitiet.Columns.IdChitietdichvu].Value)
                                 || Utility.Int32Dbnull(kho[QheCamchidinhChungphieu.Columns.IdDichvuCamchidinhchung], 0)
-                                == Utility.Int32Dbnull(gridExRow.Cells[QheCamchidinhChungphieu.Columns.IdDichvu].Value)
+                                == Utility.Int32Dbnull(gridExRow.Cells[DmucDichvuclsChitiet.Columns.IdChitietdichvu].Value)
                                 select kho;
                     if (query.Count() > 0)
                     {
@@ -519,7 +519,7 @@ namespace VNS.HIS.UI.DANHMUC
                 QheCamchidinhChungphieu objQheNhanvienDanhmuc = new QheCamchidinhChungphieu();
                 objQheNhanvienDanhmuc.IdDichvu = -1;
                 objQheNhanvienDanhmuc.Loai = 0;
-                objQheNhanvienDanhmuc.IdDichvuCamchidinhchung = Utility.Int32Dbnull(gridExRow.Cells[QheCamchidinhChungphieu.Columns.IdDichvu].Value);
+                objQheNhanvienDanhmuc.IdDichvuCamchidinhchung = Utility.Int32Dbnull(gridExRow.Cells[VDmucDichvuclsChitiet.Columns.IdChitietdichvu].Value);
                 objQheNhanvienDanhmuc.IsNew = true;
                 lst.Add(objQheNhanvienDanhmuc);
             }
