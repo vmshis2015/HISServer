@@ -2032,7 +2032,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             this.txtSoTienCanNop.BackColor = System.Drawing.Color.White;
             this.txtSoTienCanNop.ButtonFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.txtSoTienCanNop.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.txtSoTienCanNop.ForeColor = System.Drawing.Color.Red;
+            this.txtSoTienCanNop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.txtSoTienCanNop.Location = new System.Drawing.Point(154, 299);
             this.txtSoTienCanNop.Name = "txtSoTienCanNop";
             this.txtSoTienCanNop.ReadOnly = true;
@@ -2096,7 +2096,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(143, 31);
             this.label14.TabIndex = 346;
-            this.label14.Text = "Tổng bệnh nhân trả (1+2+3):";
+            this.label14.Text = "Tổng BN phải trả (1+2+3):";
             this.label14.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label13

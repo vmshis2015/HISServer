@@ -1327,7 +1327,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 decimal BNPhaiTra = BNCT + Utility.DecimaltoDbnull(txtTuTuc.Text, 0) +
                                     Utility.DecimaltoDbnull(txtPhuThu.Text);
                 txtBNPhaiTra.Text = Utility.sDbnull(TT_BN);
-                txtSoTienCanNop.Text = Utility.sDbnull(Chuathanhtoan);
+                TinhToanSoTienPhaithu();
                 decimal Tong_Tamung = 0;
                 if (ucTamung1.m_dtTamung != null)
                 {
@@ -1355,8 +1355,6 @@ namespace  VNS.HIS.UI.THANHTOAN
                     lblThuathieu.Text = "BN Nộp tiền";
                     txtThuathieu.Text = txtSoTienCanNop.Text;
                 }
-                //Tạm bỏ
-                TinhToanSoTienPhaithu();
                 ModifyCommand();
             }
             catch
@@ -1625,7 +1623,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 else
                 {
                     txtDachietkhau.Text = m_dtPayment.Compute("SUM(tongtien_chietkhau)", "1=1").ToString();
-                    txtsotiendathu.Text = ( Utility.DecimaltoDbnull(m_dtPayment.Compute("SUM(BN_CT)", "1=1"),0) - Utility.DecimaltoDbnull(txtDachietkhau.Text, 0)).ToString();
+                    txtsotiendathu.Text = (Utility.DecimaltoDbnull(m_dtPayment.Compute("SUM(TT_BN)", "1=1"), 0) - Utility.DecimaltoDbnull(txtDachietkhau.Text, 0)).ToString();
                 }
             }
             catch (Exception exception)
@@ -1725,7 +1723,8 @@ namespace  VNS.HIS.UI.THANHTOAN
                         }
                     }
                     decimal TTBN_Chitrathucsu = 0;
-                    ActionResult actionResult = _THANHTOAN.ThanhtoanChiphiDVuKCB(TaophieuThanhtoan(), objLuotkham, lstItems, ref v_Payment_ID, IdHdonLog, chkLayHoadon.Checked && THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_SUDUNGHOADONDO", "0", false) == "1", ref TTBN_Chitrathucsu);
+                     ErrMsg = "";
+                    ActionResult actionResult = _THANHTOAN.ThanhtoanChiphiDVuKCB(TaophieuThanhtoan(), objLuotkham, lstItems, ref v_Payment_ID, IdHdonLog, chkLayHoadon.Checked && THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_SUDUNGHOADONDO", "0", false) == "1", ref TTBN_Chitrathucsu, ref ErrMsg);
 
                     IN_HOADON = TTBN_Chitrathucsu > 0;
                     switch (actionResult)
@@ -1764,6 +1763,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                             break;
                         case ActionResult.Error:
                             Utility.ShowMsg("Lỗi trong quá trình thanh toán", "Thông báo lỗi", MessageBoxIcon.Error);
+                            break;
+                        case ActionResult.Cancel:
+                            Utility.ShowMsg(ErrMsg);
                             break;
                     }
                     IN_HOADON = false;
@@ -1846,8 +1848,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                     newItem.TileChietkhau = Utility.DecimaltoDbnull(gridExRow.Cells[KcbThanhtoanChitiet.Columns.TileChietkhau].Value, 0m);
                     newItem.MaDoituongKcb = objLuotkham.MaDoituongKcb;
                     newItem.KieuChietkhau = "%";
-                    newItem.NguoiHuy = "";
-                    newItem.NgayHuy = null ;
+                    newItem.IdThanhtoanhuy = -1 ;
                     newItem.TrangthaiHuy = 0;
                     newItem.TrangthaiBhyt = 0;
                     newItem.TrangthaiChuyen = 0;
@@ -1876,11 +1877,9 @@ namespace  VNS.HIS.UI.THANHTOAN
             objPayment.IdBenhnhan = Utility.Int32Dbnull(txtPatient_ID.Text, -1);
             objPayment.NgayThanhtoan = dtPaymentDate.Value;
             objPayment.IdNhanvienThanhtoan = globalVariables.gv_intIDNhanvien;
-            objPayment.TrangThai = 0;
             objPayment.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
-            objPayment.KieuThanhtoan = 1;//0=Ngoại trú;1=nội trú
+            objPayment.KieuThanhtoan = 0;
             objPayment.NoiTru = 1;
-            objPayment.TenKieuThanhtoan = objPayment.KieuThanhtoan == 0 ? "NGOAI" : "NOI";
             objPayment.TrangthaiIn = 0;
             objPayment.NgayIn = null;
             objPayment.NguoiIn = string.Empty;
@@ -1890,7 +1889,6 @@ namespace  VNS.HIS.UI.THANHTOAN
             objPayment.NgayChot = null;
             objPayment.TrangthaiChot = 0;
             objPayment.TongTien = Utility.DecimaltoDbnull(txtSoTienCanNop.Text, 0);
-            objPayment.BoVien = 0;
             objPayment.NgayRavien = objLuotkham.NgayRavien;
             //2 mục này được tính lại ở Business
             objPayment.BnhanChitra = -1;
@@ -3676,7 +3674,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                     if (_Chondanhmucdungchung.m_blnCancel) return;
                     ActionResult actionResult = _THANHTOAN.Tratien(objPayment,
                         objLuotkham,
-                        TaodulieuthanhtoanchitietHuy(), noidung, _Chondanhmucdungchung.ten);
+                        TaodulieuthanhtoanchitietHuy(),_Chondanhmucdungchung.ma, noidung, _Chondanhmucdungchung.ten);
                     switch (actionResult)
                     {
                         case ActionResult.Success:
@@ -3820,11 +3818,9 @@ namespace  VNS.HIS.UI.THANHTOAN
             objPayment.IdBenhnhan = Utility.Int32Dbnull(txtPatient_ID.Text, -1);
             objPayment.NgayTao = globalVariables.SysDate;
             objPayment.NguoiTao = globalVariables.UserName;
-            objPayment.TrangThai = 1;//Phiếu chi
             objPayment.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
-            objPayment.KieuThanhtoan = 0;//0=Ngoại trú;1=nội trú
+            objPayment.KieuThanhtoan = 1;
             objPayment.NoiTru = 0;
-            objPayment.TenKieuThanhtoan = objPayment.KieuThanhtoan == 0 ? "NGOAI" : "NOI";
             objPayment.TrangthaiIn = 0;
             objPayment.NgayIn = null;
             objPayment.NguoiIn = string.Empty;
@@ -3832,7 +3828,6 @@ namespace  VNS.HIS.UI.THANHTOAN
             objPayment.NguoiTonghop = string.Empty;
             objPayment.NgayChot = null;
             objPayment.TrangthaiChot = 0;
-            objPayment.BoVien = 0;
             objPayment.NgayRavien = objLuotkham.NgayRavien;
             objPayment.MaThanhtoan = THU_VIEN_CHUNG.TaoMathanhtoan(globalVariables.SysDate);
             objPayment.NgayThanhtoan = globalVariables.SysDate;

@@ -223,7 +223,10 @@ namespace VNS.HIS.UI.THANHTOAN
                 else
                 {
                     txtDachietkhau.Text = _item.FirstOrDefault().TongtienChietkhau.ToString();
-                    txtsotiendathu.Text = (_item.FirstOrDefault().BnhanChitra - Utility.DecimaltoDbnull(txtDachietkhau.Text, 0)).ToString();
+                    txtsotiendathu.Text = (Utility.DecimaltoDbnull(_item.FirstOrDefault().BnhanChitra,0)
+                        + Utility.DecimaltoDbnull(_item.FirstOrDefault().PhuThu,0)
+                        + Utility.DecimaltoDbnull(_item.FirstOrDefault().TuTuc,0)
+                        - Utility.DecimaltoDbnull(txtDachietkhau.Text, 0)).ToString();
                 }
                 ModifyCommand();
             }

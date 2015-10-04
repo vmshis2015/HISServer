@@ -114,7 +114,7 @@ namespace VNS.HIS.UI.THANHTOAN
                         new Select(KcbThanhtoan.Columns.IdThanhtoan).From(KcbThanhtoan.Schema).Where(KcbThanhtoan.Columns.MaLuotkham).
                             IsEqualTo(
                                 objLuotkham.MaLuotkham).And(KcbThanhtoan.Columns.IdBenhnhan).IsEqualTo(
-                                    Utility.Int32Dbnull(objLuotkham.IdBenhnhan)).And(KcbThanhtoan.Columns.TrangThai).IsEqualTo(0))
+                                    Utility.Int32Dbnull(objLuotkham.IdBenhnhan)).And(KcbThanhtoan.Columns.KieuThanhtoan).IsEqualTo(0))
                     .And(KcbThanhtoanChitiet.Columns.TrangthaiHuy).IsEqualTo(0)
                     .And(KcbThanhtoanChitiet.Columns.TuTuc).IsEqualTo(0);
 
