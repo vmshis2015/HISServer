@@ -6470,7 +6470,7 @@ namespace VNS.Libs
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public static string GetCityCode()
+        public static string GetCityCode1()
         {
             string CiTyCode = "";
             SqlQuery sqlQuery = new Select().From(DmucDiachinh.Schema)
@@ -6481,7 +6481,7 @@ namespace VNS.Libs
         }
         public static string FormatDateTimeWithThanhPho(DateTime dt)
         {
-            string str = GetCityCode();
+            string str = Laygiatrithamsohethong("DIA_DIEM", "Hà Nội", false);
             str += ", Ngày ";
             str += Strings.Right("0" + dt.Day.ToString(), 2);
             str += " Tháng ";
