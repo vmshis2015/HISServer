@@ -127,7 +127,7 @@ namespace VNS.HIS.UI.THANHTOAN
         /// </summary>
         private void GetData()
         {
-            m_dtPaymentDetail = _THANHTOAN.Laychitietthanhtoan(v_Payment_Id);
+            m_dtPaymentDetail = _THANHTOAN.Laychitietthanhtoan(v_Payment_Id,(byte)0);
             m_dtPaymentDetail.AcceptChanges();
             grdPaymentDetail.DataSource = m_dtPaymentDetail;
             SetSumTotalProperties();
