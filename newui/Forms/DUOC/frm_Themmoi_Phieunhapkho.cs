@@ -40,15 +40,15 @@ namespace VNS.HIS.UI.THUOC
         public frm_Themmoi_Phieunhapkho()
         {
             InitializeComponent();
-            if (PropertyLib._NhapkhoProperties.autosaveAfter > 0)
-            {
-                using (BackgroundWorker _worker = new BackgroundWorker())
-                {
-                    _worker.DoWork += _worker_DoWork;
-                    if (!_worker.IsBusy)
-                        _worker.RunWorkerAsync();
-                }
-            }
+            //if (PropertyLib._NhapkhoProperties.autosaveAfter > 0)
+            //{
+            //    using (BackgroundWorker _worker = new BackgroundWorker())
+            //    {
+            //        _worker.DoWork += _worker_DoWork;
+            //        if (!_worker.IsBusy)
+            //            _worker.RunWorkerAsync();
+            //    }
+            //}
             
             dtNgayHetHan.Value = dtNgayNhap.Value =globalVariables.SysDate;
             InitEvents();

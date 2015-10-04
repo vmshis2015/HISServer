@@ -1119,6 +1119,11 @@ namespace VNS.HIS.UI.THUOC
             txtTEN_BHYT.Text = Utility.sDbnull(txtName.Text);
         }
 
+        private void txtContent_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
 
 
