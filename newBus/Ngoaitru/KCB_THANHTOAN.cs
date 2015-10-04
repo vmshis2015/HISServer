@@ -1617,7 +1617,7 @@ namespace VNS.HIS.BusRule.Classes
                             //Tạo dữ liệu hủy tiền
 
                             objKcbThanhtoanChitiet.IdThanhtoanhuy = objPhieuchi.IdThanhtoan;//Để biết dòng hủy này hủy cho chi tiết thanh toán nào
-                            objKcbThanhtoanChitiet.TrangthaiHuy = 0;
+                            objKcbThanhtoanChitiet.TrangthaiHuy = 1;
                             objKcbThanhtoanChitiet.IsNew = false;
                             objKcbThanhtoanChitiet.MarkOld();
                             objKcbThanhtoanChitiet.Save();
@@ -1941,10 +1941,6 @@ namespace VNS.HIS.BusRule.Classes
 
                                     }
                                 }
-                            }
-                            else
-                            {
-                                return ActionResult.Error;
                             }
                         }
                     }
