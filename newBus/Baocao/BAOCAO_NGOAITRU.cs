@@ -83,13 +83,13 @@ namespace VNS.HIS.BusRule.Classes
         {
             return SPs.BaocaoThutienkhamTonghop(FromDate, ToDate, maDoituongKCB, maTNV,idLoaithanhtoan, MAKHOATHIEN).GetDataSet().Tables[0];
         }
-        public static DataTable BaocaoDoanhthuphongkham(DateTime? FromDate, DateTime? ToDate, string maDoituongKCB, string maTNV, short? idKieuthanhtoan, string MAKHOATHIEN)
+        public static DataTable BaocaoDoanhthuphongkham(DateTime? FromDate, DateTime? ToDate, string maDoituongKCB, string maTNV, byte noitru, string MAKHOATHIEN)
         {
-            return SPs.BaocaoDoanhthuphongkham(FromDate, ToDate, maDoituongKCB, maTNV, idKieuthanhtoan, MAKHOATHIEN).GetDataSet().Tables[0];
+            return SPs.BaocaoDoanhthuphongkham(FromDate, ToDate, maDoituongKCB, maTNV, noitru, MAKHOATHIEN).GetDataSet().Tables[0];
         }
-        public static DataTable BaocaoDoanhthuphongkhamTonghop(DateTime? FromDate, DateTime? ToDate, string maDoituongKCB, string maTNV, short? idKieuthanhtoan, string MAKHOATHIEN)
+        public static DataTable BaocaoDoanhthuphongkhamTonghop(DateTime? FromDate, DateTime? ToDate, string maDoituongKCB, string maTNV, byte noitru, string MAKHOATHIEN)
         {
-            return SPs.BaocaoDoanhthuphongkhamTonghop(FromDate, ToDate, maDoituongKCB, maTNV, idKieuthanhtoan, MAKHOATHIEN).GetDataSet().Tables[0];
+            return SPs.BaocaoDoanhthuphongkhamTonghop(FromDate, ToDate, maDoituongKCB, maTNV, noitru, MAKHOATHIEN).GetDataSet().Tables[0];
         }
         public static DataTable BaocaoThutienkhamChitiet(DateTime? FromDate, DateTime? ToDate, string MaDoiTuong, string CreateBy,short idLoaithanhtoan, string MAKHOATHIEN)
         {

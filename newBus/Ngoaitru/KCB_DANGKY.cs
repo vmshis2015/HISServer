@@ -1073,7 +1073,7 @@ namespace VNS.HIS.BusRule.Classes
             }
             return SumOfPaymentDetail;
         }
-        public decimal LayThongPtramBHYT(decimal v_decTotalPrice, KcbLuotkham objLuotkham, ref  decimal PtramBHYT)
+        public decimal LayThongPtramBHYT1(decimal v_decTotalPrice, KcbLuotkham objLuotkham, ref  decimal PtramBHYT)
         {
             decimal decDiscountTotalMoney = 0;
             SqlQuery q;

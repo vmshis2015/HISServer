@@ -1306,7 +1306,7 @@ namespace VNS.Libs
                             dr["bnhan_chitra"] = dr["don_gia"];
                         }
                     }
-                    else if (Utility.Int32Dbnull(dr["tinh_chiphi"], 0) == 1)//Các mục dịch vụ không tính phí khi thanh toán cùng nội trú(phí KCB ngoại trú chưa kịp thanh toán)
+                    else if (Utility.Int32Dbnull(dr["tinh_chiphi"], 0) == 0)//Các mục dịch vụ không tính phí khi thanh toán cùng nội trú(phí KCB ngoại trú chưa kịp thanh toán)
                     {
                         dr["bhyt_chitra"] = 0;//BHYT chi trả 0 do tự túc
                         dr["bnhan_chitra"] = 0;//Không tính tiền
