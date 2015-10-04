@@ -182,6 +182,7 @@ namespace VNS.HIS.UI.DANHMUC
             }
             catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
         }
 

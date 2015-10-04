@@ -321,23 +321,21 @@
             this.txtMaphongXepStt.BackColor = System.Drawing.Color.White;
             this.txtMaphongXepStt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMaphongXepStt.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaphongXepStt.Location = new System.Drawing.Point(451, 32);
+            this.txtMaphongXepStt.Location = new System.Drawing.Point(158, 306);
             this.txtMaphongXepStt.MaxLength = 99999;
             this.txtMaphongXepStt.Name = "txtMaphongXepStt";
-            this.txtMaphongXepStt.Size = new System.Drawing.Size(10, 22);
+            this.txtMaphongXepStt.Size = new System.Drawing.Size(215, 22);
             this.txtMaphongXepStt.TabIndex = 3;
-            this.txtMaphongXepStt.Visible = false;
             // 
             // label9
             // 
             this.label9.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(303, 36);
+            this.label9.Location = new System.Drawing.Point(12, 309);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(143, 16);
             this.label9.TabIndex = 76;
             this.label9.Text = "Mã phòng xếp STT";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label9.Visible = false;
             // 
             // txtPhong_Thien
             // 
