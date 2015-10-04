@@ -1408,9 +1408,9 @@ namespace VNS.HIS.BusRule.Classes
             }
 
         }
-        public DataTable Laychitietthanhtoan(int IdThanhtoan)
+        public DataTable Laychitietthanhtoan(int IdThanhtoan,byte kieuthanhtoan)
         {
-            return SPs.KcbThanhtoanLaythongtinchitietTheoid(IdThanhtoan).GetDataSet().Tables[0];
+            return SPs.KcbThanhtoanLaythongtinchitietTheoid(IdThanhtoan, kieuthanhtoan).GetDataSet().Tables[0];
         }
         public DataTable KcbThanhtoanLaydulieuphanbothanhtoanTheoPTTT(int IdThanhtoan)
         {
