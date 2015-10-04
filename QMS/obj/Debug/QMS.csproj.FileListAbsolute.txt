@@ -130,3 +130,16 @@ D:\Projects\VMSClient\trunk\QMS\obj\Debug\QMS.csproj.GenerateResource.Cache
 D:\Projects\VMSClient\trunk\QMS\obj\Debug\QMS.exe.licenses
 D:\Projects\VMSClient\trunk\QMS\obj\Debug\QMS.exe
 D:\Projects\VMSClient\trunk\QMS\obj\Debug\QMS.pdb
+E:\VMS\MyHIS\Running\QMS.exe.config
+E:\VMS\MyHIS\Running\QMS.exe
+E:\VMS\MyHIS\Running\QMS.pdb
+E:\VMS\trunk\QMS\obj\Debug\VNS.QMS.frm_QMS.resources
+E:\VMS\trunk\QMS\obj\Debug\VNS.QMS.frm_SoKham.resources
+E:\VMS\trunk\QMS\obj\Debug\QMS.Properties.Resources.resources
+E:\VMS\trunk\QMS\obj\Debug\SView.UCs.medCheckBox.resources
+E:\VMS\trunk\QMS\obj\Debug\QMS.UCs.ucQMS.resources
+E:\VMS\trunk\QMS\obj\Debug\QMS.UCs.ucQMSItem.resources
+E:\VMS\trunk\QMS\obj\Debug\QMS.csproj.GenerateResource.Cache
+E:\VMS\trunk\QMS\obj\Debug\QMS.exe.licenses
+E:\VMS\trunk\QMS\obj\Debug\QMS.exe
+E:\VMS\trunk\QMS\obj\Debug\QMS.pdb
