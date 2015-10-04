@@ -55,14 +55,18 @@ namespace VNS.UI.QMS
         {
             try
             {
-                m_dtDanhSachChoKham = SPs.QmsLaydanhsachbenhnhanchokham(PropertyLib._HISQMSProperties.MaPhongKham, globalVariables.MA_KHOA_THIEN, PropertyLib._HISQMSProperties.SoLuongHienThi).GetDataSet().Tables[0];
+                m_dtDanhSachChoKham =
+                    SPs.QmsLaydanhsachbenhnhanchokham(PropertyLib._HISQMSProperties.MaPhongKham,
+                                                      globalVariables.MA_KHOA_THIEN,
+                                                      PropertyLib._HISQMSProperties.SoLuongHienThi).GetDataSet().Tables[
+                                                          0];
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtDanhSachChoKham, false, true, "1=1", "");
                 Janus.Windows.GridEX.GridEXColumn gridExColumn = grdList.RootTable.Columns["STT"];
                 Utility.SetGridEXSortKey(grdList, gridExColumn,SortOrder.Ascending);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
                 
             }
            
@@ -87,7 +91,6 @@ namespace VNS.UI.QMS
             }
             catch (Exception)
             {
-                
                 
             }
           

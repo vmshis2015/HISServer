@@ -28,7 +28,9 @@ namespace VNS.UI.QMS
         public void SetQMSValue(string sokham,int IsUuTien)
         {
             Utility.SetMsg(lblSoKham,sokham,true);
-            grpThongTin.Text = Utility.DoTrim(PropertyLib._HISQMSProperties.TenLoaiQMS) == "" ? (IsUuTien == 1 ? "SỐ ƯU TIÊN" : "SỐ THƯỜNG") : Utility.DoTrim(PropertyLib._HISQMSProperties.TenLoaiQMS);
+            grpThongTin.Text = Utility.DoTrim(PropertyLib._HISQMSProperties.TenLoaiQMS) == ""
+                                   ? (IsUuTien == 1 ? "SỐ ƯU TIÊN" : "SỐ THƯỜNG")
+                                   : Utility.DoTrim(PropertyLib._HISQMSProperties.TenLoaiQMS);
         }
         /// <summary>
         /// hàm thực hiện việc cấu hình
@@ -42,10 +44,11 @@ namespace VNS.UI.QMS
                 Utility.SetMsg(lblQuaySo, Utility.sDbnull(PropertyLib._HISQMSProperties.TenQuay, ""), true);
                 //// new Font("Microsoft Sans Serif", 14)
                 Font font = new Font("Times New Roman", PropertyLib._HISQMSProperties.FontSize, FontStyle.Bold);
-
                 lblSoKham.Font = font;
                 font = new Font("Times New Roman", PropertyLib._HISQMSProperties.LoaiBNFontSize, FontStyle.Bold);
                 grpThongTin.FormatStyle.Font = font;
+
+
                 if (PropertyLib._HISQMSProperties.TestMode)
                 {
                     lblSoKham.Font = new Font("Times New Roman", 50, FontStyle.Bold);
