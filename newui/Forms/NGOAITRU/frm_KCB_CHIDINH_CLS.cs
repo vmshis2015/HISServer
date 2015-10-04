@@ -247,13 +247,11 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     LoadNhomin();
                 }
-                else
-                {
-
-                }
+                txtFilterName.Focus();
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
             finally
             {
@@ -275,8 +273,9 @@ namespace VNS.HIS.UI.NGOAITRU
                     txtBacsi.SetId(globalVariables.gv_intIDNhanvien);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
         }
         /// <summary>
@@ -310,7 +309,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 ModifyButtonCommand();
             }
             catch (Exception ex)
-            { }
+            {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
+            }
         }
 
         /// <summary>

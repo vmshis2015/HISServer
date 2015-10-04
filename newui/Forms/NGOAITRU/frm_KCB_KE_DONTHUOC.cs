@@ -1596,11 +1596,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 this.txtdrug.Focus();
                 this.txtdrug.Select();
             }
-            catch
+            catch (Exception ex)
             {
-            }
-            finally
-            {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
         }
 
