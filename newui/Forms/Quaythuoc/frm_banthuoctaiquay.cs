@@ -1284,8 +1284,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                     newItem.TileChietkhau = Utility.DecimaltoDbnull(gridExRow.Cells[KcbThanhtoanChitiet.Columns.TileChietkhau].Value, 0m);
                     newItem.MaDoituongKcb ="DV";
                     newItem.KieuChietkhau = "%";
-                    newItem.NguoiHuy = "";
-                    newItem.NgayHuy = null ;
+                    newItem.IdThanhtoanhuy = -1;
                     newItem.TrangthaiHuy = 0;
                     newItem.TrangthaiBhyt = 0;
                     newItem.TrangthaiChuyen = 0;
@@ -1326,11 +1325,10 @@ namespace  VNS.HIS.UI.THANHTOAN
             objPayment.IdBenhnhan = Utility.Int32Dbnull(txtPatient_ID.Text, -1);
             objPayment.NgayThanhtoan = dtPaymentDate.Value;
             objPayment.IdNhanvienThanhtoan = globalVariables.gv_intIDNhanvien;
-            objPayment.TrangThai = 0;
             objPayment.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
-            objPayment.KieuThanhtoan = 0;//0=Ngoại trú;1=nội trú
-            objPayment.TenKieuThanhtoan = objPayment.KieuThanhtoan == 0 ? "NGOAI" : "NOI";
+            objPayment.KieuThanhtoan = 0;
             objPayment.TrangthaiIn = 0;
+            objPayment.NoiTru = 0;
             objPayment.NgayIn = null;
             objPayment.NguoiIn = string.Empty;
             objPayment.NgayTonghop = null;
