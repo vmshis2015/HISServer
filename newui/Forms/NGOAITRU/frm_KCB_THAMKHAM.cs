@@ -4887,8 +4887,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 int Pres_ID = Utility.Int32Dbnull(grdPresDetail.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
                 PrintPres(Pres_ID,"");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
                 // throw;
             }
         }

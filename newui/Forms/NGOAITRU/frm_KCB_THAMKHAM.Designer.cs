@@ -2613,7 +2613,7 @@
             this.uiTabPage1.Controls.Add(this.panel2);
             this.uiTabPage1.Location = new System.Drawing.Point(1, 23);
             this.uiTabPage1.Name = "uiTabPage1";
-            this.uiTabPage1.Size = new System.Drawing.Size(600, 638);
+            this.uiTabPage1.Size = new System.Drawing.Size(600, 543);
             this.uiTabPage1.TabStop = true;
             this.uiTabPage1.Text = "Cấu hình";
             // 
@@ -2638,7 +2638,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(600, 638);
+            this.panel2.Size = new System.Drawing.Size(600, 543);
             this.panel2.TabIndex = 25;
             // 
             // cboPrintPreviewTomtatdieutringoaitru

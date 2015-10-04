@@ -639,7 +639,7 @@
   <data name="grdList_DesignTimeLayout_Reference_0.Instance" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADr0AAA69AUf7kK0AAABnSURBVDhPY2AY7MAR6MAWIOYg16HngBr/A/Eucg3xBGr8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAABnSURBVDhPY2AY7MAR6MAWIOYg16HngBr/A/Eucg3xBGr8
         QakhXqQY0g+1DeRsXHgFvvCg2ABshpPkBXQDKA5EiqOR4oQkCfSTJhBzkpsSRYAaZYBYCohZyTGEEWo7
         D5DmBmIQn7oAAMK5Jd07uJzjAAAAAElFTkSuQmCC
 </value>
@@ -893,6 +893,6 @@
     <value>526, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>157</value>
+    <value>25</value>
   </metadata>
 </root>

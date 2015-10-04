@@ -5283,8 +5283,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 KcbQm objQMS = KcbQm.FetchByID(IdQMS);
                 DmucDichvukcb objDichvuKCB =
                     DmucDichvukcb.FetchByID(Utility.Int32Dbnull(cboKieuKham.Value));
-                objDoituongKCB = new Select().From(DmucDoituongkcb.Schema).Where(DmucDoituongkcb.MaDoituongKcbColumn).IsEqualTo(_MaDoituongKcb).ExecuteSingle<DmucDoituongkcb>();
-                DmucKhoaphong objdepartment = new Select().From(DmucKhoaphong.Schema).Where(DmucKhoaphong.IdKhoaphongColumn).IsEqualTo(Utility.Int16Dbnull(txtIDPkham.Text, -1)).ExecuteSingle<DmucKhoaphong>();
+                objDoituongKCB =
+                    new Select().From(DmucDoituongkcb.Schema).Where(DmucDoituongkcb.MaDoituongKcbColumn).IsEqualTo(
+                        _MaDoituongKcb).ExecuteSingle<DmucDoituongkcb>();
+                DmucKhoaphong objdepartment =
+                    new Select().From(DmucKhoaphong.Schema).Where(DmucKhoaphong.IdKhoaphongColumn).IsEqualTo(
+                        Utility.Int16Dbnull(txtIDPkham.Text, -1)).ExecuteSingle<DmucKhoaphong>();
                 if (objDichvuKCB != null)
                 {
                     objRegExam.IdDichvuKcb = Utility.Int16Dbnull(objDichvuKCB.IdDichvukcb, -1);
