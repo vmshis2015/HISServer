@@ -286,8 +286,6 @@ namespace VNS.HIS.BusRule.Classes
             return SPs.KcbThamkhamTimkiembenhnhan(PatientCode, DepartmentId,noitru, Locked).
                             GetDataSet().Tables[0];
         }
-
-
         public DataTable KcbLichsuKcbTimkiemBenhnhan(string tungay, string denngay, string maluotkham, int? idbenhnhan, string tenBenhnhan, string matheBHYT,int idbacsikham)
         {
             return SPs.KcbLichsukcbTimkiembenhnhan(tungay, denngay, maluotkham, idbenhnhan, tenBenhnhan, matheBHYT, idbacsikham).GetDataSet().Tables[0];
