@@ -957,7 +957,7 @@ namespace VNS.HIS.UI.NOITRU
             {
                 if (!CheckPatientSelected()) return;
                 if (!InValiUpdateChiDinh()) return;
-                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("GOI", 1,0);
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("GOI", 1);
                 frm.HosStatus = 1;
                 frm.objPhieudieutriNoitru = NoitruPhieudieutri.FetchByID(Utility.Int32Dbnull(txtIdPhieudieutri.Text));
                 frm.Exam_ID = -1;
@@ -989,7 +989,7 @@ namespace VNS.HIS.UI.NOITRU
             {
                 if (!CheckPatientSelected()) return;
                 if (!cmdInsertAssign.Enabled) return;
-                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("GOI", 1,0);
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("GOI", 1);
                 frm.txtAssign_ID.Text = "-100";
                 frm.Exam_ID = -1;
                 frm.objLuotkham = objLuotkham;
@@ -3290,7 +3290,7 @@ namespace VNS.HIS.UI.NOITRU
             {
                 if (!CheckPatientSelected()) return;
                 if (!InValiUpdateChiDinh()) return;
-                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0, 0);
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0);
                 frm.HosStatus = 1;
                 frm.objPhieudieutriNoitru = NoitruPhieudieutri.FetchByID(Utility.Int32Dbnull(txtIdPhieudieutri.Text));
                 frm.Exam_ID = -1;
@@ -3341,7 +3341,7 @@ namespace VNS.HIS.UI.NOITRU
             {
                 if (!CheckPatientSelected()) return;
                 if (!cmdInsertAssign.Enabled) return;
-                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0,0);
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0);
                 frm.txtAssign_ID.Text = "-100";
                 frm.Exam_ID =-1;
                 frm.objLuotkham = objLuotkham;// CreatePatientExam();

@@ -680,7 +680,7 @@ namespace VNS.HIS.UI.NOITRU
             try
             {
                 if (!CheckPatientSelected()) return;
-                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("CHIPHITHEM", 0,1);
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("CHIPHITHEM", 2);
                 frm.HosStatus = 1;
                 frm.objPhieudieutriNoitru = null;// NoitruPhieudieutri.FetchByID(Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdPhieudieutri, NoitruPhieudieutri.Columns.IdPhieudieutri)));
                 frm.Exam_ID = -1;
@@ -719,7 +719,7 @@ namespace VNS.HIS.UI.NOITRU
                     cmdSuachiphithem_Click(cmdSuachiphithem, e);
                 else
                 {
-                    frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("CHIPHITHEM", 0, 1);
+                    frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("CHIPHITHEM", 2);
                     frm.txtAssign_ID.Text = "-100";
                     frm.Exam_ID = -1;
                     frm.objLuotkham = objLuotkham;
@@ -997,7 +997,7 @@ namespace VNS.HIS.UI.NOITRU
             try
             {
                 if (!CheckPatientSelected()) return;
-                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("GOI", 1,0);
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("GOI", 1);
                 frm.HosStatus = 1;
                 frm.objPhieudieutriNoitru = NoitruPhieudieutri.FetchByID(Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdPhieudieutri,NoitruPhieudieutri.Columns.IdPhieudieutri)));
                 frm.Exam_ID = -1;
@@ -1028,7 +1028,7 @@ namespace VNS.HIS.UI.NOITRU
             try
             {
                 if (!CheckPatientSelected()) return;
-                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("GOI", 1,0);
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("GOI", 1);
                 frm.txtAssign_ID.Text = "-100";
                 frm.Exam_ID = -1;
                 frm.objLuotkham = objLuotkham;
