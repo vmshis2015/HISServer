@@ -322,10 +322,12 @@ namespace VNS.Libs
                     {
                         if (mv_bSetContent)
                         {
-                            string sPvalue=mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
-                            sPvalue = sPvalue.Replace("&NGAYIN",Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
-                            sPvalue = sPvalue.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
-                            RptDoc.SetParameterValue(p[i].ParameterFieldName, sPvalue);
+                            string NoidungTK = "";
+                            NoidungTK = NoidungTK.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
+                            NoidungTK = NoidungTK.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
+                            NoidungTK = NoidungTK.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
+                            NoidungTK = NoidungTK.Replace("&NGAY", Strings.Right("0" + NGAY.Day.ToString(), 2)).Replace("&THANG", Strings.Right("0" + NGAY.Month.ToString(), 2)).Replace("&NAM", NGAY.Year.ToString());
+                            RptDoc.SetParameterValue(p[i].ParameterFieldName, NoidungTK);
                         }
                         else
                         {
@@ -370,10 +372,12 @@ namespace VNS.Libs
         {
             if (mv_oNguoiKy!=null)
             {
-                string sPvalue = mv_oNguoiKy.mv_NOI_DUNG.Replace("&NHANVIEN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
-                sPvalue = sPvalue.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
-                sPvalue = sPvalue.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
-                Utility.SetParameterValueNoCheckExists(RptDoc, "txtTrinhky", sPvalue);
+                string NoidungTK = "";
+                NoidungTK = NoidungTK.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
+                NoidungTK = NoidungTK.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
+                NoidungTK = NoidungTK.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
+                NoidungTK = NoidungTK.Replace("&NGAY", Strings.Right("0" + NGAY.Day.ToString(), 2)).Replace("&THANG", Strings.Right("0" + NGAY.Month.ToString(), 2)).Replace("&NAM", NGAY.Year.ToString());
+                Utility.SetParameterValueNoCheckExists(RptDoc, "txtTrinhky", NoidungTK);
             }
         }
      

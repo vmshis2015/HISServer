@@ -420,6 +420,35 @@ namespace VNS.Libs
     ///</summary>
     public class Utility
     {
+        public static string getTrinhky(string reportName,DateTime NgayinphoiBHYT)
+        {
+            DataTable dtbNguoiKy = new DataTable();
+            string NoidungTK = "";
+            try
+            {
+                SqlQuery sqlQuery = new Select().From(SysTrinhky.Schema).Where(SysTrinhky.Columns.ReportName).IsEqualTo(
+                    reportName);
+                dtbNguoiKy = sqlQuery.ExecuteDataSet().Tables[0];
+
+                if (dtbNguoiKy.Rows.Count > 0)
+                {
+                    NoidungTK= sDbnull(dtbNguoiKy.Rows[0][SysTrinhky.Columns.Trinhky], "");
+                }
+                else
+                {
+                    NoidungTK= "";
+                }
+                NoidungTK = NoidungTK.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
+                NoidungTK = NoidungTK.Replace("&NGAYIN", GetRtfUnicodeEscapedString(FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
+                NoidungTK = NoidungTK.Replace("&NGUOIIN", GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
+                NoidungTK = NoidungTK.Replace("&NGAY", Strings.Right("0" + NgayinphoiBHYT.Day.ToString(), 2)).Replace("&THANG", Strings.Right("0" + NgayinphoiBHYT.Month.ToString(), 2)).Replace("&NAM", NgayinphoiBHYT.Year.ToString());
+                return NoidungTK;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
         public static Dotuoi Laydotuoi(int Tuoi)
         {
             string treSosinh = Laygiatrithamsohethong("DOTUOI_TRESOSINH","0-1",false);
