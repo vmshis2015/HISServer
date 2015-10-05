@@ -236,8 +236,9 @@ namespace VNS.HIS.Classes
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
         }
     }

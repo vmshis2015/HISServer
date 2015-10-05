@@ -828,7 +828,7 @@ namespace VNS.HIS.Classes
                                {
                                    drv["id_loaidichvu"] = 1;
                                    drv["STT"] = 1;
-                                   drv["ten_loaidichvu"] = "Thuốc và dịch truyền";
+                                   drv["ten_loaidichvu"] = "3.1 Trong danh mục BHYT";
                                }
                                else
                                {
