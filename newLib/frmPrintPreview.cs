@@ -323,6 +323,7 @@ namespace VNS.Libs
                         if (mv_bSetContent)
                         {
                             string NoidungTK = "";
+                            NoidungTK = NoidungTK.Replace("&DIADIEM", Laygiatrithamsohethong("DIA_DIEM", "Địa điểm", false));
                             NoidungTK = NoidungTK.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
                             NoidungTK = NoidungTK.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
                             NoidungTK = NoidungTK.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
@@ -373,6 +374,7 @@ namespace VNS.Libs
             if (mv_oNguoiKy!=null)
             {
                 string NoidungTK = "";
+                NoidungTK = NoidungTK.Replace("&DIADIEM", Laygiatrithamsohethong("DIA_DIEM", "Địa điểm", false));
                 NoidungTK = NoidungTK.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
                 NoidungTK = NoidungTK.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
                 NoidungTK = NoidungTK.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
