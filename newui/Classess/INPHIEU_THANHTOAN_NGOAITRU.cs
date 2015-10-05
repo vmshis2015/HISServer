@@ -775,6 +775,7 @@ namespace VNS.HIS.Classes
            try
            {
                KcbPhieuDct objPhieuDct = CreatePhieuDongChiTra(objLuotkham, m_dtPayment);
+               objPhieuDct.NgayTao = ngayIn;
                ActionResult actionResult =new KCB_THANHTOAN().UpdatePhieuDCT(objPhieuDct, objLuotkham);
                if (actionResult == ActionResult.Success) //Tránh trường hợp in ra phôi mà ko đẩy vào CSDL
                {
