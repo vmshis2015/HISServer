@@ -5321,12 +5321,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         objRegExam.IdPhongkham = Utility.Int16Dbnull(objDichvuKCB.IdPhongkham, -1);
                     else
                         objRegExam.IdPhongkham = Utility.Int16Dbnull(txtIDPkham.Text, -1);
-                    if (Utility.Int32Dbnull(objDichvuKCB.IdBacsy) > 0)
-                        objRegExam.IdBacsikham = Utility.Int16Dbnull(objDichvuKCB.IdBacsy);
-                    else
-                    {
-                        objRegExam.IdBacsikham = globalVariables.gv_intIDNhanvien;
-                    }
+                   
                     objRegExam.PhuThu = !chkTraiTuyen.Checked
                                                     ? Utility.DecimaltoDbnull(objDichvuKCB.PhuthuDungtuyen)
                                                     : Utility.DecimaltoDbnull(objDichvuKCB.PhuthuTraituyen);

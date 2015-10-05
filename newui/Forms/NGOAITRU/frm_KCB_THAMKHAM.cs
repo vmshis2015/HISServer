@@ -1972,6 +1972,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtKhoaNoiTru.Clear();
                 cmdNhapVien.Enabled = false;
                 cmdHuyNhapVien.Enabled = false;
+                txtTenDvuKham.Clear();
+                txtPhongkham.Clear();
                 foreach (Control control in pnlPatientInfor.Controls)
                 {
                     if (control is EditBox)
@@ -1991,25 +1993,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         ((TextBox)(control)).Clear();
                     }
                 }
-                foreach (Control control in pnlThongtinBNKCB.Controls)
-                {
-                    if (control is EditBox)
-                    {
-                        ((EditBox)(control)).Clear();
-                    }
-                    else if (control is MaskedEditBox)
-                    {
-                        control.Text = "";
-                    }
-                    else if (control is VNS.HIS.UCs.AutoCompleteTextbox)
-                    {
-                        ((VNS.HIS.UCs.AutoCompleteTextbox)control)._Text = "";
-                    }
-                    else if (control is TextBox)
-                    {
-                        ((TextBox)(control)).Clear();
-                    }
-                }
+               
                 
                 foreach (Control control in pnlKetluan.Controls)
                 {
@@ -2229,7 +2213,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                  if (_KcbChandoanKetluan != null)
                                  {
                                      txtKet_Luan._Text = Utility.sDbnull(_KcbChandoanKetluan.Ketluan);
-                                     //txtHuongdieutri.SetCode(_KcbChandoanKetluan.HuongDieutri);
+                                    // txtHuongdieutri.SetCode(_KcbChandoanKetluan.HuongDieutri);
                                      txtHuongdieutri._Text=_KcbChandoanKetluan.HuongDieutri;
                                      txtSongaydieutri.Text = Utility.sDbnull(_KcbChandoanKetluan.SongayDieutri, "0");
                                      txtHa.Text = Utility.sDbnull(_KcbChandoanKetluan.Huyetap);
@@ -5149,7 +5133,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtKet_Luan.Focus();
                 return false;
             }
-            if (txtHuongdieutri.myCode == "-1")
+            if (Utility.DoTrim(txtHuongdieutri.myCode) == "")
             {
                 Utility.SetMsg(lblMsg, "Bạn cần nhập hướng điều trị cho bệnh nhân", true);
                 tabDiagInfo.SelectedTab = tabPageChanDoan;
