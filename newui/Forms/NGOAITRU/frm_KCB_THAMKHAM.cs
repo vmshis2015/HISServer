@@ -2202,8 +2202,14 @@ namespace VNS.HIS.UI.NGOAITRU
                                     }
                                     txtTenDvuKham.Text = Utility.sDbnull(objkcbdangky.TenDichvuKcb);
                                     txtNguoiTiepNhan.Text = Utility.sDbnull(objkcbdangky.NguoiTao);
-                                    txtBacsi.SetId(Utility.sDbnull( objkcbdangky.IdBacsikham, -1));
-                                   
+                                    if (Utility.Int16Dbnull(objkcbdangky.IdBacsikham,-1) != -1)
+                                    {
+                                        txtBacsi.SetId(Utility.sDbnull(objkcbdangky.IdBacsikham, -1));
+                                    }
+                                    else
+                                    {
+                                        txtBacsi.SetId(globalVariables.gv_intIDNhanvien);
+                                    }
 
                                     chkDaThucHien.Checked = Utility.Int32Dbnull(objkcbdangky.TrangThai) == 1;
                                 }

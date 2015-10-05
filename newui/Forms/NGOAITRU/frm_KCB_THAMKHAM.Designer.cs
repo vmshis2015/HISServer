@@ -2964,6 +2964,7 @@
             this.txtBacsi.DefaultCode = "-1";
             this.txtBacsi.DefaultID = "-1";
             this.txtBacsi.Drug_ID = null;
+            this.txtBacsi.Enabled = false;
             this.txtBacsi.ExtraWidth = 0;
             this.txtBacsi.FillValueAfterSelect = false;
             this.txtBacsi.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
