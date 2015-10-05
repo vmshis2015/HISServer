@@ -371,7 +371,7 @@ namespace VNS.HIS.Classes
                Utility.SetParameterValue(crpt,"sMoneyCharacter_Thanhtien_Khac",
                                       sMoneyByLetter.sMoneyToLetter(
                                           SumOfTotal_BH(m_dtReportPhieuThu, "TT_PHUTHU").ToString()));
-               Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName));
+               Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, NGAYINPHIEU));
                objForm.crptViewer.ReportSource = crpt;
                
 
@@ -656,7 +656,7 @@ namespace VNS.HIS.Classes
                Utility.SetParameterValue(report,"DateTime", Utility.FormatDateTime(globalVariables.SysDate));
                Utility.SetParameterValue(report,"CurrentDate", Utility.FormatDateTimeWithLocation(globalVariables.SysDate,globalVariables.gv_strDiadiem));
                Utility.SetParameterValue(report, "sTitleReport", tieude);
-               Utility.SetParameterValue(report, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName));
+               Utility.SetParameterValue(report, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName,globalVariables.SysDate));
                objForm.crptViewer.ReportSource = report;
               
                if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInHoadon, PropertyLib._MayInProperties.PreviewInHoadon))
