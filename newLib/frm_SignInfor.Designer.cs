@@ -65,7 +65,7 @@
             this.cmdQuit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdQuit.Image = ((System.Drawing.Image)(resources.GetObject("cmdQuit.Image")));
             this.cmdQuit.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdQuit.Location = new System.Drawing.Point(506, 683);
+            this.cmdQuit.Location = new System.Drawing.Point(506, 558);
             this.cmdQuit.Name = "cmdQuit";
             this.cmdQuit.Size = new System.Drawing.Size(137, 37);
             this.cmdQuit.TabIndex = 3;
@@ -77,12 +77,11 @@
             this.cmdOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.cmdOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdOK.Image = ((System.Drawing.Image)(resources.GetObject("cmdOK.Image")));
-            this.cmdOK.Location = new System.Drawing.Point(360, 683);
+            this.cmdOK.Location = new System.Drawing.Point(360, 558);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(140, 37);
             this.cmdOK.TabIndex = 2;
             this.cmdOK.Text = "Chấp nhận";
-            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click_2);
             // 
             // uiGroupBox1
             // 
@@ -98,7 +97,7 @@
             this.uiGroupBox1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox1.Location = new System.Drawing.Point(0, 61);
             this.uiGroupBox1.Name = "uiGroupBox1";
-            this.uiGroupBox1.Size = new System.Drawing.Size(1008, 614);
+            this.uiGroupBox1.Size = new System.Drawing.Size(1008, 489);
             this.uiGroupBox1.TabIndex = 1;
             this.uiGroupBox1.Text = "Thông tin trình ký";
             this.uiGroupBox1.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2003;
@@ -108,7 +107,7 @@
             this.chkPortrait.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkPortrait.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkPortrait.ForeColor = System.Drawing.Color.Navy;
-            this.chkPortrait.Location = new System.Drawing.Point(287, 582);
+            this.chkPortrait.Location = new System.Drawing.Point(287, 457);
             this.chkPortrait.Name = "chkPortrait";
             this.chkPortrait.Size = new System.Drawing.Size(97, 23);
             this.chkPortrait.TabIndex = 22;
@@ -162,7 +161,7 @@
             this.txtTrinhky.SeparatorIndentAndBulletsVisible = true;
             this.txtTrinhky.SeparatorInsertVisible = true;
             this.txtTrinhky.SeparatorSaveLoadVisible = true;
-            this.txtTrinhky.Size = new System.Drawing.Size(876, 522);
+            this.txtTrinhky.Size = new System.Drawing.Size(876, 397);
             this.txtTrinhky.TabIndex = 21;
             this.txtTrinhky.ToolStripVisible = true;
             this.txtTrinhky.UnderlineVisible = true;
@@ -178,7 +177,7 @@
             this.chkGhiLai.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkGhiLai.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkGhiLai.ForeColor = System.Drawing.Color.Navy;
-            this.chkGhiLai.Location = new System.Drawing.Point(105, 582);
+            this.chkGhiLai.Location = new System.Drawing.Point(105, 457);
             this.chkGhiLai.Name = "chkGhiLai";
             this.chkGhiLai.Size = new System.Drawing.Size(251, 23);
             this.chkGhiLai.TabIndex = 4;
@@ -225,7 +224,7 @@
             // 
             this.cmdUpdateAllUser.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.cmdUpdateAllUser.Image = ((System.Drawing.Image)(resources.GetObject("cmdUpdateAllUser.Image")));
-            this.cmdUpdateAllUser.Location = new System.Drawing.Point(62, 700);
+            this.cmdUpdateAllUser.Location = new System.Drawing.Point(62, 575);
             this.cmdUpdateAllUser.Name = "cmdUpdateAllUser";
             this.cmdUpdateAllUser.Size = new System.Drawing.Size(121, 28);
             this.cmdUpdateAllUser.TabIndex = 15;
@@ -237,7 +236,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.ClientSize = new System.Drawing.Size(1008, 605);
             this.Controls.Add(this.cmdUpdateAllUser);
             this.Controls.Add(this.uiGroupBox1);
             this.Controls.Add(this.PricTure);

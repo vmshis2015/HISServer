@@ -1840,16 +1840,13 @@ DisplayName("HIS Application Mode")]
             TestMode = false;
             ThoiGianTuDongLay = 3000;
             IsQMS = false;
-            
             MaQuay = "QUAY_1";
             TenQuay = "Quầy thu ngân số 1";
             TenBenhVien = "BỆNH VIỆN NỘI TIẾT TRUNG ƯƠNG";
             FontSize = 400;
             LoaiBNFontSize = 80;
-           
             SoLuongHienThi = 5;
             MaPhongKham = "P6";
-
             Chopheplaysouutien = false;
             Chilaysouutien = false;
             MaDoituongKCB = "ALL";

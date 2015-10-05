@@ -53,7 +53,7 @@
             this.cmdTrinhKy.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdTrinhKy.Image = ((System.Drawing.Image)(resources.GetObject("cmdTrinhKy.Image")));
             this.cmdTrinhKy.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdTrinhKy.Location = new System.Drawing.Point(539, 6);
+            this.cmdTrinhKy.Location = new System.Drawing.Point(546, 6);
             this.cmdTrinhKy.Name = "cmdTrinhKy";
             this.cmdTrinhKy.Office2007ColorScheme = Janus.Windows.UI.Office2007ColorScheme.Custom;
             this.cmdTrinhKy.Office2007CustomColor = System.Drawing.Color.White;
@@ -69,7 +69,7 @@
             this.cmdExcel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdExcel.Image = ((System.Drawing.Image)(resources.GetObject("cmdExcel.Image")));
             this.cmdExcel.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdExcel.Location = new System.Drawing.Point(497, 6);
+            this.cmdExcel.Location = new System.Drawing.Point(504, 6);
             this.cmdExcel.Name = "cmdExcel";
             this.cmdExcel.Office2007ColorScheme = Janus.Windows.UI.Office2007ColorScheme.Custom;
             this.cmdExcel.Office2007CustomColor = System.Drawing.Color.White;
@@ -171,7 +171,7 @@
             this.cmdCalculator.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdCalculator.Image = ((System.Drawing.Image)(resources.GetObject("cmdCalculator.Image")));
             this.cmdCalculator.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdCalculator.Location = new System.Drawing.Point(581, 6);
+            this.cmdCalculator.Location = new System.Drawing.Point(588, 6);
             this.cmdCalculator.Name = "cmdCalculator";
             this.cmdCalculator.Office2007ColorScheme = Janus.Windows.UI.Office2007ColorScheme.Custom;
             this.cmdCalculator.Office2007CustomColor = System.Drawing.Color.White;
@@ -210,7 +210,7 @@
             this.reportTitle1.ShortcutAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.reportTitle1.ShortcutFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.reportTitle1.showHelp = false;
-            this.reportTitle1.Size = new System.Drawing.Size(469, 33);
+            this.reportTitle1.Size = new System.Drawing.Size(481, 33);
             this.reportTitle1.TabIndex = 21;
             this.reportTitle1.TIEUDE = "TIÊU ĐỀ BÁO CÁO";
             this.reportTitle1.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

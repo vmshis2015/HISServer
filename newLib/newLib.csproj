@@ -37,7 +37,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\MyHIS\Running\</OutputPath>
+    <OutputPath>..\..\MyHIS\Running\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -140,8 +140,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Running\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="RichTextBoxExtended">
-      <HintPath>..\..\RicherRichTextBoxPrj\RichTextBoxExtended\RichTextBoxExtended\bin\Debug\RichTextBoxExtended.dll</HintPath>
+    <Reference Include="RicherTextBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Running\RicherTextBox.dll</HintPath>
     </Reference>
     <Reference Include="SubSonic, Version=2.2.0.0, Culture=neutral, PublicKeyToken=eadb47849839a332, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -256,17 +257,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\RicherRichTextBoxPrj\RicherTextBox_src\RicherTextBox\RicherTextBox.csproj">
-      <Project>{8f3074d8-e771-4c5e-a11e-0c0fbae34ae3}</Project>
-      <Name>RicherTextBox</Name>
-    </ProjectReference>
     <ProjectReference Include="..\newdal\newdal.csproj">
       <Project>{cd0be8e8-b7d8-41ca-95f7-ea03675cfe0d}</Project>
       <Name>newdal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\newmyreports\newreports.csproj">
-      <Project>{1c96fead-3089-4717-a240-c647f095a11a}</Project>
-      <Name>newreports</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

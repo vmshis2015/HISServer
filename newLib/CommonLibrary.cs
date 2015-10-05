@@ -438,7 +438,7 @@ namespace VNS.Libs
                 {
                     NoidungTK= "";
                 }
-                NoidungTK = NoidungTK.Replace("&DIADIEM", Laygiatrithamsohethong("DIA_DIEM","Địa điểm",false));
+                NoidungTK = NoidungTK.Replace("&DIADIEM", GetRtfUnicodeEscapedString(Laygiatrithamsohethong("DIA_DIEM", "Địa điểm", false)));
                 NoidungTK = NoidungTK.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
                 NoidungTK = NoidungTK.Replace("&NGAYIN", GetRtfUnicodeEscapedString(FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
                 NoidungTK = NoidungTK.Replace("&NGUOIIN", GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
