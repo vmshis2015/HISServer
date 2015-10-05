@@ -646,18 +646,46 @@ namespace VNS.Libs
         public static void Sapxepthutuin(ref DataTable dataTable,bool BHYT)
         {
             Utility.AddColumToDataTable(ref dataTable, "stt_in", typeof(int));
+            List<DmucChung> lst =
+                new Select().From(DmucChung.Schema)
+                    .Where(DmucChung.Columns.Loai)
+                    .IsEqualTo(BHYT ? THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_STT_INPHOI", false) : THU_VIEN_CHUNG.Laygiatrithamsohethong("DICHVU_STT_IN", false))
+                    .ExecuteAsCollection<DmucChungCollection>().ToList<DmucChung>();
+           
             foreach (DataRow dr in dataTable.Rows)
             {
-                SqlQuery sqlQuery = new Select().From(DmucChung.Schema)
-                    .Where(DmucChung.Columns.Loai).IsEqualTo(BHYT ?THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_STT_INPHOI",false)  :THU_VIEN_CHUNG.Laygiatrithamsohethong("DICHVU_STT_IN",false))
-                    .And(DmucChung.Columns.Ma).IsEqualTo(Utility.sDbnull(dr["id_loaithanhtoan"]));
-                DmucChung objDmucChung = sqlQuery.ExecuteSingle<DmucChung>();
-                if (objDmucChung != null)
+                var objDmucChung = from p in lst
+                                         where p.Ma == Utility.sDbnull(dr["id_loaithanhtoan"])
+                                         select p;
+                if (objDmucChung != null && objDmucChung.Any())
                 {
-                    dr["stt_in"] = Utility.Int32Dbnull(objDmucChung.SttHthi);
-                    dr["id_loaithanhtoan"] = Utility.Int32Dbnull(objDmucChung.Ma);
-                    dr["ten_loaithanhtoan"] = Utility.sDbnull(objDmucChung.Ten);
+                    dr["stt_in"] = Utility.Int32Dbnull( objDmucChung.FirstOrDefault().SttHthi);
+                    dr["id_loaithanhtoan"] = Utility.Int32Dbnull(objDmucChung.FirstOrDefault().Ma);
+                    dr["ten_loaithanhtoan"] =Utility.sDbnull(objDmucChung.FirstOrDefault().Ten);
+                    
                 }
+            }
+            int max = dataTable.AsEnumerable().Select(c => c.Field<int>("stt_in")).Max();
+            for (int i = 1; i <= max; i++)
+            {
+                if (dataTable.Select("stt_in=" + i).Length > 0) continue;
+                var q = from p in dataTable.AsEnumerable()
+                        where Utility.Int32Dbnull(p["stt_in"]) > i
+                        select p;
+                if (q.Any())
+                {
+                    int min = q.Select(c => c.Field<int>("stt_in")).Min();
+                    if (min != i)
+                    {
+                        DataRow[] arrDr = dataTable.Select("stt_in=" + min);
+                        foreach (DataRow dr in arrDr)
+                            dr["stt_in"] = i;
+                    }
+                }
+            }
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                dr["ten_loaithanhtoan"] = dr["stt_in"] + ". " + dr["ten_loaithanhtoan"];
             }
             dataTable.AcceptChanges();
         }
