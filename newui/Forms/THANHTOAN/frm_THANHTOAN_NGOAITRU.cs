@@ -3125,7 +3125,7 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             try
             {
-                if (new INPHIEU_THANHTOAN_NGOAITRU().InPhoiBHYT(objLuotkham, m_dtPayment, dtPaymentDate.Value))
+                if (new INPHIEU_THANHTOAN_NGOAITRU().InPhoiBHYT(objLuotkham, m_dtPayment, pnlSuangayinphoi.Visible ? dtNgayInPhoi.Value : dtPaymentDate.Value))
                 {
                     cbomayinphoiBHYT.Text = PropertyLib._MayInProperties.TenMayInBienlai;
                     LaydanhsachLichsuthanhtoan_phieuchi();
