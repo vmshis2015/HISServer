@@ -116,15 +116,15 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label1.Location = new System.Drawing.Point(95, 8);
+            this.label1.Location = new System.Drawing.Point(80, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(236, 22);
+            this.label1.Size = new System.Drawing.Size(420, 32);
             this.label1.TabIndex = 7;
             this.label1.Text = "ĐĂNG NHẬP HỆ THỐNG";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
@@ -159,9 +159,9 @@
             // 
             this.label4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Navy;
-            this.label4.Location = new System.Drawing.Point(96, 34);
+            this.label4.Location = new System.Drawing.Point(80, 56);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(424, 36);
+            this.label4.Size = new System.Drawing.Size(424, 26);
             this.label4.TabIndex = 11;
             this.label4.Text = "Mời bạn nhập Tên đăng nhập+mật khẩu";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
