@@ -273,6 +273,7 @@ namespace VNS.Libs
             {
                 //Hien form de thay doi tuy chon ky
                 frm_SignInfor sv_fTuyChonKy = new frm_SignInfor();
+
                 sv_fTuyChonKy.txtBaoCao.Text = Utility.DoTrim(this.mv_oNguoiKy.mv_TEN_BIEUBC) == "" ? mv_sReportFileName : Utility.DoTrim(this.mv_oNguoiKy.mv_TEN_BIEUBC);
                 //sv_fTuyChonKy.txtCoChu.Text = Me.mv_oNguoiKy.mv_CO_CHU.ToString()
 
@@ -308,7 +309,7 @@ namespace VNS.Libs
             }
             catch (Exception ex)
             {
-
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
         }
         void SetTrinhky(CrystalDecisions.Shared.ParameterFields p)
@@ -323,8 +324,8 @@ namespace VNS.Libs
                         if (mv_bSetContent)
                         {
                             string NoidungTK =mv_oNguoiKy.mv_NOI_DUNG;
-                            NoidungTK = NoidungTK.Replace("&DIADIEM", Utility.GetRtfUnicodeEscapedString(Utility.Laygiatrithamsohethong("DIA_DIEM", "Địa điểm", false));
-                            NoidungTK = NoidungTK.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
+                            NoidungTK = NoidungTK.Replace("&DIADIEM", Utility.GetRtfUnicodeEscapedString(Utility.Laygiatrithamsohethong("DIA_DIEM", "Địa điểm", false)));
+                            NoidungTK = NoidungTK.Replace("&NHANVIEN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
                             NoidungTK = NoidungTK.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
                             NoidungTK = NoidungTK.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
                             NoidungTK = NoidungTK.Replace("&NGAY", Strings.Right("0" + NGAY.Day.ToString(), 2)).Replace("&THANG", Strings.Right("0" + NGAY.Month.ToString(), 2)).Replace("&NAM", NGAY.Year.ToString());
@@ -375,7 +376,7 @@ namespace VNS.Libs
             {
                 string NoidungTK = mv_oNguoiKy.mv_NOI_DUNG;
                 NoidungTK = NoidungTK.Replace("&DIADIEM", Utility.GetRtfUnicodeEscapedString(Utility.Laygiatrithamsohethong("DIA_DIEM", "Địa điểm", false)));
-                NoidungTK = NoidungTK.Replace("&NHANVIEN", globalVariables.gv_strTenNhanvien);
+                NoidungTK = NoidungTK.Replace("&NHANVIEN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
                 NoidungTK = NoidungTK.Replace("&NGAYIN", Utility.GetRtfUnicodeEscapedString(Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem)));
                 NoidungTK = NoidungTK.Replace("&NGUOIIN", Utility.GetRtfUnicodeEscapedString(globalVariables.gv_strTenNhanvien));
                 NoidungTK = NoidungTK.Replace("&NGAY", Strings.Right("0" + NGAY.Day.ToString(), 2)).Replace("&THANG", Strings.Right("0" + NGAY.Month.ToString(), 2)).Replace("&NAM", NGAY.Year.ToString());

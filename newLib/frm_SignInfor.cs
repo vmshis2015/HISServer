@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-
+using SubSonic;
+using VNS.HIS.DAL;
 namespace VNS.Libs
 {
     public partial class frm_SignInfor : Form

@@ -224,7 +224,7 @@
             // 
             this.cmdUpdateAllUser.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.cmdUpdateAllUser.Image = ((System.Drawing.Image)(resources.GetObject("cmdUpdateAllUser.Image")));
-            this.cmdUpdateAllUser.Location = new System.Drawing.Point(62, 575);
+            this.cmdUpdateAllUser.Location = new System.Drawing.Point(63, 558);
             this.cmdUpdateAllUser.Name = "cmdUpdateAllUser";
             this.cmdUpdateAllUser.Size = new System.Drawing.Size(121, 28);
             this.cmdUpdateAllUser.TabIndex = 15;
