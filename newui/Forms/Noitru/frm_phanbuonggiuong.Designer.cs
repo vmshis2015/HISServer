@@ -60,11 +60,10 @@
             this.txtPatient_ID = new Janus.Windows.GridEX.EditControls.EditBox();
             this.label4 = new System.Windows.Forms.Label();
             this.grpThongTinChuyenKhoa = new Janus.Windows.EditControls.UIGroupBox();
-            this.txtGia = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.txtRoom_code = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.txtBedCode = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.cboGia = new Janus.Windows.GridEX.EditControls.MultiColumnCombo();
-            this.label14 = new System.Windows.Forms.Label();
+            this.lblGiaBG = new System.Windows.Forms.Label();
             this.txtPhut = new Janus.Windows.GridEX.EditControls.NumericEditBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtGio = new Janus.Windows.GridEX.EditControls.NumericEditBox();
@@ -82,6 +81,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.lblMsg = new System.Windows.Forms.Label();
+            this.txtGia = new VNS.HIS.UCs.AutoCompleteTextbox();
             ((System.ComponentModel.ISupportInitialize)(this.grpThongTinBN)).BeginInit();
             this.grpThongTinBN.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpThongTinChuyenKhoa)).BeginInit();
@@ -394,7 +394,7 @@
             this.grpThongTinChuyenKhoa.Controls.Add(this.txtRoom_code);
             this.grpThongTinChuyenKhoa.Controls.Add(this.txtBedCode);
             this.grpThongTinChuyenKhoa.Controls.Add(this.cboGia);
-            this.grpThongTinChuyenKhoa.Controls.Add(this.label14);
+            this.grpThongTinChuyenKhoa.Controls.Add(this.lblGiaBG);
             this.grpThongTinChuyenKhoa.Controls.Add(this.txtPhut);
             this.grpThongTinChuyenKhoa.Controls.Add(this.label10);
             this.grpThongTinChuyenKhoa.Controls.Add(this.txtGio);
@@ -415,45 +415,6 @@
             this.grpThongTinChuyenKhoa.Name = "grpThongTinChuyenKhoa";
             this.grpThongTinChuyenKhoa.Size = new System.Drawing.Size(794, 367);
             this.grpThongTinChuyenKhoa.TabIndex = 1;
-            // 
-            // txtGia
-            // 
-            this.txtGia._backcolor = System.Drawing.Color.WhiteSmoke;
-            this.txtGia._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGia._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtGia.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtGia.AutoCompleteList")));
-            this.txtGia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGia.CaseSensitive = false;
-            this.txtGia.CompareNoID = true;
-            this.txtGia.DefaultCode = "-1";
-            this.txtGia.DefaultID = "-1";
-            this.txtGia.Drug_ID = null;
-            this.txtGia.ExtraWidth = 0;
-            this.txtGia.FillValueAfterSelect = false;
-            this.txtGia.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGia.Location = new System.Drawing.Point(126, 93);
-            this.txtGia.MaxHeight = 289;
-            this.txtGia.MinTypedCharacters = 2;
-            this.txtGia.MyCode = "-1";
-            this.txtGia.MyID = "-1";
-            this.txtGia.MyText = "";
-            this.txtGia.Name = "txtGia";
-            this.txtGia.RaiseEvent = true;
-            this.txtGia.RaiseEventEnter = false;
-            this.txtGia.RaiseEventEnterWhenEmpty = false;
-            this.txtGia.SelectedIndex = -1;
-            this.txtGia.Size = new System.Drawing.Size(81, 21);
-            this.txtGia.splitChar = '@';
-            this.txtGia.splitCharIDAndCode = '#';
-            this.txtGia.TabIndex = 9;
-            this.txtGia.TakeCode = true;
-            this.txtGia.txtMyCode = null;
-            this.txtGia.txtMyCode_Edit = null;
-            this.txtGia.txtMyID = null;
-            this.txtGia.txtMyID_Edit = null;
-            this.txtGia.txtMyName = null;
-            this.txtGia.txtMyName_Edit = null;
-            this.txtGia.txtNext = null;
             // 
             // txtRoom_code
             // 
@@ -553,17 +514,17 @@
             this.cboGia.ValueMember = "ID";
             this.cboGia.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
-            // label14
+            // lblGiaBG
             // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label14.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.Red;
-            this.label14.Location = new System.Drawing.Point(24, 93);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(96, 18);
-            this.label14.TabIndex = 491;
-            this.label14.Text = "Chọn giá:";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblGiaBG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblGiaBG.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGiaBG.ForeColor = System.Drawing.Color.Red;
+            this.lblGiaBG.Location = new System.Drawing.Point(24, 93);
+            this.lblGiaBG.Name = "lblGiaBG";
+            this.lblGiaBG.Size = new System.Drawing.Size(96, 18);
+            this.lblGiaBG.TabIndex = 491;
+            this.lblGiaBG.Text = "Chọn giá:";
+            this.lblGiaBG.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtPhut
             // 
@@ -802,6 +763,45 @@
             this.lblMsg.Text = "Msg";
             this.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // txtGia
+            // 
+            this.txtGia._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtGia._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGia._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtGia.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtGia.AutoCompleteList")));
+            this.txtGia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGia.CaseSensitive = false;
+            this.txtGia.CompareNoID = true;
+            this.txtGia.DefaultCode = "-1";
+            this.txtGia.DefaultID = "-1";
+            this.txtGia.Drug_ID = null;
+            this.txtGia.ExtraWidth = 0;
+            this.txtGia.FillValueAfterSelect = false;
+            this.txtGia.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGia.Location = new System.Drawing.Point(126, 93);
+            this.txtGia.MaxHeight = 289;
+            this.txtGia.MinTypedCharacters = 2;
+            this.txtGia.MyCode = "-1";
+            this.txtGia.MyID = "-1";
+            this.txtGia.MyText = "";
+            this.txtGia.Name = "txtGia";
+            this.txtGia.RaiseEvent = true;
+            this.txtGia.RaiseEventEnter = false;
+            this.txtGia.RaiseEventEnterWhenEmpty = false;
+            this.txtGia.SelectedIndex = -1;
+            this.txtGia.Size = new System.Drawing.Size(81, 21);
+            this.txtGia.splitChar = '@';
+            this.txtGia.splitCharIDAndCode = '#';
+            this.txtGia.TabIndex = 9;
+            this.txtGia.TakeCode = true;
+            this.txtGia.txtMyCode = null;
+            this.txtGia.txtMyCode_Edit = null;
+            this.txtGia.txtMyID = null;
+            this.txtGia.txtMyID_Edit = null;
+            this.txtGia.txtMyName = null;
+            this.txtGia.txtMyName_Edit = null;
+            this.txtGia.txtNext = null;
+            // 
             // frm_phanbuonggiuong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -883,7 +883,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label lblMsg;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblGiaBG;
         private Janus.Windows.GridEX.EditControls.MultiColumnCombo cboGia;
         private UCs.AutoCompleteTextbox txtBedCode;
         private UCs.AutoCompleteTextbox txtRoom_code;

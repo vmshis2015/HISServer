@@ -43,7 +43,7 @@ namespace VNS.HIS.UI.NOITRU
            
             txtDepartment_ID.Visible = globalVariables.IsAdmin;
             txtPatientDept_ID.Visible = globalVariables.IsAdmin;
-
+            lblGiaBG.Visible = txtGia.Visible = cboGia.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_APGIABUONGGIUONG_THEODANHMUCGIA", "0", false) == "0";
             txtHour2Cal.Text =THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_SOGIO_LAMTRONNGAY", "1", false);
             CauHinh();
         }
@@ -394,7 +394,7 @@ namespace VNS.HIS.UI.NOITRU
                 // cboGiuong.Focus();
                 return false;
             }
-            if (Utility.Int32Dbnull(txtGia.MyID, -1) == -1)
+            if (lblGiaBG.Visible && Utility.Int32Dbnull(txtGia.MyID, -1) == -1)
             {
                 Utility.SetMsg(lblMsg, "Bạn phải chọn giá buồng giường", true);
                 txtGia.Focus();

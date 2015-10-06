@@ -31,6 +31,7 @@ namespace VNS.HIS.UI.NOITRU
             InitializeComponent();
             InitEvents();
             dtNgayChuyen.Value =globalVariables.SysDate;
+            lblGiaBG.Visible = txtGia.Visible = cboGia.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_APGIABUONGGIUONG_THEODANHMUCGIA", "0", false) == "0";
         }
         void InitEvents()
         {
@@ -273,7 +274,7 @@ namespace VNS.HIS.UI.NOITRU
                txtBedCode.SelectAll();
                return false;
            }
-           if (Utility.Int32Dbnull(txtGia.MyID, -1) == -1)
+           if (lblGiaBG.Visible && Utility.Int32Dbnull(txtGia.MyID, -1) == -1)
            {
                Utility.SetMsg(lblMsg, "Bạn phải chọn giá buồng giường", true);
                txtGia.Focus();
