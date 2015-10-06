@@ -29,7 +29,7 @@ namespace VNS.UI.QMS
         {
             Utility.SetMsg(lblSoKham,sokham,true);
             grpThongTin.Text = Utility.DoTrim(PropertyLib._HISQMSProperties.TenLoaiQMS) == ""
-                                   ? (IsUuTien == 1 ? "SỐ ƯU TIÊN" : "SỐ THƯỜNG")
+                                   ? (IsUuTien == 1 ? PropertyLib._HISQMSProperties.TenSoUutien : PropertyLib._HISQMSProperties.TenSothuong)
                                    : Utility.DoTrim(PropertyLib._HISQMSProperties.TenLoaiQMS);
         }
         /// <summary>
