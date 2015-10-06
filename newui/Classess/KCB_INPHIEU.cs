@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using CrystalDecisions.CrystalReports.Engine;
@@ -162,27 +163,33 @@ namespace VNS.HIS.Classes
                 Utility.CreateBarcodeData(ref dt, v_AssignCode);
 
                 var crpt = new ReportDocument();
+                string _reportCode = "thamkham_InphieuchidinhCLS_RIENG_A5";
                 string KhoGiay = "A5";
                 bool inchung = false;
                 string tieude = "", reportname = "";
                 if (PropertyLib._MayInProperties.CoGiayInCLS == Papersize.A4) KhoGiay = "A4";
                 if (KhoGiay == "A5")
                     if (inTach && selectedIndex == 0)//Nếu in riêng mà chọn tất
-                        crpt = Utility.GetReport("thamkham_InphieuchidinhCLS_RIENG_A5", ref tieude, ref reportname);
+                    {
+                        _reportCode = "thamkham_InphieuchidinhCLS_RIENG_A5";
+                    }
+                       
+
                     else
                     {
                         inchung = true;
-                        crpt = Utility.GetReport("thamkham_InphieuchidinhCLS_A5", ref tieude, ref reportname);
+                        _reportCode = "thamkham_InphieuchidinhCLS_A5";
                     }
                 else//Khổ giấy A4
                     if (inTach && selectedIndex == 0)//Nếu in riêng mà chọn tất-->Gọi báo cáo nhóm theo nhóm in
-                        crpt = Utility.GetReport("thamkham_InphieuchidinhCLS_RIENG_A4", ref tieude, ref reportname);
+                        _reportCode = "thamkham_InphieuchidinhCLS_RIENG_A4";
                     else
                     {
                         inchung = true;
-                        crpt = Utility.GetReport("thamkham_InphieuchidinhCLS_A4", ref tieude, ref reportname);
-                    }
 
+                        _reportCode = "thamkham_InphieuchidinhCLS_A4";
+                    }
+                crpt = Utility.GetReport(_reportCode, ref tieude, ref reportname);
                 if (crpt == null) return;
                 if (inchung)
                 {
@@ -198,6 +205,8 @@ namespace VNS.HIS.Classes
                     }
                 }
                 var objForm = new frmPrintPreview("IN PHIẾU CHỈ ĐỊNH", crpt, true, true);
+                objForm.mv_sReportFileName = Path.GetFileName(reportname);
+                objForm.mv_sReportCode = _reportCode;
                 try
                 {
                     crpt.SetDataSource(dt);
@@ -224,6 +233,7 @@ namespace VNS.HIS.Classes
                     }
                     else
                     {
+                       
                         objForm.addTrinhKy_OnFormLoad();
                         crpt.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
                         mayin = PropertyLib._MayInProperties.TenMayInBienlai;
