@@ -230,8 +230,9 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
                 grdList.DataSource = mdtReport;
                 grdExcel.DataSource = mdtReport;
             }
-            catch
+            catch (Exception ex)
             {
+                 Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
         }
         void ModifyCommands()

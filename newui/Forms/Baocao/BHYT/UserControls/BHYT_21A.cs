@@ -259,6 +259,7 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
                     if (m_dataTH.Rows.Count <= 0)
                         return;
                     Utility.UpdateLogotoDatatable(ref m_dataTH);
+                    THU_VIEN_CHUNG.CreateXML(m_dataTH, "BHYT_21A.xml");
                     crpt.SetDataSource(m_dataTH);
                     objForm.mv_sReportFileName = Path.GetFileName(reportname);
                     objForm.mv_sReportCode = "BHYT_21A";
