@@ -29,36 +29,35 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel1 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
-            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel2 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
-            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel3 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
-            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel4 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
-            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel5 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
-            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel6 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
+            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel19 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
+            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel20 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
+            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel21 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
+            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel22 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
+            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel23 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
+            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel24 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_KCB_THAMKHAM));
             Janus.Windows.GridEX.GridEXLayout grdAssignDetail_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.Common.Layouts.JanusLayoutReference grdList_DesignTimeLayout_Reference_0 = new Janus.Windows.Common.Layouts.JanusLayoutReference("GridEXLayoutData.RootTable.Columns.Column0.ButtonImage");
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem4 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem49 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem50 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem51 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem52 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.GridEX.GridEXLayout grd_ICD_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdKetqua_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdPresDetail_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdVTTH_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem5 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem6 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem7 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem8 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem9 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem10 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem11 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem12 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem13 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem14 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem15 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem16 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem53 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem54 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem55 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem56 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem57 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem58 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem59 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem60 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem61 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem62 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem63 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem64 = new Janus.Windows.EditControls.UIComboBoxItem();
             this.uiStatusBar1 = new Janus.Windows.UI.StatusBar.UIStatusBar();
             this.grpSearch = new Janus.Windows.EditControls.UIGroupBox();
             this.label42 = new System.Windows.Forms.Label();
@@ -304,50 +303,50 @@
             this.uiStatusBar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiStatusBar1.Location = new System.Drawing.Point(0, 713);
             this.uiStatusBar1.Name = "uiStatusBar1";
-            uiStatusBarPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            uiStatusBarPanel1.BorderColor = System.Drawing.Color.Empty;
-            uiStatusBarPanel1.Key = "";
-            uiStatusBarPanel1.ProgressBarValue = 0;
-            uiStatusBarPanel1.Text = "F1: Khám và kết luận";
-            uiStatusBarPanel1.Width = 129;
-            uiStatusBarPanel2.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            uiStatusBarPanel2.BorderColor = System.Drawing.Color.Empty;
-            uiStatusBarPanel2.Key = "";
-            uiStatusBarPanel2.ProgressBarValue = 0;
-            uiStatusBarPanel2.Text = "F2: Chỉ định CLS";
-            uiStatusBarPanel2.Width = 106;
-            uiStatusBarPanel3.Alignment = System.Windows.Forms.HorizontalAlignment.Center;
-            uiStatusBarPanel3.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            uiStatusBarPanel3.BorderColor = System.Drawing.Color.Empty;
-            uiStatusBarPanel3.Key = "";
-            uiStatusBarPanel3.ProgressBarValue = 0;
-            uiStatusBarPanel3.Text = "F3: kê đơn thuốc";
-            uiStatusBarPanel3.Width = 105;
-            uiStatusBarPanel4.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            uiStatusBarPanel4.BorderColor = System.Drawing.Color.Empty;
-            uiStatusBarPanel4.Key = "";
-            uiStatusBarPanel4.ProgressBarValue = 0;
-            uiStatusBarPanel4.Text = "Ctrl+S: Lưu và kết thúc khám";
-            uiStatusBarPanel4.Width = 169;
-            uiStatusBarPanel5.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            uiStatusBarPanel5.BorderColor = System.Drawing.Color.Empty;
-            uiStatusBarPanel5.Key = "";
-            uiStatusBarPanel5.ProgressBarValue = 0;
-            uiStatusBarPanel5.Text = "Ctrl+P: In tóm tắt điều trị ngoại trú";
-            uiStatusBarPanel5.Width = 195;
-            uiStatusBarPanel6.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            uiStatusBarPanel6.BorderColor = System.Drawing.Color.Empty;
-            uiStatusBarPanel6.Key = "";
-            uiStatusBarPanel6.ProgressBarValue = 0;
-            uiStatusBarPanel6.Text = "Ctrl+B: Làm bệnh án";
-            uiStatusBarPanel6.Width = 127;
+            uiStatusBarPanel19.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            uiStatusBarPanel19.BorderColor = System.Drawing.Color.Empty;
+            uiStatusBarPanel19.Key = "";
+            uiStatusBarPanel19.ProgressBarValue = 0;
+            uiStatusBarPanel19.Text = "F1: Khám và kết luận";
+            uiStatusBarPanel19.Width = 129;
+            uiStatusBarPanel20.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            uiStatusBarPanel20.BorderColor = System.Drawing.Color.Empty;
+            uiStatusBarPanel20.Key = "";
+            uiStatusBarPanel20.ProgressBarValue = 0;
+            uiStatusBarPanel20.Text = "F2: Chỉ định CLS";
+            uiStatusBarPanel20.Width = 106;
+            uiStatusBarPanel21.Alignment = System.Windows.Forms.HorizontalAlignment.Center;
+            uiStatusBarPanel21.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            uiStatusBarPanel21.BorderColor = System.Drawing.Color.Empty;
+            uiStatusBarPanel21.Key = "";
+            uiStatusBarPanel21.ProgressBarValue = 0;
+            uiStatusBarPanel21.Text = "F3: kê đơn thuốc";
+            uiStatusBarPanel21.Width = 105;
+            uiStatusBarPanel22.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            uiStatusBarPanel22.BorderColor = System.Drawing.Color.Empty;
+            uiStatusBarPanel22.Key = "";
+            uiStatusBarPanel22.ProgressBarValue = 0;
+            uiStatusBarPanel22.Text = "Ctrl+S: Lưu và kết thúc khám";
+            uiStatusBarPanel22.Width = 169;
+            uiStatusBarPanel23.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            uiStatusBarPanel23.BorderColor = System.Drawing.Color.Empty;
+            uiStatusBarPanel23.Key = "";
+            uiStatusBarPanel23.ProgressBarValue = 0;
+            uiStatusBarPanel23.Text = "Ctrl+P: In tóm tắt điều trị ngoại trú";
+            uiStatusBarPanel23.Width = 195;
+            uiStatusBarPanel24.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            uiStatusBarPanel24.BorderColor = System.Drawing.Color.Empty;
+            uiStatusBarPanel24.Key = "";
+            uiStatusBarPanel24.ProgressBarValue = 0;
+            uiStatusBarPanel24.Text = "Ctrl+B: Làm bệnh án";
+            uiStatusBarPanel24.Width = 127;
             this.uiStatusBar1.Panels.AddRange(new Janus.Windows.UI.StatusBar.UIStatusBarPanel[] {
-            uiStatusBarPanel1,
-            uiStatusBarPanel2,
-            uiStatusBarPanel3,
-            uiStatusBarPanel4,
-            uiStatusBarPanel5,
-            uiStatusBarPanel6});
+            uiStatusBarPanel19,
+            uiStatusBarPanel20,
+            uiStatusBarPanel21,
+            uiStatusBarPanel22,
+            uiStatusBarPanel23,
+            uiStatusBarPanel24});
             this.uiStatusBar1.Size = new System.Drawing.Size(1006, 23);
             this.uiStatusBar1.TabIndex = 0;
             this.uiStatusBar1.TabStop = false;
@@ -1325,9 +1324,6 @@
             this.grdList.BackColor = System.Drawing.Color.Silver;
             this.grdList.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
     " thông tin bệnh nhân đưa vào phòng khám</FilterRowInfoText></LocalizableData>";
-            grdList_DesignTimeLayout_Reference_0.Instance = ((object)(resources.GetObject("grdList_DesignTimeLayout_Reference_0.Instance")));
-            grdList_DesignTimeLayout.LayoutReferences.AddRange(new Janus.Windows.Common.Layouts.JanusLayoutReference[] {
-            grdList_DesignTimeLayout_Reference_0});
             grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
             this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
             this.grdList.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1676,27 +1672,27 @@
             // 
             this.cboChonBenhAn.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboChonBenhAn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            uiComboBoxItem1.FormatStyle.Alpha = 0;
-            uiComboBoxItem1.IsSeparator = false;
-            uiComboBoxItem1.Text = "Chọn bệnh án";
-            uiComboBoxItem1.Value = -1;
-            uiComboBoxItem2.FormatStyle.Alpha = 0;
-            uiComboBoxItem2.IsSeparator = false;
-            uiComboBoxItem2.Text = "Bệnh Án Đái Tháo Đường";
-            uiComboBoxItem2.Value = 1;
-            uiComboBoxItem3.FormatStyle.Alpha = 0;
-            uiComboBoxItem3.IsSeparator = false;
-            uiComboBoxItem3.Text = "Bệnh Án Basedow";
-            uiComboBoxItem3.Value = "2";
-            uiComboBoxItem4.FormatStyle.Alpha = 0;
-            uiComboBoxItem4.IsSeparator = false;
-            uiComboBoxItem4.Text = "Bệnh Án Thường";
-            uiComboBoxItem4.Value = 3;
+            uiComboBoxItem49.FormatStyle.Alpha = 0;
+            uiComboBoxItem49.IsSeparator = false;
+            uiComboBoxItem49.Text = "Chọn bệnh án";
+            uiComboBoxItem49.Value = -1;
+            uiComboBoxItem50.FormatStyle.Alpha = 0;
+            uiComboBoxItem50.IsSeparator = false;
+            uiComboBoxItem50.Text = "Bệnh Án Đái Tháo Đường";
+            uiComboBoxItem50.Value = 1;
+            uiComboBoxItem51.FormatStyle.Alpha = 0;
+            uiComboBoxItem51.IsSeparator = false;
+            uiComboBoxItem51.Text = "Bệnh Án Basedow";
+            uiComboBoxItem51.Value = "2";
+            uiComboBoxItem52.FormatStyle.Alpha = 0;
+            uiComboBoxItem52.IsSeparator = false;
+            uiComboBoxItem52.Text = "Bệnh Án Thường";
+            uiComboBoxItem52.Value = 3;
             this.cboChonBenhAn.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem1,
-            uiComboBoxItem2,
-            uiComboBoxItem3,
-            uiComboBoxItem4});
+            uiComboBoxItem49,
+            uiComboBoxItem50,
+            uiComboBoxItem51,
+            uiComboBoxItem52});
             this.cboChonBenhAn.Location = new System.Drawing.Point(103, 332);
             this.cboChonBenhAn.Name = "cboChonBenhAn";
             this.cboChonBenhAn.Size = new System.Drawing.Size(326, 22);
@@ -2647,17 +2643,17 @@
             this.cboPrintPreviewTomtatdieutringoaitru.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboPrintPreviewTomtatdieutringoaitru.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboPrintPreviewTomtatdieutringoaitru.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem5.FormatStyle.Alpha = 0;
-            uiComboBoxItem5.IsSeparator = false;
-            uiComboBoxItem5.Text = "Xem trước khi in";
-            uiComboBoxItem5.Value = "0";
-            uiComboBoxItem6.FormatStyle.Alpha = 0;
-            uiComboBoxItem6.IsSeparator = false;
-            uiComboBoxItem6.Text = "In ngay";
-            uiComboBoxItem6.Value = "1";
+            uiComboBoxItem53.FormatStyle.Alpha = 0;
+            uiComboBoxItem53.IsSeparator = false;
+            uiComboBoxItem53.Text = "Xem trước khi in";
+            uiComboBoxItem53.Value = "0";
+            uiComboBoxItem54.FormatStyle.Alpha = 0;
+            uiComboBoxItem54.IsSeparator = false;
+            uiComboBoxItem54.Text = "In ngay";
+            uiComboBoxItem54.Value = "1";
             this.cboPrintPreviewTomtatdieutringoaitru.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem5,
-            uiComboBoxItem6});
+            uiComboBoxItem53,
+            uiComboBoxItem54});
             this.cboPrintPreviewTomtatdieutringoaitru.Location = new System.Drawing.Point(152, 226);
             this.cboPrintPreviewTomtatdieutringoaitru.Name = "cboPrintPreviewTomtatdieutringoaitru";
             this.cboPrintPreviewTomtatdieutringoaitru.Size = new System.Drawing.Size(216, 21);
@@ -2670,17 +2666,17 @@
             this.cboA4Tomtatdieutringoaitru.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboA4Tomtatdieutringoaitru.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboA4Tomtatdieutringoaitru.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem7.FormatStyle.Alpha = 0;
-            uiComboBoxItem7.IsSeparator = false;
-            uiComboBoxItem7.Text = "A4";
-            uiComboBoxItem7.Value = "A4";
-            uiComboBoxItem8.FormatStyle.Alpha = 0;
-            uiComboBoxItem8.IsSeparator = false;
-            uiComboBoxItem8.Text = "A5";
-            uiComboBoxItem8.Value = "A5";
+            uiComboBoxItem55.FormatStyle.Alpha = 0;
+            uiComboBoxItem55.IsSeparator = false;
+            uiComboBoxItem55.Text = "A4";
+            uiComboBoxItem55.Value = "A4";
+            uiComboBoxItem56.FormatStyle.Alpha = 0;
+            uiComboBoxItem56.IsSeparator = false;
+            uiComboBoxItem56.Text = "A5";
+            uiComboBoxItem56.Value = "A5";
             this.cboA4Tomtatdieutringoaitru.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem7,
-            uiComboBoxItem8});
+            uiComboBoxItem55,
+            uiComboBoxItem56});
             this.cboA4Tomtatdieutringoaitru.Location = new System.Drawing.Point(95, 226);
             this.cboA4Tomtatdieutringoaitru.Name = "cboA4Tomtatdieutringoaitru";
             this.cboA4Tomtatdieutringoaitru.Size = new System.Drawing.Size(55, 21);
@@ -2703,17 +2699,17 @@
             this.cboPrintPreviewCLS.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboPrintPreviewCLS.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboPrintPreviewCLS.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem9.FormatStyle.Alpha = 0;
-            uiComboBoxItem9.IsSeparator = false;
-            uiComboBoxItem9.Text = "Xem trước khi in";
-            uiComboBoxItem9.Value = "0";
-            uiComboBoxItem10.FormatStyle.Alpha = 0;
-            uiComboBoxItem10.IsSeparator = false;
-            uiComboBoxItem10.Text = "In ngay";
-            uiComboBoxItem10.Value = "1";
+            uiComboBoxItem57.FormatStyle.Alpha = 0;
+            uiComboBoxItem57.IsSeparator = false;
+            uiComboBoxItem57.Text = "Xem trước khi in";
+            uiComboBoxItem57.Value = "0";
+            uiComboBoxItem58.FormatStyle.Alpha = 0;
+            uiComboBoxItem58.IsSeparator = false;
+            uiComboBoxItem58.Text = "In ngay";
+            uiComboBoxItem58.Value = "1";
             this.cboPrintPreviewCLS.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem9,
-            uiComboBoxItem10});
+            uiComboBoxItem57,
+            uiComboBoxItem58});
             this.cboPrintPreviewCLS.Location = new System.Drawing.Point(152, 169);
             this.cboPrintPreviewCLS.Name = "cboPrintPreviewCLS";
             this.cboPrintPreviewCLS.Size = new System.Drawing.Size(216, 21);
@@ -2726,17 +2722,17 @@
             this.cboA4Cls.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboA4Cls.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboA4Cls.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem11.FormatStyle.Alpha = 0;
-            uiComboBoxItem11.IsSeparator = false;
-            uiComboBoxItem11.Text = "A4";
-            uiComboBoxItem11.Value = "A4";
-            uiComboBoxItem12.FormatStyle.Alpha = 0;
-            uiComboBoxItem12.IsSeparator = false;
-            uiComboBoxItem12.Text = "A5";
-            uiComboBoxItem12.Value = "A5";
+            uiComboBoxItem59.FormatStyle.Alpha = 0;
+            uiComboBoxItem59.IsSeparator = false;
+            uiComboBoxItem59.Text = "A4";
+            uiComboBoxItem59.Value = "A4";
+            uiComboBoxItem60.FormatStyle.Alpha = 0;
+            uiComboBoxItem60.IsSeparator = false;
+            uiComboBoxItem60.Text = "A5";
+            uiComboBoxItem60.Value = "A5";
             this.cboA4Cls.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem11,
-            uiComboBoxItem12});
+            uiComboBoxItem59,
+            uiComboBoxItem60});
             this.cboA4Cls.Location = new System.Drawing.Point(95, 169);
             this.cboA4Cls.Name = "cboA4Cls";
             this.cboA4Cls.Size = new System.Drawing.Size(55, 21);
@@ -2780,17 +2776,17 @@
             this.cboPrintPreviewDonthuoc.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboPrintPreviewDonthuoc.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboPrintPreviewDonthuoc.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem13.FormatStyle.Alpha = 0;
-            uiComboBoxItem13.IsSeparator = false;
-            uiComboBoxItem13.Text = "Xem trước khi in";
-            uiComboBoxItem13.Value = "0";
-            uiComboBoxItem14.FormatStyle.Alpha = 0;
-            uiComboBoxItem14.IsSeparator = false;
-            uiComboBoxItem14.Text = "In ngay";
-            uiComboBoxItem14.Value = "1";
+            uiComboBoxItem61.FormatStyle.Alpha = 0;
+            uiComboBoxItem61.IsSeparator = false;
+            uiComboBoxItem61.Text = "Xem trước khi in";
+            uiComboBoxItem61.Value = "0";
+            uiComboBoxItem62.FormatStyle.Alpha = 0;
+            uiComboBoxItem62.IsSeparator = false;
+            uiComboBoxItem62.Text = "In ngay";
+            uiComboBoxItem62.Value = "1";
             this.cboPrintPreviewDonthuoc.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem13,
-            uiComboBoxItem14});
+            uiComboBoxItem61,
+            uiComboBoxItem62});
             this.cboPrintPreviewDonthuoc.Location = new System.Drawing.Point(152, 59);
             this.cboPrintPreviewDonthuoc.Name = "cboPrintPreviewDonthuoc";
             this.cboPrintPreviewDonthuoc.Size = new System.Drawing.Size(216, 21);
@@ -2803,17 +2799,17 @@
             this.cboA4Donthuoc.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboA4Donthuoc.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboA4Donthuoc.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem15.FormatStyle.Alpha = 0;
-            uiComboBoxItem15.IsSeparator = false;
-            uiComboBoxItem15.Text = "A4";
-            uiComboBoxItem15.Value = "A4";
-            uiComboBoxItem16.FormatStyle.Alpha = 0;
-            uiComboBoxItem16.IsSeparator = false;
-            uiComboBoxItem16.Text = "A5";
-            uiComboBoxItem16.Value = "A5";
+            uiComboBoxItem63.FormatStyle.Alpha = 0;
+            uiComboBoxItem63.IsSeparator = false;
+            uiComboBoxItem63.Text = "A4";
+            uiComboBoxItem63.Value = "A4";
+            uiComboBoxItem64.FormatStyle.Alpha = 0;
+            uiComboBoxItem64.IsSeparator = false;
+            uiComboBoxItem64.Text = "A5";
+            uiComboBoxItem64.Value = "A5";
             this.cboA4Donthuoc.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem15,
-            uiComboBoxItem16});
+            uiComboBoxItem63,
+            uiComboBoxItem64});
             this.cboA4Donthuoc.Location = new System.Drawing.Point(95, 59);
             this.cboA4Donthuoc.Name = "cboA4Donthuoc";
             this.cboA4Donthuoc.Size = new System.Drawing.Size(55, 21);
