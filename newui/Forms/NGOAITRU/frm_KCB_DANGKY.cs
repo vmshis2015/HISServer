@@ -2532,7 +2532,8 @@ namespace VNS.HIS.UI.NGOAITRU
             txtCMT.Clear();
             txtNgheNghiep.Clear();
             txtDiachi.Clear();
-            txtDantoc.Clear();
+           // txtDantoc__OnShowData();
+          //  txtDantoc.Clear();
             txtTrieuChungBD.Clear();
             txtSoDT.Clear();
             txtNguoiLienhe.Clear();

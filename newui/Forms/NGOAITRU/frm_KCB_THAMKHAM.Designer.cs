@@ -348,7 +348,7 @@
             uiStatusBarPanel4,
             uiStatusBarPanel5,
             uiStatusBarPanel6});
-            this.uiStatusBar1.Size = new System.Drawing.Size(1004, 23);
+            this.uiStatusBar1.Size = new System.Drawing.Size(1006, 23);
             this.uiStatusBar1.TabIndex = 0;
             this.uiStatusBar1.TabStop = false;
             this.uiStatusBar1.VisualStyle = Janus.Windows.UI.VisualStyle.OfficeXP;
@@ -600,7 +600,7 @@
             this.cmdCauHinh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCauHinh.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdCauHinh.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdCauHinh.Location = new System.Drawing.Point(560, 14);
+            this.cmdCauHinh.Location = new System.Drawing.Point(562, 14);
             this.cmdCauHinh.Name = "cmdCauHinh";
             this.cmdCauHinh.Size = new System.Drawing.Size(41, 31);
             this.cmdCauHinh.TabIndex = 452;
@@ -782,7 +782,7 @@
             this.cmdUnlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdUnlock.Image = ((System.Drawing.Image)(resources.GetObject("cmdUnlock.Image")));
             this.cmdUnlock.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdUnlock.Location = new System.Drawing.Point(474, 15);
+            this.cmdUnlock.Location = new System.Drawing.Point(476, 15);
             this.cmdUnlock.Name = "cmdUnlock";
             this.cmdUnlock.Size = new System.Drawing.Size(38, 30);
             this.cmdUnlock.TabIndex = 22;
@@ -797,7 +797,7 @@
             this.lblMessage.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMessage.Location = new System.Drawing.Point(0, 514);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(600, 29);
+            this.lblMessage.Size = new System.Drawing.Size(602, 29);
             this.lblMessage.TabIndex = 451;
             this.lblMessage.Text = "In phôi BHYT bởi Nguyễn Thu Hằng lúc 01/01/2050 19:17:26";
             this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -937,7 +937,7 @@
             this.txtTrieuChungBD.RaiseEventEnter = false;
             this.txtTrieuChungBD.RaiseEventEnterWhenEmpty = false;
             this.txtTrieuChungBD.SelectedIndex = -1;
-            this.txtTrieuChungBD.Size = new System.Drawing.Size(307, 21);
+            this.txtTrieuChungBD.Size = new System.Drawing.Size(309, 21);
             this.txtTrieuChungBD.splitChar = '@';
             this.txtTrieuChungBD.splitCharIDAndCode = '#';
             this.txtTrieuChungBD.TabIndex = 24;
@@ -981,7 +981,7 @@
             this.cmdThamkhamConfig.Font = new System.Drawing.Font("Arial", 9F);
             this.cmdThamkhamConfig.Image = ((System.Drawing.Image)(resources.GetObject("cmdThamkhamConfig.Image")));
             this.cmdThamkhamConfig.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdThamkhamConfig.Location = new System.Drawing.Point(518, 14);
+            this.cmdThamkhamConfig.Location = new System.Drawing.Point(520, 14);
             this.cmdThamkhamConfig.Name = "cmdThamkhamConfig";
             this.cmdThamkhamConfig.Size = new System.Drawing.Size(41, 31);
             this.cmdThamkhamConfig.TabIndex = 453;
@@ -993,7 +993,7 @@
             this.cmdLuuChandoan.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdLuuChandoan.Image = ((System.Drawing.Image)(resources.GetObject("cmdLuuChandoan.Image")));
             this.cmdLuuChandoan.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdLuuChandoan.Location = new System.Drawing.Point(456, 95);
+            this.cmdLuuChandoan.Location = new System.Drawing.Point(458, 95);
             this.cmdLuuChandoan.Name = "cmdLuuChandoan";
             this.cmdLuuChandoan.Size = new System.Drawing.Size(128, 30);
             this.cmdLuuChandoan.TabIndex = 26;
@@ -1375,7 +1375,7 @@
             this.txtPhongkham.Location = new System.Drawing.Point(120, 70);
             this.txtPhongkham.Name = "txtPhongkham";
             this.txtPhongkham.ReadOnly = true;
-            this.txtPhongkham.Size = new System.Drawing.Size(473, 21);
+            this.txtPhongkham.Size = new System.Drawing.Size(475, 21);
             this.txtPhongkham.TabIndex = 17;
             this.txtPhongkham.TabStop = false;
             // 
@@ -1387,7 +1387,7 @@
             this.txtTenDvuKham.Location = new System.Drawing.Point(120, 46);
             this.txtTenDvuKham.Name = "txtTenDvuKham";
             this.txtTenDvuKham.ReadOnly = true;
-            this.txtTenDvuKham.Size = new System.Drawing.Size(473, 21);
+            this.txtTenDvuKham.Size = new System.Drawing.Size(475, 21);
             this.txtTenDvuKham.TabIndex = 16;
             this.txtTenDvuKham.TabStop = false;
             // 
@@ -1448,7 +1448,7 @@
             this.vbLine4.Location = new System.Drawing.Point(11, 4);
             this.vbLine4.Margin = new System.Windows.Forms.Padding(4);
             this.vbLine4.Name = "vbLine4";
-            this.vbLine4.Size = new System.Drawing.Size(587, 22);
+            this.vbLine4.Size = new System.Drawing.Size(589, 22);
             this.vbLine4.TabIndex = 450;
             this.vbLine4.TabStop = false;
             this.vbLine4.YourText = "Thông tin khám";
@@ -1461,7 +1461,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(402, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(602, 713);
+            this.panel4.Size = new System.Drawing.Size(604, 713);
             this.panel4.TabIndex = 0;
             this.panel4.TabStop = true;
             // 
@@ -1471,7 +1471,7 @@
             this.tabDiagInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabDiagInfo.Location = new System.Drawing.Point(0, 95);
             this.tabDiagInfo.Name = "tabDiagInfo";
-            this.tabDiagInfo.Size = new System.Drawing.Size(602, 567);
+            this.tabDiagInfo.Size = new System.Drawing.Size(604, 567);
             this.tabDiagInfo.TabIndex = 18;
             this.tabDiagInfo.TabPages.AddRange(new Janus.Windows.UI.Tab.UITabPage[] {
             this.tabPageChanDoan,
@@ -1488,7 +1488,7 @@
             this.tabPageChanDoan.Font = new System.Drawing.Font("Arial", 9F);
             this.tabPageChanDoan.Location = new System.Drawing.Point(1, 23);
             this.tabPageChanDoan.Name = "tabPageChanDoan";
-            this.tabPageChanDoan.Size = new System.Drawing.Size(600, 543);
+            this.tabPageChanDoan.Size = new System.Drawing.Size(602, 543);
             this.tabPageChanDoan.TabStop = true;
             this.tabPageChanDoan.Text = "Khám và kết luận";
             // 
@@ -1530,7 +1530,7 @@
             this.pnlKetluan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlKetluan.Location = new System.Drawing.Point(0, 0);
             this.pnlKetluan.Name = "pnlKetluan";
-            this.pnlKetluan.Size = new System.Drawing.Size(600, 543);
+            this.pnlKetluan.Size = new System.Drawing.Size(602, 543);
             this.pnlKetluan.TabIndex = 19;
             // 
             // lblBANgoaitru
@@ -1579,7 +1579,7 @@
             this.vbLine2.Location = new System.Drawing.Point(8, 167);
             this.vbLine2.Margin = new System.Windows.Forms.Padding(4);
             this.vbLine2.Name = "vbLine2";
-            this.vbLine2.Size = new System.Drawing.Size(592, 22);
+            this.vbLine2.Size = new System.Drawing.Size(594, 22);
             this.vbLine2.TabIndex = 10;
             this.vbLine2.TabStop = false;
             this.vbLine2.YourText = "Kết quả khám";
@@ -1722,7 +1722,7 @@
             this.lblMsg.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMsg.Location = new System.Drawing.Point(0, 493);
             this.lblMsg.Name = "lblMsg";
-            this.lblMsg.Size = new System.Drawing.Size(600, 21);
+            this.lblMsg.Size = new System.Drawing.Size(602, 21);
             this.lblMsg.TabIndex = 452;
             this.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1744,7 +1744,7 @@
             this.chkInPhieuDV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkInPhieuDV.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkInPhieuDV.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.chkInPhieuDV.Location = new System.Drawing.Point(-5, 501);
+            this.chkInPhieuDV.Location = new System.Drawing.Point(-3, 501);
             this.chkInPhieuDV.Name = "chkInPhieuDV";
             this.chkInPhieuDV.Size = new System.Drawing.Size(188, 23);
             this.chkInPhieuDV.TabIndex = 62;
@@ -1896,7 +1896,7 @@
             this.cmdAddMaBenhPhu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdAddMaBenhPhu.Font = new System.Drawing.Font("Arial", 9F);
             this.cmdAddMaBenhPhu.Image = ((System.Drawing.Image)(resources.GetObject("cmdAddMaBenhPhu.Image")));
-            this.cmdAddMaBenhPhu.Location = new System.Drawing.Point(528, 493);
+            this.cmdAddMaBenhPhu.Location = new System.Drawing.Point(530, 493);
             this.cmdAddMaBenhPhu.Name = "cmdAddMaBenhPhu";
             this.cmdAddMaBenhPhu.Size = new System.Drawing.Size(66, 44);
             this.cmdAddMaBenhPhu.TabIndex = 6;
@@ -1916,7 +1916,7 @@
             this.grd_ICD.GroupByBoxVisible = false;
             this.grd_ICD.Location = new System.Drawing.Point(465, 196);
             this.grd_ICD.Name = "grd_ICD";
-            this.grd_ICD.Size = new System.Drawing.Size(127, 158);
+            this.grd_ICD.Size = new System.Drawing.Size(129, 158);
             this.grd_ICD.TabIndex = 431;
             this.grd_ICD.TableViewHorizontalScrollIncrement = 21;
             this.grd_ICD.TabStop = false;
@@ -2012,7 +2012,7 @@
             this.vbLine1.Location = new System.Drawing.Point(10, 5);
             this.vbLine1.Margin = new System.Windows.Forms.Padding(4);
             this.vbLine1.Name = "vbLine1";
-            this.vbLine1.Size = new System.Drawing.Size(584, 22);
+            this.vbLine1.Size = new System.Drawing.Size(586, 22);
             this.vbLine1.TabIndex = 448;
             this.vbLine1.TabStop = false;
             this.vbLine1.YourText = "Hỏi bệnh và chẩn đoán ban đầu";
@@ -2045,7 +2045,7 @@
             this.pnlother.Controls.Add(this.label46);
             this.pnlother.Location = new System.Drawing.Point(5, 24);
             this.pnlother.Name = "pnlother";
-            this.pnlother.Size = new System.Drawing.Size(593, 136);
+            this.pnlother.Size = new System.Drawing.Size(595, 136);
             this.pnlother.TabIndex = 16;
             // 
             // label33
@@ -2135,7 +2135,7 @@
             this.txtChanDoan.RaiseEventEnter = false;
             this.txtChanDoan.RaiseEventEnterWhenEmpty = false;
             this.txtChanDoan.SelectedIndex = -1;
-            this.txtChanDoan.Size = new System.Drawing.Size(307, 21);
+            this.txtChanDoan.Size = new System.Drawing.Size(309, 21);
             this.txtChanDoan.splitChar = '@';
             this.txtChanDoan.splitCharIDAndCode = '#';
             this.txtChanDoan.TabIndex = 25;
@@ -2897,7 +2897,7 @@
             this.grpFunction.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.grpFunction.Location = new System.Drawing.Point(0, 662);
             this.grpFunction.Name = "grpFunction";
-            this.grpFunction.Size = new System.Drawing.Size(602, 51);
+            this.grpFunction.Size = new System.Drawing.Size(604, 51);
             this.grpFunction.TabIndex = 65;
             this.grpFunction.TabStop = false;
             // 
@@ -2946,7 +2946,7 @@
             this.pnlThongtinBNKCB.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlThongtinBNKCB.Location = new System.Drawing.Point(0, 0);
             this.pnlThongtinBNKCB.Name = "pnlThongtinBNKCB";
-            this.pnlThongtinBNKCB.Size = new System.Drawing.Size(602, 95);
+            this.pnlThongtinBNKCB.Size = new System.Drawing.Size(604, 95);
             this.pnlThongtinBNKCB.TabIndex = 0;
             this.pnlThongtinBNKCB.TabStop = true;
             // 
@@ -2979,7 +2979,7 @@
             this.txtBacsi.RaiseEventEnter = true;
             this.txtBacsi.RaiseEventEnterWhenEmpty = true;
             this.txtBacsi.SelectedIndex = -1;
-            this.txtBacsi.Size = new System.Drawing.Size(229, 21);
+            this.txtBacsi.Size = new System.Drawing.Size(231, 21);
             this.txtBacsi.splitChar = '@';
             this.txtBacsi.splitCharIDAndCode = '#';
             this.txtBacsi.TabIndex = 15;
@@ -3013,7 +3013,7 @@
             this.txtNguoiTiepNhan.Location = new System.Drawing.Point(771, 158);
             this.txtNguoiTiepNhan.Name = "txtNguoiTiepNhan";
             this.txtNguoiTiepNhan.ReadOnly = true;
-            this.txtNguoiTiepNhan.Size = new System.Drawing.Size(144, 21);
+            this.txtNguoiTiepNhan.Size = new System.Drawing.Size(146, 21);
             this.txtNguoiTiepNhan.TabIndex = 433;
             this.txtNguoiTiepNhan.TabStop = false;
             this.txtNguoiTiepNhan.Visible = false;
@@ -3085,7 +3085,7 @@
             // frm_KCB_THAMKHAM
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1004, 736);
+            this.ClientSize = new System.Drawing.Size(1006, 736);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.uiStatusBar1);
