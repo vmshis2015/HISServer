@@ -1717,10 +1717,10 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     yourString = yourString + " chia làm  " + this.txtSolan.Text + " lần";
                 }
-                if (!string.IsNullOrEmpty(this.txtChiDanThem.Text))
-                {
-                    yourString = yourString + ". " + this.txtChiDanThem.Text;
-                }
+                //if (!string.IsNullOrEmpty(this.txtChiDanThem.Text))
+                //{
+                //    yourString = yourString + ". " + this.txtChiDanThem.Text;
+                //}
                 return Utility.ReplaceString(yourString);
             }
             catch (Exception exception)
@@ -2839,7 +2839,7 @@ namespace VNS.HIS.UI.NGOAITRU
                      txtSoluong.Text = objChidan.SoLuong.ToString();
                      txtSoLuongDung.Text = objChidan.SoluongDung;
                      txtSolan.Text = objChidan.SolanDung;
-                     txtCachDung.Text = objChidan.CachDung;
+                     txtCachDung._Text = objChidan.CachDung;
                      txtChiDanThem.Text = objChidan.ChidanThem;
                  }
             }
@@ -3180,24 +3180,25 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void UpdateChiDanThem()
         {
-            if (!string.IsNullOrEmpty(txtChiDanThem.Text))
-            {
-                new Delete().From(DmucChung.Schema)
-                    .Where(DmucChung.Columns.Loai).IsEqualTo("CDDT")
-                    .And(DmucChung.Columns.NguoiTao).IsEqualTo(globalVariables.UserName)
-                    .And(DmucChung.Columns.Ma).IsEqualTo(Utility.UnSignedCharacter(txtChiDanThem.Text.ToUpper())).Execute();
-                DmucChung objDmucChung = new DmucChung();
-                objDmucChung.NguoiTao = globalVariables.UserName;
-                objDmucChung.NgayTao = globalVariables.SysDate;
-                objDmucChung.Ten = Utility.sDbnull(Utility.chuanhoachuoi(txtChiDanThem.Text.Trim()));
-                objDmucChung.TrangThai = 1;
-                objDmucChung.MotaThem = Utility.sDbnull(Utility.chuanhoachuoi(txtChiDanThem.Text.Trim()));
-                objDmucChung.Ma = Utility.UnSignedCharacter(objDmucChung.Ten.ToUpper());
-                objDmucChung.Loai = "CDDT";
-                objDmucChung.IsNew = true;
-                objDmucChung.Save();
+            //Tạm bỏ đi
+            //if (!string.IsNullOrEmpty(txtChiDanThem.Text))
+            //{
+            //    new Delete().From(DmucChung.Schema)
+            //        .Where(DmucChung.Columns.Loai).IsEqualTo("CDDT")
+            //        .And(DmucChung.Columns.NguoiTao).IsEqualTo(globalVariables.UserName)
+            //        .And(DmucChung.Columns.Ma).IsEqualTo(Utility.UnSignedCharacter(txtChiDanThem.Text.ToUpper())).Execute();
+            //    DmucChung objDmucChung = new DmucChung();
+            //    objDmucChung.NguoiTao = globalVariables.UserName;
+            //    objDmucChung.NgayTao = globalVariables.SysDate;
+            //    objDmucChung.Ten = Utility.sDbnull(Utility.chuanhoachuoi(txtChiDanThem.Text.Trim()));
+            //    objDmucChung.TrangThai = 1;
+            //    objDmucChung.MotaThem = Utility.sDbnull(Utility.chuanhoachuoi(txtChiDanThem.Text.Trim()));
+            //    objDmucChung.Ma = Utility.UnSignedCharacter(objDmucChung.Ten.ToUpper());
+            //    objDmucChung.Loai = "CDDT";
+            //    objDmucChung.IsNew = true;
+            //    objDmucChung.Save();
 
-            }
+            //}
         }
 
         private void UpdateDataWhenChanged()

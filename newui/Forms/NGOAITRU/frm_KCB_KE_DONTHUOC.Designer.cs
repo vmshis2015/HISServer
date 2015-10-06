@@ -354,11 +354,12 @@
             this.cmdLuuchidan.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdLuuchidan.Image = ((System.Drawing.Image)(resources.GetObject("cmdLuuchidan.Image")));
             this.cmdLuuchidan.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdLuuchidan.Location = new System.Drawing.Point(438, 158);
+            this.cmdLuuchidan.Location = new System.Drawing.Point(92, 201);
             this.cmdLuuchidan.Name = "cmdLuuchidan";
-            this.cmdLuuchidan.Size = new System.Drawing.Size(73, 43);
+            this.cmdLuuchidan.Size = new System.Drawing.Size(337, 28);
             this.cmdLuuchidan.TabIndex = 562;
             this.cmdLuuchidan.TabStop = false;
+            this.cmdLuuchidan.Text = "&Lưu sổ tay đơn thuốc";
             this.toolTip1.SetToolTip(this.cmdLuuchidan, "Lưu lại thông tin chỉ dẫn dùng thuốc");
             // 
             // txtDrugID
@@ -732,16 +733,18 @@
             this.label10.TabIndex = 549;
             this.label10.Text = "Chỉ dẫn thêm:";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label10.Visible = false;
             // 
             // txtChiDanThem
             // 
             this.txtChiDanThem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtChiDanThem.Location = new System.Drawing.Point(92, 205);
             this.txtChiDanThem.Name = "txtChiDanThem";
-            this.txtChiDanThem.Size = new System.Drawing.Size(337, 21);
+            this.txtChiDanThem.Size = new System.Drawing.Size(10, 21);
             this.txtChiDanThem.TabIndex = 548;
             this.txtChiDanThem.TabStop = false;
             this.txtChiDanThem.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near;
+            this.txtChiDanThem.Visible = false;
             // 
             // label9
             // 
