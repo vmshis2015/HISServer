@@ -1945,7 +1945,18 @@ namespace  VNS.HIS.UI.THANHTOAN
                 Utility.ShowMsg("Bệnh nhân đã được thanh toán nội trú nên bạn không thể thanh toán tiếp. Đề nghị kiểm tra lại");
                 return false;
             }
-            
+            if (THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb) && THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_BHYT_NHIEULAN", "0", false) == "0")
+            {
+                KcbThanhtoan objthanhtoan = new Select().From(KcbThanhtoan.Schema)
+                    .Where(KcbThanhtoan.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                    .And(KcbThanhtoan.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                    .ExecuteSingle<KcbThanhtoan>();
+                if (objthanhtoan != null)
+                {
+                    Utility.ShowMsg(string.Format("Bệnh nhân {0} thuộc đối tượng BHYT đã được thanh toán ít nhất một lần.\nHệ thống đang cấu hình không cho phép đối tượng BHYT thanh toán nhiều lần\nDo vậy bạn cần hủy thanh toán của các lần thanh toán trước để thực hiện một lần thanh toán duy nhất cho đối tượng này", txtTenBenhNhan.Text));
+                    return false;
+                }
+            }
             if (THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_TUDONGHOANUNG_KHITHANHTOANNOITRU","0",false)=="0" )
             {
                 NoitruTamung objTamung = new Select().From(NoitruTamung.Schema).Where(NoitruTamung.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)

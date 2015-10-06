@@ -1964,38 +1964,7 @@ namespace  VNS.HIS.UI.THANHTOAN
 
         private bool IsValidata()
         {
-            objLuotkham = Utility.getKcbLuotkham(Utility.Int64Dbnull(txtPatient_ID.Text, -1), Utility.sDbnull(txtPatient_Code.Text));
-            if (objLuotkham == null)
-            {
-                Utility.ShowMsg("Không lấy được thông tin bệnh nhân cần thanh toán. Đề nghị liên hệ IT để được giải quyết");
-                return false;
-            }
-            if (THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb) && Utility.DoTrim( objLuotkham.MatheBhyt)=="")
-            {
-                Utility.ShowMsg("Bệnh nhân BHYT cần nhập mã thẻ BHYT trước khi thanh toán");
-                return false;
-            }
-            if (objLuotkham.TrangthaiNoitru >= Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_CHAN_THANHTOANNGOAITRU", "2", false), 2))
-            {
-                Utility.ShowMsg("Bệnh nhân này đã phát sinh dịch vụ nội trú(Nộp tiền tạm ứng, Lập phiếu điều trị...) nên hệ thống không cho phép thanh toán ngoại trú nữa");
-                return false;
-            }
-            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("NGOAITRU_TUDONGHOANUNG_KHITHANHTOANNGOAITRU", "0", false) == "0")
-            {
-                NoitruTamung objTamung = new Select().From(NoitruTamung.Schema).Where(NoitruTamung.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
-                    .And(NoitruTamung.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
-                    .And(NoitruTamung.Columns.TrangThai).IsEqualTo(0)
-                    .And(NoitruTamung.Columns.KieuTamung).IsEqualTo(0)
-                    .And(NoitruTamung.Columns.Noitru).IsEqualTo(0)
-                    .ExecuteSingle<NoitruTamung>();
-                if (objTamung != null)
-                {
-                    Utility.ShowMsg("Bạn cần thực hiện thao tác hoàn ứng tiền cho bệnh nhân trước khi thực hiện thanh toán ngoại trú");
-                    return false;
-                }
-            }
             bool b_CheckPayment = false;
-            GridEXRow[] checkList = grdThongTinChuaThanhToan.GetCheckedRows();
             if (grdThongTinChuaThanhToan.GetCheckedRows().Length <= 0)
             {
                 Utility.ShowMsg("Bạn phải chọn ít nhất một dịch vụ chưa thanh toán để thực hiện thanh toán", "Thông báo", MessageBoxIcon.Warning);
@@ -2037,6 +2006,51 @@ namespace  VNS.HIS.UI.THANHTOAN
                 txtPttt.Focus();
                 return false;
             }
+
+            objLuotkham = Utility.getKcbLuotkham(Utility.Int64Dbnull(txtPatient_ID.Text, -1), Utility.sDbnull(txtPatient_Code.Text));
+            if (objLuotkham == null)
+            {
+                Utility.ShowMsg("Không lấy được thông tin bệnh nhân cần thanh toán. Đề nghị liên hệ IT để được giải quyết");
+                return false;
+            }
+            if (THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb) && Utility.DoTrim( objLuotkham.MatheBhyt)=="")
+            {
+                Utility.ShowMsg("Bệnh nhân BHYT cần nhập mã thẻ BHYT trước khi thanh toán");
+                return false;
+            }
+            
+            if (objLuotkham.TrangthaiNoitru >= Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_CHAN_THANHTOANNGOAITRU", "2", false), 2))
+            {
+                Utility.ShowMsg("Bệnh nhân này đã phát sinh dịch vụ nội trú(Nộp tiền tạm ứng, Lập phiếu điều trị...) nên hệ thống không cho phép thanh toán ngoại trú nữa");
+                return false;
+            }
+            if (THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb) && THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_BHYT_NHIEULAN", "0", false) == "0")
+            {
+                KcbThanhtoan objthanhtoan = new Select().From(KcbThanhtoan.Schema)
+                    .Where(KcbThanhtoan.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                    .And(KcbThanhtoan.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                    .ExecuteSingle<KcbThanhtoan>();
+                if (objthanhtoan != null)
+                {
+                    Utility.ShowMsg(string.Format("Bệnh nhân {0} thuộc đối tượng BHYT đã được thanh toán ít nhất một lần.\nHệ thống đang cấu hình không cho phép đối tượng BHYT thanh toán nhiều lần\nDo vậy bạn cần hủy thanh toán của các lần thanh toán trước để thực hiện một lần thanh toán duy nhất cho đối tượng này", txtTenBenhNhan.Text));
+                    return false;
+                }
+            }
+            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("NGOAITRU_TUDONGHOANUNG_KHITHANHTOANNGOAITRU", "0", false) == "0")
+            {
+                NoitruTamung objTamung = new Select().From(NoitruTamung.Schema).Where(NoitruTamung.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                    .And(NoitruTamung.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                    .And(NoitruTamung.Columns.TrangThai).IsEqualTo(0)
+                    .And(NoitruTamung.Columns.KieuTamung).IsEqualTo(0)
+                    .And(NoitruTamung.Columns.Noitru).IsEqualTo(0)
+                    .ExecuteSingle<NoitruTamung>();
+                if (objTamung != null)
+                {
+                    Utility.ShowMsg("Bạn cần thực hiện thao tác hoàn ứng tiền cho bệnh nhân trước khi thực hiện thanh toán ngoại trú");
+                    return false;
+                }
+            }
+           
             return true;
         }
 
