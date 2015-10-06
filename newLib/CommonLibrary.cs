@@ -9284,8 +9284,8 @@ namespace VNS.Libs
         public void updateRPTtoDB(CrystalDecisions.CrystalReports.Engine.TextObject rpt, string madonvi, string filenane)
         {
             SqlQuery sqlQuery = new Select().From(SysTrinhky.Schema)
-                .Where(SysTrinhky.Columns.ReportName).IsEqualTo(mv_TEN_BIEUBC)
-                .And(SysTrinhky.Columns.ObjectName).IsEqualTo(globalVariables.UserName);
+                .Where(SysTrinhky.Columns.ReportName).IsEqualTo(mv_TEN_BIEUBC);
+                //.And(SysTrinhky.Columns.ObjectName).IsEqualTo(globalVariables.UserName);
 
             if (sqlQuery.GetRecordCount() > 0)
             {
@@ -9293,8 +9293,7 @@ namespace VNS.Libs
              
                 new Update(SysTrinhky.Schema)
                     .Set(SysTrinhky.Columns.Trinhky).EqualTo(objSysUpdateTrinhky.Trinhky)
-                    .Where(SysTrinhky.Columns.ObjectName).IsEqualTo(objSysUpdateTrinhky.ObjectName)
-                    .And(SysTrinhky.Columns.ReportName).IsEqualTo(objSysUpdateTrinhky.ReportName).Execute();
+                    .Where(SysTrinhky.Columns.ReportName).IsEqualTo(objSysUpdateTrinhky.ReportName).Execute();
             }
             else
             {
@@ -9310,16 +9309,14 @@ namespace VNS.Libs
         public void updateRPTtoDB()
         {
             SqlQuery sqlQuery = new Select().From(SysTrinhky.Schema)
-                .Where(SysTrinhky.Columns.ReportName).IsEqualTo(mv_TEN_BIEUBC)
-                .And(SysTrinhky.Columns.ObjectName).IsEqualTo(globalVariables.UserName);
+                .Where(SysTrinhky.Columns.ReportName).IsEqualTo(mv_TEN_BIEUBC);
 
             if (sqlQuery.GetRecordCount() > 0)
             {
                 SysTrinhky objSysUpdateTrinhky = CreateTrinhKy();
                 new Update(SysTrinhky.Schema)
                     .Set(SysTrinhky.Columns.Trinhky).EqualTo(objSysUpdateTrinhky.Trinhky)
-                    .Where(SysTrinhky.Columns.ObjectName).IsEqualTo(objSysUpdateTrinhky.ObjectName)
-                    .And(SysTrinhky.Columns.ReportName).IsEqualTo(objSysUpdateTrinhky.ReportName).Execute();
+                    .Where(SysTrinhky.Columns.ReportName).IsEqualTo(objSysUpdateTrinhky.ReportName).Execute();
             }
             else
             {

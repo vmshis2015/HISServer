@@ -1853,7 +1853,18 @@ DisplayName("HIS Application Mode")]
             LoaiQMS_bo = "NO";
             TenLoaiQMS = "";
             LoaiQMS = 0;
+            TenSothuong = "SỐ THƯỜNG";
+            TenSoUutien = "SỐ ƯU TIÊN";
         }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
+   Description("Tên số thường hiển thị ở màn hình chờ"),
+   DisplayName("Tên số thường")]
+        public string TenSothuong { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
+  Description("Tên số ưu tiên hiển thị ở màn hình chờ"),
+  DisplayName("Tên số ưu tiên")]
+        public string TenSoUutien { get; set; }
+
         [Browsable(true), ReadOnly(false), Category("Cấu hình QMS Quầy tiếp đón"),
     Description("Để trắng=Hệ thống tự phân biệt. Ngược lại, nếu muốn tách riêng phòng tiếp đón sử dụng số KHÁC thì để tên loại số đó. Ví dụ: Số tiêm chủng, Số đặc biệt..."),
     DisplayName("Tên loại QMS: Số ưu tiên, Số thường, Số tiêm chủng")]

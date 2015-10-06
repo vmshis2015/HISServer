@@ -60,7 +60,6 @@ D:\Projects\VMSClient\trunk\newLib\obj\Debug\VNS.Libs.frm_SignInfor.resources
 D:\Projects\VMSClient\trunk\newLib\obj\Debug\VNS.Libs.frm_SysUsers.resources
 D:\Projects\VMSClient\trunk\newLib\obj\Debug\newLib.Properties.Resources.resources
 D:\Projects\VMSClient\trunk\newLib\obj\Debug\newLib.csproj.GenerateResource.Cache
-D:\Projects\VMSClient\trunk\newLib\obj\Debug\VNS.Libs.dll.licenses
 D:\Projects\VMSClient\trunk\newLib\obj\Debug\VNS.Libs.dll
 D:\Projects\VMSClient\trunk\newLib\obj\Debug\VNS.Libs.pdb
 E:\VMS\trunk\newLib\obj\Debug\newLib.csprojResolveAssemblyReference.cache
