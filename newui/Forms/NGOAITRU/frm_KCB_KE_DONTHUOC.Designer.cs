@@ -54,6 +54,7 @@
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.txtdrug = new VNS.HIS.UCs.AutoCompleteTextbox_Thuoc();
             this.cmdAddDetail = new Janus.Windows.EditControls.UIButton();
+            this.cmdLuuchidan = new Janus.Windows.EditControls.UIButton();
             this.txtDrugID = new Janus.Windows.GridEX.EditControls.EditBox();
             this.txtDrug_Name = new Janus.Windows.GridEX.EditControls.EditBox();
             this.StatusBar = new Janus.Windows.UI.StatusBar.UIStatusBar();
@@ -348,6 +349,18 @@
             this.cmdAddDetail.Text = "Chấp nhận";
             this.toolTip1.SetToolTip(this.cmdAddDetail, "Nhấn vào đây để thêm thuốc đang chọn vào chi tiết đơn thuốc");
             // 
+            // cmdLuuchidan
+            // 
+            this.cmdLuuchidan.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdLuuchidan.Image = ((System.Drawing.Image)(resources.GetObject("cmdLuuchidan.Image")));
+            this.cmdLuuchidan.ImageSize = new System.Drawing.Size(24, 24);
+            this.cmdLuuchidan.Location = new System.Drawing.Point(438, 158);
+            this.cmdLuuchidan.Name = "cmdLuuchidan";
+            this.cmdLuuchidan.Size = new System.Drawing.Size(73, 43);
+            this.cmdLuuchidan.TabIndex = 562;
+            this.cmdLuuchidan.TabStop = false;
+            this.toolTip1.SetToolTip(this.cmdLuuchidan, "Lưu lại thông tin chỉ dẫn dùng thuốc");
+            // 
             // txtDrugID
             // 
             this.txtDrugID.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
@@ -484,6 +497,7 @@
             // 
             // pnlKedon
             // 
+            this.pnlKedon.Controls.Add(this.cmdLuuchidan);
             this.pnlKedon.Controls.Add(this.txtDonvichiaBut);
             this.pnlKedon.Controls.Add(this.txtSobutconlai);
             this.pnlKedon.Controls.Add(this.label34);
@@ -2015,6 +2029,7 @@
         internal System.Windows.Forms.Label label34;
         private Janus.Windows.GridEX.EditControls.EditBox txtDonvichiaBut;
         private UCs.AutoCompleteTextbox txtBacsi;
+        private Janus.Windows.EditControls.UIButton cmdLuuchidan;
 
     }
 }

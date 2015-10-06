@@ -314,6 +314,15 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             if (!CheckPatientSelected()) return;
             if (!cmdThemphieuVT.Enabled) return;
+            if (Utility.Coquyen("quyen_suadonthuoc") || Utility.Int32Dbnull(objkcbdangky.IdBacsikham, -1) <= 0 || objkcbdangky.IdBacsikham == globalVariables.gv_intIDNhanvien)
+            {
+            }
+            else
+            {
+                Utility.ShowMsg(string.Format("Bệnh nhân này đã được khám bởi Bác sĩ khác nên bạn không được phép thêm phiếu vật tư cho Bệnh nhân"));
+                return;
+            }
+
             ThemphieuVattu();
         }
         private void ThemphieuVattu()
@@ -4185,7 +4194,7 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 if (!CheckPatientSelected()) return;
-                if (Utility.Coquyen("quyen_suaphieuchidinhcls") || objkcbdangky.IdBacsikham == globalVariables.gv_intIDNhanvien)
+                if (Utility.Coquyen("quyen_suaphieuchidinhcls") || Utility.Int32Dbnull(objkcbdangky.IdBacsikham, -1) <= 0 || objkcbdangky.IdBacsikham == globalVariables.gv_intIDNhanvien)
                 {
                 }
                 else
@@ -4376,7 +4385,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             if (!CheckPatientSelected()) return;
             if (!cmdCreateNewPres.Enabled) return;
-            if (Utility.Coquyen("quyen_suadonthuoc") || objkcbdangky.IdBacsikham == globalVariables.gv_intIDNhanvien)
+            if (Utility.Coquyen("quyen_suadonthuoc") || Utility.Int32Dbnull( objkcbdangky.IdBacsikham,-1)<=0 || objkcbdangky.IdBacsikham == globalVariables.gv_intIDNhanvien)
             {
             }
             else

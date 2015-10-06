@@ -196,6 +196,20 @@ namespace VNS.HIS.UI.NGOAITRU
             txtLoaikham._OnShowData += txtLoaikham__OnShowData;
             mnuBOD.Click += mnuBOD_Click;
             txtMaLankham.LostFocus += txtMaLankham_LostFocus;
+            txtSoBA.KeyDown += txtSoBA_KeyDown;
+        }
+
+        void txtSoBA_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && Utility.DoTrim(txtSoBA.Text) != "")
+            {
+                KcbBenhAn _objBA = new Select().From(KcbBenhAn.Schema).Where(KcbBenhAn.Columns.SoBenhAn).IsEqualTo(txtSoBA.Text).ExecuteSingle<KcbBenhAn>();
+                if (_objBA != null)
+                {
+                    txtMaLankham.Text = _objBA.MaLuotkham;
+                    txtMaLankham_KeyDown(txtMaLankham, e);
+                }
+            }
         }
 
         void txtMaLankham_LostFocus(object sender, EventArgs e)

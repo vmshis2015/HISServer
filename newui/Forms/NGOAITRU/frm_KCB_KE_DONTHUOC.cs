@@ -33,7 +33,6 @@ namespace VNS.HIS.UI.NGOAITRU
     {
          decimal BHYT_PTRAM_TRAITUYENNOITRU = 0;
         private ActionResult _actionResult = ActionResult.Error;
-        private bool _Found = false;
         public KcbChandoanKetluan _KcbChandoanKetluan;
         private KCB_KEDONTHUOC _KEDONTHUOC = new KCB_KEDONTHUOC();
         private VNS.Libs.MoneyByLetter _moneyByLetter = new VNS.Libs.MoneyByLetter();
@@ -1502,7 +1501,30 @@ namespace VNS.HIS.UI.NGOAITRU
                     if (this.uiTabPage1.ActiveControl != null && this.uiTabPage1.ActiveControl.Name == txtMaBenhphu.Name)
                         return;
                     else
-                        SendKeys.Send("{TAB}");
+                    {
+                        if (this.uiTabPage1.ActiveControl != null && this.uiTabPage1.ActiveControl.Name == txtSoluong.Name && (Utility.DecimaltoDbnull(this.txtSoluong.Text, 0) > 0))
+                        {
+                            if (!this.AutoFill)
+                            {
+                                if (globalVariables.gv_intChophepChinhgiathuocKhiKedon == 0)
+                                {
+                                    this.txtSoLuongDung.Focus();
+                                    this.txtSoLuongDung.SelectAll();
+                                }
+                                else
+                                {
+                                    this.txtPrice.Focus();
+                                    this.txtPrice.SelectAll();
+                                }
+                            }
+                            else
+                            {
+                                this.cmdAddDetail_Click(this.cmdAddDetail, new EventArgs());
+                            }
+                        }
+                        else
+                            SendKeys.Send("{TAB}");
+                    }
                 }
                 if (e.KeyCode == Keys.F5)
                 {
@@ -2216,6 +2238,46 @@ namespace VNS.HIS.UI.NGOAITRU
             grd_ICD.ColumnButtonClick += new ColumnActionEventHandler(grd_ICD_ColumnButtonClick);
             cmdSearchBenhChinh.Click += new EventHandler(cmdSearchBenhChinh_Click);
             cmdSearchBenhPhu.Click += new EventHandler(cmdSearchBenhPhu_Click);
+            cmdLuuchidan.Click += cmdLuuchidan_Click;
+        }
+
+        void cmdLuuchidan_Click(object sender, EventArgs e)
+        {
+            Utility.SetMsg(lblMsg, "", false);
+            if (txtdrug.MyCode == "-1")
+            {
+                Utility.SetMsg(lblMsg, "Bạn cần chọn thuốc trước khi lưu chỉ dẫn dùng thuốc", true);
+                txtdrug.Focus();
+                return;
+            }
+            try
+            {
+                DmucChidanKedonthuoc objChidan = new Select().From(DmucChidanKedonthuoc.Schema).Where(DmucChidanKedonthuoc.Columns.IdThuoc).IsEqualTo(txtDrugID.Text)
+                    .And(DmucChidanKedonthuoc.Columns.IdBacsi).IsEqualTo(globalVariables.gv_intIDNhanvien).ExecuteSingle<DmucChidanKedonthuoc>();
+                if (objChidan == null)
+                {
+
+                    objChidan = new DmucChidanKedonthuoc();
+                    objChidan.IsNew = true;
+                }
+                else
+                {
+                    objChidan.IsNew = false;
+                    objChidan.MarkOld();
+                }
+                objChidan.IdBacsi = globalVariables.gv_intIDNhanvien;
+                objChidan.IdThuoc = Utility.Int32Dbnull(txtdrug.MyID,-1);
+                objChidan.SolanDung =Utility.DoTrim( txtSolan.Text);
+                objChidan.SoluongDung = Utility.DoTrim(txtSoLuongDung.Text);
+                objChidan.SoLuong = Utility.Int32Dbnull(Utility.DecimaltoDbnull(this.txtSoluong.Text, 0));
+                objChidan.ChidanThem = Utility.DoTrim(txtChiDanThem.Text);
+                objChidan.CachDung = Utility.DoTrim(txtCachDung.Text);
+                objChidan.Save();
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
         }
         private void cmdSearchBenhChinh_Click(object sender, EventArgs e)
         {
@@ -2252,6 +2314,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             AllowDrugChanged = true;
             txtDrugID_TextChanged(txtDrugID, new EventArgs());
+            AutoFill_Chidandungthuoc();
             txtSoluong.Focus();
             txtSoluong.SelectAll();
         }
@@ -2754,6 +2817,7 @@ namespace VNS.HIS.UI.NGOAITRU
         }
         int id_thuockho = -1;
         string madoituong_gia = "DV";
+        bool AutoFill = false;
         private void txtdrug__OnGridSelectionChanged(string ID, int id_thuockho, string _name, string Dongia, string phuthu, int tutuc)
         {
             this.id_thuockho = id_thuockho;
@@ -2762,7 +2826,29 @@ namespace VNS.HIS.UI.NGOAITRU
             this.txtPrice.Text = Dongia;
             this.txtSurcharge.Text = phuthu;
         }
+        void AutoFill_Chidandungthuoc()
+        {
+            try
+            {
+                AutoFill = false;
+                 DmucChidanKedonthuoc objChidan = new Select().From(DmucChidanKedonthuoc.Schema).Where(DmucChidanKedonthuoc.Columns.IdThuoc).IsEqualTo(txtDrugID.Text)
+                    .And(DmucChidanKedonthuoc.Columns.IdBacsi).IsEqualTo(globalVariables.gv_intIDNhanvien).ExecuteSingle<DmucChidanKedonthuoc>();
+                 if (objChidan != null)
+                 {
+                     AutoFill = true;
+                     txtSoluong.Text = objChidan.SoLuong.ToString();
+                     txtSoLuongDung.Text = objChidan.SoluongDung;
+                     txtSolan.Text = objChidan.SolanDung;
+                     txtCachDung.Text = objChidan.CachDung;
+                     txtChiDanThem.Text = objChidan.ChidanThem;
+                 }
+            }
+            catch (Exception ex)
+            {
 
+                Utility.CatchException(ex);
+            }
+        }
         private void txtDrugID_TextChanged(object sender, EventArgs e)
         {
             try
@@ -2975,7 +3061,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             if ((Utility.DecimaltoDbnull(this.txtSoluong.Text,0) > 0) && (e.KeyCode == Keys.Enter))
             {
-                if (!this._Found)
+                if (!this.AutoFill)
                 {
                     if (globalVariables.gv_intChophepChinhgiathuocKhiKedon == 0)
                     {

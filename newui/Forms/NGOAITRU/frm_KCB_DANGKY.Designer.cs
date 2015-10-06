@@ -132,6 +132,8 @@
             this.txtTEN_BN = new System.Windows.Forms.TextBox();
             this.txtCMT = new System.Windows.Forms.TextBox();
             this.txtNamSinh = new Janus.Windows.GridEX.EditControls.MaskedEditBox();
+            this.ctxBOD = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuBOD = new System.Windows.Forms.ToolStripMenuItem();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtMaBN = new System.Windows.Forms.TextBox();
             this.txtMaLankham = new System.Windows.Forms.TextBox();
@@ -155,6 +157,7 @@
             this.txtLoaikham = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtSoDT = new System.Windows.Forms.TextBox();
             this.txtNguoiLienhe = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.chkLaysokham = new Janus.Windows.EditControls.UICheckBox();
@@ -191,9 +194,8 @@
             this.lblDoituongKCB = new System.Windows.Forms.Label();
             this.pnlBottom = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.txtSoDT = new System.Windows.Forms.TextBox();
-            this.ctxBOD = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.mnuBOD = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtSoBA = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grpChoKham)).BeginInit();
             this.grpChoKham.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdListKhoa)).BeginInit();
@@ -202,6 +204,7 @@
             this.pThongTinQMS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cboKieuKham)).BeginInit();
             this.pnlBHYT.SuspendLayout();
+            this.ctxBOD.SuspendLayout();
             this.pnlMain.SuspendLayout();
             this.pnlFill.SuspendLayout();
             this.pnlRight.SuspendLayout();
@@ -222,7 +225,6 @@
             this.pnlTieuDe.SuspendLayout();
             this.pnlBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.ctxBOD.SuspendLayout();
             this.SuspendLayout();
             // 
             // uiStatusBar1
@@ -850,7 +852,7 @@
             // 
             this.label14.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.Red;
-            this.label14.Location = new System.Drawing.Point(406, 70);
+            this.label14.Location = new System.Drawing.Point(406, 69);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(73, 21);
             this.label14.TabIndex = 412;
@@ -1540,6 +1542,20 @@
             this.txtNamSinh.TabIndex = 14;
             this.txtNamSinh.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center;
             // 
+            // ctxBOD
+            // 
+            this.ctxBOD.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuBOD});
+            this.ctxBOD.Name = "ctxBOD";
+            this.ctxBOD.Size = new System.Drawing.Size(219, 26);
+            // 
+            // mnuBOD
+            // 
+            this.mnuBOD.CheckOnClick = true;
+            this.mnuBOD.Name = "mnuBOD";
+            this.mnuBOD.Size = new System.Drawing.Size(218, 22);
+            this.mnuBOD.Text = "Nhập ngày tháng năm sinh";
+            // 
             // txtEmail
             // 
             this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -1582,7 +1598,7 @@
             this.txtSolankham.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSolankham.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSolankham.ForeColor = System.Drawing.Color.Black;
-            this.txtSolankham.Location = new System.Drawing.Point(481, 70);
+            this.txtSolankham.Location = new System.Drawing.Point(481, 69);
             this.txtSolankham.MaxLength = 8;
             this.txtSolankham.Name = "txtSolankham";
             this.txtSolankham.ReadOnly = true;
@@ -1771,6 +1787,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.txtSoBA);
+            this.panel2.Controls.Add(this.label26);
             this.panel2.Controls.Add(this.label19);
             this.panel2.Controls.Add(this.txtLoaikham);
             this.panel2.Controls.Add(this.tabControl1);
@@ -1804,7 +1822,7 @@
             // 
             this.label19.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.Red;
-            this.label19.Location = new System.Drawing.Point(523, 70);
+            this.label19.Location = new System.Drawing.Point(523, 98);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(52, 21);
             this.label19.TabIndex = 601;
@@ -1826,7 +1844,7 @@
             this.txtLoaikham.FillValueAfterSelect = false;
             this.txtLoaikham.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLoaikham.LOAI_DANHMUC = "KIEUKHAM";
-            this.txtLoaikham.Location = new System.Drawing.Point(582, 70);
+            this.txtLoaikham.Location = new System.Drawing.Point(582, 98);
             this.txtLoaikham.MaxHeight = -1;
             this.txtLoaikham.MinTypedCharacters = 2;
             this.txtLoaikham.MyCode = "-1";
@@ -1905,6 +1923,14 @@
             this.tabPage1.Size = new System.Drawing.Size(806, 174);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Thông tin chính của bệnh nhân(F1)";
+            // 
+            // txtSoDT
+            // 
+            this.txtSoDT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSoDT.Location = new System.Drawing.Point(576, 88);
+            this.txtSoDT.Name = "txtSoDT";
+            this.txtSoDT.Size = new System.Drawing.Size(221, 21);
+            this.txtSoDT.TabIndex = 22;
             // 
             // txtNguoiLienhe
             // 
@@ -2479,7 +2505,7 @@
             uiComboBoxItem12});
             this.cboDoituongKCB.Location = new System.Drawing.Point(312, 98);
             this.cboDoituongKCB.Name = "cboDoituongKCB";
-            this.cboDoituongKCB.Size = new System.Drawing.Size(322, 21);
+            this.cboDoituongKCB.Size = new System.Drawing.Size(207, 21);
             this.cboDoituongKCB.TabIndex = 1;
             this.cboDoituongKCB.TabStop = false;
             this.cboDoituongKCB.Text = "Đối tượng KCB";
@@ -2602,27 +2628,30 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // txtSoDT
+            // txtSoBA
             // 
-            this.txtSoDT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSoDT.Location = new System.Drawing.Point(576, 88);
-            this.txtSoDT.Name = "txtSoDT";
-            this.txtSoDT.Size = new System.Drawing.Size(221, 21);
-            this.txtSoDT.TabIndex = 22;
+            this.txtSoBA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSoBA.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSoBA.ForeColor = System.Drawing.Color.Black;
+            this.txtSoBA.Location = new System.Drawing.Point(582, 69);
+            this.txtSoBA.MaxLength = 8;
+            this.txtSoBA.Name = "txtSoBA";
+            this.txtSoBA.Size = new System.Drawing.Size(90, 21);
+            this.txtSoBA.TabIndex = 602;
+            this.txtSoBA.TabStop = false;
+            this.txtSoBA.Text = "1";
+            this.txtSoBA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // ctxBOD
+            // label26
             // 
-            this.ctxBOD.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuBOD});
-            this.ctxBOD.Name = "ctxBOD";
-            this.ctxBOD.Size = new System.Drawing.Size(219, 26);
-            // 
-            // mnuBOD
-            // 
-            this.mnuBOD.CheckOnClick = true;
-            this.mnuBOD.Name = "mnuBOD";
-            this.mnuBOD.Size = new System.Drawing.Size(218, 22);
-            this.mnuBOD.Text = "Nhập ngày tháng năm sinh";
+            this.label26.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.ForeColor = System.Drawing.Color.Red;
+            this.label26.Location = new System.Drawing.Point(519, 69);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(56, 21);
+            this.label26.TabIndex = 603;
+            this.label26.Text = "Số &B.A:";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frm_KCB_DANGKY
             // 
@@ -2648,6 +2677,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cboKieuKham)).EndInit();
             this.pnlBHYT.ResumeLayout(false);
             this.pnlBHYT.PerformLayout();
+            this.ctxBOD.ResumeLayout(false);
             this.pnlMain.ResumeLayout(false);
             this.pnlFill.ResumeLayout(false);
             this.pnlRight.ResumeLayout(false);
@@ -2673,7 +2703,6 @@
             this.pnlTieuDe.ResumeLayout(false);
             this.pnlBottom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.ctxBOD.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2831,5 +2860,7 @@
         private System.Windows.Forms.TextBox txtSoDT;
         private System.Windows.Forms.ContextMenuStrip ctxBOD;
         private System.Windows.Forms.ToolStripMenuItem mnuBOD;
+        public System.Windows.Forms.TextBox txtSoBA;
+        private System.Windows.Forms.Label label26;
     }
 }
