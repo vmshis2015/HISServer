@@ -136,7 +136,7 @@ namespace VNS.HIS.UI.DANHMUC
                             new List<string> {SysUser.Columns.PkSuid, SysUser.Columns.PkSuid, SysUser.Columns.PkSuid});
 
 
-                m_dtKhoThuoc = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_TATCA();
+                m_dtKhoThuoc = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOCVaTuThuoc();
                 Utility.SetDataSourceForDataGridEx(grdKhoThuoc, m_dtKhoThuoc, false, true, "1=1",
                                                    TDmucKho.Columns.SttHthi);
                 m_dtPhongkham = THU_VIEN_CHUNG.LaydanhmucPhong(0);
