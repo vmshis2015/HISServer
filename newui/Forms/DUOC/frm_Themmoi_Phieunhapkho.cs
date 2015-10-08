@@ -27,37 +27,38 @@ namespace VNS.HIS.UI.THUOC
         private DataTable m_dtDataPhieuChiTiet=new DataTable();
         private DataTable m_dtDataKhoNhap=new DataTable();
         private DataTable m_dtDataNhaCungCap=new DataTable();
-       
+        public delegate void OnActionSuccess();
+        public event OnActionSuccess _OnActionSuccess;
        // private DataTable m_dtDataNhaCungCap=new DataTable();
         public action em_Action = action.Insert;
-        public bool b_Cancel = false;
+        public bool b_Cancel = true;
         public Janus.Windows.GridEX.GridEX grdList;
         AutoCompleteStringCollection namesCollection = new AutoCompleteStringCollection();
         public string KIEU_THUOC_VT = "THUOC";
         #endregion
-
+        BackgroundWorker _worker = null;
         #region "khai báo khởi tạo Form"
         public frm_Themmoi_Phieunhapkho()
         {
             InitializeComponent();
-            //if (PropertyLib._NhapkhoProperties.autosaveAfter > 0)
-            //{
-            //    using (BackgroundWorker _worker = new BackgroundWorker())
-            //    {
-            //        _worker.DoWork += _worker_DoWork;
-            //        if (!_worker.IsBusy)
-            //            _worker.RunWorkerAsync();
-            //    }
-            //}
+            if (PropertyLib._NhapkhoProperties.autosaveAfter > 0)
+            {
+                _worker = new BackgroundWorker();
+                _worker.DoWork += _worker_DoWork;
+                if (!_worker.IsBusy)
+                    _worker.RunWorkerAsync();
+
+            }
             
             dtNgayHetHan.Value = dtNgayNhap.Value =globalVariables.SysDate;
             InitEvents();
             CauHinh();
         }
         bool _Autosave = false;
+        bool isActive = true;
         void _worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (true)
+            while (isActive)
             {
                 Thread.Sleep(PropertyLib._NhapkhoProperties.autosaveAfter*1000);
                 _Autosave = true;
@@ -69,7 +70,7 @@ namespace VNS.HIS.UI.THUOC
             txtChietkhau.TextChanged += new EventHandler(txtChietkhau_TextChanged);
             nmrThangDu.ValueChanged += new EventHandler(nmrThangDu_ValueChanged);
             txtTongTien.KeyDown += new KeyEventHandler(txtTongTien_KeyDown);
-            
+            this.FormClosing += frm_Themmoi_Phieunhapkho_FormClosing;
             txtDongia.TextChanged += new EventHandler(txtDongia_TextChanged);
             txtSoluong.TextChanged += new EventHandler(txtSoluong_TextChanged);
             this.txtTongTien.TextChanged += new System.EventHandler(this.txtTongTien_TextChanged);
@@ -111,6 +112,11 @@ namespace VNS.HIS.UI.THUOC
             txtNhacungcap._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtNhacungcap__OnShowData);
             txtNguoiGiao._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtNguoiGiao__OnShowData);
             txtNguoinhan._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtNguoinhan__OnShowData);
+        }
+
+        void frm_Themmoi_Phieunhapkho_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            isActive = false;
         }
 
         void txtNguoinhan__OnShowData()
@@ -446,26 +452,26 @@ namespace VNS.HIS.UI.THUOC
             if(e.KeyCode==Keys.S && e.Control)cmdSave.PerformClick();
             if (e.KeyCode == Keys.F1 && e.Control) ConfigBHYT();
         }
-
+        DmucThuoc objThuoc = null;
         private void txtDrug_ID_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 if (!string.IsNullOrEmpty(txtDrug_ID.Text))
                 {
-                    DmucThuoc objDrug = DmucThuoc.FetchByID(Utility.Int32Dbnull(txtDrug_ID.Text));
-                    if (objDrug != null)
+                   objThuoc= DmucThuoc.FetchByID(Utility.Int32Dbnull(txtDrug_ID.Text));
+                    if (objThuoc != null)
                     {
-                        DmucChung objMeasureUnit = THU_VIEN_CHUNG.LaydoituongDmucChung("DONVITINH", Utility.sDbnull(objDrug.MaDonvitinh));
+                        DmucChung objMeasureUnit = THU_VIEN_CHUNG.LaydoituongDmucChung("DONVITINH", Utility.sDbnull(objThuoc.MaDonvitinh));
                         if (objMeasureUnit != null)
                         {
                             txtDonViTinh.Text = Utility.sDbnull(objMeasureUnit.Ten);
                             txtMaDonvitinh.Text = Utility.sDbnull(objMeasureUnit.Ma);
                         }
 
-                        txtDongia.Text = Utility.sDbnull(objDrug.DonGia, "0");
+                        txtDongia.Text = Utility.sDbnull(objThuoc.DonGia, "0");
 
-                        QheDoituongThuoc _objQhe = new Select().From(QheDoituongThuoc.Schema).Where(QheDoituongThuoc.Columns.IdThuoc).IsEqualTo(objDrug.IdThuoc)
+                        QheDoituongThuoc _objQhe = new Select().From(QheDoituongThuoc.Schema).Where(QheDoituongThuoc.Columns.IdThuoc).IsEqualTo(objThuoc.IdThuoc)
                      .And(QheDoituongThuoc.Columns.IdLoaidoituongKcb).IsEqualTo(0).ExecuteSingle<QheDoituongThuoc>();
                         if (_objQhe != null)
                         {
@@ -610,6 +616,22 @@ namespace VNS.HIS.UI.THUOC
                     txtPhuthuTT.Focus();
                     return false;
                 }
+            string THUOC_CANHBAO_NHAPVUOTTRAN_BHYT=THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_CANHBAO_NHAPVUOTTRAN_BHYT","0",false);
+            if (THUOC_CANHBAO_NHAPVUOTTRAN_BHYT != "0" && objThuoc!=null)
+            {
+                int sluongvuottran = Utility.Int32Dbnull(objThuoc.SluongVuottran, 0);
+                if (sluongvuottran > 0)
+                {
+                    int tongnhap = THUOC_NHAPKHO.ThuocTongnhapngoaiTrongNam(dtNgayNhap.Value.Year, Utility.Int32Dbnull(txtDrug_ID.Text, 0));
+                    if (tongnhap + Utility.DecimaltoDbnull(txtSoluong.Text, 0) > sluongvuottran)
+                    {
+                        string msg = string.Format("Thuốc {0} được cấu hình nhập mỗi năm không quá {1} {2}. Tổng số lượng đã nhập: {3} + Số lượng nhập lần này: {4} đang vượt quá số lượng vượt trần. Đề nghị bạn kiểm tra lại", txtDrugName.Text, sluongvuottran.ToString(), txtDonViTinh.Text, tongnhap.ToString(), txtSoluong.Text);
+                        Utility.ShowMsg(msg);
+                        if (THUOC_CANHBAO_NHAPVUOTTRAN_BHYT == "2")
+                            return false;
+                    }
+                }
+            }
             return true;
         }
         private void AddDetailNhapKho()
@@ -840,6 +862,7 @@ namespace VNS.HIS.UI.THUOC
         }
         private void AutoSave()
         {
+            Utility.WaitNow(this);
             switch (em_Action)
             {
                 case action.Insert:
@@ -849,6 +872,7 @@ namespace VNS.HIS.UI.THUOC
                     AutoUpdate();
                     break;
             }
+            Utility.DefaultNow(this);
         }
         #region "khai báo các đối tượng để thực hiện việc "
         private TPhieuNhapxuatthuoc CreatePhieuNhapKho()
@@ -899,8 +923,8 @@ namespace VNS.HIS.UI.THUOC
             List<TPhieuNhapxuatthuocChitiet> lstDetails = new List<TPhieuNhapxuatthuocChitiet>();
             try
             {
-               
-               
+
+
                 foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdPhieuNhapChiTiet.GetDataRows())
                 {
                     if (gridExRow.RowType == RowType.Record)
@@ -973,7 +997,7 @@ namespace VNS.HIS.UI.THUOC
                         ClearControlPhieu();
                         txtSoHoaDon.Focus();
                     }
-                    b_Cancel = true;
+                    b_Cancel = false;
                     if (PropertyLib._NhapkhoProperties.Themmoilientuc && !_Autosave) cmdThemPhieuNhap.PerformClick();
                     else
                         if (!_Autosave)
@@ -1021,7 +1045,7 @@ namespace VNS.HIS.UI.THUOC
                     {
                         ClearControlPhieu();
                     }
-                    b_Cancel = true;
+                    b_Cancel = false;
                     if (!_Autosave)
                         this.Close();
                     _Autosave = false;
@@ -1039,7 +1063,7 @@ namespace VNS.HIS.UI.THUOC
         {
             TPhieuNhapxuatthuoc objPhieuNhap = CreatePhieuNhapKho();
             List<TPhieuNhapxuatthuocChitiet> lstDetail = GetReceiptDetails();
-            if (lstDetail.Count <= 0 || objPhieuNhap==null )
+            if (lstDetail.Count <= 0 || objPhieuNhap == null)
             {
 
                 return;
@@ -1059,10 +1083,11 @@ namespace VNS.HIS.UI.THUOC
                         newDr["ten_khonhap"] = Utility.sDbnull(objKho.TenKho);
                     p_mDataPhieuNhapKho.Rows.Add(newDr);
                     Utility.GonewRowJanus(grdList, TPhieuNhapxuatthuoc.Columns.IdPhieu, Utility.sDbnull(txtIDPhieuNhapKho.Text));
+                    Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Tự động thêm mới phiếu nhập kho thành công", false);
                     em_Action = action.Update;
-                    ClearControl();
-                    b_Cancel = true;
                     _Autosave = false;
+                    b_Cancel = false;
+
                     break;
                 default:
                     break;
@@ -1072,7 +1097,7 @@ namespace VNS.HIS.UI.THUOC
         {
             TPhieuNhapxuatthuoc objPhieuNhap = CreatePhieuNhapKho();
             List<TPhieuNhapxuatthuocChitiet> lstDetail = GetReceiptDetails();
-            if (lstDetail.Count <= 0 || objPhieuNhap == null || !m_dtDataPhieuChiTiet.DataSet.HasChanges())
+            if (lstDetail.Count <= 0 || objPhieuNhap == null )
             {
 
                 return;
@@ -1081,22 +1106,8 @@ namespace VNS.HIS.UI.THUOC
             switch (actionResult)
             {
                 case ActionResult.Success:
-                    TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc = TPhieuNhapxuatthuoc.FetchByID(Utility.Int32Dbnull(txtIDPhieuNhapKho.Text));
-                    DataRow[] arrDr =
-                        p_mDataPhieuNhapKho.Select(string.Format("{0}={1}", TPhieuNhapxuatthuoc.Columns.IdPhieu,
-                                                                 Utility.Int32Dbnull(txtIDPhieuNhapKho.Text)));
-                    if (arrDr.GetLength(0) > 0)
-                    {
-                        arrDr[0].Delete();
-                    }
-                    DataRow newDr = p_mDataPhieuNhapKho.NewRow();
-                    Utility.FromObjectToDatarow(objTPhieuNhapxuatthuoc, ref newDr);
-                    TDmucKho objKho = TDmucKho.FetchByID(Utility.Int32Dbnull(cboKhoNhap.SelectedValue, -1));
-                    if (objKho != null)
-                        newDr["ten_khonhap"] = Utility.sDbnull(objKho.TenKho);
-                    p_mDataPhieuNhapKho.Rows.Add(newDr);
-                    //Utility.GonewRowJanus(grdList, TPhieuNhapxuatthuoc.Columns.IdPhieu, Utility.sDbnull(txtIDPhieuNhapKho.Text));
-                    b_Cancel = true;
+                    if (_OnActionSuccess != null) _OnActionSuccess();
+                    Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Tự động cập nhật phiếu nhập kho thành công", false);
                     _Autosave = false;
                     break;
                 default:

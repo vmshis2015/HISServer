@@ -307,7 +307,7 @@ namespace VNS.HIS.UI.THUOC
             if (String.IsNullOrEmpty(txtID.Text))
             {
                 Utility.SetMsg(lblMsg, "Bạn cần nhập mã thuốc.",true);
-                txtCode.Focus();
+               txtMaQD40.Focus();
                 return false;
             }
             if (txtKieuthuocVT.myCode=="-1")
@@ -321,7 +321,7 @@ namespace VNS.HIS.UI.THUOC
                 if (String.IsNullOrEmpty(txtCode.Text))
                 {
                     Utility.SetMsg(lblMsg, "Mã thuốc không được để trống và phải là duy nhất trong hệ thống",true);
-                    txtCode.Focus();
+                   txtMaQD40.Focus();
                     return false;
                 }
             }
@@ -444,6 +444,10 @@ namespace VNS.HIS.UI.THUOC
                     txtID.Text = Utility.sDbnull(objThuoc.IdThuoc).ToString().Trim();
                     txtActice.Text = Utility.sDbnull(objThuoc.HoatChat).ToString().Trim();
                     txtCode.Text = Utility.sDbnull(objThuoc.MaThuoc);
+                    txtMaQD40.Text = Utility.sDbnull(objThuoc.MaQD40);
+                    txtMaQDTinh.Text = Utility.sDbnull(objThuoc.MaQDTinh);
+                    txtSlVuottran.Text = Utility.DecimaltoDbnull(objThuoc.SluongVuottran, 0).ToString();
+
                      txtDongia.Text = Utility.sDbnull(objThuoc.DonGia);
                      txtGiaBHYT.Text = Utility.sDbnull(objThuoc.GiaBhyt);
                      txtPTDT.Text = Utility.sDbnull(objThuoc.PhuthuDungtuyen);
@@ -549,6 +553,8 @@ namespace VNS.HIS.UI.THUOC
                     txtDongia.Enabled = true;
                     Utility.EnabledTextBox(txtDesc);
                     txtCode.Clear();
+                    txtMaQD40.Clear();
+                    txtMaQDTinh.Clear();
                     txtContent.Clear();
                     txtNumber_Register.Clear();
                     txtHangSX.SetDefaultItem();
@@ -564,6 +570,7 @@ namespace VNS.HIS.UI.THUOC
                     txtGiaBHYT.Clear();
                     txtCachsudung.SetDefaultItem();
                     txtPTDT.Clear();
+                    txtSlVuottran.Text = "0";
                     txtPTTT.Clear();
                     optAll.Checked = true;
                     chkTutuc.Checked = false;
@@ -573,13 +580,15 @@ namespace VNS.HIS.UI.THUOC
                     cmdSave.Enabled = true;
                     //Tự động Focus đến mục Code để người dùng nhập liệu
                     txtID.Text = "Tự sinh";
-                    txtCode.Text = "";
-                    txtCode.Focus();
+                    txtMaQD40.Text = "";
+                    txtMaQD40.Focus();
                     break;
                 case action.Update:
                     //Cho phép nhập liệu mã kho,vị trí, tên kho và mô tả thêm
                     Utility.DisabledTextBox(txtID);
                     Utility.EnabledTextBox(txtCode);
+                    Utility.EnabledTextBox(txtMaQD40);
+                    Utility.EnabledTextBox(txtMaQDTinh);
                     txtLoaithuoc.Enabled = true;
                     txtDonvitinh.Enabled = true;
                     Utility.EnabledTextBox(txtName);
@@ -592,7 +601,7 @@ namespace VNS.HIS.UI.THUOC
                     //Cho phép nhấn nút Ghi
                     cmdSave.Enabled = true;
                     //Tự động Focus đến mục Code để người dùng nhập liệu
-                    txtCode.Focus();
+                   txtMaQD40.Focus();
                     break;
                 case action.FirstOrFinished://Hủy hoặc trạng thái ban đầu khi mới hiển thị Form
                     Utility.DisabledTextBox(txtID);
@@ -608,7 +617,8 @@ namespace VNS.HIS.UI.THUOC
                     txtDonvitinh.SetCode("-1");
                     txtID.Text = "Tự sinh";
                     txtCode.Clear();
-                    txtCode.Text = "";
+                    txtMaQD40.Clear();
+                    txtMaQDTinh.Clear();
                     txtName.Clear();
                     txtDongia.Clear();
                     txtGiaBHYT.Clear();
@@ -621,7 +631,7 @@ namespace VNS.HIS.UI.THUOC
                     m_enAction = action.Insert;
                     m_dtObjectDataSource.Clear();
                     m_dtSameCodeDataSource.Clear();
-                    txtCode.Focus();
+                   txtMaQD40.Focus();
                     //txtCode.Text = BusinessHelper.MaThuoc();
                     break;
                 default:
@@ -653,6 +663,10 @@ namespace VNS.HIS.UI.THUOC
                 objThuoc.TenThuoc = Utility.sDbnull(txtName.Text);
                 objThuoc.TenBhyt = Utility.sDbnull(txtTEN_BHYT.Text);
                 objThuoc.MaThuoc = Utility.sDbnull(txtCode.Text);
+                objThuoc.MaQD40 = Utility.sDbnull(txtMaQD40.Text);
+                objThuoc.MaQDTinh = Utility.sDbnull(txtMaQDTinh.Text);
+                objThuoc.SluongVuottran = (int)Utility.DecimaltoDbnull(txtSlVuottran.Text, 0);
+
                 objThuoc.IdLoaithuoc = Utility.Int16Dbnull(txtLoaithuoc.MyID);
                 objThuoc.DonGia = Utility.DecimaltoDbnull( txtDongia.Text, 0);
                 objThuoc.GiaBhyt = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
@@ -713,7 +727,7 @@ namespace VNS.HIS.UI.THUOC
                 }
                 Utility.SetMsg(lblMsg, "Thêm mới dữ liệu thành công!",false);
                 SetControlStatus();
-                txtCode.Focus();
+               txtMaQD40.Focus();
             }
             catch
             {
@@ -760,7 +774,11 @@ namespace VNS.HIS.UI.THUOC
             //Tạo giá trị mới cho đối tượng đang cần Update
             DmucThuoc objThuoc = DmucThuoc.FetchByID(txtID.Text);
             
-            objThuoc.IdThuoc = v_intUpdateDrugID;
+            objThuoc.MaThuoc = Utility.sDbnull(txtCode.Text);
+            objThuoc.MaQD40 = Utility.sDbnull(txtMaQD40.Text);
+            objThuoc.MaQDTinh = Utility.sDbnull(txtMaQDTinh.Text);
+            objThuoc.SluongVuottran = (int)Utility.DecimaltoDbnull(txtSlVuottran.Text, 0);
+
             objThuoc.TenThuoc = Utility.GetValue(txtName.Text, false);
             objThuoc.TenBhyt = Utility.GetValue(txtTEN_BHYT.Text, false);
             objThuoc.DonGia = Utility.DecimaltoDbnull( txtDongia.Text,0);

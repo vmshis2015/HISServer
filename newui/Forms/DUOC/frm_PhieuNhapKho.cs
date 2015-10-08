@@ -168,16 +168,19 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                frm_Themmoi_Phieunhapkho frm = new frm_Themmoi_Phieunhapkho();
-                frm.em_Action = action.Insert;
-                frm.p_mDataPhieuNhapKho = m_dtDataNhapKho;
-                frm.KIEU_THUOC_VT =KIEU_THUOC_VT;
-                frm.grdList = grdList;
-                frm.txtIDPhieuNhapKho.Text = "-1";
-                frm.ShowDialog();
-                if(frm.b_Cancel)
+                using (frm_Themmoi_Phieunhapkho frm = new frm_Themmoi_Phieunhapkho())
                 {
-                    grdList_SelectionChanged(grdList,new EventArgs());
+                    frm.em_Action = action.Insert;
+                    frm._OnActionSuccess += frm__OnActionSuccess;
+                    frm.p_mDataPhieuNhapKho = m_dtDataNhapKho;
+                    frm.KIEU_THUOC_VT = KIEU_THUOC_VT;
+                    frm.grdList = grdList;
+                    frm.txtIDPhieuNhapKho.Text = "-1";
+                    frm.ShowDialog();
+                    if (!frm.b_Cancel)
+                    {
+                        grdList_SelectionChanged(grdList, new EventArgs());
+                    }
                 }
             }
             catch (Exception exception)
@@ -193,6 +196,11 @@ namespace VNS.HIS.UI.THUOC
                 ModifyCommand();
             }
             
+        }
+
+        void frm__OnActionSuccess()
+        {
+            grdList_SelectionChanged(grdList, new EventArgs());
         }
         private bool InValiUpdateXoa()
         {
@@ -218,17 +226,20 @@ namespace VNS.HIS.UI.THUOC
             {
                 if(!InValiUpdateXoa())return;
                 int ITPhieuNhapxuatthuoc = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
-                frm_Themmoi_Phieunhapkho frm = new frm_Themmoi_Phieunhapkho();
-                frm.em_Action = action.Update;
-                frm.KIEU_THUOC_VT = KIEU_THUOC_VT;
-                frm.grdList = grdList;
-                frm.p_mDataPhieuNhapKho = m_dtDataNhapKho;
-                frm.txtIDPhieuNhapKho.Text = Utility.sDbnull(ITPhieuNhapxuatthuoc);
-                
-                frm.ShowDialog();
-                if (frm.b_Cancel)
+                using (frm_Themmoi_Phieunhapkho frm = new frm_Themmoi_Phieunhapkho())
                 {
-                    grdList_SelectionChanged(grdList, new EventArgs());
+                    frm._OnActionSuccess += frm__OnActionSuccess;
+                    frm.em_Action = action.Update;
+                    frm.KIEU_THUOC_VT = KIEU_THUOC_VT;
+                    frm.grdList = grdList;
+                    frm.p_mDataPhieuNhapKho = m_dtDataNhapKho;
+                    frm.txtIDPhieuNhapKho.Text = Utility.sDbnull(ITPhieuNhapxuatthuoc);
+
+                    frm.ShowDialog();
+                    if (!frm.b_Cancel)
+                    {
+                        grdList_SelectionChanged(grdList, new EventArgs());
+                    }
                 }
             }
             catch (Exception exception)
