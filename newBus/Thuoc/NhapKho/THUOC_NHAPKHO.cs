@@ -29,6 +29,24 @@ namespace VNS.HIS.NGHIEPVU.THUOC
 
            
         }
+        public static int ThuocTongnhapngoaiTrongNam(int? Nam, int? Idthuoc)
+        {
+            try
+            {
+                int Soluong = 0;
+                StoredProcedure sp = SPs.ThuocTongnhapngoaiTrongNam(Nam, Idthuoc, Soluong);
+                sp.Execute();
+                Soluong = Utility.Int32Dbnull(sp.OutputValues[0], 0);
+                return Soluong;
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+                return 0;
+                
+            }
+           
+        }
         public DataTable LaythongtinChitietPhieunhapKho(int? ITPhieuNhapxuatthuoc)
         {
             return SPs.ThuocLaychitietphieunhapxuat(ITPhieuNhapxuatthuoc).GetDataSet()
