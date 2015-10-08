@@ -2530,6 +2530,7 @@ namespace VNS.HIS.BusRule.Classes
                            .Where(KcbDangkySokham.Columns.IdSokcb).IsEqualTo(objChitietThanhtoan.IdPhieu).Execute();
                         break;
                     case 8://Gói dịch vụ
+                    case 11://Công tiêm chủng
                     case 9://Chi phí thêm
                     case 2://Phí CLS
                         reval = new Update(KcbChidinhclsChitiet.Schema)
