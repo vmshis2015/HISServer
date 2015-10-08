@@ -63,6 +63,11 @@
             this.cmdAdd = new Janus.Windows.EditControls.UIButton();
             this.grdObjectType = new Janus.Windows.GridEX.GridEX();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.optTatcachia = new Janus.Windows.EditControls.UIRadioButton();
+            this.optCochia = new Janus.Windows.EditControls.UIRadioButton();
+            this.optKhongchia = new Janus.Windows.EditControls.UIRadioButton();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.optQhe_tatca = new Janus.Windows.EditControls.UIRadioButton();
             this.optCoQhe = new Janus.Windows.EditControls.UIRadioButton();
@@ -83,11 +88,6 @@
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.gridEXExporter = new Janus.Windows.GridEX.Export.GridEXExporter(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label4 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.optTatcachia = new Janus.Windows.EditControls.UIRadioButton();
-            this.optCochia = new Janus.Windows.EditControls.UIRadioButton();
-            this.optKhongchia = new Janus.Windows.EditControls.UIRadioButton();
             this.sysColor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.ctxThuoc.SuspendLayout();
@@ -99,9 +99,9 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdObjectType)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // sysColor
@@ -415,6 +415,55 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin tìm kiếm";
             // 
+            // panel4
+            // 
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.optTatcachia);
+            this.panel4.Controls.Add(this.optCochia);
+            this.panel4.Controls.Add(this.optKhongchia);
+            this.panel4.Location = new System.Drawing.Point(108, 81);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(293, 25);
+            this.panel4.TabIndex = 468;
+            // 
+            // optTatcachia
+            // 
+            this.optTatcachia.Checked = true;
+            this.optTatcachia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optTatcachia.Location = new System.Drawing.Point(12, 2);
+            this.optTatcachia.Name = "optTatcachia";
+            this.optTatcachia.Size = new System.Drawing.Size(66, 19);
+            this.optTatcachia.TabIndex = 15;
+            this.optTatcachia.TabStop = true;
+            this.optTatcachia.Text = "Tất cả";
+            // 
+            // optCochia
+            // 
+            this.optCochia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optCochia.Location = new System.Drawing.Point(84, 2);
+            this.optCochia.Name = "optCochia";
+            this.optCochia.Size = new System.Drawing.Size(98, 19);
+            this.optCochia.TabIndex = 13;
+            this.optCochia.Text = "Có chia";
+            // 
+            // optKhongchia
+            // 
+            this.optKhongchia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optKhongchia.Location = new System.Drawing.Point(188, 2);
+            this.optKhongchia.Name = "optKhongchia";
+            this.optKhongchia.Size = new System.Drawing.Size(91, 19);
+            this.optKhongchia.TabIndex = 14;
+            this.optKhongchia.Text = "Không chia";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(31, 86);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(69, 15);
+            this.label4.TabIndex = 467;
+            this.label4.Text = "Chia thuốc:";
+            // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -611,55 +660,6 @@
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 86);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 15);
-            this.label4.TabIndex = 467;
-            this.label4.Text = "Chia thuốc:";
-            // 
-            // panel4
-            // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.optTatcachia);
-            this.panel4.Controls.Add(this.optCochia);
-            this.panel4.Controls.Add(this.optKhongchia);
-            this.panel4.Location = new System.Drawing.Point(108, 81);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(293, 25);
-            this.panel4.TabIndex = 468;
-            // 
-            // optTatcachia
-            // 
-            this.optTatcachia.Checked = true;
-            this.optTatcachia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optTatcachia.Location = new System.Drawing.Point(12, 2);
-            this.optTatcachia.Name = "optTatcachia";
-            this.optTatcachia.Size = new System.Drawing.Size(66, 19);
-            this.optTatcachia.TabIndex = 15;
-            this.optTatcachia.TabStop = true;
-            this.optTatcachia.Text = "Tất cả";
-            // 
-            // optCochia
-            // 
-            this.optCochia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optCochia.Location = new System.Drawing.Point(84, 2);
-            this.optCochia.Name = "optCochia";
-            this.optCochia.Size = new System.Drawing.Size(98, 19);
-            this.optCochia.TabIndex = 13;
-            this.optCochia.Text = "Có chia";
-            // 
-            // optKhongchia
-            // 
-            this.optKhongchia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optKhongchia.Location = new System.Drawing.Point(188, 2);
-            this.optKhongchia.Name = "optKhongchia";
-            this.optKhongchia.Size = new System.Drawing.Size(91, 19);
-            this.optKhongchia.TabIndex = 14;
-            this.optKhongchia.Text = "Không chia";
-            // 
             // frm_qhe_doituong_thuoc_coban
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -686,9 +686,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdObjectType)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
