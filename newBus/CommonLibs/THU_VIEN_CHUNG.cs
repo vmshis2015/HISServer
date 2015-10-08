@@ -1996,6 +1996,9 @@ namespace VNS.Libs
                case 10:
                    MaKieu = "SO_KHAM";
                    break;
+               case 11:
+                   MaKieu = "CONG_TIEM";
+                   break;
            }
            return MaKieu;
        }
