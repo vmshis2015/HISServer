@@ -31,7 +31,7 @@ namespace VNS.HIS.UI.NGOAITRU
         bool m_blnAllowSelectionChanged = false;
         private ActionResult actionResult = ActionResult.Error;
         public bool m_blnCancel=true;
-
+        public bool AutoAddAfterCheck = false;
 
         private bool isSaved;
         private int lastIndex;
@@ -639,6 +639,7 @@ namespace VNS.HIS.UI.NGOAITRU
             objKcbChidinhcls.NguoiTao = globalVariables.UserName;
             objKcbChidinhcls.NgayTao = globalVariables.SysDate;
             objKcbChidinhcls.NgayChidinh = dtRegDate.Value.Date;
+            objKcbChidinhcls.KieuChidinh = kieu_chidinh;
             objKcbChidinhcls.IdKham = Exam_ID;
             if (HosStatus == 0)
             {
@@ -1495,7 +1496,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void grdServiceDetail_CellValueChanged(object sender, ColumnActionEventArgs e)
         {
-            if (chkChiDinhNhanh.Checked)
+            if (chkChiDinhNhanh.Checked || AutoAddAfterCheck)
             {
                 if (grdServiceDetail.CurrentRow.IsChecked)
                 {

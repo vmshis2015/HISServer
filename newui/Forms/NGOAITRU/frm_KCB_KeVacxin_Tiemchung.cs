@@ -711,7 +711,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     txtBacsi.SetId( globalVariables.gv_intIDNhanvien);
                 }
-                txtNguoitiem.Init(data, new List<string>() { DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.MaNhanvien, DmucNhanvien.Columns.TenNhanvien });
+                DataTable Nguoitiem = THU_VIEN_CHUNG.Laydanhsachnhanvien("NGUOITIEM");
+                txtNguoitiem.Init(Nguoitiem, new List<string>() { DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.MaNhanvien, DmucNhanvien.Columns.TenNhanvien });
                 txtNguoitiem.SetCode(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEMCHUNG_MANHANVIEN_MACDINH", false));
                 if (txtNguoitiem.MyCode == "-1" && globalVariables.gv_intIDNhanvien > 0)
                 {
@@ -1561,6 +1562,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 this.LoadLaserPrinters();
                 this.txtCachDung.Init();
                 txtLydotiem.Init();
+                LayCongtiem();
                 this.GetData();
                 this.GetDataPresDetail();
                 this.txtChanDoan.Init();
@@ -2258,8 +2260,93 @@ namespace VNS.HIS.UI.NGOAITRU
             chkHennhaclai.CheckedChanged += chkHennhaclai_CheckedChanged;
             txtLydotiem._OnShowData += txtLydotiem__OnShowData;
             chkMuithu.CheckedChanged += chkMuithu_CheckedChanged;
+            cmdKecongtiem.Click+=cmdKecongtiem_Click;
         }
-
+        DataTable m_dtCongtiem = new DataTable();
+        void LayCongtiem()
+        {
+             m_dtCongtiem = new Select().From(KcbChidinhcl.Schema)
+                .Where(KcbChidinhcl.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                .And(KcbChidinhcl.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                .And(KcbChidinhcl.Columns.KieuChidinh).IsEqualTo(4)
+                 .ExecuteDataSet().Tables[0];
+            if (m_dtCongtiem != null && m_dtCongtiem.Rows.Count > 0)
+            {
+                errorProvider1.Clear();
+            }
+            else
+                errorProvider1.SetError(cmdKecongtiem, "Chú ý: Chưa kê khai công tiêm chủng");
+        }
+        void cmdKecongtiem_Click(object sender, EventArgs e)
+        {
+            if (m_dtDonthuocChitiet != null && m_dtDonthuocChitiet.Rows.Count <= 0)
+            {
+                Utility.ShowMsg("Chú ý: Bạn nên kê vắc xin tiêm trước khi kê công tiêm chủng");
+            }
+            DataRow[] arrDr = m_dtCongtiem.Select("1=1");
+            if (arrDr.Length <= 0)
+                ThemCongtiem();
+            else
+                CapnhatCongtiem(Utility.Int64Dbnull(arrDr[0]["id_chidinh"], 0));
+        }
+        private void ThemCongtiem()
+        {
+            try
+            {
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("CONGTIEM", 4);
+                frm.txtAssign_ID.Text = "-100";
+                frm.AutoAddAfterCheck = true;
+                frm.Exam_ID =id_kham;
+                frm.objLuotkham = objLuotkham;
+                frm.objBenhnhan = objBenhnhan;
+                frm.objPhieudieutriNoitru = null;
+                frm.m_eAction = action.Insert;
+                frm.txtAssign_ID.Text = "-1";
+                frm.HosStatus = 0;
+                frm.ShowDialog();
+                if (!frm.m_blnCancel)
+                {
+                    LayCongtiem();
+                }
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+            finally
+            {
+                
+            }
+        }
+        private void CapnhatCongtiem(long idChidinh)
+        {
+            try
+            {
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("CONGTIEM", 4);
+                frm.txtAssign_ID.Text = "-100";
+                frm.AutoAddAfterCheck = true;
+                frm.Exam_ID = id_kham;
+                frm.objLuotkham = objLuotkham;
+                frm.objBenhnhan = objBenhnhan;
+                frm.objPhieudieutriNoitru = null;
+                frm.m_eAction = action.Update;
+                frm.txtAssign_ID.Text = idChidinh.ToString();
+                frm.HosStatus = 0;
+                frm.ShowDialog();
+                if (!frm.m_blnCancel)
+                {
+                    LayCongtiem();
+                }
+            }
+            catch (Exception)
+            {
+                
+            }
+            finally
+            {
+               
+            }
+        }
         void chkMuithu_CheckedChanged(object sender, EventArgs e)
         {
             txtMuithu.Enabled = !chkMuithu.Checked;
@@ -3366,6 +3453,7 @@ namespace VNS.HIS.UI.NGOAITRU
        
 
         public KcbLuotkham objLuotkham { get; set; }
+        public KcbDanhsachBenhnhan objBenhnhan { get; set; }
 
         public KcbDangkyKcb objRegExam { get; set; }
         public NoitruPhieudieutri objPhieudieutriNoitru { get; set; }

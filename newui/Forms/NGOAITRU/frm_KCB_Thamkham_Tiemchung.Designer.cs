@@ -205,6 +205,7 @@
             this.ctxDelVTTH = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuDelVTTH = new System.Windows.Forms.ToolStripMenuItem();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.cmdKecongtiem = new Janus.Windows.EditControls.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.grpSearch)).BeginInit();
             this.grpSearch.SuspendLayout();
             this.ctxDelCLS.SuspendLayout();
@@ -739,7 +740,7 @@
             this.cmdLuuChandoan.Name = "cmdLuuChandoan";
             this.cmdLuuChandoan.Size = new System.Drawing.Size(113, 29);
             this.cmdLuuChandoan.TabIndex = 51;
-            this.cmdLuuChandoan.Text = "Lưu thông tin";
+            this.cmdLuuChandoan.Text = "&Lưu thông tin";
             this.toolTip1.SetToolTip(this.cmdLuuChandoan, "Nhấn vào đây để lưu thông tin thăm khám(Phím tắt Ctrl+S)");
             // 
             // chkKPL3
@@ -1228,6 +1229,7 @@
             // 
             // pnlKetluan
             // 
+            this.pnlKetluan.Controls.Add(this.cmdKecongtiem);
             this.pnlKetluan.Controls.Add(this.chkNgaytiem);
             this.pnlKetluan.Controls.Add(this.dtpNgaysudung);
             this.pnlKetluan.Controls.Add(this.txtLydotiem);
@@ -1290,6 +1292,7 @@
             this.txtLydotiem.DefaultCode = "-1";
             this.txtLydotiem.DefaultID = "-1";
             this.txtLydotiem.Drug_ID = null;
+            this.txtLydotiem.Enabled = false;
             this.txtLydotiem.ExtraWidth = 0;
             this.txtLydotiem.FillValueAfterSelect = false;
             this.txtLydotiem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1338,7 +1341,7 @@
             this.cmdInbangke.Name = "cmdInbangke";
             this.cmdInbangke.Size = new System.Drawing.Size(165, 29);
             this.cmdInbangke.TabIndex = 52;
-            this.cmdInbangke.Text = "In bảng kiểm trước TC";
+            this.cmdInbangke.Text = "&In bảng kiểm trước TC";
             // 
             // chkMuithu
             // 
@@ -2053,7 +2056,7 @@
             this.tabPageChidinhThuoc.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageChidinhThuoc.Location = new System.Drawing.Point(1, 23);
             this.tabPageChidinhThuoc.Name = "tabPageChidinhThuoc";
-            this.tabPageChidinhThuoc.Size = new System.Drawing.Size(600, 543);
+            this.tabPageChidinhThuoc.Size = new System.Drawing.Size(600, 563);
             this.tabPageChidinhThuoc.TabStop = true;
             this.tabPageChidinhThuoc.Text = "Kê Vắc xin (Nhấn F3)";
             // 
@@ -2065,7 +2068,7 @@
             this.pnltabkedon.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnltabkedon.Location = new System.Drawing.Point(0, 0);
             this.pnltabkedon.Name = "pnltabkedon";
-            this.pnltabkedon.Size = new System.Drawing.Size(600, 543);
+            this.pnltabkedon.Size = new System.Drawing.Size(600, 563);
             this.pnltabkedon.TabIndex = 21;
             // 
             // grdPresDetail
@@ -2089,7 +2092,7 @@
             this.grdPresDetail.RecordNavigator = true;
             this.grdPresDetail.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdPresDetail.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
-            this.grdPresDetail.Size = new System.Drawing.Size(600, 511);
+            this.grdPresDetail.Size = new System.Drawing.Size(600, 531);
             this.grdPresDetail.TabIndex = 2;
             this.grdPresDetail.TabStop = false;
             this.grdPresDetail.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
@@ -2108,7 +2111,7 @@
             this.pnlDonthuoc.Controls.Add(this.cmdUpdatePres);
             this.pnlDonthuoc.Controls.Add(this.cmdCreateNewPres);
             this.pnlDonthuoc.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlDonthuoc.Location = new System.Drawing.Point(0, 511);
+            this.pnlDonthuoc.Location = new System.Drawing.Point(0, 531);
             this.pnlDonthuoc.Name = "pnlDonthuoc";
             this.pnlDonthuoc.Size = new System.Drawing.Size(600, 32);
             this.pnlDonthuoc.TabIndex = 1;
@@ -2538,6 +2541,18 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // cmdKecongtiem
+            // 
+            this.cmdKecongtiem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdKecongtiem.Image = ((System.Drawing.Image)(resources.GetObject("cmdKecongtiem.Image")));
+            this.cmdKecongtiem.ImageSize = new System.Drawing.Size(30, 30);
+            this.cmdKecongtiem.ImageVerticalAlignment = Janus.Windows.EditControls.ImageVerticalAlignment.Near;
+            this.cmdKecongtiem.Location = new System.Drawing.Point(145, 462);
+            this.cmdKecongtiem.Name = "cmdKecongtiem";
+            this.cmdKecongtiem.Size = new System.Drawing.Size(129, 29);
+            this.cmdKecongtiem.TabIndex = 589;
+            this.cmdKecongtiem.Text = "&Kê công tiêm";
+            // 
             // frm_KCB_Thamkham_Tiemchung
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -2761,5 +2776,6 @@
         internal System.Windows.Forms.Label label9;
         private System.Windows.Forms.DateTimePicker dtpNgaysudung;
         private Janus.Windows.EditControls.UICheckBox chkNgaytiem;
+        private Janus.Windows.EditControls.UIButton cmdKecongtiem;
     }
 }

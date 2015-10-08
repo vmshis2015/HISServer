@@ -3180,6 +3180,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void UpdateChiDanThem()
         {
+            
             //Tạm bỏ đi
             //if (!string.IsNullOrEmpty(txtChiDanThem.Text))
             //{

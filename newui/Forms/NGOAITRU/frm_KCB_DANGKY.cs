@@ -82,18 +82,30 @@ namespace VNS.HIS.UI.NGOAITRU
         public frm_KCB_DANGKY(string Args)
         {
             InitializeComponent();
-            this.Args = Args;
-            txtTEN_BN.CharacterCasing = globalVariables.CHARACTERCASING == 0
-                                            ? CharacterCasing.Normal
-                                            : CharacterCasing.Upper;
-           
-            dtCreateDate.Value = globalVariables.SysDate;
-            dtInsFromDate.Value = new DateTime(globalVariables.SysDate.Year, 01, 01);
-            dtInsToDate.Value = new DateTime(globalVariables.SysDate.Year, 12, 31);
+            try
+            {
+                this.Args = Args;
+                lblTuoi.Visible = txtTuoi.Visible = this.Args.Split('-')[0] != "KTC";
+                txtTEN_BN.CharacterCasing = globalVariables.CHARACTERCASING == 0
+                                                ? CharacterCasing.Normal
+                                                : CharacterCasing.Upper;
 
-            InitEvents();
-            CauHinhQMS();
-            CauHinhKCB();
+                dtCreateDate.Value = globalVariables.SysDate;
+                dtInsFromDate.Value = new DateTime(globalVariables.SysDate.Year, 01, 01);
+                dtInsToDate.Value = new DateTime(globalVariables.SysDate.Year, 12, 31);
+
+                InitEvents();
+                CauHinhQMS();
+                CauHinhKCB();
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+                
+            }
+            
+            
+          
         }
 
         void InitEvents()
@@ -5732,6 +5744,7 @@ namespace VNS.HIS.UI.NGOAITRU
             objBenhnhan.DiachiBhyt = Utility.sDbnull(txtDiachi_bhyt.Text);
             objBenhnhan.DienThoai = txtSoDT.Text;
             objBenhnhan.Email = Utility.sDbnull(txtEmail.Text, "");
+            objBenhnhan.SoTiemchungQg = Utility.sDbnull(txtSoBATCQG.Text, "");
             objBenhnhan.NguoiLienhe = Utility.sDbnull(txtNguoiLienhe.Text);
             objBenhnhan.NgayTao = globalVariables.SysDate;
             objBenhnhan.NguoiTao = globalVariables.UserName;
@@ -5806,8 +5819,13 @@ namespace VNS.HIS.UI.NGOAITRU
             objLuotkham.CachTao = 0;
             objLuotkham.Email = txtEmail.Text;
             objLuotkham.NoiGioithieu = txtNoigioithieu.Text;
-            
-           
+            long week = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.WeekOfYear, dtpBOD.Value, dtCreateDate.Value);
+            long Month = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.Month, dtpBOD.Value, dtCreateDate.Value);
+            long Year = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.Year, dtpBOD.Value, dtCreateDate.Value);
+            int Tinhtuoitheotuan = Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_TINHTUOI_THEOTUAN", "6", false));
+            int Tinhtuoitheothang = Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_TINHTUOI_THEOTHANG", "17", false));
+            objLuotkham.Tuoi = (int)(Month <= Tinhtuoitheotuan ? week : (Month <= Tinhtuoitheothang ? Month : Year));
+            objLuotkham.LoaiTuoi =(byte)( Month <= Tinhtuoitheotuan ? 2 : (Month <= Tinhtuoitheothang ? 1 : 0));
             objLuotkham.NhomBenhnhan = txtLoaiBN.myCode;
             objLuotkham.IdBenhvienDen = Utility.Int16Dbnull(txtNoichuyenden.MyID, -1);
             objLuotkham.TthaiChuyenden = (byte)(chkChuyenVien.Checked ? 1 : 0);

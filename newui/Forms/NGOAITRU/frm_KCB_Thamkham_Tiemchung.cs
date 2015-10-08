@@ -74,7 +74,6 @@ namespace VNS.HIS.UI.NGOAITRU
         private DataTable dt_ICD = new DataTable();
         private bool hasLoaded;
        
-        private bool isLike = true;
         private DataTable m_dtVTTH = new DataTable();
         private DataTable m_dtDoctorAssign;
         private DataTable m_dtKhoaNoiTru = new DataTable();
@@ -148,16 +147,10 @@ namespace VNS.HIS.UI.NGOAITRU
             grdList.MouseClick += new MouseEventHandler(grdList_MouseClick);
 
             grdPresDetail.UpdatingCell += grdPresDetail_UpdatingCell;
-
-         
-
             cmdSave.Click+=new EventHandler(cmdSave_Click);
 
             cmdChuyenVien.Click += cmdChuyenVien_Click;
             cmdCauHinh.Click+=new EventHandler(cmdCauHinh_Click);
-            
-
-
             
             cboLaserPrinters.SelectedIndexChanged+=new EventHandler(cboLaserPrinters_SelectedIndexChanged);
 
@@ -178,9 +171,6 @@ namespace VNS.HIS.UI.NGOAITRU
           
             txtKet_Luan._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtKet_Luan__OnShowData);
             txtHuongdieutri._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtHuongdieutri__OnShowData);
-           
-
-        
             txtKet_Luan._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtKet_Luan__OnSaveAs);
             txtHuongdieutri._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtHuongdieutri__OnSaveAs);
            
@@ -222,8 +212,101 @@ namespace VNS.HIS.UI.NGOAITRU
             txtKQ._OnShowData += txtKQ__OnShowData;
             txtLydotiem._OnShowData += txtLydotiem__OnShowData;
             chkNgaytiem.CheckedChanged += chkNgaytiem_CheckedChanged;
+            cmdKecongtiem.Click += cmdKecongtiem_Click;
+            cmdInbangke_1.Click += cmdInbangke_1_Click;
         }
 
+        void cmdInbangke_1_Click(object sender, EventArgs e)
+        {
+            cmdInbangke_Click(cmdInbangke, e);
+        }
+        DataTable m_dtCongtiem = new DataTable();
+        void LayCongtiem()
+        {
+            m_dtCongtiem = new Select().From(KcbChidinhcl.Schema)
+                .Where(KcbChidinhcl.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                .And(KcbChidinhcl.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                .And(KcbChidinhcl.Columns.KieuChidinh).IsEqualTo(4)
+                .ExecuteDataSet().Tables[0];
+            if (m_dtCongtiem != null && m_dtCongtiem.Rows.Count > 0)
+            {
+                errorProvider1.Clear();
+            }
+            else
+                errorProvider1.SetError(cmdKecongtiem, "Chú ý: Chưa kê khai công tiêm chủng");
+        }
+        void cmdKecongtiem_Click(object sender, EventArgs e)
+        {
+            if (m_dtChitietDonthuoc != null && m_dtChitietDonthuoc.Rows.Count <= 0)
+            {
+                Utility.ShowMsg("Chú ý: Bạn nên kê vắc xin tiêm trước khi kê công tiêm chủng");
+            }
+            DataRow[] arrDr = m_dtCongtiem.Select("1=1");
+            if (arrDr.Length <= 0)
+                ThemCongtiem();
+            else
+                CapnhatCongtiem(Utility.Int64Dbnull(arrDr[0]["id_chidinh"], 0));
+        }
+        private void ThemCongtiem()
+        {
+            try
+            {
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("CONGTIEM", 4);
+                frm.txtAssign_ID.Text = "-100";
+                frm.AutoAddAfterCheck = true;
+                frm.Exam_ID = Utility.Int32Dbnull(txtExam_ID.Text);
+                frm.objLuotkham = objLuotkham;
+                frm.objBenhnhan = objBenhnhan;
+                frm.objPhieudieutriNoitru = null;
+                frm.m_eAction = action.Insert;
+                frm.txtAssign_ID.Text = "-1";
+                frm.HosStatus = 0;
+                frm.ShowDialog();
+                if (!frm.m_blnCancel)
+                {
+                    LayCongtiem();
+                }
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+            finally
+            {
+                txtPatient_Code.Focus();
+                txtPatient_Code.SelectAll();
+            }
+        }
+        private void CapnhatCongtiem(long idChidinh)
+        {
+            try
+            {
+                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("CONGTIEM", 4);
+                frm.txtAssign_ID.Text = "-100";
+                frm.AutoAddAfterCheck = true;
+                frm.Exam_ID = Utility.Int32Dbnull(txtExam_ID.Text); 
+                frm.objLuotkham = objLuotkham;
+                frm.objBenhnhan = objBenhnhan;
+                frm.objPhieudieutriNoitru = null;
+                frm.m_eAction = action.Update;
+                frm.txtAssign_ID.Text = idChidinh.ToString();
+                frm.HosStatus = 0;
+                frm.ShowDialog();
+                if (!frm.m_blnCancel)
+                {
+                    LayCongtiem();
+                }
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+            finally
+            {
+                txtPatient_Code.Focus();
+                txtPatient_Code.SelectAll();
+            }
+        }
         void chkNgaytiem_CheckedChanged(object sender, EventArgs e)
         {
             dtpNgaysudung.Enabled = chkNgaytiem.Checked;
@@ -492,11 +575,13 @@ namespace VNS.HIS.UI.NGOAITRU
             if (!chkPhanungVacxin.Checked)
             {
                 objChitiet = null;
-                txtPhanungSautiem.SetCode(_KcbChandoanKetluan.PhanungSautiemchung);
-                txtHuongdieutri.SetCode(_KcbChandoanKetluan.HuongDieutri);
-                txtKet_Luan.SetCode(_KcbChandoanKetluan.KetluanNguyennhan);
-                txtKQ.SetCode(_KcbChandoanKetluan.Ketluan);
-
+                if (_KcbChandoanKetluan != null)
+                {
+                    txtPhanungSautiem.SetCode(_KcbChandoanKetluan.PhanungSautiemchung);
+                    txtHuongdieutri.SetCode(_KcbChandoanKetluan.HuongDieutri);
+                    txtKet_Luan.SetCode(_KcbChandoanKetluan.KetluanNguyennhan);
+                    txtKQ.SetCode(_KcbChandoanKetluan.Ketluan);
+                }
                 ModifyButtonTiemChung();
             }
             else
@@ -513,7 +598,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     txtLydotiem.SetCode(objChitiet.LydoTiemchung);
                     chkMuithu.Enabled = chkPhanungVacxin.Checked && objChitiet != null;
                     chkHennhaclai.Checked = chkHennhaclai.Enabled = chkMuithu.Enabled;
-                    if (chkHennhaclai.Checked)
+                    if (chkHennhaclai.Checked && objChitiet.NgayhenMuiketiep!=null)
                         dtpHennhaclai.Value = objChitiet.NgayhenMuiketiep.Value;
                     dtpNgaysudung.Value = objChitiet.NgaySudung.Value;
                     cmdChuatiem.Enabled = Utility.Byte2Bool(objChitiet.DaDung);
@@ -676,6 +761,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm_KCB_KeVacxin_Tiemchung frm = new frm_KCB_KeVacxin_Tiemchung("VT");
                 frm.em_Action = action.Insert;
                 frm.objLuotkham = this.objLuotkham;
+                frm.objBenhnhan = this.objBenhnhan;
                 frm._KcbChandoanKetluan = _KcbChandoanKetluan;
                 frm.dt_ICD = dt_ICD;
                 frm.id_kham = Utility.Int32Dbnull(txtExam_ID.Text);
@@ -745,6 +831,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         frm.dt_ICD = dt_ICD;
                         frm.noitru = 0;
                         frm.objLuotkham = this.objLuotkham;
+                        frm.objBenhnhan = this.objBenhnhan;
                         frm.id_kham = Utility.Int32Dbnull(txtExam_ID.Text);
                         frm.objPhieudieutriNoitru = null;
                         frm.txtPatientCode.Text = Utility.sDbnull(objLuotkham.MaLuotkham);
@@ -1411,8 +1498,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     txtBacsi.SetId(globalVariables.gv_intIDNhanvien);
                 }
-
-                txtNguoitiem.Init(m_dtDoctorAssign, new List<string>() { DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.MaNhanvien, DmucNhanvien.Columns.TenNhanvien });
+                DataTable Nguoitiem = THU_VIEN_CHUNG.Laydanhsachnhanvien("NGUOITIEM");
+                txtNguoitiem.Init(Nguoitiem, new List<string>() { DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.MaNhanvien, DmucNhanvien.Columns.TenNhanvien });
                 txtNguoitiem.SetCode(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEMCHUNG_MANHANVIEN_MACDINH",false));
                 if (txtNguoitiem.MyCode == "-1" && globalVariables.gv_intIDNhanvien > 0)
                 {
@@ -1473,14 +1560,24 @@ namespace VNS.HIS.UI.NGOAITRU
 
         void ModifyButtonTiemChung()
         {
-            cmdDatiem.Enabled =m_dtChitietDonthuoc!=null &&  m_dtChitietDonthuoc.Select("trangthai_chitiet=1").Length > 0;
-            cmdChuatiem.Enabled = m_dtChitietDonthuoc != null && m_dtChitietDonthuoc.Select("da_dung=1").Length > 0;
-            pnlPhanungsautiem.Enabled = m_dtChitietDonthuoc != null && m_dtChitietDonthuoc.Select("da_dung=1").Length > 0;
+            if (chkPhanungVacxin.Checked)
+            {
+                cmdDatiem.Enabled = objChitiet != null && Utility.Byte2Bool(objChitiet.TrangThai);
+                cmdChuatiem.Enabled = objChitiet != null && Utility.Byte2Bool(objChitiet.DaDung);
+                pnlPhanungsautiem.Enabled = objChitiet != null && Utility.Byte2Bool(objChitiet.DaDung);
+            }
+            else
+            {
+                cmdDatiem.Enabled = m_dtChitietDonthuoc != null && m_dtChitietDonthuoc.Select("trangthai_chitiet=1").Length > 0;
+                cmdChuatiem.Enabled = m_dtChitietDonthuoc != null && m_dtChitietDonthuoc.Select("da_dung=1").Length > 0;
+                pnlPhanungsautiem.Enabled = m_dtChitietDonthuoc != null && m_dtChitietDonthuoc.Select("da_dung=1").Length > 0;
+            }
             if (!pnlPhanungsautiem.Enabled) errorProvider1.SetError(chkPhanungVacxin, "Cần phát vắc xin cho Bệnh nhân và đánh dấu trạng thái Đã tiêm trước khi thực hiện nhập liệu thông tin phản ứng sau tiêm chủng");
         }
         private void Laythongtinchidinhngoaitru()
         {
             errorProvider1.Clear();
+            LayCongtiem();
             ds =
                 _KCB_THAMKHAM.LaythongtinCLSVaThuoc(Utility.Int32Dbnull(txtPatient_ID.Text, -1),
                                                          Utility.sDbnull(m_strMaLuotkham, ""),
@@ -1873,18 +1970,26 @@ namespace VNS.HIS.UI.NGOAITRU
                                      chkKL1.Checked = Utility.Byte2Bool(_KcbChandoanKetluan.KL1);
                                      chkKL2.Checked = Utility.Byte2Bool(_KcbChandoanKetluan.KL2);
                                      chkKL3.Checked = Utility.Byte2Bool(_KcbChandoanKetluan.KL3);
-
-
-                                     AllowTextChanged = true;
-                                     isLike = false;
-                                     txtChanDoanKemTheo.Text = Utility.sDbnull(_KcbChandoanKetluan.ChandoanKemtheo);
-                                     string dataString = Utility.sDbnull(_KcbChandoanKetluan.MabenhPhu, "");
-                                     isLike = true;
-                                     AllowTextChanged = false;
                                     
                                  }
                                  else
                                  {
+                                     txtKQ.SetCode("-1");
+                                     txtKet_Luan.SetCode("-1");
+                                     txtHuongdieutri.SetCode("-1");
+                                     txtPhanungSautiem.SetCode("-1");
+                                     chkKPL1.Checked = false;
+                                     chkKPL2.Checked = false;
+                                     chkKPL3.Checked = false;
+                                     chkKPL4.Checked = false;
+                                     chkKPL5.Checked = false;
+                                     chkKPL6.Checked = false;
+                                     chkKPL7.Checked = false;
+                                     chkKPL8.Checked = false;
+                                     chkKL1.Checked = false;
+                                     chkKL2.Checked = false;
+                                     chkKL3.Checked = false;
+                                     txtChanDoanKemTheo.Text = "";
                                  }
                                 
                                 Laythongtinchidinhngoaitru();
@@ -2529,6 +2634,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm_KCB_KeVacxin_Tiemchung frm = new frm_KCB_KeVacxin_Tiemchung("THUOC");
                 frm.em_Action = action.Insert;
                 frm.objLuotkham = this.objLuotkham;
+                frm.objBenhnhan = this.objBenhnhan;
                 frm._KcbChandoanKetluan = _KcbChandoanKetluan;
                 frm.dt_ICD = dt_ICD;
                 frm.id_kham = Utility.Int32Dbnull(txtExam_ID.Text);
@@ -2630,6 +2736,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             frm.dt_ICD = dt_ICD;
                             frm.noitru = 0;
                             frm.objLuotkham = this.objLuotkham;
+                            frm.objBenhnhan = this.objBenhnhan;
                             frm.id_kham = Utility.Int32Dbnull(txtExam_ID.Text);
                             frm.objRegExam = KcbDangkyKcb.FetchByID(Utility.Int32Dbnull(txtReg_ID.Text));
                             frm.txtPatientCode.Text = Utility.sDbnull(objLuotkham.MaLuotkham);
