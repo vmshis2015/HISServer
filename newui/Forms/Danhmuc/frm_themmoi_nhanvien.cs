@@ -54,6 +54,31 @@ namespace VNS.HIS.UI.DANHMUC
         private void InitEvents()
         {
             grdKhoa.SelectionChanged += grdKhoa_SelectionChanged;
+            txtUID._OnEnterMe += txtUID__OnEnterMe;
+        }
+
+        void txtUID__OnEnterMe()
+        {
+            try
+            {
+                DataTable objNhanvien =
+                                new Select("*").From(SysUser.Schema).Where(SysUser.Columns.PkSuid).IsEqualTo(
+                                    Utility.sDbnull(txtUID.MyCode)).ExecuteDataSet().Tables[0];
+                if (objNhanvien != null && em_Action == action.Insert)
+                {
+                    foreach (DataRow row in objNhanvien.AsEnumerable())
+                    {
+                        txtName.Text = row["sFullName"].ToString();
+                        txtStaffCode.Text = row["PK_sUID"].ToString();
+                        txtKhoa.Text = row["sDepart"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Utility.CatchException(ex);
+            }
         }
 
         private void grdKhoa_SelectionChanged(object sender, EventArgs e)
@@ -93,7 +118,22 @@ namespace VNS.HIS.UI.DANHMUC
         {
             Close();
         }
-
+        void InsertFlow()
+        {
+            em_Action = action.Insert;
+            txtUID.SetCode("-1");
+            txtStaffCode.Clear();
+            txtName.Clear();
+            txtID.Text = "-1";
+            grdDichvuCls.UnCheckAllRecords();
+            grdKhoa.UnCheckAllRecords();
+            grdKhoanoitru.UnCheckAllRecords();
+            grdKhoThuoc.UnCheckAllRecords();
+            grdLoaiThuoc.UnCheckAllRecords();
+            grdPhongkham.UnCheckAllRecords();
+            grdQuyen.UnCheckAllRecords();
+            txtUID.Focus();
+        }
         private void InitialData()
         {
             try
@@ -182,8 +222,9 @@ namespace VNS.HIS.UI.DANHMUC
         private void frm_themmoi_nhanvien_Load(object sender, EventArgs e)
         {
             InitialData();
+            txtUID.Focus();
             if (em_Action == action.Update) GetData();
-            SetStatusAlter();
+            
         }
 
         private void frm_themmoi_nhanvien_KeyDown(object sender, KeyEventArgs e)
@@ -208,18 +249,6 @@ namespace VNS.HIS.UI.DANHMUC
 
         private void cboUserName_SelectedValueChanged(object sender, EventArgs e)
         {
-            DataTable objNhanvien =
-                new Select("*").From(SysUser.Schema).Where(SysUser.Columns.PkSuid).IsEqualTo(
-                    Utility.sDbnull(cboUserName.SelectedValue)).ExecuteDataSet().Tables[0];
-            if (objNhanvien != null && em_Action == action.Insert)
-            {
-                foreach (DataRow row in objNhanvien.AsEnumerable())
-                {
-                    txtName.Text = row["sFullName"].ToString();
-                    txtStaffCode.Text = row["PK_sUID"].ToString();
-                    txtKhoa.Text = row["sDepart"].ToString();
-                }
-            }
         }
 
         #region "Method of common"
@@ -304,10 +333,10 @@ namespace VNS.HIS.UI.DANHMUC
                     return false;
                 }
             }
-            if (cboUserName.SelectedValue != "-1")
+            if (txtUID.MyCode != "-1")
             {
                 SqlQuery q2 = new Select().From(DmucNhanvien.Schema)
-                    .Where(DmucNhanvien.Columns.UserName).IsEqualTo(cboUserName.SelectedValue);
+                    .Where(DmucNhanvien.Columns.UserName).IsEqualTo(txtUID.MyCode);
                 if (em_Action == action.Update)
                     q2.And(DmucNhanvien.Columns.IdNhanvien).IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
                 if (q2.GetRecordCount() > 0)
@@ -350,11 +379,13 @@ namespace VNS.HIS.UI.DANHMUC
                 dr[DmucNhanvien.Columns.IdPhong] = Utility.Int16Dbnull(cboDepart.SelectedValue, 1);
                 dr["ten_phong"] = Utility.sDbnull(cboDepart.Text, "");
                 dr["ten_loainhanvien"] = Utility.sDbnull(cboStaffType.Text, "");
-                dr[DmucNhanvien.Columns.UserName] = Utility.sDbnull(cboUserName.SelectedValue, "");
+                dr[DmucNhanvien.Columns.UserName] = txtUID.MyCode;
                 dr[DmucNhanvien.Columns.MaLoainhanvien] = Utility.sDbnull(cboStaffType.SelectedValue, "");
 
                 p_dtStaffList.Rows.InsertAt(dr, 0);
-                Close();
+                if (chkThemmoiLientuc.Checked) InsertFlow();
+                else
+                    Close();
             }
             else
             {
@@ -482,7 +513,7 @@ namespace VNS.HIS.UI.DANHMUC
             objDmucNhanvien.IdPhong = Utility.Int16Dbnull(cboDepart.SelectedValue, -1);
             objDmucNhanvien.IdKhoa = Utility.Int32Dbnull(cboUpLevel.SelectedValue, -1);
             objDmucNhanvien.MaLoainhanvien = Utility.sDbnull(cboStaffType.SelectedValue, "-1");
-            objDmucNhanvien.UserName = Utility.sDbnull(cboUserName.SelectedValue, "");
+            objDmucNhanvien.UserName = txtUID.MyCode;
             objDmucNhanvien.TrangThai = Convert.ToByte(chkHienThi.Checked ? 1 : 0);
 
             objDmucNhanvien.MotaThem = Utility.DoTrim(txtmotathem.Text);
@@ -509,7 +540,7 @@ namespace VNS.HIS.UI.DANHMUC
                         p_dtStaffList.Select(DmucNhanvien.Columns.IdNhanvien + "=" + Utility.Int32Dbnull(txtID.Text, -1));
                     if (dr.GetLength(0) > 0)
                     {
-                        dr[0][DmucNhanvien.Columns.UserName] = Utility.sDbnull(cboUserName.SelectedValue);
+                        dr[0][DmucNhanvien.Columns.UserName] = txtUID.MyCode;
                         dr[0][DmucNhanvien.Columns.MaLoainhanvien] = Utility.sDbnull(cboStaffType.SelectedValue, -1);
                         dr[0]["ten_loainhanvien"] = Utility.sDbnull(cboStaffType.Text, "");
                         dr[0]["ten_phong"] = Utility.sDbnull(cboDepart.Text, -1);
