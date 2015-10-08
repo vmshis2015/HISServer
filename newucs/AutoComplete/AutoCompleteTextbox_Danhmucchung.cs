@@ -638,7 +638,7 @@ namespace VNS.HIS.UCs
             else if ((args.KeyCode == Keys.Enter))
             {
                 AllowChangedListBox = false;
-                if (listBox.SelectedIndex != -1 && CurrentAutoCompleteList.Count > 0)//&& this.TopLevelControl.Controls.Contains(panel))
+                if (listBox.SelectedIndex != -1 && CurrentAutoCompleteList.Count > 0)
                     // select the item in the ListBox
                     SelectItem();
                 listBox.SelectedIndex = -1;
@@ -753,17 +753,19 @@ namespace VNS.HIS.UCs
         // event for MouseClick in the ListBox
         private void listBox_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            // select the current item
+            AllowChangedListBox = false;
             SelectItem();
             if (RaiseEventEnter && _OnEnterMe != null) _OnEnterMe();
+            AllowChangedListBox = true;
         }
 
         // event for DoubleClick in the ListBox
         private void listBox_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            // select the current item
+            AllowChangedListBox = false;
             SelectItem();
             if (RaiseEventEnter && _OnEnterMe != null) _OnEnterMe();
+            AllowChangedListBox = true;
         }
 
         private void MoveSelectionInListBox(int Index)
