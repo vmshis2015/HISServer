@@ -8,29 +8,25 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using CrystalDecisions.CrystalReports.Engine;
-using Janus.Windows.CalendarCombo;
-using Janus.Windows.EditControls;
 using Janus.Windows.GridEX;
 using Janus.Windows.GridEX.EditControls;
 using Janus.Windows.UI.Tab;
-using Microsoft.VisualBasic;
 using NLog;
 using SubSonic;
-using VNS.Libs;
-using VNS.HIS.DAL;
-
-using VNS.HIS.UI.NGOAITRU;
-using VNS.UI.QMS;
-using VNS.Properties;
 using VNS.HIS.BusRule.Classes;
-
+using VNS.HIS.Classes;
+using VNS.HIS.DAL;
+using VNS.HIS.UCs;
 using VNS.HIS.UI.BENH_AN;
+using VNS.HIS.UI.DANHMUC;
+using VNS.HIS.UI.Forms.CanLamSang;
+using VNS.HIS.UI.Forms.Cauhinh;
 using VNS.HIS.UI.Forms.NGOAITRU;
 using VNS.HIS.UI.NOITRU;
-using VNS.HIS.UI.DANHMUC;
-using VNS.HIS.Classes;
+using VNS.Libs;
+using VNS.Properties;
 using VNS.UCs;
-using VNS.HIS.UI.Forms.Cauhinh;
+using VNS.UI.QMS;
 
 namespace VNS.HIS.UI.NGOAITRU
 {
@@ -39,50 +35,64 @@ namespace VNS.HIS.UI.NGOAITRU
     /// </summary>
     public partial class frm_KCB_THAMKHAM : Form
     {
-        KCB_THAMKHAM _KCB_THAMKHAM = new KCB_THAMKHAM();
-        KCB_KEDONTHUOC _KCB_KEDONTHUOC = new KCB_KEDONTHUOC();
-        KCB_CHIDINH_CANLAMSANG _KCB_CHIDINH_CANLAMSANG = new KCB_CHIDINH_CANLAMSANG();
-        DMUC_CHUNG _DMUC_CHUNG = new DMUC_CHUNG();
         private readonly string FileName = string.Format("{0}/{1}", Application.StartupPath,
                                                          "SplitterDistanceThamKham.txt");
 
         private readonly MoneyByLetter MoneyByLetter = new MoneyByLetter();
-        private  DataTable dt_ICD_PHU = new DataTable();
+        private readonly KCB_CHIDINH_CANLAMSANG _KCB_CHIDINH_CANLAMSANG = new KCB_CHIDINH_CANLAMSANG();
+        private readonly KCB_KEDONTHUOC _KCB_KEDONTHUOC = new KCB_KEDONTHUOC();
+        private readonly KCB_THAMKHAM _KCB_THAMKHAM = new KCB_THAMKHAM();
         private readonly Logger log;
+
+        private readonly List<string> lstKQCochitietColumns = new List<string>
+                                                                  {"ten_chitietdichvu", "Ket_qua", "bt_nam", "bt_nu"};
+
+        private readonly List<string> lstKQKhongchitietColumns = new List<string> {"Ket_qua", "bt_nam", "bt_nu"};
+
+        private readonly List<string> lstResultColumns = new List<string>
+                                                             {
+                                                                 "ten_chitietdichvu",
+                                                                 "ketqua_cls",
+                                                                 "binhthuong_nam",
+                                                                 "binhthuong_nu"
+                                                             };
+
         private readonly AutoCompleteStringCollection namesCollection = new AutoCompleteStringCollection();
         private readonly AutoCompleteStringCollection namesCollectionBenhChinh = new AutoCompleteStringCollection();
         private readonly AutoCompleteStringCollection namesCollectionBenhPhu = new AutoCompleteStringCollection();
         private readonly AutoCompleteStringCollection namesCollectionKetLuan = new AutoCompleteStringCollection();
-        private readonly AutoCompleteStringCollection namesCollection_m_strMaLuotkham = new AutoCompleteStringCollection();
+
+        private readonly AutoCompleteStringCollection namesCollection_m_strMaLuotkham =
+            new AutoCompleteStringCollection();
 
         private readonly string strSaveandprintPath = Application.StartupPath +
                                                       @"\CAUHINH\DefaultPrinter_PhieuHoaSinh.txt";
 
-        private bool AllowTextChanged;
-        bool _buttonClick = false;
         private int Distance = 488;
-        public KcbLuotkham objLuotkham=null;
-        public KcbDanhsachBenhnhan objBenhnhan=null;
-        KcbDangkyKcb objkcbdangky = null;
-        private bool Selected;
         private string TEN_BENHPHU = "";
-        private bool hasMorethanOne = true;
-        private string _rowFilter = "1=1";
-        private bool b_Hasloaded;
+        private DMUC_CHUNG _DMUC_CHUNG = new DMUC_CHUNG();
+        private KcbChandoanKetluan _KcbChandoanKetluan;
+        private bool _buttonClick;
         private DataSet ds = new DataSet();
         private DataTable dt_ICD = new DataTable();
+        private DataTable dt_ICD_PHU = new DataTable();
         private bool hasLoaded;
-       
+        private bool hasMorethanOne = true;
+
         private bool isLike = true;
+        private bool isNhapVien = false;
+        private bool isRoom;
+        private List<string> lstVisibleColumns = new List<string>();
         private DataTable m_dtAssignDetail;
-        private DataTable m_dtVTTH = new DataTable();
+        private DataTable m_dtDanhsachbenhnhanthamkham = new DataTable();
         private DataTable m_dtDoctorAssign;
+        private DataTable m_dtDonthuocChitiet_View = new DataTable();
         private DataTable m_dtKhoaNoiTru = new DataTable();
         private DataTable m_dtPresDetail = new DataTable();
-        private DataTable m_dtDonthuocChitiet_View = new DataTable();
-        private DataTable m_dtVTTHChitiet_View = new DataTable();
-        
+
         private DataTable m_dtReport = new DataTable();
+        private DataTable m_dtVTTH = new DataTable();
+        private DataTable m_dtVTTHChitiet_View = new DataTable();
         private DataTable m_hdt = new DataTable();
         private DataTable m_kl;
         private string m_strDefaultLazerPrinterName = "";
@@ -94,28 +104,25 @@ namespace VNS.HIS.UI.NGOAITRU
         /// <param name="e"></param>
         private string m_strMaLuotkham = "";
 
-        private DataTable m_dtDanhsachbenhnhanthamkham = new DataTable();
+        public KcbDanhsachBenhnhan objBenhnhan = null;
+        public KcbLuotkham objLuotkham = null;
+
         private frm_DanhSachKham objSoKham;
+        private KcbDangkyKcb objkcbdangky;
         private GridEXRow row_Selected;
         private bool trieuchung;
-        List<string> lstVisibleColumns = new List<string>();
-        List<string> lstResultColumns = new List<string>() { "ten_chitietdichvu", "ketqua_cls", "binhthuong_nam", "binhthuong_nu" };
-
-        List<string> lstKQKhongchitietColumns = new List<string>() { "Ket_qua", "bt_nam", "bt_nu" };
-        List<string> lstKQCochitietColumns = new List<string>() { "ten_chitietdichvu", "Ket_qua", "bt_nam", "bt_nu" };
 
 
         public frm_KCB_THAMKHAM()
         {
             InitializeComponent();
             KeyPreview = true;
-           
+
             log = LogManager.GetCurrentClassLogger();
-           
-            
-           
+
+
             dtInput_Date.Value =
-                dtpCreatedDate.Value=dtNgayNhapVien.Value = globalVariables.SysDate;
+                dtpCreatedDate.Value = globalVariables.SysDate;
 
             dtFromDate.Value = globalVariables.SysDate;
             dtToDate.Value = globalVariables.SysDate;
@@ -123,101 +130,109 @@ namespace VNS.HIS.UI.NGOAITRU
             LoadLaserPrinters();
             CauHinhQMS();
             CauHinhThamKham();
-            txtIdKhoaNoiTru.Visible = txtPatientDept_ID.Visible = globalVariables.IsAdmin;
+            // txtIdKhoaNoiTru.Visible = globalVariables.IsAdmin;
             InitEvents();
         }
-        void InitEvents()
+
+        private int SplitterDistance
+        {
+            get { return Distance; }
+            set { Distance = value; }
+        }
+
+        private void InitEvents()
         {
             FormClosing += frm_LAOKHOA_Add_TIEPDON_BN_FormClosing;
-            Load+=new EventHandler(frm_KCB_THAMKHAM_Load);
-            KeyDown+=new KeyEventHandler(frm_KCB_THAMKHAM_KeyDown);
-           
+            Load += frm_KCB_THAMKHAM_Load;
+            KeyDown += frm_KCB_THAMKHAM_KeyDown;
+
             txtSoKham.LostFocus += txtSoKham_LostFocus;
-            txtSoKham.Click+=new EventHandler(txtSoKham_Click);
-            txtSoKham.KeyDown+=new KeyEventHandler(txtSoKham_KeyDown);
+            txtSoKham.Click += txtSoKham_Click;
+            txtSoKham.KeyDown += txtSoKham_KeyDown;
 
-            cmdSearch.Click+=new EventHandler(cmdSearch_Click);
-            radChuaKham.CheckedChanged+=new EventHandler(radChuaKham_CheckedChanged);
-            radDaKham.CheckedChanged+=new EventHandler(radDaKham_CheckedChanged);
-          
-            txtPatient_Code.KeyDown+=new KeyEventHandler(txtPatient_Code_KeyDown);
-            txtPatient_Code.TextChanged+=new EventHandler(txtPatient_Code_TextChanged);
+            cmdSearch.Click += cmdSearch_Click;
+            radChuaKham.CheckedChanged += radChuaKham_CheckedChanged;
+            radDaKham.CheckedChanged += radDaKham_CheckedChanged;
 
-            grdList.ColumnButtonClick+=new ColumnActionEventHandler(grdList_ColumnButtonClick);
-            grdList.KeyDown += new KeyEventHandler(grdList_KeyDown);
-            grdList.SelectionChanged+=new EventHandler(grdList_SelectionChanged);
-            grdList.DoubleClick += new EventHandler(grdList_DoubleClick);
-            grdList.MouseClick += new MouseEventHandler(grdList_MouseClick);
+            txtPatient_Code.KeyDown += txtPatient_Code_KeyDown;
+            txtPatient_Code.TextChanged += txtPatient_Code_TextChanged;
+
+            grdList.ColumnButtonClick += grdList_ColumnButtonClick;
+            grdList.KeyDown += grdList_KeyDown;
+            grdList.SelectionChanged += grdList_SelectionChanged;
+            grdList.DoubleClick += grdList_DoubleClick;
+            grdList.MouseClick += grdList_MouseClick;
 
             grdPresDetail.UpdatingCell += grdPresDetail_UpdatingCell;
 
-            txtMaBenhChinh.GotFocus+=new EventHandler(txtMaBenhChinh_GotFocus);
-            txtMaBenhChinh.KeyDown+=new KeyEventHandler(txtMaBenhChinh_KeyDown);
-            txtMaBenhChinh.TextChanged+=new EventHandler(txtMaBenhChinh_TextChanged);
+            txtMaBenhChinh.GotFocus += txtMaBenhChinh_GotFocus;
+            txtMaBenhChinh.KeyDown += txtMaBenhChinh_KeyDown;
+            txtMaBenhChinh.TextChanged += txtMaBenhChinh_TextChanged;
 
-            txtMaBenhphu.GotFocus+=new EventHandler(txtMaBenhphu_GotFocus);
-            txtMaBenhphu.KeyDown+=new KeyEventHandler(txtMaBenhphu_KeyDown);
-            txtMaBenhphu.TextChanged+=new EventHandler(txtMaBenhphu_TextChanged);
+            txtMaBenhphu.GotFocus += txtMaBenhphu_GotFocus;
+            txtMaBenhphu.KeyDown += txtMaBenhphu_KeyDown;
+            txtMaBenhphu.TextChanged += txtMaBenhphu_TextChanged;
 
-            cmdSave.Click+=new EventHandler(cmdSave_Click);
-            cmdInTTDieuTri.Click+=new EventHandler(cmdInTTDieuTri_Click);
-            cmdNhapVien.Click+=new EventHandler(cmdNhapVien_Click);
-            cmdHuyNhapVien.Click+=new EventHandler(cmdHuyNhapVien_Click);
-            cmdCauHinh.Click+=new EventHandler(cmdCauHinh_Click);
-            
+            cmdSave.Click += cmdSave_Click;
+            cmdInTTDieuTri.Click += cmdInTTDieuTri_Click;
+            cmdNhapVien.Click += cmdNhapVien_Click;
+            cmdHuyNhapVien.Click += cmdHuyNhapVien_Click;
+            cmdCauHinh.Click += cmdCauHinh_Click;
 
 
-            
             grdAssignDetail.CellUpdated += grdAssignDetail_CellUpdated;
-            grdAssignDetail.SelectionChanged+=new EventHandler(grdAssignDetail_SelectionChanged);
+            grdAssignDetail.SelectionChanged += grdAssignDetail_SelectionChanged;
             grdAssignDetail.MouseDoubleClick += grdAssignDetail_MouseDoubleClick;
-            cmdInsertAssign.Click+=new EventHandler(cmdInsertAssign_Click);
-            cmdUpdate.Click+=new EventHandler(cmdUpdate_Click);
-            cmdDelteAssign.Click+=new EventHandler(cmdDelteAssign_Click);
-            cboLaserPrinters.SelectedIndexChanged+=new EventHandler(cboLaserPrinters_SelectedIndexChanged);
-            cmdPrintAssign.Click+=new EventHandler(cmdPrintAssign_Click);
+            cmdInsertAssign.Click += cmdInsertAssign_Click;
+            cmdUpdate.Click += cmdUpdate_Click;
+            cmdDelteAssign.Click += cmdDelteAssign_Click;
+            cboLaserPrinters.SelectedIndexChanged += cboLaserPrinters_SelectedIndexChanged;
+            cmdPrintAssign.Click += cmdPrintAssign_Click;
 
-            cboA4Donthuoc.SelectedIndexChanged += new EventHandler(cboA4_SelectedIndexChanged);
-            cboPrintPreviewDonthuoc.SelectedIndexChanged += new EventHandler(cboPrintPreview_SelectedIndexChanged);
-            cmdCreateNewPres.Click+=new EventHandler(cmdCreateNewPres_Click);
-            cmdUpdatePres.Click+=new EventHandler(cmdUpdatePres_Click);
-            cmdDeletePres.Click+=new EventHandler(cmdDeletePres_Click);
-            cmdPrintPres.Click+=new EventHandler(cmdPrintPres_Click);
+            cboA4Donthuoc.SelectedIndexChanged += cboA4_SelectedIndexChanged;
+            cboPrintPreviewDonthuoc.SelectedIndexChanged += cboPrintPreview_SelectedIndexChanged;
+            cmdCreateNewPres.Click += cmdCreateNewPres_Click;
+            cmdUpdatePres.Click += cmdUpdatePres_Click;
+            cmdDeletePres.Click += cmdDeletePres_Click;
+            cmdPrintPres.Click += cmdPrintPres_Click;
 
-            mnuDelDrug.Click+=new EventHandler(mnuDelDrug_Click);
+            mnuDelDrug.Click += mnuDelDrug_Click;
             mnuDelVTTH.Click += mnuDelVTTH_Click;
-            mnuDeleteCLS.Click+=new EventHandler(mnuDeleteCLS_Click);
+            mnuDeleteCLS.Click += mnuDeleteCLS_Click;
 
-            cmdSearchBenhChinh.Click+=new EventHandler(cmdSearchBenhChinh_Click);
-            cmdSearchBenhPhu.Click+=new EventHandler(cmdSearchBenhPhu_Click);
-            cmdAddMaBenhPhu.Click+=new EventHandler(cmdAddMaBenhPhu_Click);
-            
-            cmdThamkhamConfig.Click += new EventHandler(cmdThamkhamConfig_Click);
-            chkAutocollapse.CheckedChanged += new EventHandler(chkAutocollapse_CheckedChanged);
+            cmdSearchBenhChinh.Click += cmdSearchBenhChinh_Click;
+            cmdSearchBenhPhu.Click += cmdSearchBenhPhu_Click;
+            cmdAddMaBenhPhu.Click += cmdAddMaBenhPhu_Click;
 
-            grd_ICD.ColumnButtonClick+=new ColumnActionEventHandler(grd_ICD_ColumnButtonClick);
-            chkHienthichitiet.CheckedChanged += new EventHandler(chkHienthichitiet_CheckedChanged);
+            cmdThamkhamConfig.Click += cmdThamkhamConfig_Click;
+            chkAutocollapse.CheckedChanged += chkAutocollapse_CheckedChanged;
 
-            cboChonBenhAn.SelectedIndexChanged += new EventHandler(cboChonBenhAn_SelectedIndexChanged);
+            grd_ICD.ColumnButtonClick += grd_ICD_ColumnButtonClick;
+            chkHienthichitiet.CheckedChanged += chkHienthichitiet_CheckedChanged;
 
-            cboA4Cls.SelectedIndexChanged += new EventHandler(cboA4Cls_SelectedIndexChanged);
-            cboPrintPreviewCLS.SelectedIndexChanged += new EventHandler(cboPrintPreviewCLS_SelectedIndexChanged);
+            cboChonBenhAn.SelectedIndexChanged += cboChonBenhAn_SelectedIndexChanged;
 
-            cboA4Tomtatdieutringoaitru.SelectedIndexChanged += new EventHandler(cboA4Tomtatdieutringoaitru_SelectedIndexChanged);
-            cboPrintPreviewTomtatdieutringoaitru.SelectedIndexChanged += new EventHandler(cboPrintPreviewTomtatdieutringoaitru_SelectedIndexChanged);
+            cboA4Cls.SelectedIndexChanged += cboA4Cls_SelectedIndexChanged;
+            cboPrintPreviewCLS.SelectedIndexChanged += cboPrintPreviewCLS_SelectedIndexChanged;
 
-            cmdUnlock.Click += new EventHandler(cmdUnlock_Click);
-            cmdChuyenPhong.Click += new EventHandler(cmdChuyenPhong_Click);
+            cboA4Tomtatdieutringoaitru.SelectedIndexChanged += cboA4Tomtatdieutringoaitru_SelectedIndexChanged;
+            cboPrintPreviewTomtatdieutringoaitru.SelectedIndexChanged +=
+                cboPrintPreviewTomtatdieutringoaitru_SelectedIndexChanged;
 
-            txtChanDoan._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtChanDoan__OnShowData);
-            txtKet_Luan._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtKet_Luan__OnShowData);
-            txtHuongdieutri._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtHuongdieutri__OnShowData);
-            txtNhommau._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtNhommau__OnShowData);
+            cmdUnlock.Click += cmdUnlock_Click;
+            cmdChuyenPhong.Click += cmdChuyenPhong_Click;
 
-            txtNhommau._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtNhommau__OnSaveAs);
-            txtKet_Luan._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtKet_Luan__OnSaveAs);
-            txtHuongdieutri._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtHuongdieutri__OnSaveAs);
-            txtChanDoan._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtChanDoan__OnSaveAs);
+            txtChanDoan._OnShowData += txtChanDoan__OnShowData;
+            txtKet_Luan._OnShowData += txtKet_Luan__OnShowData;
+            txtHuongdieutri._OnShowData += txtHuongdieutri__OnShowData;
+            txtNhommau._OnShowData += txtNhommau__OnShowData;
+            txtNhanxet._OnShowData += txtNhanxet__OnShowData;
+
+            txtNhommau._OnSaveAs += txtNhommau__OnSaveAs;
+            txtKet_Luan._OnSaveAs += txtKet_Luan__OnSaveAs;
+            txtHuongdieutri._OnSaveAs += txtHuongdieutri__OnSaveAs;
+            txtChanDoan._OnSaveAs += txtChanDoan__OnSaveAs;
+            txtNhanxet._OnSaveAs += txtNhanxet__OnSaveAs;
 
             cmdThemphieuVT.Click += cmdThemphieuVT_Click;
             cmdSuaphieuVT.Click += cmdSuaphieuVT_Click;
@@ -228,471 +243,65 @@ namespace VNS.HIS.UI.NGOAITRU
             cmdLuuChandoan.Click += cmdLuuChandoan_Click;
         }
 
-        void grdAssignDetail_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void grdAssignDetail_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ShowResult();
         }
 
-        void cmdLuuChandoan_Click(object sender, EventArgs e)
+        private void cmdLuuChandoan_Click(object sender, EventArgs e)
         {
-            _KCB_THAMKHAM.LuuHoibenhvaChandoan(TaoDulieuChandoanKetluan(),null,false);
+            _KCB_THAMKHAM.LuuHoibenhvaChandoan(TaoDulieuChandoanKetluan(), null, false);
         }
 
-        void grdPresDetail_UpdatingCell(object sender, UpdatingCellEventArgs e)
+        private void grdPresDetail_UpdatingCell(object sender, UpdatingCellEventArgs e)
         {
             if (!Utility.isValidGrid(grdPresDetail)) return;
             if (e.Column.Key == "stt_in")
             {
-                long IdChitietdonthuoc = Utility.Int64Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value, 0);
+                long IdChitietdonthuoc =
+                    Utility.Int64Dbnull(
+                        grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value, 0);
                 if (IdChitietdonthuoc > -1)
-                    new KCB_KEDONTHUOC().Capnhatchidanchitiet(IdChitietdonthuoc, KcbDonthuocChitiet.Columns.SttIn, e.Value.ToString());
-                this.grdPresDetail.UpdateData();
+                    new KCB_KEDONTHUOC().Capnhatchidanchitiet(IdChitietdonthuoc, KcbDonthuocChitiet.Columns.SttIn,
+                                                              e.Value.ToString());
+                grdPresDetail.UpdateData();
             }
-            if (e.Column.Key == "mota_them_chitiet" )
+            if (e.Column.Key == "mota_them_chitiet")
             {
-                long IdChitietdonthuoc = Utility.Int64Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value, 0);
+                long IdChitietdonthuoc =
+                    Utility.Int64Dbnull(
+                        grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value, 0);
                 if (IdChitietdonthuoc > -1)
-                    new KCB_KEDONTHUOC().Capnhatchidanchitiet(IdChitietdonthuoc,KcbDonthuocChitiet.Columns.MotaThem, e.Value.ToString());
-                this.grdPresDetail.UpdateData();
+                    new KCB_KEDONTHUOC().Capnhatchidanchitiet(IdChitietdonthuoc, KcbDonthuocChitiet.Columns.MotaThem,
+                                                              e.Value.ToString());
+                grdPresDetail.UpdateData();
             }
         }
 
-        void lnkSize_Click(object sender, EventArgs e)
+        private void lnkSize_Click(object sender, EventArgs e)
         {
-            frm_Properties _Properties = new frm_Properties(PropertyLib._DynamicInputProperties);
-            if (_Properties.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            var _Properties = new frm_Properties(PropertyLib._DynamicInputProperties);
+            if (_Properties.ShowDialog() == DialogResult.OK)
             {
                 ShowResult();
             }
         }
 
-        void mnuShowResult_Click(object sender, EventArgs e)
+        private void mnuShowResult_Click(object sender, EventArgs e)
         {
             mnuShowResult.Tag = mnuShowResult.Checked ? "1" : "0";
             if (PropertyLib._ThamKhamProperties.HienthiKetquaCLSTrongluoiChidinh)
             {
-                if (mnuShowResult.Checked)
-                    Utility.ShowColumns(grdAssignDetail, lstResultColumns);
-                else
-                    Utility.ShowColumns(grdAssignDetail, lstVisibleColumns);
+                Utility.ShowColumns(grdAssignDetail, mnuShowResult.Checked ? lstResultColumns : lstVisibleColumns);
             }
             else
                 grdAssignDetail_SelectionChanged(grdAssignDetail, e);
         }
 
-        
-        #region VTTH
-        void mnuDelVTTH_Click(object sender, EventArgs e)
-        {
-            if (!IsValidDeleteSelectedVTTH()) return;
-            PerformActionDeleteSelectedVTTH();
-            ModifyCommmands();
-        }
-        void cmdXoaphieuVT_Click(object sender, EventArgs e)
-        {
-            if (!CheckPatientSelected()) return;
-            if (!IsValidVTTH_delete()) return;
-            PerformActionDeleteVTTH();
-            ModifyCommmands();
-        }
-
-        void cmdInphieuVT_Click(object sender, EventArgs e)
-        {
-            if (!Utility.isValidGrid(grdVTTH)) return;
-            int Pres_ID = Utility.Int32Dbnull(grdVTTH.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
-            PrintPres(Pres_ID, "PHIẾU VẬT TƯ NGOÀI GÓI");
-        }
-
-        void cmdSuaphieuVT_Click(object sender, EventArgs e)
-        {
-            if (!CheckPatientSelected()) return;
-            if (!cmdSuaphieuVT.Enabled) return;
-            SuaphieuVattu();
-        }
-
-        void cmdThemphieuVT_Click(object sender, EventArgs e)
-        {
-            if (!CheckPatientSelected()) return;
-            if (!cmdThemphieuVT.Enabled) return;
-            if (Utility.Coquyen("quyen_suadonthuoc") || Utility.Int32Dbnull(objkcbdangky.IdBacsikham, -1) <= 0 || objkcbdangky.IdBacsikham == globalVariables.gv_intIDNhanvien)
-            {
-            }
-            else
-            {
-                Utility.ShowMsg(string.Format("Bệnh nhân này đã được khám bởi Bác sĩ khác nên bạn không được phép thêm phiếu vật tư cho Bệnh nhân"));
-                return;
-            }
-
-            ThemphieuVattu();
-        }
-        private void ThemphieuVattu()
-        {
-            try
-            {
-                // KeDonThuocTheoDoiTuong();
-                frm_KCB_KE_DONTHUOC frm = new frm_KCB_KE_DONTHUOC("VT");
-                frm.em_Action = action.Insert;
-                frm.objLuotkham = this.objLuotkham;
-                frm._KcbChandoanKetluan = _KcbChandoanKetluan;
-                frm._MabenhChinh = txtMaBenhChinh.Text;
-                frm._Chandoan = txtChanDoan.Text;
-                frm.dt_ICD = dt_ICD;
-                frm.dt_ICD_PHU = dt_ICD_PHU;
-                frm.id_kham = Utility.Int32Dbnull(txtExam_ID.Text);
-                frm.objPhieudieutriNoitru = null;
-                frm.txtPatientCode.Text = Utility.sDbnull(objLuotkham.MaLuotkham);
-                frm.txtPatientID.Text = Utility.sDbnull(objLuotkham.IdBenhnhan);
-                frm.txtPres_ID.Text = "-1";
-                frm.noitru = 0;
-                frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
-                frm.ShowDialog();
-                if (!frm.m_blnCancel)
-                {
-                    txtMaBenhChinh.Text = frm._MabenhChinh;
-                    txtChanDoan._Text = frm._Chandoan;
-                    dt_ICD_PHU = frm.dt_ICD_PHU;
-                    if (frm._KcbChandoanKetluan != null) _KcbChandoanKetluan = frm._KcbChandoanKetluan;
-                    Laythongtinchidinhngoaitru();
-                    Utility.GotoNewRowJanus(grdVTTH, KcbDonthuoc.Columns.IdDonthuoc,
-                                            Utility.sDbnull(frm.txtPres_ID.Text));
-                   
-                }
-            }
-            catch (Exception exception)
-            {
-                if (globalVariables.IsAdmin)
-                {
-                    Utility.ShowMsg(exception.ToString());
-                }
-            }
-            finally
-            {
-                ModifyCommmands();
-                txtPatient_Code.Focus();
-                txtPatient_Code.SelectAll();
-            }
-        }
-        private void SuaphieuVattu()
-        {
-            try
-            {
-                if (!CheckPatientSelected()) return;
-                if (!Utility.isValidGrid(grdVTTH)) return;
-
-                KcbLuotkham objPatientExam = this.objLuotkham;
-                if (objPatientExam != null)
-                {
-                    int Pres_ID = Utility.Int32Dbnull(grdVTTH.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
-                    if (Donthuoc_DangXacnhan(Pres_ID))
-                    {
-                        Utility.ShowMsg(
-                            "Phiếu vật tư này đang ở trạng thái đã duyệt cho Bệnh nhân nên không thể chỉnh sửa. Đề nghị quay lại hỏi bộ phận cấp phát vật tư tại phòng vật tư");
-                        return;
-                    }
-                    var v_collect = new Select().From(KcbDonthuocChitiet.Schema.TableName)
-                        .Where(KcbDonthuocChitiet.TrangthaiThanhtoanColumn.ColumnName).IsEqualTo(1)
-                        .And(KcbDonthuocChitiet.IdDonthuocColumn.ColumnName).IsEqualTo(Pres_ID)
-                        .ExecuteAsCollection<KcbDonthuocChitietCollection>();
-                    if (v_collect.Count > 0)
-                    {
-                        Utility.ShowMsg(
-                            "Phiếu vật tư bạn đang chọn sửa đã được thanh toán. Muốn sửa lại Phiếu vật tư Bạn cần phải liên hệ với bộ phận Thanh toán để hủy thanh toán và Bộ phận cấp vật tư để hủy xác nhận Phiếu vật tư tại kho vật tư");
-                        return;
-                    }
-                    KcbDonthuoc objPrescription = KcbDonthuoc.FetchByID(Pres_ID);
-                    if (objPrescription != null)
-                    {
-                        frm_KCB_KE_DONTHUOC frm = new frm_KCB_KE_DONTHUOC("VT");
-                        frm.em_Action = action.Update;
-                        frm._KcbChandoanKetluan = _KcbChandoanKetluan;
-                        frm._MabenhChinh = txtMaBenhChinh.Text;
-                        frm._Chandoan = txtChanDoan.Text;
-                        frm.dt_ICD = dt_ICD;
-                        frm.dt_ICD_PHU = dt_ICD_PHU;
-                        frm.noitru = 0;
-                        frm.objLuotkham = this.objLuotkham;
-                        frm.id_kham = Utility.Int32Dbnull(txtExam_ID.Text);
-                        frm.objPhieudieutriNoitru = null;
-                        frm.txtPatientCode.Text = Utility.sDbnull(objLuotkham.MaLuotkham);
-                        frm.txtPatientID.Text = Utility.sDbnull(objLuotkham.IdBenhnhan);
-                        frm.txtPres_ID.Text = Utility.sDbnull(objPrescription.IdDonthuoc);
-                        frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
-                        frm.ShowDialog();
-                        if (!frm.m_blnCancel)
-                        {
-                            txtMaBenhChinh.Text = frm._MabenhChinh;
-                            txtChanDoan._Text = frm._Chandoan;
-                            dt_ICD_PHU = frm.dt_ICD_PHU;
-                            if (frm._KcbChandoanKetluan != null) _KcbChandoanKetluan = frm._KcbChandoanKetluan;
-                            Laythongtinchidinhngoaitru();
-                            Utility.GotoNewRowJanus(grdVTTH, KcbDonthuocChitiet.Columns.IdDonthuoc,
-                                                    Utility.sDbnull(frm.txtPres_ID.Text));
-
-                        }
-                    }
-                }
-
-            }
-            catch
-            {
-            }
-            finally
-            {
-                ModifyCommmands();
-            }
-        }
-        private void PerformActionDeleteVTTH()
-        {
-            string s = "";
-            int Pres_ID = Utility.Int32Dbnull(grdVTTH.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
-            if (Donthuoc_DangXacnhan(Pres_ID))
-            {
-                Utility.ShowMsg(
-                    "Phiếu vật tư này đang ở trạng thái đã duyệt cho Bệnh nhân nên không thể chỉnh sửa. Đề nghị quay lại hỏi bộ phận cấp phát vật tư tại phòng vật tư");
-                return;
-            }
-            var v_collect = new Select().From(KcbDonthuocChitiet.Schema.TableName)
-                .Where(KcbDonthuocChitiet.TrangthaiThanhtoanColumn.ColumnName).IsEqualTo(1)
-                .And(KcbDonthuocChitiet.IdDonthuocColumn.ColumnName).IsEqualTo(Pres_ID)
-                .ExecuteAsCollection<KcbDonthuocChitietCollection>();
-            if (v_collect.Count > 0)
-            {
-                Utility.ShowMsg(
-                    "Phiếu vật tư bạn đang chọn sửa đã được thanh toán. Muốn sửa lại Phiếu vật tư Bạn cần phải liên hệ với bộ phận Thanh toán để hủy thanh toán và Bộ phận cấp vật tư để hủy xác nhận Phiếu vật tư tại kho vật tư");
-                return;
-            }
-            List<int> lstIdchitiet = new List<int>();
-            foreach (GridEXRow gridExRow in grdVTTH.GetCheckedRows())
-            {
-                string stempt = "";
-                int id_thuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, 0m);
-                decimal dongia = Utility.DecimaltoDbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.DonGia].Value, 0m);
-                int IdDonthuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdDonthuoc].Value, 0m);
-                List<int> _temp = GetIdChitietVTTH(IdDonthuoc, id_thuoc, dongia, ref stempt);
-                s += "," + stempt;
-                lstIdchitiet.AddRange(_temp);
-                gridExRow.Delete();
-                grdVTTH.UpdateData();
-
-            }
-            _KCB_KEDONTHUOC.XoaChitietDonthuoc(s);
-            XoaVTTHKhoiBangDulieu(lstIdchitiet);
-            m_dtVTTH.AcceptChanges();
-        }
-        void XoaVTTHKhoiBangDulieu(List<int> lstIdChitietDonthuoc)
-        {
-            try
-            {
-                var p = (from q in m_dtVTTH.Select("1=1").AsEnumerable()
-                         where lstIdChitietDonthuoc.Contains(Utility.Int32Dbnull(q[KcbDonthuocChitiet.Columns.IdChitietdonthuoc]))
-                         select q).ToArray<DataRow>();
-                for (int i = 0; i <= p.Length - 1; i++)
-                    m_dtVTTH.Rows.Remove(p[i]);
-                m_dtVTTH.AcceptChanges();
-            }
-            catch
-            {
-            }
-        }
-        List<int> GetIdChitietVTTH(int IdDonthuoc, int id_thuoc, decimal don_gia, ref string s)
-        {
-            DataRow[] arrDr = m_dtVTTH.Select(KcbDonthuocChitiet.Columns.IdDonthuoc + "=" + IdDonthuoc.ToString() + " AND " + KcbDonthuocChitiet.Columns.IdThuoc + "=" + id_thuoc.ToString()
-                    + "AND " + KcbDonthuocChitiet.Columns.DonGia + "=" + don_gia.ToString());
-            if (arrDr.Length > 0)
-            {
-                var p1 = (from q in arrDr.AsEnumerable()
-                          select Utility.sDbnull(q[KcbDonthuocChitiet.Columns.IdChitietdonthuoc])).Distinct();
-                s = string.Join(",", p1.ToArray());
-                var p = (from q in arrDr.AsEnumerable()
-                         select Utility.Int32Dbnull(q[KcbDonthuocChitiet.Columns.IdChitietdonthuoc])).Distinct();
-                return p.ToList<int>();
-            }
-            return new List<int>();
-        }
-        private bool IsValidVTTH_delete()
-        {
-            bool b_Cancel = false;
-            if (grdVTTH.GetCheckedRows().Length <= 0)
-            {
-                Utility.ShowMsg("Bạn phải chọn một bản ghi thực hiện việc xóa thông tin Vật tư tiêu hao ", "Thông báo",
-                                MessageBoxIcon.Warning);
-                grdVTTH.Focus();
-                return false;
-            }
-            foreach (GridEXRow gridExRow in grdVTTH.GetCheckedRows())
-            {
-                if (Utility.Coquyen("quyen_suadonthuoc") || Utility.sDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
-                {
-                }
-                else
-                {
-                    Utility.ShowMsg("Trong các VTTH bạn chọn xóa, có một số VTTH được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các VTTH do chính bạn kê để thực hiện xóa");
-                    return false;
-
-                }
-            }
-            KcbLuotkham _item = Utility.getKcbLuotkham(Utility.Int64Dbnull(txtPatient_ID.Text, 0), m_strMaLuotkham);
-            if (_item == null)
-            {
-                Utility.ShowMsg("Bạn phải chọn Bệnh nhân hoặc bệnh nhân không tồn tại!", "Thông báo",
-                                MessageBoxIcon.Warning);
-                txtPatient_Code.Focus();
-                return false;
-            }
-
-            if (_item != null && Utility.Int32Dbnull(_item.TrangthaiNoitru, -1) >= 1)
-            {
-                Utility.ShowMsg("Bệnh nhân đã được điều trị nội trú. Bạn chỉ có thể xem thông tin và không được phép làm các công việc liên quan đến ngoại trú", "Thông báo");
-                cmdSave.Focus();
-                return false;
-            }
-            KcbDonthuocChitiet objKcbDonthuocChitiet = null;
-            foreach (GridEXRow gridExRow in grdVTTH.GetCheckedRows())
-            {
-                if (gridExRow.RowType == RowType.Record)
-                {
-                    int v_intIDDonthuoc =
-                        Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value, -1);
-                    int v_intIDThuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1);
-                    objKcbDonthuocChitiet = new Select().From(KcbDonthuocChitiet.Schema)
-                       .Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).IsEqualTo(v_intIDDonthuoc)
-                       .ExecuteSingle<KcbDonthuocChitiet>();
-                    if (objKcbDonthuocChitiet != null)
-                    {
-                        if (Utility.Byte2Bool(objKcbDonthuocChitiet.TrangthaiThanhtoan))
-                        {
-                            Utility.ShowMsg("Bản ghi đã thanh toán, Bạn không thể xóa thông tin được ", "Thông báo",
-                                            MessageBoxIcon.Warning);
-                            b_Cancel = true;
-                            break;
-                        }
-                        if (Utility.Byte2Bool(objKcbDonthuocChitiet.TrangThai))
-                        {
-                            Utility.ShowMsg("Bản ghi đã xác nhận, Bạn không thể xóa thông tin được ", "Thông báo",
-                                            MessageBoxIcon.Warning);
-                            b_Cancel = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            if (b_Cancel)
-            {
-                grdVTTH.Focus();
-                return false;
-            }
-            return true;
-        }
-        private bool IsValidDeleteSelectedVTTH()
-        {
-            bool b_Cancel = false;
-            if (grdVTTH.RowCount <= 0 || grdVTTH.CurrentRow.RowType != RowType.Record)
-            {
-                Utility.ShowMsg("Bạn phải chọn một VTTH để xóa ", "Thông báo",
-                                MessageBoxIcon.Warning);
-                grdVTTH.Focus();
-                return false;
-            }
-            if (Utility.Coquyen("quyen_suadonthuoc") || Utility.sDbnull(grdVTTH.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
-            {
-            }
-            else
-            {
-                Utility.ShowMsg("VTTH đang chọn xóa được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các VTTH do chính bạn kê để thực hiện xóa");
-                return false;
-            }
-            KcbLuotkham _item = Utility.getKcbLuotkham(Utility.Int64Dbnull(txtPatient_ID.Text, 0), m_strMaLuotkham);
-            if (_item == null)
-            {
-                Utility.ShowMsg("Bạn phải chọn Bệnh nhân hoặc bệnh nhân không tồn tại!", "Thông báo",
-                                MessageBoxIcon.Warning);
-                txtPatient_Code.Focus();
-                return false;
-            }
-
-            if (_item != null && Utility.Int32Dbnull(_item.TrangthaiNoitru, -1) >= 1)
-            {
-                Utility.ShowMsg("Bệnh nhân đã được điều trị nội trú. Bạn chỉ có thể xem thông tin và không được phép làm các công việc liên quan đến ngoại trú", "Thông báo");
-                cmdSave.Focus();
-                return false;
-            }
-            if (grdVTTH.CurrentRow.RowType == RowType.Record)
-            {
-                int v_intIDDonthuoc =
-                    Utility.Int32Dbnull(grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
-                                        -1);
-                int v_intIDThuoc =
-                    Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1);
-                SqlQuery sqlQuery = new Select().From(KcbDonthuocChitiet.Schema)
-                    .Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).IsEqualTo(v_intIDDonthuoc)
-                    .And(KcbDonthuocChitiet.Columns.TrangthaiThanhtoan).IsEqualTo(1);
-                if (sqlQuery.GetRecordCount() > 0)
-                {
-                    b_Cancel = true;
-                }
-            }
-
-            if (b_Cancel)
-            {
-                Utility.ShowMsg("Vật tư tiêu hao đang chọn xóa đã được thanh toán, Bạn không thể xóa thông tin được ", "Thông báo",
-                                MessageBoxIcon.Warning);
-                grdVTTH.Focus();
-                return false;
-            }
-            if (grdVTTH.CurrentRow.RowType == RowType.Record)
-            {
-                int v_intIDDonthuoc =
-                    Utility.Int32Dbnull(grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
-                                        -1);
-                int v_intIDThuoc =
-                    Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1);
-                SqlQuery sqlQuery = new Select().From(KcbDonthuocChitiet.Schema)
-                    .Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).IsEqualTo(v_intIDDonthuoc)
-                    .And(KcbDonthuocChitiet.Columns.TrangThai).IsEqualTo(1);
-                if (sqlQuery.GetRecordCount() > 0)
-                {
-                    b_Cancel = true;
-                }
-            }
-
-            if (b_Cancel)
-            {
-                Utility.ShowMsg("Vật tư tiêu hao đang chọn xóa đã được được xác nhận nên bạn không thể xóa thông tin được ", "Thông báo",
-                                MessageBoxIcon.Warning);
-                grdVTTH.Focus();
-                return false;
-            }
-            return true;
-        }
-        private void PerformActionDeleteSelectedVTTH()
-        {
-            try
-            {
-                int Pres_ID =
-                    Utility.Int32Dbnull(grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdDonthuoc].Value,
-                                        -1);
-                int v_intIDDonthuoc =
-                    Utility.Int32Dbnull(grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
-                                        -1);
-                int v_intIDThuoc =
-                    Utility.Int32Dbnull(grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value,
-                                        -1);
-                _KCB_KEDONTHUOC.XoaChitietDonthuoc(v_intIDDonthuoc);
-                grdVTTH.CurrentRow.Delete();
-                grdVTTH.UpdateData();
-                m_dtVTTH.AcceptChanges();
-            }
-            catch (Exception ex)
-            {
-                Utility.ShowMsg(ex.Message + "-->" +
-                                "Bạn nên dùng chức năng xóa thuốc bằng cách chọn thuốc và sử dụng nút xóa thuốc");
-            }
-        }
-        #endregion
-        void txtChanDoan__OnSaveAs()
+        private void txtChanDoan__OnSaveAs()
         {
             if (Utility.DoTrim(txtChanDoan.Text) == "") return;
-            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtChanDoan.LOAI_DANHMUC);
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtChanDoan.LOAI_DANHMUC);
             _DMUC_DCHUNG.SetStatus(true, txtChanDoan.Text);
             _DMUC_DCHUNG.ShowDialog();
             if (!_DMUC_DCHUNG.m_blnCancel)
@@ -701,13 +310,28 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtChanDoan.Init();
                 txtChanDoan.SetCode(oldCode);
                 txtChanDoan.Focus();
-            }   
+            }
         }
 
-        void txtHuongdieutri__OnSaveAs()
+        private void txtNhanxet__OnSaveAs()
+        {
+            if (Utility.DoTrim(txtNhanxet.Text) == "") return;
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtNhanxet.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, txtNhanxet.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtNhanxet.myCode;
+                txtNhanxet.Init();
+                txtNhanxet.SetCode(oldCode);
+                txtNhanxet.Focus();
+            }
+        }
+
+        private void txtHuongdieutri__OnSaveAs()
         {
             if (Utility.DoTrim(txtHuongdieutri.Text) == "") return;
-            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtHuongdieutri.LOAI_DANHMUC);
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtHuongdieutri.LOAI_DANHMUC);
             _DMUC_DCHUNG.SetStatus(true, txtHuongdieutri.Text);
             _DMUC_DCHUNG.ShowDialog();
             if (!_DMUC_DCHUNG.m_blnCancel)
@@ -716,13 +340,13 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtHuongdieutri.Init();
                 txtHuongdieutri.SetCode(oldCode);
                 txtHuongdieutri.Focus();
-            }    
+            }
         }
 
-        void txtKet_Luan__OnSaveAs()
+        private void txtKet_Luan__OnSaveAs()
         {
             if (Utility.DoTrim(txtKet_Luan.Text) == "") return;
-            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtKet_Luan.LOAI_DANHMUC);
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtKet_Luan.LOAI_DANHMUC);
             _DMUC_DCHUNG.SetStatus(true, txtKet_Luan.Text);
             _DMUC_DCHUNG.ShowDialog();
             if (!_DMUC_DCHUNG.m_blnCancel)
@@ -731,13 +355,13 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtKet_Luan.Init();
                 txtKet_Luan.SetCode(oldCode);
                 txtKet_Luan.Focus();
-            }    
+            }
         }
 
-        void txtNhommau__OnSaveAs()
+        private void txtNhommau__OnSaveAs()
         {
-            if (Utility.DoTrim(txtNhommau.Text)=="") return;
-            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtNhommau.LOAI_DANHMUC);
+            if (Utility.DoTrim(txtNhommau.Text) == "") return;
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtNhommau.LOAI_DANHMUC);
             _DMUC_DCHUNG.SetStatus(true, txtNhommau.Text);
             _DMUC_DCHUNG.ShowDialog();
             if (!_DMUC_DCHUNG.m_blnCancel)
@@ -746,12 +370,25 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtNhommau.Init();
                 txtNhommau.SetCode(oldCode);
                 txtNhommau.Focus();
-            }   
+            }
         }
 
-        void txtNhommau__OnShowData()
+        private void txtNhanxet__OnShowData()
         {
-            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtNhommau.LOAI_DANHMUC);
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtNhanxet.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtNhanxet.myCode;
+                txtNhanxet.Init();
+                txtNhanxet.SetCode(oldCode);
+                txtNhanxet.Focus();
+            }
+        }
+
+        private void txtNhommau__OnShowData()
+        {
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtNhommau.LOAI_DANHMUC);
             _DMUC_DCHUNG.ShowDialog();
             if (!_DMUC_DCHUNG.m_blnCancel)
             {
@@ -759,12 +396,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtNhommau.Init();
                 txtNhommau.SetCode(oldCode);
                 txtNhommau.Focus();
-            } 
+            }
         }
 
-        void txtHuongdieutri__OnShowData()
+        private void txtHuongdieutri__OnShowData()
         {
-            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtHuongdieutri.LOAI_DANHMUC);
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtHuongdieutri.LOAI_DANHMUC);
             _DMUC_DCHUNG.ShowDialog();
             if (!_DMUC_DCHUNG.m_blnCancel)
             {
@@ -772,12 +409,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtHuongdieutri.Init();
                 txtHuongdieutri.SetCode(oldCode);
                 txtHuongdieutri.Focus();
-            } 
+            }
         }
 
-        void txtKet_Luan__OnShowData()
+        private void txtKet_Luan__OnShowData()
         {
-            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtKet_Luan.LOAI_DANHMUC);
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtKet_Luan.LOAI_DANHMUC);
             _DMUC_DCHUNG.ShowDialog();
             if (!_DMUC_DCHUNG.m_blnCancel)
             {
@@ -785,12 +422,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtKet_Luan.Init();
                 txtKet_Luan.SetCode(oldCode);
                 txtKet_Luan.Focus();
-            } 
+            }
         }
 
-        void txtChanDoan__OnShowData()
+        private void txtChanDoan__OnShowData()
         {
-            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtChanDoan.LOAI_DANHMUC);
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtChanDoan.LOAI_DANHMUC);
             _DMUC_DCHUNG.ShowDialog();
             if (!_DMUC_DCHUNG.m_blnCancel)
             {
@@ -798,10 +435,10 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtChanDoan.Init();
                 txtChanDoan.SetCode(oldCode);
                 txtChanDoan.Focus();
-            } 
+            }
         }
 
-        void cmdChuyenPhong_Click(object sender, EventArgs e)
+        private void cmdChuyenPhong_Click(object sender, EventArgs e)
         {
             try
             {
@@ -826,16 +463,17 @@ namespace VNS.HIS.UI.NGOAITRU
                 //    Utility.ShowMsg("Bác sĩ đã chỉ định cận lâm sàng cho lần khám này nên không thể chuyển phòng. Đề nghị hủy chỉ định cận lâm sàng trước khi chuyển phòng khám", "");
                 //    return;
                 //}
-                frm_ChuyenPhongkham _ChuyenPhongkham = new frm_ChuyenPhongkham();
+                var _ChuyenPhongkham = new frm_ChuyenPhongkham();
                 _ChuyenPhongkham.objDangkyKcb_Cu = objkcbdangky;
                 _ChuyenPhongkham.MA_DTUONG = objkcbdangky.MaDoituongkcb;
                 _ChuyenPhongkham.dongia = objkcbdangky.DonGia;
                 _ChuyenPhongkham.txtPhonghientai.Text = txtPhongkham.Text;
-                
+
                 _ChuyenPhongkham.ShowDialog();
                 if (!_ChuyenPhongkham.m_blnCancel)
                 {
-                    Utility.SetMsg(lblMsg, "Chuyển phòng khám thành công. Mời bạn chọn bệnh nhân khác để thăm khám", false);
+                    Utility.SetMsg(lblMsg, "Chuyển phòng khám thành công. Mời bạn chọn bệnh nhân khác để thăm khám",
+                                   false);
                     DataRow[] arrDr = m_dtDanhsachbenhnhanthamkham.Select("id_kham=" + objkcbdangky.IdKham.ToString());
                     if (arrDr.Length > 0)
                     {
@@ -850,7 +488,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         m_dtDanhsachbenhnhanthamkham.DefaultView.RowFilter = "1=1";
                         m_dtDanhsachbenhnhanthamkham.DefaultView.RowFilter = filter;
                     }
-                    else//BN vẫn hiển thị như vậy-->Cần load lại dữ liệu
+                    else //BN vẫn hiển thị như vậy-->Cần load lại dữ liệu
                     {
                         GetData();
                     }
@@ -858,25 +496,22 @@ namespace VNS.HIS.UI.NGOAITRU
                     txtPatient_Code.SelectAll();
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi: " + ex.Message);
             }
         }
 
-        void UpdateDatatable()
+        private void UpdateDatatable()
         {
         }
 
-        void cmdUnlock_Click(object sender, EventArgs e)
+        private void cmdUnlock_Click(object sender, EventArgs e)
         {
             Unlock();
         }
 
-       
-
-       
-
-        void cboChonBenhAn_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboChonBenhAn_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!cmdInTTDieuTri.Visible)
             {
@@ -895,7 +530,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 BenhAnThuong();
             }
         }
-        void BenhAnThuong()
+
+        private void BenhAnThuong()
         {
             try
             {
@@ -920,7 +556,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (v_dtData != null && v_dtData.Rows.Count > 0)
                 {
                     GetChanDoan(Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhChinh], ""),
-                                Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhPhu], ""), ref ICD_Name, ref ICD_Code);
+                                Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhPhu], ""),
+                                ref ICD_Name, ref ICD_Code);
                 }
                 frm.txtkbChanDoanRaVien.Text = ICD_Name;
                 frm.txtkbMa.Text = ICD_Code;
@@ -928,7 +565,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (v_dtData != null && v_dtData.Rows.Count > 0)
                 {
                     GetChanDoanChinhPhu(Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhChinh], ""),
-                                        Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhPhu], ""), ref ICD_chinh_Name,
+                                        Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhPhu], ""),
+                                        ref ICD_chinh_Name,
                                         ref ICD_chinh_Code, ref ICD_Phu_Name, ref ICD_Phu_Code);
                 }
                 SqlQuery SoKham =
@@ -940,7 +578,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     //Execute()
                     frm.em_Action = action.Update;
                 }
-                //chưa tồn tại thông tin ngoại tru. Them
+                    //chưa tồn tại thông tin ngoại tru. Them
                 else
                 {
                     frm.em_Action = action.Insert;
@@ -949,12 +587,13 @@ namespace VNS.HIS.UI.NGOAITRU
                 cboChonBenhAn.SelectedIndex = 0;
                 ThongBaoBenhAn(txtPatient_ID.Text);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //throw;
+                Utility.ShowMsg("Lỗi: " + ex.Message);
             }
         }
-        void BenhAnTG()
+
+        private void BenhAnTG()
         {
             try
             {
@@ -979,7 +618,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (v_dtData != null && v_dtData.Rows.Count > 0)
                 {
                     GetChanDoan(Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhChinh], ""),
-                                Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhPhu], ""), ref ICD_Name, ref ICD_Code);
+                                Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhPhu], ""),
+                                ref ICD_Name, ref ICD_Code);
                 }
                 frm.txtkbChanDoanRaVien.Text = ICD_Name;
                 frm.txtkbMa.Text = ICD_Code;
@@ -987,7 +627,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (v_dtData != null && v_dtData.Rows.Count > 0)
                 {
                     GetChanDoanChinhPhu(Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhChinh], ""),
-                                        Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhPhu], ""), ref ICD_chinh_Name,
+                                        Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhPhu], ""),
+                                        ref ICD_chinh_Name,
                                         ref ICD_chinh_Code, ref ICD_Phu_Name, ref ICD_Phu_Code);
                 }
 
@@ -1002,7 +643,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     //Execute()
                     frm.em_Action = action.Update;
                 }
-                //chưa tồn tại thông tin ngoại tru. Them
+                    //chưa tồn tại thông tin ngoại tru. Them
                 else
                 {
                     frm.em_Action = action.Insert;
@@ -1012,12 +653,13 @@ namespace VNS.HIS.UI.NGOAITRU
                 cboChonBenhAn.SelectedIndex = 0;
                 ThongBaoBenhAn(txtPatient_ID.Text);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //throw;
+                Utility.ShowMsg("Lỗi: " + ex.Message);
             }
         }
-        void BenhAnDaithaoduong()
+
+        private void BenhAnDaithaoduong()
         {
             try
             {
@@ -1042,20 +684,23 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (v_dtData != null && v_dtData.Rows.Count > 0)
                 {
                     GetChanDoan(Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhChinh], ""),
-                                Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhPhu], ""), ref ICD_Name, ref ICD_Code);
+                                Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhPhu], ""),
+                                ref ICD_Name, ref ICD_Code);
                     GetChanDoanChinhPhu(Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhChinh], ""),
-                                        Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhPhu], ""), ref ICD_chinh_Name,
+                                        Utility.sDbnull(v_dtData.Rows[0][KcbChandoanKetluan.Columns.MabenhPhu], ""),
+                                        ref ICD_chinh_Name,
                                         ref ICD_chinh_Code, ref ICD_Phu_Name, ref ICD_Phu_Code);
                 }
                 frm.uc_bant_41.txtkbChanDoanRaVien.Text = ICD_Name;
                 frm.uc_bant_41.txtkbMa.Text = ICD_Code;
                 frm.uc_bant_41.txtBenhChinh.Text = ICD_chinh_Name + ICD_chinh_Code;
                 frm.uc_bant_41.txtBenhPhu.Text = ICD_Phu_Name + ICD_Phu_Code;
-                KcbBenhAn _KcbBenhAn =
+                var _KcbBenhAn =
                     new Select().From(KcbBenhAn.Schema).
-                        Where(KcbBenhAn.Columns.IdBnhan).IsEqualTo(Utility.sDbnull(txtPatient_ID.Text)).ExecuteSingle<KcbBenhAn>();
+                        Where(KcbBenhAn.Columns.IdBnhan).IsEqualTo(Utility.sDbnull(txtPatient_ID.Text)).ExecuteSingle
+                        <KcbBenhAn>();
                 //Đã Tồn tại thông tin bệnh án ngoại trú. Sửa
-                if (_KcbBenhAn!=null)
+                if (_KcbBenhAn != null)
                 {
                     frm.uc_bant_11.txtID_BA.Text = Utility.sDbnull(_KcbBenhAn.Id, "");
                     frm.uc_bant_11.txtMaBenhAn.Text = Utility.sDbnull(_KcbBenhAn.SoBenhAn, -1);
@@ -1069,11 +714,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 cboChonBenhAn.SelectedIndex = 0;
                 ThongBaoBenhAn(txtPatient_ID.Text);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //throw;
+                Utility.ShowMsg("Lỗi: " + ex.Message);
             }
         }
+
         private void ThongBaoBenhAn(string IdBnhan)
         {
             SqlQuery SoKham =
@@ -1084,10 +730,11 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 lblBANgoaitru.ForeColor = Color.Black;
                 var objBenhAnNgoaiTru = SoKham.ExecuteSingle<KcbBenhAn>();
-                lblBANgoaitru.Text = "Đã có số lưu Bệnh Án ngoại trú, Người Tạo:" + Utility.sDbnull(objBenhAnNgoaiTru.NguoiTao);
+                lblBANgoaitru.Text = "Đã có số lưu Bệnh Án ngoại trú, Người Tạo:" +
+                                     Utility.sDbnull(objBenhAnNgoaiTru.NguoiTao);
                 cboChonBenhAn.SelectedIndex = 0;
             }
-            //chưa tồn tại thông tin ngoại tru. 
+                //chưa tồn tại thông tin ngoại tru. 
             else
             {
                 lblBANgoaitru.ForeColor = Color.Red;
@@ -1096,15 +743,15 @@ namespace VNS.HIS.UI.NGOAITRU
                 cboChonBenhAn.SelectedIndex = 0;
             }
         }
-        void chkHienthichitiet_CheckedChanged(object sender, EventArgs e)
+
+        private void chkHienthichitiet_CheckedChanged(object sender, EventArgs e)
         {
-           
             grdAssignDetail.GroupMode = chkHienthichitiet.Checked ? GroupMode.Expanded : GroupMode.Collapsed;
             grdAssignDetail.Refresh();
             Application.DoEvents();
         }
 
-        void chkAutocollapse_CheckedChanged(object sender, EventArgs e)
+        private void chkAutocollapse_CheckedChanged(object sender, EventArgs e)
         {
             PropertyLib._ThamKhamProperties.TudongthugonCLS = chkAutocollapse.Checked;
             PropertyLib.SaveProperty(PropertyLib._ThamKhamProperties);
@@ -1112,16 +759,17 @@ namespace VNS.HIS.UI.NGOAITRU
                 grdAssignDetail.GroupMode = GroupMode.Collapsed;
         }
 
-      
-        void cmdThamkhamConfig_Click(object sender, EventArgs e)
+
+        private void cmdThamkhamConfig_Click(object sender, EventArgs e)
         {
-            frm_Properties frm = new frm_Properties(PropertyLib._ThamKhamProperties);
+            var frm = new frm_Properties(PropertyLib._ThamKhamProperties);
             frm.ShowDialog();
             CauHinhThamKham();
         }
+
         private void CauHinhThamKham()
         {
-            if (PropertyLib._ThamKhamProperties!=null)
+            if (PropertyLib._ThamKhamProperties != null)
             {
                 cboA4Donthuoc.Text = PropertyLib._MayInProperties.CoGiayInDonthuoc == Papersize.A4 ? "A4" : "A5";
                 cboPrintPreviewDonthuoc.SelectedIndex = PropertyLib._MayInProperties.PreviewInDonthuoc ? 0 : 1;
@@ -1129,78 +777,83 @@ namespace VNS.HIS.UI.NGOAITRU
                 cboA4Cls.Text = PropertyLib._MayInProperties.CoGiayInCLS == Papersize.A4 ? "A4" : "A5";
                 cboPrintPreviewCLS.SelectedIndex = PropertyLib._MayInProperties.PreviewInCLS ? 0 : 1;
 
-                cboA4Tomtatdieutringoaitru.Text = PropertyLib._MayInProperties.CoGiayInTomtatDieutriNgoaitru == Papersize.A4 ? "A4" : "A5";
-                cboPrintPreviewTomtatdieutringoaitru.SelectedIndex = PropertyLib._MayInProperties.PreviewInTomtatDieutriNgoaitru ? 0 : 1;
+                cboA4Tomtatdieutringoaitru.Text = PropertyLib._MayInProperties.CoGiayInTomtatDieutriNgoaitru ==
+                                                  Papersize.A4
+                                                      ? "A4"
+                                                      : "A5";
+                cboPrintPreviewTomtatdieutringoaitru.SelectedIndex =
+                    PropertyLib._MayInProperties.PreviewInTomtatDieutriNgoaitru ? 0 : 1;
 
 
                 cboLaserPrinters.Text = PropertyLib._MayInProperties.TenMayInBienlai;
                 chkAutocollapse.Checked = PropertyLib._ThamKhamProperties.TudongthugonCLS;
                 cmdPrintPres.Visible = PropertyLib._ThamKhamProperties.ChophepIndonthuoc;
-                grdList.Height = PropertyLib._ThamKhamProperties.ChieucaoluoidanhsachBenhnhan <= 0 ? 0 : PropertyLib._ThamKhamProperties.ChieucaoluoidanhsachBenhnhan;
+                grdList.Height = PropertyLib._ThamKhamProperties.ChieucaoluoidanhsachBenhnhan <= 0
+                                     ? 0
+                                     : PropertyLib._ThamKhamProperties.ChieucaoluoidanhsachBenhnhan;
                 grpSearch.Height = PropertyLib._ThamKhamProperties.AntimkiemNangcao ? 0 : 145;
                 if (uiTabKqCls.Width > 0)
                     uiTabKqCls.Width = PropertyLib._ThamKhamProperties.DorongVungKetquaCLS;
-            }   
+            }
         }
-        void grdList_KeyDown(object sender, KeyEventArgs e)
+
+        private void grdList_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode==Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
                 HienthithongtinBN();
         }
 
-      
-
-       
-
-        void grdList_MouseClick(object sender, MouseEventArgs e)
+        private void grdList_MouseClick(object sender, MouseEventArgs e)
         {
-            if (PropertyLib._ThamKhamProperties.ViewAfterClick && !_buttonClick )
+            if (PropertyLib._ThamKhamProperties.ViewAfterClick && !_buttonClick)
                 HienthithongtinBN();
             _buttonClick = false;
         }
 
-        void cboPrintPreview_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboPrintPreview_SelectedIndexChanged(object sender, EventArgs e)
         {
             PropertyLib._MayInProperties.PreviewInDonthuoc = cboPrintPreviewDonthuoc.SelectedIndex == 0;
             PropertyLib.SaveProperty(PropertyLib._MayInProperties);
         }
 
-        void cboA4_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboA4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PropertyLib._MayInProperties.CoGiayInDonthuoc = cboA4Donthuoc.SelectedIndex == 0 ? Papersize.A4 : Papersize.A5;
+            PropertyLib._MayInProperties.CoGiayInDonthuoc = cboA4Donthuoc.SelectedIndex == 0
+                                                                ? Papersize.A4
+                                                                : Papersize.A5;
             PropertyLib.SaveProperty(PropertyLib._MayInProperties);
         }
-        void cboPrintPreviewCLS_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void cboPrintPreviewCLS_SelectedIndexChanged(object sender, EventArgs e)
         {
             PropertyLib._MayInProperties.PreviewInCLS = cboPrintPreviewCLS.SelectedIndex == 0;
             PropertyLib.SaveProperty(PropertyLib._MayInProperties);
         }
 
-        void cboA4Cls_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboA4Cls_SelectedIndexChanged(object sender, EventArgs e)
         {
             PropertyLib._MayInProperties.CoGiayInCLS = cboA4Cls.SelectedIndex == 0 ? Papersize.A4 : Papersize.A5;
             PropertyLib.SaveProperty(PropertyLib._MayInProperties);
         }
-        void cboPrintPreviewTomtatdieutringoaitru_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void cboPrintPreviewTomtatdieutringoaitru_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PropertyLib._MayInProperties.PreviewInTomtatDieutriNgoaitru = cboPrintPreviewTomtatdieutringoaitru.SelectedIndex == 0;
+            PropertyLib._MayInProperties.PreviewInTomtatDieutriNgoaitru =
+                cboPrintPreviewTomtatdieutringoaitru.SelectedIndex == 0;
             PropertyLib.SaveProperty(PropertyLib._MayInProperties);
         }
 
-        void cboA4Tomtatdieutringoaitru_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboA4Tomtatdieutringoaitru_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PropertyLib._MayInProperties.CoGiayInTomtatDieutriNgoaitru = cboA4Tomtatdieutringoaitru.SelectedIndex == 0 ? Papersize.A4 : Papersize.A5;
+            PropertyLib._MayInProperties.CoGiayInTomtatDieutriNgoaitru = cboA4Tomtatdieutringoaitru.SelectedIndex == 0
+                                                                             ? Papersize.A4
+                                                                             : Papersize.A5;
             PropertyLib.SaveProperty(PropertyLib._MayInProperties);
         }
 
-        void grdList_DoubleClick(object sender, EventArgs e)
+        private void grdList_DoubleClick(object sender, EventArgs e)
         {
             HienthithongtinBN();
-        }
-        private int SplitterDistance
-        {
-            get { return Distance; }
-            set { Distance = value; }
         }
 
 
@@ -1234,8 +887,9 @@ namespace VNS.HIS.UI.NGOAITRU
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi: " + ex.Message);
             }
         }
 
@@ -1283,18 +937,14 @@ namespace VNS.HIS.UI.NGOAITRU
             {
             }
         }
+
         private void CauHinhQMS()
         {
-            
             if (PropertyLib._HISQMSProperties.IsQMS)
             {
                 ShowScreen();
             }
-           
         }
-
-       
-      
 
         private void AddShortCut_KETLUAN()
         {
@@ -1305,7 +955,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 foreach (DataRow dr in m_kl.Rows)
                 {
                     string shortcut = "";
-                    string realName = dr[DmucChung.Columns.Ten].ToString().Trim() + " " + Utility.Bodau(dr[DmucChung.Columns.Ten].ToString().Trim());
+                    string realName = dr[DmucChung.Columns.Ten].ToString().Trim() + " " +
+                                      Utility.Bodau(dr[DmucChung.Columns.Ten].ToString().Trim());
                     shortcut = dr[DmucChung.Columns.Ma].ToString().Trim();
                     string[] arrWords = realName.ToLower().Split(' ');
                     string _space = "";
@@ -1332,9 +983,6 @@ namespace VNS.HIS.UI.NGOAITRU
             }
         }
 
-      
-
-       
 
         private void txtMaBenhphu_GotFocus(object sender, EventArgs e)
         {
@@ -1346,8 +994,6 @@ namespace VNS.HIS.UI.NGOAITRU
             //txtMaBenhChinh_TextChanged(txtMaBenhChinh, e);
         }
 
-       
-      
 
         /// <summary>
         /// hàm thực hiện việc tìm kiếm thông tin của thăm khám
@@ -1366,10 +1012,11 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-                m_dtKhoaNoiTru = THU_VIEN_CHUNG.Laydanhmuckhoa("NOI",0);
+                m_dtKhoaNoiTru = THU_VIEN_CHUNG.Laydanhmuckhoa("NOI", 0);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi: " + ex.Message);
             }
         }
 
@@ -1399,33 +1046,37 @@ namespace VNS.HIS.UI.NGOAITRU
                     Status = radChuaKham.Checked ? 0 : 1;
                 }
 
-                m_dtDanhsachbenhnhanthamkham = _KCB_THAMKHAM.LayDSachBnhanThamkham(!chkByDate.Checked ? globalVariables.SysDate.AddDays(-7) : dt_FormDate, !chkByDate.Checked ? globalVariables.SysDate : dt_ToDate, txtTenBN.Text, Status,
-                                                          SoKham,
-                                                          Utility.Int32Dbnull(cboPhongKhamNgoaiTru.SelectedValue, -1),
-                                                          globalVariables.MA_KHOA_THIEN);
+                m_dtDanhsachbenhnhanthamkham =
+                    _KCB_THAMKHAM.LayDSachBnhanThamkham(
+                        !chkByDate.Checked ? globalVariables.SysDate.AddDays(-7) : dt_FormDate,
+                        !chkByDate.Checked ? globalVariables.SysDate : dt_ToDate, txtTenBN.Text, Status,
+                        SoKham,
+                        Utility.Int32Dbnull(cboPhongKhamNgoaiTru.SelectedValue, -1),
+                        globalVariables.MA_KHOA_THIEN);
 
                 if (!m_dtDanhsachbenhnhanthamkham.Columns.Contains("MAUSAC"))
-                    m_dtDanhsachbenhnhanthamkham.Columns.Add("MAUSAC", typeof(int));
+                    m_dtDanhsachbenhnhanthamkham.Columns.Add("MAUSAC", typeof (int));
 
-                Utility.SetDataSourceForDataGridEx_Basic(grdList, m_dtDanhsachbenhnhanthamkham, true, true, "", KcbDangkyKcb.Columns.SttKham); //"locked=0", "");
+                Utility.SetDataSourceForDataGridEx_Basic(grdList, m_dtDanhsachbenhnhanthamkham, true, true, "",
+                                                         KcbDangkyKcb.Columns.SttKham); //"locked=0", "");
 
                 if (!dt_ICD_PHU.Columns.Contains(DmucBenh.Columns.MaBenh))
                 {
-                    dt_ICD_PHU.Columns.Add(DmucBenh.Columns.MaBenh, typeof(string));
+                    dt_ICD_PHU.Columns.Add(DmucBenh.Columns.MaBenh, typeof (string));
                 }
                 if (!dt_ICD_PHU.Columns.Contains(DmucBenh.Columns.TenBenh))
                 {
-                    dt_ICD_PHU.Columns.Add(DmucBenh.Columns.TenBenh, typeof(string));
+                    dt_ICD_PHU.Columns.Add(DmucBenh.Columns.TenBenh, typeof (string));
                 }
                 grd_ICD.DataSource = dt_ICD_PHU;
                 cmdUnlock.Visible = false;
                 ModifyCommmands();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Utility.CatchException(ex);
             }
-        }    
+        }
 
         private void AddAutoComplete_m_strMaLuotkham()
         {
@@ -1453,8 +1104,14 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-                m_dtDoctorAssign = THU_VIEN_CHUNG.LaydanhsachBacsi(-1,0);
-                txtBacsi.Init(m_dtDoctorAssign, new List<string>() { DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.MaNhanvien, DmucNhanvien.Columns.TenNhanvien });
+                m_dtDoctorAssign = THU_VIEN_CHUNG.LaydanhsachBacsi(-1, 0);
+                txtBacsi.Init(m_dtDoctorAssign,
+                              new List<string>
+                                  {
+                                      DmucNhanvien.Columns.IdNhanvien,
+                                      DmucNhanvien.Columns.MaNhanvien,
+                                      DmucNhanvien.Columns.TenNhanvien
+                                  });
                 if (globalVariables.gv_intIDNhanvien <= 0)
                 {
                     txtBacsi.SetId(-1);
@@ -1464,14 +1121,12 @@ namespace VNS.HIS.UI.NGOAITRU
                     txtBacsi.SetId(globalVariables.gv_intIDNhanvien);
                 }
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                // throw;
+                Utility.ShowMsg("Lỗi: " + ex.Message);
             }
-           
         }
 
-       
 
         /// <summary>
         /// hàm thực hiện trạng thái của nút
@@ -1480,50 +1135,54 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-               
                 cmdPrintPres.Enabled = !string.IsNullOrEmpty(m_strMaLuotkham);
                 cmdSave.Enabled = !string.IsNullOrEmpty(m_strMaLuotkham);
-                cmdPrintPres.Enabled =Utility.isValidGrid( grdPresDetail) && !string.IsNullOrEmpty(m_strMaLuotkham);
-               
-                cmdPrintAssign.Enabled =Utility.isValidGrid( grdAssignDetail)  && !string.IsNullOrEmpty(m_strMaLuotkham);
+                cmdPrintPres.Enabled = Utility.isValidGrid(grdPresDetail) && !string.IsNullOrEmpty(m_strMaLuotkham);
+
+                cmdPrintAssign.Enabled = Utility.isValidGrid(grdAssignDetail) && !string.IsNullOrEmpty(m_strMaLuotkham);
 
                 chkIntach.Enabled = cmdPrintAssign.Enabled;
                 cboServicePrint.Enabled = cmdPrintAssign.Enabled;
-                tabDiagInfo.Enabled =objLuotkham!=null && !string.IsNullOrEmpty(m_strMaLuotkham);
+                tabDiagInfo.Enabled = objLuotkham != null && !string.IsNullOrEmpty(m_strMaLuotkham);
                 cmdPrintPres.Enabled =
                     cmdDeletePres.Enabled =
                     cmdUpdatePres.Enabled = Utility.isValidGrid(grdPresDetail) && !string.IsNullOrEmpty(m_strMaLuotkham);
 
                 cmdInphieuVT.Enabled =
-                   cmdXoaphieuVT.Enabled =
-                   cmdSuaphieuVT.Enabled =Utility.isValidGrid( grdVTTH)  && !string.IsNullOrEmpty(m_strMaLuotkham);
+                    cmdXoaphieuVT.Enabled =
+                    cmdSuaphieuVT.Enabled = Utility.isValidGrid(grdVTTH) && !string.IsNullOrEmpty(m_strMaLuotkham);
 
                 cmdUpdate.Enabled =
-                    cmdDelteAssign.Enabled =Utility.isValidGrid( grdAssignDetail)  && !string.IsNullOrEmpty(m_strMaLuotkham);
-
+                    cmdDelteAssign.Enabled =
+                    Utility.isValidGrid(grdAssignDetail) && !string.IsNullOrEmpty(m_strMaLuotkham);
 
 
                 chkDaThucHien.Visible = chkDaThucHien.Checked;
-               
-                if (objLuotkham.Locked == 1 || objLuotkham.TrangthaiNoitru>=1)
+                if (objLuotkham != null)
                 {
-                    cmdInsertAssign.Enabled = cmdUpdate.Enabled = cmdDelteAssign.Enabled =
-                                                                  cmdCreateNewPres.Enabled =
-                                                                  cmdUpdatePres.Enabled = cmdDeletePres.Enabled =
-                                                                  cmdThemphieuVT.Enabled =
-                                                                  cmdSuaphieuVT.Enabled = cmdXoaphieuVT.Enabled = false;
+                    if (objLuotkham.Locked == 1 || objLuotkham.TrangthaiNoitru >= 1)
+                    {
+                        cmdInsertAssign.Enabled = cmdUpdate.Enabled = cmdDelteAssign.Enabled =
+                                                                      cmdCreateNewPres.Enabled =
+                                                                      cmdUpdatePres.Enabled = cmdDeletePres.Enabled =
+                                                                                              cmdThemphieuVT.Enabled =
+                                                                                              cmdSuaphieuVT.Enabled =
+                                                                                              cmdXoaphieuVT.Enabled =
+                                                                                              false;
+                    }
+                    else
+                    {
+                        cmdInsertAssign.Enabled = true && !string.IsNullOrEmpty(m_strMaLuotkham);
+                        cmdCreateNewPres.Enabled = true && !string.IsNullOrEmpty(m_strMaLuotkham);
+                        cmdThemphieuVT.Enabled = true && !string.IsNullOrEmpty(m_strMaLuotkham);
+                    }
+                    ctxDelCLS.Enabled = cmdUpdate.Enabled;
+                    ctxDelDrug.Enabled = cmdUpdatePres.Enabled;
                 }
-                else
-                {
-                    cmdInsertAssign.Enabled = true && !string.IsNullOrEmpty(m_strMaLuotkham);
-                    cmdCreateNewPres.Enabled = true && !string.IsNullOrEmpty(m_strMaLuotkham);
-                    cmdThemphieuVT.Enabled = true && !string.IsNullOrEmpty(m_strMaLuotkham);
-                }
-                ctxDelCLS.Enabled = cmdUpdate.Enabled;
-                ctxDelDrug.Enabled = cmdUpdatePres.Enabled;
             }
             catch (Exception exception)
             {
+                Utility.ShowMsg(exception.Message);
             }
         }
 
@@ -1547,7 +1206,7 @@ namespace VNS.HIS.UI.NGOAITRU
             //    return false;
             //}
 
-           
+
             return true;
         }
 
@@ -1555,8 +1214,8 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             ds =
                 _KCB_THAMKHAM.LaythongtinCLSVaThuoc(Utility.Int32Dbnull(txtPatient_ID.Text, -1),
-                                                         Utility.sDbnull(m_strMaLuotkham, ""),
-                                                         Utility.Int32Dbnull(txtExam_ID.Text));
+                                                    Utility.sDbnull(m_strMaLuotkham, ""),
+                                                    Utility.Int32Dbnull(txtExam_ID.Text));
             m_dtAssignDetail = ds.Tables[0];
             m_dtPresDetail = ds.Tables[1];
             m_dtVTTH = ds.Tables[2];
@@ -1569,29 +1228,44 @@ namespace VNS.HIS.UI.NGOAITRU
                 dr["CHON"] = 0;
                 DataRow[] drview
                     = m_dtDonthuocChitiet_View
-                    .Select(KcbDonthuocChitiet.Columns.IdThuoc + "=" + Utility.sDbnull(dr[KcbDonthuocChitiet.Columns.IdThuoc], "-1")
-                    + "AND " + KcbDonthuocChitiet.Columns.DonGia + "=" + Utility.sDbnull(dr[KcbDonthuocChitiet.Columns.DonGia], "-1"));
+                        .Select(KcbDonthuocChitiet.Columns.IdThuoc + "=" +
+                                Utility.sDbnull(dr[KcbDonthuocChitiet.Columns.IdThuoc], "-1")
+                                + "AND " + KcbDonthuocChitiet.Columns.DonGia + "=" +
+                                Utility.sDbnull(dr[KcbDonthuocChitiet.Columns.DonGia], "-1"));
                 if (drview.Length <= 0)
                 {
                     m_dtDonthuocChitiet_View.ImportRow(dr);
                 }
                 else
                 {
+                    drview[0][KcbDonthuocChitiet.Columns.SoLuong] =
+                        Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong], 0) +
+                        Utility.Int32Dbnull(dr[KcbDonthuocChitiet.Columns.SoLuong], 0);
+                    drview[0]["TT_KHONG_PHUTHU"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong])*
+                                                   Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.DonGia]);
+                    drview[0]["TT"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong])*
+                                      (Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.DonGia]) +
+                                       Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.PhuThu]));
+                    drview[0]["TT_BHYT"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong])*
+                                           Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.BhytChitra]);
+                    drview[0]["TT_BN"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong])*
+                                         (Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.BnhanChitra], 0) +
+                                          Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.PhuThu], 0));
+                    drview[0]["TT_PHUTHU"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong])*
+                                             Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.PhuThu], 0);
+                    drview[0]["TT_BN_KHONG_PHUTHU"] =
+                        Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong])*
+                        Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.BnhanChitra], 0);
 
-                    drview[0][KcbDonthuocChitiet.Columns.SoLuong] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong], 0) + Utility.Int32Dbnull(dr[KcbDonthuocChitiet.Columns.SoLuong], 0);
-                    drview[0]["TT_KHONG_PHUTHU"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong]) * Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.DonGia]);
-                    drview[0]["TT"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong]) * (Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.DonGia]) + Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.PhuThu]));
-                    drview[0]["TT_BHYT"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong]) * Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.BhytChitra]);
-                    drview[0]["TT_BN"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong]) * (Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.BnhanChitra], 0) + Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.PhuThu], 0));
-                    drview[0]["TT_PHUTHU"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong]) * Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.PhuThu], 0);
-                    drview[0]["TT_BN_KHONG_PHUTHU"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong]) * Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.BnhanChitra], 0);
-
-                    drview[0][KcbDonthuocChitiet.Columns.SttIn] = Math.Min(Utility.Int32Dbnull(dr[KcbDonthuocChitiet.Columns.SttIn], 0), Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SttIn], 0));
+                    drview[0][KcbDonthuocChitiet.Columns.SttIn] =
+                        Math.Min(Utility.Int32Dbnull(dr[KcbDonthuocChitiet.Columns.SttIn], 0),
+                                 Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SttIn], 0));
                     m_dtDonthuocChitiet_View.AcceptChanges();
                 }
             }
 
-            Utility.SetDataSourceForDataGridEx(grdPresDetail, m_dtDonthuocChitiet_View, false, true, "", KcbDonthuocChitiet.Columns.SttIn);
+            Utility.SetDataSourceForDataGridEx(grdPresDetail, m_dtDonthuocChitiet_View, false, true, "",
+                                               KcbDonthuocChitiet.Columns.SttIn);
 
             m_dtVTTHChitiet_View = m_dtVTTH.Clone();
             foreach (DataRow dr in m_dtVTTH.Rows)
@@ -1599,32 +1273,46 @@ namespace VNS.HIS.UI.NGOAITRU
                 dr["CHON"] = 0;
                 DataRow[] drview
                     = m_dtVTTHChitiet_View
-                    .Select(KcbDonthuocChitiet.Columns.IdThuoc + "=" + Utility.sDbnull(dr[KcbDonthuocChitiet.Columns.IdThuoc], "-1")
-                    + "AND " + KcbDonthuocChitiet.Columns.DonGia + "=" + Utility.sDbnull(dr[KcbDonthuocChitiet.Columns.DonGia], "-1"));
+                        .Select(KcbDonthuocChitiet.Columns.IdThuoc + "=" +
+                                Utility.sDbnull(dr[KcbDonthuocChitiet.Columns.IdThuoc], "-1")
+                                + "AND " + KcbDonthuocChitiet.Columns.DonGia + "=" +
+                                Utility.sDbnull(dr[KcbDonthuocChitiet.Columns.DonGia], "-1"));
                 if (drview.Length <= 0)
                 {
                     m_dtVTTHChitiet_View.ImportRow(dr);
                 }
                 else
                 {
+                    drview[0][KcbDonthuocChitiet.Columns.SoLuong] =
+                        Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong], 0) +
+                        Utility.Int32Dbnull(dr[KcbDonthuocChitiet.Columns.SoLuong], 0);
+                    drview[0]["TT_KHONG_PHUTHU"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong])*
+                                                   Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.DonGia]);
+                    drview[0]["TT"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong])*
+                                      (Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.DonGia]) +
+                                       Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.PhuThu]));
+                    drview[0]["TT_BHYT"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong])*
+                                           Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.BhytChitra]);
+                    drview[0]["TT_BN"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong])*
+                                         (Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.BnhanChitra], 0) +
+                                          Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.PhuThu], 0));
+                    drview[0]["TT_PHUTHU"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong])*
+                                             Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.PhuThu], 0);
+                    drview[0]["TT_BN_KHONG_PHUTHU"] =
+                        Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong])*
+                        Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.BnhanChitra], 0);
 
-                    drview[0][KcbDonthuocChitiet.Columns.SoLuong] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong], 0) + Utility.Int32Dbnull(dr[KcbDonthuocChitiet.Columns.SoLuong], 0);
-                    drview[0]["TT_KHONG_PHUTHU"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong]) * Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.DonGia]);
-                    drview[0]["TT"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong]) * (Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.DonGia]) + Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.PhuThu]));
-                    drview[0]["TT_BHYT"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong]) * Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.BhytChitra]);
-                    drview[0]["TT_BN"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong]) * (Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.BnhanChitra], 0) + Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.PhuThu], 0));
-                    drview[0]["TT_PHUTHU"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong]) * Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.PhuThu], 0);
-                    drview[0]["TT_BN_KHONG_PHUTHU"] = Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SoLuong]) * Utility.DecimaltoDbnull(drview[0][KcbDonthuocChitiet.Columns.BnhanChitra], 0);
-
-                    drview[0][KcbDonthuocChitiet.Columns.SttIn] = Math.Min(Utility.Int32Dbnull(dr[KcbDonthuocChitiet.Columns.SttIn], 0), Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SttIn], 0));
+                    drview[0][KcbDonthuocChitiet.Columns.SttIn] =
+                        Math.Min(Utility.Int32Dbnull(dr[KcbDonthuocChitiet.Columns.SttIn], 0),
+                                 Utility.Int32Dbnull(drview[0][KcbDonthuocChitiet.Columns.SttIn], 0));
                     m_dtVTTHChitiet_View.AcceptChanges();
                 }
             }
             //Old-->Utility.SetDataSourceForDataGridEx
-            Utility.SetDataSourceForDataGridEx(grdVTTH, m_dtVTTHChitiet_View, false, true, "", KcbDonthuocChitiet.Columns.SttIn);
-
+            Utility.SetDataSourceForDataGridEx(grdVTTH, m_dtVTTHChitiet_View, false, true, "",
+                                               KcbDonthuocChitiet.Columns.SttIn);
         }
-       
+
         private void Get_DanhmucChung()
         {
             txtTrieuChungBD.Init();
@@ -1632,53 +1320,41 @@ namespace VNS.HIS.UI.NGOAITRU
             txtHuongdieutri.Init();
             txtKet_Luan.Init();
             txtNhommau.Init();
+            txtNhanxet.Init();
         }
 
         private void frm_KCB_THAMKHAM_Load(object sender, EventArgs e)
         {
             try
             {
-                AllowTextChanged = false;
                 Get_DanhmucChung();
                 lstVisibleColumns = Utility.GetVisibleColumns(grdAssignDetail);
                 DataTable dtNhomin = THU_VIEN_CHUNG.LayDulieuDanhmucChung("NHOM_INPHIEU_CLS", true);
-                DataBinding.BindDataCombox(cboServicePrint, dtNhomin, DmucChung.Columns.Ma, DmucChung.Columns.Ten, "Tất cả", true);
-
+                DataBinding.BindDataCombox(cboServicePrint, dtNhomin, DmucChung.Columns.Ma, DmucChung.Columns.Ten,
+                                           "Tất cả", true);
                 Load_DSach_ICD();
                 LoadPhongkhamngoaitru();
-
                 LaydanhsachbacsiChidinh();
                 SearchPatient();
-               
+
                 if (cboServicePrint.Items.Count > 0) cboServicePrint.SelectedIndex = 0;
-                AllowTextChanged = true;
                 cmdNhapVien.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU", "0", true) == "1";
                 cmdHuyNhapVien.Visible = cmdNhapVien.Visible;
-              
+
                 hasLoaded = true;
 
                 InitData();
                 ClearControl();
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
             finally
             {
                 ModifyCommmands();
                 txtPatient_Code.Focus();
                 txtPatient_Code.Select();
-            }
-        }
-
-        private void LoadTrangTraiIn()
-        {
-            try
-            {
-            }
-            catch (Exception)
-            {
-                Utility.ShowMsg("Có lỗi trong quá trình lấy trạng thái in");
             }
         }
 
@@ -1697,53 +1373,13 @@ namespace VNS.HIS.UI.NGOAITRU
         private void LoadPhongkhamngoaitru()
         {
             DataBinding.BindDataCombox(cboPhongKhamNgoaiTru,
-                                                 THU_VIEN_CHUNG.DmucLaydanhsachCacphongkhamTheoBacsi(globalVariables.UserName,globalVariables.idKhoatheoMay, Utility.Bool2byte(globalVariables.IsAdmin), (byte)0),
-                                                 DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
-                                                 "---Chọn phòng khám---",false);
-           
-        }
-        DataTable m_ExamTypeRelationList = new DataTable();
-        private void LoadExamTypeRelation()
-        {
-            bool oldStatus = AllowTextChanged;
-            try
-            {
-                //cboKieuKham.DataSource = null;
-                ////Khởi tạo danh mục Loại khám
-                //string objecttype_code = "DV";
-                //DmucDoituongkcb objectType = DmucDoituongkcb.FetchByID(ObjectTypeId);
-                //if (objectType != null)
-                //{
-                //    objecttype_code = Utility.sDbnull(objectType.MaDoituongKcb);
-                //}
-                //VNS.HIS.UCs.Libs.AutocompleteKieuKham(objLuotkham.MaDoituongKcb, txtKieuKham);
-                //VNS.HIS.UCs.Libs.AutocompletePhongKham(objLuotkham.MaDoituongKcb, txtACPhongkham);
-               
-                //m_ExamTypeRelationList = THU_VIEN_CHUNG.LayDsach_Dvu_KCB(objecttype_code);
-                
-                //m_ExamTypeRelationList.AcceptChanges();
-                //cboKieuKham.DataSource = m_ExamTypeRelationList;
-                //cboKieuKham.DataMember = DmucDichvukcb.Columns.IdDichvukcb;
-                //cboKieuKham.ValueMember = DmucDichvukcb.Columns.IdDichvukcb;
-                //cboKieuKham.DisplayMember = DmucDichvukcb.Columns.TenDichvukcb;
-                //cboKieuKham.Visible = globalVariables.UserName == "ADMIN";
-                //if (m_ExamTypeRelationList == null || m_ExamTypeRelationList.Columns.Count <= 0) return;
-                //AllowTextChanged = true;
-                //if (m_ExamTypeRelationList.Rows.Count == 1 && m_enAction != action.Update)
-                //{
-                //    cboKieuKham.SelectedIndex = 0;
-
-                //}
-                AllowTextChanged = oldStatus;
-            }
-            catch
-            {
-                AllowTextChanged = oldStatus;
-            }
-        }
-        private void cboDoctorAssign_TextChanged(object sender, EventArgs e)
-        {
-           
+                                       THU_VIEN_CHUNG.DmucLaydanhsachCacphongkhamTheoBacsi(globalVariables.UserName,
+                                                                                           globalVariables.idKhoatheoMay,
+                                                                                           Utility.Bool2byte(
+                                                                                               globalVariables.IsAdmin),
+                                                                                           0),
+                                       DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
+                                       "---Chọn phòng khám---", false);
         }
 
         /// <summary>
@@ -1753,21 +1389,20 @@ namespace VNS.HIS.UI.NGOAITRU
         /// <param name="e"></param>
         private void txtMaBenhChinh_TextChanged(object sender, EventArgs e)
         {
-           
             try
             {
                 hasMorethanOne = true;
                 DataRow[] arrDr;
                 if (isLike)
                     arrDr =
-                        globalVariables.gv_dtDmucBenh.Select(DmucBenh.Columns.MaBenh+ " like '" +
-                                                               Utility.sDbnull(txtMaBenhChinh.Text, "") +
-                                                               "%'");
+                        globalVariables.gv_dtDmucBenh.Select(DmucBenh.Columns.MaBenh + " like '" +
+                                                             Utility.sDbnull(txtMaBenhChinh.Text, "") +
+                                                             "%'");
                 else
                     arrDr =
-                        globalVariables.gv_dtDmucBenh.Select(DmucBenh.Columns.MaBenh+ " = '" +
-                                                               Utility.sDbnull(txtMaBenhChinh.Text, "") +
-                                                               "'");
+                        globalVariables.gv_dtDmucBenh.Select(DmucBenh.Columns.MaBenh + " = '" +
+                                                             Utility.sDbnull(txtMaBenhChinh.Text, "") +
+                                                             "'");
                 if (!string.IsNullOrEmpty(txtMaBenhChinh.Text))
                 {
                     if (arrDr.GetLength(0) == 1)
@@ -1793,12 +1428,16 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             catch (Exception ex)
             {
-
                 Utility.CatchException(ex);
             }
             finally
             {
-                cboChonBenhAn.Visible =Utility.DoTrim(txtMaBenhChinh.Text)!="" &&  THU_VIEN_CHUNG.Laygiatrithamsohethong("BENH_AN", "0", false) == "1" && (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_ICD_BENH_AN_NGOAI_TRU", "ALL", false) == "ALL" || THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_ICD_BENH_AN_NGOAI_TRU", "ALL", false).Contains(Utility.DoTrim(txtMaBenhChinh.Text)));
+                cboChonBenhAn.Visible = Utility.DoTrim(txtMaBenhChinh.Text) != "" &&
+                                        THU_VIEN_CHUNG.Laygiatrithamsohethong("BENH_AN", "0", false) == "1" &&
+                                        (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_ICD_BENH_AN_NGOAI_TRU", "ALL", false) ==
+                                         "ALL" ||
+                                         THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_ICD_BENH_AN_NGOAI_TRU", "ALL", false)
+                                             .Contains(Utility.DoTrim(txtMaBenhChinh.Text)));
                 lblBenhan.Visible = cboChonBenhAn.Visible;
                 setChanDoan();
             }
@@ -1811,58 +1450,18 @@ namespace VNS.HIS.UI.NGOAITRU
         /// <param name="e"></param>
         private void txtMaBenhphu_TextChanged(object sender, EventArgs e)
         {
-            //hasMorethanOne = true;
-            //try
-            //{
-
-            //    if (!string.IsNullOrEmpty(txtMaBenhphu.Text))
-            //    {
-
-            //        var query = from benh in globalVariables.gv_dtDmucBenh.AsEnumerable()
-            //                    where
-            //                        Utility.sDbnull(benh[DmucBenh.Columns.MaBenh]).li
-            //                        Utility.sDbnull(txtMaBenhphu.Text.Trim())
-            //                    select Utility.sDbnull(benh[DmucBenh.Columns.TenBenh]);
-
-
-            //        if (query.Any())
-            //        {
-            //            // txtMaBenhphu.Text = Utility.sDbnull(arrDr[0][DmucBenh.Columns.MaBenh]);
-            //            txtTenBenhPhu.Text = Utility.sDbnull(query.FirstOrDefault(), "").Trim();
-            //            //  txtDisease_ID.Text = Utility.sDbnull(arrDr[0][DmucBenh.Columns.DiseaseId], "-1");
-            //        }
-            //        else
-            //        {
-            //            //txtDisease_ID.Text = "-1";
-            //            txtTenBenhPhu.Text = "";
-            //        }
-            //    }
-            //    else
-            //    {
-            //        //  txtDisease_ID.Text = "-1";
-
-            //        txtMaBenhphu.Text = "";
-
-            //        // cmdSearchBenhChinh.PerformClick();
-            //    }
-            //}
-            //catch (Exception)
-            //{
-
-
-            //}
             hasMorethanOne = true;
             DataRow[] arrDr;
             if (isLike)
                 arrDr =
-                    globalVariables.gv_dtDmucBenh.Select(DmucBenh.Columns.MaBenh+ " like '" +
-                                                           Utility.sDbnull(txtMaBenhphu.Text, "") +
-                                                           "%'");
+                    globalVariables.gv_dtDmucBenh.Select(DmucBenh.Columns.MaBenh + " like '" +
+                                                         Utility.sDbnull(txtMaBenhphu.Text, "") +
+                                                         "%'");
             else
                 arrDr =
-                    globalVariables.gv_dtDmucBenh.Select(DmucBenh.Columns.MaBenh+ " = '" +
-                                                           Utility.sDbnull(txtMaBenhphu.Text, "") +
-                                                           "'");
+                    globalVariables.gv_dtDmucBenh.Select(DmucBenh.Columns.MaBenh + " = '" +
+                                                         Utility.sDbnull(txtMaBenhphu.Text, "") +
+                                                         "'");
             if (!string.IsNullOrEmpty(txtMaBenhphu.Text))
             {
                 if (arrDr.GetLength(0) == 1)
@@ -1958,27 +1557,17 @@ namespace VNS.HIS.UI.NGOAITRU
             }
         }
 
-        //private KcbLuotkham CreatePatientExam()
-        //{
-        //    SqlQuery sqlQuery = new Select().From(KcbLuotkham.Schema)
-        //        .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(m_strMaLuotkham)
-        //        .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(Utility.Int32Dbnull(txtPatient_ID.Text));
-        //    var objPatientExam = sqlQuery.ExecuteSingle<KcbLuotkham>();
-        //    return objPatientExam;
-        //}
-
-
         private void ClearControl()
         {
             try
             {
-                if (dt_ICD_PHU!=null) dt_ICD_PHU.Rows.Clear();
+                if (dt_ICD_PHU != null) dt_ICD_PHU.Rows.Clear();
                 grdAssignDetail.DataSource = null;
                 grdPresDetail.DataSource = null;
                 txtReg_ID.Text = "";
-                txtPatientDept_ID.Clear();
-                txtIdKhoaNoiTru.Clear();
-                txtKhoaNoiTru.Clear();
+                // txtPatientDept_ID.Clear();
+                //  txtIdKhoaNoiTru.Clear();
+                //  txtKhoaNoiTru.Clear();
                 cmdNhapVien.Enabled = false;
                 cmdHuyNhapVien.Enabled = false;
                 txtTenDvuKham.Clear();
@@ -1987,40 +1576,40 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     if (control is EditBox)
                     {
-                        ((EditBox)(control)).Clear();
+                        ((EditBox) (control)).Clear();
                     }
                     else if (control is MaskedEditBox)
                     {
                         control.Text = "";
                     }
-                    else if (control is VNS.HIS.UCs.AutoCompleteTextbox)
+                    else if (control is AutoCompleteTextbox)
                     {
-                        ((VNS.HIS.UCs.AutoCompleteTextbox)control)._Text = "";
+                        ((AutoCompleteTextbox) control)._Text = "";
                     }
                     else if (control is TextBox)
                     {
-                        ((TextBox)(control)).Clear();
+                        ((TextBox) (control)).Clear();
                     }
                 }
-               
-                
+
+
                 foreach (Control control in pnlKetluan.Controls)
                 {
                     if (control is EditBox)
                     {
-                        ((EditBox)(control)).Clear();
+                        ((EditBox) (control)).Clear();
                     }
                     else if (control is MaskedEditBox)
                     {
                         control.Text = "";
                     }
-                    else if (control is VNS.HIS.UCs.AutoCompleteTextbox)
+                    else if (control is AutoCompleteTextbox)
                     {
-                        ((VNS.HIS.UCs.AutoCompleteTextbox)control)._Text = "";
+                        ((AutoCompleteTextbox) control)._Text = "";
                     }
                     else if (control is TextBox)
                     {
-                        ((TextBox)(control)).Clear();
+                        ((TextBox) (control)).Clear();
                     }
                 }
 
@@ -2028,24 +1617,22 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     if (control is EditBox)
                     {
-                        ((EditBox)(control)).Clear();
+                        ((EditBox) (control)).Clear();
                     }
                     else if (control is MaskedEditBox)
                     {
                         control.Text = "";
                     }
-                    else if (control is VNS.HIS.UCs.AutoCompleteTextbox)
+                    else if (control is AutoCompleteTextbox)
                     {
-                        ((VNS.HIS.UCs.AutoCompleteTextbox)control)._Text = "";
+                        ((AutoCompleteTextbox) control)._Text = "";
                     }
                     else if (control is TextBox)
                     {
-                        ((TextBox)(control)).Clear();
+                        ((TextBox) (control)).Clear();
                     }
-                    
                 }
                 txtSongaydieutri.Text = "0";
-               
             }
             catch (Exception)
             {
@@ -2072,17 +1659,10 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             catch
             {
-                
             }
         }
 
 
-
-
-
-        KcbChandoanKetluan _KcbChandoanKetluan = null;
-        bool isRoom = false;
-        private bool isNhapVien = false;
         /// <summary>
         /// Lấy về thông tin bệnh nhâ nội trú
         /// </summary>
@@ -2090,18 +1670,17 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-
                 Utility.SetMsg(lblMsg, "", false);
-                if(!Utility.isValidGrid(grdList))
+                if (!Utility.isValidGrid(grdList))
                 {
                     return;
                 }
-                bool KHAMCHEO_CACKHOA = THU_VIEN_CHUNG.Laygiatrithamsohethong("KHAMCHEO_CACKHOA", "0", true)=="1";
-                
-               // Utility.SetMsg(lblMsg, "", false);
+                bool KHAMCHEO_CACKHOA = THU_VIEN_CHUNG.Laygiatrithamsohethong("KHAMCHEO_CACKHOA", "0", true) == "1";
+
+                // Utility.SetMsg(lblMsg, "", false);
                 string PatientCode = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham), "");
                 m_strMaLuotkham = PatientCode;
-                if (!Utility.CheckLockObject(m_strMaLuotkham,"Thăm khám","TK"))
+                if (!Utility.CheckLockObject(m_strMaLuotkham, "Thăm khám", "TK"))
                     return;
 
                 int Id_Benhnhan = Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan), -1);
@@ -2110,38 +1689,48 @@ namespace VNS.HIS.UI.NGOAITRU
                     .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(Id_Benhnhan).ExecuteSingle<KcbLuotkham>();
 
                 objBenhnhan = KcbDanhsachBenhnhan.FetchByID(objLuotkham.IdBenhnhan);
-              
+
                 isRoom = false;
                 if (objLuotkham != null)
                 {
-                    string ten_khoaphong=Utility.sDbnull( grdList.GetValue("ten_khoaphong"),"");
-                    
+                    string ten_khoaphong = Utility.sDbnull(grdList.GetValue("ten_khoaphong"), "");
+
                     cmdChuyenPhong.Visible = objLuotkham.TrangthaiNoitru == 0;
                     int hien_thi = Utility.Int32Dbnull(grdList.GetValue("hien_thi"), 0);
                     if (hien_thi == 0)
                     {
-                        Utility.ShowMsg("Bệnh nhân " + objBenhnhan.TenBenhnhan+" CHƯA NỘP TIỀN KHÁM trong khi thuộc đối tượng khám chữa bệnh CẦN THANH TOÁN TRƯỚC KHI VÀO PHÒNG KHÁM.\nYêu cầu Bệnh nhân đi NỘP TIỀN KHÁM TRƯỚC");
+                        Utility.ShowMsg("Bệnh nhân " + objBenhnhan.TenBenhnhan +
+                                        " CHƯA NỘP TIỀN KHÁM trong khi thuộc đối tượng khám chữa bệnh CẦN THANH TOÁN TRƯỚC KHI VÀO PHÒNG KHÁM.\nYêu cầu Bệnh nhân đi NỘP TIỀN KHÁM TRƯỚC");
                         objLuotkham = null;
                         objBenhnhan = null;
                         m_strMaLuotkham = "";
                         return;
                     }
-                    if (!KHAMCHEO_CACKHOA  && globalVariables.MA_KHOA_THIEN != objLuotkham.MaKhoaThuchien)
+                    if (!KHAMCHEO_CACKHOA && globalVariables.MA_KHOA_THIEN != objLuotkham.MaKhoaThuchien)
                     {
-                        Utility.ShowMsg("Bệnh nhân này được tiếp đón và chỉ định khám cho khoa " + ten_khoaphong + ". Trong khi máy bạn đang cấu hình khám chữa bệnh cho khoa " + globalVariablesPrivate.objKhoaphong.TenKhoaphong + "\nHệ thống không cho phép khám chéo giữa các khoa. Đề nghị liên hệ Bộ phận IT trong đơn vị để được trợ giúp");
+                        Utility.ShowMsg("Bệnh nhân này được tiếp đón và chỉ định khám cho khoa " + ten_khoaphong +
+                                        ". Trong khi máy bạn đang cấu hình khám chữa bệnh cho khoa " +
+                                        globalVariablesPrivate.objKhoaphong.TenKhoaphong +
+                                        "\nHệ thống không cho phép khám chéo giữa các khoa. Đề nghị liên hệ Bộ phận IT trong đơn vị để được trợ giúp");
                         objLuotkham = null;
                         objBenhnhan = null;
                         m_strMaLuotkham = "";
                         return;
                     }
                     ClearControl();
-                    lblSongaydieutri.ForeColor = THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb) ? lblKetluan.ForeColor : lblBenhphu.ForeColor;
+                    lblSongaydieutri.ForeColor = THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb)
+                                                     ? lblKetluan.ForeColor
+                                                     : lblBenhphu.ForeColor;
                     lblBenhchinh.ForeColor = lblSongaydieutri.ForeColor;
-                    lblBANoitru.Text = Utility.Int32Dbnull(objLuotkham.SoBenhAn, -1) <= 0 ? "" : "Số B.A Nội trú: " + objLuotkham.SoBenhAn.ToString();
+                    lblBANoitru.Text = Utility.Int32Dbnull(objLuotkham.SoBenhAn, -1) <= 0
+                                           ? ""
+                                           : "Số B.A Nội trú: " + objLuotkham.SoBenhAn;
                     txt_idchidinhphongkham.Text = Utility.sDbnull(grdList.GetValue(KcbDangkyKcb.Columns.IdKham));
 
                     objkcbdangky = KcbDangkyKcb.FetchByID(Utility.Int32Dbnull(txt_idchidinhphongkham.Text));
-                    DmucNhanvien objStaff = new Select().From(DmucNhanvien.Schema).Where(DmucNhanvien.UserNameColumn).IsEqualTo(Utility.sDbnull(objLuotkham.NguoiKetthuc, "")).ExecuteSingle<DmucNhanvien>();
+                    var objStaff =
+                        new Select().From(DmucNhanvien.Schema).Where(DmucNhanvien.UserNameColumn).IsEqualTo(
+                            Utility.sDbnull(objLuotkham.NguoiKetthuc, "")).ExecuteSingle<DmucNhanvien>();
                     string TenNhanvien = objLuotkham.NguoiKetthuc;
                     if (objStaff != null)
                         TenNhanvien = objStaff.TenNhanvien;
@@ -2150,36 +1739,43 @@ namespace VNS.HIS.UI.NGOAITRU
                     pnlVTTH.Enabled = true;
                     if (objkcbdangky != null)
                     {
-
                         cmdUnlock.Visible = objLuotkham.TrangthaiNoitru == 0 && objLuotkham.Locked.ToString() == "1";
-                        cmdUnlock.Enabled = cmdUnlock.Visible && (Utility.Coquyen("quyen_mokhoa_tatca") || objLuotkham.NguoiKetthuc == globalVariables.UserName);
+                        cmdUnlock.Enabled = cmdUnlock.Visible &&
+                                            (Utility.Coquyen("quyen_mokhoa_tatca") ||
+                                             objLuotkham.NguoiKetthuc == globalVariables.UserName);
                         if (!cmdUnlock.Enabled)
-                            toolTip1.SetToolTip(cmdUnlock, "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ " + TenNhanvien + "(" + objLuotkham.NguoiKetthuc + " - Là người khóa BN này) để được họ mở khóa. Hoặc liên hệ Quản trị hệ thống");
+                            toolTip1.SetToolTip(cmdUnlock,
+                                                "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ " +
+                                                TenNhanvien + "(" + objLuotkham.NguoiKetthuc +
+                                                " - Là người khóa BN này) để được họ mở khóa. Hoặc liên hệ Quản trị hệ thống");
                         else
-                            toolTip1.SetToolTip(cmdUnlock, "Nhấn vào đây để mở khóa cho bệnh nhân đang chọn(Phím tắt Ctrl+U). Điều kiện là chỉ mở khóa đối với đối tượng Dịch vụ. Muốn mở khóa đối tượng BHYT thì cần liên lạc với bộ phận thanh toán hủy in phôi BHYT");
+                            toolTip1.SetToolTip(cmdUnlock,
+                                                "Nhấn vào đây để mở khóa cho bệnh nhân đang chọn(Phím tắt Ctrl+U). Điều kiện là chỉ mở khóa đối với đối tượng Dịch vụ. Muốn mở khóa đối tượng BHYT thì cần liên lạc với bộ phận thanh toán hủy in phôi BHYT");
                         cmdNhapVien.Enabled = objkcbdangky.TrangThai == 1;
                         cmdHuyNhapVien.Enabled = objLuotkham.TrangthaiNoitru >= 1;
                         cmdNhapVien.Tag = objLuotkham.TrangthaiNoitru == 0 ? "0" : "1";
                         cmdNhapVien.Text = objLuotkham.TrangthaiNoitru == 0 ? "Nhập viện" : "Cập nhật";
 
                         DataTable m_dtThongTin = _KCB_THAMKHAM.LayThongtinBenhnhanKCB(objLuotkham.MaLuotkham,
-                                                                          Utility.Int32Dbnull(objLuotkham.IdBenhnhan,
-                                                                                              -1),
-                                                                          Utility.Int32Dbnull(txt_idchidinhphongkham.Text));
-                               
+                                                                                      Utility.Int32Dbnull(
+                                                                                          objLuotkham.IdBenhnhan,
+                                                                                          -1),
+                                                                                      Utility.Int32Dbnull(
+                                                                                          txt_idchidinhphongkham.Text));
+
                         if (m_dtThongTin.Rows.Count > 0)
                         {
                             DataRow dr = m_dtThongTin.Rows[0];
                             if (dr != null)
                             {
-                               
                                 dtInput_Date.Value = Convert.ToDateTime(dr[KcbLuotkham.Columns.NgayTiepdon]);
                                 txtExam_ID.Text = Utility.sDbnull(grdList.GetValue(KcbDangkyKcb.Columns.IdKham));
-                              
+
 
                                 txtGioitinh.Text =
                                     Utility.sDbnull(grdList.GetValue(KcbDanhsachBenhnhan.Columns.GioiTinh), "");
-                                txt_idchidinhphongkham.Text = Utility.sDbnull(grdList.GetValue(KcbDangkyKcb.Columns.IdKham));
+                                txt_idchidinhphongkham.Text =
+                                    Utility.sDbnull(grdList.GetValue(KcbDangkyKcb.Columns.IdKham));
                                 lblSOkham.Text = Utility.sDbnull(grdList.GetValue(KcbDangkyKcb.Columns.SttKham));
                                 txtPatient_Name.Text = Utility.sDbnull(dr[KcbDanhsachBenhnhan.Columns.TenBenhnhan], "");
                                 txtPatient_ID.Text = Utility.sDbnull(dr[KcbDanhsachBenhnhan.Columns.IdBenhnhan], "");
@@ -2193,7 +1789,8 @@ namespace VNS.HIS.UI.NGOAITRU
                                 txtBHTT.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.PtramBhyt], "0");
                                 //txtNgheNghiep.Text = Utility.sDbnull(dr[KcbDanhsachBenhnhan.Columns.NgheNghiep], "");
                                 txtHanTheBHYT.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.NgayketthucBhyt], "");
-                                dtpNgayhethanBHYT.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.NgayketthucBhyt], globalVariables.SysDate.ToString("dd/MM/yyyy"));
+                                dtpNgayhethanBHYT.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.NgayketthucBhyt],
+                                                                         globalVariables.SysDate.ToString("dd/MM/yyyy"));
                                 txtTuoi.Text = Utility.sDbnull(Utility.Int32Dbnull(globalVariables.SysDate.Year) -
                                                                objBenhnhan.NgaySinh.Value.Year);
                                 ThongBaoBenhAn(txtPatient_ID.Text);
@@ -2204,14 +1801,16 @@ namespace VNS.HIS.UI.NGOAITRU
                                     txtReg_ID.Text = Utility.sDbnull(objkcbdangky.IdKham);
                                     dtpCreatedDate.Value = Convert.ToDateTime(objkcbdangky.NgayDangky);
                                     txtDepartment_ID.Text = Utility.sDbnull(objkcbdangky.IdPhongkham);
-                                    DmucKhoaphong _department = new Select().From(DmucKhoaphong.Schema).Where(DmucKhoaphong.IdKhoaphongColumn).IsEqualTo(objkcbdangky.IdPhongkham).ExecuteSingle<DmucKhoaphong>();
+                                    var _department =
+                                        new Select().From(DmucKhoaphong.Schema).Where(DmucKhoaphong.IdKhoaphongColumn).
+                                            IsEqualTo(objkcbdangky.IdPhongkham).ExecuteSingle<DmucKhoaphong>();
                                     if (_department != null)
                                     {
                                         txtPhongkham.Text = Utility.sDbnull(_department.TenKhoaphong);
                                     }
                                     txtTenDvuKham.Text = Utility.sDbnull(objkcbdangky.TenDichvuKcb);
                                     txtNguoiTiepNhan.Text = Utility.sDbnull(objkcbdangky.NguoiTao);
-                                    if (Utility.Int16Dbnull(objkcbdangky.IdBacsikham,-1) != -1)
+                                    if (Utility.Int16Dbnull(objkcbdangky.IdBacsikham, -1) != -1)
                                     {
                                         txtBacsi.SetId(Utility.sDbnull(objkcbdangky.IdBacsikham, -1));
                                     }
@@ -2222,64 +1821,63 @@ namespace VNS.HIS.UI.NGOAITRU
 
                                     chkDaThucHien.Checked = Utility.Int32Dbnull(objkcbdangky.TrangThai) == 1;
                                 }
-                                 _KcbChandoanKetluan = new Select().From(KcbChandoanKetluan.Schema)
-                                         .Where(KcbChandoanKetluan.Columns.IdKham).IsEqualTo(objkcbdangky.IdKham).ExecuteSingle
-                                         <KcbChandoanKetluan>();
-                                 if (_KcbChandoanKetluan != null)
-                                 {
-                                     txtKet_Luan._Text = Utility.sDbnull(_KcbChandoanKetluan.Ketluan);
+                                _KcbChandoanKetluan = new Select().From(KcbChandoanKetluan.Schema)
+                                    .Where(KcbChandoanKetluan.Columns.IdKham).IsEqualTo(objkcbdangky.IdKham).
+                                    ExecuteSingle
+                                    <KcbChandoanKetluan>();
+                                if (_KcbChandoanKetluan != null)
+                                {
+                                    txtKet_Luan._Text = Utility.sDbnull(_KcbChandoanKetluan.Ketluan);
                                     // txtHuongdieutri.SetCode(_KcbChandoanKetluan.HuongDieutri);
-                                     txtHuongdieutri._Text=_KcbChandoanKetluan.HuongDieutri;
-                                     txtSongaydieutri.Text = Utility.sDbnull(_KcbChandoanKetluan.SongayDieutri, "0");
-                                     txtHa.Text = Utility.sDbnull(_KcbChandoanKetluan.Huyetap);
-                                     txtTrieuChungBD._Text = Utility.sDbnull(_KcbChandoanKetluan.TrieuchungBandau);
-                                     txtMach.Text = Utility.sDbnull(_KcbChandoanKetluan.Mach);
-                                     txtNhipTim.Text = Utility.sDbnull(_KcbChandoanKetluan.Nhiptim);
-                                     txtNhipTho.Text = Utility.sDbnull(_KcbChandoanKetluan.Nhiptho);
-                                     txtNhietDo.Text = Utility.sDbnull(_KcbChandoanKetluan.Nhietdo);
-                                     txtCannang.Text = Utility.sDbnull(_KcbChandoanKetluan.Cannang);
-                                     txtChieucao.Text = Utility.sDbnull(_KcbChandoanKetluan.Chieucao);
-                                     if (!string.IsNullOrEmpty(Utility.sDbnull(_KcbChandoanKetluan.Nhommau)) &&
-                                         Utility.sDbnull(_KcbChandoanKetluan.Nhommau) != "-1")
-                                         txtNhommau._Text = Utility.sDbnull(_KcbChandoanKetluan.Nhommau);
+                                    txtHuongdieutri._Text = _KcbChandoanKetluan.HuongDieutri;
+                                    txtSongaydieutri.Text = Utility.sDbnull(_KcbChandoanKetluan.SongayDieutri, "0");
+                                    txtHa.Text = Utility.sDbnull(_KcbChandoanKetluan.Huyetap);
+                                    txtTrieuChungBD._Text = Utility.sDbnull(_KcbChandoanKetluan.TrieuchungBandau);
+                                    txtMach.Text = Utility.sDbnull(_KcbChandoanKetluan.Mach);
+                                    txtNhipTim.Text = Utility.sDbnull(_KcbChandoanKetluan.Nhiptim);
+                                    txtNhipTho.Text = Utility.sDbnull(_KcbChandoanKetluan.Nhiptho);
+                                    txtNhietDo.Text = Utility.sDbnull(_KcbChandoanKetluan.Nhietdo);
+                                    txtCannang.Text = Utility.sDbnull(_KcbChandoanKetluan.Cannang);
+                                    txtChieucao.Text = Utility.sDbnull(_KcbChandoanKetluan.Chieucao);
+                                    txtNhanxet.Text = Utility.sDbnull(_KcbChandoanKetluan.NhanXet);
+                                    if (!string.IsNullOrEmpty(Utility.sDbnull(_KcbChandoanKetluan.Nhommau)) &&
+                                        Utility.sDbnull(_KcbChandoanKetluan.Nhommau) != "-1")
+                                        txtNhommau._Text = Utility.sDbnull(_KcbChandoanKetluan.Nhommau);
 
 
-                                     AllowTextChanged = true;
-                                     isLike = false;
-                                     txtChanDoan._Text = Utility.sDbnull(_KcbChandoanKetluan.Chandoan);
-                                     txtChanDoanKemTheo.Text = Utility.sDbnull(_KcbChandoanKetluan.ChandoanKemtheo);
-                                     txtMaBenhChinh.Text = Utility.sDbnull(_KcbChandoanKetluan.MabenhChinh);
-                                     string dataString = Utility.sDbnull(_KcbChandoanKetluan.MabenhPhu, "");
-                                     isLike = true;
-                                     AllowTextChanged = false;
-                                     dt_ICD_PHU.Clear();
-                                     if (!string.IsNullOrEmpty(dataString))
-                                     {
-                                         string[] rows = dataString.Split(',');
-                                         foreach (string row in rows)
-                                         {
-                                             if (!string.IsNullOrEmpty(row))
-                                             {
-                                                 DataRow newDr = dt_ICD_PHU.NewRow();
-                                                 newDr[DmucBenh.Columns.MaBenh] = row;
-                                                 newDr[DmucBenh.Columns.TenBenh] = GetTenBenh(row);
-                                                 dt_ICD_PHU.Rows.Add(newDr);
-                                                 dt_ICD_PHU.AcceptChanges();
-                                             }
-                                         }
-                                         grd_ICD.DataSource = dt_ICD_PHU;
-                                     }
-                                 }
-                                 else
-                                 {
-                                 }
-                                
+                                    isLike = false;
+                                    txtChanDoan._Text = Utility.sDbnull(_KcbChandoanKetluan.Chandoan);
+                                    txtChanDoanKemTheo.Text = Utility.sDbnull(_KcbChandoanKetluan.ChandoanKemtheo);
+                                    txtMaBenhChinh.Text = Utility.sDbnull(_KcbChandoanKetluan.MabenhChinh);
+                                    string dataString = Utility.sDbnull(_KcbChandoanKetluan.MabenhPhu, "");
+                                    isLike = true;
+                                    dt_ICD_PHU.Clear();
+                                    if (!string.IsNullOrEmpty(dataString))
+                                    {
+                                        string[] rows = dataString.Split(',');
+                                        foreach (string row in rows)
+                                        {
+                                            if (!string.IsNullOrEmpty(row))
+                                            {
+                                                DataRow newDr = dt_ICD_PHU.NewRow();
+                                                newDr[DmucBenh.Columns.MaBenh] = row;
+                                                newDr[DmucBenh.Columns.TenBenh] = GetTenBenh(row);
+                                                dt_ICD_PHU.Rows.Add(newDr);
+                                                dt_ICD_PHU.AcceptChanges();
+                                            }
+                                        }
+                                        grd_ICD.DataSource = dt_ICD_PHU;
+                                    }
+                                }
                                 Laythongtinchidinhngoaitru();
                             }
                         }
                         //cmdKETTHUC.Visible = objLuotkham.Locked == 0 && objkcbdangky.TrangThai > 0;
-                        cmdInTTDieuTri.Visible = objkcbdangky.TrangThai != 0 &&  objLuotkham.TrangthaiNoitru == 0;
-                        cboChonBenhAn.Visible = objkcbdangky.TrangThai != 0 && THU_VIEN_CHUNG.Laygiatrithamsohethong("BENH_AN", "0", true) == "1" && objLuotkham.TrangthaiNoitru == 0;
+                        cmdInTTDieuTri.Visible =
+                            cmdInphieuhen.Visible = objkcbdangky.TrangThai != 0 && objLuotkham.TrangthaiNoitru == 0;
+                        cboChonBenhAn.Visible = objkcbdangky.TrangThai != 0 &&
+                                                THU_VIEN_CHUNG.Laygiatrithamsohethong("BENH_AN", "0", true) == "1" &&
+                                                objLuotkham.TrangthaiNoitru == 0;
                         lblBenhan.Visible = cboChonBenhAn.Visible;
                         // cmdBenhAnNgoaiTru.Visible = objkcbdangky.TrangThai != 0;
                         cmdKETTHUC.Enabled = true;
@@ -2290,10 +1888,10 @@ namespace VNS.HIS.UI.NGOAITRU
                         cmdKETTHUC.Enabled = false;
                     }
                 }
-               
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
             finally
             {
@@ -2302,49 +1900,48 @@ namespace VNS.HIS.UI.NGOAITRU
                 getResult();
             }
         }
-        void LoadBenh()
+
+        private void LoadBenh()
         {
             try
             {
-                    AllowTextChanged = true;
-                    isLike = false;
-                    txtChanDoan._Text = Utility.sDbnull(_KcbChandoanKetluan.Chandoan);
-                    txtChanDoanKemTheo.Text = Utility.sDbnull(_KcbChandoanKetluan.ChandoanKemtheo);
-                    txtMaBenhChinh.Text = Utility.sDbnull(_KcbChandoanKetluan.MabenhChinh);
-                    string dataString = Utility.sDbnull(_KcbChandoanKetluan.MabenhPhu, "");
-                    isLike = true;
-                    AllowTextChanged = false;
-                    dt_ICD_PHU.Clear();
-                    if (!string.IsNullOrEmpty(dataString))
+                isLike = false;
+                txtChanDoan._Text = Utility.sDbnull(_KcbChandoanKetluan.Chandoan);
+                txtChanDoanKemTheo.Text = Utility.sDbnull(_KcbChandoanKetluan.ChandoanKemtheo);
+                txtMaBenhChinh.Text = Utility.sDbnull(_KcbChandoanKetluan.MabenhChinh);
+                string dataString = Utility.sDbnull(_KcbChandoanKetluan.MabenhPhu, "");
+                isLike = true;
+                dt_ICD_PHU.Clear();
+                if (!string.IsNullOrEmpty(dataString))
+                {
+                    string[] rows = dataString.Split(',');
+                    foreach (string row in rows)
                     {
-                        string[] rows = dataString.Split(',');
-                        foreach (string row in rows)
+                        if (!string.IsNullOrEmpty(row))
                         {
-                            if (!string.IsNullOrEmpty(row))
-                            {
-                                DataRow newDr = dt_ICD_PHU.NewRow();
-                                newDr[DmucBenh.Columns.MaBenh] = row;
-                                newDr[DmucBenh.Columns.TenBenh] = GetTenBenh(row);
-                                dt_ICD_PHU.Rows.Add(newDr);
-                                dt_ICD_PHU.AcceptChanges();
-                            }
+                            DataRow newDr = dt_ICD_PHU.NewRow();
+                            newDr[DmucBenh.Columns.MaBenh] = row;
+                            newDr[DmucBenh.Columns.TenBenh] = GetTenBenh(row);
+                            dt_ICD_PHU.Rows.Add(newDr);
+                            dt_ICD_PHU.AcceptChanges();
                         }
-                        grd_ICD.DataSource = dt_ICD_PHU;
                     }
-                
+                    grd_ICD.DataSource = dt_ICD_PHU;
+                }
             }
             catch
             {
             }
         }
-        void ModifyByLockStatus(byte lockstatus)
+
+        private void ModifyByLockStatus(byte lockstatus)
         {
             cmdCreateNewPres.Enabled = !Utility.isTrue(lockstatus);
             cmdUpdatePres.Enabled = grdPresDetail.RowCount > 0 && !Utility.isTrue(lockstatus);
             cmdDeletePres.Enabled = grdPresDetail.RowCount > 0 && !Utility.isTrue(lockstatus);
             cmdPrintPres.Enabled = grdPresDetail.RowCount > 0 && !string.IsNullOrEmpty(m_strMaLuotkham);
             ctxDelDrug.Enabled = cmdUpdatePres.Enabled;
-           
+
             cmdInsertAssign.Enabled = !Utility.isTrue(lockstatus);
             cmdUpdate.Enabled = grdAssignDetail.RowCount > 0 && !Utility.isTrue(lockstatus);
             cmdDelteAssign.Enabled = grdAssignDetail.RowCount > 0 && !Utility.isTrue(lockstatus);
@@ -2353,6 +1950,7 @@ namespace VNS.HIS.UI.NGOAITRU
             cboServicePrint.Enabled = cmdPrintAssign.Enabled;
             ctxDelCLS.Enabled = cmdUpdate.Enabled;
         }
+
         private void KiemTraDaInPhoiBHYT()
         {
             lblMessage.Visible = objLuotkham != null && objLuotkham.MaDoituongKcb == "BHYT";
@@ -2364,48 +1962,59 @@ namespace VNS.HIS.UI.NGOAITRU
                     .And(KcbPhieuDct.Columns.LoaiThanhtoan).IsEqualTo(Utility.Int32Dbnull(KieuThanhToan.NgoaiTru));
                 if (sqlQuery.GetRecordCount() > 0)
                 {
-                   
                     var objPhieuDct = sqlQuery.ExecuteSingle<KcbPhieuDct>();
                     if (objPhieuDct != null)
                     {
                         Utility.SetMsg(lblMessage,
-                            string.Format("Đã in phôi bởi {0}, vào lúc: {1}", objPhieuDct.NguoiTao,
-                                objPhieuDct.NgayTao), true);
+                                       string.Format("Đã in phôi bởi {0}, vào lúc: {1}", objPhieuDct.NguoiTao,
+                                                     objPhieuDct.NgayTao), true);
                         cmdSave.Enabled = false;
+                        grd_ICD.Enabled = false;
+                        cmdChuyenPhong.Enabled = false;
+                        cmdLuuChandoan.Enabled = false;
                         toolTip1.SetToolTip(cmdSave, "Bệnh nhân đã kết thúc nên bạn không thể sửa thông tin được nữa");
-                        
                     }
                 }
                 else
                 {
+                    grd_ICD.Enabled = true;
+                    cmdLuuChandoan.Enabled = true;
+                    cmdChuyenPhong.Enabled = true;
                     cmdSave.Enabled = true;
                     toolTip1.SetToolTip(cmdSave, "Nhấn vào đây để kết thúc khám cho Bệnh nhân(Phím tắt Ctrl+S)");
                     lblMessage.Visible = false;
                 }
-            }//Đối tượng dịch vụ sẽ luôn hiển thị nút lưu
+            } //Đối tượng dịch vụ sẽ luôn hiển thị nút lưu
             else
+            {
+                grd_ICD.Enabled = true;
                 cmdSave.Enabled = true;
+                cmdLuuChandoan.Enabled = true;
+                cmdChuyenPhong.Enabled = true;
+            }
         }
+
         private string GetTenBenh(string MaBenh)
         {
             string TenBenh = "";
-            DataRow[] arrMaBenh = globalVariables.gv_dtDmucBenh.Select(string.Format(DmucBenh.Columns.MaBenh+ "='{0}'", MaBenh));
+            DataRow[] arrMaBenh =
+                globalVariables.gv_dtDmucBenh.Select(string.Format(DmucBenh.Columns.MaBenh + "='{0}'", MaBenh));
             if (arrMaBenh.GetLength(0) > 0) TenBenh = Utility.sDbnull(arrMaBenh[0][DmucBenh.Columns.TenBenh], "");
             return TenBenh;
         }
 
 
-        void HienthithongtinBN()
+        private void HienthithongtinBN()
         {
             try
             {
                 Utility.FreeLockObject(m_strMaLuotkham);
                 if (!Utility.isValidGrid(grdList))
                 {
-                    return;
                     ClearControl();
+                    return;
                 }
-                AllowTextChanged = false;
+                cmdInphieuhen.Visible = false;
                 cmdInTTDieuTri.Visible = false;
                 cboChonBenhAn.Visible = false;
                 lblBenhan.Visible = cboChonBenhAn.Visible;
@@ -2438,9 +2047,9 @@ namespace VNS.HIS.UI.NGOAITRU
             finally
             {
                 setChanDoan();
-                AllowTextChanged = true;
             }
         }
+
         private void grdList_ColumnButtonClick(object sender, ColumnActionEventArgs e)
         {
             try
@@ -2449,65 +2058,62 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     Utility.FreeLockObject(m_strMaLuotkham);
                     _buttonClick = true;
-                    Janus.Windows.GridEX.GridEXColumn gridExColumn = grdList.RootTable.Columns[KcbDangkyKcb.Columns.SttKham];
+                    GridEXColumn gridExColumn = grdList.RootTable.Columns[KcbDangkyKcb.Columns.SttKham];
                     grdList.Col = gridExColumn.Position;
                     HienthithongtinBN();
                 }
             }
             catch (Exception exception)
             {
-               
+                Utility.ShowMsg(exception.Message);
             }
-            
         }
 
-        /// <summary>
-        /// hàm thực hiện viecj dóng form
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cmdExit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-        void Unlock()
+        private void Unlock()
         {
             try
             {
                 if (objLuotkham == null)
                     return;
                 //Kiểm tra nếu đã in phôi thì cần hủy in phôi
-                KcbPhieuDct _item = new Select().From(KcbPhieuDct.Schema)
+                var _item = new Select().From(KcbPhieuDct.Schema)
                     .Where(KcbPhieuDct.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
                     .And(KcbPhieuDct.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).ExecuteSingle<KcbPhieuDct>();
                 if (_item != null)
                 {
-                    Utility.ShowMsg("Bệnh nhân này thuộc đối tượng BHYT đã được in phôi. Bạn cần liên hệ bộ phận thanh toán hủy in phôi để mở khóa bệnh nhân");
+                    Utility.ShowMsg(
+                        "Bệnh nhân này thuộc đối tượng BHYT đã được in phôi. Bạn cần liên hệ bộ phận thanh toán hủy in phôi để mở khóa bệnh nhân");
                     return;
                 }
                 new Update(KcbLuotkham.Schema)
-                                   .Set(KcbLuotkham.Columns.Locked).EqualTo(0)
-                                   .Set(KcbLuotkham.Columns.TrangthaiNgoaitru).EqualTo(0)
-                                   .Set(KcbLuotkham.Columns.NguoiKetthuc).EqualTo(string.Empty)
-                                   .Set(KcbLuotkham.Columns.NgayKetthuc).EqualTo(null)
-                                   .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(
-                                       objLuotkham.MaLuotkham)
-                                   .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).Execute();
+                    .Set(KcbLuotkham.Columns.Locked).EqualTo(0)
+                    .Set(KcbLuotkham.Columns.TrangthaiNgoaitru).EqualTo(0)
+                    .Set(KcbLuotkham.Columns.NguoiKetthuc).EqualTo(string.Empty)
+                    .Set(KcbLuotkham.Columns.NgayKetthuc).EqualTo(null)
+                    .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(
+                        objLuotkham.MaLuotkham)
+                    .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).Execute();
                 objLuotkham.Locked = 0;
                 objLuotkham.TrangthaiNgoaitru = 0;
                 //ModifyByLockStatus(objLuotkham.Locked);
                 cmdUnlock.Visible = objLuotkham.TrangthaiNoitru == 0 && objLuotkham.Locked.ToString() == "1";
-                cmdUnlock.Enabled = cmdUnlock.Visible && (Utility.Coquyen("quyen_mokhoa_tatca") || objLuotkham.NguoiKetthuc == globalVariables.UserName);
+                cmdUnlock.Enabled = cmdUnlock.Visible &&
+                                    (Utility.Coquyen("quyen_mokhoa_tatca") ||
+                                     objLuotkham.NguoiKetthuc == globalVariables.UserName);
                 if (!cmdUnlock.Enabled)
-                    toolTip1.SetToolTip(cmdUnlock, "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ Quản trị hệ thống để được mở khóa");
+                    toolTip1.SetToolTip(cmdUnlock,
+                                        "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ Quản trị hệ thống để được mở khóa");
                 else
-                    toolTip1.SetToolTip(cmdUnlock, "Nhấn vào đây để mở khóa cho bệnh nhân đang chọn(Phím tắt Ctrl+U). Điều kiện là chỉ mở khóa đối với đối tượng Dịch vụ. Muốn mở khóa đối tượng BHYT thì cần liên lạc với bộ phận thanh toán hủy in phôi BHYT");
+                    toolTip1.SetToolTip(cmdUnlock,
+                                        "Nhấn vào đây để mở khóa cho bệnh nhân đang chọn(Phím tắt Ctrl+U). Điều kiện là chỉ mở khóa đối với đối tượng Dịch vụ. Muốn mở khóa đối tượng BHYT thì cần liên lạc với bộ phận thanh toán hủy in phôi BHYT");
                 GetData();
             }
-            catch
+            catch (Exception exception)
             {
+                Utility.ShowMsg(exception.Message);
             }
         }
+
         /// <summary>
         /// hàm thực hiện việc dùng phím tắt in phiếu
         /// </summary>
@@ -2516,7 +2122,8 @@ namespace VNS.HIS.UI.NGOAITRU
         private void frm_KCB_THAMKHAM_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                if ((ActiveControl!=null && ActiveControl.Name == grdList.Name) || (this.tabPageChanDoan.ActiveControl != null && this.tabPageChanDoan.ActiveControl.Name == txtMaBenhphu.Name))
+                if ((ActiveControl != null && ActiveControl.Name == grdList.Name) ||
+                    (tabPageChanDoan.ActiveControl != null && tabPageChanDoan.ActiveControl.Name == txtMaBenhphu.Name))
                     return;
                 else
                     SendKeys.Send("{TAB}");
@@ -2530,7 +2137,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     cmdPrintPres_Click(cmdPrintPres, new EventArgs());
             }
 
-            if (e.Control & e.KeyCode==Keys.F) cmdSearch.PerformClick();
+            if (e.Control & e.KeyCode == Keys.F) cmdSearch.PerformClick();
             if (e.KeyCode == Keys.Escape) Close();
             if (e.Control && e.KeyCode == Keys.U)
                 Unlock();
@@ -2538,7 +2145,8 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 //splitContainer1.Panel1Collapsed = !splitContainer1.Panel1Collapsed;
             }
-            if (e.KeyCode == Keys.F11 && PropertyLib._AppProperties.ShowActiveControl) Utility.ShowMsg(this.ActiveControl.Name);
+            if (e.KeyCode == Keys.F11 && PropertyLib._AppProperties.ShowActiveControl)
+                Utility.ShowMsg(ActiveControl.Name);
             if (e.KeyCode == Keys.F6)
             {
                 txtPatient_Code.SelectAll();
@@ -2564,7 +2172,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     cmdUpdate_Click(cmdUpdate, new EventArgs());
                 }
             }
-           
+
             if (e.KeyCode == Keys.F3)
             {
                 tabDiagInfo.SelectedTab = tabPageChidinhThuoc;
@@ -2585,7 +2193,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (tabDiagInfo.SelectedTab == tabPageChiDinhCLS) cmdPrintAssign.PerformClick();
             }
             if (e.Control && e.KeyCode == Keys.S) cmdSave.PerformClick();
-            
+
             if (e.Control && e.KeyCode == Keys.N)
             {
                 if (tabDiagInfo.SelectedTab == tabPageChidinhThuoc)
@@ -2593,7 +2201,6 @@ namespace VNS.HIS.UI.NGOAITRU
                 else
                     cmdInsertAssign_Click(cmdInsertAssign, new EventArgs());
             }
-
         }
 
         private void txtSoKham_LostFocus(object sender, EventArgs e)
@@ -2609,14 +2216,6 @@ namespace VNS.HIS.UI.NGOAITRU
         {
         }
 
-        private void cmdClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            dtFromDate.Value = dtToDate.Value = globalVariables.SysDate;
-            txtSoKham.Clear();
-            txtTenBN.Clear();
-            radChuaKham.Checked = true;
-        }
-
         private void txtSoKham_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) cmdSearch.PerformClick();
@@ -2627,30 +2226,49 @@ namespace VNS.HIS.UI.NGOAITRU
             ModifyCommmands();
             ShowResult();
         }
-        void ShowResult()
+
+        private void ShowResult()
         {
             try
             {
-                Int16 trangthai_chitiet =Utility.Int16Dbnull( Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.TrangthaiChitiet),0);
-                Int16 CoChitiet =Utility.Int16Dbnull( Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.CoChitiet),0);
+                Int16 trangthai_chitiet =
+                    Utility.Int16Dbnull(
+                        Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.TrangthaiChitiet), 0);
+                Int16 CoChitiet =
+                    Utility.Int16Dbnull(
+                        Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.CoChitiet), 0);
 
-                int IdChitietdichvu = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.IdChitietdichvu), 0);
-                int IdDichvu = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.IdDichvu), 0);
+                int IdChitietdichvu =
+                    Utility.Int32Dbnull(
+                        Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.IdChitietdichvu), 0);
+                int IdDichvu =
+                    Utility.Int32Dbnull(
+                        Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.IdDichvu), 0);
 
-                int IdChitietchidinh = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.IdChitietchidinh), 0);
-                int IdChidinh = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.IdChidinh), 0);
+                int IdChitietchidinh =
+                    Utility.Int32Dbnull(
+                        Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.IdChitietchidinh), 0);
+                int IdChidinh =
+                    Utility.Int32Dbnull(
+                        Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.IdChidinh), 0);
 
-                string maloai_dichvuCLS = Utility.sDbnull(Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.MaLoaidichvu), "XN");
-                string MaChidinh = Utility.sDbnull(Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.MaChidinh), "XN");
-                string MaBenhpham = Utility.sDbnull(Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.MaBenhpham), "XN");
-                if (trangthai_chitiet <=3)//0=Mới chỉ định;1=Đã chuyển CLS;2=Đang thực hiện;3= Đã có kết quả CLS;4=Đã xác nhận kết quả
+                string maloai_dichvuCLS =
+                    Utility.sDbnull(
+                        Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.MaLoaidichvu), "XN");
+                string MaChidinh =
+                    Utility.sDbnull(Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.MaChidinh),
+                                    "XN");
+                string MaBenhpham =
+                    Utility.sDbnull(Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.MaBenhpham),
+                                    "XN");
+                if (trangthai_chitiet <= 3)
+                    //0=Mới chỉ định;1=Đã chuyển CLS;2=Đang thực hiện;3= Đã có kết quả CLS;4=Đã xác nhận kết quả
                 {
                     uiTabKqCls.Width = 0;
                     Application.DoEvents();
                 }
                 else
                 {
-                    
                     if (maloai_dichvuCLS == "XN")
                         pnlXN.BringToFront();
                     else
@@ -2664,7 +2282,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     }
                     else
                     {
-                            uiTabKqCls.Width = PropertyLib._ThamKhamProperties.DorongVungKetquaCLS;
+                        uiTabKqCls.Width = PropertyLib._ThamKhamProperties.DorongVungKetquaCLS;
                     }
                     if (CoChitiet == 1)
                         Utility.ShowColumns(grdKetqua, lstKQCochitietColumns);
@@ -2673,32 +2291,35 @@ namespace VNS.HIS.UI.NGOAITRU
                     //Lấy dữ liệu CLS
                     if (maloai_dichvuCLS == "XN")
                     {
-                        DataTable dt = SPs.ClsTimkiemketquaXNChitiet(objLuotkham.MaLuotkham, MaChidinh, MaBenhpham, IdChidinh, CoChitiet, IdDichvu, IdChitietdichvu).GetDataSet().Tables[0];
-                        Utility.SetDataSourceForDataGridEx_Basic(grdKetqua, dt, true, true, "1=1", "stt_hthi_dichvu,stt_hthi_chitiet,ten_chitietdichvu");
+                        DataTable dt =
+                            SPs.ClsTimkiemketquaXNChitiet(objLuotkham.MaLuotkham, MaChidinh, MaBenhpham, IdChidinh,
+                                                          CoChitiet, IdDichvu, IdChitietdichvu).GetDataSet().Tables[0];
+                        Utility.SetDataSourceForDataGridEx_Basic(grdKetqua, dt, true, true, "1=1",
+                                                                 "stt_hthi_dichvu,stt_hthi_chitiet,ten_chitietdichvu");
 
                         Utility.focusCell(grdKetqua, KcbKetquaCl.Columns.KetQua);
                     }
-                    else//XQ,SA,DT,NS
+                    else //XQ,SA,DT,NS
                     {
                         FillDynamicValues(IdChitietdichvu, IdChitietchidinh);
                     }
                     Application.DoEvents();
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                
-                
+                Utility.ShowMsg(exception.Message);
             }
         }
-        void FillDynamicValues(int IdDichvuChitiet,int idchidinhchitiet)
+
+        private void FillDynamicValues(int IdDichvuChitiet, int idchidinhchitiet)
         {
             try
             {
                 pnlDynamicValues.Controls.Clear();
 
                 DataTable dtData = clsHinhanh.GetDynamicFieldsValues(IdDichvuChitiet, "", "", -1, idchidinhchitiet);
-                LinkLabel lnkViewImage = new LinkLabel();
+                var lnkViewImage = new LinkLabel();
                 lnkViewImage.Text = "Xem hình ảnh";
                 lnkViewImage.Tag = idchidinhchitiet;
                 lnkViewImage.Click += lnkViewImage_Click;
@@ -2706,7 +2327,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 foreach (DataRow dr in dtData.Select("1=1", "Stt_hthi"))
                 {
                     dr[DynamicValue.Columns.IdChidinhchitiet] = Utility.Int32Dbnull(idchidinhchitiet);
-                    ucDynamicParam _ucTextSysparam = new ucDynamicParam(dr, true);
+                    var _ucTextSysparam = new ucDynamicParam(dr, true);
                     _ucTextSysparam._ReadOnly = true;
                     _ucTextSysparam.onlyView = true;
                     _ucTextSysparam.TabStop = true;
@@ -2726,36 +2347,36 @@ namespace VNS.HIS.UI.NGOAITRU
                     }
                     pnlDynamicValues.Controls.Add(_ucTextSysparam);
                 }
-               
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-
-
+                Utility.ShowMsg(exception.Message);
             }
         }
 
-        void lnkViewImage_Click(object sender, EventArgs e)
+        private void lnkViewImage_Click(object sender, EventArgs e)
         {
             try
             {
-                int idchidinhchitiet = Utility.Int32Dbnull(((LinkLabel)sender).Tag);
+                int idchidinhchitiet = Utility.Int32Dbnull(((LinkLabel) sender).Tag);
                 KcbChidinhclsChitiet objChitiet = KcbChidinhclsChitiet.FetchByID(idchidinhchitiet);
                 if (objChitiet != null)
                 {
-                    if (Utility.sDbnull(objChitiet.ImgPath1, "") != "" || Utility.sDbnull(objChitiet.ImgPath2, "") != "" | Utility.sDbnull(objChitiet.ImgPath3, "") != "" || Utility.sDbnull(objChitiet.ImgPath4, "") != "")
+                    if (Utility.sDbnull(objChitiet.ImgPath1, "") != "" ||
+                        Utility.sDbnull(objChitiet.ImgPath2, "") != "" | Utility.sDbnull(objChitiet.ImgPath3, "") != "" ||
+                        Utility.sDbnull(objChitiet.ImgPath4, "") != "")
                     {
-                        VNS.HIS.UI.Forms.CanLamSang.frm_ViewImages _ViewImages = new Forms.CanLamSang.frm_ViewImages(objChitiet);
+                        var _ViewImages = new frm_ViewImages(objChitiet);
                         _ViewImages.ShowDialog();
                     }
                     else
                     {
-                        ((LinkLabel)sender).Text = "Chưa có ảnh";
+                        ((LinkLabel) sender).Text = "Chưa có ảnh";
                     }
                 }
                 else
                 {
-                    ((LinkLabel)sender).Text = "Lỗi: Không lấy được chi tiết";
+                    ((LinkLabel) sender).Text = "Lỗi: Không lấy được chi tiết";
                 }
             }
             catch (Exception ex)
@@ -2763,9 +2384,11 @@ namespace VNS.HIS.UI.NGOAITRU
                 Utility.CatchException(ex);
             }
         }
+
         private void label22_Click(object sender, EventArgs e)
         {
         }
+
         private void grdList_SelectionChanged(object sender, EventArgs e)
         {
             //try
@@ -2790,7 +2413,6 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void txtPatient_Code_TextChanged(object sender, EventArgs e)
         {
-           
         }
 
         private void txtPatient_Code_KeyDown(object sender, KeyEventArgs e)
@@ -2804,30 +2426,32 @@ namespace VNS.HIS.UI.NGOAITRU
                     string _patient_Code = Utility.AutoFullPatientCode(txtPatient_Code.Text);
                     ClearControl();
                     txtPatient_Code.Text = _patient_Code;
-                    if (grdList.RowCount>0 && PropertyLib._ThamKhamProperties.Timtrenluoi)
+                    if (grdList.RowCount > 0 && PropertyLib._ThamKhamProperties.Timtrenluoi)
                     {
                         DataRow[] arrData_tempt = null;
-                        arrData_tempt = m_dtDanhsachbenhnhanthamkham.Select(KcbLuotkham.Columns.MaLuotkham + "='" + _patient_Code + "'");
+                        arrData_tempt =
+                            m_dtDanhsachbenhnhanthamkham.Select(KcbLuotkham.Columns.MaLuotkham + "='" + _patient_Code +
+                                                                "'");
                         if (arrData_tempt.Length > 0)
                         {
-                            string _status=radChuaKham.Checked?"0":"1";
-                            string regStatus=Utility.sDbnull(arrData_tempt[0][KcbDangkyKcb.Columns.TrangThai],"0");
+                            string _status = radChuaKham.Checked ? "0" : "1";
+                            string regStatus = Utility.sDbnull(arrData_tempt[0][KcbDangkyKcb.Columns.TrangThai], "0");
                             if (_status != regStatus)
                             {
                                 if (regStatus == "1") radDaKham.Checked = true;
                                 else
                                     radChuaKham.Checked = true;
                             }
-                            AllowTextChanged = false;
                             Utility.GotoNewRowJanus(grdList, KcbLuotkham.Columns.MaLuotkham, _patient_Code);
                             if (Utility.isValidGrid(grdList)) grdList_DoubleClick(grdList, new EventArgs());
                             return;
                         }
                     }
-                    
+
                     dtPatient = _KCB_THAMKHAM.TimkiemBenhnhan(txtPatient_Code.Text,
-                                                   Utility.Int32Dbnull(cboPhongKhamNgoaiTru.SelectedValue, -1),(byte)0, 0);
-                   
+                                                              Utility.Int32Dbnull(cboPhongKhamNgoaiTru.SelectedValue, -1),
+                                                              0, 0);
+
                     DataRow[] arrPatients = dtPatient.Select(KcbLuotkham.Columns.MaLuotkham + "='" + _patient_Code + "'");
                     if (arrPatients.GetLength(0) <= 0)
                     {
@@ -2848,8 +2472,9 @@ namespace VNS.HIS.UI.NGOAITRU
                         txtPatient_Code.Text = _patient_Code;
                     }
                     DataTable dt_Patient = _KCB_THAMKHAM.TimkiemThongtinBenhnhansaukhigoMaBN
-                        (txtPatient_Code.Text, Utility.Int32Dbnull(cboPhongKhamNgoaiTru.SelectedValue, -1),globalVariables.MA_KHOA_THIEN);
-                    
+                        (txtPatient_Code.Text, Utility.Int32Dbnull(cboPhongKhamNgoaiTru.SelectedValue, -1),
+                         globalVariables.MA_KHOA_THIEN);
+
                     grdList.DataSource = null;
                     grdList.DataSource = dt_Patient;
                     if (dt_Patient.Rows.Count > 0)
@@ -2858,7 +2483,6 @@ namespace VNS.HIS.UI.NGOAITRU
                         grdList.CurrentRow.BeginEdit();
                         grdList.CurrentRow.Cells["MAUSAC"].Value = 1;
                         grdList.CurrentRow.EndEdit();
-                        AllowTextChanged = false;
                         if (dt_ICD_PHU != null) dt_ICD_PHU.Rows.Clear();
                         GetData();
                         txtPatient_Code.SelectAll();
@@ -2871,7 +2495,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         objkcbdangky = null;
                         objBenhnhan = null;
                         ClearControl();
-                        
+
                         txtPatient_Code.Text = sPatientTemp;
                         txtPatient_Code.SelectAll();
                         //Utility.SetMsg(lblMsg, "Không tìm thấy bệnh nhân có mã lần khám đang chọn",true);
@@ -2886,7 +2510,6 @@ namespace VNS.HIS.UI.NGOAITRU
             finally
             {
                 ModifyCommmands();
-                AllowTextChanged = true;
             }
         }
 
@@ -2920,7 +2543,6 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-                Selected = false;
                 string sFillter = "";
                 if (LOAITIMKIEM.ToUpper() == DmucChung.Columns.Ten)
                 {
@@ -2929,7 +2551,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 else if (LOAITIMKIEM == DmucChung.Columns.Ma)
                 {
-                    sFillter = DmucBenh.Columns.MaBenh+ " LIKE '%" + tEditBox.Text + "%'";
+                    sFillter = DmucBenh.Columns.MaBenh + " LIKE '%" + tEditBox.Text + "%'";
                 }
                 DataRow[] dataRows;
                 dataRows = dt_ICD.Select(sFillter);
@@ -2949,7 +2571,6 @@ namespace VNS.HIS.UI.NGOAITRU
                         hasMorethanOne = false;
                         txtMaBenhphu_TextChanged(txtMaBenhphu, new EventArgs());
                         txtMaBenhphu_KeyDown(txtMaBenhphu, new KeyEventArgs(Keys.Enter));
-                        Selected = false;
                     }
                 }
                 else if (dataRows.Length > 1)
@@ -2969,7 +2590,6 @@ namespace VNS.HIS.UI.NGOAITRU
                             hasMorethanOne = false;
                             txtMaBenhChinh_TextChanged(txtMaBenhChinh, new EventArgs());
                             txtMaBenhChinh_KeyDown(txtMaBenhChinh, new KeyEventArgs(Keys.Enter));
-                            Selected = false;
                         }
                         else if (CP == 1)
                         {
@@ -2982,7 +2602,6 @@ namespace VNS.HIS.UI.NGOAITRU
                                 hasMorethanOne = false;
                                 txtMaBenhphu_TextChanged(txtMaBenhphu, new EventArgs());
                                 txtMaBenhphu_KeyDown(txtMaBenhphu, new KeyEventArgs(Keys.Enter));
-                                Selected = false;
                             }
                             else
                             {
@@ -2995,7 +2614,6 @@ namespace VNS.HIS.UI.NGOAITRU
                                     hasMorethanOne = false;
                                     txtMaBenhphu_TextChanged(txtMaBenhphu, new EventArgs());
                                     txtMaBenhphu_KeyDown(txtMaBenhphu, new KeyEventArgs(Keys.Enter));
-                                    Selected = false;
                                 }
                                 hasMorethanOne = true;
                             }
@@ -3057,7 +2675,9 @@ namespace VNS.HIS.UI.NGOAITRU
                     return;
                 //int record = dt_ICD.Select(string.Format(DmucBenh.Columns.MaBenh+ " ='{0}'", txtMaBenhphu.Text)).GetLength(0);
                 EnumerableRowCollection<DataRow> query = from benh in dt_ICD_PHU.AsEnumerable()
-                                                         where Utility.sDbnull(benh[DmucBenh.Columns.MaBenh]) == txtMaBenhphu.Text
+                                                         where
+                                                             Utility.sDbnull(benh[DmucBenh.Columns.MaBenh]) ==
+                                                             txtMaBenhphu.Text
                                                          select benh;
 
 
@@ -3068,7 +2688,6 @@ namespace VNS.HIS.UI.NGOAITRU
                     txtTenBenhPhu.ResetText();
                     txtMaBenhphu.Focus();
                     txtMaBenhphu.SelectAll();
-                    Selected = false;
                 }
                 else
                 {
@@ -3179,13 +2798,13 @@ namespace VNS.HIS.UI.NGOAITRU
                         Utility.ShowMsg("Đã cập nhật thông tin thành công");
                         tabDiagInfo.Enabled = false;
                         cmdInTTDieuTri.Visible = true;
+                        cmdInphieuhen.Visible = true;
                         // cmdBenhAnNgoaiTru.Visible = true;
                     }
                     else
                     {
                         Utility.ShowMsg("Chưa lưu được thông tin vào cơ sở dữ liệu");
                     }
-
                 }
             }
             catch (Exception)
@@ -3204,7 +2823,6 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 if (txtTenBenhPhu.TextLength <= 0)
                 {
-                    Selected = false;
                     txtMaBenhphu.ResetText();
                 }
             }
@@ -3233,7 +2851,8 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             if (grdPresDetail.GetDataRows().Length <= 0)
             {
-                Utility.ShowMsg("Bạn cần kê đơn thuốc cho bệnh nhân trước khi thực hiện in tóm tắt điều trị ngoại trú", "Thông báo");
+                Utility.ShowMsg("Bạn cần kê đơn thuốc cho bệnh nhân trước khi thực hiện in tóm tắt điều trị ngoại trú",
+                                "Thông báo");
                 tabDiagInfo.SelectedTab = tabPageChidinhThuoc;
                 return;
             }
@@ -3241,12 +2860,11 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 try
                 {
-                    
                     DataRow[] arrDr = m_dtDanhsachbenhnhanthamkham.Select("id_kham=" + txtReg_ID.Text);
                     if (arrDr.Length > 0 && objLuotkham.MaDoituongKcb == "DV")
                     {
                         arrDr[0]["Locked"] = 1;
-                        objLuotkham.Locked = (byte) 1;
+                        objLuotkham.Locked = 1;
                         objLuotkham.NguoiKetthuc = globalVariables.UserName;
                         objLuotkham.NgayKetthuc = globalVariables.SysDate;
                         objLuotkham.Locked = 1;
@@ -3275,17 +2893,25 @@ namespace VNS.HIS.UI.NGOAITRU
                                 grdList.Refetch();
                                 Utility.GotoNewRowJanus(grdList, KcbDangkyKcb.Columns.IdKham,
                                                         Utility.sDbnull(txt_idchidinhphongkham.Text));
-                                DmucNhanvien objStaff = new Select().From(DmucNhanvien.Schema).Where(DmucNhanvien.UserNameColumn).IsEqualTo(Utility.sDbnull(objLuotkham.NguoiKetthuc, "")).ExecuteSingle<DmucNhanvien>();
+                                var objStaff =
+                                    new Select().From(DmucNhanvien.Schema).Where(DmucNhanvien.UserNameColumn).IsEqualTo(
+                                        Utility.sDbnull(objLuotkham.NguoiKetthuc, "")).ExecuteSingle<DmucNhanvien>();
                                 string TenNhanvien = objLuotkham.NguoiKetthuc;
                                 if (objStaff != null)
                                     TenNhanvien = objStaff.TenNhanvien;
-                                cmdUnlock.Visible = objLuotkham.TrangthaiNoitru == 0 && objLuotkham.Locked.ToString() == "1";
-                                cmdUnlock.Enabled = cmdUnlock.Visible && (Utility.Coquyen("quyen_mokhoa_tatca") || objLuotkham.NguoiKetthuc == globalVariables.UserName);
+                                cmdUnlock.Visible = objLuotkham.TrangthaiNoitru == 0 &&
+                                                    objLuotkham.Locked.ToString() == "1";
+                                cmdUnlock.Enabled = cmdUnlock.Visible &&
+                                                    (Utility.Coquyen("quyen_mokhoa_tatca") ||
+                                                     objLuotkham.NguoiKetthuc == globalVariables.UserName);
                                 if (!cmdUnlock.Enabled)
-                                    toolTip1.SetToolTip(cmdUnlock, "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ " + TenNhanvien + "(" + objLuotkham.NguoiKetthuc + " - Là người khóa BN này) để được họ mở khóa. Hoặc liên hệ Quản trị hệ thống");
+                                    toolTip1.SetToolTip(cmdUnlock,
+                                                        "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ " +
+                                                        TenNhanvien + "(" + objLuotkham.NguoiKetthuc +
+                                                        " - Là người khóa BN này) để được họ mở khóa. Hoặc liên hệ Quản trị hệ thống");
                                 else
-                                    toolTip1.SetToolTip(cmdUnlock, "Nhấn vào đây để mở khóa cho bệnh nhân đang chọn(Phím tắt Ctrl+U). Điều kiện là chỉ mở khóa đối với đối tượng Dịch vụ. Muốn mở khóa đối tượng BHYT thì cần liên lạc với bộ phận thanh toán hủy in phôi BHYT");
-
+                                    toolTip1.SetToolTip(cmdUnlock,
+                                                        "Nhấn vào đây để mở khóa cho bệnh nhân đang chọn(Phím tắt Ctrl+U). Điều kiện là chỉ mở khóa đối với đối tượng Dịch vụ. Muốn mở khóa đối tượng BHYT thì cần liên lạc với bộ phận thanh toán hủy in phôi BHYT");
                             }
                             break;
                         case ActionResult.Error:
@@ -3348,7 +2974,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 var lstid_dichvu = new List<string>();
                 foreach (DataRow dr in temdt.Rows)
                 {
-                    string service_ID = Utility.sDbnull(dr[ "id_dichvu"], "");
+                    string service_ID = Utility.sDbnull(dr["id_dichvu"], "");
                     if (service_ID.Trim() == "") service_ID = "0";
                     dr["id_dichvu_temp"] = service_ID;
                     if (!lstid_dichvu.Contains(service_ID)) lstid_dichvu.Add(service_ID);
@@ -3384,11 +3010,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 return new DataTable();
             }
         }
-        public static ReportDocument GetReport(string fileName)//, ref string ErrMsg)
+
+        public static ReportDocument GetReport(string fileName) //, ref string ErrMsg)
         {
             try
             {
-                ReportDocument crpt = new ReportDocument();
+                var crpt = new ReportDocument();
                 if (File.Exists(fileName))
                 {
                     crpt.Load(fileName);
@@ -3406,6 +3033,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 return null;
             }
         }
+
         private bool IN_TTAT_DTRI_NGOAITRU()
         {
             try
@@ -3423,13 +3051,9 @@ namespace VNS.HIS.UI.NGOAITRU
                         globalVariables.SysDate.ToString("dd/MM/yyyy")).Split('/');
                 NGAY_KEDON = "Ngày " + arrDate[0] + " tháng " + arrDate[1] + " năm " + arrDate[2];
                 DataTable v_dtData = dsData.Tables[0];
-                DataTable sub_dtData = getChitietCLS(); // new DataTable("Temp");
-                //sub_dtData.Columns.AddRange(new[]
-                //                                {
-                //                                    new DataColumn("LOAI_CLS", typeof (string)),
-                //                                    new DataColumn("KETQUA", typeof (string)),
-                //                                    new DataColumn("ID_CLS", typeof (string))
-                //                                });
+                DataTable sub_dtData = getChitietCLS();
+                THU_VIEN_CHUNG.CreateXML(sub_dtData, "sub_report.xml");
+                // new DataTable("Temp");
                 if (v_dtData != null && v_dtData.Rows.Count > 0)
                     GetChanDoan(Utility.sDbnull(v_dtData.Rows[0]["ICD_CHINH"], ""),
                                 Utility.sDbnull(v_dtData.Rows[0]["ICD_PHU"], ""), ref ICD_Name, ref ICD_Code);
@@ -3442,42 +3066,26 @@ namespace VNS.HIS.UI.NGOAITRU
                     dr["ma_icd"] = ICD_Code;
                 }
                 v_dtData.AcceptChanges();
-                //List<string> lstIDCSL =
-                //    dsData.Tables[1].AsEnumerable().Select(c => c.Field<string>("ID_XN")).Distinct().ToList();
-                //foreach (string s in lstIDCSL)
-                //{
-                //    DataRow[] arrDR = dsData.Tables[1].Select("ID_XN='" + s + "'");
-                //    if (arrDR.Length > 0)
-                //    {
-                //        DataRow newDR = sub_dtData.NewRow();
-                //        string kq = "";
-                //        foreach (DataRow dr in arrDR)
-                //        {
-                //            kq += dr["TEN_THONGSO"] + ":" + dr["KETQUA"] + ";";
-                //        }
-                //        if (kq.Length > 0) kq = kq.Substring(0, kq.Length - 1);
-                //        newDR["LOAI_CLS"] = arrDR[0]["TEN_XN"];
-                //        newDR["KETQUA"] = kq;
-                //        sub_dtData.Rows.Add(newDR);
-                //    }
-                //}
                 v_dtData.AcceptChanges();
                 Utility.UpdateLogotoDatatable(ref v_dtData);
-                 string tieude="", reportname = "";
-                ReportDocument crpt = Utility.GetReport("thamkham_InPhieutomtatdieutringoaitru_A4" ,ref tieude,ref reportname);
+                string tieude = "", reportname = "";
+                ReportDocument crpt = Utility.GetReport("thamkham_InPhieutomtatdieutringoaitru_A4", ref tieude,
+                                                        ref reportname);
                 if (PropertyLib._MayInProperties.CoGiayInTomtatDieutriNgoaitru == Papersize.A5)
-                    crpt = Utility.GetReport("thamkham_InPhieutomtatdieutringoaitru_A5" ,ref tieude,ref reportname);
+                    crpt = Utility.GetReport("thamkham_InPhieutomtatdieutringoaitru_A5", ref tieude, ref reportname);
                 if (crpt == null) return false;
                 var objForm = new frmPrintPreview("PHIẾU TÓM TẮT ĐIỀU TRỊ NGOẠI TRÚ", crpt, true, true);
                 crpt.SetDataSource(v_dtData);
                 crpt.Subreports[0].SetDataSource(sub_dtData);
-                Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
-                Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
-                Utility.SetParameterValue(crpt,"NGAY_KEDON", NGAY_KEDON);
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+                Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "NGAY_KEDON", NGAY_KEDON);
                 objForm.crptViewer.ReportSource = crpt;
                 //In ngay
-                if (cboPrintPreviewTomtatdieutringoaitru.SelectedValue.ToString()=="1" ) objForm.addTrinhKy_OnFormLoad();
-                if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai, PropertyLib._MayInProperties.PreviewInTomtatDieutriNgoaitru))
+                if (cboPrintPreviewTomtatdieutringoaitru.SelectedValue.ToString() == "1")
+                    objForm.addTrinhKy_OnFormLoad();
+                if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai,
+                                           PropertyLib._MayInProperties.PreviewInTomtatDieutriNgoaitru))
                 {
                     objForm.SetDefaultPrinter(PropertyLib._MayInProperties.TenMayInBienlai, 0, 1);
                     objForm.ShowDialog();
@@ -3493,7 +3101,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 foreach (int s in lstKho)
                 {
                     DataTable dt = v_dtData.Clone();
-                    dt = dsData.Tables[2].Select("id_kho = " + s,"stt_in").CopyToDataTable();
+                    dt = dsData.Tables[2].Select("id_kho = " + s, "stt_in").CopyToDataTable();
                     foreach (DataRow dr in dt.Rows)
                     {
                         dr["chan_doan"] = Utility.sDbnull(dr["chan_doan"]).Trim() == ""
@@ -3503,9 +3111,10 @@ namespace VNS.HIS.UI.NGOAITRU
                         dr["ma_icd"] = ICD_Code;
                     }
                     dt.AcceptChanges();
-                    ReportDocument crpt1 = Utility.GetReport("thamkham_Inphieulinhthuocngoaitru_A4",ref tieude,ref reportname);
+                    ReportDocument crpt1 = Utility.GetReport("thamkham_Inphieulinhthuocngoaitru_A4", ref tieude,
+                                                             ref reportname);
                     if (PropertyLib._MayInProperties.CoGiayInTomtatDieutriNgoaitru == Papersize.A5)
-                        crpt1 = Utility.GetReport("thamkham_Inphieulinhthuocngoaitru_A5" ,ref tieude,ref reportname);
+                        crpt1 = Utility.GetReport("thamkham_Inphieulinhthuocngoaitru_A5", ref tieude, ref reportname);
                     if (crpt1 == null) return false;
                     var objForm1 = new frmPrintPreview("PHIẾU LĨNH THUỐC NGOẠI TRÚ", crpt1, true, true);
                     crpt1.SetDataSource(dt);
@@ -3513,8 +3122,10 @@ namespace VNS.HIS.UI.NGOAITRU
                     crpt1.SetParameterValue("BranchName", globalVariables.Branch_Name);
                     crpt1.SetParameterValue("NGAY_KEDON", NGAY_KEDON);
                     objForm1.crptViewer.ReportSource = crpt1;
-                    if (cboPrintPreviewTomtatdieutringoaitru.SelectedValue.ToString() == "1") objForm1.addTrinhKy_OnFormLoad();
-                    if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai, PropertyLib._MayInProperties.PreviewInTomtatDieutriNgoaitru))
+                    if (cboPrintPreviewTomtatdieutringoaitru.SelectedValue.ToString() == "1")
+                        objForm1.addTrinhKy_OnFormLoad();
+                    if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai,
+                                               PropertyLib._MayInProperties.PreviewInTomtatDieutriNgoaitru))
                     {
                         objForm1.SetDefaultPrinter(PropertyLib._MayInProperties.TenMayInBienlai, 0, 2);
                         objForm1.ShowDialog();
@@ -3530,7 +3141,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             catch (Exception ex)
             {
-                Utility.ShowMsg("Có lỗi trong quá trình in phiếu tóm tắt điều trị");
+                Utility.ShowMsg(ex.Message);
                 return false;
             }
         }
@@ -3545,10 +3156,11 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 if (objLuotkham.TrangthaiNoitru > 1)
                 {
-                    Utility.ShowMsg("Bệnh nhân đã được điều trị nội trú nên bạn chỉ có thể xem và không được phép sửa các thông tin thăm khám");
+                    Utility.ShowMsg(
+                        "Bệnh nhân đã được điều trị nội trú nên bạn chỉ có thể xem và không được phép sửa các thông tin thăm khám");
                     return;
                 }
-                frm_Nhapvien frm = new frm_Nhapvien();
+                var frm = new frm_Nhapvien();
                 frm.id_kham = Utility.Int32Dbnull(txtExam_ID.Text, -1);
 
                 frm.objLuotkham = objLuotkham;
@@ -3567,18 +3179,20 @@ namespace VNS.HIS.UI.NGOAITRU
                     cmdHuyNhapVien.Enabled = true;
                     cmdChuyenPhong.Visible = objLuotkham.TrangthaiNoitru == 0;
                     cmdInTTDieuTri.Visible = objLuotkham.TrangthaiNoitru == 0;
+                    cmdInphieuhen.Visible = objLuotkham.TrangthaiNoitru == 0;
                     cmdNhapVien.Tag = objLuotkham.TrangthaiNoitru == 0 ? "0" : "1";
                     cmdNhapVien.Text = objLuotkham.TrangthaiNoitru == 0 ? "Nhập viện" : "Cập nhật";
                     cmdUnlock.Visible = objLuotkham.TrangthaiNoitru == 0 && objLuotkham.Locked.ToString() == "1";
-                    cmdUnlock.Enabled = cmdUnlock.Visible && (Utility.Coquyen("quyen_mokhoa_tatca") || objLuotkham.NguoiKetthuc == globalVariables.UserName);
+                    cmdUnlock.Enabled = cmdUnlock.Visible &&
+                                        (Utility.Coquyen("quyen_mokhoa_tatca") ||
+                                         objLuotkham.NguoiKetthuc == globalVariables.UserName);
                     if (!cmdUnlock.Enabled)
-                        toolTip1.SetToolTip(cmdUnlock, "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ Quản trị hệ thống");
+                        toolTip1.SetToolTip(cmdUnlock,
+                                            "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ Quản trị hệ thống");
                     else
-                        toolTip1.SetToolTip(cmdUnlock, "Nhấn vào đây để mở khóa cho bệnh nhân đang chọn(Phím tắt Ctrl+U). Điều kiện là chỉ mở khóa đối với đối tượng Dịch vụ. Muốn mở khóa đối tượng BHYT thì cần liên lạc với bộ phận thanh toán hủy in phôi BHYT");
-
-
+                        toolTip1.SetToolTip(cmdUnlock,
+                                            "Nhấn vào đây để mở khóa cho bệnh nhân đang chọn(Phím tắt Ctrl+U). Điều kiện là chỉ mở khóa đối với đối tượng Dịch vụ. Muốn mở khóa đối tượng BHYT thì cần liên lạc với bộ phận thanh toán hủy in phôi BHYT");
                 }
-
             }
             catch (Exception)
             {
@@ -3602,39 +3216,48 @@ namespace VNS.HIS.UI.NGOAITRU
                 // cmdCancelNhapVien.Focus();
                 return false;
             }
-            NoitruPhanbuonggiuongCollection objNoitruPhanbuonggiuong=new Select().From(NoitruPhanbuonggiuong.Schema)
+            var objNoitruPhanbuonggiuong = new Select().From(NoitruPhanbuonggiuong.Schema)
                 .Where(NoitruPhanbuonggiuong.Columns.NoiTru).IsEqualTo(1)
-                .And(NoitruPhanbuonggiuong.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham).ExecuteAsCollection<NoitruPhanbuonggiuongCollection>();
-            if (objNoitruPhanbuonggiuong != null && objNoitruPhanbuonggiuong.Count>1)
+                .And(NoitruPhanbuonggiuong.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham).ExecuteAsCollection
+                <NoitruPhanbuonggiuongCollection>();
+            if (objNoitruPhanbuonggiuong != null && objNoitruPhanbuonggiuong.Count > 1)
             {
-                Utility.SetMsg(lblMsg, "Bệnh nhân đã chuyển khoa hoặc phân buồng giường, Bạn không thể hủy thông tin nhập viện", true);
+                Utility.SetMsg(lblMsg,
+                               "Bệnh nhân đã chuyển khoa hoặc phân buồng giường, Bạn không thể hủy thông tin nhập viện",
+                               true);
                 return false;
             }
 
 
-            if (objNoitruPhanbuonggiuong != null && objNoitruPhanbuonggiuong.Count==1 && Utility.Int32Dbnull(objNoitruPhanbuonggiuong[0].IdBuong, -1) > 0)
+            if (objNoitruPhanbuonggiuong != null && objNoitruPhanbuonggiuong.Count == 1 &&
+                Utility.Int32Dbnull(objNoitruPhanbuonggiuong[0].IdBuong, -1) > 0)
             {
-                Utility.ShowMsg("Bệnh nhân đã phân buồng giường,Bạn không thể xóa thông tin ", "Thông báo", MessageBoxIcon.Warning);
+                Utility.ShowMsg("Bệnh nhân đã phân buồng giường,Bạn không thể xóa thông tin ", "Thông báo",
+                                MessageBoxIcon.Warning);
                 return false;
             }
-            
+
             SqlQuery sqlQuery2 = new Select().From(NoitruPhieudieutri.Schema)
                 .Where(NoitruPhieudieutri.Columns.MaLuotkham).IsEqualTo(Utility.sDbnull(m_strMaLuotkham, ""));
             if (sqlQuery2.GetRecordCount() > 0)
             {
-                Utility.SetMsg(lblMsg,"Bệnh nhân đã có phiếu điều trị, Bạn không thể xóa hoặc hủy nhập viện được,yêu cầu xem lại",true);
+                Utility.SetMsg(lblMsg,
+                               "Bệnh nhân đã có phiếu điều trị, Bạn không thể xóa hoặc hủy nhập viện được,yêu cầu xem lại",
+                               true);
                 return false;
             }
-            NoitruTamung _NoitruTamung = new Select().From(NoitruTamung.Schema)
-               .Where(NoitruTamung.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
-               .And(NoitruTamung.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).ExecuteSingle<NoitruTamung>();
-            if (_NoitruTamung!=null )
+            var _NoitruTamung = new Select().From(NoitruTamung.Schema)
+                .Where(NoitruTamung.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                .And(NoitruTamung.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).ExecuteSingle<NoitruTamung>();
+            if (_NoitruTamung != null)
             {
-                Utility.ShowMsg("Bệnh nhân này đã đóng tiền tạm ứng , Bạn không thể hủy nhập viện", "Thông báo", MessageBoxIcon.Warning);
+                Utility.ShowMsg("Bệnh nhân này đã đóng tiền tạm ứng , Bạn không thể hủy nhập viện", "Thông báo",
+                                MessageBoxIcon.Warning);
                 return false;
             }
             return true;
         }
+
         private void cmdHuyNhapVien_Click(object sender, EventArgs e)
         {
             try
@@ -3661,35 +3284,40 @@ namespace VNS.HIS.UI.NGOAITRU
                         objLuotkham.IdKhoanoitru = -1;
                         cmdChuyenPhong.Visible = objLuotkham.TrangthaiNoitru == 0;
                         cmdInTTDieuTri.Visible = objLuotkham.TrangthaiNoitru == 0;
-
-                        DmucNhanvien objStaff = new Select().From(DmucNhanvien.Schema).Where(DmucNhanvien.UserNameColumn).IsEqualTo(Utility.sDbnull(objLuotkham.NguoiKetthuc, "")).ExecuteSingle<DmucNhanvien>();
+                        cmdInphieuhen.Visible = objLuotkham.TrangthaiNoitru == 0;
+                        var objStaff =
+                            new Select().From(DmucNhanvien.Schema).Where(DmucNhanvien.UserNameColumn).IsEqualTo(
+                                Utility.sDbnull(objLuotkham.NguoiKetthuc, "")).ExecuteSingle<DmucNhanvien>();
                         string TenNhanvien = objLuotkham.NguoiKetthuc;
                         if (objStaff != null)
                             TenNhanvien = objStaff.TenNhanvien;
                         cmdUnlock.Visible = objLuotkham.TrangthaiNoitru == 0 && objLuotkham.Locked.ToString() == "1";
-                        cmdUnlock.Enabled = cmdUnlock.Visible && (Utility.Coquyen("quyen_mokhoa_tatca") || objLuotkham.NguoiKetthuc == globalVariables.UserName);
+                        cmdUnlock.Enabled = cmdUnlock.Visible &&
+                                            (Utility.Coquyen("quyen_mokhoa_tatca") ||
+                                             objLuotkham.NguoiKetthuc == globalVariables.UserName);
                         if (!cmdUnlock.Enabled)
-                            toolTip1.SetToolTip(cmdUnlock, "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ " + TenNhanvien + "(" + objLuotkham.NguoiKetthuc + " - Là người khóa BN này) để được họ mở khóa. Hoặc liên hệ Quản trị hệ thống");
+                            toolTip1.SetToolTip(cmdUnlock,
+                                                "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ " +
+                                                TenNhanvien + "(" + objLuotkham.NguoiKetthuc +
+                                                " - Là người khóa BN này) để được họ mở khóa. Hoặc liên hệ Quản trị hệ thống");
                         else
-                            toolTip1.SetToolTip(cmdUnlock, "Nhấn vào đây để mở khóa cho bệnh nhân đang chọn(Phím tắt Ctrl+U). Điều kiện là chỉ mở khóa đối với đối tượng Dịch vụ. Muốn mở khóa đối tượng BHYT thì cần liên lạc với bộ phận thanh toán hủy in phôi BHYT");
+                            toolTip1.SetToolTip(cmdUnlock,
+                                                "Nhấn vào đây để mở khóa cho bệnh nhân đang chọn(Phím tắt Ctrl+U). Điều kiện là chỉ mở khóa đối với đối tượng Dịch vụ. Muốn mở khóa đối tượng BHYT thì cần liên lạc với bộ phận thanh toán hủy in phôi BHYT");
 
                         cmdNhapVien.Tag = objLuotkham.TrangthaiNoitru == 0 ? "0" : "1";
                         cmdNhapVien.Text = objLuotkham.TrangthaiNoitru == 0 ? "Nhập viện" : "Cập nhật";
                         Utility.SetMsg(lblMsg, "Bệnh nhân đã quay lại trạng thái ngoại trú", false);
                     }
                 }
-               
             }
             catch (Exception ex)
             {
-
                 Utility.CatchException(ex);
             }
             finally
             {
                 ModifyCommmands();
             }
-            
         }
 
         private void txtMaBenhphu_KeyDown(object sender, KeyEventArgs e)
@@ -3712,12 +3340,10 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             catch (Exception ex)
             {
-
                 Utility.CatchException(ex);
             }
         }
 
-      
 
         private void radChuaKham_CheckedChanged(object sender, EventArgs e)
         {
@@ -3729,7 +3355,6 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             catch (Exception ex)
             {
-
                 Utility.CatchException(ex);
             }
         }
@@ -3788,7 +3413,6 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 catch (Exception ex)
                 {
-
                     Utility.CatchException(ex);
                 }
                 finally
@@ -3822,21 +3446,15 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             catch (Exception ex)
             {
-
                 Utility.CatchException(ex);
             }
         }
 
-     
 
         private void cmdBenhAnNgoaiTru_Click(object sender, EventArgs e)
         {
-           
         }
 
-       
-
-       
 
         private void cmdHistory_Click_1(object sender, EventArgs e)
         {
@@ -3868,14 +3486,13 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             catch (Exception ex)
             {
-
                 Utility.CatchException(ex);
             }
         }
 
         private void cmdCauHinh_Click(object sender, EventArgs e)
         {
-            frm_Properties frm = new frm_Properties( PropertyLib._HISQMSProperties);
+            var frm = new frm_Properties(PropertyLib._HISQMSProperties);
             frm.ShowDialog();
             CauHinhQMS();
         }
@@ -3886,65 +3503,102 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void txtKhoaNoiTru_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (!string.IsNullOrEmpty(txtKhoaNoiTru.Text))
-                {
-                    DataRow query = (from khoa in m_dtKhoaNoiTru.AsEnumerable().Cast<DataRow>()
-                                     let y = Utility.sDbnull(khoa[DmucKhoaphong.Columns.TenKhoaphong])
-                                     let z = Utility.sDbnull(khoa[DmucKhoaphong.Columns.IdKhoaphong])
-                                     where
-                                         Utility.Int32Dbnull(khoa[DmucKhoaphong.Columns.MaKhoaphong]) ==
-                                         Utility.Int32Dbnull(txtKhoaNoiTru.Text)
-                                     select khoa).FirstOrDefault();
-                    if (query != null)
-                    {
-                        txtKhoaNoiTru.Text = Utility.sDbnull(query[DmucKhoaphong.Columns.TenKhoaphong]);
-                        txtIdKhoaNoiTru.Text = Utility.sDbnull(query[DmucKhoaphong.Columns.IdKhoaphong]);
-                        cmdSave.Focus();
-                    }
-                    else
-                    {
-                        TimKiemKhoaNoiTru();
-                    }
-                }
-                else
-                {
-                    TimKiemKhoaNoiTru();
-                }
-            }
-            if (e.KeyCode == Keys.F3)
-            {
-                TimKiemKhoaNoiTru();
-            }
+            //if (e.KeyCode == Keys.Enter)
+            //{
+            //    if (!string.IsNullOrEmpty(txtKhoaNoiTru.Text))
+            //    {
+            //        DataRow query = (from khoa in m_dtKhoaNoiTru.AsEnumerable().Cast<DataRow>()
+            //                         let y = Utility.sDbnull(khoa[DmucKhoaphong.Columns.TenKhoaphong])
+            //                         let z = Utility.sDbnull(khoa[DmucKhoaphong.Columns.IdKhoaphong])
+            //                         where
+            //                             Utility.Int32Dbnull(khoa[DmucKhoaphong.Columns.MaKhoaphong]) ==
+            //                             Utility.Int32Dbnull(txtKhoaNoiTru.Text)
+            //                         select khoa).FirstOrDefault();
+            //        if (query != null)
+            //        {
+            //            txtKhoaNoiTru.Text = Utility.sDbnull(query[DmucKhoaphong.Columns.TenKhoaphong]);
+            //            txtIdKhoaNoiTru.Text = Utility.sDbnull(query[DmucKhoaphong.Columns.IdKhoaphong]);
+            //            cmdSave.Focus();
+            //        }
+            //        else
+            //        {
+            //            TimKiemKhoaNoiTru();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        TimKiemKhoaNoiTru();
+            //    }
+            //}
+            //if (e.KeyCode == Keys.F3)
+            //{
+            //    TimKiemKhoaNoiTru();
+            //}
         }
 
         private void TimKiemKhoaNoiTru()
         {
-            
         }
 
         private void txtDeparmentID_TextChanged(object sender, EventArgs e)
         {
-            EnumerableRowCollection<string> query = from khoa in m_dtKhoaNoiTru.AsEnumerable()
-                                                    let y = Utility.sDbnull(khoa[DmucKhoaphong.Columns.TenKhoaphong])
-                                                    where
-                                                        Utility.Int32Dbnull(khoa[DmucKhoaphong.Columns.IdKhoaphong]) ==
-                                                        Utility.Int32Dbnull(txtIdKhoaNoiTru.Text)
-                                                    select y;
-            if (query.Any())
+            //    EnumerableRowCollection<string> query = from khoa in m_dtKhoaNoiTru.AsEnumerable()
+            //                                            let y = Utility.sDbnull(khoa[DmucKhoaphong.Columns.TenKhoaphong])
+            //                                            where
+            //                                                Utility.Int32Dbnull(khoa[DmucKhoaphong.Columns.IdKhoaphong]) ==
+            //                                                Utility.Int32Dbnull(txtIdKhoaNoiTru.Text)
+            //                                            select y;
+            //    if (query.Any())
+            //    {
+            //        txtKhoaNoiTru.Text = Utility.sDbnull(query.FirstOrDefault());
+            //    }
+            //    else
+            //    {
+            //        txtKhoaNoiTru.Text = string.Empty;
+            //    }
+        }
+
+        private void nmrSongayDT_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab)
+            //{
+            //    dtNgayNhapVien.Focus();
+            //}
+        }
+
+        private void dtNgayNhapVien_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab)
+            //{
+            //    txtKhoaNoiTru.Focus();
+            //    txtKhoaNoiTru.SelectAll();
+
+            //}
+        }
+
+        private void cmdTimKiemKhoaNoiTru_Click(object sender, EventArgs e)
+        {
+            TimKiemKhoaNoiTru();
+        }
+
+        private void cmdInphieuhen_Click(object sender, EventArgs e)
+        {
+            try
             {
-                txtKhoaNoiTru.Text = Utility.sDbnull(query.FirstOrDefault());
+                DataTable dtphienhen =
+                    SPs.ThamkhamInphieuhenBenhnhan(m_strMaLuotkham, Utility.Int16Dbnull(txtPatient_ID.Text, -1)).
+                        GetDataSet().Tables[0];
+                THU_VIEN_CHUNG.CreateXML(dtphienhen, "thamkham_inphieuhen_benhnhan.xml");
+                KCB_INPHIEU.INPHIEU_HEN(dtphienhen, "PHIẾU HẸN KHÁM");
             }
-            else
+            catch (Exception ex)
             {
-                txtKhoaNoiTru.Text = string.Empty;
+                Utility.ShowMsg(ex.Message);
             }
         }
 
         #region "chỉ định cận lâm sàng"
 
-       
         private DataTable m_dtReportAssignInfo;
 
         /// <summary>
@@ -4002,12 +3656,15 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             foreach (GridEXRow gridExRow in grdAssignDetail.GetCheckedRows())
             {
-                if (Utility.Coquyen("quyen_suaphieuchidinhcls") || Utility.sDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
+                if (Utility.Coquyen("quyen_suaphieuchidinhcls") ||
+                    Utility.sDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") ==
+                    globalVariables.UserName)
                 {
                 }
                 else
                 {
-                    Utility.ShowMsg("Trong các chỉ định bạn chọn xóa, có một số chỉ định được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các chỉ định do chính bạn kê để thực hiện xóa");
+                    Utility.ShowMsg(
+                        "Trong các chỉ định bạn chọn xóa, có một số chỉ định được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các chỉ định do chính bạn kê để thực hiện xóa");
                     return false;
                 }
             }
@@ -4022,14 +3679,17 @@ namespace VNS.HIS.UI.NGOAITRU
 
             if (_item != null && Utility.Int32Dbnull(_item.TrangthaiNoitru, -1) >= 1)
             {
-                Utility.ShowMsg("Bệnh nhân đã được điều trị nội trú. Bạn chỉ có thể xem thông tin và không được phép làm các công việc liên quan đến ngoại trú", "Thông báo");
+                Utility.ShowMsg(
+                    "Bệnh nhân đã được điều trị nội trú. Bạn chỉ có thể xem thông tin và không được phép làm các công việc liên quan đến ngoại trú",
+                    "Thông báo");
                 cmdSave.Focus();
                 return false;
             }
             foreach (GridEXRow gridExRow in grdAssignDetail.GetCheckedRows())
             {
-                int id_chidinhchitiet = Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
-                                                          -1);
+                int id_chidinhchitiet =
+                    Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
+                                        -1);
                 SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
                     .Where(KcbChidinhclsChitiet.Columns.IdChitietchidinh).IsEqualTo(id_chidinhchitiet)
                     .And(KcbChidinhclsChitiet.Columns.TrangthaiThanhtoan).IsEqualTo(1);
@@ -4047,8 +3707,9 @@ namespace VNS.HIS.UI.NGOAITRU
             b_Cancel = false;
             foreach (GridEXRow gridExRow in grdAssignDetail.GetCheckedRows())
             {
-                int id_chidinhchitiet = Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
-                                                          -1);
+                int id_chidinhchitiet =
+                    Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
+                                        -1);
                 SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
                     .Where(KcbChidinhclsChitiet.Columns.IdChitietchidinh).IsEqualTo(id_chidinhchitiet)
                     .And(KcbChidinhclsChitiet.Columns.TrangThai).IsGreaterThanOrEqualTo(1);
@@ -4060,7 +3721,8 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             if (b_Cancel)
             {
-                Utility.ShowMsg("Chỉ định bạn chọn đã được chuyển làm cận lâm sàng hoặc đã có kết quả nên không thể xóa. Đề nghị kiểm tra lại");
+                Utility.ShowMsg(
+                    "Chỉ định bạn chọn đã được chuyển làm cận lâm sàng hoặc đã có kết quả nên không thể xóa. Đề nghị kiểm tra lại");
                 return false;
             }
             return true;
@@ -4073,10 +3735,11 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             foreach (GridEXRow gridExRow in grdAssignDetail.GetCheckedRows())
             {
-                int id_chidinhchitiet = Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
-                                                          -1);
+                int id_chidinhchitiet =
+                    Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
+                                        -1);
                 int id_chidinh = Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.IdChidinh].Value,
-                                                    -1);
+                                                     -1);
                 _KCB_CHIDINH_CANLAMSANG.XoaChiDinhCLSChitiet(id_chidinhchitiet);
                 gridExRow.Delete();
                 m_dtAssignDetail.AcceptChanges();
@@ -4088,8 +3751,9 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 int id_chidinhchitiet =
-                    Utility.Int32Dbnull(grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
-                                        -1);
+                    Utility.Int32Dbnull(
+                        grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
+                        -1);
                 int id_chidinh =
                     Utility.Int32Dbnull(grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.IdChidinh].Value,
                                         -1);
@@ -4141,19 +3805,19 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 if (!IsValidUpdateChidinh()) return;
-                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0);
+                var frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0);
                 frm.HosStatus = 0;
                 frm.ObjRegExam = KcbDangkyKcb.FetchByID(Utility.Int32Dbnull(txtReg_ID.Text));
                 frm.Exam_ID = Utility.Int32Dbnull(txtExam_ID.Text, -1);
-                frm.objLuotkham = objLuotkham;// CreatePatientExam();
+                frm.objLuotkham = objLuotkham; // CreatePatientExam();
                 frm.objBenhnhan = objBenhnhan;
                 frm.m_eAction = action.Update;
-                frm.txtAssign_ID.Text = Utility.sDbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), "-1");
+                frm.txtAssign_ID.Text = Utility.sDbnull(
+                    grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), "-1");
                 frm.ShowDialog();
-                if (!frm.m_blnCancel )
+                if (!frm.m_blnCancel)
                 {
                     Laythongtinchidinhngoaitru();
-
                 }
             }
             catch (Exception ex)
@@ -4169,20 +3833,24 @@ namespace VNS.HIS.UI.NGOAITRU
                 ModifyCommmands();
             }
         }
-        bool CheckPatientSelected()
+
+        private bool CheckPatientSelected()
         {
             if (objLuotkham == null)
             {
-                Utility.ShowMsg("Bạn phải chọn Bệnh nhân trước khi thực hiện các công việc chỉ định Thăm khám, CLS, Kê đơn");
+                Utility.ShowMsg(
+                    "Bạn phải chọn Bệnh nhân trước khi thực hiện các công việc chỉ định Thăm khám, CLS, Kê đơn");
                 return false;
             }
             if (objkcbdangky == null)
             {
-                Utility.ShowMsg("Bệnh nhân bạn chọn chưa đăng ký phòng khám nên không được phép thăm khám. Mời bạn kiểm tra lại");
+                Utility.ShowMsg(
+                    "Bệnh nhân bạn chọn chưa đăng ký phòng khám nên không được phép thăm khám. Mời bạn kiểm tra lại");
                 return false;
             }
             return true;
         }
+
         /// <summary>
         /// hàm thực hiện việc thêm mới thông itn 
         /// của phần chính định
@@ -4194,19 +3862,23 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 if (!CheckPatientSelected()) return;
-                if (Utility.Coquyen("quyen_suaphieuchidinhcls") || Utility.Int32Dbnull(objkcbdangky.IdBacsikham, -1) <= 0 || objkcbdangky.IdBacsikham == globalVariables.gv_intIDNhanvien)
+                if (Utility.Coquyen("quyen_suaphieuchidinhcls") ||
+                    Utility.Int32Dbnull(objkcbdangky.IdBacsikham, -1) <= 0 ||
+                    objkcbdangky.IdBacsikham == globalVariables.gv_intIDNhanvien)
                 {
                 }
                 else
                 {
-                    Utility.ShowMsg(string.Format("Bệnh nhân này đã được khám bởi Bác sĩ khác nên bạn không được phép thêm phiếu chỉ định dịch vụ "));
+                    Utility.ShowMsg(
+                        string.Format(
+                            "Bệnh nhân này đã được khám bởi Bác sĩ khác nên bạn không được phép thêm phiếu chỉ định dịch vụ "));
                     return;
                 }
                 if (!cmdInsertAssign.Enabled) return;
-                frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0);
+                var frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0);
                 frm.txtAssign_ID.Text = "-100";
                 frm.Exam_ID = Utility.Int32Dbnull(txtExam_ID.Text, -1);
-                frm.objLuotkham = objLuotkham;// CreatePatientExam();
+                frm.objLuotkham = objLuotkham; // CreatePatientExam();
                 frm.objBenhnhan = objBenhnhan;
                 frm.ObjRegExam = KcbDangkyKcb.FetchByID(Utility.Int32Dbnull(txtReg_ID.Text));
                 frm.m_eAction = action.Insert;
@@ -4215,12 +3887,11 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm.ShowDialog();
                 if (!frm.m_blnCancel)
                 {
-                    
                     Laythongtinchidinhngoaitru();
                     if (PropertyLib._ThamKhamProperties.TudongthugonCLS)
                         grdAssignDetail.GroupMode = GroupMode.Collapsed;
-                    Utility.GotoNewRowJanus(grdAssignDetail, KcbChidinhclsChitiet.Columns.IdChidinh, frm.txtAssign_ID.Text);
-                    
+                    Utility.GotoNewRowJanus(grdAssignDetail, KcbChidinhclsChitiet.Columns.IdChidinh,
+                                            frm.txtAssign_ID.Text);
                 }
             }
             catch (Exception)
@@ -4245,15 +3916,17 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 string mayin = "";
-                int v_AssignId = Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), -1);
+                int v_AssignId = Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh),
+                                                     -1);
                 string v_AssignCode = Utility.sDbnull(grdAssignDetail.GetValue(KcbChidinhcl.Columns.MaChidinh), -1);
                 string nhomincls = "ALL";
                 if (cboServicePrint.SelectedIndex > 0)
                 {
                     nhomincls = Utility.sDbnull(cboServicePrint.SelectedValue, "ALL");
-
                 }
-                KCB_INPHIEU.InphieuChidinhCLS((int)objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, v_AssignId, v_AssignCode, nhomincls, cboServicePrint.SelectedIndex, chkIntach.Checked, ref mayin);
+                KCB_INPHIEU.InphieuChidinhCLS((int) objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, v_AssignId,
+                                              v_AssignCode, nhomincls, cboServicePrint.SelectedIndex, chkIntach.Checked,
+                                              ref mayin);
                 if (mayin != "") cboLaserPrinters.Text = mayin;
             }
             catch (Exception ex)
@@ -4262,25 +3935,19 @@ namespace VNS.HIS.UI.NGOAITRU
             }
         }
 
-      
 
         private decimal GetTotalDatatable(DataTable dataTable, string FiledName, string Filer)
         {
             return Utility.DecimaltoDbnull(dataTable.Compute("SUM(" + FiledName + ")", Filer), 0);
         }
 
-       
-
-      
-
-      
 
         private void GetPatienInfoAddreport(ref DataTable dtReportPhieuXetNghiem)
         {
             // Kiểm tra và cộng cột
             // Kiểm tra và cộng cột
             if (!dtReportPhieuXetNghiem.Columns.Contains(KcbDanhsachBenhnhan.Columns.DiaChi))
-                dtReportPhieuXetNghiem.Columns.Add(KcbDanhsachBenhnhan.Columns.DiaChi, typeof(string));
+                dtReportPhieuXetNghiem.Columns.Add(KcbDanhsachBenhnhan.Columns.DiaChi, typeof (string));
             if (!dtReportPhieuXetNghiem.Columns.Contains(KcbDanhsachBenhnhan.Columns.NamSinh))
                 dtReportPhieuXetNghiem.Columns.Add(KcbDanhsachBenhnhan.Columns.NamSinh, typeof (int));
 
@@ -4288,11 +3955,11 @@ namespace VNS.HIS.UI.NGOAITRU
             if (!dtReportPhieuXetNghiem.Columns.Contains(KcbDanhsachBenhnhan.Columns.TenBenhnhan))
                 dtReportPhieuXetNghiem.Columns.Add(KcbDanhsachBenhnhan.Columns.TenBenhnhan, typeof (string));
             if (!dtReportPhieuXetNghiem.Columns.Contains(KcbDanhsachBenhnhan.Columns.GioiTinh))
-                dtReportPhieuXetNghiem.Columns.Add(KcbDanhsachBenhnhan.Columns.GioiTinh, typeof(string));
+                dtReportPhieuXetNghiem.Columns.Add(KcbDanhsachBenhnhan.Columns.GioiTinh, typeof (string));
             if (!dtReportPhieuXetNghiem.Columns.Contains("Tuoi"))
-                dtReportPhieuXetNghiem.Columns.Add("Tuoi", typeof(int));
+                dtReportPhieuXetNghiem.Columns.Add("Tuoi", typeof (int));
             if (!dtReportPhieuXetNghiem.Columns.Contains(KcbDanhsachBenhnhan.Columns.GioiTinh))
-                dtReportPhieuXetNghiem.Columns.Add(KcbDanhsachBenhnhan.Columns.GioiTinh, typeof(string));
+                dtReportPhieuXetNghiem.Columns.Add(KcbDanhsachBenhnhan.Columns.GioiTinh, typeof (string));
             if (!dtReportPhieuXetNghiem.Columns.Contains("Rank_Name"))
                 dtReportPhieuXetNghiem.Columns.Add("Rank_Name", typeof (string));
             if (!dtReportPhieuXetNghiem.Columns.Contains("Position_Name"))
@@ -4300,11 +3967,11 @@ namespace VNS.HIS.UI.NGOAITRU
             if (!dtReportPhieuXetNghiem.Columns.Contains("Unit_Name"))
                 dtReportPhieuXetNghiem.Columns.Add("Unit_Name", typeof (string));
             if (!dtReportPhieuXetNghiem.Columns.Contains("chan_doan"))
-                dtReportPhieuXetNghiem.Columns.Add("chan_doan", typeof(string));
+                dtReportPhieuXetNghiem.Columns.Add("chan_doan", typeof (string));
             if (!dtReportPhieuXetNghiem.Columns.Contains(DmucDoituongkcb.Columns.TenDoituongKcb))
                 dtReportPhieuXetNghiem.Columns.Add(DmucDoituongkcb.Columns.TenDoituongKcb, typeof (string));
             if (!dtReportPhieuXetNghiem.Columns.Contains("mathe_bhyt"))
-                dtReportPhieuXetNghiem.Columns.Add("mathe_bhyt", typeof(string));
+                dtReportPhieuXetNghiem.Columns.Add("mathe_bhyt", typeof (string));
             if (!dtReportPhieuXetNghiem.Columns.Contains("Barcode"))
                 dtReportPhieuXetNghiem.Columns.Add("Barcode", typeof (byte[]));
             byte[] byteArray = Utility.GenerateBarCode(barcode);
@@ -4338,32 +4005,36 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 string _kenhieudon = THU_VIEN_CHUNG.Laygiatrithamsohethong("KE_NHIEU_DON", "N", true);
-                KcbDonthuocCollection lstPres =
+                var lstPres =
                     new Select()
                         .From(KcbDonthuoc.Schema)
                         .Where(KcbDonthuoc.MaLuotkhamColumn).IsEqualTo(Utility.sDbnull(objLuotkham.MaLuotkham))
                         .And(KcbDonthuoc.IdBenhnhanColumn).IsEqualTo(Utility.sDbnull(objLuotkham.IdBenhnhan)).
                         ExecuteAsCollection<KcbDonthuocCollection>();
 
-                var lstPres1 = from p in lstPres
-                               where p.IdKham == objkcbdangky.IdKham
-                               select p;
+                IEnumerable<KcbDonthuoc> lstPres1 = from p in lstPres
+                                                    where p.IdKham == objkcbdangky.IdKham
+                                                    select p;
                 if (objLuotkham.MaDoituongKcb == "BHYT")
                 {
-                    if (_kenhieudon == "Y" && lstPres1.Count() <= 0)//Được phép kê mỗi phòng khám 1 đơn thuốc
+                    if (_kenhieudon == "Y" && lstPres1.Count() <= 0) //Được phép kê mỗi phòng khám 1 đơn thuốc
                         return false;
-                    if (_kenhieudon == "N" && lstPres.Count > 0 && lstPres1.Count() <= 0)//Cảnh báo ko được phép kê đơn tiếp
+                    if (_kenhieudon == "N" && lstPres.Count > 0 && lstPres1.Count() <= 0)
+                        //Cảnh báo ko được phép kê đơn tiếp
                     {
-                        Utility.ShowMsg("Chú ý: Bệnh nhân này thuộc đối tượng BHYT và đã được kê đơn thuốc tại phòng khám khác. Bạn cần trao đổi với Quản trị hệ thống để được cấu hình kê đơn thuốc tại nhiều phòng khác khác nhau với đối tượng BHYT này", "Thông báo");
+                        Utility.ShowMsg(
+                            "Chú ý: Bệnh nhân này thuộc đối tượng BHYT và đã được kê đơn thuốc tại phòng khám khác. Bạn cần trao đổi với Quản trị hệ thống để được cấu hình kê đơn thuốc tại nhiều phòng khác khác nhau với đối tượng BHYT này",
+                            "Thông báo");
                         return false;
                     }
                 }
-                else//Bệnh nhân dịch vụ-->cho phép kê 1 đơn nếu đơn chưa thanh toán và nhiều đơn nếu các đơn trước đã thanh toán
+                else
+                    //Bệnh nhân dịch vụ-->cho phép kê 1 đơn nếu đơn chưa thanh toán và nhiều đơn nếu các đơn trước đã thanh toán
                 {
                     if (lstPres1.Count() > 0)
-                        if (lstPres1.FirstOrDefault().TrangthaiThanhtoan == 0)//Chưa thanh toán-->Cần sửa đơn
+                        if (lstPres1.FirstOrDefault().TrangthaiThanhtoan == 0) //Chưa thanh toán-->Cần sửa đơn
                             return true;
-                        else//Đã thanh toán-->Cho phép thêm đơn mới
+                        else //Đã thanh toán-->Cho phép thêm đơn mới
                             return false;
                     return false;
                 }
@@ -4385,12 +4056,15 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             if (!CheckPatientSelected()) return;
             if (!cmdCreateNewPres.Enabled) return;
-            if (Utility.Coquyen("quyen_suadonthuoc") || Utility.Int32Dbnull( objkcbdangky.IdBacsikham,-1)<=0 || objkcbdangky.IdBacsikham == globalVariables.gv_intIDNhanvien)
+            if (Utility.Coquyen("quyen_suadonthuoc") || Utility.Int32Dbnull(objkcbdangky.IdBacsikham, -1) <= 0 ||
+                objkcbdangky.IdBacsikham == globalVariables.gv_intIDNhanvien)
             {
             }
             else
             {
-                Utility.ShowMsg(string.Format("Bệnh nhân này đã được khám bởi Bác sĩ khác nên bạn không được phép thêm đơn thuốc cho Bệnh nhân"));
+                Utility.ShowMsg(
+                    string.Format(
+                        "Bệnh nhân này đã được khám bởi Bác sĩ khác nên bạn không được phép thêm đơn thuốc cho Bệnh nhân"));
                 return;
             }
 
@@ -4409,9 +4083,9 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 // KeDonThuocTheoDoiTuong();
-                frm_KCB_KE_DONTHUOC frm = new frm_KCB_KE_DONTHUOC("THUOC");
+                var frm = new frm_KCB_KE_DONTHUOC("THUOC");
                 frm.em_Action = action.Insert;
-                frm.objLuotkham = this.objLuotkham;
+                frm.objLuotkham = objLuotkham;
                 frm._KcbChandoanKetluan = _KcbChandoanKetluan;
                 frm._MabenhChinh = txtMaBenhChinh.Text;
                 frm._Chandoan = txtChanDoan.Text;
@@ -4432,10 +4106,9 @@ namespace VNS.HIS.UI.NGOAITRU
                     dt_ICD_PHU = frm.dt_ICD_PHU;
                     if (frm._KcbChandoanKetluan != null) _KcbChandoanKetluan = frm._KcbChandoanKetluan;
                     Laythongtinchidinhngoaitru();
-                    
+
                     Utility.GotoNewRowJanus(grdPresDetail, KcbDonthuoc.Columns.IdDonthuoc,
                                             Utility.sDbnull(frm.txtPres_ID.Text));
-                    
                 }
             }
             catch (Exception exception)
@@ -4529,7 +4202,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 if (grdPresDetail.CurrentRow != null && grdPresDetail.CurrentRow.RowType == RowType.Record)
                 {
-                    if (this.objLuotkham != null)
+                    if (objLuotkham != null)
                     {
                         int Pres_ID = Utility.Int32Dbnull(grdPresDetail.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
                         if (Donthuoc_DangXacnhan(Pres_ID))
@@ -4551,7 +4224,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         KcbDonthuoc objPrescription = KcbDonthuoc.FetchByID(Pres_ID);
                         if (objPrescription != null)
                         {
-                            frm_KCB_KE_DONTHUOC frm = new frm_KCB_KE_DONTHUOC("THUOC");
+                            var frm = new frm_KCB_KE_DONTHUOC("THUOC");
                             frm.em_Action = action.Update;
                             frm._KcbChandoanKetluan = _KcbChandoanKetluan;
                             frm._MabenhChinh = txtMaBenhChinh.Text;
@@ -4559,7 +4232,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             frm.dt_ICD = dt_ICD;
                             frm.dt_ICD_PHU = dt_ICD_PHU;
                             frm.noitru = 0;
-                            frm.objLuotkham = this.objLuotkham;
+                            frm.objLuotkham = objLuotkham;
                             frm.id_kham = Utility.Int32Dbnull(txtExam_ID.Text);
                             frm.objRegExam = KcbDangkyKcb.FetchByID(Utility.Int32Dbnull(txtReg_ID.Text));
                             frm.txtPatientCode.Text = Utility.sDbnull(objLuotkham.MaLuotkham);
@@ -4576,7 +4249,6 @@ namespace VNS.HIS.UI.NGOAITRU
                                 Laythongtinchidinhngoaitru();
                                 Utility.GotoNewRowJanus(grdPresDetail, KcbDonthuocChitiet.Columns.IdDonthuoc,
                                                         Utility.sDbnull(frm.txtPres_ID.Text));
-
                             }
                         }
                     }
@@ -4591,28 +4263,35 @@ namespace VNS.HIS.UI.NGOAITRU
             }
         }
 
-        List<int> GetIdChitiet(int IdDonthuoc,int id_thuoc, decimal don_gia, ref string s)
+        private List<int> GetIdChitiet(int IdDonthuoc, int id_thuoc, decimal don_gia, ref string s)
         {
-            DataRow[] arrDr = m_dtPresDetail.Select(KcbDonthuocChitiet.Columns.IdDonthuoc + "=" + IdDonthuoc.ToString() + " AND " + KcbDonthuocChitiet.Columns.IdThuoc + "=" + id_thuoc.ToString()
-                    + "AND " + KcbDonthuocChitiet.Columns.DonGia + "=" + don_gia.ToString());
+            DataRow[] arrDr =
+                m_dtPresDetail.Select(KcbDonthuocChitiet.Columns.IdDonthuoc + "=" + IdDonthuoc.ToString() + " AND " +
+                                      KcbDonthuocChitiet.Columns.IdThuoc + "=" + id_thuoc.ToString()
+                                      + "AND " + KcbDonthuocChitiet.Columns.DonGia + "=" + don_gia.ToString());
             if (arrDr.Length > 0)
             {
-                var p1 = (from q in arrDr.AsEnumerable()
-                          select Utility.sDbnull(q[KcbDonthuocChitiet.Columns.IdChitietdonthuoc])).Distinct();
+                IEnumerable<string> p1 = (from q in arrDr.AsEnumerable()
+                                          select Utility.sDbnull(q[KcbDonthuocChitiet.Columns.IdChitietdonthuoc])).
+                    Distinct();
                 s = string.Join(",", p1.ToArray());
-                var p = (from q in arrDr.AsEnumerable()
-                         select Utility.Int32Dbnull(q[KcbDonthuocChitiet.Columns.IdChitietdonthuoc])).Distinct();
-                return p.ToList<int>();
+                IEnumerable<int> p = (from q in arrDr.AsEnumerable()
+                                      select Utility.Int32Dbnull(q[KcbDonthuocChitiet.Columns.IdChitietdonthuoc])).
+                    Distinct();
+                return p.ToList();
             }
             return new List<int>();
         }
-        void deletefromDatatable(List<int> lstIdChitietDonthuoc)
+
+        private void deletefromDatatable(List<int> lstIdChitietDonthuoc)
         {
             try
             {
-                var p = (from q in m_dtPresDetail.Select("1=1").AsEnumerable()
-                         where lstIdChitietDonthuoc.Contains(Utility.Int32Dbnull(q[KcbDonthuocChitiet.Columns.IdChitietdonthuoc]))
-                         select q).ToArray<DataRow>();
+                DataRow[] p = (from q in m_dtPresDetail.Select("1=1").AsEnumerable()
+                               where
+                                   lstIdChitietDonthuoc.Contains(
+                                       Utility.Int32Dbnull(q[KcbDonthuocChitiet.Columns.IdChitietdonthuoc]))
+                               select q).ToArray<DataRow>();
                 for (int i = 0; i <= p.Length - 1; i++)
                     m_dtPresDetail.Rows.Remove(p[i]);
                 m_dtPresDetail.AcceptChanges();
@@ -4621,10 +4300,11 @@ namespace VNS.HIS.UI.NGOAITRU
             {
             }
         }
+
         private void PerformActionDeletePres()
         {
             string s = "";
-            List<int> lstIdchitiet = new List<int>();
+            var lstIdchitiet = new List<int>();
             foreach (GridEXRow gridExRow in grdPresDetail.GetCheckedRows())
             {
                 string stempt = "";
@@ -4641,6 +4321,7 @@ namespace VNS.HIS.UI.NGOAITRU
             deletefromDatatable(lstIdchitiet);
             m_dtPresDetail.AcceptChanges();
         }
+
         private void PerformActionDeletePres_old()
         {
             string s = "";
@@ -4648,17 +4329,18 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 int Pres_ID = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdDonthuoc].Value,
                                                   -1);
-                int v_intIDDonthuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
-                                                        -1);
+                int v_intIDDonthuoc =
+                    Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
+                                        -1);
                 int v_intIDThuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value,
-                                                  -1);
+                                                       -1);
                 _KCB_KEDONTHUOC.XoaChitietDonthuoc(v_intIDDonthuoc);
                 gridExRow.Delete();
                 grdPresDetail.UpdateData();
                 m_dtPresDetail.AcceptChanges();
             }
         }
-       
+
         private void PerformActionDeleteSelectedDrug()
         {
             try
@@ -4667,8 +4349,9 @@ namespace VNS.HIS.UI.NGOAITRU
                     Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdDonthuoc].Value,
                                         -1);
                 int v_IdChitietdonthuoc =
-                    Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
-                                        -1);
+                    Utility.Int32Dbnull(
+                        grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
+                        -1);
                 int v_intIDThuoc =
                     Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value,
                                         -1);
@@ -4697,12 +4380,15 @@ namespace VNS.HIS.UI.NGOAITRU
 
             foreach (GridEXRow gridExRow in grdPresDetail.GetCheckedRows())
             {
-                if (Utility.Coquyen("quyen_suadonthuoc") || Utility.sDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
+                if (Utility.Coquyen("quyen_suadonthuoc") ||
+                    Utility.sDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") ==
+                    globalVariables.UserName)
                 {
                 }
                 else
                 {
-                    Utility.ShowMsg("Trong các thuốc bạn chọn xóa, có một số thuốc được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các thuốc do chính bạn kê để thực hiện xóa");
+                    Utility.ShowMsg(
+                        "Trong các thuốc bạn chọn xóa, có một số thuốc được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các thuốc do chính bạn kê để thực hiện xóa");
                     return false;
                 }
             }
@@ -4714,7 +4400,9 @@ namespace VNS.HIS.UI.NGOAITRU
                         Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value, -1);
                     int v_intIDThuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1);
                     KcbDonthuocChitiet _KcbDonthuocChitiet = KcbDonthuocChitiet.FetchByID(v_IdChitietdonthuoc);
-                    if (_KcbDonthuocChitiet != null && (Utility.Byte2Bool( _KcbDonthuocChitiet.TrangthaiThanhtoan) ||Utility.Byte2Bool( _KcbDonthuocChitiet.TrangThai)))
+                    if (_KcbDonthuocChitiet != null &&
+                        (Utility.Byte2Bool(_KcbDonthuocChitiet.TrangthaiThanhtoan) ||
+                         Utility.Byte2Bool(_KcbDonthuocChitiet.TrangThai)))
                     {
                         b_Cancel = true;
                         break;
@@ -4723,8 +4411,10 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             if (b_Cancel)
             {
-                Utility.ShowMsg("Một số thuốc bạn chọn đã thanh toán hoặc đã phát thuốc cho Bệnh nhân nên bạn không được phép xóa. Mời bạn kiểm tra lại ", "Thông báo",
-                                MessageBoxIcon.Warning);
+                Utility.ShowMsg(
+                    "Một số thuốc bạn chọn đã thanh toán hoặc đã phát thuốc cho Bệnh nhân nên bạn không được phép xóa. Mời bạn kiểm tra lại ",
+                    "Thông báo",
+                    MessageBoxIcon.Warning);
                 grdPresDetail.Focus();
                 return false;
             }
@@ -4745,7 +4435,9 @@ namespace VNS.HIS.UI.NGOAITRU
 
             if (_item != null && Utility.Int32Dbnull(_item.TrangthaiNoitru, -1) >= 1)
             {
-                Utility.ShowMsg("Bệnh nhân đã được điều trị nội trú. Bạn chỉ có thể xem thông tin và không được phép làm các công việc liên quan đến ngoại trú", "Thông báo");
+                Utility.ShowMsg(
+                    "Bệnh nhân đã được điều trị nội trú. Bạn chỉ có thể xem thông tin và không được phép làm các công việc liên quan đến ngoại trú",
+                    "Thông báo");
                 cmdSave.Focus();
                 return false;
             }
@@ -4758,18 +4450,22 @@ namespace VNS.HIS.UI.NGOAITRU
                 return false;
             }
 
-            if (Utility.Coquyen("quyen_suaphieuchidinhcls") || Utility.sDbnull(grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
+            if (Utility.Coquyen("quyen_suaphieuchidinhcls") ||
+                Utility.sDbnull(grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") ==
+                globalVariables.UserName)
             {
             }
             else
             {
-                Utility.ShowMsg("Chỉ định đang chọn xóa được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các chỉ định do chính bạn kê để thực hiện xóa");
+                Utility.ShowMsg(
+                    "Chỉ định đang chọn xóa được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các chỉ định do chính bạn kê để thực hiện xóa");
                 return false;
             }
-            
+
             int id_chidinhchitiet =
-                Utility.Int32Dbnull(grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
-                                    -1);
+                Utility.Int32Dbnull(
+                    grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
+                    -1);
             SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
                 .Where(KcbChidinhclsChitiet.Columns.IdChitietchidinh).IsEqualTo(id_chidinhchitiet)
                 .And(KcbChidinhclsChitiet.Columns.TrangthaiThanhtoan).IsEqualTo(1);
@@ -4785,8 +4481,9 @@ namespace VNS.HIS.UI.NGOAITRU
             }
 
             id_chidinhchitiet =
-                Utility.Int32Dbnull(grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
-                                    -1);
+                Utility.Int32Dbnull(
+                    grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
+                    -1);
             sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
                 .Where(KcbChidinhclsChitiet.Columns.IdChitietchidinh).IsEqualTo(id_chidinhchitiet)
                 .And(KcbChidinhclsChitiet.Columns.TrangThai).IsGreaterThanOrEqualTo(1);
@@ -4797,12 +4494,13 @@ namespace VNS.HIS.UI.NGOAITRU
 
             if (b_Cancel)
             {
-                Utility.ShowMsg("Chỉ định bạn chọn đã được chuyển làm cận lâm sàng hoặc đã có kết quả nên không thể xóa. Đề nghị kiểm tra lại");
+                Utility.ShowMsg(
+                    "Chỉ định bạn chọn đã được chuyển làm cận lâm sàng hoặc đã có kết quả nên không thể xóa. Đề nghị kiểm tra lại");
                 return false;
             }
             return true;
         }
-       
+
 
         private bool IsValidDeleteSelectedDrug()
         {
@@ -4818,7 +4516,9 @@ namespace VNS.HIS.UI.NGOAITRU
 
             if (_item != null && Utility.Int32Dbnull(_item.TrangthaiNoitru, -1) >= 1)
             {
-                Utility.ShowMsg("Bệnh nhân đã được điều trị nội trú. Bạn chỉ có thể xem thông tin và không được phép làm các công việc liên quan đến ngoại trú", "Thông báo");
+                Utility.ShowMsg(
+                    "Bệnh nhân đã được điều trị nội trú. Bạn chỉ có thể xem thông tin và không được phép làm các công việc liên quan đến ngoại trú",
+                    "Thông báo");
                 cmdSave.Focus();
                 return false;
             }
@@ -4829,22 +4529,28 @@ namespace VNS.HIS.UI.NGOAITRU
                 grdPresDetail.Focus();
                 return false;
             }
-            if (Utility.Coquyen("quyen_suadonthuoc") || Utility.sDbnull(grdPresDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") == globalVariables.UserName)
+            if (Utility.Coquyen("quyen_suadonthuoc") ||
+                Utility.sDbnull(grdPresDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") ==
+                globalVariables.UserName)
             {
             }
             else
             {
-                Utility.ShowMsg("Thuốc đang chọn xóa được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các thuốc do chính bạn kê để thực hiện xóa");
+                Utility.ShowMsg(
+                    "Thuốc đang chọn xóa được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các thuốc do chính bạn kê để thực hiện xóa");
                 return false;
             }
-           
+
             if (grdPresDetail.CurrentRow.RowType == RowType.Record)
             {
                 int v_IdChitietdonthuoc =
-                    Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
-                                        -1);
+                    Utility.Int32Dbnull(
+                        grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
+                        -1);
                 KcbDonthuocChitiet _KcbDonthuocChitiet = KcbDonthuocChitiet.FetchByID(v_IdChitietdonthuoc);
-                if (_KcbDonthuocChitiet != null && (Utility.Byte2Bool(_KcbDonthuocChitiet.TrangthaiThanhtoan) || Utility.Byte2Bool(_KcbDonthuocChitiet.TrangThai)))
+                if (_KcbDonthuocChitiet != null &&
+                    (Utility.Byte2Bool(_KcbDonthuocChitiet.TrangthaiThanhtoan) ||
+                     Utility.Byte2Bool(_KcbDonthuocChitiet.TrangThai)))
                 {
                     b_Cancel = true;
                 }
@@ -4852,8 +4558,10 @@ namespace VNS.HIS.UI.NGOAITRU
 
             if (b_Cancel)
             {
-                Utility.ShowMsg("Một số thuốc bạn chọn đã thanh toán hoặc đã phát thuốc cho Bệnh nhân nên bạn không được phép xóa. Mời bạn kiểm tra lại ", "Thông báo",
-                                MessageBoxIcon.Warning);
+                Utility.ShowMsg(
+                    "Một số thuốc bạn chọn đã thanh toán hoặc đã phát thuốc cho Bệnh nhân nên bạn không được phép xóa. Mời bạn kiểm tra lại ",
+                    "Thông báo",
+                    MessageBoxIcon.Warning);
                 grdPresDetail.Focus();
                 return false;
             }
@@ -4884,7 +4592,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 //frm.CallActionInDonThuoc = CallActionInDonThuoc.Exam_ID;
                 //frm.ShowDialog();
                 int Pres_ID = Utility.Int32Dbnull(grdPresDetail.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
-                PrintPres(Pres_ID,"");
+                PrintPres(Pres_ID, "");
             }
             catch (Exception ex)
             {
@@ -4909,13 +4617,13 @@ namespace VNS.HIS.UI.NGOAITRU
             if (v_dtData != null && v_dtData.Rows.Count > 0)
                 GetChanDoan(Utility.sDbnull(v_dtData.Rows[0]["mabenh_chinh"], ""),
                             Utility.sDbnull(v_dtData.Rows[0]["mabenh_phu"], ""), ref ICD_Name, ref ICD_Code);
-            
+
             foreach (DataRow drv in v_dtData.Rows)
             {
                 drv["BarCode"] = Barcode;
                 drv["chan_doan"] = Utility.sDbnull(drv["chan_doan"]).Trim() == ""
-                                    ? ICD_Name
-                                    : Utility.sDbnull(drv["chan_doan"]) + ";" + ICD_Name;
+                                       ? ICD_Name
+                                       : Utility.sDbnull(drv["chan_doan"]) + ";" + ICD_Name;
                 drv["ma_icd"] = ICD_Code;
             }
             THU_VIEN_CHUNG.CreateXML(v_dtData, "thamkham_InDonthuocA4.xml");
@@ -4924,21 +4632,21 @@ namespace VNS.HIS.UI.NGOAITRU
             Utility.UpdateLogotoDatatable(ref v_dtData);
             string KhoGiay = "A5";
             if (PropertyLib._MayInProperties.CoGiayInDonthuoc == Papersize.A4) KhoGiay = "A4";
-            ReportDocument reportDocument = new ReportDocument();
-             string tieude="", reportname = "",reportCode="";
+            var reportDocument = new ReportDocument();
+            string tieude = "", reportname = "", reportCode = "";
             switch (KhoGiay)
             {
                 case "A5":
                     reportCode = "thamkham_InDonthuocA5";
-                    reportDocument =  Utility.GetReport("thamkham_InDonthuocA5",ref tieude,ref reportname);
+                    reportDocument = Utility.GetReport("thamkham_InDonthuocA5", ref tieude, ref reportname);
                     break;
                 case "A4":
                     reportCode = "thamkham_InDonthuocA4";
-                    reportDocument = Utility.GetReport("thamkham_InDonthuocA4" ,ref tieude,ref reportname);
+                    reportDocument = Utility.GetReport("thamkham_InDonthuocA4", ref tieude, ref reportname);
                     break;
                 default:
                     reportCode = "thamkham_InDonthuocA5";
-                    reportDocument = Utility.GetReport("thamkham_InDonthuocA5" ,ref tieude,ref reportname);
+                    reportDocument = Utility.GetReport("thamkham_InDonthuocA5", ref tieude, ref reportname);
                     break;
             }
             if (reportDocument == null) return;
@@ -4952,15 +4660,16 @@ namespace VNS.HIS.UI.NGOAITRU
                 objForm.mv_sReportFileName = Path.GetFileName(reportname);
                 objForm.mv_sReportCode = reportCode;
                 crpt.SetDataSource(v_dtData);
-                Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
-                Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
-                Utility.SetParameterValue(crpt,"Address", globalVariables.Branch_Address);
-                Utility.SetParameterValue(crpt,"Phone", globalVariables.Branch_Phone);
-                Utility.SetParameterValue(crpt,"ReportTitle", "ĐƠN THUỐC");
-                Utility.SetParameterValue(crpt,"CurrentDate", Utility.FormatDateTime(globalVariables.SysDate));
-                Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+                Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+                Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
+                Utility.SetParameterValue(crpt, "ReportTitle", "ĐƠN THUỐC");
+                Utility.SetParameterValue(crpt, "CurrentDate", Utility.FormatDateTime(globalVariables.SysDate));
+                Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
                 objForm.crptViewer.ReportSource = crpt;
-                if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai, PropertyLib._MayInProperties.PreviewInDonthuoc))
+                if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai,
+                                           PropertyLib._MayInProperties.PreviewInDonthuoc))
                 {
                     objForm.SetDefaultPrinter(PropertyLib._MayInProperties.TenMayInBienlai, 0);
                     objForm.ShowDialog();
@@ -4979,6 +4688,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 Utility.DefaultNow(this);
             }
         }
+
         #endregion
 
         #region "Xử lý tác vụ của phần lưu thông tin "
@@ -4988,13 +4698,13 @@ namespace VNS.HIS.UI.NGOAITRU
             PerformAction();
         }
 
-        string GetDanhsachBenhphu()
+        private string GetDanhsachBenhphu()
         {
             var sMaICDPHU = new StringBuilder("");
             try
             {
                 int recordRow = 0;
-                
+
                 if (dt_ICD.Rows.Count > 0)
                 {
                     foreach (DataRow row in dt_ICD_PHU.Rows)
@@ -5044,22 +4754,24 @@ namespace VNS.HIS.UI.NGOAITRU
                 _KcbChandoanKetluan.Nhiptho = Utility.sDbnull(txtNhipTho.Text);
                 _KcbChandoanKetluan.Chieucao = Utility.sDbnull(txtChieucao.Text);
                 _KcbChandoanKetluan.Cannang = Utility.sDbnull(txtCannang.Text);
-                _KcbChandoanKetluan.HuongDieutri = txtHuongdieutri.Text;//.myCode.Trim();
-                _KcbChandoanKetluan.SongayDieutri = (Int16)Utility.DecimaltoDbnull(txtSongaydieutri.Text, 0);
+                _KcbChandoanKetluan.HuongDieutri = txtHuongdieutri.Text; //.myCode.Trim();
+                _KcbChandoanKetluan.SongayDieutri = (Int16) Utility.DecimaltoDbnull(txtSongaydieutri.Text, 0);
                 _KcbChandoanKetluan.Ketluan = Utility.sDbnull(txtKet_Luan.Text, "");
-                if (Utility.Int16Dbnull(txtBacsi.MyID,-1)>0)
+                _KcbChandoanKetluan.NhanXet = Utility.sDbnull(txtNhanxet.Text, "");
+                if (Utility.Int16Dbnull(txtBacsi.MyID, -1) > 0)
                     _KcbChandoanKetluan.IdBacsikham = Utility.Int16Dbnull(txtBacsi.MyID);
                 else
                 {
                     _KcbChandoanKetluan.IdBacsikham = globalVariables.gv_intIDNhanvien;
                 }
                 string sMaICDPHU = GetDanhsachBenhphu();
-                _KcbChandoanKetluan.MabenhPhu = Utility.sDbnull(sMaICDPHU.ToString(), "");
+                _KcbChandoanKetluan.MabenhPhu = Utility.sDbnull(sMaICDPHU, "");
                 if (objkcbdangky != null)
                 {
                     _KcbChandoanKetluan.IdKhoanoitru = Utility.Int32Dbnull(objkcbdangky.IdKhoakcb, -1);
                     _KcbChandoanKetluan.IdPhongkham = Utility.Int32Dbnull(objkcbdangky.IdPhongkham, -1);
-                    DmucKhoaphong objDepartment = DmucKhoaphong.FetchByID(Utility.Int32Dbnull(objkcbdangky.IdPhongkham, -1));
+                    DmucKhoaphong objDepartment =
+                        DmucKhoaphong.FetchByID(Utility.Int32Dbnull(objkcbdangky.IdPhongkham, -1));
                     if (objDepartment != null)
                     {
                         _KcbChandoanKetluan.TenPhongkham = Utility.sDbnull(objDepartment.TenKhoaphong, "");
@@ -5085,7 +4797,6 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 return null;
             }
-            
         }
 
         /// <summary>
@@ -5107,23 +4818,29 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtPatient_Code.Focus();
                 return false;
             }
-            KcbLuotkham _item = Utility.getKcbLuotkham( Utility.Int64Dbnull(txtPatient_ID.Text,0),m_strMaLuotkham);
-            if (_item==null)
+            KcbLuotkham _item = Utility.getKcbLuotkham(Utility.Int64Dbnull(txtPatient_ID.Text, 0), m_strMaLuotkham);
+            if (_item == null)
             {
                 Utility.ShowMsg("Bạn phải chọn Bệnh nhân hoặc bệnh nhân không tồn tại!", "Thông báo",
                                 MessageBoxIcon.Warning);
                 txtPatient_Code.Focus();
                 return false;
             }
-          
-            if (_item!=null && Utility.Int32Dbnull(_item.TrangthaiNoitru,-1)>=2)
+
+            if (_item != null && Utility.Int32Dbnull(_item.TrangthaiNoitru, -1) >= 2)
             {
-                Utility.ShowMsg("Bệnh nhân đã được điều trị nội trú. Bạn chỉ có thể xem thông tin và không được phép làm các công việc liên quan đến ngoại trú", "Thông báo");
+                Utility.ShowMsg(
+                    "Bệnh nhân đã được điều trị nội trú. Bạn chỉ có thể xem thông tin và không được phép làm các công việc liên quan đến ngoại trú",
+                    "Thông báo");
                 cmdSave.Focus();
                 return false;
             }
-            if (objLuotkham != null && ((Utility.sDbnull(objLuotkham.MatheBhyt).Trim() != "" && THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THAMKHAM_BATNHAPSONGAYDIEUTRI_BHYT", "0", false)=="1")
-                || (Utility.sDbnull(objLuotkham.MatheBhyt).Trim() == "" && THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THAMKHAM_BATNHAPSONGAYDIEUTRI_DV", "0", false)=="1")))
+            if (objLuotkham != null &&
+                ((Utility.sDbnull(objLuotkham.MatheBhyt).Trim() != "" &&
+                  THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THAMKHAM_BATNHAPSONGAYDIEUTRI_BHYT", "0", false) == "1")
+                 ||
+                 (Utility.sDbnull(objLuotkham.MatheBhyt).Trim() == "" &&
+                  THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THAMKHAM_BATNHAPSONGAYDIEUTRI_DV", "0", false) == "1")))
             {
                 if (Utility.DecimaltoDbnull(txtSongaydieutri.Text) <= 0)
                 {
@@ -5131,17 +4848,16 @@ namespace VNS.HIS.UI.NGOAITRU
                     txtSongaydieutri.Focus();
                     return false;
                 }
-
             }
 
-            if (objLuotkham != null && objLuotkham.MaDoituongKcb == "BHYT" && Utility.DoTrim( txtMaBenhChinh.Text)=="")
+            if (objLuotkham != null && objLuotkham.MaDoituongKcb == "BHYT" && Utility.DoTrim(txtMaBenhChinh.Text) == "")
             {
-                Utility.SetMsg( lblMsg,"Bạn cần nhập Mã bệnh chính cho đối tượng BHYT trước khi kết thúc khám",true);
+                Utility.SetMsg(lblMsg, "Bạn cần nhập Mã bệnh chính cho đối tượng BHYT trước khi kết thúc khám", true);
                 tabDiagInfo.SelectedTab = tabPageChanDoan;
                 txtMaBenhChinh.Focus();
                 return false;
             }
-            if (Utility.DoTrim( txtKet_Luan.Text)=="")
+            if (Utility.DoTrim(txtKet_Luan.Text) == "")
             {
                 Utility.SetMsg(lblMsg, "Bạn cần nhập kết quả khám cho bệnh nhân", true);
                 tabDiagInfo.SelectedTab = tabPageChanDoan;
@@ -5157,7 +4873,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             chkDaThucHien.Checked = true;
             chkDaThucHien.Visible = chkDaThucHien.Checked;
-            
+
             return true;
         }
 
@@ -5177,47 +4893,58 @@ namespace VNS.HIS.UI.NGOAITRU
                 DataRow[] arrDr = m_dtDanhsachbenhnhanthamkham.Select("id_kham=" + txtReg_ID.Text);
                 if (arrDr.Length > 0)
                 {
-
                     arrDr[0]["trang_thai"] = chkDaThucHien.Checked ? 1 : 0;
                 }
                 objkcbdangky.IdBacsikham = Utility.Int16Dbnull(txtBacsi.MyID, -1);
                 objLuotkham.TrieuChung = txtTrieuChungBD.Text;
-                if (!THU_VIEN_CHUNG.IsBaoHiem((byte) objLuotkham.IdLoaidoituongKcb))//Đối tượng dịch vụ được khóa ngay sau khi kết thúc khám
+                if (!THU_VIEN_CHUNG.IsBaoHiem((byte) objLuotkham.IdLoaidoituongKcb))
+                    //Đối tượng dịch vụ được khóa ngay sau khi kết thúc khám
                 {
-                        objLuotkham.NguoiKetthuc =chkDaThucHien.Checked? globalVariables.UserName:"";
-                        if (chkDaThucHien.Checked)
-                            objLuotkham.NgayKetthuc = globalVariables.SysDate;
-                        else
-                            objLuotkham.NgayKetthuc = null;
-                        objLuotkham.Locked = chkDaThucHien.Checked ? (byte)1 : (byte)0;
-                        objLuotkham.TrangthaiNgoaitru = objLuotkham.Locked;
+                    objLuotkham.NguoiKetthuc = chkDaThucHien.Checked ? globalVariables.UserName : "";
+                    if (chkDaThucHien.Checked)
+                        objLuotkham.NgayKetthuc = globalVariables.SysDate;
+                    else
+                        objLuotkham.NgayKetthuc = null;
+                    objLuotkham.Locked = chkDaThucHien.Checked ? (byte) 1 : (byte) 0;
+                    objLuotkham.TrangthaiNgoaitru = objLuotkham.Locked;
                 }
                 ActionResult actionResult =
-                   _KCB_THAMKHAM.UpdateExamInfo(
-                         TaoDulieuChandoanKetluan(), objkcbdangky, objLuotkham);
+                    _KCB_THAMKHAM.UpdateExamInfo(
+                        TaoDulieuChandoanKetluan(), objkcbdangky, objLuotkham);
                 switch (actionResult)
                 {
                     case ActionResult.Success:
-                       
+
                         IEnumerable<GridEXRow> query = from kham in grdList.GetDataRows()
                                                        where
                                                            kham.RowType == RowType.Record &&
-                                                           Utility.Int32Dbnull(kham.Cells[KcbDangkyKcb.Columns.IdKham].Value) ==
+                                                           Utility.Int32Dbnull(
+                                                               kham.Cells[KcbDangkyKcb.Columns.IdKham].Value) ==
                                                            Utility.Int32Dbnull(txt_idchidinhphongkham.Text)
                                                        select kham;
                         if (query.Count() > 0)
                         {
                             GridEXRow gridExRow = query.FirstOrDefault();
                             //gridExRow.BeginEdit();
-                            gridExRow.Cells[KcbDangkyKcb.Columns.TrangThai].Value = (byte?) (chkDaThucHien.Checked ? 1 : 0);
+                            gridExRow.Cells[KcbDangkyKcb.Columns.TrangThai].Value =
+                                (byte?) (chkDaThucHien.Checked ? 1 : 0);
                             gridExRow.Cells[KcbLuotkham.Columns.NguoiKetthuc].Value = globalVariables.UserName;
                             gridExRow.Cells[KcbLuotkham.Columns.NgayKetthuc].Value = globalVariables.SysDate;
                             //gridExRow.EndEdit();
                             grdList.UpdateData();
-                            Utility.GotoNewRowJanus(grdList, KcbDangkyKcb.Columns.IdKham, Utility.sDbnull(txt_idchidinhphongkham.Text));
+                            Utility.GotoNewRowJanus(grdList, KcbDangkyKcb.Columns.IdKham,
+                                                    Utility.sDbnull(txt_idchidinhphongkham.Text));
                         }
                         cmdInTTDieuTri.Visible = true;
-                        cboChonBenhAn.Visible = true && THU_VIEN_CHUNG.Laygiatrithamsohethong("BENH_AN", "0", false) == "1" && (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_ICD_BENH_AN_NGOAI_TRU", "ALL", false) == "ALL" || THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_ICD_BENH_AN_NGOAI_TRU", "ALL", false).Contains(Utility.DoTrim( txtMaBenhChinh.Text))); 
+                        cmdInphieuhen.Visible = true;
+                        cboChonBenhAn.Visible = true &&
+                                                THU_VIEN_CHUNG.Laygiatrithamsohethong("BENH_AN", "0", false) == "1" &&
+                                                (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_ICD_BENH_AN_NGOAI_TRU",
+                                                                                       "ALL", false) == "ALL" ||
+                                                 THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_ICD_BENH_AN_NGOAI_TRU",
+                                                                                       "ALL", false).Contains(
+                                                                                           Utility.DoTrim(
+                                                                                               txtMaBenhChinh.Text)));
                         lblBenhan.Visible = cboChonBenhAn.Visible;
                         chkDaThucHien.Checked = true;
 
@@ -5228,22 +4955,33 @@ namespace VNS.HIS.UI.NGOAITRU
                             m_dtDanhsachbenhnhanthamkham.DefaultView.RowFilter = "1=1";
                             m_dtDanhsachbenhnhanthamkham.DefaultView.RowFilter = "trang_thai=" + Status;
                         }
-                       
-                        DmucNhanvien objStaff = new Select().From(DmucNhanvien.Schema).Where(DmucNhanvien.UserNameColumn).IsEqualTo(Utility.sDbnull(objLuotkham.NguoiKetthuc, "")).ExecuteSingle<DmucNhanvien>();
+
+                        var objStaff =
+                            new Select().From(DmucNhanvien.Schema).Where(DmucNhanvien.UserNameColumn).IsEqualTo(
+                                Utility.sDbnull(objLuotkham.NguoiKetthuc, "")).ExecuteSingle<DmucNhanvien>();
                         string TenNhanvien = objLuotkham.NguoiKetthuc;
                         if (objStaff != null)
                             TenNhanvien = objStaff.TenNhanvien;
                         //Tự động bật tính năng nhập viện nội trú nếu hướng điều trị chọn là Nội trú và Bệnh nhân chưa nhập viện
-                        if (cmdNhapVien.Visible && objLuotkham.TrangthaiNoitru == 0 && txtHuongdieutri.myCode.ToUpper() == THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_MAHUONGDIEUTRI_NOITRU", false).ToUpper())
+                        if (cmdNhapVien.Visible && objLuotkham.TrangthaiNoitru == 0 &&
+                            txtHuongdieutri.myCode.ToUpper() ==
+                            THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_MAHUONGDIEUTRI_NOITRU", false).ToUpper())
                         {
-                            cmdNhapVien_Click(cmdNhapVien, new EventArgs()); ;
+                            cmdNhapVien_Click(cmdNhapVien, new EventArgs());
+                            ;
                         }
                         cmdUnlock.Visible = objLuotkham.TrangthaiNoitru == 0 && objLuotkham.Locked.ToString() == "1";
-                        cmdUnlock.Enabled = cmdUnlock.Visible && (Utility.Coquyen("quyen_mokhoa_tatca") || objLuotkham.NguoiKetthuc == globalVariables.UserName);
+                        cmdUnlock.Enabled = cmdUnlock.Visible &&
+                                            (Utility.Coquyen("quyen_mokhoa_tatca") ||
+                                             objLuotkham.NguoiKetthuc == globalVariables.UserName);
                         if (!cmdUnlock.Enabled)
-                            toolTip1.SetToolTip(cmdUnlock, "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ " + TenNhanvien + "(" + objLuotkham.NguoiKetthuc + " - Là người khóa BN này) để được họ mở khóa. Hoặc liên hệ Quản trị hệ thống");
+                            toolTip1.SetToolTip(cmdUnlock,
+                                                "Bạn không có quyền mở khóa Bệnh nhân này. Đề nghị liên hệ " +
+                                                TenNhanvien + "(" + objLuotkham.NguoiKetthuc +
+                                                " - Là người khóa BN này) để được họ mở khóa. Hoặc liên hệ Quản trị hệ thống");
                         else
-                            toolTip1.SetToolTip(cmdUnlock, "Nhấn vào đây để mở khóa cho bệnh nhân đang chọn(Phím tắt Ctrl+U). Điều kiện là chỉ mở khóa đối với đối tượng Dịch vụ. Muốn mở khóa đối tượng BHYT thì cần liên lạc với bộ phận thanh toán hủy in phôi BHYT");
+                            toolTip1.SetToolTip(cmdUnlock,
+                                                "Nhấn vào đây để mở khóa cho bệnh nhân đang chọn(Phím tắt Ctrl+U). Điều kiện là chỉ mở khóa đối với đối tượng Dịch vụ. Muốn mở khóa đối tượng BHYT thì cần liên lạc với bộ phận thanh toán hủy in phôi BHYT");
                         break;
                     case ActionResult.Error:
                         Utility.ShowMsg("Lỗi trong quá lưu thông tin ", "Thông báo lỗi", MessageBoxIcon.Error);
@@ -5263,28 +5001,441 @@ namespace VNS.HIS.UI.NGOAITRU
 
         #endregion
 
-        private void nmrSongayDT_KeyDown(object sender, KeyEventArgs e)
+        #region VTTH
+
+        private void mnuDelVTTH_Click(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab)
+            if (!IsValidDeleteSelectedVTTH()) return;
+            PerformActionDeleteSelectedVTTH();
+            ModifyCommmands();
+        }
+
+        private void cmdXoaphieuVT_Click(object sender, EventArgs e)
+        {
+            if (!CheckPatientSelected()) return;
+            if (!IsValidVTTH_delete()) return;
+            PerformActionDeleteVTTH();
+            ModifyCommmands();
+        }
+
+        private void cmdInphieuVT_Click(object sender, EventArgs e)
+        {
+            if (!Utility.isValidGrid(grdVTTH)) return;
+            int Pres_ID = Utility.Int32Dbnull(grdVTTH.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
+            PrintPres(Pres_ID, "PHIẾU VẬT TƯ NGOÀI GÓI");
+        }
+
+        private void cmdSuaphieuVT_Click(object sender, EventArgs e)
+        {
+            if (!CheckPatientSelected()) return;
+            if (!cmdSuaphieuVT.Enabled) return;
+            SuaphieuVattu();
+        }
+
+        private void cmdThemphieuVT_Click(object sender, EventArgs e)
+        {
+            if (!CheckPatientSelected()) return;
+            if (!cmdThemphieuVT.Enabled) return;
+            if (Utility.Coquyen("quyen_suadonthuoc") || Utility.Int32Dbnull(objkcbdangky.IdBacsikham, -1) <= 0 ||
+                objkcbdangky.IdBacsikham == globalVariables.gv_intIDNhanvien)
             {
-                dtNgayNhapVien.Focus();
+            }
+            else
+            {
+                Utility.ShowMsg(
+                    string.Format(
+                        "Bệnh nhân này đã được khám bởi Bác sĩ khác nên bạn không được phép thêm phiếu vật tư cho Bệnh nhân"));
+                return;
+            }
+
+            ThemphieuVattu();
+        }
+
+        private void ThemphieuVattu()
+        {
+            try
+            {
+                // KeDonThuocTheoDoiTuong();
+                var frm = new frm_KCB_KE_DONTHUOC("VT");
+                frm.em_Action = action.Insert;
+                frm.objLuotkham = objLuotkham;
+                frm._KcbChandoanKetluan = _KcbChandoanKetluan;
+                frm._MabenhChinh = txtMaBenhChinh.Text;
+                frm._Chandoan = txtChanDoan.Text;
+                frm.dt_ICD = dt_ICD;
+                frm.dt_ICD_PHU = dt_ICD_PHU;
+                frm.id_kham = Utility.Int32Dbnull(txtExam_ID.Text);
+                frm.objPhieudieutriNoitru = null;
+                frm.txtPatientCode.Text = Utility.sDbnull(objLuotkham.MaLuotkham);
+                frm.txtPatientID.Text = Utility.sDbnull(objLuotkham.IdBenhnhan);
+                frm.txtPres_ID.Text = "-1";
+                frm.noitru = 0;
+                frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
+                frm.ShowDialog();
+                if (!frm.m_blnCancel)
+                {
+                    txtMaBenhChinh.Text = frm._MabenhChinh;
+                    txtChanDoan._Text = frm._Chandoan;
+                    dt_ICD_PHU = frm.dt_ICD_PHU;
+                    if (frm._KcbChandoanKetluan != null) _KcbChandoanKetluan = frm._KcbChandoanKetluan;
+                    Laythongtinchidinhngoaitru();
+                    Utility.GotoNewRowJanus(grdVTTH, KcbDonthuoc.Columns.IdDonthuoc,
+                                            Utility.sDbnull(frm.txtPres_ID.Text));
+                }
+            }
+            catch (Exception exception)
+            {
+                if (globalVariables.IsAdmin)
+                {
+                    Utility.ShowMsg(exception.ToString());
+                }
+            }
+            finally
+            {
+                ModifyCommmands();
+                txtPatient_Code.Focus();
+                txtPatient_Code.SelectAll();
             }
         }
 
-        private void dtNgayNhapVien_KeyDown(object sender, KeyEventArgs e)
+        private void SuaphieuVattu()
         {
-            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab)
+            try
             {
-                txtKhoaNoiTru.Focus();
-                txtKhoaNoiTru.SelectAll();
-                
+                if (!CheckPatientSelected()) return;
+                if (!Utility.isValidGrid(grdVTTH)) return;
+
+                KcbLuotkham objPatientExam = objLuotkham;
+                if (objPatientExam != null)
+                {
+                    int Pres_ID = Utility.Int32Dbnull(grdVTTH.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
+                    if (Donthuoc_DangXacnhan(Pres_ID))
+                    {
+                        Utility.ShowMsg(
+                            "Phiếu vật tư này đang ở trạng thái đã duyệt cho Bệnh nhân nên không thể chỉnh sửa. Đề nghị quay lại hỏi bộ phận cấp phát vật tư tại phòng vật tư");
+                        return;
+                    }
+                    var v_collect = new Select().From(KcbDonthuocChitiet.Schema.TableName)
+                        .Where(KcbDonthuocChitiet.TrangthaiThanhtoanColumn.ColumnName).IsEqualTo(1)
+                        .And(KcbDonthuocChitiet.IdDonthuocColumn.ColumnName).IsEqualTo(Pres_ID)
+                        .ExecuteAsCollection<KcbDonthuocChitietCollection>();
+                    if (v_collect.Count > 0)
+                    {
+                        Utility.ShowMsg(
+                            "Phiếu vật tư bạn đang chọn sửa đã được thanh toán. Muốn sửa lại Phiếu vật tư Bạn cần phải liên hệ với bộ phận Thanh toán để hủy thanh toán và Bộ phận cấp vật tư để hủy xác nhận Phiếu vật tư tại kho vật tư");
+                        return;
+                    }
+                    KcbDonthuoc objPrescription = KcbDonthuoc.FetchByID(Pres_ID);
+                    if (objPrescription != null)
+                    {
+                        var frm = new frm_KCB_KE_DONTHUOC("VT");
+                        frm.em_Action = action.Update;
+                        frm._KcbChandoanKetluan = _KcbChandoanKetluan;
+                        frm._MabenhChinh = txtMaBenhChinh.Text;
+                        frm._Chandoan = txtChanDoan.Text;
+                        frm.dt_ICD = dt_ICD;
+                        frm.dt_ICD_PHU = dt_ICD_PHU;
+                        frm.noitru = 0;
+                        frm.objLuotkham = objLuotkham;
+                        frm.id_kham = Utility.Int32Dbnull(txtExam_ID.Text);
+                        frm.objPhieudieutriNoitru = null;
+                        frm.txtPatientCode.Text = Utility.sDbnull(objLuotkham.MaLuotkham);
+                        frm.txtPatientID.Text = Utility.sDbnull(objLuotkham.IdBenhnhan);
+                        frm.txtPres_ID.Text = Utility.sDbnull(objPrescription.IdDonthuoc);
+                        frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
+                        frm.ShowDialog();
+                        if (!frm.m_blnCancel)
+                        {
+                            txtMaBenhChinh.Text = frm._MabenhChinh;
+                            txtChanDoan._Text = frm._Chandoan;
+                            dt_ICD_PHU = frm.dt_ICD_PHU;
+                            if (frm._KcbChandoanKetluan != null) _KcbChandoanKetluan = frm._KcbChandoanKetluan;
+                            Laythongtinchidinhngoaitru();
+                            Utility.GotoNewRowJanus(grdVTTH, KcbDonthuocChitiet.Columns.IdDonthuoc,
+                                                    Utility.sDbnull(frm.txtPres_ID.Text));
+                        }
+                    }
+                }
+            }
+            catch
+            {
+            }
+            finally
+            {
+                ModifyCommmands();
             }
         }
 
-        private void cmdTimKiemKhoaNoiTru_Click(object sender, EventArgs e)
+        private void PerformActionDeleteVTTH()
         {
-            TimKiemKhoaNoiTru();
+            string s = "";
+            int Pres_ID = Utility.Int32Dbnull(grdVTTH.GetValue(KcbDonthuocChitiet.Columns.IdDonthuoc));
+            if (Donthuoc_DangXacnhan(Pres_ID))
+            {
+                Utility.ShowMsg(
+                    "Phiếu vật tư này đang ở trạng thái đã duyệt cho Bệnh nhân nên không thể chỉnh sửa. Đề nghị quay lại hỏi bộ phận cấp phát vật tư tại phòng vật tư");
+                return;
+            }
+            var v_collect = new Select().From(KcbDonthuocChitiet.Schema.TableName)
+                .Where(KcbDonthuocChitiet.TrangthaiThanhtoanColumn.ColumnName).IsEqualTo(1)
+                .And(KcbDonthuocChitiet.IdDonthuocColumn.ColumnName).IsEqualTo(Pres_ID)
+                .ExecuteAsCollection<KcbDonthuocChitietCollection>();
+            if (v_collect.Count > 0)
+            {
+                Utility.ShowMsg(
+                    "Phiếu vật tư bạn đang chọn sửa đã được thanh toán. Muốn sửa lại Phiếu vật tư Bạn cần phải liên hệ với bộ phận Thanh toán để hủy thanh toán và Bộ phận cấp vật tư để hủy xác nhận Phiếu vật tư tại kho vật tư");
+                return;
+            }
+            var lstIdchitiet = new List<int>();
+            foreach (GridEXRow gridExRow in grdVTTH.GetCheckedRows())
+            {
+                string stempt = "";
+                int id_thuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, 0m);
+                decimal dongia = Utility.DecimaltoDbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.DonGia].Value, 0m);
+                int IdDonthuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdDonthuoc].Value, 0m);
+                List<int> _temp = GetIdChitietVTTH(IdDonthuoc, id_thuoc, dongia, ref stempt);
+                s += "," + stempt;
+                lstIdchitiet.AddRange(_temp);
+                gridExRow.Delete();
+                grdVTTH.UpdateData();
+            }
+            _KCB_KEDONTHUOC.XoaChitietDonthuoc(s);
+            XoaVTTHKhoiBangDulieu(lstIdchitiet);
+            m_dtVTTH.AcceptChanges();
         }
 
+        private void XoaVTTHKhoiBangDulieu(List<int> lstIdChitietDonthuoc)
+        {
+            try
+            {
+                DataRow[] p = (from q in m_dtVTTH.Select("1=1").AsEnumerable()
+                               where
+                                   lstIdChitietDonthuoc.Contains(
+                                       Utility.Int32Dbnull(q[KcbDonthuocChitiet.Columns.IdChitietdonthuoc]))
+                               select q).ToArray<DataRow>();
+                for (int i = 0; i <= p.Length - 1; i++)
+                    m_dtVTTH.Rows.Remove(p[i]);
+                m_dtVTTH.AcceptChanges();
+            }
+            catch
+            {
+            }
+        }
+
+        private List<int> GetIdChitietVTTH(int IdDonthuoc, int id_thuoc, decimal don_gia, ref string s)
+        {
+            DataRow[] arrDr =
+                m_dtVTTH.Select(KcbDonthuocChitiet.Columns.IdDonthuoc + "=" + IdDonthuoc.ToString() + " AND " +
+                                KcbDonthuocChitiet.Columns.IdThuoc + "=" + id_thuoc.ToString()
+                                + "AND " + KcbDonthuocChitiet.Columns.DonGia + "=" + don_gia.ToString());
+            if (arrDr.Length > 0)
+            {
+                IEnumerable<string> p1 = (from q in arrDr.AsEnumerable()
+                                          select Utility.sDbnull(q[KcbDonthuocChitiet.Columns.IdChitietdonthuoc])).
+                    Distinct();
+                s = string.Join(",", p1.ToArray());
+                IEnumerable<int> p = (from q in arrDr.AsEnumerable()
+                                      select Utility.Int32Dbnull(q[KcbDonthuocChitiet.Columns.IdChitietdonthuoc])).
+                    Distinct();
+                return p.ToList();
+            }
+            return new List<int>();
+        }
+
+        private bool IsValidVTTH_delete()
+        {
+            bool b_Cancel = false;
+            if (grdVTTH.GetCheckedRows().Length <= 0)
+            {
+                Utility.ShowMsg("Bạn phải chọn một bản ghi thực hiện việc xóa thông tin Vật tư tiêu hao ", "Thông báo",
+                                MessageBoxIcon.Warning);
+                grdVTTH.Focus();
+                return false;
+            }
+            foreach (GridEXRow gridExRow in grdVTTH.GetCheckedRows())
+            {
+                if (Utility.Coquyen("quyen_suadonthuoc") ||
+                    Utility.sDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") ==
+                    globalVariables.UserName)
+                {
+                }
+                else
+                {
+                    Utility.ShowMsg(
+                        "Trong các VTTH bạn chọn xóa, có một số VTTH được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các VTTH do chính bạn kê để thực hiện xóa");
+                    return false;
+                }
+            }
+            KcbLuotkham _item = Utility.getKcbLuotkham(Utility.Int64Dbnull(txtPatient_ID.Text, 0), m_strMaLuotkham);
+            if (_item == null)
+            {
+                Utility.ShowMsg("Bạn phải chọn Bệnh nhân hoặc bệnh nhân không tồn tại!", "Thông báo",
+                                MessageBoxIcon.Warning);
+                txtPatient_Code.Focus();
+                return false;
+            }
+
+            if (_item != null && Utility.Int32Dbnull(_item.TrangthaiNoitru, -1) >= 1)
+            {
+                Utility.ShowMsg(
+                    "Bệnh nhân đã được điều trị nội trú. Bạn chỉ có thể xem thông tin và không được phép làm các công việc liên quan đến ngoại trú",
+                    "Thông báo");
+                cmdSave.Focus();
+                return false;
+            }
+            KcbDonthuocChitiet objKcbDonthuocChitiet = null;
+            foreach (GridEXRow gridExRow in grdVTTH.GetCheckedRows())
+            {
+                if (gridExRow.RowType == RowType.Record)
+                {
+                    int v_intIDDonthuoc =
+                        Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value, -1);
+                    int v_intIDThuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1);
+                    objKcbDonthuocChitiet = new Select().From(KcbDonthuocChitiet.Schema)
+                        .Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).IsEqualTo(v_intIDDonthuoc)
+                        .ExecuteSingle<KcbDonthuocChitiet>();
+                    if (objKcbDonthuocChitiet != null)
+                    {
+                        if (Utility.Byte2Bool(objKcbDonthuocChitiet.TrangthaiThanhtoan))
+                        {
+                            Utility.ShowMsg("Bản ghi đã thanh toán, Bạn không thể xóa thông tin được ", "Thông báo",
+                                            MessageBoxIcon.Warning);
+                            b_Cancel = true;
+                            break;
+                        }
+                        if (Utility.Byte2Bool(objKcbDonthuocChitiet.TrangThai))
+                        {
+                            Utility.ShowMsg("Bản ghi đã xác nhận, Bạn không thể xóa thông tin được ", "Thông báo",
+                                            MessageBoxIcon.Warning);
+                            b_Cancel = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (b_Cancel)
+            {
+                grdVTTH.Focus();
+                return false;
+            }
+            return true;
+        }
+
+        private bool IsValidDeleteSelectedVTTH()
+        {
+            bool b_Cancel = false;
+            if (grdVTTH.RowCount <= 0 || grdVTTH.CurrentRow.RowType != RowType.Record)
+            {
+                Utility.ShowMsg("Bạn phải chọn một VTTH để xóa ", "Thông báo",
+                                MessageBoxIcon.Warning);
+                grdVTTH.Focus();
+                return false;
+            }
+            if (Utility.Coquyen("quyen_suadonthuoc") ||
+                Utility.sDbnull(grdVTTH.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.NguoiTao].Value, "") ==
+                globalVariables.UserName)
+            {
+            }
+            else
+            {
+                Utility.ShowMsg(
+                    "VTTH đang chọn xóa được kê bởi Bác sĩ khác nên bạn không được phép xóa. Mời bạn chọn lại chỉ các VTTH do chính bạn kê để thực hiện xóa");
+                return false;
+            }
+            KcbLuotkham _item = Utility.getKcbLuotkham(Utility.Int64Dbnull(txtPatient_ID.Text, 0), m_strMaLuotkham);
+            if (_item == null)
+            {
+                Utility.ShowMsg("Bạn phải chọn Bệnh nhân hoặc bệnh nhân không tồn tại!", "Thông báo",
+                                MessageBoxIcon.Warning);
+                txtPatient_Code.Focus();
+                return false;
+            }
+
+            if (_item != null && Utility.Int32Dbnull(_item.TrangthaiNoitru, -1) >= 1)
+            {
+                Utility.ShowMsg(
+                    "Bệnh nhân đã được điều trị nội trú. Bạn chỉ có thể xem thông tin và không được phép làm các công việc liên quan đến ngoại trú",
+                    "Thông báo");
+                cmdSave.Focus();
+                return false;
+            }
+            if (grdVTTH.CurrentRow.RowType == RowType.Record)
+            {
+                int v_intIDDonthuoc =
+                    Utility.Int32Dbnull(grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
+                                        -1);
+                int v_intIDThuoc =
+                    Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1);
+                SqlQuery sqlQuery = new Select().From(KcbDonthuocChitiet.Schema)
+                    .Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).IsEqualTo(v_intIDDonthuoc)
+                    .And(KcbDonthuocChitiet.Columns.TrangthaiThanhtoan).IsEqualTo(1);
+                if (sqlQuery.GetRecordCount() > 0)
+                {
+                    b_Cancel = true;
+                }
+            }
+
+            if (b_Cancel)
+            {
+                Utility.ShowMsg("Vật tư tiêu hao đang chọn xóa đã được thanh toán, Bạn không thể xóa thông tin được ",
+                                "Thông báo",
+                                MessageBoxIcon.Warning);
+                grdVTTH.Focus();
+                return false;
+            }
+            if (grdVTTH.CurrentRow.RowType == RowType.Record)
+            {
+                int v_intIDDonthuoc =
+                    Utility.Int32Dbnull(grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
+                                        -1);
+                int v_intIDThuoc =
+                    Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1);
+                SqlQuery sqlQuery = new Select().From(KcbDonthuocChitiet.Schema)
+                    .Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).IsEqualTo(v_intIDDonthuoc)
+                    .And(KcbDonthuocChitiet.Columns.TrangThai).IsEqualTo(1);
+                if (sqlQuery.GetRecordCount() > 0)
+                {
+                    b_Cancel = true;
+                }
+            }
+
+            if (b_Cancel)
+            {
+                Utility.ShowMsg(
+                    "Vật tư tiêu hao đang chọn xóa đã được được xác nhận nên bạn không thể xóa thông tin được ",
+                    "Thông báo",
+                    MessageBoxIcon.Warning);
+                grdVTTH.Focus();
+                return false;
+            }
+            return true;
+        }
+
+        private void PerformActionDeleteSelectedVTTH()
+        {
+            try
+            {
+                int Pres_ID =
+                    Utility.Int32Dbnull(grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdDonthuoc].Value,
+                                        -1);
+                int v_intIDDonthuoc =
+                    Utility.Int32Dbnull(grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value,
+                                        -1);
+                int v_intIDThuoc =
+                    Utility.Int32Dbnull(grdVTTH.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value,
+                                        -1);
+                _KCB_KEDONTHUOC.XoaChitietDonthuoc(v_intIDDonthuoc);
+                grdVTTH.CurrentRow.Delete();
+                grdVTTH.UpdateData();
+                m_dtVTTH.AcceptChanges();
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg(ex.Message + "-->" +
+                                "Bạn nên dùng chức năng xóa thuốc bằng cách chọn thuốc và sử dụng nút xóa thuốc");
+            }
+        }
+
+        #endregion
     }
 }

@@ -99,9 +99,15 @@ namespace VNS.HIS.UI.NGOAITRU
         public frm_KCB_KE_DONTHUOC(string KIEU_THUOC_VT)
         {
             this.InitializeComponent();
-           
             this.KIEU_THUOC_VT = KIEU_THUOC_VT;
-            
+            if (KIEU_THUOC_VT == "VT")
+            {
+                this.Text = "KÊ VẬT TƯ";
+            }
+            else
+            {
+                this.Text = "KÊ ĐƠN THUỐC";
+            }
             base.KeyPreview = true;
             this.dtpCreatedDate.Value = this.dtNgayIn.Value = this.dtNgayKhamLai.Value = globalVariables.SysDate;
             this.InitEvents();
@@ -306,7 +312,6 @@ namespace VNS.HIS.UI.NGOAITRU
                             }
                             else
                             {
-                                byte? nullable;
                                 DataRow row = this.m_dtDonthuocChitiet.NewRow();
                                 row[DmucThuoc.Columns.TenThuoc] = Utility.sDbnull(this.txtDrug_Name.Text, "");
                                 row[KcbDonthuocChitiet.Columns.SoLuong] = _soluong;
@@ -1542,6 +1547,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
+              
                 chkAdditional.Checked = forced2Add;
                 chkAdditional.Visible = !forced2Add && objLuotkham.TrangthaiNoitru>0;
 
