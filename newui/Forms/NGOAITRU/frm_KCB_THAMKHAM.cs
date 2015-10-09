@@ -3586,7 +3586,7 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 DataTable dtphienhen =
-                    SPs.ThamkhamInphieuhenBenhnhan(m_strMaLuotkham, Utility.Int16Dbnull(txtPatient_ID.Text, -1)).
+                    SPs.KcbThamkhamInphieuhenBenhnhan(m_strMaLuotkham, Utility.Int16Dbnull(txtPatient_ID.Text, -1)).
                         GetDataSet().Tables[0];
                 THU_VIEN_CHUNG.CreateXML(dtphienhen, "thamkham_inphieuhen_benhnhan.xml");
                 KCB_INPHIEU.INPHIEU_HEN(dtphienhen, "PHIẾU HẸN KHÁM");
