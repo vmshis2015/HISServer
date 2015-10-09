@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             Janus.Windows.GridEX.GridEXLayout grdQuyen_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_nhanvien));
             Janus.Windows.GridEX.GridEXLayout grdKhoThuoc_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdPhongkham_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdKhoa_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdKhoanoitru_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdDichvuCls_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdLoaiThuoc_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_nhanvien));
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
             this.txtKhoa = new System.Windows.Forms.TextBox();
             this.cboUserName = new System.Windows.Forms.ComboBox();
@@ -54,11 +54,13 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.grdLoaiThuoc = new Janus.Windows.GridEX.GridEX();
             this.lblMsg = new System.Windows.Forms.Label();
+            this.txtUID = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtmotathem = new System.Windows.Forms.TextBox();
             this.chkHienThi = new System.Windows.Forms.CheckBox();
             this.txtDeptType = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
+            this.Label9 = new System.Windows.Forms.Label();
             this.cboDepart = new System.Windows.Forms.ComboBox();
             this.Label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -72,9 +74,6 @@
             this.txtID = new System.Windows.Forms.TextBox();
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
-            this.txtUID = new VNS.HIS.UCs.AutoCompleteTextbox();
-            this.Label9 = new System.Windows.Forms.Label();
-            this.chkThemmoiLientuc = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -96,17 +95,17 @@
             // uiGroupBox1
             // 
             this.uiGroupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.uiGroupBox1.Controls.Add(this.txtUID);
-            this.uiGroupBox1.Controls.Add(this.Label9);
             this.uiGroupBox1.Controls.Add(this.txtKhoa);
             this.uiGroupBox1.Controls.Add(this.cboUserName);
             this.uiGroupBox1.Controls.Add(this.tabControl1);
             this.uiGroupBox1.Controls.Add(this.lblMsg);
+            this.uiGroupBox1.Controls.Add(this.txtUID);
             this.uiGroupBox1.Controls.Add(this.label1);
             this.uiGroupBox1.Controls.Add(this.txtmotathem);
             this.uiGroupBox1.Controls.Add(this.chkHienThi);
             this.uiGroupBox1.Controls.Add(this.txtDeptType);
             this.uiGroupBox1.Controls.Add(this.label18);
+            this.uiGroupBox1.Controls.Add(this.Label9);
             this.uiGroupBox1.Controls.Add(this.cboDepart);
             this.uiGroupBox1.Controls.Add(this.Label5);
             this.uiGroupBox1.Controls.Add(this.label4);
@@ -133,7 +132,7 @@
             this.txtKhoa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtKhoa.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtKhoa.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKhoa.Location = new System.Drawing.Point(479, 64);
+            this.txtKhoa.Location = new System.Drawing.Point(479, 32);
             this.txtKhoa.MaxLength = 50;
             this.txtKhoa.Name = "txtKhoa";
             this.txtKhoa.Size = new System.Drawing.Size(187, 22);
@@ -147,11 +146,10 @@
             this.cboUserName.Items.AddRange(new object[] {
             "Nhân viên phục vụ",
             "Lãnh đạo đơn vị"});
-            this.cboUserName.Location = new System.Drawing.Point(515, 149);
+            this.cboUserName.Location = new System.Drawing.Point(117, 146);
             this.cboUserName.Name = "cboUserName";
-            this.cboUserName.Size = new System.Drawing.Size(10, 24);
+            this.cboUserName.Size = new System.Drawing.Size(355, 24);
             this.cboUserName.TabIndex = 80;
-            this.cboUserName.Visible = false;
             this.cboUserName.SelectedValueChanged += new System.EventHandler(this.cboUserName_SelectedValueChanged);
             // 
             // tabControl1
@@ -359,6 +357,45 @@
             this.lblMsg.Text = "Msg";
             this.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // txtUID
+            // 
+            this.txtUID._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtUID._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUID._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtUID.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtUID.AutoCompleteList")));
+            this.txtUID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtUID.CaseSensitive = false;
+            this.txtUID.CompareNoID = true;
+            this.txtUID.DefaultCode = "-1";
+            this.txtUID.DefaultID = "-1";
+            this.txtUID.Drug_ID = null;
+            this.txtUID.ExtraWidth = 0;
+            this.txtUID.FillValueAfterSelect = false;
+            this.txtUID.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUID.Location = new System.Drawing.Point(479, 149);
+            this.txtUID.MaxHeight = 289;
+            this.txtUID.MinTypedCharacters = 2;
+            this.txtUID.MyCode = "-1";
+            this.txtUID.MyID = "-1";
+            this.txtUID.MyText = "";
+            this.txtUID.Name = "txtUID";
+            this.txtUID.RaiseEvent = true;
+            this.txtUID.RaiseEventEnter = true;
+            this.txtUID.RaiseEventEnterWhenEmpty = true;
+            this.txtUID.SelectedIndex = -1;
+            this.txtUID.Size = new System.Drawing.Size(244, 21);
+            this.txtUID.splitChar = '@';
+            this.txtUID.splitCharIDAndCode = '#';
+            this.txtUID.TabIndex = 7;
+            this.txtUID.TakeCode = false;
+            this.txtUID.txtMyCode = null;
+            this.txtUID.txtMyCode_Edit = null;
+            this.txtUID.txtMyID = null;
+            this.txtUID.txtMyID_Edit = null;
+            this.txtUID.txtMyName = null;
+            this.txtUID.txtMyName_Edit = null;
+            this.txtUID.txtNext = null;
+            // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -399,7 +436,7 @@
             this.txtDeptType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDeptType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDeptType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDeptType.Location = new System.Drawing.Point(312, 42);
+            this.txtDeptType.Location = new System.Drawing.Point(312, 10);
             this.txtDeptType.MaxLength = 50;
             this.txtDeptType.Name = "txtDeptType";
             this.txtDeptType.Size = new System.Drawing.Size(57, 20);
@@ -409,12 +446,22 @@
             // label18
             // 
             this.label18.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(3, 152);
+            this.label18.Location = new System.Drawing.Point(3, 120);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(109, 21);
             this.label18.TabIndex = 59;
             this.label18.Text = "Phòng chính";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // Label9
+            // 
+            this.Label9.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label9.Location = new System.Drawing.Point(3, 149);
+            this.Label9.Name = "Label9";
+            this.Label9.Size = new System.Drawing.Size(109, 21);
+            this.Label9.TabIndex = 58;
+            this.Label9.Text = "UserName";
+            this.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cboDepart
             // 
@@ -424,7 +471,7 @@
             this.cboDepart.Items.AddRange(new object[] {
             "Nhân viên phục vụ",
             "Lãnh đạo đơn vị"});
-            this.cboDepart.Location = new System.Drawing.Point(118, 149);
+            this.cboDepart.Location = new System.Drawing.Point(118, 117);
             this.cboDepart.Name = "cboDepart";
             this.cboDepart.Size = new System.Drawing.Size(355, 24);
             this.cboDepart.TabIndex = 4;
@@ -442,7 +489,7 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 123);
+            this.label4.Location = new System.Drawing.Point(3, 91);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(109, 21);
             this.label4.TabIndex = 51;
@@ -457,7 +504,7 @@
             this.cboUpLevel.Items.AddRange(new object[] {
             "Nhân viên phục vụ",
             "Lãnh đạo đơn vị"});
-            this.cboUpLevel.Location = new System.Drawing.Point(119, 120);
+            this.cboUpLevel.Location = new System.Drawing.Point(119, 88);
             this.cboUpLevel.Name = "cboUpLevel";
             this.cboUpLevel.Size = new System.Drawing.Size(354, 24);
             this.cboUpLevel.TabIndex = 3;
@@ -471,7 +518,7 @@
             this.cboStaffType.Items.AddRange(new object[] {
             "Nhân viên phục vụ",
             "Lãnh đạo đơn vị"});
-            this.cboStaffType.Location = new System.Drawing.Point(119, 92);
+            this.cboStaffType.Location = new System.Drawing.Point(119, 60);
             this.cboStaffType.Name = "cboStaffType";
             this.cboStaffType.Size = new System.Drawing.Size(355, 24);
             this.cboStaffType.TabIndex = 2;
@@ -482,7 +529,7 @@
             this.txtStaffCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtStaffCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtStaffCode.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStaffCode.Location = new System.Drawing.Point(119, 38);
+            this.txtStaffCode.Location = new System.Drawing.Point(119, 9);
             this.txtStaffCode.MaxLength = 50;
             this.txtStaffCode.Name = "txtStaffCode";
             this.txtStaffCode.Size = new System.Drawing.Size(187, 22);
@@ -492,7 +539,7 @@
             // 
             this.label10.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Red;
-            this.label10.Location = new System.Drawing.Point(3, 40);
+            this.label10.Location = new System.Drawing.Point(3, 10);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(109, 21);
             this.label10.TabIndex = 44;
@@ -503,7 +550,7 @@
             // 
             this.Label8.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label8.ForeColor = System.Drawing.Color.Red;
-            this.Label8.Location = new System.Drawing.Point(3, 97);
+            this.Label8.Location = new System.Drawing.Point(3, 65);
             this.Label8.Name = "Label8";
             this.Label8.Size = new System.Drawing.Size(109, 21);
             this.Label8.TabIndex = 43;
@@ -514,7 +561,7 @@
             // 
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtName.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.Location = new System.Drawing.Point(119, 64);
+            this.txtName.Location = new System.Drawing.Point(119, 32);
             this.txtName.MaxLength = 100;
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(354, 22);
@@ -524,7 +571,7 @@
             // 
             this.Label2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label2.ForeColor = System.Drawing.Color.Red;
-            this.Label2.Location = new System.Drawing.Point(3, 68);
+            this.Label2.Location = new System.Drawing.Point(3, 36);
             this.Label2.Name = "Label2";
             this.Label2.Size = new System.Drawing.Size(109, 21);
             this.Label2.TabIndex = 39;
@@ -537,7 +584,7 @@
             this.txtID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtID.Enabled = false;
             this.txtID.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtID.Location = new System.Drawing.Point(119, 38);
+            this.txtID.Location = new System.Drawing.Point(119, 9);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(84, 22);
             this.txtID.TabIndex = 35;
@@ -570,74 +617,10 @@
             this.cmdExit.ToolTipText = "Thoát Form hiện tại";
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
             // 
-            // txtUID
-            // 
-            this.txtUID._backcolor = System.Drawing.Color.WhiteSmoke;
-            this.txtUID._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUID._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtUID.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtUID.AutoCompleteList")));
-            this.txtUID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtUID.CaseSensitive = false;
-            this.txtUID.CompareNoID = true;
-            this.txtUID.DefaultCode = "-1";
-            this.txtUID.DefaultID = "-1";
-            this.txtUID.Drug_ID = null;
-            this.txtUID.ExtraWidth = 0;
-            this.txtUID.FillValueAfterSelect = false;
-            this.txtUID.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUID.Location = new System.Drawing.Point(118, 15);
-            this.txtUID.MaxHeight = 289;
-            this.txtUID.MinTypedCharacters = 2;
-            this.txtUID.MyCode = "-1";
-            this.txtUID.MyID = "-1";
-            this.txtUID.MyText = "";
-            this.txtUID.Name = "txtUID";
-            this.txtUID.RaiseEvent = true;
-            this.txtUID.RaiseEventEnter = true;
-            this.txtUID.RaiseEventEnterWhenEmpty = true;
-            this.txtUID.SelectedIndex = -1;
-            this.txtUID.Size = new System.Drawing.Size(355, 21);
-            this.txtUID.splitChar = '@';
-            this.txtUID.splitCharIDAndCode = '#';
-            this.txtUID.TabIndex = 0;
-            this.txtUID.TakeCode = false;
-            this.txtUID.txtMyCode = null;
-            this.txtUID.txtMyCode_Edit = null;
-            this.txtUID.txtMyID = null;
-            this.txtUID.txtMyID_Edit = null;
-            this.txtUID.txtMyName = null;
-            this.txtUID.txtMyName_Edit = null;
-            this.txtUID.txtNext = null;
-            // 
-            // Label9
-            // 
-            this.Label9.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label9.Location = new System.Drawing.Point(3, 15);
-            this.Label9.Name = "Label9";
-            this.Label9.Size = new System.Drawing.Size(109, 21);
-            this.Label9.TabIndex = 83;
-            this.Label9.Text = "UserName";
-            this.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // chkThemmoiLientuc
-            // 
-            this.chkThemmoiLientuc.AutoSize = true;
-            this.chkThemmoiLientuc.Checked = true;
-            this.chkThemmoiLientuc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkThemmoiLientuc.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkThemmoiLientuc.ForeColor = System.Drawing.Color.Navy;
-            this.chkThemmoiLientuc.Location = new System.Drawing.Point(6, 535);
-            this.chkThemmoiLientuc.Name = "chkThemmoiLientuc";
-            this.chkThemmoiLientuc.Size = new System.Drawing.Size(139, 20);
-            this.chkThemmoiLientuc.TabIndex = 68;
-            this.chkThemmoiLientuc.Text = "Thêm mới liên tục?";
-            this.chkThemmoiLientuc.UseVisualStyleBackColor = true;
-            // 
             // frm_themmoi_nhanvien
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(732, 568);
-            this.Controls.Add(this.chkThemmoiLientuc);
             this.Controls.Add(this.cmdSave);
             this.Controls.Add(this.uiGroupBox1);
             this.Controls.Add(this.cmdExit);
@@ -670,7 +653,6 @@
             this.tabPage6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdLoaiThuoc)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -687,6 +669,7 @@
         internal System.Windows.Forms.Label Label2;
         internal System.Windows.Forms.TextBox txtID;
         internal System.Windows.Forms.Label label18;
+        internal System.Windows.Forms.Label Label9;
         internal System.Windows.Forms.ComboBox cboDepart;
         internal System.Windows.Forms.Label Label5;
         private Janus.Windows.EditControls.UIButton cmdSave;
@@ -704,6 +687,7 @@
         private Janus.Windows.GridEX.GridEX grdKhoa;
         private System.Windows.Forms.TabPage tabPage4;
         private Janus.Windows.GridEX.GridEX grdKhoanoitru;
+        private UCs.AutoCompleteTextbox txtUID;
         internal System.Windows.Forms.Label lblMsg;
         private Janus.Windows.GridEX.GridEX grdQuyen;
         private System.Windows.Forms.TabPage tabPage5;
@@ -712,8 +696,5 @@
         private Janus.Windows.GridEX.GridEX grdLoaiThuoc;
         internal System.Windows.Forms.ComboBox cboUserName;
         internal System.Windows.Forms.TextBox txtKhoa;
-        private UCs.AutoCompleteTextbox txtUID;
-        internal System.Windows.Forms.Label Label9;
-        private System.Windows.Forms.CheckBox chkThemmoiLientuc;
     }
 }
