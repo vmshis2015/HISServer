@@ -39,6 +39,8 @@ namespace VNS.HIS.UI.NGOAITRU
     {
         public delegate void OnActionSuccess();
         public event OnActionSuccess _OnActionSuccess;
+        public string _maluotkham = "";
+        public int _mabenhnhan = -1;
         KCB_DANGKY _KCB_DANGKY = new KCB_DANGKY();
         KCB_QMS _KCB_QMS = new KCB_QMS();
         DMUC_CHUNG _DMUC_CHUNG = new DMUC_CHUNG();
@@ -51,6 +53,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private string MA_DTUONG = "DV";
         private string SoBHYT = "";
         private string TrongGio = "";
+        
         public bool m_blnCancel;
         private bool b_HasLoaded;
         private bool b_HasSecondScreen;
@@ -1197,6 +1200,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtNamSinh.Text = Utility.sDbnull(objBenhnhan.NamSinh);
                 txtSoDT.Text = Utility.sDbnull(objBenhnhan.DienThoai);
                 txtDiachi_bhyt._Text = Utility.sDbnull(objBenhnhan.DiachiBhyt);
+                txtSoBATCQG.Text = Utility.sDbnull(objBenhnhan.SoTiemchungQg);
                 txtDiachi._Text = Utility.sDbnull(objBenhnhan.DiaChi);
                 if (objBenhnhan.NgaySinh != null) dtpBOD.Value = objBenhnhan.NgaySinh.Value;
                 else dtpBOD.Value = new DateTime((int)objBenhnhan.NamSinh, 1, 1);
@@ -1208,11 +1212,9 @@ namespace VNS.HIS.UI.NGOAITRU
                     txtDantoc._Text = objBenhnhan.DanToc;
                 txtEmail.Text = Utility.sDbnull(objBenhnhan.Email);
                 txtCMT.Text = Utility.sDbnull(objBenhnhan.Cmt);
-
-
                 objLuotkham = new Select().From(KcbLuotkham.Schema)
-                   .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(txtMaLankham.Text)
-                   .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(Utility.Int32Dbnull(txtMaBN.Text, -1)).ExecuteSingle
+                   .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(Utility.sDbnull(_maluotkham,""))
+                   .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(Utility.Int32Dbnull(_mabenhnhan,-1)).ExecuteSingle
                    <KcbLuotkham>();
                 if (objLuotkham != null)
                 {
@@ -1284,9 +1286,6 @@ namespace VNS.HIS.UI.NGOAITRU
                     {
                         XoathongtinBHYT(true);
                     }
-                }
-                else
-                {
                 }
             }
             chkChuyenVien_CheckedChanged(chkChuyenVien, new EventArgs());

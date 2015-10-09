@@ -1067,6 +1067,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm_KCB_DANGKY frm = new frm_KCB_DANGKY(this.Args);
                 frm.txtMaBN.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
                 frm.txtMaLankham.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
+                frm.txtMaBN.Enabled = false;
+                frm._mabenhnhan = Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
+                frm._maluotkham = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
                 this.myTrace.FunctionID = globalVariables.FunctionID;
                 this.myTrace.FunctionName = globalVariables.FunctionName;
                 frm.myTrace = this.myTrace;
@@ -1084,12 +1087,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 ModifycommandAssignDetail();
                 ModifyButtonCommandRegExam();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-            }
-            finally
-            {
-                //CauHinh();
+                Utility.ShowMsg("Lỗi:" +ex.Message);
             }
         }
         /// <summary>
@@ -1110,6 +1110,10 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm_KCB_DANGKY frm = new frm_KCB_DANGKY(this.Args);
                 frm.txtMaBN.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
                 frm.txtMaLankham.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
+                frm._mabenhnhan = Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
+                frm._maluotkham = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
+                frm.txtMaBN.Enabled = false;
+                frm.txtMaLankham.Enabled = false;
                 this.myTrace.FunctionID = globalVariables.FunctionID;
                 this.myTrace.FunctionName = globalVariables.FunctionName;
                 frm.myTrace = this.myTrace;
@@ -1127,14 +1131,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 ModifycommandAssignDetail();
                 ModifyButtonCommandRegExam();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-
-            }
-            finally
-            {
-                //CauHinh();
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
           
         }
@@ -1176,10 +1175,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             ModifyButtonCommandRegExam();
         }
-       
-
-
-        private void HuyThamKham()
+       private void HuyThamKham()
         {
            
             if (grdRegExam.CurrentRow != null)
@@ -1216,9 +1212,6 @@ namespace VNS.HIS.UI.NGOAITRU
                             Utility.ShowMsg("Bạn thực hiện xóa dịch vụ khám không thành công. Liên hệ đơn vị cung cấp phần mềm để được trợ giúp", "Thông báo");
                             break;
                     }
-
-
-
                 }
             }
             ModifyButtonCommandRegExam();
@@ -1275,20 +1268,25 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 Try2CreateFolder();
-                
-                using (var _reader = new StreamReader(strSaveandprintPath1))
+                if (File.Exists(strSaveandprintPath1))
                 {
-                    m_strDefaultLazerPrinterName = _reader.ReadLine().Trim();
+                       using (var _reader = new StreamReader(strSaveandprintPath1))
+                {
+                           if(_reader.ReadLine().Trim() !="")
+                           {
+                               m_strDefaultLazerPrinterName = _reader.ReadLine().Trim();
 
-                    _reader.BaseStream.Flush();
-                    _reader.Close();
+                               _reader.BaseStream.Flush();
+                               _reader.Close();
+                           }
+                   
                 }
+                }
+             
             }
-            catch
+            catch (Exception ex)
             {
-            }
-            finally
-            {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
         }
         void InPhieu()
@@ -1361,7 +1359,6 @@ namespace VNS.HIS.UI.NGOAITRU
             catch (Exception ex)
             {
                 Utility.ShowMsg("Có lỗi trong quá trình in phiếu khám-->\n" + ex.Message);
-                throw;
             }
         }
        
@@ -2163,20 +2160,5 @@ namespace VNS.HIS.UI.NGOAITRU
             frm.ShowDialog();
             CauHinh();
         }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-       
-       
-      
-      
-       
-    }
+ }
 }
