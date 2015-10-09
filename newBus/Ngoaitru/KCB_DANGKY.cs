@@ -116,7 +116,7 @@ namespace VNS.HIS.BusRule.Classes
                     _newItem.MaLuotkham = objKcbDangkyKcb.MaLuotkham;
                     _newItem.IdLichsuDoituongKcb = objKcbDangkyKcb.IdLichsuDoituongKcb;
                     _newItem.IdKham = (int)objKcbDangkyKcb.IdKham;
-                    _newItem.IdKhoanoitru = objKcbDangkyKcb.IdKhoakcb.Value;
+                    _newItem.IdKhoanoitru = Utility.Int16Dbnull(objKcbDangkyKcb.IdKhoakcb,-1);
                     _newItem.NgayVaokhoa = objKcbDangkyKcb.NgayDangky.Value;
                     _newItem.IdBacsiChidinh = objKcbDangkyKcb.IdBacsikham;
                     _newItem.NguoiTao = objKcbDangkyKcb.NguoiTao;
