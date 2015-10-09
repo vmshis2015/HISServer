@@ -378,8 +378,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 AllowTextChanged = oldStatus;
 
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
         }
         private void Get_PHONGKHAM(string MA_DTUONG)
@@ -471,12 +472,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 txtExamtypeCode.Init(m_dtDanhsachDichvuKCB, new List<string>() { DmucDichvukcb.Columns.IdDichvukcb, DmucDichvukcb.Columns.MaDichvukcb, DmucDichvukcb.Columns.TenDichvukcb });
             }
-            catch
+            catch (Exception ex)
             {
-            }
-            finally
-            {
-
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
         }
 
@@ -508,12 +506,9 @@ namespace VNS.HIS.UI.NGOAITRU
                     m_kieuKham.Columns.Add(new DataColumn("ShortCut", typeof(string)));
                 txtKieuKham.Init(m_kieuKham, new List<string>() { DmucKieukham.Columns.IdKieukham, DmucKieukham.Columns.MaKieukham, DmucKieukham.Columns.TenKieukham });
             }
-            catch
+            catch (Exception ex)
             {
-            }
-            finally
-            {
-
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
         }
         private void LayDsach_DoituongKCB()
@@ -596,6 +591,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
             finally
             {
@@ -822,8 +818,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 chkIntach.Enabled = cmdPrintAssign.Enabled;
                 cboServicePrint.Enabled = cmdPrintAssign.Enabled;
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
             //cmdSend.Enabled = grdAssignInfo.RowCount > 0;
         }
@@ -865,27 +862,35 @@ namespace VNS.HIS.UI.NGOAITRU
         }
         private void cmdSuaChiDinh_Click(object sender, EventArgs e)
         {
-              KcbLuotkham objLuotkham = CreatePatientExam();
-              if (objLuotkham != null)
-              {
-                  if (!InValiUpdateChiDinh()) return;
-                  frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN",0);
-                  frm.HosStatus = 0;
-                
-                  frm.Exam_ID = Utility.Int32Dbnull(-1, -1);
-                  frm.objLuotkham = CreatePatientExam();
-                  frm.m_eAction = action.Update;
-                  frm.txtAssign_ID.Text = Utility.sDbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), "-1");
-                  frm.ShowDialog();
-                  if (!frm.m_blnCancel)
-                  {
-                      //  LoadChiDinhCLS();
-                      LoadChiDinh();
-                      UpdateSumOfChiDinh();
-                  }
-                  ModifycommandAssignDetail();
-              }
-            ModifyCommand();
+            try
+            {
+                KcbLuotkham objLuotkham = CreatePatientExam();
+                if (objLuotkham != null)
+                {
+                    if (!InValiUpdateChiDinh()) return;
+                    frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN", 0);
+                    frm.HosStatus = 0;
+
+                    frm.Exam_ID = Utility.Int32Dbnull(-1, -1);
+                    frm.objLuotkham = CreatePatientExam();
+                    frm.m_eAction = action.Update;
+                    frm.txtAssign_ID.Text = Utility.sDbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), "-1");
+                    frm.ShowDialog();
+                    if (!frm.m_blnCancel)
+                    {
+                        //  LoadChiDinhCLS();
+                        LoadChiDinh();
+                        UpdateSumOfChiDinh();
+                    }
+                    ModifycommandAssignDetail();
+                }
+                ModifyCommand();
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
+            }
+              
         }
         private bool InValiAssign()
         {
@@ -984,8 +989,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
            
            
@@ -1028,14 +1034,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 ModifycommandAssignDetail();
                 ModifyButtonCommandRegExam();
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                
-                
-            }
-            finally
-            {
-               // CauHinh();
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
            
         }
