@@ -35,6 +35,48 @@ namespace VNS.HIS.Classes
 
             }
         }
+        public static void INPHIEU_HEN( DataTable m_dtReport, string sTitleReport)
+        {
+            Utility.UpdateLogotoDatatable(ref  m_dtReport);
+            ReportDocument reportDocument = new ReportDocument();
+            string tieude = "", reportname = "";
+            reportDocument = Utility.GetReport("thamkham_inphieuhen_benhnhan", ref tieude, ref reportname);
+            if (reportDocument == null) return;
+            var crpt = reportDocument;
+
+            var objForm = new frmPrintPreview(sTitleReport, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+            try
+            {
+                m_dtReport.AcceptChanges();
+                objForm.mv_sReportFileName = Path.GetFileName(reportname);
+                objForm.mv_sReportCode = "thamkham_inphieuhen_benhnhan";
+                crpt.SetDataSource(m_dtReport);
+                Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone + globalVariables.SOMAYLE);
+                Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+                Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "CurrentDate", Utility.FormatDateTime(globalVariables.SysDate));
+                Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+                Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                objForm.crptViewer.ReportSource = crpt;
+                objForm.ShowDialog();
+                //if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInPhieuKCB, PropertyLib._MayInProperties.PreviewPhieuKCB))
+                //{
+                //    objForm.SetDefaultPrinter(PropertyLib._MayInProperties.TenMayInPhieuKCB, 0);
+                //    objForm.ShowDialog();
+                //}
+                //else
+                //{
+                //    objForm.addTrinhKy_OnFormLoad();
+                //    crpt.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
+                //    crpt.PrintToPrinter(1, false, 0, 0);
+                //}
+
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg(ex.ToString());
+            }
+        }
         public static void InPhieuKCB_DV(DataTable m_dtReport, string sTitleReport,string KhoGiay)
         {
             ReportDocument reportDocument=new ReportDocument();
