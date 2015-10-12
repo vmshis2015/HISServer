@@ -88,7 +88,7 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 this.Args = Args;
-                lblTuoi.Visible = txtTuoi.Visible = this.Args.Split('-')[0] != "KTC";
+                //lblTuoi.Visible = txtTuoi.Visible = this.Args.Split('-')[0] != "KTC";
                 txtTEN_BN.CharacterCasing = globalVariables.CHARACTERCASING == 0
                                                 ? CharacterCasing.Normal
                                                 : CharacterCasing.Upper;
@@ -257,7 +257,8 @@ namespace VNS.HIS.UI.NGOAITRU
         void mnuBOD_Click(object sender, EventArgs e)
         {
             dtpBOD.Visible = mnuBOD.Checked;
-            txtNamSinh.Visible = !mnuBOD.Checked;  
+            txtNamSinh.Visible = !mnuBOD.Checked;
+            txtTuoi.Enabled = !dtpBOD.Visible;
         }
 
         void txtLoaikham__OnShowData()
@@ -295,12 +296,23 @@ namespace VNS.HIS.UI.NGOAITRU
                 AddAutoCompleteDiaChi();
             }
         }
-
+        bool AllowAgeChanged = true;
         void dtpBOD_TextChanged(object sender, EventArgs e)
         {
             if (dtpBOD.Visible)
             {
-                txtTuoi.Text = Utility.sDbnull(globalVariables.SysDate.Year - dtpBOD.Value.Year);
+                AllowAgeChanged = false;
+                long week = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.WeekOfYear, dtpBOD.Value, dtCreateDate.Value);
+                long Month = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.Month, dtpBOD.Value, dtCreateDate.Value);
+                long Year = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.Year, dtpBOD.Value, dtCreateDate.Value);
+                int Tinhtuoitheotuan = Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_TINHTUOI_THEOTUAN", "6", false));
+                int Tinhtuoitheothang = Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_TINHTUOI_THEOTHANG", "17", false));
+               int Tuoi = (int)(Month <= Tinhtuoitheotuan ? week : (Month <= Tinhtuoitheothang ? Month : Year));
+                string Loaituoi = (Month <= Tinhtuoitheotuan ? "Tuần" : (Month <= Tinhtuoitheothang ? "Tháng" : ""));
+                txtTuoi.Text = Tuoi.ToString();
+                UIAction.SetText(lblLoaituoi, Loaituoi);
+                AllowAgeChanged = true;
+                //txtTuoi.Text = Utility.sDbnull(globalVariables.SysDate.Year - dtpBOD.Value.Year);
             }
         }
 
@@ -1032,7 +1044,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 chkTraiTuyen.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_CHOPHEPTIEPDON_TRAITUYEN", "1", false) == "1";
                 chkLaysokham.Enabled = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_BATBUOCLAY_SOKHAMCHUABENH", "0", false) == "0";
                 txtSoKcb.Enabled = chkLaysokham.Enabled;
-
+                txtTuoi.Enabled = !dtpBOD.Visible;
+                dtpBOD_TextChanged(dtpBOD, e);
                 XoathongtinBHYT(true);
                 AddAutoCompleteDiaChi();
                 Get_DanhmucChung();
@@ -2485,7 +2498,10 @@ namespace VNS.HIS.UI.NGOAITRU
                     if (!dtpBOD.Visible)
                         txtNamSinh.Text = Utility.sDbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(txtTuoi.Text, 0));
                     else
-                        dtpBOD.Value = new DateTime(Utility.Int32Dbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(txtTuoi.Text, 0)), dtpBOD.Value.Month, dtpBOD.Value.Day, dtpBOD.Value.Hour, dtpBOD.Value.Minute,0);
+                    {
+                        if (AllowAgeChanged)
+                            dtpBOD.Value = new DateTime(Utility.Int32Dbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(txtTuoi.Text, 0)), dtpBOD.Value.Month, dtpBOD.Value.Day, dtpBOD.Value.Hour, dtpBOD.Value.Minute, 0);
+                    }
                 }
             }
             catch (Exception exception)

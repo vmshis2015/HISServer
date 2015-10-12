@@ -153,6 +153,8 @@
             this.cmdInhoadon = new Janus.Windows.EditControls.UIButton();
             this.cmdInBienlai = new Janus.Windows.EditControls.UIButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtSoBATCQG = new System.Windows.Forms.TextBox();
+            this.lblBATC = new System.Windows.Forms.Label();
             this.txtSoBA = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
@@ -196,8 +198,7 @@
             this.lblDoituongKCB = new System.Windows.Forms.Label();
             this.pnlBottom = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.txtSoBATCQG = new System.Windows.Forms.TextBox();
-            this.lblBATC = new System.Windows.Forms.Label();
+            this.lblLoaituoi = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grpChoKham)).BeginInit();
             this.grpChoKham.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdListKhoa)).BeginInit();
@@ -599,9 +600,9 @@
             // 
             this.lblNamsinh.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNamsinh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblNamsinh.Location = new System.Drawing.Point(477, 9);
+            this.lblNamsinh.Location = new System.Drawing.Point(497, 10);
             this.lblNamsinh.Name = "lblNamsinh";
-            this.lblNamsinh.Size = new System.Drawing.Size(98, 21);
+            this.lblNamsinh.Size = new System.Drawing.Size(77, 21);
             this.lblNamsinh.TabIndex = 448;
             this.lblNamsinh.Text = "Năm sinh:";
             this.lblNamsinh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -921,12 +922,13 @@
             // txtTuoi
             // 
             this.txtTuoi.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTuoi.Location = new System.Drawing.Point(759, 10);
+            this.txtTuoi.Location = new System.Drawing.Point(725, 9);
             this.txtTuoi.MaxLength = 3;
             this.txtTuoi.Name = "txtTuoi";
             this.txtTuoi.Numeric = true;
-            this.txtTuoi.Size = new System.Drawing.Size(38, 21);
+            this.txtTuoi.Size = new System.Drawing.Size(29, 21);
             this.txtTuoi.TabIndex = 15;
+            this.txtTuoi.Text = "100";
             this.txtTuoi.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center;
             // 
             // lblTuoi
@@ -934,7 +936,7 @@
             this.lblTuoi.AutoSize = true;
             this.lblTuoi.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTuoi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblTuoi.Location = new System.Drawing.Point(724, 14);
+            this.lblTuoi.Location = new System.Drawing.Point(691, 13);
             this.lblTuoi.Name = "lblTuoi";
             this.lblTuoi.Size = new System.Drawing.Size(31, 15);
             this.lblTuoi.TabIndex = 4;
@@ -1536,11 +1538,11 @@
             // 
             this.txtNamSinh.ContextMenuStrip = this.ctxBOD;
             this.txtNamSinh.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNamSinh.Location = new System.Drawing.Point(576, 10);
+            this.txtNamSinh.Location = new System.Drawing.Point(576, 8);
             this.txtNamSinh.MaxLength = 4;
             this.txtNamSinh.Name = "txtNamSinh";
             this.txtNamSinh.Numeric = true;
-            this.txtNamSinh.Size = new System.Drawing.Size(142, 21);
+            this.txtNamSinh.Size = new System.Drawing.Size(109, 21);
             this.txtNamSinh.TabIndex = 14;
             this.txtNamSinh.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center;
             // 
@@ -1822,6 +1824,31 @@
             this.panel2.Size = new System.Drawing.Size(821, 490);
             this.panel2.TabIndex = 600;
             // 
+            // txtSoBATCQG
+            // 
+            this.txtSoBATCQG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSoBATCQG.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSoBATCQG.ForeColor = System.Drawing.Color.Black;
+            this.txtSoBATCQG.Location = new System.Drawing.Point(715, 69);
+            this.txtSoBATCQG.MaxLength = 8;
+            this.txtSoBATCQG.Name = "txtSoBATCQG";
+            this.txtSoBATCQG.Size = new System.Drawing.Size(90, 21);
+            this.txtSoBATCQG.TabIndex = 604;
+            this.txtSoBATCQG.TabStop = false;
+            this.txtSoBATCQG.Text = "1";
+            this.txtSoBATCQG.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lblBATC
+            // 
+            this.lblBATC.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBATC.ForeColor = System.Drawing.Color.Red;
+            this.lblBATC.Location = new System.Drawing.Point(637, 69);
+            this.lblBATC.Name = "lblBATC";
+            this.lblBATC.Size = new System.Drawing.Size(71, 21);
+            this.lblBATC.TabIndex = 605;
+            this.lblBATC.Text = "Số B.A.T.C:";
+            this.lblBATC.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // txtSoBA
             // 
             this.txtSoBA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -1912,6 +1939,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.lblLoaituoi);
             this.tabPage1.Controls.Add(this.txtSoDT);
             this.tabPage1.Controls.Add(this.txtNguoiLienhe);
             this.tabPage1.Controls.Add(this.label4);
@@ -2418,12 +2446,12 @@
             // 
             // 
             this.dtpBOD.DropDownCalendar.Name = "";
-            this.dtpBOD.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpBOD.Location = new System.Drawing.Point(576, 10);
+            this.dtpBOD.Font = new System.Drawing.Font("Arial", 9F);
+            this.dtpBOD.Location = new System.Drawing.Point(576, 8);
             this.dtpBOD.MinDate = new System.DateTime(1950, 2, 1, 0, 0, 0, 0);
             this.dtpBOD.Name = "dtpBOD";
-            this.dtpBOD.ShowUpDown = true;
-            this.dtpBOD.Size = new System.Drawing.Size(142, 21);
+            this.dtpBOD.ShowDropDown = false;
+            this.dtpBOD.Size = new System.Drawing.Size(109, 21);
             this.dtpBOD.TabIndex = 14;
             this.dtpBOD.Value = new System.DateTime(2013, 9, 23, 0, 0, 0, 0);
             this.dtpBOD.Visible = false;
@@ -2657,30 +2685,16 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // txtSoBATCQG
+            // lblLoaituoi
             // 
-            this.txtSoBATCQG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSoBATCQG.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSoBATCQG.ForeColor = System.Drawing.Color.Black;
-            this.txtSoBATCQG.Location = new System.Drawing.Point(715, 69);
-            this.txtSoBATCQG.MaxLength = 8;
-            this.txtSoBATCQG.Name = "txtSoBATCQG";
-            this.txtSoBATCQG.Size = new System.Drawing.Size(90, 21);
-            this.txtSoBATCQG.TabIndex = 604;
-            this.txtSoBATCQG.TabStop = false;
-            this.txtSoBATCQG.Text = "1";
-            this.txtSoBATCQG.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // lblBATC
-            // 
-            this.lblBATC.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBATC.ForeColor = System.Drawing.Color.Red;
-            this.lblBATC.Location = new System.Drawing.Point(637, 69);
-            this.lblBATC.Name = "lblBATC";
-            this.lblBATC.Size = new System.Drawing.Size(71, 21);
-            this.lblBATC.TabIndex = 605;
-            this.lblBATC.Text = "Số B.A.T.C:";
-            this.lblBATC.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblLoaituoi.AutoSize = true;
+            this.lblLoaituoi.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLoaituoi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblLoaituoi.Location = new System.Drawing.Point(756, 13);
+            this.lblLoaituoi.Name = "lblLoaituoi";
+            this.lblLoaituoi.Size = new System.Drawing.Size(35, 15);
+            this.lblLoaituoi.TabIndex = 611;
+            this.lblLoaituoi.Text = "Tuần";
             // 
             // frm_KCB_DANGKY
             // 
@@ -2893,5 +2907,6 @@
         private System.Windows.Forms.Label label26;
         public System.Windows.Forms.TextBox txtSoBATCQG;
         private System.Windows.Forms.Label lblBATC;
+        private System.Windows.Forms.Label lblLoaituoi;
     }
 }
