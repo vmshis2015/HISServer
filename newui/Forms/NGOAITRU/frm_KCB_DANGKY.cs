@@ -173,9 +173,6 @@ namespace VNS.HIS.UI.NGOAITRU
             grdRegExam.ColumnButtonClick+=new ColumnActionEventHandler(grdRegExam_ColumnButtonClick);
             grdRegExam.SelectionChanged+=new EventHandler(grdRegExam_SelectionChanged);
             txtTuoi.LostFocus += txtTuoi_LostFocus;
-            txtNamSinh.TextChanged += txtNamSinh_TextChanged;
-
-            txtNamSinh.LostFocus += txtNamSinh_LostFocus;
             txtSoQMS.TextChanged+=new EventHandler(txtSoQMS_TextChanged);
             chkTudongthemmoi.CheckedChanged += new EventHandler(chkTudongthemmoi_CheckedChanged);
             cmdQMSProperty.Click += new EventHandler(cmdQMSProperty_Click);
@@ -256,9 +253,10 @@ namespace VNS.HIS.UI.NGOAITRU
 
         void mnuBOD_Click(object sender, EventArgs e)
         {
-            dtpBOD.Visible = mnuBOD.Checked;
-            txtNamSinh.Visible = !mnuBOD.Checked;
-            txtTuoi.Enabled = !dtpBOD.Visible;
+            dtpBOD.CustomFormat = mnuBOD.Checked ? "dd/MM/yyyy HH:mm" : "yyyy";
+            txtTuoi.Enabled = dtpBOD.CustomFormat == "yyyy";
+            lblLoaituoi.Visible = dtpBOD.CustomFormat != "yyyy";
+            dtpBOD_TextChanged(dtpBOD, e);
         }
 
         void txtLoaikham__OnShowData()
@@ -299,21 +297,22 @@ namespace VNS.HIS.UI.NGOAITRU
         bool AllowAgeChanged = true;
         void dtpBOD_TextChanged(object sender, EventArgs e)
         {
-            if (dtpBOD.Visible)
-            {
+           
                 AllowAgeChanged = false;
                 long week = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.WeekOfYear, dtpBOD.Value, dtCreateDate.Value);
                 long Month = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.Month, dtpBOD.Value, dtCreateDate.Value);
                 long Year = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.Year, dtpBOD.Value, dtCreateDate.Value);
                 int Tinhtuoitheotuan = Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_TINHTUOI_THEOTUAN", "6", false));
                 int Tinhtuoitheothang = Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_TINHTUOI_THEOTHANG", "17", false));
-               int Tuoi = (int)(Month <= Tinhtuoitheotuan ? week : (Month <= Tinhtuoitheothang ? Month : Year));
+                int Tuoi = (int)(Month <= Tinhtuoitheotuan ? week : (Month <= Tinhtuoitheothang ? Month : Year));
                 string Loaituoi = (Month <= Tinhtuoitheotuan ? "Tuần" : (Month <= Tinhtuoitheothang ? "Tháng" : ""));
+                if (dtpBOD.CustomFormat == "yyyy")
+                {
+                    Tuoi = (int)Year;
+                }
                 txtTuoi.Text = Tuoi.ToString();
                 UIAction.SetText(lblLoaituoi, Loaituoi);
                 AllowAgeChanged = true;
-                //txtTuoi.Text = Utility.sDbnull(globalVariables.SysDate.Year - dtpBOD.Value.Year);
-            }
         }
 
        
@@ -1044,7 +1043,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 chkTraiTuyen.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_CHOPHEPTIEPDON_TRAITUYEN", "1", false) == "1";
                 chkLaysokham.Enabled = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_BATBUOCLAY_SOKHAMCHUABENH", "0", false) == "0";
                 txtSoKcb.Enabled = chkLaysokham.Enabled;
-                txtTuoi.Enabled = !dtpBOD.Visible;
+                txtTuoi.Enabled = dtpBOD.CustomFormat == "yyyy";
+                lblLoaituoi.Visible = dtpBOD.CustomFormat != "yyyy";
                 dtpBOD_TextChanged(dtpBOD, e);
                 XoathongtinBHYT(true);
                 AddAutoCompleteDiaChi();
@@ -1201,24 +1201,24 @@ namespace VNS.HIS.UI.NGOAITRU
         decimal PtramBhytCu = 0m;
         decimal PtramBhytGocCu = 0m;
         KcbLuotkham objLuotkham = null;
+        KcbDanhsachBenhnhan objBenhnhan = null;
         private void LoadThongtinBenhnhan()
         {
             PtramBhytCu = 0m;
             PtramBhytGocCu = 0m;
             AllowTextChanged = false;
-            KcbDanhsachBenhnhan objBenhnhan = KcbDanhsachBenhnhan.FetchByID(txtMaBN.Text);
+            objBenhnhan = KcbDanhsachBenhnhan.FetchByID(txtMaBN.Text);
             if (objBenhnhan != null)
             {
                 txtTEN_BN.Text = Utility.sDbnull(objBenhnhan.TenBenhnhan);
-                txtNamSinh.Text = Utility.sDbnull(objBenhnhan.NamSinh);
                 txtSoDT.Text = Utility.sDbnull(objBenhnhan.DienThoai);
                 txtDiachi_bhyt._Text = Utility.sDbnull(objBenhnhan.DiachiBhyt);
                 txtSoBATCQG.Text = Utility.sDbnull(objBenhnhan.SoTiemchungQg);
                 txtDiachi._Text = Utility.sDbnull(objBenhnhan.DiaChi);
+                AllowAgeChanged = false;
                 if (objBenhnhan.NgaySinh != null) dtpBOD.Value = objBenhnhan.NgaySinh.Value;
                 else dtpBOD.Value = new DateTime((int)objBenhnhan.NamSinh, 1, 1);
-                txtNamSinh.Text = Utility.sDbnull(objBenhnhan.NamSinh);
-                txtTuoi.Text = Utility.sDbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(objBenhnhan.NamSinh));
+               
                 txtNgheNghiep._Text = Utility.sDbnull(objBenhnhan.NgheNghiep);
                 cboPatientSex.SelectedIndex = Utility.GetSelectedIndex(cboPatientSex, Utility.sDbnull(objBenhnhan.IdGioitinh));
                 if (Utility.Int32Dbnull(objBenhnhan.DanToc) > 0)
@@ -1231,6 +1231,7 @@ namespace VNS.HIS.UI.NGOAITRU
                    <KcbLuotkham>();
                 if (objLuotkham != null)
                 {
+                   
                     KcbDangkySokham objSoKCB=new Select().From(KcbDangkySokham.Schema)
                         .Where(KcbDangkySokham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                         .And(KcbDangkySokham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
@@ -1259,6 +1260,17 @@ namespace VNS.HIS.UI.NGOAITRU
                     
                     txtNoigioithieu.Text = objLuotkham.NoiGioithieu;
                     txtLoaiBN.SetCode(objLuotkham.NhomBenhnhan);
+
+                    if (dtpBOD.CustomFormat != "yyyy")
+                    {
+                        txtTuoi.Text = Utility.sDbnull(objLuotkham.Tuoi, "0");
+                        UIAction.SetText(lblLoaituoi, objLuotkham.LoaiTuoi == 0 ? "" : (objLuotkham.LoaiTuoi == 1 ? "Tháng" : "Tuần"));
+                    }
+                    else
+                    {
+                        txtTuoi.Text = Utility.sDbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(objBenhnhan.NamSinh, 0));
+                    }
+                    AllowAgeChanged = true;
                     _MaDoituongKcb = Utility.sDbnull(objLuotkham.MaDoituongKcb);
                     objDoituongKCB = new Select().From(DmucDoituongkcb.Schema).Where(DmucDoituongkcb.MaDoituongKcbColumn).IsEqualTo(_MaDoituongKcb).ExecuteSingle<DmucDoituongkcb>();
 
@@ -2447,37 +2459,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
        
 
-        /// <summary>
-        /// hàm thực hiện viecj tính tuổi
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void txtNamSinh_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (dtpBOD.Visible) return;
-                if (txtNamSinh.Text.Length < 4) return;
-                if (!string.IsNullOrEmpty(txtNamSinh.Text))
-                {
-                    txtTuoi.Text = Utility.sDbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(txtNamSinh.Text, 0));
-                }
-                else
-                {
-                    txtTuoi.Clear();
-                }
-                if (txtNamSinh.Focused)
-                {
-                    txtTuoi.Focus();
-                    txtTuoi.SelectAll();
-                }
-
-                StatusControl();
-            }
-            catch (Exception exception)
-            {
-            }
-        }
+       
 
         private void txtTuoi_LostFocus(object sender, EventArgs e)
         {
@@ -2493,15 +2475,10 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
+                if (!AllowAgeChanged) return;
                 if (!string.IsNullOrEmpty(txtTuoi.Text))
                 {
-                    if (!dtpBOD.Visible)
-                        txtNamSinh.Text = Utility.sDbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(txtTuoi.Text, 0));
-                    else
-                    {
-                        if (AllowAgeChanged)
-                            dtpBOD.Value = new DateTime(Utility.Int32Dbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(txtTuoi.Text, 0)), dtpBOD.Value.Month, dtpBOD.Value.Day, dtpBOD.Value.Hour, dtpBOD.Value.Minute, 0);
-                    }
+                    dtpBOD.Value = new DateTime(Utility.Int32Dbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(txtTuoi.Text, 0)), dtpBOD.Value.Month, dtpBOD.Value.Day, dtpBOD.Value.Hour, dtpBOD.Value.Minute, 0);
                 }
             }
             catch (Exception exception)
@@ -2567,7 +2544,6 @@ namespace VNS.HIS.UI.NGOAITRU
             m_blnHasJustInsert = false;
             txtSolankham.Text = "1";
             txtTEN_BN.Clear();
-            txtNamSinh.Clear();
             dtpBOD.Value = globalVariables.SysDate;
             txtTuoi.Clear();
             txtCMT.Clear();
@@ -2825,12 +2801,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtTEN_BN.Focus();
                 return false;
             }
-            if (!dtpBOD.Visible && string.IsNullOrEmpty(txtNamSinh.Text))
-            {
-                Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải nhập ngày tháng năm sinh, hoặc năm sinh cho bệnh nhân ", true);
-                txtNamSinh.Focus();
-                return false;
-            }
+           
             if (Utility.Int32Dbnull(txtTuoi.Text,-1)<0)
             {
                 Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Tuổi Bệnh nhân phải lớn hơn hoặc bằng không. Mời bạn kiểm tra lại", true);
@@ -3323,25 +3294,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
             }
         }
-        private void txtNamSinh_LostFocus(object sender, EventArgs e)
-        {
-            if (dtpBOD.Visible) return;
-            if (!string.IsNullOrEmpty(txtNamSinh.Text))
-            {
-                if (txtNamSinh.Text.Length < 4)
-                {
-                    Utility.ShowMsg("Năm sinh của bệnh nhân phải là 4 số", "Thông báo", MessageBoxIcon.Information);
-                    txtNamSinh.Focus();
-                    txtNamSinh.SelectAll();
-                }
-            }
-        }
-
        
-
-      
-
-    
 
         private void txtTuoi_Click(object sender, EventArgs e)
         {
@@ -3657,11 +3610,10 @@ namespace VNS.HIS.UI.NGOAITRU
         private void CauHinhKCB()
         {
             dtpBOD.Value = globalVariables.SysDate;
-            dtpBOD.Visible=THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "1";
-            txtNamSinh.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "0";
-            //chkKSK.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_KSK", false) == "1";
-            if (dtpBOD.Visible)
-                txtTuoi.Text = Utility.sDbnull(globalVariables.SysDate.Year - dtpBOD.Value.Year);
+            dtpBOD.CustomFormat=THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "1"?"dd/MM/yyyy HH:mm":"yyyy";
+            txtTuoi.Enabled = dtpBOD.CustomFormat =="yyyy";
+            lblLoaituoi.Visible = dtpBOD.CustomFormat != "yyyy";
+            mnuBOD.Checked = dtpBOD.CustomFormat != "yyyy";
             if (PropertyLib._KCBProperties != null)
             {
                 chkTudongthemmoi.Checked = PropertyLib._KCBProperties.Tudongthemmoi;
@@ -5113,7 +5065,7 @@ namespace VNS.HIS.UI.NGOAITRU
             dr[KcbDanhsachBenhnhan.Columns.GioiTinh] = cboPatientSex.Text;
             dr[KcbDanhsachBenhnhan.Columns.IdGioitinh] =Utility.Int16Dbnull( cboPatientSex.SelectedValue);
 
-            dr[KcbDanhsachBenhnhan.Columns.NamSinh] = txtNamSinh.Visible ? txtNamSinh.Text : dtpBOD.Value.Year.ToString();
+            dr[KcbDanhsachBenhnhan.Columns.NamSinh] =dtpBOD.Value.Year.ToString();
             
             dr[KcbDanhsachBenhnhan.Columns.Email] = Utility.sDbnull(txtEmail.Text, "");
             dr[KcbDanhsachBenhnhan.Columns.DiachiBhyt] = Utility.sDbnull(txtDiachi_bhyt.Text, "");
@@ -5181,7 +5133,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 dr["gioi_tinh"] = cboPatientSex.Text;
                 dr[KcbDanhsachBenhnhan.Columns.IdGioitinh] =Utility.Int16Dbnull( cboPatientSex.SelectedValue);
 
-                dr[KcbDanhsachBenhnhan.Columns.NamSinh] =txtNamSinh.Visible? txtNamSinh.Text:dtpBOD.Value.Year.ToString();
+                dr[KcbDanhsachBenhnhan.Columns.NamSinh] =dtpBOD.Value.Year.ToString();
                
                 dr[KcbDanhsachBenhnhan.Columns.Email] = Utility.sDbnull(txtEmail.Text, "");
                 dr[KcbDanhsachBenhnhan.Columns.DiachiBhyt] = Utility.sDbnull(txtDiachi_bhyt.Text, "");
@@ -5242,7 +5194,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void ThemLanKham()
         {
-            KcbDanhsachBenhnhan objBenhnhan = TaoBenhnhan();
+            objBenhnhan = TaoBenhnhan();
             objLuotkham = TaoLuotkham();
             KcbDangkyKcb objRegExam = TaoDangkyKCB();
             KcbDangkySokham objSokham = TaosoKCB();
@@ -5504,7 +5456,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void InsertPatient()
         {
-            KcbDanhsachBenhnhan objBenhnhan = TaoBenhnhan();
+            objBenhnhan = TaoBenhnhan();
             objLuotkham = TaoLuotkham();
             KcbDangkyKcb objRegExam = TaoDangkyKCB();
             KcbDangkySokham objSokham = TaosoKCB();
@@ -5671,7 +5623,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void UpdatePatient()
         {
-            KcbDanhsachBenhnhan objBenhnhan = TaoBenhnhan();
+            objBenhnhan = TaoBenhnhan();
             objLuotkham = TaoLuotkham();
             KcbDangkyKcb objRegExam = TaoDangkyKCB();
             KcbDangkySokham objSokham = TaosoKCB();
@@ -5745,17 +5697,20 @@ namespace VNS.HIS.UI.NGOAITRU
         /// </summary>hàm chen du lieu moi tin day, benhnhan kham benh moi tinh
         private KcbDanhsachBenhnhan TaoBenhnhan()
         {
-            
-            var objBenhnhan = new KcbDanhsachBenhnhan();
-            if (m_enAction == action.Add) objBenhnhan.IdBenhnhan = Utility.Int64Dbnull(txtMaBN.Text, -1);
-            if (m_enAction == action.Update) objBenhnhan = KcbDanhsachBenhnhan.FetchByID(Utility.Int64Dbnull(txtMaBN.Text, -1));
+
+            if (objBenhnhan == null)
+            {
+                objBenhnhan = new KcbDanhsachBenhnhan();
+                objBenhnhan.IsNew = true;
+            }
+            if (m_enAction != action.Insert)
+            {
+                objBenhnhan = KcbDanhsachBenhnhan.FetchByID(Utility.Int64Dbnull(txtMaBN.Text, -1));
+                objBenhnhan.IsNew = false;
+            }
             objBenhnhan.TenBenhnhan = txtTEN_BN.Text;
             objBenhnhan.DiaChi = txtDiachi.Text;
             objBenhnhan.KieuBenhnhan = 0;
-            //Tạm REM lại tìm hiểu tại sao lại gán ="" với đối tượng dịch vụ
-            //if (_IdDoituongKcb == 1) //Đối tượng dịch vụ
-            //    objBenhnhan.DiaChi = "";
-            //else //Đối tượng BHYT
             objBenhnhan.DiachiBhyt = Utility.sDbnull(txtDiachi_bhyt.Text);
             objBenhnhan.DienThoai = txtSoDT.Text;
             objBenhnhan.Email = Utility.sDbnull(txtEmail.Text, "");
@@ -5769,16 +5724,9 @@ namespace VNS.HIS.UI.NGOAITRU
             objBenhnhan.NgheNghiep = txtNgheNghiep.Text;
             objBenhnhan.GioiTinh = cboPatientSex.Text;
             objBenhnhan.IdGioitinh = Utility.ByteDbnull(cboPatientSex.SelectedValue, 0);
-            objBenhnhan.NamSinh = txtNamSinh.Visible ? Utility.Int16Dbnull(txtNamSinh.Text, null) : Utility.Int16Dbnull(dtpBOD.Value.Year);
+            objBenhnhan.NamSinh =  Utility.Int16Dbnull(dtpBOD.Value.Year);
             objBenhnhan.KieuBenhnhan = 0;//0= Bệnh nhân thường đến khám chữa bệnh;1= Người gửi mẫu kiểm nghiệm cá nhân;2= Tổ chức gửi mẫu kiểm nghiệm
-            if (dtpBOD.Visible)
-            {
                 objBenhnhan.NgaySinh = dtpBOD.Value;
-            }
-            else
-            {
-                objBenhnhan.NgaySinh = new DateTime(Utility.Int32Dbnull(txtNamSinh.Text), dtpBOD.Value.Month, dtpBOD.Value.Day, dtpBOD.Value.Hour, dtpBOD.Value.Minute,0);
-            }
 
             if (m_enAction == action.Insert)
             {
@@ -5806,115 +5754,127 @@ namespace VNS.HIS.UI.NGOAITRU
         /// <returns></returns>
         private KcbLuotkham TaoLuotkham()
         {
-            objLuotkham = new KcbLuotkham();
-            if (m_enAction == action.Insert || m_enAction == action.Add)
+            try
             {
-                //Bỏ đi do đã sinh theo cơ chế bảng danh mục mã lượt khám. Nếu ko sẽ mất mã lượt khám hiện thời.
-               // txtMaLankham.Text = THU_VIEN_CHUNG.KCB_SINH_MALANKHAM();
-                objLuotkham.IsNew = true;
-            }
-            else
-            {
-                objLuotkham.MarkOld();
-                objLuotkham.IsNew = false;
-            }
-            objLuotkham.KieuKham = txtLoaikham.myCode;
-            objLuotkham.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
-            objLuotkham.Noitru = 0;
-            objLuotkham.IdDoituongKcb = _IdDoituongKcb;
-            objLuotkham.IdLoaidoituongKcb = _IdLoaidoituongKcb;
-            objLuotkham.Locked = 0;
-            objLuotkham.HienthiBaocao = 1;
-            objLuotkham.TrangthaiCapcuu = chkCapCuu.Checked ? 1 : 0;
-            objLuotkham.IdKhoatiepnhan = globalVariables.idKhoatheoMay;
-            objLuotkham.NguoiTao = globalVariables.UserName;
-            objLuotkham.NgayTao = globalVariables.SysDate;
-            objLuotkham.Cmt = Utility.sDbnull(txtCMT.Text, "");
-            objLuotkham.DiaChi = txtDiachi.Text;
-            objLuotkham.CachTao = 0;
-            objLuotkham.Email = txtEmail.Text;
-            objLuotkham.NoiGioithieu = txtNoigioithieu.Text;
-            long week = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.WeekOfYear, dtpBOD.Value, dtCreateDate.Value);
-            long Month = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.Month, dtpBOD.Value, dtCreateDate.Value);
-            long Year = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.Year, dtpBOD.Value, dtCreateDate.Value);
-            int Tinhtuoitheotuan = Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_TINHTUOI_THEOTUAN", "6", false));
-            int Tinhtuoitheothang = Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_TINHTUOI_THEOTHANG", "17", false));
-            objLuotkham.Tuoi = (int)(Month <= Tinhtuoitheotuan ? week : (Month <= Tinhtuoitheothang ? Month : Year));
-            objLuotkham.LoaiTuoi =(byte)( Month <= Tinhtuoitheotuan ? 2 : (Month <= Tinhtuoitheothang ? 1 : 0));
-            objLuotkham.NhomBenhnhan = txtLoaiBN.myCode;
-            objLuotkham.IdBenhvienDen = Utility.Int16Dbnull(txtNoichuyenden.MyID, -1);
-            objLuotkham.TthaiChuyenden = (byte)(chkChuyenVien.Checked ? 1 : 0);
-            if (THU_VIEN_CHUNG.IsBaoHiem(_IdLoaidoituongKcb))
-            {
-                Laymathe_BHYT();
-                objLuotkham.MaKcbbd = Utility.sDbnull(txtNoiDKKCBBD.Text, "");
-                objLuotkham.NoiDongtrusoKcbbd = Utility.sDbnull(txtNoiDongtrusoKCBBD.Text, "");
-                objLuotkham.MaNoicapBhyt = Utility.sDbnull(txtNoiphattheBHYT.Text);
-                objLuotkham.LuongCoban = globalVariables.LUONGCOBAN;
-                objLuotkham.MatheBhyt = Laymathe_BHYT();
-                objLuotkham.MaDoituongBhyt = Utility.sDbnull(txtMaDtuong_BHYT.Text);
-                objLuotkham.MaQuyenloi = Utility.Int32Dbnull(txtMaQuyenloi_BHYT.Text, null);
-                objLuotkham.DungTuyen= !chkTraiTuyen.Visible ? 1 : (((byte?)(chkTraiTuyen.Checked ? 0 : 1)));
-
-                objLuotkham.MadtuongSinhsong = txtMaDTsinhsong.myCode;
-                objLuotkham.GiayBhyt = Utility.Bool2byte(chkGiayBHYT.Checked);
-
-                objLuotkham.NgayketthucBhyt = dtInsToDate.Value.Date;
-                objLuotkham.NgaybatdauBhyt = dtInsFromDate.Value.Date;
-                objLuotkham.NoicapBhyt = Utility.GetValue(lblNoiCapThe.Text, false);
-                objLuotkham.DiachiBhyt = Utility.sDbnull(txtDiachi_bhyt.Text);
-                
-            }
-            else
-            {
-                objLuotkham.GiayBhyt = 0;
-                objLuotkham.MadtuongSinhsong = "";
-                objLuotkham.MaKcbbd = "";
-                objLuotkham.NoiDongtrusoKcbbd = "";
-                objLuotkham.MaNoicapBhyt = "";
-                objLuotkham.LuongCoban = globalVariables.LUONGCOBAN;
-                objLuotkham.MatheBhyt = "";
-                objLuotkham.MaDoituongBhyt = "";
-                objLuotkham.MaQuyenloi = -1;
-                objLuotkham.DungTuyen = 0;
                
-                objLuotkham.NgayketthucBhyt = null;
-                objLuotkham.NgaybatdauBhyt = null;
-                objLuotkham.NoicapBhyt = "";
-                objLuotkham.DiachiBhyt = "";
-               
-            }
-            
-            objLuotkham.SolanKham = Utility.Int16Dbnull(txtSolankham.Text, 0);
-            objLuotkham.TrieuChung = Utility.ReplaceStr(txtTrieuChungBD.Text);
-            //Tránh lỗi khi update người dùng nhập mã lần khám lung tung
-            if (m_enAction == action.Update) txtMaLankham.Text = m_strMaluotkham;
-            objLuotkham.MaLuotkham = Utility.sDbnull(txtMaLankham.Text, "");
-            objLuotkham.IdBenhnhan = Utility.Int64Dbnull(txtMaBN.Text, -1);
-            DmucDoituongkcb objectType = DmucDoituongkcb.FetchByID(_IdDoituongKcb);
-            if (objectType != null)
-            {
-                objLuotkham.MaDoituongKcb = Utility.sDbnull(objectType.MaDoituongKcb, "");
-            }
-            if (m_enAction == action.Update)
-            {
-                objLuotkham.NgayTiepdon = dtCreateDate.Value;
-                objLuotkham.NguoiSua = globalVariables.UserName;
-                objLuotkham.NgaySua = globalVariables.SysDate;
-                objLuotkham.IpMaysua = globalVariables.gv_strIPAddress;
-                objLuotkham.TenMaysua = globalVariables.gv_strComputerName;
-            }
-            if (m_enAction == action.Add || m_enAction == action.Insert)
-            {
-                objLuotkham.NgayTiepdon = dtCreateDate.Value;
-                objLuotkham.NguoiTiepdon = globalVariables.UserName;
+                if (m_enAction == action.Insert || m_enAction == action.Add)
+                {
+                    objLuotkham = new KcbLuotkham();
+                    //Bỏ đi do đã sinh theo cơ chế bảng danh mục mã lượt khám. Nếu ko sẽ mất mã lượt khám hiện thời.
+                    // txtMaLankham.Text = THU_VIEN_CHUNG.KCB_SINH_MALANKHAM();
+                    objLuotkham.IsNew = true;
+                }
+                else
+                {
+                    if (objLuotkham == null)
+                        objLuotkham = KcbLuotkham.FetchByID(m_strMaluotkham);
+                    objLuotkham.MarkOld();
+                    objLuotkham.IsNew = false;
+                }
+                objLuotkham.KieuKham = txtLoaikham.myCode;
+                objLuotkham.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
+                objLuotkham.Noitru = 0;
+                objLuotkham.IdDoituongKcb = _IdDoituongKcb;
+                objLuotkham.IdLoaidoituongKcb = _IdLoaidoituongKcb;
+                objLuotkham.Locked = 0;
+                objLuotkham.HienthiBaocao = 1;
+                objLuotkham.TrangthaiCapcuu = chkCapCuu.Checked ? 1 : 0;
+                objLuotkham.IdKhoatiepnhan = globalVariables.idKhoatheoMay;
+                objLuotkham.NguoiTao = globalVariables.UserName;
+                objLuotkham.NgayTao = globalVariables.SysDate;
+                objLuotkham.Cmt = Utility.sDbnull(txtCMT.Text, "");
+                objLuotkham.DiaChi = txtDiachi.Text;
+                objLuotkham.CachTao = 0;
+                objLuotkham.Email = txtEmail.Text;
+                objLuotkham.NoiGioithieu = txtNoigioithieu.Text;
+                long week = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.WeekOfYear, dtpBOD.Value, dtCreateDate.Value);
+                long Month = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.Month, dtpBOD.Value, dtCreateDate.Value);
+                long Year = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.Year, dtpBOD.Value, dtCreateDate.Value);
+                int Tinhtuoitheotuan = Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_TINHTUOI_THEOTUAN", "6", false));
+                int Tinhtuoitheothang = Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_TINHTUOI_THEOTHANG", "17", false));
+                objLuotkham.Tuoi = (int)(dtpBOD.CustomFormat == "yyyy" ? Year : (Month <= Tinhtuoitheotuan ? week : (Month <= Tinhtuoitheothang ? Month : Year)));
+                objLuotkham.LoaiTuoi = (byte)(dtpBOD.CustomFormat == "yyyy" ? 0 : (Month <= Tinhtuoitheotuan ? 2 : (Month <= Tinhtuoitheothang ? 1 : 0)));
+                objLuotkham.NhomBenhnhan = txtLoaiBN.myCode;
+                objLuotkham.IdBenhvienDen = Utility.Int16Dbnull(txtNoichuyenden.MyID, -1);
+                objLuotkham.TthaiChuyenden = (byte)(chkChuyenVien.Checked ? 1 : 0);
+                if (THU_VIEN_CHUNG.IsBaoHiem(_IdLoaidoituongKcb))
+                {
+                    Laymathe_BHYT();
+                    objLuotkham.MaKcbbd = Utility.sDbnull(txtNoiDKKCBBD.Text, "");
+                    objLuotkham.NoiDongtrusoKcbbd = Utility.sDbnull(txtNoiDongtrusoKCBBD.Text, "");
+                    objLuotkham.MaNoicapBhyt = Utility.sDbnull(txtNoiphattheBHYT.Text);
+                    objLuotkham.LuongCoban = globalVariables.LUONGCOBAN;
+                    objLuotkham.MatheBhyt = Laymathe_BHYT();
+                    objLuotkham.MaDoituongBhyt = Utility.sDbnull(txtMaDtuong_BHYT.Text);
+                    objLuotkham.MaQuyenloi = Utility.Int32Dbnull(txtMaQuyenloi_BHYT.Text, null);
+                    objLuotkham.DungTuyen = !chkTraiTuyen.Visible ? 1 : (((byte?)(chkTraiTuyen.Checked ? 0 : 1)));
 
-                objLuotkham.IpMaytao = globalVariables.gv_strIPAddress;
-                objLuotkham.TenMaytao = globalVariables.gv_strComputerName;
+                    objLuotkham.MadtuongSinhsong = txtMaDTsinhsong.myCode;
+                    objLuotkham.GiayBhyt = Utility.Bool2byte(chkGiayBHYT.Checked);
+
+                    objLuotkham.NgayketthucBhyt = dtInsToDate.Value.Date;
+                    objLuotkham.NgaybatdauBhyt = dtInsFromDate.Value.Date;
+                    objLuotkham.NoicapBhyt = Utility.GetValue(lblNoiCapThe.Text, false);
+                    objLuotkham.DiachiBhyt = Utility.sDbnull(txtDiachi_bhyt.Text);
+
+                }
+                else
+                {
+                    objLuotkham.GiayBhyt = 0;
+                    objLuotkham.MadtuongSinhsong = "";
+                    objLuotkham.MaKcbbd = "";
+                    objLuotkham.NoiDongtrusoKcbbd = "";
+                    objLuotkham.MaNoicapBhyt = "";
+                    objLuotkham.LuongCoban = globalVariables.LUONGCOBAN;
+                    objLuotkham.MatheBhyt = "";
+                    objLuotkham.MaDoituongBhyt = "";
+                    objLuotkham.MaQuyenloi = -1;
+                    objLuotkham.DungTuyen = 0;
+
+                    objLuotkham.NgayketthucBhyt = null;
+                    objLuotkham.NgaybatdauBhyt = null;
+                    objLuotkham.NoicapBhyt = "";
+                    objLuotkham.DiachiBhyt = "";
+
+                }
+
+                objLuotkham.SolanKham = Utility.Int16Dbnull(txtSolankham.Text, 0);
+                objLuotkham.TrieuChung = Utility.ReplaceStr(txtTrieuChungBD.Text);
+                //Tránh lỗi khi update người dùng nhập mã lần khám lung tung
+                if (m_enAction == action.Update) txtMaLankham.Text = m_strMaluotkham;
+                objLuotkham.MaLuotkham = Utility.sDbnull(txtMaLankham.Text, "");
+                objLuotkham.IdBenhnhan = Utility.Int64Dbnull(txtMaBN.Text, -1);
+                DmucDoituongkcb objectType = DmucDoituongkcb.FetchByID(_IdDoituongKcb);
+                if (objectType != null)
+                {
+                    objLuotkham.MaDoituongKcb = Utility.sDbnull(objectType.MaDoituongKcb, "");
+                }
+                if (m_enAction == action.Update)
+                {
+                    objLuotkham.NgayTiepdon = dtCreateDate.Value;
+                    objLuotkham.NguoiSua = globalVariables.UserName;
+                    objLuotkham.NgaySua = globalVariables.SysDate;
+                    objLuotkham.IpMaysua = globalVariables.gv_strIPAddress;
+                    objLuotkham.TenMaysua = globalVariables.gv_strComputerName;
+                }
+                if (m_enAction == action.Add || m_enAction == action.Insert)
+                {
+                    objLuotkham.NgayTiepdon = dtCreateDate.Value;
+                    objLuotkham.NguoiTiepdon = globalVariables.UserName;
+
+                    objLuotkham.IpMaytao = globalVariables.gv_strIPAddress;
+                    objLuotkham.TenMaytao = globalVariables.gv_strComputerName;
+                }
+                objLuotkham.PtramBhytGoc = Utility.DecimaltoDbnull(txtptramDauthe.Text, 0);
+                objLuotkham.PtramBhyt = Utility.DecimaltoDbnull(txtPtramBHYT.Text, 0);//chkTraiTuyen.Visible ?Utility.DecimaltoDbnull(txtPtramBHYT.Text, 0):(objLuotkham.DungTuyen == 0 ? 0 : Utility.DecimaltoDbnull(txtPtramBHYT.Text, 0));
+                return objLuotkham;
             }
-            objLuotkham.PtramBhytGoc = Utility.DecimaltoDbnull(txtptramDauthe.Text, 0);
-            objLuotkham.PtramBhyt =Utility.DecimaltoDbnull(txtPtramBHYT.Text, 0);//chkTraiTuyen.Visible ?Utility.DecimaltoDbnull(txtPtramBHYT.Text, 0):(objLuotkham.DungTuyen == 0 ? 0 : Utility.DecimaltoDbnull(txtPtramBHYT.Text, 0));
-            return objLuotkham;
+            catch (Exception ex)
+            {
+                Utility.CatchException("Lỗi khi tạo thông tin lượt khám",ex);
+                return null;
+            }
+          
         }
 
         #endregion
