@@ -144,6 +144,7 @@ namespace VNS.HIS.UI.Baocao
             }
             catch (Exception exception)
             {
+                Utility.ShowMsg("Lỗi:" + exception.Message);
 
             }
         }
@@ -160,7 +161,7 @@ namespace VNS.HIS.UI.Baocao
                    BAOCAO_NGOAITRU.BaocaoThutienkhamChitiet(
                     chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
                     chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
-                    Utility.sDbnull(cboDoituongKCB.SelectedValue, -1), Utility.sDbnull(cboNhanvien.SelectedValue, -1), Utility.sDbnull(cboKhoa.SelectedValue, -1));
+                    Utility.sDbnull(cboDoituongKCB.SelectedValue, -1), Utility.sDbnull(cboNhanvien.SelectedValue, -1),Utility.Int16Dbnull(cboLoaidichvu.SelectedValue,-1),Utility.sDbnull(cboKhoa.SelectedValue, -1));
 
                 Utility.SetDataSourceForDataGridEx(grdChitiet, _dtData, false, true, "1=1", "");
                 Janus.Windows.GridEX.GridEXColumn gridExColumnTientong = grdChitiet.RootTable.Columns["Thanh_Tien"];
@@ -172,7 +173,7 @@ namespace VNS.HIS.UI.Baocao
                   BAOCAO_NGOAITRU.BaocaoThutienkhamTonghop(
                     chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
                     chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
-                    Utility.sDbnull(cboDoituongKCB.SelectedValue, -1), Utility.sDbnull(cboNhanvien.SelectedValue, -1), Utility.sDbnull(cboKhoa.SelectedValue, -1));
+                    Utility.sDbnull(cboDoituongKCB.SelectedValue, -1), Utility.sDbnull(cboNhanvien.SelectedValue, -1), Utility.Int16Dbnull(cboLoaidichvu.SelectedValue, -1), Utility.sDbnull(cboKhoa.SelectedValue, -1));
 
                 Utility.SetDataSourceForDataGridEx(grdList, _dtData, false, true, "1=1", "");
                 Janus.Windows.GridEX.GridEXColumn gridExColumnTientong = grdList.RootTable.Columns["Thanh_Tien"];
@@ -219,7 +220,7 @@ namespace VNS.HIS.UI.Baocao
             }
             catch (Exception exception)
             {
-
+                Utility.ShowMsg("Lỗi:"+ exception.Message);
 
             }
         }
