@@ -180,7 +180,7 @@ namespace VNS.HIS.UI.NGOAITRU
             cmdXoaphieuVT.Click += cmdXoaphieuVT_Click;
             cmdInphieuVT.Click += cmdInphieuVT_Click;
             cmdLuuChandoan.Click += cmdLuuChandoan_Click;
-
+            txtChongchidinhkhac._OnShowData += txtChongchidinhkhac__OnShowData;
             txtPhanungSautiem._OnShowData += txtPhanungSautiem__OnShowData;
             chkKPL_All.CheckedChanged += chkKPL_All_CheckedChanged;
             chkKPL_Daochon.CheckedChanged += chkKPL_Daochon_CheckedChanged;
@@ -655,7 +655,11 @@ namespace VNS.HIS.UI.NGOAITRU
 
         void chkKPL_All_CheckedChanged(object sender, EventArgs e)
         {
-            chkKPL1.Checked = chkKPL2.Checked = chkKPL3.Checked = chkKPL4.Checked = chkKPL5.Checked = chkKPL6.Checked = chkKPL7.Checked = chkKPL8.Checked = chkKPL_All.Checked;
+            chkKPL1.Checked =
+                chkKPL2.Checked =
+                chkKPL3.Checked =
+                chkKPL4.Checked =
+                chkKPL5.Checked = chkKPL6.Checked = chkKPL7.Checked = chkKPL8.Checked = chkKPL_All.Checked;
 
         }
 
@@ -671,7 +675,18 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtPhanungSautiem.Focus();
             } 
         }
-
+        void txtChongchidinhkhac__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtChongchidinhkhac.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtChongchidinhkhac.myCode;
+                txtChongchidinhkhac.Init();
+                txtChongchidinhkhac.SetCode(oldCode);
+                txtChongchidinhkhac.Focus();
+            }
+        }
         void cmdChuyenVien_Click(object sender, EventArgs e)
         {
             frm_chuyenvien _chuyenvien = new frm_chuyenvien();
@@ -1959,6 +1974,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                      txtKet_Luan.SetCode(_KcbChandoanKetluan.KetluanNguyennhan);
                                      txtHuongdieutri.SetCode(_KcbChandoanKetluan.HuongDieutri);
                                      txtPhanungSautiem.SetCode(_KcbChandoanKetluan.PhanungSautiemchung);
+                                     txtChongchidinhkhac.Text = Utility.sDbnull(_KcbChandoanKetluan.ChongchidinhKhac,"");
                                      chkKPL1.Checked = Utility.Byte2Bool(_KcbChandoanKetluan.KPL1);
                                      chkKPL2.Checked = Utility.Byte2Bool(_KcbChandoanKetluan.KPL2);
                                      chkKPL3.Checked = Utility.Byte2Bool(_KcbChandoanKetluan.KPL3);
@@ -1990,6 +2006,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                      chkKL2.Checked = false;
                                      chkKL3.Checked = false;
                                      txtChanDoanKemTheo.Text = "";
+                                     txtChongchidinhkhac.Text = "";
                                  }
                                 
                                 Laythongtinchidinhngoaitru();
@@ -3129,6 +3146,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 _KcbChandoanKetluan.Ketluan = txtKQ.myCode;
                 _KcbChandoanKetluan.KetluanNguyennhan = txtKet_Luan.myCode;
                 _KcbChandoanKetluan.PhanungSautiemchung = txtPhanungSautiem.myCode;
+                _KcbChandoanKetluan.ChongchidinhKhac = Utility.sDbnull(txtChongchidinhkhac.Text);
                 _KcbChandoanKetluan.KPL1 = Utility.Bool2byte(chkKPL1.Checked);
                 _KcbChandoanKetluan.KPL2 = Utility.Bool2byte(chkKPL2.Checked);
                 _KcbChandoanKetluan.KPL3 = Utility.Bool2byte(chkKPL3.Checked);

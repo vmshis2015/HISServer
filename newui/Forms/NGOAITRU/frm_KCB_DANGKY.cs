@@ -106,10 +106,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 Utility.CatchException(ex);
                 
             }
-            
-            
-          
-        }
+       }
 
         void InitEvents()
         {
@@ -1034,6 +1031,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
+                if (this.Args.Split('-')[0] == "KTC") lblBATC.Visible = txtSoBATCQG.Visible = true;
                 AllowTextChanged = false;
                 b_HasLoaded = false;
                 dtInsFromDate.Value = new DateTime(globalVariables.SysDate.Year, 1, 1);
@@ -1246,6 +1244,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         chkLaysokham.Checked = false;
                         txtSoKcb.SetDefaultItem();
                     }
+                    txtSoBA.Text = Utility.sDbnull(objLuotkham.SoBenhAn,"-1");
                     m_strMaluotkham = objLuotkham.MaLuotkham;
                     txtLoaikham.SetCode(objLuotkham.KieuKham);
                     txtSolankham.Text = Utility.sDbnull(objLuotkham.SolanKham);
@@ -5771,6 +5770,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     objLuotkham.MarkOld();
                     objLuotkham.IsNew = false;
                 }
+
                 objLuotkham.KieuKham = txtLoaikham.myCode;
                 objLuotkham.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
                 objLuotkham.Noitru = 0;
@@ -5785,6 +5785,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 objLuotkham.Cmt = Utility.sDbnull(txtCMT.Text, "");
                 objLuotkham.DiaChi = txtDiachi.Text;
                 objLuotkham.CachTao = 0;
+                objLuotkham.SoBenhAn = Utility.sDbnull(txtSoBA.Text, "-1");
                 objLuotkham.Email = txtEmail.Text;
                 objLuotkham.NoiGioithieu = txtNoigioithieu.Text;
                 long week = Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.WeekOfYear, dtpBOD.Value, dtCreateDate.Value);
