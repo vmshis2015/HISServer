@@ -3396,14 +3396,14 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void chkKL1_EnabledChanged(object sender, EventArgs e)
         {
-            if (chkKPL1.Checked || chkKPL2.Checked || chkKPL3.Checked || chkKPL4.Checked || chkKPL5.Checked || chkKPL6.Checked || chkKPL7.Checked || chkKPL8.Checked || chkKL2.Checked || chkKL3.Checked)
-            {
-                chkKL1.Enabled = false;
-            }
-            else
-            {
-                chkKL1.Enabled = true;
-            }
+            //if (chkKPL1.Checked || chkKPL2.Checked || chkKPL3.Checked || chkKPL4.Checked || chkKPL5.Checked || chkKPL6.Checked || chkKPL7.Checked || chkKPL8.Checked || chkKL2.Checked || chkKL3.Checked)
+            //{
+            //    chkKL1.Enabled = false;
+            //}
+            //else
+            //{
+            //    chkKL1.Enabled = true;
+            //}
                 
         }
 
