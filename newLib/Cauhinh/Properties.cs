@@ -2217,26 +2217,13 @@ DisplayName("HIS Application Mode")]
     public class NhapkhoProperties
     {
        
-        [Browsable(true), ReadOnly(false), Category("Cấu Hình nhập kho "),
-        Description("Cấu hình cho phép nhập thặng dư hay không?"),
-        DisplayName("Cho phép nhập thặng dư")]
-        public bool CoThangDu { get; set; }
+      
 
         [Browsable(true), ReadOnly(false), Category("Cấu Hình nhập kho "),
        Description("Thêm mới phiếu ngay sau khi lưu xong?"),
        DisplayName("Cho phép thêm mới liên tục")]
         public bool Themmoilientuc { get; set; }
 
-
-        [Browsable(true), ReadOnly(false), Category("Cấu Hình nhập kho "),
-       Description("Cho phép nhập giá bán?"),
-       DisplayName("Cho phép nhập giá bán")]
-        public bool Nhapgiaban { get; set; }
-
-
-       
-
-     
 
         [Browsable(true), ReadOnly(false), Category("Cấu Hình nhập kho "),
         Description("Nếu là true cho phép, false là ẩn quyển"),
@@ -2279,8 +2266,7 @@ DisplayName("HIS Application Mode")]
         {
             autosaveAfter = 30;
             Themmoilientuc = true;
-            CoThangDu = false;
-            Nhapgiaban = true;
+           
             NhapgiaBHYT = false;
            
             QuyenHuyXacNhanPhieu = true;
