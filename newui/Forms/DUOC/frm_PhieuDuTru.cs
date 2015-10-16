@@ -35,6 +35,7 @@ namespace VNS.HIS.UI.THUOC
             mnuHuyAll.Click += new EventHandler(mnuHuyAll_Click);
             chkUpdate.CheckedChanged += new EventHandler(chkUpdate_CheckedChanged);
             chkHienthithuoccoDutru.CheckedChanged += new EventHandler(chkHienthithuoccoDutru_CheckedChanged);
+            
         }
 
         void chkHienthithuoccoDutru_CheckedChanged(object sender, EventArgs e)

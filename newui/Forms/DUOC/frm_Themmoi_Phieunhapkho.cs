@@ -23,6 +23,9 @@ namespace VNS.HIS.UI.THUOC
     {
        
         #region"khai báo biến"
+        string PHUONGPHAP_TINHGIABAN = "2";//0= Tính theo thặng dư;1= Tính theo VAT+Thặng dư;2= Tính theo % 
+        decimal PHANTRAM_SOVOIGIANHAP = 0;
+        bool CHOPHEP_NHAPGIABAN = true;
         public DataTable p_mDataPhieuNhapKho = new DataTable();
         private DataTable m_dtDataPhieuChiTiet=new DataTable();
         private DataTable m_dtDataKhoNhap=new DataTable();
@@ -71,7 +74,7 @@ namespace VNS.HIS.UI.THUOC
             nmrThangDu.ValueChanged += new EventHandler(nmrThangDu_ValueChanged);
             txtTongTien.KeyDown += new KeyEventHandler(txtTongTien_KeyDown);
             this.FormClosing += frm_Themmoi_Phieunhapkho_FormClosing;
-            txtDongia.TextChanged += new EventHandler(txtDongia_TextChanged);
+            
             txtSoluong.TextChanged += new EventHandler(txtSoluong_TextChanged);
             this.txtTongTien.TextChanged += new System.EventHandler(this.txtTongTien_TextChanged);
             this.txtTongTien.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTongTien_KeyPress);
@@ -97,13 +100,6 @@ namespace VNS.HIS.UI.THUOC
             this.cmdThemPhieuNhap.Click += new System.EventHandler(this.cmdThemPhieuNhap_Click);
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             //chkGiaBHYT.CheckedChanged += new EventHandler(chkGiaBHYT_CheckedChanged);
-            txtGiaban.TextChanged += new EventHandler(txtGiaban_TextChanged);
-            txtGiaBHYT.TextChanged += new EventHandler(txtGiaBHYT_TextChanged);
-            txtGiaBHYT_cu.TextChanged += new EventHandler(txtGiaBHYT_cu_TextChanged);
-            txtPhuthuDT.TextChanged += new EventHandler(txtPhuthuDT_TextChanged);
-            txtPhuthuTT.TextChanged += new EventHandler(txtPhuthuTT_TextChanged);
-            txtSoluong.GotFocus += new EventHandler(txtSoluong_GotFocus);
-            txtDongia.GotFocus += new EventHandler(txtDongia_GotFocus);
             chkCloseAfterSaving.CheckedChanged += new EventHandler(chkCloseAfterSaving_CheckedChanged);
             txtDrugName._OnEnterMe += new UCs.AutoCompleteTextbox_Thuoc.OnEnterMe(txtDrugName__OnEnterMe);
             grdPhieuNhapChiTiet.EditingCell += new EditingCellEventHandler(grdPhieuNhapChiTiet_EditingCell);
@@ -112,6 +108,27 @@ namespace VNS.HIS.UI.THUOC
             txtNhacungcap._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtNhacungcap__OnShowData);
             txtNguoiGiao._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtNguoiGiao__OnShowData);
             txtNguoinhan._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtNguoinhan__OnShowData);
+
+            txtDongia._OnTextChanged += txtDongia__OnTextChanged;
+            txtGiaban._OnTextChanged += txtGiaban__OnTextChanged;
+        }
+
+        void txtGiaban__OnTextChanged(string text)
+        {
+            if (BHYT_GIABHYT_BANG_GIABAN)
+                txtGiaBHYT.Text = txtGiaban.Text;
+            else
+                txtGiaBHYT.Text = txtDongia.Text;
+        }
+
+        void txtDongia__OnTextChanged(string text)
+        {
+            if (PHUONGPHAP_TINHGIABAN == "0")
+                nmrThangDu.Value = TinhThangDutheoQuyetDinhBYT(Utility.Int32Dbnull(Utility.DecimaltoDbnull(txtDongia.Text, 0), 0));
+            else
+                nmrThangDu.Value = 0;
+            TinhGiaBan();
+            ThanhTien();
         }
 
         void frm_Themmoi_Phieunhapkho_FormClosing(object sender, FormClosingEventArgs e)
@@ -167,56 +184,16 @@ namespace VNS.HIS.UI.THUOC
             PropertyLib.SaveProperty(PropertyLib._NhapkhoProperties);
         }
 
-        void txtDongia_GotFocus(object sender, EventArgs e)
-        {
-        }
-
-        void txtSoluong_GotFocus(object sender, EventArgs e)
-        {
-            
-        }
-
-        void txtPhuthuTT_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        void txtPhuthuDT_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        void txtGiaBHYT_cu_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        void txtGiaBHYT_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        void txtGiaban_TextChanged(object sender, EventArgs e)
-        {
-            if (BHYT_GIABHYT_BANG_GIABAN) txtGiaBHYT.Text = txtGiaban.Text;
-        }
-
-        void chkGiaBHYT_CheckedChanged(object sender, EventArgs e)
-        {
-            //txtGiaBHYT.BackColor = chkGiaBHYT.Checked && BHYT_CHOPHEPNHAPGIA ? txtSoluong.BackColor : txtThanhTien.BackColor;
-            //txtGiaBHYT.Enabled = chkGiaBHYT.Checked && BHYT_CHOPHEPNHAPGIA ;
-
-            //txtPhuthuDT.Enabled = chkGiaBHYT.Checked && BHYT_CHOPHEPNHAPGIAPHUTHU;
-            //txtPhuthuDT.BackColor = chkGiaBHYT.Checked && BHYT_CHOPHEPNHAPGIAPHUTHU ? txtSoluong.BackColor : txtThanhTien.BackColor;
-
-            //txtPhuthuTT.Enabled = chkGiaBHYT.Checked && BHYT_CHOPHEPNHAPGIAPHUTHU;
-            //txtPhuthuTT.BackColor = chkGiaBHYT.Checked && BHYT_CHOPHEPNHAPGIAPHUTHU ? txtSoluong.BackColor : txtThanhTien.BackColor;
-        }
+       
         
         private void CauHinh()
         {
 
-            nmrThangDu.Enabled = PropertyLib._NhapkhoProperties.CoThangDu;
+            nmrThangDu.Enabled = PHUONGPHAP_TINHGIABAN=="0";
             chkCloseAfterSaving.Checked = !PropertyLib._NhapkhoProperties.Themmoilientuc;
-            if (!PropertyLib._NhapkhoProperties.CoThangDu) nmrThangDu.Value = 0;
-            txtGiaban.Enabled = PropertyLib._NhapkhoProperties.Nhapgiaban;
-            txtGiaban.BackColor = PropertyLib._NhapkhoProperties.Nhapgiaban ? txtSoluong.BackColor : txtThanhTien.BackColor;
+            if (PHUONGPHAP_TINHGIABAN!="0") nmrThangDu.Value = 0;
+            txtGiaban.Enabled = CHOPHEP_NHAPGIABAN;
+            txtGiaban.BackColor = CHOPHEP_NHAPGIABAN ? txtSoluong.BackColor : txtThanhTien.BackColor;
            
             //chkGiaBHYT.Enabled = BHYT_CHOPHEPNHAPGIA;
             //if (!BHYT_CHOPHEPNHAPGIA) chkGiaBHYT.Checked = false;
@@ -269,6 +246,9 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
+                PHUONGPHAP_TINHGIABAN = THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NHAPKHO_PHUONGPHAP_TINHGIABAN", "1", false) ;
+                PHANTRAM_SOVOIGIANHAP = Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NHAPKHO_PHANTRAM_SOVOIGIANHAP", "0", false), 0);
+                CHOPHEP_NHAPGIABAN = THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NHAPKHO_CHOPHEP_NHAPGIABAN", "1", false) == "1";
                 lblChietkhau.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NHAPKHO_HIENTHI_CHIETKHAUCHITIET", "0", false) == "1";
                 txtChietkhau.Visible = lblChietkhau.Visible;
                 txtPhuthuDT.TabStop = THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NHAPKHO_TABSTOP_PHUTHU", "0", false) == "1";
@@ -279,6 +259,8 @@ namespace VNS.HIS.UI.THUOC
                 txtNhacungcap.Init(dtData);
                 txtNguoiGiao.Init(dtData);
                 txtNguoinhan.Init();
+                txtsoDK.Init();
+                txtsoQDthau.Init();
                 txtLyDoNhap.Init(dtData);
 
                 if (KIEU_THUOC_VT == "THUOC")
@@ -402,7 +384,6 @@ namespace VNS.HIS.UI.THUOC
                     txtNguoiGiao._Text = Utility.sDbnull(objPhieuNhap.NguoiGiao);
                     txtNguoinhan._Text = Utility.sDbnull(objPhieuNhap.NguoiNhan);
                     dtNgayNhap.Value = Convert.ToDateTime(objPhieuNhap.NgayHoadon);
-                    txtChietkhau.Text = Utility.sDbnull(objPhieuNhap.Vat);
                     txtTongTien.Text = Utility.sDbnull(objPhieuNhap.TongTien);
                     cboKhoNhap.SelectedValue = Utility.sDbnull(objPhieuNhap.IdKhonhap);
                     txtNo.Text = objPhieuNhap.TkNo;
@@ -457,70 +438,72 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                if (!string.IsNullOrEmpty(txtDrug_ID.Text))
+                if (Utility.Int32Dbnull(txtDrug_ID.Text,-1)>0)
                 {
                    objThuoc= DmucThuoc.FetchByID(Utility.Int32Dbnull(txtDrug_ID.Text));
-                    if (objThuoc != null)
-                    {
-                        DmucChung objMeasureUnit = THU_VIEN_CHUNG.LaydoituongDmucChung("DONVITINH", Utility.sDbnull(objThuoc.MaDonvitinh));
-                        if (objMeasureUnit != null)
-                        {
-                            txtDonViTinh.Text = Utility.sDbnull(objMeasureUnit.Ten);
-                            txtMaDonvitinh.Text = Utility.sDbnull(objMeasureUnit.Ma);
-                        }
+                   if (objThuoc != null)
+                   {
+                       DmucChung objMeasureUnit = THU_VIEN_CHUNG.LaydoituongDmucChung("DONVITINH", Utility.sDbnull(objThuoc.MaDonvitinh));
+                       if (objMeasureUnit != null)
+                       {
+                           txtDonViTinh.Text = Utility.sDbnull(objMeasureUnit.Ten);
+                           txtMaDonvitinh.Text = Utility.sDbnull(objMeasureUnit.Ma);
+                       }
 
-                        txtDongia.Text = Utility.sDbnull(objThuoc.DonGia, "0");
+                       txtDongia.Text = Utility.sDbnull(objThuoc.DonGia, "0");
 
-                        QheDoituongThuoc _objQhe = new Select().From(QheDoituongThuoc.Schema).Where(QheDoituongThuoc.Columns.IdThuoc).IsEqualTo(objThuoc.IdThuoc)
-                     .And(QheDoituongThuoc.Columns.IdLoaidoituongKcb).IsEqualTo(0).ExecuteSingle<QheDoituongThuoc>();
-                        if (_objQhe != null)
-                        {
+                       QheDoituongThuoc _objQhe = new Select().From(QheDoituongThuoc.Schema).Where(QheDoituongThuoc.Columns.IdThuoc).IsEqualTo(objThuoc.IdThuoc)
+                    .And(QheDoituongThuoc.Columns.IdLoaidoituongKcb).IsEqualTo(0).ExecuteSingle<QheDoituongThuoc>();
+                       if (_objQhe != null)
+                       {
                            // chkGiaBHYT.Checked = true;
-                            if (!BHYT_GIABHYT_BANG_GIABAN) txtGiaBHYT.Text = _objQhe.DonGia.ToString();
-                            txtGiaBHYT_cu.Text = _objQhe.DonGia.ToString();
-                            txtPhuthuDT.Text = Utility.DecimaltoDbnull(_objQhe.PhuthuDungtuyen, 0).ToString();
-                            txtPhuthuTT.Text = Utility.DecimaltoDbnull(_objQhe.PhuthuTraituyen, 0).ToString();
-                        }
-                        else
-                        {
-                            DataRow[] arrDr = m_dtDataPhieuChiTiet.Select(TPhieuNhapxuatthuocChitiet.Columns.IdThuoc + "=" + txtDrug_ID.Text);
-                            if (arrDr.Length > 0)
-                            {
-                                //chkGiaBHYT.Checked = Utility.Byte2Bool(Utility.ByteDbnull(arrDr[0][TPhieuNhapxuatthuocChitiet.Columns.CoBhyt]));
-                                txtGiaBHYT.Text = Utility.DecimaltoDbnull(arrDr[0][TPhieuNhapxuatthuocChitiet.Columns.GiaBhyt], 0).ToString();
-                                txtGiaBHYT_cu.Text = Utility.DecimaltoDbnull(arrDr[0][TPhieuNhapxuatthuocChitiet.Columns.GiaBhytCu], 0).ToString();
+                           if (!BHYT_GIABHYT_BANG_GIABAN) txtGiaBHYT.Text = _objQhe.DonGia.ToString();
+                           txtGiaBHYT_cu.Text = _objQhe.DonGia.ToString();
+                           txtPhuthuDT.Text = Utility.DecimaltoDbnull(_objQhe.PhuthuDungtuyen, 0).ToString();
+                           txtPhuthuTT.Text = Utility.DecimaltoDbnull(_objQhe.PhuthuTraituyen, 0).ToString();
+                       }
+                       else
+                       {
+                           DataRow[] arrDr = m_dtDataPhieuChiTiet.Select(TPhieuNhapxuatthuocChitiet.Columns.IdThuoc + "=" + txtDrug_ID.Text);
+                           if (arrDr.Length > 0)
+                           {
+                               //chkGiaBHYT.Checked = Utility.Byte2Bool(Utility.ByteDbnull(arrDr[0][TPhieuNhapxuatthuocChitiet.Columns.CoBhyt]));
+                               txtGiaBHYT.Text = Utility.DecimaltoDbnull(arrDr[0][TPhieuNhapxuatthuocChitiet.Columns.GiaBhyt], 0).ToString();
+                               txtGiaBHYT_cu.Text = Utility.DecimaltoDbnull(arrDr[0][TPhieuNhapxuatthuocChitiet.Columns.GiaBhytCu], 0).ToString();
 
-                                txtPhuthuDT.Text = Utility.DecimaltoDbnull(arrDr[0][TPhieuNhapxuatthuocChitiet.Columns.GiaPhuthuDungtuyen], 0).ToString();
-                                txtPhuthuTT.Text = Utility.DecimaltoDbnull(arrDr[0][TPhieuNhapxuatthuocChitiet.Columns.GiaPhuthuTraituyen], 0).ToString();
+                               txtPhuthuDT.Text = Utility.DecimaltoDbnull(arrDr[0][TPhieuNhapxuatthuocChitiet.Columns.GiaPhuthuDungtuyen], 0).ToString();
+                               txtPhuthuTT.Text = Utility.DecimaltoDbnull(arrDr[0][TPhieuNhapxuatthuocChitiet.Columns.GiaPhuthuTraituyen], 0).ToString();
 
-                            }
-                            else
-                            {
-                                //chkGiaBHYT.Checked = false;
-                                txtGiaBHYT.Text = "0";
-                                txtGiaBHYT_cu.Text = "0";
-                                txtPhuthuDT.Text = "0";
-                                txtPhuthuTT.Text = "0";
-                            }
-                        }
+                           }
+                           else
+                           {
+                               txtGiaBHYT_cu.Text = objThuoc.GiaBhyt.ToString();
+                               txtPhuthuDT.Text =  objThuoc.PhuthuDungtuyen.ToString();
+                               txtPhuthuTT.Text = objThuoc.PhuthuTraituyen.ToString();
+                           }
+                       }
 
-                        //Bỏ chkGiaBHYT.Checked &&
-                        txtGiaBHYT.BackColor = BHYT_CHOPHEPNHAPGIA ? txtSoluong.BackColor : txtThanhTien.BackColor;
+                       //Bỏ chkGiaBHYT.Checked &&
+                       txtGiaBHYT.BackColor = BHYT_CHOPHEPNHAPGIA ? txtSoluong.BackColor : txtThanhTien.BackColor;
 
-                        txtPhuthuDT.BackColor =  BHYT_CHOPHEPNHAPGIAPHUTHU ? txtSoluong.BackColor : txtThanhTien.BackColor;
+                       txtPhuthuDT.BackColor = BHYT_CHOPHEPNHAPGIAPHUTHU ? txtSoluong.BackColor : txtThanhTien.BackColor;
 
-                        txtPhuthuTT.BackColor =  BHYT_CHOPHEPNHAPGIAPHUTHU ? txtSoluong.BackColor : txtThanhTien.BackColor;
+                       txtPhuthuTT.BackColor = BHYT_CHOPHEPNHAPGIAPHUTHU ? txtSoluong.BackColor : txtThanhTien.BackColor;
 
-                        //txtGiaBHYT.BackColor = chkGiaBHYT.Checked && BHYT_CHOPHEPNHAPGIA ? txtSoluong.BackColor : txtThanhTien.BackColor;
-                        //txtPhuthuDT.BackColor = chkGiaBHYT.Checked && BHYT_CHOPHEPNHAPGIA ? txtSoluong.BackColor : txtThanhTien.BackColor;
-                        //txtPhuthuTT.BackColor = chkGiaBHYT.Checked && BHYT_CHOPHEPNHAPGIA ? txtSoluong.BackColor : txtThanhTien.BackColor;
-                        //txtGiaBHYT.Enabled = chkGiaBHYT.Checked;
-                    }
+                       //txtGiaBHYT.BackColor = chkGiaBHYT.Checked && BHYT_CHOPHEPNHAPGIA ? txtSoluong.BackColor : txtThanhTien.BackColor;
+                       //txtPhuthuDT.BackColor = chkGiaBHYT.Checked && BHYT_CHOPHEPNHAPGIA ? txtSoluong.BackColor : txtThanhTien.BackColor;
+                       //txtPhuthuTT.BackColor = chkGiaBHYT.Checked && BHYT_CHOPHEPNHAPGIA ? txtSoluong.BackColor : txtThanhTien.BackColor;
+                       //txtGiaBHYT.Enabled = chkGiaBHYT.Checked;
+                   }
+                   else
+                   {
+                       txtDongia.Clear();
+                   }
 
                 }
                 else
                 {
-
+                    txtDongia.Clear();
                     txtDonViTinh.Clear();
                 }
             }
@@ -628,7 +611,11 @@ namespace VNS.HIS.UI.THUOC
                         string msg = string.Format("Thuốc {0} được cấu hình nhập mỗi năm không quá {1} {2}. Tổng số lượng đã nhập: {3} + Số lượng nhập lần này: {4} đang vượt quá số lượng vượt trần. Đề nghị bạn kiểm tra lại", txtDrugName.Text, sluongvuottran.ToString(), txtDonViTinh.Text, tongnhap.ToString(), txtSoluong.Text);
                         Utility.ShowMsg(msg);
                         if (THUOC_CANHBAO_NHAPVUOTTRAN_BHYT == "2")
+                        {
+                            txtSoluong.SelectAll();
+                            txtSoluong.Focus();
                             return false;
+                        }
                     }
                 }
             }
@@ -687,7 +674,6 @@ namespace VNS.HIS.UI.THUOC
                     drv["NGAY_HET_HAN"] = dtNgayHetHan.Value.Date;
                     m_dtDataPhieuChiTiet.Rows.Add(drv);
                 }
-                UpdateWhenChanged();
             }
             catch
             {
@@ -1208,7 +1194,7 @@ namespace VNS.HIS.UI.THUOC
                 decimal GiaNhap = Utility.DecimaltoDbnull(e.Value);
                 decimal chietkhau = Utility.DecimaltoDbnull(grdPhieuNhapChiTiet.GetValue(TPhieuNhapxuatthuocChitiet.Columns.ChietKhau));
                 int THANG_DU = TinhThangDutheoQuyetDinhBYT(GiaNhap);
-                if (!PropertyLib._NhapkhoProperties.CoThangDu) THANG_DU = 0;
+                if (PHUONGPHAP_TINHGIABAN!="0") THANG_DU = 0;
                 decimal Gia_ban = TinhGiaBan(GiaNhap, Utility.Int32Dbnull(txtVAT.Text, 0), THANG_DU);
                 grdPhieuNhapChiTiet.CurrentRow.BeginEdit();
                 decimal thanhtien = ThanhTienTrenLuoi(GiaNhap, soluong, chietkhau);
@@ -1233,7 +1219,7 @@ namespace VNS.HIS.UI.THUOC
             if (e.Column.Key.ToUpper() == TPhieuNhapxuatthuocChitiet.Columns.ThangDu.ToUpper())
             {
                 int  THANG_DU = Utility.Int32Dbnull(e.Value,0);
-                if (!PropertyLib._NhapkhoProperties.CoThangDu) THANG_DU = 0;
+                if (PHUONGPHAP_TINHGIABAN!="0") THANG_DU = 0;
                 decimal GiaNhap = Utility.Int32Dbnull(grdPhieuNhapChiTiet.GetValue(TPhieuNhapxuatthuocChitiet.Columns.GiaNhap), 0);
                 decimal Gia_ban = TinhGiaBan(GiaNhap, Utility.Int32Dbnull(txtVAT.Text, 0), THANG_DU);
                 grdPhieuNhapChiTiet.CurrentRow.BeginEdit();
@@ -1296,8 +1282,8 @@ namespace VNS.HIS.UI.THUOC
                     Int32 soluong = Utility.Int32Dbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoLuong].Value);
                     int THANG_DU = Utility.Int32Dbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.ThangDu].Value, 0);
                     decimal GiaNhap = Utility.DecimaltoDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap].Value);
-                    decimal chitietkhau = Utility.DecimaltoDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.ChietKhau].Value);
-                    decimal thanhtien = soluong * GiaNhap + (soluong * GiaNhap) * Utility.Int32Dbnull(txtVAT.Text, 0) / 100 - chitietkhau;
+                    decimal ChietKhau = Utility.DecimaltoDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.ChietKhau].Value);
+                    decimal thanhtien = soluong * GiaNhap + (soluong * GiaNhap) * Utility.Int32Dbnull(txtVAT.Text, 0) / 100 - ChietKhau;
                     decimal Gia_ban = TinhGiaBan(GiaNhap, Utility.Int32Dbnull(txtVAT.Text, 0), THANG_DU);
                     gridExRow.BeginEdit();
                     gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.ThanhTien].Value = thanhtien;
@@ -1313,16 +1299,7 @@ namespace VNS.HIS.UI.THUOC
             }
         }
 
-        private void txtDongia_TextChanged(object sender, EventArgs e)
-        {
-            if ( PropertyLib._NhapkhoProperties.CoThangDu)
-                nmrThangDu.Value = TinhThangDutheoQuyetDinhBYT(Utility.Int32Dbnull(Utility.DecimaltoDbnull(txtDongia.Text, 0), 0));
-            else
-                nmrThangDu.Value = 0;
-            TinhGiaBan();
-            ThanhTien();
-            
-        }
+       
         void TinhGiaBan()
         {
             try
@@ -1332,13 +1309,29 @@ namespace VNS.HIS.UI.THUOC
                     txtGiaban.Text = "0";
                     return;
                 }
-                //Giá VAT
-                decimal GiaVAT = Utility.DecimaltoDbnull(txtDongia.Text, 0)+(decimal)(Utility.DecimaltoDbnull(txtDongia.Text, 0) * Utility.Int32Dbnull(txtVAT.Text) / 100);
-                //Thặng dư so với giá VAT
-                decimal ThangDu = (decimal)(GiaVAT * nmrThangDu.Value / 100);
-                decimal GIA_BAn = ThangDu + GiaVAT;
+                decimal GIA_Nhap = Utility.DecimaltoDbnull(txtDongia.Text, 0);
+                decimal GIA_BAn = 0;
+                decimal GiaThangDu = 0;
+                decimal GiaVAT = 0;
+                if (PHUONGPHAP_TINHGIABAN == "0")
+                {
+                    GiaVAT = GIA_Nhap;
+                    GiaThangDu = (decimal)(GiaVAT * nmrThangDu.Value / 100);
+                    GIA_BAn = GiaThangDu + GiaVAT;
+                }
+                else if (PHUONGPHAP_TINHGIABAN == "1")
+                {
+                    //Giá VAT
+                    GiaVAT = GIA_Nhap + (decimal)(GIA_Nhap * Utility.DecimaltoDbnull(txtVAT.Text) / 100);
+                    //Thặng dư so với giá VAT
+                    GiaThangDu = (decimal)(GiaVAT * nmrThangDu.Value / 100);
+                    GIA_BAn = GiaThangDu + GiaVAT;
+                }
+                else
+                {
+                    GIA_BAn = GIA_Nhap +(decimal)( GIA_Nhap * PHANTRAM_SOVOIGIANHAP / 100);
+                }
                 txtGiaban.Text = GIA_BAn.ToString();
-
             }
             catch
             {
@@ -1348,11 +1341,28 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                //Giá VAT
-                decimal GiaVAT = GiaNhap + (decimal)(GiaNhap * VAT / 100);
-                //Thặng dư so với giá VAT
-                decimal GiaThangDu = (decimal)(GiaVAT * ThangDu / 100);
-                return  GiaThangDu + GiaVAT;
+                decimal GIA_BAn = GiaNhap;
+                decimal GiaThangDu = 0;
+                decimal GiaVAT = 0;
+                if (PHUONGPHAP_TINHGIABAN == "0")
+                {
+                    GiaVAT = GiaNhap;
+                    GiaThangDu = (decimal)(GiaVAT * ThangDu / 100);
+                    GIA_BAn = GiaThangDu + GiaVAT;
+                }
+                else if (PHUONGPHAP_TINHGIABAN == "1")
+                {
+                    //Giá VAT
+                    GiaVAT = GiaNhap + (decimal)(GiaNhap * VAT / 100);
+                    //Thặng dư so với giá VAT
+                    GiaThangDu = (decimal)(GiaVAT * ThangDu / 100);
+                    GIA_BAn = GiaThangDu + GiaVAT;
+                }
+                else
+                {
+                    GIA_BAn = GiaNhap +(decimal)( GiaNhap * PHANTRAM_SOVOIGIANHAP / 100);
+                }
+                return GIA_BAn;
             }
             catch
             {
@@ -1362,7 +1372,7 @@ namespace VNS.HIS.UI.THUOC
        
         int TinhThangDutheoQuyetDinhBYT(decimal GiaMua)
         {
-            if (KIEU_THUOC_VT == "VT") return 0;
+            //if (KIEU_THUOC_VT == "VT") return 0;
             if (GiaMua <= 1000) return 15;
             if (GiaMua > 1000 && GiaMua <= 5000) return 10;
             if (GiaMua > 5000 && GiaMua <= 100000) return 7;

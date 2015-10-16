@@ -255,8 +255,8 @@
             // 
             this.txtNhacungcap._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtNhacungcap._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNhacungcap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNhacungcap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNhacungcap.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNhacungcap.AutoCompleteList")));
             this.txtNhacungcap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNhacungcap.CaseSensitive = false;
@@ -354,8 +354,8 @@
             // 
             // cboNhanVien
             // 
-            this.cboNhanVien.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboNhanVien.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboNhanVien.Location = new System.Drawing.Point(309, 21);
             this.cboNhanVien.MaxDropDownItems = 15;
             this.cboNhanVien.Name = "cboNhanVien";
@@ -365,8 +365,8 @@
             // 
             // cmdSearch
             // 
-            this.cmdSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdSearch.Image = ((System.Drawing.Image)(resources.GetObject("cmdSearch.Image")));
             this.cmdSearch.ImageSize = new System.Drawing.Size(24, 24);
@@ -379,6 +379,7 @@
             // 
             // dtToDate
             // 
+            this.dtToDate.CustomFormat = "dd/MM/yyyy";
             this.dtToDate.Location = new System.Drawing.Point(239, 69);
             this.dtToDate.Name = "dtToDate";
             this.dtToDate.Size = new System.Drawing.Size(184, 21);
@@ -397,6 +398,7 @@
             // 
             // dtFromdate
             // 
+            this.dtFromdate.CustomFormat = "dd/MM/yyyy";
             this.dtFromdate.Location = new System.Drawing.Point(81, 69);
             this.dtFromdate.Name = "dtFromdate";
             this.dtFromdate.Size = new System.Drawing.Size(152, 21);
@@ -454,7 +456,7 @@
             // 
             this.grdList.AlternatingColors = true;
             this.grdList.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
-                " thông tin phiếu nhập khoa</FilterRowInfoText></LocalizableData>";
+    " thông tin phiếu nhập khoa</FilterRowInfoText></LocalizableData>";
             grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
             this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
             this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;

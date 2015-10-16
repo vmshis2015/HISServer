@@ -544,6 +544,8 @@ namespace VNS.HIS.UI.THUOC
                     CreateDefaultTableStructure();
                     //Cho phép nhập liệu mã kho,vị trí, tên kho và mô tả thêm
                     Utility.DisabledTextBox(txtID);
+                    Utility.EnabledTextBox(txtMaQD40);
+                    Utility.EnabledTextBox(txtMaQDTinh);
                     Utility.EnabledTextBox(txtCode);
                     txtLoaithuoc.Enabled = true;
                     txtDonvitinh.Enabled = true;
@@ -605,6 +607,8 @@ namespace VNS.HIS.UI.THUOC
                     break;
                 case action.FirstOrFinished://Hủy hoặc trạng thái ban đầu khi mới hiển thị Form
                     Utility.DisabledTextBox(txtID);
+                    Utility.EnabledTextBox(txtMaQD40);
+                    Utility.EnabledTextBox(txtMaQDTinh);
                     Utility.EnabledTextBox(txtCode);
                     txtLoaithuoc.Enabled = true;
                     txtDonvitinh.Enabled = true;
