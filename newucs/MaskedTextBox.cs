@@ -104,15 +104,16 @@ namespace MaskedTextBox
                     default:
                         break;
                 }
+                if (_OnTextChanged != null)
+                    _OnTextChanged(new MoneyByLetter().sMoneyToLetter(Utility.DecimaltoDbnull(txtBox.Text).ToString()));
             }
             catch
             {
-                AllowedChanged = true;
+               
             }
             finally
             {
-                if (_OnTextChanged != null)
-                    _OnTextChanged(new MoneyByLetter().sMoneyToLetter(Utility.DecimaltoDbnull(txtBox.Text).ToString()));
+                AllowedChanged = true;
             }
         }
        
