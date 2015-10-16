@@ -624,6 +624,11 @@ namespace VNS.HIS.UI.NGOAITRU
 
         void _CheckedChanged(object sender, EventArgs e)
         {
+           bool notEnough1 = chkKPL1.Checked || chkKPL2.Checked || chkKPL3.Checked || chkKPL4.Checked || chkKPL5.Checked || chkKPL6.Checked || chkKPL7.Checked || chkKPL8.Checked;
+           bool notEnough2 = chkKL2.Checked || chkKL3.Checked;
+
+           chkKL1.Enabled=  !notEnough1 && !notEnough2;
+           chkKL1.Checked = notEnough1 || notEnough2 ? false : chkKL1.Checked;
             errorProvider1.Clear();
             if (grdPresDetail.GetDataRows().Length > 0 && ((UICheckBox)sender).Checked)
             {
