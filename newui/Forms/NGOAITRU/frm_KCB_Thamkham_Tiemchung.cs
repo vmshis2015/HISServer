@@ -170,9 +170,12 @@ namespace VNS.HIS.UI.NGOAITRU
 
           
             txtKet_Luan._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtKet_Luan__OnShowData);
+            txtChongchidinhkhac._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtChongchidinhkhac__OnShowData);
             txtHuongdieutri._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtHuongdieutri__OnShowData);
             txtKet_Luan._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtKet_Luan__OnSaveAs);
+            txtChongchidinhkhac._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtChongchidinhkhac__OnSaveAs);
             txtHuongdieutri._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtHuongdieutri__OnSaveAs);
+            
            
 
             cmdThemphieuVT.Click += cmdThemphieuVT_Click;
@@ -180,7 +183,7 @@ namespace VNS.HIS.UI.NGOAITRU
             cmdXoaphieuVT.Click += cmdXoaphieuVT_Click;
             cmdInphieuVT.Click += cmdInphieuVT_Click;
             cmdLuuChandoan.Click += cmdLuuChandoan_Click;
-            txtChongchidinhkhac._OnShowData += txtChongchidinhkhac__OnShowData;
+            //txtChongchidinhkhac._OnShowData += txtChongchidinhkhac__OnShowData;
             txtPhanungSautiem._OnShowData += txtPhanungSautiem__OnShowData;
             chkKPL_All.CheckedChanged += chkKPL_All_CheckedChanged;
             chkKPL_Daochon.CheckedChanged += chkKPL_Daochon_CheckedChanged;
@@ -1138,6 +1141,20 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtHuongdieutri.Focus();
             }    
         }
+        void txtChongchidinhkhac__OnSaveAs()
+        {
+            if (Utility.DoTrim(txtChongchidinhkhac.Text) == "") return;
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtChongchidinhkhac.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, txtChongchidinhkhac.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtChongchidinhkhac.myCode;
+                txtChongchidinhkhac.Init();
+                txtChongchidinhkhac.SetCode(oldCode);
+                txtChongchidinhkhac.Focus();
+            }
+        }
 
         void txtKet_Luan__OnSaveAs()
         {
@@ -1668,6 +1685,8 @@ namespace VNS.HIS.UI.NGOAITRU
             txtHuongdieutri.Init();
             txtKet_Luan.Init();
             txtKQ.Init();
+            txtLydotiem.Init();
+            txtChongchidinhkhac.Init();
            
         }
 
@@ -1974,7 +1993,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                      txtKet_Luan.SetCode(_KcbChandoanKetluan.KetluanNguyennhan);
                                      txtHuongdieutri.SetCode(_KcbChandoanKetluan.HuongDieutri);
                                      txtPhanungSautiem.SetCode(_KcbChandoanKetluan.PhanungSautiemchung);
-                                     txtChongchidinhkhac.Text = Utility.sDbnull(_KcbChandoanKetluan.ChongchidinhKhac,"");
+                                     txtChongchidinhkhac.SetCode(_KcbChandoanKetluan.ChongchidinhKhac);
                                      chkKPL1.Checked = Utility.Byte2Bool(_KcbChandoanKetluan.KPL1);
                                      chkKPL2.Checked = Utility.Byte2Bool(_KcbChandoanKetluan.KPL2);
                                      chkKPL3.Checked = Utility.Byte2Bool(_KcbChandoanKetluan.KPL3);
@@ -2006,7 +2025,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                      chkKL2.Checked = false;
                                      chkKL3.Checked = false;
                                      txtChanDoanKemTheo.Text = "";
-                                     txtChongchidinhkhac.Text = "";
+                                     txtChongchidinhkhac.SetCode("-1");
                                  }
                                 
                                 Laythongtinchidinhngoaitru();
@@ -3146,7 +3165,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 _KcbChandoanKetluan.Ketluan = txtKQ.myCode;
                 _KcbChandoanKetluan.KetluanNguyennhan = txtKet_Luan.myCode;
                 _KcbChandoanKetluan.PhanungSautiemchung = txtPhanungSautiem.myCode;
-                _KcbChandoanKetluan.ChongchidinhKhac = Utility.sDbnull(txtChongchidinhkhac.Text);
+                _KcbChandoanKetluan.ChongchidinhKhac = Utility.sDbnull(txtChongchidinhkhac.myCode);
                 _KcbChandoanKetluan.KPL1 = Utility.Bool2byte(chkKPL1.Checked);
                 _KcbChandoanKetluan.KPL2 = Utility.Bool2byte(chkKPL2.Checked);
                 _KcbChandoanKetluan.KPL3 = Utility.Bool2byte(chkKPL3.Checked);
@@ -3233,7 +3252,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 cmdSave.Focus();
                 return false;
             }
-            if (Utility.DoTrim(txtKQ.Text) == "")
+            if (Utility.DoTrim(txtKQ.Text) == "" && chkKL1.Checked)
             {
                 Utility.SetMsg(lblMsg, "Bạn cần nhập kết quả tiêm chủng cho bệnh nhân", true);
                 tabDiagInfo.SelectedTab = tabPageChanDoan;
@@ -3363,6 +3382,29 @@ namespace VNS.HIS.UI.NGOAITRU
         private void cmdTimKiemKhoaNoiTru_Click(object sender, EventArgs e)
         {
             TimKiemKhoaNoiTru();
+        }
+
+        private void chkKPL8_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkKPL8.Checked)
+                txtChongchidinhkhac.Enabled = true;
+            else
+            {
+                txtChongchidinhkhac.Enabled = false;
+            }
+        }
+
+        private void chkKL1_EnabledChanged(object sender, EventArgs e)
+        {
+            if (chkKPL1.Checked || chkKPL2.Checked || chkKPL3.Checked || chkKPL4.Checked || chkKPL5.Checked || chkKPL6.Checked || chkKPL7.Checked || chkKPL8.Checked || chkKL2.Checked || chkKL3.Checked)
+            {
+                chkKL1.Enabled = false;
+            }
+            else
+            {
+                chkKL1.Enabled = true;
+            }
+                
         }
 
     }
