@@ -33,6 +33,8 @@
             Janus.Windows.GridEX.GridEXLayout grdKhoXuat_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdPhieuXuatChiTiet_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.grpControl = new Janus.Windows.EditControls.UIGroupBox();
+            this.txtKhonhan = new VNS.HIS.UCs.AutoCompleteTextbox();
+            this.txtKhoXuat = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.txtNguoigiao = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.label16 = new System.Windows.Forms.Label();
             this.chkIsHetHan = new Janus.Windows.EditControls.UICheckBox();
@@ -59,9 +61,7 @@
             this.txtLyDoXuat = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cboKhoXuat = new Janus.Windows.EditControls.UIComboBox();
             this.txtIDPhieuNhapKho = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.cboKhoNhap = new Janus.Windows.EditControls.UIComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dtNgayNhap = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
@@ -103,6 +103,8 @@
             // grpControl
             // 
             this.grpControl.BackColor = System.Drawing.SystemColors.Control;
+            this.grpControl.Controls.Add(this.txtKhonhan);
+            this.grpControl.Controls.Add(this.txtKhoXuat);
             this.grpControl.Controls.Add(this.txtNguoigiao);
             this.grpControl.Controls.Add(this.label16);
             this.grpControl.Controls.Add(this.chkIsHetHan);
@@ -129,9 +131,7 @@
             this.grpControl.Controls.Add(this.txtLyDoXuat);
             this.grpControl.Controls.Add(this.label6);
             this.grpControl.Controls.Add(this.label5);
-            this.grpControl.Controls.Add(this.cboKhoXuat);
             this.grpControl.Controls.Add(this.txtIDPhieuNhapKho);
-            this.grpControl.Controls.Add(this.cboKhoNhap);
             this.grpControl.Controls.Add(this.label3);
             this.grpControl.Controls.Add(this.dtNgayNhap);
             this.grpControl.Controls.Add(this.label1);
@@ -146,10 +146,89 @@
             this.grpControl.TabIndex = 1;
             this.grpControl.Text = "Thông tin phiếu xuất kho";
             // 
+            // txtKhonhan
+            // 
+            this.txtKhonhan._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtKhonhan._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKhonhan._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtKhonhan.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKhonhan.AutoCompleteList")));
+            this.txtKhonhan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtKhonhan.CaseSensitive = false;
+            this.txtKhonhan.CompareNoID = true;
+            this.txtKhonhan.DefaultCode = "-1";
+            this.txtKhonhan.DefaultID = "-1";
+            this.txtKhonhan.Drug_ID = null;
+            this.txtKhonhan.ExtraWidth = 0;
+            this.txtKhonhan.FillValueAfterSelect = false;
+            this.txtKhonhan.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKhonhan.Location = new System.Drawing.Point(410, 69);
+            this.txtKhonhan.MaxHeight = 289;
+            this.txtKhonhan.MinTypedCharacters = 2;
+            this.txtKhonhan.MyCode = "-1";
+            this.txtKhonhan.MyID = "-1";
+            this.txtKhonhan.MyText = "";
+            this.txtKhonhan.Name = "txtKhonhan";
+            this.txtKhonhan.RaiseEvent = true;
+            this.txtKhonhan.RaiseEventEnter = true;
+            this.txtKhonhan.RaiseEventEnterWhenEmpty = true;
+            this.txtKhonhan.SelectedIndex = -1;
+            this.txtKhonhan.Size = new System.Drawing.Size(274, 21);
+            this.txtKhonhan.splitChar = '@';
+            this.txtKhonhan.splitCharIDAndCode = '#';
+            this.txtKhonhan.TabIndex = 7;
+            this.txtKhonhan.TakeCode = false;
+            this.txtKhonhan.txtMyCode = null;
+            this.txtKhonhan.txtMyCode_Edit = null;
+            this.txtKhonhan.txtMyID = null;
+            this.txtKhonhan.txtMyID_Edit = null;
+            this.txtKhonhan.txtMyName = null;
+            this.txtKhonhan.txtMyName_Edit = null;
+            this.txtKhonhan.txtNext = null;
+            // 
+            // txtKhoXuat
+            // 
+            this.txtKhoXuat._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtKhoXuat._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKhoXuat._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtKhoXuat.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKhoXuat.AutoCompleteList")));
+            this.txtKhoXuat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtKhoXuat.CaseSensitive = false;
+            this.txtKhoXuat.CompareNoID = true;
+            this.txtKhoXuat.DefaultCode = "-1";
+            this.txtKhoXuat.DefaultID = "-1";
+            this.txtKhoXuat.Drug_ID = null;
+            this.txtKhoXuat.ExtraWidth = 0;
+            this.txtKhoXuat.FillValueAfterSelect = false;
+            this.txtKhoXuat.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKhoXuat.Location = new System.Drawing.Point(88, 69);
+            this.txtKhoXuat.MaxHeight = 289;
+            this.txtKhoXuat.MinTypedCharacters = 2;
+            this.txtKhoXuat.MyCode = "-1";
+            this.txtKhoXuat.MyID = "-1";
+            this.txtKhoXuat.MyText = "";
+            this.txtKhoXuat.Name = "txtKhoXuat";
+            this.txtKhoXuat.RaiseEvent = true;
+            this.txtKhoXuat.RaiseEventEnter = true;
+            this.txtKhoXuat.RaiseEventEnterWhenEmpty = true;
+            this.txtKhoXuat.SelectedIndex = -1;
+            this.txtKhoXuat.Size = new System.Drawing.Size(228, 21);
+            this.txtKhoXuat.splitChar = '@';
+            this.txtKhoXuat.splitCharIDAndCode = '#';
+            this.txtKhoXuat.TabIndex = 6;
+            this.txtKhoXuat.TakeCode = false;
+            this.txtKhoXuat.txtMyCode = null;
+            this.txtKhoXuat.txtMyCode_Edit = null;
+            this.txtKhoXuat.txtMyID = null;
+            this.txtKhoXuat.txtMyID_Edit = null;
+            this.txtKhoXuat.txtMyName = null;
+            this.txtKhoXuat.txtMyName_Edit = null;
+            this.txtKhoXuat.txtNext = null;
+            // 
             // txtNguoigiao
             // 
-            this.txtNguoigiao._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtNguoigiao._backcolor = System.Drawing.SystemColors.Control;
             this.txtNguoigiao._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNguoigiao._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtNguoigiao.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNguoigiao.AutoCompleteList")));
             this.txtNguoigiao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNguoigiao.CaseSensitive = false;
@@ -187,7 +266,7 @@
             // label16
             // 
             this.label16.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.Black;
+            this.label16.ForeColor = System.Drawing.Color.Red;
             this.label16.Location = new System.Drawing.Point(2, 44);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(86, 20);
@@ -245,7 +324,7 @@
             // label14
             // 
             this.label14.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label14.ForeColor = System.Drawing.Color.Red;
             this.label14.Location = new System.Drawing.Point(690, 128);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(83, 20);
@@ -256,7 +335,7 @@
             // label15
             // 
             this.label15.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label15.ForeColor = System.Drawing.Color.Red;
             this.label15.Location = new System.Drawing.Point(12, 128);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(65, 20);
@@ -406,8 +485,9 @@
             // 
             // txtNguoinhan
             // 
-            this.txtNguoinhan._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtNguoinhan._backcolor = System.Drawing.SystemColors.Control;
             this.txtNguoinhan._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNguoinhan._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtNguoinhan.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNguoinhan.AutoCompleteList")));
             this.txtNguoinhan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNguoinhan.CaseSensitive = false;
@@ -445,7 +525,7 @@
             // label8
             // 
             this.label8.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.ForeColor = System.Drawing.Color.Red;
             this.label8.Location = new System.Drawing.Point(324, 45);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(86, 20);
@@ -476,7 +556,7 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label4.ForeColor = System.Drawing.Color.Red;
             this.label4.Location = new System.Drawing.Point(690, 45);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 20);
@@ -486,8 +566,9 @@
             // 
             // txtLyDoXuat
             // 
-            this.txtLyDoXuat._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtLyDoXuat._backcolor = System.Drawing.SystemColors.Control;
             this.txtLyDoXuat._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLyDoXuat._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLyDoXuat.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLyDoXuat.AutoCompleteList")));
             this.txtLyDoXuat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLyDoXuat.CaseSensitive = false;
@@ -525,7 +606,7 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label6.ForeColor = System.Drawing.Color.Red;
             this.label6.Location = new System.Drawing.Point(327, 68);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(83, 20);
@@ -536,24 +617,13 @@
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label5.ForeColor = System.Drawing.Color.Red;
             this.label5.Location = new System.Drawing.Point(2, 68);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(86, 20);
             this.label5.TabIndex = 46;
             this.label5.Text = "Kho xuất:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cboKhoXuat
-            // 
-            this.cboKhoXuat.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboKhoXuat.Location = new System.Drawing.Point(88, 68);
-            this.cboKhoXuat.MaxDropDownItems = 15;
-            this.cboKhoXuat.Name = "cboKhoXuat";
-            this.cboKhoXuat.Size = new System.Drawing.Size(228, 21);
-            this.cboKhoXuat.TabIndex = 6;
-            this.cboKhoXuat.Text = "Kho xuất";
-            this.cboKhoXuat.SelectedIndexChanged += new System.EventHandler(this.cboKhoXuat_SelectedIndexChanged);
             // 
             // txtIDPhieuNhapKho
             // 
@@ -565,21 +635,10 @@
             this.txtIDPhieuNhapKho.TabIndex = 0;
             this.txtIDPhieuNhapKho.TabStop = false;
             // 
-            // cboKhoNhap
-            // 
-            this.cboKhoNhap.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboKhoNhap.Location = new System.Drawing.Point(410, 68);
-            this.cboKhoNhap.MaxDropDownItems = 15;
-            this.cboKhoNhap.Name = "cboKhoNhap";
-            this.cboKhoNhap.Size = new System.Drawing.Size(274, 21);
-            this.cboKhoNhap.TabIndex = 7;
-            this.cboKhoNhap.Text = "Kho lĩnh";
-            this.cboKhoNhap.SelectedIndexChanged += new System.EventHandler(this.cboKhoNhap_SelectedIndexChanged);
-            // 
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label3.ForeColor = System.Drawing.Color.Red;
             this.label3.Location = new System.Drawing.Point(324, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 20);
@@ -674,7 +733,7 @@
             this.grdKhoXuat.FocusCellFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.grdKhoXuat.FocusCellFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
             this.grdKhoXuat.FocusStyle = Janus.Windows.GridEX.FocusStyle.Solid;
-            this.grdKhoXuat.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.grdKhoXuat.Font = new System.Drawing.Font("Arial", 9F);
             this.grdKhoXuat.FrozenColumns = 3;
             this.grdKhoXuat.GroupByBoxVisible = false;
             this.grdKhoXuat.GroupTotals = Janus.Windows.GridEX.GroupTotals.Always;
@@ -790,7 +849,7 @@
             this.grdPhieuXuatChiTiet.DynamicFiltering = true;
             this.grdPhieuXuatChiTiet.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
             this.grdPhieuXuatChiTiet.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.grdPhieuXuatChiTiet.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.grdPhieuXuatChiTiet.Font = new System.Drawing.Font("Arial", 9F);
             this.grdPhieuXuatChiTiet.GroupByBoxVisible = false;
             this.grdPhieuXuatChiTiet.GroupTotals = Janus.Windows.GridEX.GroupTotals.Always;
             this.grdPhieuXuatChiTiet.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
@@ -826,7 +885,7 @@
             this.cmdInPhieuNhap.Name = "cmdInPhieuNhap";
             this.cmdInPhieuNhap.Size = new System.Drawing.Size(127, 33);
             this.cmdInPhieuNhap.TabIndex = 21;
-            this.cmdInPhieuNhap.Text = "&In phiếu xuất";
+            this.cmdInPhieuNhap.Text = "In phiếu";
             this.cmdInPhieuNhap.Click += new System.EventHandler(this.cmdInPhieuNhap_Click);
             // 
             // cmdSave
@@ -839,7 +898,7 @@
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(118, 33);
             this.cmdSave.TabIndex = 20;
-            this.cmdSave.Text = "&Lưu lại";
+            this.cmdSave.Text = "Ghi";
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
             // cmdExit
@@ -853,7 +912,7 @@
             this.cmdExit.Size = new System.Drawing.Size(110, 33);
             this.cmdExit.TabIndex = 22;
             this.cmdExit.TabStop = false;
-            this.cmdExit.Text = "&Thoát Form";
+            this.cmdExit.Text = "Thoát";
             // 
             // frm_themmoi_phieuchuyenkho
             // 
@@ -895,10 +954,8 @@
 
         private Janus.Windows.EditControls.UIGroupBox grpControl;
         private System.Windows.Forms.Label label2;
-        private Janus.Windows.EditControls.UIComboBox cboKhoXuat;
         internal Janus.Windows.GridEX.EditControls.EditBox txtIDPhieuNhapKho;
         private System.Windows.Forms.Label label9;
-        private Janus.Windows.EditControls.UIComboBox cboKhoNhap;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dtNgayNhap;
         private System.Windows.Forms.Label label1;
@@ -946,5 +1003,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private UCs.AutoCompleteTextbox_Danhmucchung txtNguoigiao;
         private System.Windows.Forms.Label label16;
+        private UCs.AutoCompleteTextbox txtKhonhan;
+        private UCs.AutoCompleteTextbox txtKhoXuat;
     }
 }

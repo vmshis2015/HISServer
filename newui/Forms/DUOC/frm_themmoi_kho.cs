@@ -80,15 +80,15 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                TDmucKho objChung = CreateKhoThuoc();
-                objChung.IsNew = true;
-                objChung.Save();
-                txtIDKHO.Text = Utility.sDbnull(objChung.IdKho);
-                objChung = TDmucKho.FetchByID(Utility.Int32Dbnull(txtIDKHO.Text, -1));
-                if (objChung != null)
+                TDmucKho objDmuckho = CreateKhoThuoc();
+                objDmuckho.IsNew = true;
+                objDmuckho.Save();
+                txtIDKHO.Text = Utility.sDbnull(objDmuckho.IdKho);
+                objDmuckho = TDmucKho.FetchByID(Utility.Int32Dbnull(txtIDKHO.Text, -1));
+                if (objDmuckho != null)
                 {
                     DataRow dataRow = p_dtDataChung.NewRow();
-                    Utility.FromObjectToDatarow(objChung, ref dataRow);
+                    Utility.FromObjectToDatarow(objDmuckho, ref dataRow);
                     p_dtDataChung.Rows.Add(dataRow);
                     Utility.GonewRowJanus(grdList, TDmucKho.Columns.IdKho, Utility.sDbnull(txtIDKHO.Text));
                 }
@@ -118,10 +118,10 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                TDmucKho objChung = CreateKhoThuoc();
-                objChung.Save();
+                TDmucKho objDmuckho = CreateKhoThuoc();
+                objDmuckho.Save();
 
-                objChung = TDmucKho.FetchByID(Utility.Int32Dbnull(txtIDKHO.Text, -1));
+                objDmuckho = TDmucKho.FetchByID(Utility.Int32Dbnull(txtIDKHO.Text, -1));
                 DataRow[] arrDr =
                     p_dtDataChung.Select(string.Format("{0}={1}", TDmucKho.Columns.IdKho, Utility.Int32Dbnull(txtIDKHO.Text)));
                 if (arrDr.GetLength(0) > 0)
@@ -129,10 +129,10 @@ namespace VNS.HIS.UI.THUOC
                     arrDr[0].Delete();
                 }
                 p_dtDataChung.AcceptChanges();
-                if (objChung != null)
+                if (objDmuckho != null)
                 {
                     DataRow dataRow = p_dtDataChung.NewRow();
-                    Utility.FromObjectToDatarow(objChung, ref dataRow);
+                    Utility.FromObjectToDatarow(objDmuckho, ref dataRow);
                     p_dtDataChung.Rows.Add(dataRow);
                     Utility.GonewRowJanus(grdList, TDmucKho.Columns.IdKho, Utility.sDbnull(txtIDKHO.Text));
                 }
@@ -172,42 +172,43 @@ namespace VNS.HIS.UI.THUOC
 
         private TDmucKho CreateKhoThuoc()
         {
-            TDmucKho objChung = new TDmucKho();
+            TDmucKho objDmuckho = new TDmucKho();
             if (em_Action == action.Update)
             {
-                objChung.IsLoaded = true;
-                objChung.MarkOld();
-                objChung.IdKho = Utility.Int32Dbnull(txtIDKHO.Text, -1);
-                objChung.NgaySua = globalVariables.SysDate;
-                objChung.NguoiSua = globalVariables.UserName;
+                objDmuckho.IsLoaded = true;
+                objDmuckho.MarkOld();
+                objDmuckho.IdKho = Utility.Int32Dbnull(txtIDKHO.Text, -1);
+                objDmuckho.NgaySua = globalVariables.SysDate;
+                objDmuckho.NguoiSua = globalVariables.UserName;
             }
-            objChung.MaKho = Utility.sDbnull(txtMa.Text.ToUpper());
-            objChung.ChophepChongia = Utility.Bool2byte(chkChongiakhikedon.Checked);
-            objChung.TenKho = txtTEN.Text;
-            objChung.SttHthi = Utility.Int32Dbnull(txt_STT_HTHI.Value);
-            objChung.IdKhoaphong = (short)Utility.Int32Dbnull(cboThuocKhoa.SelectedValue, -1);
-            objChung.KhoThuocVt = optThuoc.Checked ? "THUOC" : (optVT.Checked ? "VT":"THUOCVT") ;
-            objChung.KtraTon = Utility.ByteDbnull(chkSoLuongTon.Checked, 0);
-            objChung.LaTuthuoc = Utility.ByteDbnull(chkTuThuoc.Checked, 0);
-            objChung.MotaThem = Utility.sDbnull(txtGhiChu.Text);
-            objChung.LaQuaythuoc = (byte?)(chkKhoBan.Checked ? 1 : 0);
-            objChung.TrangThai = (byte?) (chkHienThi.Checked ? 1 : 0);
-            objChung.KieuBiendong = txtKieubiendong.myCode;
-            objChung.NgayTao = globalVariables.SysDate;
-            objChung.NguoiTao = globalVariables.UserName;
+            objDmuckho.MaKho = Utility.sDbnull(txtMa.Text.ToUpper());
+            objDmuckho.ChophepChongia = Utility.Bool2byte(chkChongiakhikedon.Checked);
+            objDmuckho.TenKho = txtTEN.Text;
+            objDmuckho.SttHthi = Utility.Int32Dbnull(txt_STT_HTHI.Value);
+            objDmuckho.IdKhoaphong = Utility.Int16Dbnull(txtKhoanoitru.MyID, -1);
+            objDmuckho.KhoThuocVt = optThuoc.Checked ? "THUOC" : (optVT.Checked ? "VT":"THUOCVT") ;
+            objDmuckho.KtraTon = Utility.ByteDbnull(chkSoLuongTon.Checked, 0);
+            objDmuckho.LaTuthuoc = Utility.ByteDbnull(chkTuThuoc.Checked, 0);
+            objDmuckho.MotaThem = Utility.sDbnull(txtGhiChu.Text);
+            objDmuckho.LaQuaythuoc = (byte?)(chkKhoBan.Checked ? 1 : 0);
+            objDmuckho.TrangThai = (byte?) (chkHienThi.Checked ? 1 : 0);
+            objDmuckho.KieuBiendong = txtKieubiendong.myCode;
+            objDmuckho.NgayTao = globalVariables.SysDate;
+            objDmuckho.NguoiTao = globalVariables.UserName;
+            objDmuckho.LoaiKho = Utility.Bool2byte(optKhoAo.Checked);
             byte kieukho = 0;
             //if(radKhoTong.Checked) kieukho = 0;
             if (radKhoLe.Checked) kieukho = 1;
             if (radKhoChan.Checked) kieukho = 2;
             if (optChanle.Checked) kieukho = 3;
-            objChung.KieuKho = kieukho == 1 ? "LE" : (kieukho == 2 ? "CHAN" : "CHANLE");
+            objDmuckho.KieuKho = kieukho == 1 ? "LE" : (kieukho == 2 ? "CHAN" : "CHANLE");
             string loaiBN = "TATCA";
             if (radTatCa.Checked) loaiBN = "TATCA";
             if (radNgoaiTru.Checked) loaiBN = "NGOAITRU";
             if (radNoiTru.Checked) loaiBN = "NOITRU";
-            objChung.LoaiBnhan = loaiBN;
+            objDmuckho.LoaiBnhan = loaiBN;
 
-            return objChung;
+            return objDmuckho;
         }
 
 
@@ -365,10 +366,10 @@ namespace VNS.HIS.UI.THUOC
                     optThuoc.Checked = true;
                 else
                     optThuocVT.Checked = true;
-               
-              
-                cboThuocKhoa.SelectedIndex =
-                    Utility.GetSelectedIndex(cboThuocKhoa, Utility.sDbnull(objDmucKho.IdKhoaphong, "-1"));
+
+                optKhothuong.Checked = Utility.ByteDbnull(objDmucKho.LoaiKho, 0) == 0;
+                optKhoAo.Checked = Utility.ByteDbnull(objDmucKho.LoaiKho, 0) == 1;
+                txtKhoanoitru.SetId(Utility.sDbnull(objDmucKho.IdKhoaphong, "-1"));
                 chkSoLuongTon.Checked = Utility.Int32Dbnull(objDmucKho.KtraTon) == 1;
                 chkTuThuoc.Checked = Utility.Int32Dbnull(objDmucKho.LaTuthuoc) == 1;
                 chkHienThi.Checked = Utility.Int32Dbnull(objDmucKho.TrangThai) == 1;
@@ -510,7 +511,7 @@ namespace VNS.HIS.UI.THUOC
         void Laydanhsachkhoa()
         {
             DataTable dtDepartment = THU_VIEN_CHUNG.Laydanhmuckhoa("ALL", -1);
-            DataBinding.BindDataCombobox(cboThuocKhoa, dtDepartment, DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong, "---Chọn---", true);
+            txtKhoanoitru.Init(dtDepartment, new List<string>() { DmucKhoaphong.Columns.IdKhoaphong,DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong });
 
         }
 

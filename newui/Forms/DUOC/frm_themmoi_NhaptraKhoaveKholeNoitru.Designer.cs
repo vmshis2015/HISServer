@@ -169,6 +169,7 @@
             // 
             this.txtNguoigiao._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtNguoigiao._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNguoigiao._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtNguoigiao.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNguoigiao.AutoCompleteList")));
             this.txtNguoigiao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNguoigiao.CaseSensitive = false;
@@ -402,6 +403,7 @@
             // 
             this.txtNguoinhan._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtNguoinhan._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNguoinhan._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtNguoinhan.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNguoinhan.AutoCompleteList")));
             this.txtNguoinhan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNguoinhan.CaseSensitive = false;
@@ -485,6 +487,7 @@
             // 
             this.txtLyDoXuat._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtLyDoXuat._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLyDoXuat._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLyDoXuat.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLyDoXuat.AutoCompleteList")));
             this.txtLyDoXuat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLyDoXuat.CaseSensitive = false;
@@ -675,7 +678,7 @@
             this.grdKhoXuat.FocusCellFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.grdKhoXuat.FocusCellFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
             this.grdKhoXuat.FocusStyle = Janus.Windows.GridEX.FocusStyle.Solid;
-            this.grdKhoXuat.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.grdKhoXuat.Font = new System.Drawing.Font("Arial", 9F);
             this.grdKhoXuat.FrozenColumns = 3;
             this.grdKhoXuat.GroupByBoxVisible = false;
             this.grdKhoXuat.GroupTotals = Janus.Windows.GridEX.GroupTotals.Always;
@@ -770,7 +773,7 @@
             this.grdPhieuXuatChiTiet.DynamicFiltering = true;
             this.grdPhieuXuatChiTiet.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
             this.grdPhieuXuatChiTiet.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.grdPhieuXuatChiTiet.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.grdPhieuXuatChiTiet.Font = new System.Drawing.Font("Arial", 9F);
             this.grdPhieuXuatChiTiet.GroupByBoxVisible = false;
             this.grdPhieuXuatChiTiet.GroupTotals = Janus.Windows.GridEX.GroupTotals.Always;
             this.grdPhieuXuatChiTiet.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;

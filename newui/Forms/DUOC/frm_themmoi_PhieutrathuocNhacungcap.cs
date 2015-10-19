@@ -139,14 +139,41 @@ namespace VNS.HIS.UI.THUOC
         }
         void txtthuoc__OnEnterMe()
         {
-            int _idthuoc = Utility.Int32Dbnull(txtthuoc.MyID, -1);
-            if (_idthuoc > 0)
+            try
             {
+                int _idthuoc = Utility.Int32Dbnull(txtthuoc.MyID, -1);
+                if (_idthuoc > 0)
+                {
+                    var q = from p in grdKhoXuat.GetDataRows()
+                            where Utility.Int32Dbnull(p.Cells[DmucThuoc.Columns.IdThuoc].Value, 0) == _idthuoc
+                            select p;
+                    if (q.Count() > 0)
+                    {
+                        cmdAddDetail.Enabled = true;
+                        grdKhoXuat.MoveTo(q.First());
 
+                    }
+                    else
+                    {
+                        cmdAddDetail.Enabled = false;
+                    }
+                    var q1 = from p in grdPhieuXuatChiTiet.GetDataRows()
+                             where Utility.Int32Dbnull(p.Cells[DmucThuoc.Columns.IdThuoc].Value, 0) == _idthuoc
+                             select p;
+                    if (q1.Count() > 0)
+                    {
+                        grdPhieuXuatChiTiet.MoveTo(q1.First());
+                    }
+
+                }
+                else
+                {
+                    cmdAddDetail.Enabled = false;
+                    grdKhoXuat.MoveFirst();
+                }
             }
-            else
+            catch
             {
-
             }
         }
 
@@ -482,6 +509,8 @@ namespace VNS.HIS.UI.THUOC
                     newItem.DonGia = Utility.DecimaltoDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.GiaBan]);
                     newItem.GiaNhap = Utility.DecimaltoDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap]);
                     newItem.SoLo = Utility.sDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.SoLo], "");
+                    newItem.SoDky = Utility.sDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.SoDky], "");
+                    newItem.SoQdinhthau = Utility.sDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau], "");
                     newItem.SoLuong = Utility.Int32Dbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.SoLuong], 0);
                     newItem.ThanhTien =
                         Utility.DecimaltoDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap]) *
@@ -792,8 +821,11 @@ namespace VNS.HIS.UI.THUOC
                         drv[TPhieuNhapxuatthuocChitiet.Columns.GiaPhuthuTraituyen] = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.PhuthuTraituyen].Value, 0);
                         drv[TPhieuNhapxuatthuocChitiet.Columns.Vat] = vat;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap] = dongia;
+                        drv[TPhieuNhapxuatthuocChitiet.Columns.DonGia] = dongia;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.MaNhacungcap] = manhacungcap;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.SoLo] = solo;
+                        drv[TPhieuNhapxuatthuocChitiet.Columns.SoDky] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoDky].Value);
+                        drv[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau].Value);
                         drv[TPhieuNhapxuatthuocChitiet.Columns.IdThuockho] = IdThuockho;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.IdChuyen] = IdThuockho;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBan] = Giaban;
@@ -891,8 +923,11 @@ namespace VNS.HIS.UI.THUOC
                     drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBhyt] = GiaBhyt;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.Vat] = vat;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap] = dongia;
+                    drv[TPhieuNhapxuatthuocChitiet.Columns.DonGia] = dongia;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.MaNhacungcap] = manhacungcap;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.SoLo] = solo;
+                    drv[TPhieuNhapxuatthuocChitiet.Columns.SoDky] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoDky].Value);
+                    drv[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau].Value);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.IdThuockho] = IdThuockho;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBan] = Giaban;
 

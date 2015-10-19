@@ -118,6 +118,7 @@
             // 
             this.txtLydotra._backcolor = System.Drawing.SystemColors.Info;
             this.txtLydotra._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLydotra._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLydotra.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLydotra.AutoCompleteList")));
             this.txtLydotra.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLydotra.CaseSensitive = false;
@@ -142,7 +143,7 @@
             this.txtLydotra.Size = new System.Drawing.Size(884, 21);
             this.txtLydotra.splitChar = '@';
             this.txtLydotra.splitCharIDAndCode = '#';
-            this.txtLydotra.TabIndex = 483;
+            this.txtLydotra.TabIndex = 4;
             this.txtLydotra.TakeCode = false;
             this.txtLydotra.txtMyCode = null;
             this.txtLydotra.txtMyCode_Edit = null;
@@ -409,6 +410,7 @@
             this.splitContainer1.Size = new System.Drawing.Size(1008, 560);
             this.splitContainer1.SplitterDistance = 567;
             this.splitContainer1.TabIndex = 69;
+            this.splitContainer1.TabStop = false;
             // 
             // uiGroupBox1
             // 
@@ -436,7 +438,7 @@
             this.grdKhoXuat.FocusCellFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.grdKhoXuat.FocusCellFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
             this.grdKhoXuat.FocusStyle = Janus.Windows.GridEX.FocusStyle.Solid;
-            this.grdKhoXuat.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdKhoXuat.Font = new System.Drawing.Font("Arial", 9F);
             this.grdKhoXuat.FrozenColumns = 3;
             this.grdKhoXuat.GroupByBoxVisible = false;
             this.grdKhoXuat.GroupTotals = Janus.Windows.GridEX.GroupTotals.Always;
@@ -508,7 +510,7 @@
             this.grdPhieuXuatChiTiet.DynamicFiltering = true;
             this.grdPhieuXuatChiTiet.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
             this.grdPhieuXuatChiTiet.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.grdPhieuXuatChiTiet.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.grdPhieuXuatChiTiet.Font = new System.Drawing.Font("Arial", 9F);
             this.grdPhieuXuatChiTiet.FrozenColumns = 1;
             this.grdPhieuXuatChiTiet.GroupByBoxVisible = false;
             this.grdPhieuXuatChiTiet.GroupTotals = Janus.Windows.GridEX.GroupTotals.Always;

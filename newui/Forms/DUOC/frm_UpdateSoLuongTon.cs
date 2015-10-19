@@ -40,7 +40,13 @@ namespace VNS.HIS.UI.THUOC
             optLIFO.CheckedChanged += new EventHandler(_CheckedChanged);
             optUutien.CheckedChanged += new EventHandler(_CheckedChanged);
             optExpireDate.CheckedChanged += new EventHandler(_CheckedChanged);
+            cmdRefresh.Click += cmdRefresh_Click;
             Cauhinh();
+        }
+
+        void cmdRefresh_Click(object sender, EventArgs e)
+        {
+            cboKho_SelectedIndexChanged(cboKho, e);
         }
 
         void grdKho_UpdatingCell(object sender, UpdatingCellEventArgs e)
@@ -463,9 +469,19 @@ namespace VNS.HIS.UI.THUOC
 
         private void frm_UpdateSoLuongTon_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode==Keys.Escape)cmdExit.PerformClick();
-           
-            if(e.KeyCode==Keys.S&&e.Control)cmdSave.PerformClick();
+            if (e.KeyCode == Keys.Escape)
+            {
+                cmdExit.PerformClick();
+            }
+            if (e.KeyCode == Keys.F5)
+            {
+                cboKho_SelectedIndexChanged(cboKho, e);
+                return;
+            }
+            if (e.KeyCode == Keys.S && e.Control)
+            {
+                cmdSave.PerformClick();
+            }
         }
 
       

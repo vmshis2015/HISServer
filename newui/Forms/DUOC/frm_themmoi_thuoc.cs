@@ -447,8 +447,8 @@ namespace VNS.HIS.UI.THUOC
                     txtMaQD40.Text = Utility.sDbnull(objThuoc.MaQD40);
                     txtMaQDTinh.Text = Utility.sDbnull(objThuoc.MaQDTinh);
                     txtSlVuottran.Text = Utility.DecimaltoDbnull(objThuoc.SluongVuottran, 0).ToString();
-
-                     txtDongia.Text = Utility.sDbnull(objThuoc.DonGia);
+                    txtDongia.Text = Utility.sDbnull(objThuoc.DonGia);
+                     txtGiaDV.Text = Utility.sDbnull(objThuoc.GiaDv);
                      txtGiaBHYT.Text = Utility.sDbnull(objThuoc.GiaBhyt);
                      txtPTDT.Text = Utility.sDbnull(objThuoc.PhuthuDungtuyen);
                      txtPTTT.Text = Utility.sDbnull(objThuoc.PhuthuTraituyen);
@@ -673,6 +673,7 @@ namespace VNS.HIS.UI.THUOC
 
                 objThuoc.IdLoaithuoc = Utility.Int16Dbnull(txtLoaithuoc.MyID);
                 objThuoc.DonGia = Utility.DecimaltoDbnull( txtDongia.Text, 0);
+                objThuoc.GiaDv = Utility.DecimaltoDbnull(txtGiaDV.Text, 0);
                 objThuoc.GiaBhyt = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
                 objThuoc.PhuthuDungtuyen = Utility.DecimaltoDbnull(txtPTDT.Text, 0);
                 objThuoc.PhuthuTraituyen = Utility.DecimaltoDbnull(txtPTTT.Text, 0);
@@ -786,6 +787,7 @@ namespace VNS.HIS.UI.THUOC
             objThuoc.TenThuoc = Utility.GetValue(txtName.Text, false);
             objThuoc.TenBhyt = Utility.GetValue(txtTEN_BHYT.Text, false);
             objThuoc.DonGia = Utility.DecimaltoDbnull( txtDongia.Text,0);
+            objThuoc.GiaDv = Utility.DecimaltoDbnull(txtGiaDV.Text, 0);
             objThuoc.GiaBhyt = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
             objThuoc.PhuthuDungtuyen = Utility.DecimaltoDbnull(txtPTDT.Text, 0);
             objThuoc.PhuthuTraituyen = Utility.DecimaltoDbnull(txtPTTT.Text, 0);
@@ -906,6 +908,7 @@ namespace VNS.HIS.UI.THUOC
             txtHangSX.Init();
             txtDangBaoChe.Init();
             txtCachsudung.Init();
+            pnlGia.Enabled = Utility.Coquyen("quyen_suagia_trendanhmucthuoc");
             txtName.Init(m_dtDrugDataSource.Copy(), new List<string>() { DmucThuoc.Columns.IdThuoc, DmucThuoc.Columns.MaThuoc, DmucThuoc.Columns.TenThuoc });
             m_dtqheCamKeChungDonthuoc = new Select().From(QheCamchidinhChungphieu.Schema).Where(QheCamchidinhChungphieu.Columns.Loai).IsEqualTo(1).ExecuteDataSet().Tables[0];
             DataTable dtChitiet = new Select().From(DmucThuoc.Schema).ExecuteDataSet().Tables[0];
@@ -929,6 +932,7 @@ namespace VNS.HIS.UI.THUOC
                 m_dtLoaithuoc_new = dtLoaithuoc.Copy();
             else
             {
+                
                 foreach (DataRow dr in dtLoaithuoc.Rows)
                 {
                     if (Utility.CoquyenTruycapDanhmuc(Utility.sDbnull(dr[DmucLoaithuoc.Columns.IdLoaithuoc]), "1"))

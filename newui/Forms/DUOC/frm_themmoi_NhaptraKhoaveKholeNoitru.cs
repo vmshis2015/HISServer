@@ -188,14 +188,45 @@ namespace VNS.HIS.UI.THUOC
 
         void txtthuoc__OnEnterMe()
         {
-            int _idthuoc = Utility.Int32Dbnull(txtthuoc.MyID, -1);
-            if (_idthuoc > 0)
+            try
             {
+                int _idthuoc = Utility.Int32Dbnull(txtthuoc.MyID, -1);
+                if (_idthuoc > 0)
+                {
+                    var q = from p in grdKhoXuat.GetDataRows()
+                            where Utility.Int32Dbnull(p.Cells[DmucThuoc.Columns.IdThuoc].Value, 0) == _idthuoc
+                            select p;
+                    if (q.Count() > 0)
+                    {
+                        cmdAddDetail.Enabled = true;
+                        grdKhoXuat.MoveTo(q.First());
 
+                    }
+                    else
+                    {
+                        cmdAddDetail.Enabled = false;
+                    }
+                    var q1 = from p in grdPhieuXuatChiTiet.GetDataRows()
+                             where Utility.Int32Dbnull(p.Cells[DmucThuoc.Columns.IdThuoc].Value, 0) == _idthuoc
+                             select p;
+                    if (q1.Count() > 0)
+                    {
+                        grdPhieuXuatChiTiet.MoveTo(q1.First());
+                    }
+
+                }
+                else
+                {
+                    cmdAddDetail.Enabled = false;
+                    grdKhoXuat.MoveFirst();
+                }
             }
-            else
+            catch
             {
-
+            }
+            finally
+            {
+               // Utility.SetMsg(lblMsg, cmdAddDetail.Enabled ? "" : "Chú ý: " + (ten_kieuthuoc_vt) + " bạn chọn không có trong " + txtKhoXuat.Text + " Đề nghị chọn lại " + ten_kieuthuoc_vt + "!", false);
             }
         }
 
@@ -404,8 +435,10 @@ namespace VNS.HIS.UI.THUOC
         private void SetStatusControl()
         {
         }
+        string ten_kieuthuoc_vt = "Thuốc";
         private void frm_themmoi_NhaptraKhoaveKholeNoitru_Load(object sender, EventArgs e)
         {
+            ten_kieuthuoc_vt = KIEU_THUOC_VT == "VT" ? "Vật tư" : "Thuốc";
             txtLyDoXuat.Init();
             txtNguoinhan.Init();
             txtNguoigiao.Init();
@@ -584,6 +617,8 @@ namespace VNS.HIS.UI.THUOC
                     newItem.GiaNhap = Utility.DecimaltoDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap]);
                   
                     newItem.SoLo = Utility.sDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.SoLo], "");
+                    newItem.SoDky = Utility.sDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.SoDky], "");
+                    newItem.SoQdinhthau = Utility.sDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau], "");
                     newItem.SoLuong = Utility.Int32Dbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.SoLuong], 0);
                     newItem.SluongChia = Utility.Int32Dbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.SluongChia], 0);
                     newItem.ThanhTien =
@@ -907,8 +942,11 @@ namespace VNS.HIS.UI.THUOC
                         drv[TPhieuNhapxuatthuocChitiet.Columns.GiaPhuthuTraituyen] = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.PhuthuTraituyen].Value, 0);
                         drv[TPhieuNhapxuatthuocChitiet.Columns.NgayNhap] = NgayNhap;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap] = dongia;
+                        drv[TPhieuNhapxuatthuocChitiet.Columns.DonGia] = dongia;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.MaNhacungcap] = manhacungcap;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.SoLo] = solo;
+                        drv[TPhieuNhapxuatthuocChitiet.Columns.SoDky] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoDky].Value);
+                        drv[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau].Value);
                         drv[TPhieuNhapxuatthuocChitiet.Columns.IdThuockho] = IdThuockho;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBan] = Giaban;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.IdChuyen] = IdThuockho;
@@ -1025,8 +1063,11 @@ namespace VNS.HIS.UI.THUOC
                     drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBhyt] = GiaBhyt;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.NgayNhap] = NgayNhap;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap] = dongia;
+                    drv[TPhieuNhapxuatthuocChitiet.Columns.DonGia] = dongia;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.MaNhacungcap] = manhacungcap;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.SoLo] = solo;
+                    drv[TPhieuNhapxuatthuocChitiet.Columns.SoDky] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoDky].Value);
+                    drv[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau].Value);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.IdThuockho] = IdThuockho;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBan] = Giaban;
                     

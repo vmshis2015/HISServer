@@ -65,7 +65,8 @@ namespace VNS.HIS.UI.THUOC
             {
                 Thread.Sleep(PropertyLib._NhapkhoProperties.autosaveAfter*1000);
                 _Autosave = true;
-                AutoSave();
+                if (IsValidNhapKho_Auto())
+                    AutoSave();
             }
         }
         void InitEvents()
@@ -78,8 +79,6 @@ namespace VNS.HIS.UI.THUOC
             txtSoluong.TextChanged += new EventHandler(txtSoluong_TextChanged);
             this.txtTongTien.TextChanged += new System.EventHandler(this.txtTongTien_TextChanged);
             this.txtTongTien.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTongTien_KeyPress);
-            this.cboKhoNhap.SelectedIndexChanged += new System.EventHandler(this.cboKhoNhap_SelectedIndexChanged);
-            this.cboKhoNhap.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboKhoNhap_KeyPress);
             this.txtVAT.TextChanged += new System.EventHandler(this.txtVAT_TextChanged);
             this.txtSoHoaDon.TextChanged += new System.EventHandler(this.txtSoHoaDon_TextChanged);
             this.cmdXoaThongTin.Click += new System.EventHandler(this.cmdXoaThongTin_Click);
@@ -111,6 +110,24 @@ namespace VNS.HIS.UI.THUOC
 
             txtDongia._OnTextChanged += txtDongia__OnTextChanged;
             txtGiaban._OnTextChanged += txtGiaban__OnTextChanged;
+            txtKhonhap._OnEnterMe += txtKhonhap__OnEnterMe;
+            txtsoDK._OnShowData += txtsoDK__OnShowData;
+            txtsoQDthau._OnShowData += txtsoQDthau__OnShowData;
+        }
+
+        void txtsoQDthau__OnShowData()
+        {
+            VNS.HIS.UI.Classess.dmucchunghelper.ShowMe(txtsoQDthau);
+        }
+
+        void txtsoDK__OnShowData()
+        {
+            VNS.HIS.UI.Classess.dmucchunghelper.ShowMe(txtsoDK);
+        }
+
+        void txtKhonhap__OnEnterMe()
+        {
+            
         }
 
         void txtGiaban__OnTextChanged(string text)
@@ -272,13 +289,7 @@ namespace VNS.HIS.UI.THUOC
                     m_dtDataKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_CHAN();
                 }
 
-                if (m_dtDataKhoNhap.Rows.Count > 1)
-                    DataBinding.BindDataCombobox(cboKhoNhap, m_dtDataKhoNhap,
-                                               TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
-                                               "---Chọn kho nhập---", false);
-                else
-                    DataBinding.BindDataCombobox(cboKhoNhap, m_dtDataKhoNhap,
-                                           TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho, "---Chọn---", true);
+                txtKhonhap.Init(m_dtDataKhoNhap, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
                 DataBinding.BindDataCombobox(cboNhanVien, CommonLoadDuoc.LAYTHONGTIN_NHANVIEN(),
                                        DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.TenNhanvien, "---Nhân viên---", false);
                 cboNhanVien.Enabled = false;
@@ -385,7 +396,7 @@ namespace VNS.HIS.UI.THUOC
                     txtNguoinhan._Text = Utility.sDbnull(objPhieuNhap.NguoiNhan);
                     dtNgayNhap.Value = Convert.ToDateTime(objPhieuNhap.NgayHoadon);
                     txtTongTien.Text = Utility.sDbnull(objPhieuNhap.TongTien);
-                    cboKhoNhap.SelectedValue = Utility.sDbnull(objPhieuNhap.IdKhonhap);
+                    txtKhonhap.SetId(objPhieuNhap.IdKhonhap);
                     txtNo.Text = objPhieuNhap.TkNo;
                     txtCo.Text = objPhieuNhap.TkCo;
                     txtSoCTkemtheo.Text = objPhieuNhap.SoChungtuKemtheo;
@@ -443,6 +454,8 @@ namespace VNS.HIS.UI.THUOC
                    objThuoc= DmucThuoc.FetchByID(Utility.Int32Dbnull(txtDrug_ID.Text));
                    if (objThuoc != null)
                    {
+                       txtsoDK.Text = objThuoc.SoDangky;
+                       txtsoQDthau.Text = objThuoc.QD31;
                        DmucChung objMeasureUnit = THU_VIEN_CHUNG.LaydoituongDmucChung("DONVITINH", Utility.sDbnull(objThuoc.MaDonvitinh));
                        if (objMeasureUnit != null)
                        {
@@ -498,11 +511,15 @@ namespace VNS.HIS.UI.THUOC
                    else
                    {
                        txtDongia.Clear();
+                       txtsoDK.Clear();
+                       txtsoQDthau.Clear();
                    }
 
                 }
                 else
                 {
+                    txtsoDK.Clear();
+                    txtsoQDthau.Clear();
                     txtDongia.Clear();
                     txtDonViTinh.Clear();
                 }
@@ -536,7 +553,7 @@ namespace VNS.HIS.UI.THUOC
         private void cmdAddDetail_Click(object sender, EventArgs e)
         {
             if (!IsValidChiTiet()) return;
-            AddDetailNhapKho();
+            ThemchitietNhapkho();
             ClearControl();
             TinhSumThanhTien();
             ModifyCommand();
@@ -621,7 +638,7 @@ namespace VNS.HIS.UI.THUOC
             }
             return true;
         }
-        private void AddDetailNhapKho()
+        private void ThemchitietNhapkho()
         {
             try
             {
@@ -636,6 +653,8 @@ namespace VNS.HIS.UI.THUOC
                     + TPhieuNhapxuatthuocChitiet.Columns.GiaBhyt + "='" + Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0) + "' AND "
                     + TPhieuNhapxuatthuocChitiet.Columns.GiaPhuthuDungtuyen + "=" +Utility.DecimaltoDbnull(txtPhuthuDT.Text, 0) + " AND "
                     + TPhieuNhapxuatthuocChitiet.Columns.GiaPhuthuTraituyen + "=" +Utility.DecimaltoDbnull(txtPhuthuTT.Text, 0) + " AND "
+                    + TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau + "='" + Utility.sDbnull(txtsoQDthau.Text, "") + "' AND "
+                    + TPhieuNhapxuatthuocChitiet.Columns.SoDky + "='" + Utility.sDbnull(txtsoDK.Text, "") + "' AND "
                     + TPhieuNhapxuatthuocChitiet.Columns.GiaBan + "=" + Utility.DecimaltoDbnull(txtGiaban.Text, 0)
                     );
                 if (arrDr.Length > 0)
@@ -663,6 +682,8 @@ namespace VNS.HIS.UI.THUOC
 
                     drv[TPhieuNhapxuatthuocChitiet.Columns.MaNhacungcap] = Utility.DoTrim(txtNhacungcap.myCode);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.SoLo] = Utility.DoTrim(txtSoLo.Text);
+                    drv[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau] = Utility.DoTrim(txtsoQDthau.Text);
+                    drv[TPhieuNhapxuatthuocChitiet.Columns.SoDky] = Utility.DoTrim(txtsoDK.Text);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap] = Utility.DecimaltoDbnull(txtDongia.Text);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.SoLuong] = Utility.DecimaltoDbnull(txtSoluong.Text);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.ThanhTien] = Utility.DecimaltoDbnull(txtThanhTien.Text);
@@ -670,6 +691,7 @@ namespace VNS.HIS.UI.THUOC
                     drv[TPhieuNhapxuatthuocChitiet.Columns.ThangDu] = Utility.Int32Dbnull(nmrThangDu.Value, 0);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.Vat] = Utility.Int32Dbnull(txtVAT.Text, 0);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBan] = Utility.DecimaltoDbnull(txtGiaban.Text, 0);
+                    drv[TPhieuNhapxuatthuocChitiet.Columns.DonGia] = Utility.DecimaltoDbnull(txtDongia.Text, 0);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.NgayHethan] = dtNgayHetHan.Text;
                     drv["NGAY_HET_HAN"] = dtNgayHetHan.Value.Date;
                     m_dtDataPhieuChiTiet.Rows.Add(drv);
@@ -706,11 +728,11 @@ namespace VNS.HIS.UI.THUOC
                 txtNhacungcap.Focus();
                 return false;
             }
-            if (cboKhoNhap.SelectedValue.ToString() == "-1")
+            if (Utility.Int32Dbnull(txtKhonhap.MyID,-1)<=0)
             {
                 if (!_Autosave)
                     Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải chọn kho để nhập thuốc", true);
-                cboKhoNhap.Focus();
+                txtKhonhap.Focus();
                 return false;
             }
             if (Utility.DecimaltoDbnull(txtTongHoaDon.Text) != Utility.DecimaltoDbnull(txtTongTien.Text) && THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NHAPKHO_KIEMTRATONGTIEN", "0", false) == "1")
@@ -722,6 +744,31 @@ namespace VNS.HIS.UI.THUOC
                 return false;
             }
 
+            return true;
+        }
+        private bool IsValidNhapKho_Auto()
+        {
+            Utility.SetMsg(uiStatusBar1.Panels["MSG"], "", false);
+            if (string.IsNullOrEmpty(txtSoHoaDon.Text))
+            {
+               
+                return false;
+
+            }
+            if (txtNhacungcap.myCode == "-1")
+            {
+               
+                return false;
+            }
+            if (Utility.Int32Dbnull(txtKhonhap.MyID, -1) <= 0)
+            {
+               
+                return false;
+            }
+            if (Utility.DecimaltoDbnull(txtTongHoaDon.Text) != Utility.DecimaltoDbnull(txtTongTien.Text) && THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NHAPKHO_KIEMTRATONGTIEN", "0", false) == "1")
+            {
+                return false;
+            }
             return true;
         }
         /// <summary>
@@ -861,7 +908,7 @@ namespace VNS.HIS.UI.THUOC
             Utility.DefaultNow(this);
         }
         #region "khai báo các đối tượng để thực hiện việc "
-        private TPhieuNhapxuatthuoc CreatePhieuNhapKho()
+        private TPhieuNhapxuatthuoc TaophieuNhapkho()
         {
             TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc=new TPhieuNhapxuatthuoc();
             if(em_Action==action.Update)
@@ -877,7 +924,7 @@ namespace VNS.HIS.UI.THUOC
                     objTPhieuNhapxuatthuoc.IsNew = false;
                 }
                 objTPhieuNhapxuatthuoc.SoHoadon = Utility.sDbnull(txtSoHoaDon.Text);
-                objTPhieuNhapxuatthuoc.IdKhonhap = Utility.Int16Dbnull(cboKhoNhap.SelectedValue, -1);
+                objTPhieuNhapxuatthuoc.IdKhonhap = Utility.Int16Dbnull(txtKhonhap.MyID, -1);
                 objTPhieuNhapxuatthuoc.MaNhacungcap = txtNhacungcap.myCode;
                 objTPhieuNhapxuatthuoc.MotaThem = Utility.DoTrim(txtLyDoNhap.Text);
                 objTPhieuNhapxuatthuoc.TrangThai = 0;
@@ -904,7 +951,7 @@ namespace VNS.HIS.UI.THUOC
         /// hàm thực hiện việc lấy thông tin chi tiết
         /// </summary>
         /// <returns></returns>
-        private List< TPhieuNhapxuatthuocChitiet> GetReceiptDetails()
+        private List< TPhieuNhapxuatthuocChitiet> TaoChitietNhapkho()
         {
             List<TPhieuNhapxuatthuocChitiet> lstDetails = new List<TPhieuNhapxuatthuocChitiet>();
             try
@@ -923,11 +970,14 @@ namespace VNS.HIS.UI.THUOC
                             Convert.ToDateTime(gridExRow.Cells["NGAY_HET_HAN"].Value).Date;
                         _newItem.GiaNhap = Utility.DecimaltoDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap].Value);
                         _newItem.SoLo = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoLo].Value);
+                        _newItem.SoDky = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoDky].Value);
+                        _newItem.SoQdinhthau = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau].Value);
                         _newItem.SoLuong = Utility.Int32Dbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoLuong].Value);
                         _newItem.ThanhTien = Utility.DecimaltoDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.ThanhTien].Value);
                         _newItem.ChietKhau = Utility.Int32Dbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.ChietKhau].Value);
                         _newItem.Vat = Utility.DecimaltoDbnull(txtVAT.Text);
                         _newItem.GiaBan = Utility.DecimaltoDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.GiaBan].Value, 0);
+                        _newItem.DonGia = Utility.DecimaltoDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.DonGia].Value, 0);
                         _newItem.SluongChia = 1;
                         _newItem.GiaBhyt = Utility.DecimaltoDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.GiaBhyt].Value);
                         _newItem.GiaBhytCu = Utility.DecimaltoDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.GiaBhytCu].Value);
@@ -953,8 +1003,8 @@ namespace VNS.HIS.UI.THUOC
         /// </summary>
         private void ThemPhieuNhapKho()
         {
-            TPhieuNhapxuatthuoc objPhieuNhap = CreatePhieuNhapKho();
-            List< TPhieuNhapxuatthuocChitiet> lstDetail=GetReceiptDetails();
+            TPhieuNhapxuatthuoc objPhieuNhap = TaophieuNhapkho();
+            List< TPhieuNhapxuatthuocChitiet> lstDetail=TaoChitietNhapkho();
             if (lstDetail.Count <= 0)
             {
                
@@ -970,7 +1020,7 @@ namespace VNS.HIS.UI.THUOC
                     TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc = TPhieuNhapxuatthuoc.FetchByID(Utility.Int32Dbnull(txtIDPhieuNhapKho.Text));
                     DataRow newDr = p_mDataPhieuNhapKho.NewRow();
                     Utility.FromObjectToDatarow(objTPhieuNhapxuatthuoc,ref newDr);
-                    TDmucKho objKho = TDmucKho.FetchByID(Utility.Int32Dbnull(cboKhoNhap.SelectedValue, -1));
+                    TDmucKho objKho = TDmucKho.FetchByID(Utility.Int32Dbnull(txtKhonhap.MyID, -1));
                     if (objKho != null)
                         newDr["ten_khonhap"] = Utility.sDbnull(objKho.TenKho);
                     p_mDataPhieuNhapKho.Rows.Add(newDr);
@@ -997,8 +1047,8 @@ namespace VNS.HIS.UI.THUOC
         }
         private void UpdatePhieuNhapKho()
         {
-            TPhieuNhapxuatthuoc objPhieuNhap = CreatePhieuNhapKho();
-            List<TPhieuNhapxuatthuocChitiet> lstDetail = GetReceiptDetails();
+            TPhieuNhapxuatthuoc objPhieuNhap = TaophieuNhapkho();
+            List<TPhieuNhapxuatthuocChitiet> lstDetail = TaoChitietNhapkho();
             if (lstDetail.Count <= 0)
             {
 
@@ -1019,7 +1069,7 @@ namespace VNS.HIS.UI.THUOC
                     DataRow newDr = p_mDataPhieuNhapKho.NewRow();
 
                     Utility.FromObjectToDatarow(objTPhieuNhapxuatthuoc, ref newDr);
-                    TDmucKho objKho = TDmucKho.FetchByID(Utility.Int32Dbnull(cboKhoNhap.SelectedValue, -1));
+                    TDmucKho objKho = TDmucKho.FetchByID(Utility.Int32Dbnull(txtKhonhap.MyID, -1));
                     if (objKho != null)
                         newDr["ten_khonhap"] = Utility.sDbnull(objKho.TenKho);
                     p_mDataPhieuNhapKho.Rows.Add(newDr);
@@ -1047,8 +1097,8 @@ namespace VNS.HIS.UI.THUOC
         /// </summary>
         private void AutoInsert()
         {
-            TPhieuNhapxuatthuoc objPhieuNhap = CreatePhieuNhapKho();
-            List<TPhieuNhapxuatthuocChitiet> lstDetail = GetReceiptDetails();
+            TPhieuNhapxuatthuoc objPhieuNhap = TaophieuNhapkho();
+            List<TPhieuNhapxuatthuocChitiet> lstDetail = TaoChitietNhapkho();
             if (lstDetail.Count <= 0 || objPhieuNhap == null)
             {
 
@@ -1064,7 +1114,7 @@ namespace VNS.HIS.UI.THUOC
                     TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc = TPhieuNhapxuatthuoc.FetchByID(Utility.Int32Dbnull(txtIDPhieuNhapKho.Text));
                     DataRow newDr = p_mDataPhieuNhapKho.NewRow();
                     Utility.FromObjectToDatarow(objTPhieuNhapxuatthuoc, ref newDr);
-                    TDmucKho objKho = TDmucKho.FetchByID(Utility.Int32Dbnull(cboKhoNhap.SelectedValue, -1));
+                    TDmucKho objKho = TDmucKho.FetchByID(Utility.Int32Dbnull(txtKhonhap.MyID, -1));
                     if (objKho != null)
                         newDr["ten_khonhap"] = Utility.sDbnull(objKho.TenKho);
                     p_mDataPhieuNhapKho.Rows.Add(newDr);
@@ -1081,8 +1131,8 @@ namespace VNS.HIS.UI.THUOC
         }
         private void AutoUpdate()
         {
-            TPhieuNhapxuatthuoc objPhieuNhap = CreatePhieuNhapKho();
-            List<TPhieuNhapxuatthuocChitiet> lstDetail = GetReceiptDetails();
+            TPhieuNhapxuatthuoc objPhieuNhap = TaophieuNhapkho();
+            List<TPhieuNhapxuatthuocChitiet> lstDetail = TaoChitietNhapkho();
             if (lstDetail.Count <= 0 || objPhieuNhap == null )
             {
 
@@ -1136,35 +1186,7 @@ namespace VNS.HIS.UI.THUOC
         }
 
       
-        /// <summary>
-        /// hàm thực hiện việc nhập kho thuốc
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cboKhoNhap_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            try
-            {
-                string sKeyChar = Utility.sDbnull(e.KeyChar);
-                if (!string.IsNullOrEmpty(sKeyChar))
-                {
-                    var query = from khonhap in m_dtDataKhoNhap.AsEnumerable()
-                                let y = khonhap[TDmucKho.Columns.IdKho]
-                                where Utility.sDbnull(khonhap[TDmucKho.Columns.MaKho]) == sKeyChar
-                                select y;
-                    if (query.Count() > 0)
-                    {
-                        cboKhoNhap.SelectedValue = Utility.sDbnull(query.FirstOrDefault());
-                    }
-                }
-            }
-            catch (Exception)
-            {
-
-
-            }
-           
-        }
+        
        
         /// <summary>
         /// hàm thực hiện việc nhập

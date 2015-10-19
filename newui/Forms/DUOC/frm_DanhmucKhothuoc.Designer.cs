@@ -136,7 +136,7 @@
             // 
             this.grdKhoThuoc.AlternatingColors = true;
             this.grdKhoThuoc.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
-                " thông tin kho thuốc và vật tư</FilterRowInfoText></LocalizableData>";
+    " thông tin kho thuốc và vật tư</FilterRowInfoText></LocalizableData>";
             this.grdKhoThuoc.DefaultFilterRowComparison = Janus.Windows.GridEX.FilterConditionOperator.Contains;
             grdKhoThuoc_DesignTimeLayout.LayoutString = resources.GetString("grdKhoThuoc_DesignTimeLayout.LayoutString");
             this.grdKhoThuoc.DesignTimeLayout = grdKhoThuoc_DesignTimeLayout;
