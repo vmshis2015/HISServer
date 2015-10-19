@@ -1298,6 +1298,7 @@
             // 
             this.txtLydotiem._backcolor = System.Drawing.SystemColors.Control;
             this.txtLydotiem._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLydotiem._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLydotiem.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLydotiem.AutoCompleteList")));
             this.txtLydotiem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLydotiem.CaseSensitive = false;
@@ -1520,6 +1521,7 @@
             // 
             this.txtHuongdieutri._backcolor = System.Drawing.SystemColors.Control;
             this.txtHuongdieutri._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHuongdieutri._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtHuongdieutri.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtHuongdieutri.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtHuongdieutri.AutoCompleteList")));
@@ -1571,6 +1573,7 @@
             // 
             this.txtKQ._backcolor = System.Drawing.SystemColors.Control;
             this.txtKQ._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKQ._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtKQ.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtKQ.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKQ.AutoCompleteList")));
@@ -1633,6 +1636,7 @@
             // 
             this.txtKet_Luan._backcolor = System.Drawing.SystemColors.Control;
             this.txtKet_Luan._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKet_Luan._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtKet_Luan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtKet_Luan.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKet_Luan.AutoCompleteList")));
@@ -1673,6 +1677,7 @@
             // 
             this.txtPhanungSautiem._backcolor = System.Drawing.SystemColors.Control;
             this.txtPhanungSautiem._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPhanungSautiem._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtPhanungSautiem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPhanungSautiem.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtPhanungSautiem.AutoCompleteList")));
@@ -1892,6 +1897,7 @@
             // 
             this.txtChongchidinhkhac._backcolor = System.Drawing.SystemColors.Control;
             this.txtChongchidinhkhac._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChongchidinhkhac._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtChongchidinhkhac.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtChongchidinhkhac.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtChongchidinhkhac.AutoCompleteList")));
@@ -2075,8 +2081,6 @@
             // vbLine1
             // 
             this.vbLine1._FontColor = System.Drawing.Color.Black;
-            this.vbLine1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.vbLine1.BackColor = System.Drawing.Color.Transparent;
             this.vbLine1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.vbLine1.FontText = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2084,7 +2088,7 @@
             this.vbLine1.Location = new System.Drawing.Point(4, 5);
             this.vbLine1.Margin = new System.Windows.Forms.Padding(4);
             this.vbLine1.Name = "vbLine1";
-            this.vbLine1.Size = new System.Drawing.Size(96, 22);
+            this.vbLine1.Size = new System.Drawing.Size(97, 22);
             this.vbLine1.TabIndex = 448;
             this.vbLine1.TabStop = false;
             this.vbLine1.YourText = "Khám phân loại";

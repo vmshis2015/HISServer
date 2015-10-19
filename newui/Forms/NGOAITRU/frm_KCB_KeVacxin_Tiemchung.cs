@@ -327,6 +327,8 @@ namespace VNS.HIS.UI.NGOAITRU
                                 row[KcbDonthuocChitiet.Columns.GiaBhyt] = Utility.DecimaltoDbnull(thuockho[TThuockho.Columns.GiaBhyt], 0);
                                 row[KcbDonthuocChitiet.Columns.Vat] = Utility.DecimaltoDbnull(thuockho[TThuockho.Columns.Vat],0);
                                 row[KcbDonthuocChitiet.Columns.SoLo] = Utility.sDbnull(thuockho[TThuockho.Columns.SoLo],"");
+                                row[KcbDonthuocChitiet.Columns.SoDky] = Utility.sDbnull(thuockho[TThuockho.Columns.SoDky], "");
+                                row[KcbDonthuocChitiet.Columns.SoQdinhthau] = Utility.sDbnull(thuockho[TThuockho.Columns.SoQdinhthau], "");
                                 row[KcbDonthuocChitiet.Columns.MaNhacungcap] = Utility.sDbnull(thuockho[TThuockho.Columns.MaNhacungcap],"");
                                 row["ten_donvitinh"] = this.txtDonViDung.Text;
                                 row["sNgay_hethan"] = Utility.sDbnull(thuockho["sNgay_hethan"],"");
@@ -517,6 +519,8 @@ namespace VNS.HIS.UI.NGOAITRU
                             row[KcbDonthuocChitiet.Columns.GiaBhyt] = Utility.DecimaltoDbnull(thuockho[TThuockho.Columns.GiaBhyt], 0);
                             row[KcbDonthuocChitiet.Columns.Vat] =Utility.DecimaltoDbnull( thuockho[TThuockho.Columns.Vat],0);
                             row[KcbDonthuocChitiet.Columns.SoLo] = Utility.sDbnull( thuockho[TThuockho.Columns.SoLo],"");
+                            row[KcbDonthuocChitiet.Columns.SoDky] = Utility.sDbnull(thuockho[TThuockho.Columns.SoDky], "");
+                            row[KcbDonthuocChitiet.Columns.SoQdinhthau] = Utility.sDbnull(thuockho[TThuockho.Columns.SoQdinhthau], "");
                             row[KcbDonthuocChitiet.Columns.MaNhacungcap] =Utility.sDbnull( thuockho[TThuockho.Columns.MaNhacungcap],"");
                             row["ten_donvitinh"] = this.txtDonViDung.Text;
                             row["sNgay_hethan"] = Utility.sDbnull(thuockho["sNgay_hethan"]);
@@ -1898,6 +1902,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 GiaBhyt = new decimal?(Utility.DecimaltoDbnull(drv[KcbDonthuocChitiet.Columns.GiaBhyt], -1)),
                 Vat = new decimal?(Utility.DecimaltoDbnull(drv[KcbDonthuocChitiet.Columns.Vat], -1)),
                 SoLo = Utility.sDbnull(drv[KcbDonthuocChitiet.Columns.SoLo], -1),
+                SoDky = Utility.sDbnull(drv[KcbDonthuocChitiet.Columns.SoDky], ""),
+                SoQdinhthau = Utility.sDbnull(drv[KcbDonthuocChitiet.Columns.SoQdinhthau], ""),
                 MaNhacungcap = Utility.sDbnull(drv[KcbDonthuocChitiet.Columns.MaNhacungcap], -1),
                 NgayHethan = Utility.ConvertDate(drv["sngay_hethan"].ToString()).Date,
                 NgayNhap = Utility.ConvertDate(drv["sngay_nhap"].ToString()).Date,

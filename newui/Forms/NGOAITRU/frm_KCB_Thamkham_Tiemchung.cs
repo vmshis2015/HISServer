@@ -1597,6 +1597,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         void ModifyButtonTiemChung()
         {
+            chkPhanungVacxin.Enabled = m_dtChitietDonthuoc != null && m_dtChitietDonthuoc.Rows.Count > 0 ;
             if (chkPhanungVacxin.Checked)
             {
                 cmdDatiem.Enabled = objChitiet != null && Utility.Byte2Bool(objChitiet.TrangThai);
