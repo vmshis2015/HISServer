@@ -830,9 +830,13 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             try
             {
+                TuybiennutchuyenCLS();
+                cmdHoanung.Enabled = ucTamung1.grdTamung.GetDataRows().Length > 0 && objLuotkham != null;
+                cmdChiphithem.Enabled = Utility.isValidGrid(grdList) && objLuotkham != null;
+                cmdChuyenDT.Enabled = Utility.isValidGrid(grdList) && objLuotkham != null;
                 cmdHuyThanhToan.Enabled =Utility.isValidGrid(grdList) && Utility.isValidGrid(grdPayment)  && objLuotkham != null;
                 cmdThanhToan.Enabled = Utility.isValidGrid(grdList) && grdThongTinChuaThanhToan.GetCheckedRows().Length > 0 && objLuotkham != null;
-
+                
                 cmdTraLaiTien.Enabled = Utility.isValidGrid(grdList) && grdThongTinDaThanhToan.GetCheckedRows().Length > 0 && objLuotkham != null;
                 cmdInPhieuChi.Enabled = Utility.isValidGrid(grdList) && grdPhieuChi.GetDataRows().Length > 0 && objLuotkham != null;
                 cmdInhoadon.Enabled = Utility.isValidGrid(grdList) && Utility.isValidGrid(grdPayment) && objLuotkham != null;
@@ -1092,7 +1096,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                            ucTamung1.ChangePatients(objLuotkham, string.Empty);
                            cmdHoanung.Text = objTamung == null ? "Hoàn ứng" : "Hủy hoàn ứng";
                            cmdHoanung.Tag = objTamung == null ? "0" : "1";
-                           cmdHoanung.Enabled = ucTamung1.grdTamung.GetDataRows().Length > 0;
+                           
                        }
                     KiemTraDaInPhoiBHYT();
                     GetDataChiTiet();
@@ -1108,7 +1112,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             {
                 getThongtincanhbao(Utility.Int32Dbnull(txtPatient_ID.Text, -1));
                 ModifyCommand();
-                TuybiennutchuyenCLS();
+               
                 if (PropertyLib._ThanhtoanProperties.AutoTab) tabThongTinCanThanhToan.SelectedIndex = 0;
             }
         }

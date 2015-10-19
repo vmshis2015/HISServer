@@ -765,6 +765,9 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             try
             {
+                cmdHoanung.Enabled = ucTamung1.grdTamung.GetDataRows().Length > 0 && objLuotkham != null;
+                cmdChuyenDT.Enabled = Utility.isValidGrid(grdList) && objLuotkham != null;
+
                 cmdHuyThanhToan.Enabled =Utility.isValidGrid(grdList) && Utility.isValidGrid(grdPayment)  && objLuotkham != null;
                 cmdThanhToan.Enabled = Utility.isValidGrid(grdList) && grdThongTinChuaThanhToan.GetCheckedRows().Length > 0 && objLuotkham != null && Utility.Byte2Bool(objLuotkham.TthaiThopNoitru) && objLuotkham.TrangthaiNoitru==4;
 
