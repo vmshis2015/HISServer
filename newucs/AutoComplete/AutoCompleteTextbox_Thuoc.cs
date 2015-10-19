@@ -769,17 +769,21 @@ namespace VNS.HIS.UCs
         // event for MouseClick in the ListBox
         private void listBox_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
+            AllowChangedListBox = false;
             // select the current item
             SelectItem();
             if (RaiseEventEnter) _OnEnterMe();
+            AllowChangedListBox = true;
         }
 
         // event for DoubleClick in the ListBox
         private void listBox_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
+            AllowChangedListBox = false;
             // select the current item
             SelectItem();
             if (RaiseEventEnter) _OnEnterMe();
+            AllowChangedListBox = true;
         }
 
         private void MoveSelectionInListBox(int Index,bool foreward)
@@ -978,6 +982,7 @@ namespace VNS.HIS.UCs
                 setDefaultValue();
                 this.HideSuggestionListBox();
             }
+            if (RaiseEventEnterWhenEmpty && _OnSelectionChanged != null) _OnSelectionChanged();
             if (Utility.DoTrim(this.Text) == "" && RaiseEventEnterWhenEmpty) _OnEnterMe();
         }
         public void ClearMe()

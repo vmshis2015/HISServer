@@ -18,7 +18,7 @@ namespace VNS.HIS.UCs
     public class AutoCompleteTextbox_Danhmucchung : TextBox
     {
         #region Fields
-
+        List<string> lstIdCodeName = new List<string>();
         // the ListBox used for suggestions
         private ListBox listBox;
         ToolStripMenuItem _item = new ToolStripMenuItem("Cấu hình danh mục");
@@ -287,6 +287,11 @@ namespace VNS.HIS.UCs
                 AllowTextChanged = true;
             }
         }
+        public HorizontalAlignment _TextAlign
+        {
+            get { return this.TextAlign; }
+            set { this.TextAlign = value; }
+        }
         public void ClearText()
         {
             AllowTextChanged = false;
@@ -502,6 +507,62 @@ namespace VNS.HIS.UCs
         public void SetDefaultItem()
         {
             SetCode(defaultItem);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dtData"></param>
+        /// <param name="lstIdCodeName">new List<string>(){"ID","CODE","NAME"}</string>Điền tên 3 cột đại diện cho ID, mã và tên vào danh sách này</param>
+        public void Init(DataTable dtData, List<string> lstIdCodeName)
+        {
+            try
+            {
+                this.lstIdCodeName = lstIdCodeName;
+                this.dtData = dtData;
+                if (dtData == null) return;
+                if (!dtData.Columns.Contains("ShortCut"))
+                    dtData.Columns.Add(new DataColumn("ShortCut", typeof(string)));
+                foreach (DataRowView dr in dtData.DefaultView)
+                {
+                    string shortcut = "";
+                    string realName = dr[lstIdCodeName[2]].ToString().Trim() + " " +
+                                      Utility.Bodau(dr[lstIdCodeName[2]].ToString().Trim());
+                    shortcut = dr[lstIdCodeName[1]].ToString().Trim();
+                    string[] arrWords = realName.ToLower().Split(' ');
+                    string _space = "";
+                    string _Nospace = "";
+                    foreach (string word in arrWords)
+                    {
+                        if (word.Trim() != "")
+                        {
+                            _space += word + " ";
+                            //_Nospace += word;
+                        }
+                    }
+                    shortcut += _space; // +_Nospace;
+                    foreach (string word in arrWords)
+                    {
+                        if (word.Trim() != "")
+                            shortcut += word.Substring(0, 1);
+                    }
+                    dr["ShortCut"] = shortcut;
+                }
+            }
+            catch
+            {
+            }
+            finally
+            {
+                var source = new List<string>();
+                var query = from p in dtData.AsEnumerable()
+                            select Utility.sDbnull(p[lstIdCodeName[0]], "") + "#" + Utility.sDbnull(p[lstIdCodeName[1]], "") + "@" + Utility.sDbnull(p[lstIdCodeName[2]], "") + "@" + Utility.sDbnull(p["shortcut"], "");
+                source = query.ToList();
+                this.AutoCompleteList = source;
+                this.TextAlign = _TextAlign;
+                this.CaseSensitive = false;
+                this.MinTypedCharacters = 1;
+
+            }
         }
         public void Init(DataTable dtData)
         {
@@ -908,6 +969,7 @@ namespace VNS.HIS.UCs
                 setDefaultValue();
                 this.HideSuggestionListBox();
             }
+            if (RaiseEventEnterWhenEmpty && _OnSelectionChanged != null) _OnSelectionChanged();
             if (Utility.DoTrim(this.Text) == "" && RaiseEventEnterWhenEmpty && _OnEnterMe != null) _OnEnterMe();
         }
         public void setDefaultValue()

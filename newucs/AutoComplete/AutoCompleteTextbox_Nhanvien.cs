@@ -728,17 +728,21 @@ namespace VNS.HIS.UCs
         // event for MouseClick in the ListBox
         private void listBox_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
+            AllowChangedListBox = false;
             // select the current item
             SelectItem();
             if (RaiseEventEnter && _OnEnterMe != null) _OnEnterMe();
+            AllowChangedListBox = true;
         }
 
         // event for DoubleClick in the ListBox
         private void listBox_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
+            AllowChangedListBox = false;
             // select the current item
             SelectItem();
             if (RaiseEventEnter && _OnEnterMe != null) _OnEnterMe();
+            AllowChangedListBox = true;
         }
 
         private void MoveSelectionInListBox(int Index)
