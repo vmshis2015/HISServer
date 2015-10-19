@@ -428,6 +428,8 @@ namespace VNS.HIS.UI.DANHMUC
             }
             finally
             {
+                txtMa.Init(m_dtData, new List<string>() { DmucChung.Columns.Ma, DmucChung.Columns.Ma, DmucChung.Columns.Ten });
+                txtTen.Init(m_dtData, new List<string>() { DmucChung.Columns.Ten, DmucChung.Columns.Ten, DmucChung.Columns.Ten });
                 //Gọi lại phần tùy biến nút . Chỉ thực hiện tùy biến lại khi thực hiện thành công
                 if (v_blnActResult && !chkAutoNew.Checked)
                 {
@@ -672,6 +674,8 @@ namespace VNS.HIS.UI.DANHMUC
                         Utility.ShowMsg("Có lỗi khi tìm kiếm dữ liệu:\n" , "Thông báo");
 
                 }
+                txtMa.Init(m_dtData, new List<string>() { DmucChung.Columns.Ma, DmucChung.Columns.Ma, DmucChung.Columns.Ten });
+                txtTen.Init(m_dtData, new List<string>() { DmucChung.Columns.Ten, DmucChung.Columns.Ten, DmucChung.Columns.Ten });
                 //Gán dữ liệu vào lưới
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtData, true, true, "1=1", "STT_HTHI,TEN");
                 //Kiểm tra nếu có dữ liệu thì tự động chọn dòng đầu tiên
@@ -867,8 +871,8 @@ namespace VNS.HIS.UI.DANHMUC
                 if (dr == null) return;
                 if (dr != null)
                 {
-                    txtMa.Text = dr[DmucChung.Columns.Ma].ToString();
-                    txtTen.Text = dr[DmucChung.Columns.Ten].ToString();
+                    txtMa._Text = dr[DmucChung.Columns.Ma].ToString();
+                    txtTen._Text = dr[DmucChung.Columns.Ten].ToString();
                     txtViettat.Text = dr[DmucChung.Columns.VietTat].ToString();
                     txtSTT.Text = dr[DmucChung.Columns.SttHthi].ToString();
                     chkDefault.Checked = Utility.Byte2Bool(dr[DmucChung.Columns.TrangthaiMacdinh]);

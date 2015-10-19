@@ -59,10 +59,8 @@
             this.chkTrangthai = new Janus.Windows.EditControls.UICheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSTT = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.txtTen = new Janus.Windows.GridEX.EditControls.EditBox();
             this.lblTen = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtMa = new Janus.Windows.GridEX.EditControls.EditBox();
             this.grdList = new Janus.Windows.GridEX.GridEX();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuInsert = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,6 +69,8 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtMa = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
+            this.txtTen = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.pnlBottom.SuspendLayout();
             this.pnlView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiTab1)).BeginInit();
@@ -236,6 +236,8 @@
             // 
             // uiTabPage1
             // 
+            this.uiTabPage1.Controls.Add(this.txtTen);
+            this.uiTabPage1.Controls.Add(this.txtMa);
             this.uiTabPage1.Controls.Add(this.chkDefault);
             this.uiTabPage1.Controls.Add(this.chkAutoNew);
             this.uiTabPage1.Controls.Add(this.txtMotathem);
@@ -246,10 +248,8 @@
             this.uiTabPage1.Controls.Add(this.chkTrangthai);
             this.uiTabPage1.Controls.Add(this.label2);
             this.uiTabPage1.Controls.Add(this.txtSTT);
-            this.uiTabPage1.Controls.Add(this.txtTen);
             this.uiTabPage1.Controls.Add(this.lblTen);
             this.uiTabPage1.Controls.Add(this.label1);
-            this.uiTabPage1.Controls.Add(this.txtMa);
             this.uiTabPage1.Location = new System.Drawing.Point(1, 23);
             this.uiTabPage1.Name = "uiTabPage1";
             this.uiTabPage1.Size = new System.Drawing.Size(782, 124);
@@ -351,14 +351,6 @@
             this.txtSTT.Size = new System.Drawing.Size(150, 21);
             this.txtSTT.TabIndex = 4;
             // 
-            // txtTen
-            // 
-            this.txtTen.Location = new System.Drawing.Point(345, 13);
-            this.txtTen.MaxLength = 255;
-            this.txtTen.Name = "txtTen";
-            this.txtTen.Size = new System.Drawing.Size(420, 21);
-            this.txtTen.TabIndex = 3;
-            // 
             // lblTen
             // 
             this.lblTen.BackColor = System.Drawing.Color.Transparent;
@@ -380,14 +372,6 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Mã :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtMa
-            // 
-            this.txtMa.Location = new System.Drawing.Point(114, 12);
-            this.txtMa.MaxLength = 50;
-            this.txtMa.Name = "txtMa";
-            this.txtMa.Size = new System.Drawing.Size(150, 21);
-            this.txtMa.TabIndex = 0;
             // 
             // grdList
             // 
@@ -463,6 +447,80 @@
             this.mnuRefresh.Size = new System.Drawing.Size(141, 22);
             this.mnuRefresh.Text = "Refresh (F5)";
             // 
+            // txtMa
+            // 
+            this.txtMa._backcolor = System.Drawing.SystemColors.Control;
+            this.txtMa._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMa.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMa.AutoCompleteList")));
+            this.txtMa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMa.CaseSensitive = false;
+            this.txtMa.CompareNoID = true;
+            this.txtMa.DefaultCode = "-1";
+            this.txtMa.DefaultID = "-1";
+            this.txtMa.Drug_ID = null;
+            this.txtMa.ExtraWidth = 0;
+            this.txtMa.FillValueAfterSelect = false;
+            this.txtMa.LOAI_DANHMUC = "NHACUNGCAP";
+            this.txtMa.Location = new System.Drawing.Point(114, 13);
+            this.txtMa.MaxHeight = 300;
+            this.txtMa.MinTypedCharacters = 2;
+            this.txtMa.MyCode = "-1";
+            this.txtMa.MyID = "-1";
+            this.txtMa.Name = "txtMa";
+            this.txtMa.RaiseEvent = false;
+            this.txtMa.RaiseEventEnter = false;
+            this.txtMa.RaiseEventEnterWhenEmpty = false;
+            this.txtMa.SelectedIndex = -1;
+            this.txtMa.Size = new System.Drawing.Size(150, 21);
+            this.txtMa.splitChar = '@';
+            this.txtMa.splitCharIDAndCode = '#';
+            this.txtMa.TabIndex = 0;
+            this.txtMa.TakeCode = false;
+            this.txtMa.txtMyCode = null;
+            this.txtMa.txtMyCode_Edit = null;
+            this.txtMa.txtMyID = null;
+            this.txtMa.txtMyID_Edit = null;
+            this.txtMa.txtMyName = null;
+            this.txtMa.txtMyName_Edit = null;
+            this.txtMa.txtNext = null;
+            // 
+            // txtTen
+            // 
+            this.txtTen._backcolor = System.Drawing.SystemColors.Control;
+            this.txtTen._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTen.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtTen.AutoCompleteList")));
+            this.txtTen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTen.CaseSensitive = false;
+            this.txtTen.CompareNoID = true;
+            this.txtTen.DefaultCode = "-1";
+            this.txtTen.DefaultID = "-1";
+            this.txtTen.Drug_ID = null;
+            this.txtTen.ExtraWidth = 0;
+            this.txtTen.FillValueAfterSelect = false;
+            this.txtTen.LOAI_DANHMUC = "NHACUNGCAP";
+            this.txtTen.Location = new System.Drawing.Point(345, 13);
+            this.txtTen.MaxHeight = 300;
+            this.txtTen.MinTypedCharacters = 2;
+            this.txtTen.MyCode = "-1";
+            this.txtTen.MyID = "-1";
+            this.txtTen.Name = "txtTen";
+            this.txtTen.RaiseEvent = false;
+            this.txtTen.RaiseEventEnter = false;
+            this.txtTen.RaiseEventEnterWhenEmpty = false;
+            this.txtTen.SelectedIndex = -1;
+            this.txtTen.Size = new System.Drawing.Size(420, 21);
+            this.txtTen.splitChar = '@';
+            this.txtTen.splitCharIDAndCode = '#';
+            this.txtTen.TabIndex = 1;
+            this.txtTen.TakeCode = false;
+            this.txtTen.txtMyCode = null;
+            this.txtTen.txtMyCode_Edit = null;
+            this.txtTen.txtMyID = null;
+            this.txtTen.txtMyID_Edit = null;
+            this.txtTen.txtMyName = null;
+            this.txtTen.txtMyName_Edit = null;
+            this.txtTen.txtNext = null;
+            // 
             // DMUC_DCHUNG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -508,10 +566,8 @@
         private Janus.Windows.EditControls.UIButton cmdPrint;
         private Janus.Windows.Ribbon.LabelCommand labelCommand1;
         private Janus.Windows.Ribbon.LabelCommand labelCommand2;
-        private Janus.Windows.GridEX.EditControls.EditBox txtTen;
         private System.Windows.Forms.Label lblTen;
         private System.Windows.Forms.Label label1;
-        private Janus.Windows.GridEX.EditControls.EditBox txtMa;
         private Janus.Windows.Ribbon.LabelCommand labelCommand3;
         private Janus.Windows.Ribbon.LabelCommand labelCommand4;
         private Janus.Windows.Ribbon.LabelCommand labelCommand5;
@@ -533,5 +589,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuPrint;
         private System.Windows.Forms.ToolStripMenuItem mnuRefresh;
         private Janus.Windows.EditControls.UICheckBox chkDefault;
+        private UCs.AutoCompleteTextbox_Danhmucchung txtTen;
+        private UCs.AutoCompleteTextbox_Danhmucchung txtMa;
     }
 }
