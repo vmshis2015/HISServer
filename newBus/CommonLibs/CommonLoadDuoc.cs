@@ -54,6 +54,7 @@ namespace VNS.Libs
                       .IsEqualTo(doiTuong));
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -75,6 +76,7 @@ namespace VNS.Libs
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
           sqlQuery.And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNoitru);
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -96,6 +98,7 @@ namespace VNS.Libs
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0)
           .And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNgoaitru);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -118,6 +121,7 @@ namespace VNS.Libs
 
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuocVT);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -144,6 +148,7 @@ namespace VNS.Libs
               sqlQuery.Where(TDmucKho.Columns.KieuKho).IsEqualTo(loaikho);
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -171,6 +176,7 @@ namespace VNS.Libs
 
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -201,6 +207,7 @@ namespace VNS.Libs
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -228,6 +235,55 @@ namespace VNS.Libs
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
+          sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
+          m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
+          return m_dtKhoThuoc;
+      }
+      public static DataTable LAYTHONGTIN_KHOTHUOC_AO()
+      {
+          DataTable m_dtKhoThuoc = new DataTable();
+          SqlQuery sqlQuery = new Select().From(TDmucKho.Schema);
+          if (!globalVariables.IsAdmin)
+          {
+              sqlQuery.Where(TDmucKho.Columns.IdKho).In(new Select(QheNhanvienKho.Columns.IdKho)
+                                                        .From(QheNhanvienKho.Schema).Where(QheNhanvienKho.Columns.IdNhanvien)
+                                                        .IsEqualTo(globalVariables.gv_intIDNhanvien));
+
+          }
+          if (sqlQuery.HasWhere)
+              sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          else
+          {
+              sqlQuery.Where(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          }
+          sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(1);
+          sqlQuery.And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNgoaitru);
+          sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
+          m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
+          return m_dtKhoThuoc;
+      }
+      public static DataTable LAYTHONGTIN_TUTRUC_AO()
+      {
+          DataTable m_dtKhoThuoc = new DataTable();
+          SqlQuery sqlQuery = new Select().From(TDmucKho.Schema);
+          if (!globalVariables.IsAdmin)
+          {
+              sqlQuery.Where(TDmucKho.Columns.IdKho).In(new Select(QheNhanvienKho.Columns.IdKho)
+                                                        .From(QheNhanvienKho.Schema).Where(QheNhanvienKho.Columns.IdNhanvien)
+                                                        .IsEqualTo(globalVariables.gv_intIDNhanvien));
+
+          }
+          if (sqlQuery.HasWhere)
+              sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          else
+          {
+              sqlQuery.Where(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          }
+          sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(1);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(1);
+          sqlQuery.And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNoitru);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -255,6 +311,7 @@ namespace VNS.Libs
               sqlQuery.Where(TDmucKho.Columns.KieuKho).In(lstKhole);
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -276,6 +333,7 @@ namespace VNS.Libs
           {
               sqlQuery.Where(TDmucKho.Columns.KhoThuocVt).In(lstKhoVT);
           }
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -303,6 +361,7 @@ namespace VNS.Libs
               sqlQuery.Where(TDmucKho.Columns.KhoThuocVt).In(lstKhoVT);
           }
           sqlQuery.And(TDmucKho.Columns.KieuKho).In(lstKhochan);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -332,6 +391,7 @@ namespace VNS.Libs
           sqlQuery.And(TDmucKho.Columns.KieuKho).In(lstKhole);
           sqlQuery.And(TDmucKho.Columns.LoaiBnhan).In(lstLoaiBN);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -366,6 +426,7 @@ namespace VNS.Libs
           SqlQuery sqlQuery = new Select().From(TDmucKho.Schema);
           sqlQuery.Where(TDmucKho.Columns.KieuKho).In(lstKhole);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
@@ -399,6 +460,7 @@ namespace VNS.Libs
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0)
           .And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNgoaitru);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -422,6 +484,7 @@ namespace VNS.Libs
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(1);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -445,6 +508,7 @@ namespace VNS.Libs
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(1);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.And(TDmucKho.Columns.IdKhoaphong).IsEqualTo(ID_KHOA);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
@@ -474,6 +538,7 @@ namespace VNS.Libs
           }
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0)
               .And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNoitru);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
            sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
@@ -502,6 +567,7 @@ namespace VNS.Libs
           }
           sqlQuery.And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNoitru);
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -527,7 +593,7 @@ namespace VNS.Libs
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0)//Không lấy tủ thuốc
               .And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNoitru);//Chỉ lấy các kho nội trú
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuocVT);
-
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
 
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
@@ -564,8 +630,8 @@ namespace VNS.Libs
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0)//Không lấy tủ thuốc
               .And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNoitru);//Chỉ lấy các kho nội trú
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuocVT);
-          
-          
+
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           DataTable dt_khovattu=LAYTHONGTIN_VATTU_KHOA(ID_KHOA);
@@ -594,6 +660,7 @@ namespace VNS.Libs
               sqlQuery.Where(TDmucKho.Columns.KhoThuocVt).In(lstKhoVT);
           }
           sqlQuery.And(TDmucKho.Columns.KieuKho).In(lstKhole);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.And(TDmucKho.Columns.IdKhoaphong).IsEqualTo(ID_KHOA);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
@@ -621,7 +688,7 @@ namespace VNS.Libs
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0)//Không lấy tủ thuốc
               .And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNoitru);//Chỉ lấy các kho nội trú
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
-
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
 
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
@@ -653,6 +720,7 @@ namespace VNS.Libs
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0)
               .And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNgoaitru);
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;
@@ -679,6 +747,7 @@ namespace VNS.Libs
               sqlQuery.Where(TDmucKho.Columns.KieuKho).In(lstKhole);
           }
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
@@ -709,6 +778,7 @@ namespace VNS.Libs
           }
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           if (m_dtKhoThuoc.Rows.Count <= 0) return "";
@@ -737,6 +807,7 @@ namespace VNS.Libs
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0).And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNgoaitru);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           if (m_dtKhoThuoc.Rows.Count <= 0) return new List<string>();
@@ -767,6 +838,7 @@ namespace VNS.Libs
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0)
               .And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNgoaitru);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           if (m_dtKhoThuoc.Rows.Count <= 0) return "";
@@ -795,6 +867,7 @@ namespace VNS.Libs
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0).And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNoitru);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           if (m_dtKhoThuoc.Rows.Count <= 0) return new List<string>();
@@ -823,6 +896,7 @@ namespace VNS.Libs
               sqlQuery.Where(TDmucKho.Columns.KieuKho).In(lstKhole);
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0).And(TDmucKho.Columns.LoaiBnhan).In(lstKhoNoitru);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
@@ -851,6 +925,7 @@ namespace VNS.Libs
               sqlQuery.Where(TDmucKho.Columns.KieuKho).In(lstKhochan);
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
@@ -879,6 +954,7 @@ namespace VNS.Libs
               sqlQuery.Where(TDmucKho.Columns.KieuKho).In(lstKhochan);
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
@@ -908,6 +984,7 @@ namespace VNS.Libs
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           if (m_dtKhoThuoc.Rows.Count <= 0) return new List<string>();
@@ -937,6 +1014,7 @@ namespace VNS.Libs
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           if (m_dtKhoThuoc.Rows.Count <= 0) return "";
@@ -965,6 +1043,7 @@ namespace VNS.Libs
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           if (m_dtKhoThuoc.Rows.Count <= 0) return new List<string>();
@@ -994,6 +1073,7 @@ namespace VNS.Libs
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           if (m_dtKhoThuoc.Rows.Count <= 0) return "";
@@ -1101,6 +1181,7 @@ namespace VNS.Libs
                       globalVariables.gv_intIDNhanvien));
 
           }
+          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.And(TDmucKho.Columns.LaTuthuoc).IsEqualTo(0);
           return sqlQuery.ExecuteDataSet().Tables[0];
       }
