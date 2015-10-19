@@ -160,7 +160,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             StoredProcedure sp = SPs.ThuocNhapkhoOutput(PhieuXuatBnhanCt.NgayHethan, PhieuXuatBnhanCt.GiaNhap, PhieuXuatBnhanCt.GiaBan,
                                                               _item.SoLuongtralai, Utility.DecimaltoDbnull(PhieuXuatBnhanCt.Vat),
                                                               PhieuXuatBnhanCt.IdThuoc, PhieuXuatBnhanCt.IdKho,
-                                                              PhieuXuatBnhanCt.MaNhacungcap, PhieuXuatBnhanCt.SoLo,
+                                                              PhieuXuatBnhanCt.MaNhacungcap, PhieuXuatBnhanCt.SoLo, PhieuXuatBnhanCt.SoDky, PhieuXuatBnhanCt.SoQdinhthau, 
                                                               PhieuXuatBnhanCt.IdThuockho.Value, id_Thuockho_new, PhieuXuatBnhanCt.NgayNhap,
                                                               PhieuXuatBnhanCt.GiaBhyt, PhieuXuatBnhanCt.PhuthuDungtuyen, PhieuXuatBnhanCt.PhuthuTraituyen, _phieutrathuocthua.KieuThuocVt);
                             sp.Execute();
@@ -208,6 +208,8 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             objNhapXuat.NgayHethan = objDetail.NgayHethan;
                             objNhapXuat.IdThuockho = objDetail.IdThuockho;
                             objNhapXuat.SoLo = objDetail.SoLo;
+                            objNhapXuat.SoDky = objDetail.SoDky;
+                            objNhapXuat.SoQdinhthau = objDetail.SoQdinhthau;
                             objNhapXuat.MaNhacungcap = objDetail.MaNhacungcap;
                             objNhapXuat.Vat = (int)objDetail.Vat;
                             objNhapXuat.QuayThuoc = objPhieuXuatBnhan.QuayThuoc;

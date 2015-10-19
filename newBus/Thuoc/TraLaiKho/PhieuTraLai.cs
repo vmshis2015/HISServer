@@ -199,8 +199,8 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             int id_thuockho = -1;
                             StoredProcedure sp = SPs.ThuocNhapkhoOutput(objPhieuNhapTraCt.NgayHethan, objPhieuNhapTraCt.GiaNhap, objPhieuNhapTraCt.GiaBan,
                                                                       objPhieuNhapTraCt.SoLuong, Utility.DecimaltoDbnull(objPhieuNhapTraCt.Vat),
-                                                                      objPhieuNhapTraCt.IdThuoc, objPhieuNhapTra.IdKhotra, 
-                                                                      objPhieuNhapTraCt.MaNhacungcap, objPhieuNhapTraCt.SoLo, -1,id_thuockho,
+                                                                      objPhieuNhapTraCt.IdThuoc, objPhieuNhapTra.IdKhotra,
+                                                                      objPhieuNhapTraCt.MaNhacungcap, objPhieuNhapTraCt.SoLo, objPhieuNhapTraCt.SoDky, objPhieuNhapTraCt.SoQdinhthau, -1, id_thuockho,
                                                                       objPhieuNhapTraCt.NgayNhap, objPhieuNhapTraCt.GiaBhyt, objPhieuNhapTraCt.PhuthuDungtuyen, objPhieuNhapTraCt.PhuthuTraituyen, objPhieuNhapTraCt.KieuThuocvattu);
                             sp.Execute();
                             sp = SPs.ThuocXuatkho(objPhieuNhapTra.IdKhonhan, objPhieuNhapTraCt.IdThuoc,
@@ -254,7 +254,8 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             long idthuockho = -1;
                             StoredProcedure sp = SPs.ThuocNhapkhoOutput(objPhieuNhapCt.NgayHethan, objPhieuNhapCt.GiaNhap, objPhieuNhapCt.GiaBan,
                                                                    objPhieuNhapCt.SoLuong, Utility.DecimaltoDbnull(objPhieuNhapCt.Vat),
-                                                                   objPhieuNhapCt.IdThuoc, objPhieuNhap.IdKhonhan, objPhieuNhapCt.MaNhacungcap, objPhieuNhapCt.SoLo, objPhieuNhapCt.IdThuockho, idthuockho, objPhieuNhapCt.NgayNhap, objPhieuNhapCt.GiaBhyt, objPhieuNhapCt.PhuthuDungtuyen, objPhieuNhapCt.PhuthuTraituyen, objPhieuNhapCt.KieuThuocvattu);
+                                                                   objPhieuNhapCt.IdThuoc, objPhieuNhap.IdKhonhan, objPhieuNhapCt.MaNhacungcap,
+                                                                   objPhieuNhapCt.SoLo, objPhieuNhapCt.SoDky, objPhieuNhapCt.SoQdinhthau, objPhieuNhapCt.IdThuockho, idthuockho, objPhieuNhapCt.NgayNhap, objPhieuNhapCt.GiaBhyt, objPhieuNhapCt.PhuthuDungtuyen, objPhieuNhapCt.PhuthuTraituyen, objPhieuNhapCt.KieuThuocvattu);
                             sp.Execute();
                             idthuockho = Utility.Int64Dbnull(sp.OutputValues[0], -1);
                             //log.Info(string.Format("Nhạp tra lai kho {0} voi so phieu {1}", objPhieuNhap.IdKhonhan, objPhieuNhapCt.IdPhieuChitiet));
@@ -277,7 +278,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             objXuatNhap.GiaNhap = Utility.DecimaltoDbnull(objPhieuNhapCt.GiaNhap);
                             objXuatNhap.GiaBan = Utility.DecimaltoDbnull(objPhieuNhapCt.GiaBan);
                             objXuatNhap.NgayNhap = objPhieuNhapCt.NgayNhap;
-                            objXuatNhap.DonGia = Utility.DecimaltoDbnull(objPhieuNhapCt.GiaNhap);
+                            objXuatNhap.DonGia = Utility.DecimaltoDbnull(objPhieuNhapCt.DonGia);
                             objXuatNhap.NgayHoadon = objPhieuNhap.NgayTra;
                             objXuatNhap.KieuThuocvattu = Utility.sDbnull(objPhieuNhapCt.KieuThuocvattu);
 
@@ -286,7 +287,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             objXuatNhap.QuayThuoc = 0;
                             objXuatNhap.GiaBhyt = objPhieuNhapCt.GiaBhyt;
                             objXuatNhap.GiaBhytCu = 0;
-
+                            objXuatNhap.ThuocVay = 0;
                             objXuatNhap.GiaPhuthuDungtuyen = objPhieuNhapCt.PhuthuDungtuyen;
                             objXuatNhap.GiaPhuthuTraituyen = objPhieuNhapCt.PhuthuTraituyen;
                             objXuatNhap.DuTru = 0;
@@ -294,8 +295,9 @@ namespace VNS.HIS.NGHIEPVU.THUOC
 
                             objXuatNhap.MaNhacungcap = objPhieuNhapCt.MaNhacungcap;
                             objXuatNhap.SoLo = objPhieuNhapCt.SoLo;
+                            objXuatNhap.SoDky = objPhieuNhapCt.SoDky;
+                            objXuatNhap.SoQdinhthau = objPhieuNhapCt.SoQdinhthau;
                             objXuatNhap.IdThuockho = objPhieuNhapCt.IdThuockho;
-                            objXuatNhap.DonGia = Utility.DecimaltoDbnull(objPhieuNhapCt.GiaNhap);
                             objXuatNhap.SoHoadon = string.Empty;
                             objXuatNhap.PhuThu = 0;
                             objXuatNhap.SoLuong = Utility.Int32Dbnull(objPhieuNhapCt.SoLuong);
@@ -324,7 +326,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             objXuatNhap.GiaBan = Utility.DecimaltoDbnull(objPhieuNhapCt.GiaBan);
                             objXuatNhap.MaNhacungcap = objPhieuNhapCt.MaNhacungcap;
                             objXuatNhap.NgayNhap = objPhieuNhapCt.NgayNhap;
-                            objXuatNhap.DonGia = Utility.DecimaltoDbnull(objPhieuNhapCt.GiaNhap);
+                            objXuatNhap.DonGia = Utility.DecimaltoDbnull(objPhieuNhapCt.DonGia);
                             objXuatNhap.NgayHoadon = objPhieuNhap.NgayTra;
                             objXuatNhap.KieuThuocvattu = Utility.sDbnull(objPhieuNhapCt.KieuThuocvattu);
 
@@ -336,11 +338,12 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             objXuatNhap.GiaPhuthuDungtuyen = objPhieuNhapCt.PhuthuDungtuyen;
                             objXuatNhap.GiaPhuthuTraituyen = objPhieuNhapCt.PhuthuTraituyen;
                             objXuatNhap.DuTru = 0;
-
+                            objXuatNhap.ThuocVay = 0;
 
                             objXuatNhap.SoLo = objPhieuNhapCt.SoLo;
+                             objXuatNhap.SoDky = objPhieuNhapCt.SoDky;
+                            objXuatNhap.SoQdinhthau = objPhieuNhapCt.SoQdinhthau;
                             objXuatNhap.IdThuockho = objPhieuNhapCt.IdThuockho;
-                            objXuatNhap.DonGia = Utility.DecimaltoDbnull(objPhieuNhapCt.GiaNhap);
                             objXuatNhap.SoHoadon = string.Empty;
                             objXuatNhap.PhuThu = 0;
                             objXuatNhap.SoLuong = Utility.Int32Dbnull(objPhieuNhapCt.SoLuong);
@@ -407,12 +410,15 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             sqlQuery.ExecuteAsCollection<TPhieutrathuocKholeVekhochanChitietCollection>();
                         foreach (TPhieutrathuocKholeVekhochanChitiet objPhieuNhapCt in objPhieuNhapCtCollection)
                         {
-                            ///phiếu nhập trả từ kho lẻ về kho chẵn
+                           
                             TBiendongThuoc objXuatNhap = new TBiendongThuoc();
                             objXuatNhap.IdPhieu = Utility.Int32Dbnull(objPhieuNhapCt.IdPhieu);
                             objXuatNhap.IdPhieuChitiet = Utility.Int32Dbnull(objPhieuNhapCt.IdPhieuChitiet);
                             objXuatNhap.MaPhieu = Utility.sDbnull(objPhieuNhap.MaPhieu);
                             objXuatNhap.GiaNhap = Utility.DecimaltoDbnull(objPhieuNhapCt.GiaNhap);
+                            objXuatNhap.DonGia = Utility.DecimaltoDbnull(objPhieuNhapCt.DonGia);
+                            objXuatNhap.GiaBan = Utility.DecimaltoDbnull(objPhieuNhapCt.GiaBan);
+
                             objXuatNhap.SoHoadon = string.Empty;
                             objXuatNhap.PhuThu = 0;
                             objXuatNhap.SoLuong = Utility.Int32Dbnull(objPhieuNhapCt.SoLuong);
@@ -421,6 +427,9 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             objXuatNhap.ThanhTien = Utility.DecimaltoDbnull(objPhieuNhapCt.ThanhTien);
                             objXuatNhap.IdThuoc = Utility.Int32Dbnull(objPhieuNhapCt.IdThuoc);
                             objXuatNhap.Vat = Utility.Int32Dbnull(objPhieuNhapCt.Vat);
+                            objXuatNhap.SoDky = objPhieuNhapCt.SoDky;
+                            objXuatNhap.SoQdinhthau = objPhieuNhapCt.SoQdinhthau;
+                            objXuatNhap.SoLo = objPhieuNhapCt.SoLo;
                             objXuatNhap.IdNhanvien = Utility.Int16Dbnull(objPhieuNhap.IdNhanvien);
                             objXuatNhap.IdKhoaLinh = Utility.Int16Dbnull(objPhieuNhap.IdKhonhan);
                             objXuatNhap.IdKho = Utility.Int16Dbnull(objPhieuNhap.IdKhonhan);
@@ -434,8 +443,8 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             int id_thuockho = -1;
                             StoredProcedure sp = SPs.ThuocNhapkhoOutput(objPhieuNhapCt.NgayHethan, objPhieuNhapCt.GiaNhap, objPhieuNhapCt.GiaBan,
                                                                    objPhieuNhapCt.SoLuong, Utility.DecimaltoDbnull(objPhieuNhapCt.Vat),
-                                                                   objPhieuNhapCt.IdThuoc, objPhieuNhap.IdKhonhan, 
-                                                                   objPhieuNhapCt.MaNhacungcap, objPhieuNhapCt.SoLo, -1,id_thuockho,
+                                                                   objPhieuNhapCt.IdThuoc, objPhieuNhap.IdKhonhan,
+                                                                   objPhieuNhapCt.MaNhacungcap, objPhieuNhapCt.SoLo, objPhieuNhapCt.SoDky, objPhieuNhapCt.SoQdinhthau, -1, id_thuockho,
                                                                    objPhieuNhap.NgayXacnhan, objPhieuNhapCt.GiaBhyt,
                                                                    objPhieuNhapCt.PhuthuDungtuyen, objPhieuNhapCt.PhuthuTraituyen, objPhieuNhapCt.KieuThuocvattu);
                             sp.Execute();
@@ -446,6 +455,8 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             objXuatNhap.IdPhieuChitiet = Utility.Int32Dbnull(objPhieuNhapCt.IdPhieuChitiet);
                             objXuatNhap.MaPhieu = Utility.sDbnull(objPhieuNhap.MaPhieu);
                             objXuatNhap.GiaNhap = Utility.DecimaltoDbnull(objPhieuNhapCt.GiaNhap);
+                            objXuatNhap.DonGia = Utility.DecimaltoDbnull(objPhieuNhapCt.DonGia);
+                            objXuatNhap.GiaBan = Utility.DecimaltoDbnull(objPhieuNhapCt.GiaBan);
                             objXuatNhap.SoHoadon = string.Empty;
                             objXuatNhap.PhuThu = 0;
                             objXuatNhap.SoLuong = Utility.Int32Dbnull(objPhieuNhapCt.SoLuong);
@@ -454,6 +465,9 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             objXuatNhap.ThanhTien = Utility.DecimaltoDbnull(objPhieuNhapCt.ThanhTien);
                             objXuatNhap.IdThuoc = Utility.Int32Dbnull(objPhieuNhapCt.IdThuoc);
                             objXuatNhap.Vat = Utility.Int32Dbnull(objPhieuNhapCt.Vat);
+                            objXuatNhap.SoDky = objPhieuNhapCt.SoDky;
+                            objXuatNhap.SoQdinhthau = objPhieuNhapCt.SoQdinhthau;
+                            objXuatNhap.SoLo = objPhieuNhapCt.SoLo;
                             objXuatNhap.IdNhanvien = Utility.Int16Dbnull(objPhieuNhap.IdNhanvien);
                             objXuatNhap.IdKhoaLinh = Utility.Int16Dbnull(objPhieuNhap.IdKhonhan);
                             objXuatNhap.IdKho = Utility.Int16Dbnull(objPhieuNhap.IdKhonhan);
