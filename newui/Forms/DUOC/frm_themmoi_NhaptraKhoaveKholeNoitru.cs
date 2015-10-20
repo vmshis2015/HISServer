@@ -615,7 +615,7 @@ namespace VNS.HIS.UI.THUOC
                         Convert.ToDateTime(dr[TPhieuNhapxuatthuocChitiet.Columns.NgayHethan]).Date;
                     newItem.GiaBan = Utility.DecimaltoDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.GiaBan]);
                     newItem.GiaNhap = Utility.DecimaltoDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap]);
-                  
+                    newItem.DonGia = Utility.DecimaltoDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.DonGia]);
                     newItem.SoLo = Utility.sDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.SoLo], "");
                     newItem.SoDky = Utility.sDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.SoDky], "");
                     newItem.SoQdinhthau = Utility.sDbnull(dr[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau], "");
@@ -749,7 +749,16 @@ namespace VNS.HIS.UI.THUOC
                 cboKhoNhan.Focus();
                 return false;
             }
-            
+            if (m_enAction == action.Insert)
+            {
+                if (grdPhieuXuatChiTiet.GetDataRows().Length <= 0)
+                {
+                    Utility.SetMsg(lblMsg, "Bạn phải chọn thuốc cần trả từ tủ trực khoa nội trú về kho lẻ nội trú", true);
+                    cmdNext.Focus();
+                    return false;
+                }
+
+            }
 
             return true;
         }

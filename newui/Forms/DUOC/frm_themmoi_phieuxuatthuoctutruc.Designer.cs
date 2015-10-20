@@ -704,7 +704,6 @@
             this.grdKhoXuat.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdKhoXuat.Size = new System.Drawing.Size(1002, 185);
             this.grdKhoXuat.TabIndex = 2;
-            this.grdKhoXuat.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdKhoXuat.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
             this.grdKhoXuat.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             this.grdKhoXuat.UpdatingCell += new Janus.Windows.GridEX.UpdatingCellEventHandler(this.grdKhoXuat_UpdatingCell);
@@ -817,7 +816,6 @@
             this.grdPhieuXuatChiTiet.Size = new System.Drawing.Size(1002, 251);
             this.grdPhieuXuatChiTiet.TabIndex = 0;
             this.grdPhieuXuatChiTiet.TabStop = false;
-            this.grdPhieuXuatChiTiet.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdPhieuXuatChiTiet.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
             this.grdPhieuXuatChiTiet.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
