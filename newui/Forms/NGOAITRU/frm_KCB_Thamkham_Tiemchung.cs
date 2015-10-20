@@ -226,6 +226,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 frm_KCB_Lapphieuhen_Tiemchung _Lapphieuhen_Tiemchung = new frm_KCB_Lapphieuhen_Tiemchung();
                 _Lapphieuhen_Tiemchung.objLuotkham = objLuotkham;
+                _Lapphieuhen_Tiemchung.objBN = objBenhnhan;
                 _Lapphieuhen_Tiemchung.ShowDialog();
             }
         }
