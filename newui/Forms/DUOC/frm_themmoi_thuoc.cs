@@ -463,7 +463,8 @@ namespace VNS.HIS.UI.THUOC
                     txtHangSX._Text = Utility.sDbnull(objThuoc.HangSanxuat);
                     txtContent.Text = Utility.sDbnull(objThuoc.HamLuong);
                     txtQD31.Text = objThuoc.QD31;
-                    chkTutuc.Checked = Utility.Byte2Bool(objThuoc.TuTuc.Value);
+                    chkTutuc.Checked = Utility.Byte2Bool(objThuoc.TuTuc);
+                    chkSingle.Checked = Utility.Byte2Bool(objThuoc.SingleService);
                     txtDangBaoChe._Text= Utility.sDbnull(objThuoc.DangBaoche, "");
                     txtTEN_BHYT.Text = Utility.sDbnull(objThuoc.TenBhyt);
                     chkHieuLuc.Checked = Utility.Int32Dbnull(objThuoc.TrangThai, 0) == 1 ? true : false;
@@ -576,6 +577,7 @@ namespace VNS.HIS.UI.THUOC
                     txtPTTT.Clear();
                     optAll.Checked = true;
                     chkTutuc.Checked = false;
+                    chkSingle.Checked = false;
                     txtDesc.Clear();
                     //--------------------------------------------------------------
                     //Cho phép nhấn nút Ghi
@@ -630,6 +632,7 @@ namespace VNS.HIS.UI.THUOC
                     txtPTTT.Clear();
                     txtCachsudung.SetDefaultItem();
                     chkTutuc.Checked = false;
+                    chkSingle.Checked = false;
                     txtDesc.Clear();
                     //Cho phép nhập mới liên tiếp
                     m_enAction = action.Insert;
@@ -691,7 +694,7 @@ namespace VNS.HIS.UI.THUOC
                 objThuoc.DonviBut = (int)Utility.DecimaltoDbnull(txtBut.Text, -1);
                 objThuoc.MaDonvitinh = txtDonvitinh.myCode;
                 objThuoc.CachSudung = txtCachsudung.myCode;
-
+                objThuoc.SingleService = Utility.Bool2byte(chkSingle.Checked);
                 objThuoc.CoChiathuoc = Utility.Bool2byte(chkChiathuoc.Checked);
                 objThuoc.MaDvichia = txtDonvichia.myCode;
                 objThuoc.SluongChia =(int) Utility.DecimaltoDbnull(txtSoluongchia.Text, 0);
@@ -810,7 +813,7 @@ namespace VNS.HIS.UI.THUOC
             objThuoc.GioihanKedon = (Int16)Utility.DecimaltoDbnull(txtSoluong.Text, -1);
             objThuoc.DonviBut = (int)Utility.DecimaltoDbnull(txtBut.Text, -1);
             objThuoc.CachSudung = txtCachsudung.myCode;
-
+            objThuoc.SingleService = Utility.Bool2byte(chkSingle.Checked);
             objThuoc.CoChiathuoc = Utility.Bool2byte(chkChiathuoc.Checked);
             objThuoc.MaDvichia = txtDonvichia.myCode;
             objThuoc.SluongChia = (int)Utility.DecimaltoDbnull(txtSoluongchia.Text, 0);
