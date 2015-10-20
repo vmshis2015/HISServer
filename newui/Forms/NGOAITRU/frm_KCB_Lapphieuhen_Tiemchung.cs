@@ -22,7 +22,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
     {
         DataSet dsData = new DataSet();
         public KcbLuotkham objLuotkham = null;
-        KcbDanhsachBenhnhan objBN = null;
+        public KcbDanhsachBenhnhan objBN = null;
         bool AllowedChangedEvents = false;
         bool quyencapnhatketqua = false;
         bool quyen_chonmui_hentiemchung = false;
