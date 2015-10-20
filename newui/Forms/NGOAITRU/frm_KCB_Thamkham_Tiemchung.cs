@@ -217,6 +217,17 @@ namespace VNS.HIS.UI.NGOAITRU
             chkNgaytiem.CheckedChanged += chkNgaytiem_CheckedChanged;
             cmdKecongtiem.Click += cmdKecongtiem_Click;
             cmdInbangke_1.Click += cmdInbangke_1_Click;
+            cmdLapphieuhenTC.Click += cmdLapphieuhenTC_Click;
+        }
+
+        void cmdLapphieuhenTC_Click(object sender, EventArgs e)
+        {
+            if (objBenhnhan != null && objLuotkham != null && objkcbdangky != null)
+            {
+                frm_KCB_Lapphieuhen_Tiemchung _Lapphieuhen_Tiemchung = new frm_KCB_Lapphieuhen_Tiemchung();
+                _Lapphieuhen_Tiemchung.objLuotkham = objLuotkham;
+                _Lapphieuhen_Tiemchung.ShowDialog();
+            }
         }
 
         void cmdInbangke_1_Click(object sender, EventArgs e)
