@@ -2801,7 +2801,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 return false;
             }
            
-            if (Utility.Int32Dbnull(txtTuoi.Text,-1)<0)
+            if (Utility.Int32Dbnull(txtTuoi.Text,0)<0)
             {
                 Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Tuổi Bệnh nhân phải lớn hơn hoặc bằng không. Mời bạn kiểm tra lại", true);
                 txtTuoi.Focus();
@@ -3608,8 +3608,9 @@ namespace VNS.HIS.UI.NGOAITRU
         }
         private void CauHinhKCB()
         {
+            
             dtpBOD.Value = globalVariables.SysDate;
-            dtpBOD.CustomFormat=THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "1"?"dd/MM/yyyy HH:mm":"yyyy";
+            dtpBOD.CustomFormat = PropertyLib._KCBProperties.Nhapngaythangnamsinh? "dd/MM/yyyy HH:mm" : "yyyy";
             txtTuoi.Enabled = dtpBOD.CustomFormat =="yyyy";
             lblLoaituoi.Visible = dtpBOD.CustomFormat != "yyyy";
             mnuBOD.Checked = dtpBOD.CustomFormat != "yyyy";
