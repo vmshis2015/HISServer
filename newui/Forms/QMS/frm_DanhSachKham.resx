@@ -112,18 +112,15 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="grdList_DesignTimeLayout.LayoutString" xml:space="preserve">
-    <value>&lt;GridEXLayoutData&gt;&lt;RootTable&gt;&lt;Columns Collection="true" ElementName="Column"&gt;&lt;Column0 ID="So_Kham"&gt;&lt;AllowSize&gt;False&lt;/AllowSize&gt;&lt;Caption&gt;SỐ KHÁM&lt;/Caption&gt;&lt;DataMember&gt;So_Kham&lt;/DataMember&gt;&lt;Key&gt;So_Kham&lt;/Key&gt;&lt;Position&gt;0&lt;/Position&gt;&lt;TextAlignment&gt;Center&lt;/TextAlignment&gt;&lt;Width&gt;400&lt;/Width&gt;&lt;CellStyle&gt;&lt;Font&gt;Times New Roman, 60pt, style=Bold&lt;/Font&gt;&lt;FontBold&gt;True&lt;/FontBold&gt;&lt;LineAlignment&gt;Center&lt;/LineAlignment&gt;&lt;TextAlignment&gt;Center&lt;/TextAlignment&gt;&lt;/CellStyle&gt;&lt;HeaderStyle&gt;&lt;Font&gt;Microsoft Sans Serif, 50.25pt, style=Bold&lt;/Font&gt;&lt;FontBold&gt;True&lt;/FontBold&gt;&lt;LineAlignment&gt;Center&lt;/LineAlignment&gt;&lt;TextAlignment&gt;Center&lt;/TextAlignment&gt;&lt;/HeaderStyle&gt;&lt;/Column0&gt;&lt;Column1 ID="TEN_BN"&gt;&lt;Caption&gt;TÊN BỆNH NHÂN&lt;/Caption&gt;&lt;DataMember&gt;TEN_BN&lt;/DataMember&gt;&lt;Key&gt;TEN_BN&lt;/Key&gt;&lt;Position&gt;1&lt;/Position&gt;&lt;Width&gt;616&lt;/Width&gt;&lt;CellStyle&gt;&lt;Font&gt;Times New Roman, 50.25pt, style=Bold&lt;/Font&gt;&lt;FontBold&gt;True&lt;/FontBold&gt;&lt;/CellStyle&gt;&lt;HeaderStyle&gt;&lt;Font&gt;Microsoft Sans Serif, 50.25pt, style=Bold&lt;/Font&gt;&lt;FontBold&gt;True&lt;/FontBold&gt;&lt;LineAlignment&gt;Center&lt;/LineAlignment&gt;&lt;TextAlignment&gt;Center&lt;/TextAlignment&gt;&lt;/HeaderStyle&gt;&lt;/Column1&gt;&lt;Column2 ID="STT"&gt;&lt;Caption&gt;STT&lt;/Caption&gt;&lt;DataMember&gt;STT&lt;/DataMember&gt;&lt;Key&gt;STT&lt;/Key&gt;&lt;Position&gt;2&lt;/Position&gt;&lt;Visible&gt;False&lt;/Visible&gt;&lt;/Column2&gt;&lt;/Columns&gt;&lt;SortKeys Collection="true" ElementName="SortKey"&gt;&lt;SortKey0 ID="SortKey0"&gt;&lt;ColIndex&gt;2&lt;/ColIndex&gt;&lt;/SortKey0&gt;&lt;/SortKeys&gt;&lt;GroupCondition /&gt;&lt;/RootTable&gt;&lt;/GridEXLayoutData&gt;</value>
-  </data>
-  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="cmdCauHinh.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAANkE3LLaAgAAAhVJREFUOE+l
@@ -139,4 +136,10 @@
         TkSuQmCC
 </value>
   </data>
+  <data name="grdList_DesignTimeLayout.LayoutString" xml:space="preserve">
+    <value>&lt;GridEXLayoutData&gt;&lt;RootTable&gt;&lt;Columns Collection="true" ElementName="Column"&gt;&lt;Column0 ID="So_Kham"&gt;&lt;AllowSize&gt;False&lt;/AllowSize&gt;&lt;Caption&gt;SỐ KHÁM&lt;/Caption&gt;&lt;DataMember&gt;So_Kham&lt;/DataMember&gt;&lt;Key&gt;So_Kham&lt;/Key&gt;&lt;Position&gt;0&lt;/Position&gt;&lt;TextAlignment&gt;Center&lt;/TextAlignment&gt;&lt;Width&gt;355&lt;/Width&gt;&lt;CellStyle&gt;&lt;Font&gt;Times New Roman, 60pt, style=Bold&lt;/Font&gt;&lt;FontBold&gt;True&lt;/FontBold&gt;&lt;LineAlignment&gt;Center&lt;/LineAlignment&gt;&lt;TextAlignment&gt;Center&lt;/TextAlignment&gt;&lt;/CellStyle&gt;&lt;HeaderStyle&gt;&lt;Font&gt;Microsoft Sans Serif, 50.25pt, style=Bold&lt;/Font&gt;&lt;FontBold&gt;True&lt;/FontBold&gt;&lt;LineAlignment&gt;Center&lt;/LineAlignment&gt;&lt;TextAlignment&gt;Center&lt;/TextAlignment&gt;&lt;/HeaderStyle&gt;&lt;/Column0&gt;&lt;Column1 ID="TEN_BN"&gt;&lt;Caption&gt;TÊN BỆNH NHÂN&lt;/Caption&gt;&lt;DataMember&gt;TEN_BN&lt;/DataMember&gt;&lt;Key&gt;TEN_BN&lt;/Key&gt;&lt;Position&gt;1&lt;/Position&gt;&lt;Width&gt;622&lt;/Width&gt;&lt;CellStyle&gt;&lt;Font&gt;Times New Roman, 50.25pt, style=Bold&lt;/Font&gt;&lt;FontBold&gt;True&lt;/FontBold&gt;&lt;/CellStyle&gt;&lt;HeaderStyle&gt;&lt;Font&gt;Microsoft Sans Serif, 50.25pt, style=Bold&lt;/Font&gt;&lt;FontBold&gt;True&lt;/FontBold&gt;&lt;LineAlignment&gt;Center&lt;/LineAlignment&gt;&lt;TextAlignment&gt;Center&lt;/TextAlignment&gt;&lt;/HeaderStyle&gt;&lt;/Column1&gt;&lt;Column2 ID="STT"&gt;&lt;Caption&gt;STT&lt;/Caption&gt;&lt;DataMember&gt;STT&lt;/DataMember&gt;&lt;Key&gt;STT&lt;/Key&gt;&lt;Position&gt;2&lt;/Position&gt;&lt;Visible&gt;False&lt;/Visible&gt;&lt;/Column2&gt;&lt;/Columns&gt;&lt;GroupCondition /&gt;&lt;/RootTable&gt;&lt;/GridEXLayoutData&gt;</value>
+  </data>
+  <metadata name="timer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>104, 17</value>
+  </metadata>
 </root>

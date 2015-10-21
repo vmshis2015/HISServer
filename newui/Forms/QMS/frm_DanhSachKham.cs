@@ -22,13 +22,20 @@ namespace VNS.UI.QMS
             InitializeComponent();
             
             timer1.Tick += new System.EventHandler(OnTimerEvent);
+            timer1.Tick += timer1_Tick;
+            //timer2.Tick += new System.EventHandler(OnTimerEvent);
             CauHinh();
         }
         public void OnTimerEvent(object source, EventArgs e)
         {
             LoadDanhSach();
+           
         }
-        
+        //public void OnTimerEvent2(object source, EventArgs e)
+        //{
+        //    string bacsykham = string.Format("{0}", Utility.sDbnull(globalVariables.gv_strTenNhanvien, ""));
+        //    lblBacSykham.Text = bacsykham;
+        //}
         private void CauHinh()
         {
             
@@ -63,6 +70,17 @@ namespace VNS.UI.QMS
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtDanhSachChoKham, false, true, "1=1", "");
                 Janus.Windows.GridEX.GridEXColumn gridExColumn = grdList.RootTable.Columns["STT"];
                 Utility.SetGridEXSortKey(grdList, gridExColumn,SortOrder.Ascending);
+                if(PropertyLib._HISQMSProperties.HienThiBacSyKham)
+                {
+                    splitContainer1.Panel2Collapsed = false;
+                    string bacsykham = string.Format("{0}", Utility.sDbnull(PropertyLib._HISQMSProperties.TenBacSyHienThi, globalVariables.gv_strTenNhanvien));
+                    lblBacSykham.Text = bacsykham;
+                }
+                else
+                {
+                    splitContainer1.Panel2Collapsed = true;
+                }
+                
             }
             catch (Exception ex)
             {
@@ -74,6 +92,7 @@ namespace VNS.UI.QMS
         private void frm_DanhSachKham_Load(object sender, EventArgs e)
         {
            // LoadDanhSach();
+            timer2.Start();
         }
         /// <summary>
         /// hàm thực hiện viec
@@ -89,15 +108,24 @@ namespace VNS.UI.QMS
                 frm.ShowDialog();
                 CauHinh();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
           
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
             timer1.Start();
+        }
+        public int i = 10;
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            lblBacSykham.Left += i;
+            if (lblBacSykham.Left >= this.Width - lblBacSykham.Width || lblBacSykham.Left <= 0)
+            { i = -i; }
+            timer2.Start();
+            timer2.Interval = 500;
         }
        
     }
