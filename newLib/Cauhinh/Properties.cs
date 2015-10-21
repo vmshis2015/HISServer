@@ -1839,6 +1839,8 @@ DisplayName("HIS Application Mode")]
             ThoiGianCho = 3;
             TestMode = false;
             ThoiGianTuDongLay = 3000;
+            HienThiBacSyKham = true;
+            TenBacSyHienThi = "";
             IsQMS = false;
             MaQuay = "QUAY_1";
             TenQuay = "Quầy thu ngân số 1";
@@ -1907,7 +1909,14 @@ DisplayName("HIS Application Mode")]
          Description("Số lượng hiển thị trên màn hình"),
          DisplayName("Số lượng hiển thị trên màn hình chờ ")]
         public Int32 SoLuongHienThi { get; set; }
-
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợi phòng khám bệnh"),
+      Description("Cho phép hiển thị bác sỹ khám ngoài màn hình hiển thị"),
+      DisplayName("Hiển thị bác sỹ khám")]
+        public bool HienThiBacSyKham { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợi phòng khám bệnh"),
+        Description("Tên bác sỹ hiển thị ngoài màn hình"),
+        DisplayName("Tên bác sỹ hiển thị ngoài màn hình")]
+        public string TenBacSyHienThi { get; set; }
         [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợi phòng khám bệnh"),
          Description("Thời gian sẽ tự động lấy lại dữ liệu"),
          DisplayName("Thời gian sẽ tự động lấy lại dữ liệu ")]
@@ -1943,6 +1952,7 @@ DisplayName("HIS Application Mode")]
          Description("Thời gian chờ sau mỗi đợt gọi bằng tay"),
          DisplayName("Thời gian chờ")]
         public uint ThoiGianCho { get; set; }
+      
 
         [Browsable(true), ReadOnly(false), Category("Cấu hình QMS hàng đợi"),
          Description("Cấu hình chế độ chạy cho phép test hoặc chạy thật"),
