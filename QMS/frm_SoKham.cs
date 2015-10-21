@@ -14,6 +14,7 @@ using SubSonic;
 using Microsoft.VisualBasic;
 using VNS.Core.Classes;
 using VNS.Libs.AppUI;
+using CrystalDecisions.CrystalReports.Engine;
 using System.Xml.Serialization;
 using QMS;
 using VNS.HIS.DAL;
@@ -24,6 +25,7 @@ namespace VNS.QMS
     {
         private QMSProperties _QMSProperties;
         bool hasLoaded = false;
+        private string loaisoqms = "";
         public frm_SoKham()
         {
             globalVariables.m_strPropertiesFolder = Application.StartupPath + @"\Properties\";
@@ -69,6 +71,7 @@ namespace VNS.QMS
             bool RestoreStatus = true;
             try
             {
+                loaisoqms = "SOTIEMCHUNG";
                 if (Reprint)
                 {
                     KcbQm objQms = new Select().From(KcbQm.Schema)
@@ -123,7 +126,9 @@ namespace VNS.QMS
         void nmrLaythemsokhac_ValueChanged(object sender, EventArgs e)
         {
             if (!hasLoaded) return;
-            lblHelpsokhac.Text = "Nếu bạn nhấn nút " + cmdSotiemchung.Text + ". Hệ thống sẽ tự động in từ số " + (Utility.Int32Dbnull(txtsokhac.Text, 0) + 1).ToString() + " đến số " + (Utility.Int32Dbnull(txtsokhac.Text, 0) + nmrLaythemsokhac.Value).ToString();
+            lblHelpsokhac.Text = "Nếu bạn nhấn nút " + cmdSotiemchung.Text + ". Hệ thống sẽ tự động in từ số " +
+                                 (Utility.Int32Dbnull(txtsokhac.Text, 0) + 1).ToString() + " đến số " +
+                                 (Utility.Int32Dbnull(txtsokhac.Text, 0) + nmrLaythemsokhac.Value).ToString();
         }
 
         void chkLaythemsokhac_CheckedChanged(object sender, EventArgs e)
@@ -132,7 +137,9 @@ namespace VNS.QMS
             lblHelpsokhac.Visible = chkLaythemsokhac.Checked;
             if (chkLaythemsokhac.Checked)
             {
-                lblHelpsokhac.Text = "Nếu bạn nhấn nút " + cmdSotiemchung.Text + ". Hệ thống sẽ tự động in từ số " + (Utility.Int32Dbnull(txtsokhac.Text, 0) + 1).ToString() + " đến số " + (Utility.Int32Dbnull(txtsokhac.Text, 0) + nmrLaythemsokhac.Value).ToString();
+                lblHelpsokhac.Text = "Nếu bạn nhấn nút " + cmdSotiemchung.Text + ". Hệ thống sẽ tự động in từ số " +
+                                     (Utility.Int32Dbnull(txtsokhac.Text, 0) + 1).ToString() + " đến số " +
+                                     (Utility.Int32Dbnull(txtsokhac.Text, 0) + nmrLaythemsokhac.Value).ToString();
                 nmrLaythemsokhac.Focus();
             }
             else
@@ -253,19 +260,25 @@ namespace VNS.QMS
         void nmrLaythemsoYC_ValueChanged(object sender, EventArgs e)
         {
             if (!hasLoaded) return;
-            lblHelpsoYC.Text = "Nếu bạn nhấn nút Lấy số yêu cầu. Hệ thống sẽ tự động in từ số " + (Utility.Int32Dbnull(txtSoKhamYeuCau.Text, 0) + 1).ToString() + " đến số " + (Utility.Int32Dbnull(txtSoKhamYeuCau.Text, 0) + nmrLaythemsoYC.Value).ToString();
+            lblHelpsoYC.Text = "Nếu bạn nhấn nút Lấy số yêu cầu. Hệ thống sẽ tự động in từ số " +
+                               (Utility.Int32Dbnull(txtSoKhamYeuCau.Text, 0) + 1).ToString() + " đến số " +
+                               (Utility.Int32Dbnull(txtSoKhamYeuCau.Text, 0) + nmrLaythemsoYC.Value).ToString();
         }
 
         void nmrLaythemsoUutien_ValueChanged(object sender, EventArgs e)
         {
             if (!hasLoaded) return;
-            lblHelpUutien.Text = "Nếu bạn nhấn nút Lấy số ưu tiên. Hệ thống sẽ tự động in từ số " + (Utility.Int32Dbnull(txtSoKhamUuTien.Text, 0) + 1).ToString() + " đến số " + (Utility.Int32Dbnull(txtSoKhamUuTien.Text, 0) + nmrLaythemsoUutien.Value).ToString();
+            lblHelpUutien.Text = "Nếu bạn nhấn nút Lấy số ưu tiên. Hệ thống sẽ tự động in từ số " +
+                                 (Utility.Int32Dbnull(txtSoKhamUuTien.Text, 0) + 1).ToString() + " đến số " +
+                                 (Utility.Int32Dbnull(txtSoKhamUuTien.Text, 0) + nmrLaythemsoUutien.Value).ToString();
         }
 
         void nmrLaythemsothuong_ValueChanged(object sender, EventArgs e)
         {
             if (!hasLoaded) return;
-            lblHelpsothuong.Text = "Nếu bạn nhấn nút Lấy số thường. Hệ thống sẽ tự động in từ số " + (Utility.Int32Dbnull(txtSoKham.Text, 0) + 1).ToString() + " đến số " + (Utility.Int32Dbnull(txtSoKham.Text, 0) + nmrLaythemsothuong.Value).ToString();
+            lblHelpsothuong.Text = "Nếu bạn nhấn nút Lấy số thường. Hệ thống sẽ tự động in từ số " +
+                                   (Utility.Int32Dbnull(txtSoKham.Text, 0) + 1).ToString() + " đến số " +
+                                   (Utility.Int32Dbnull(txtSoKham.Text, 0) + nmrLaythemsothuong.Value).ToString();
         }
         public static QMSProperties GetQMSProperties()
         {
@@ -301,7 +314,9 @@ namespace VNS.QMS
             lblHelpUutien.Visible = chkLaythemsouutien.Checked;
             if (chkLaythemsouutien.Checked)
             {
-                lblHelpUutien.Text = "Nếu bạn nhấn nút Lấy số ưu tiên. Hệ thống sẽ tự động in từ số " + (Utility.Int32Dbnull(txtSoKhamUuTien.Text, 0) + 1).ToString() + " đến số " + (Utility.Int32Dbnull(txtSoKhamUuTien.Text, 0) + nmrLaythemsoUutien.Value).ToString();
+                lblHelpUutien.Text = "Nếu bạn nhấn nút Lấy số ưu tiên. Hệ thống sẽ tự động in từ số " +
+                                     (Utility.Int32Dbnull(txtSoKhamUuTien.Text, 0) + 1).ToString() + " đến số " +
+                                     (Utility.Int32Dbnull(txtSoKhamUuTien.Text, 0) + nmrLaythemsoUutien.Value).ToString();
                 nmrLaythemsoUutien.Focus();
             }
             else
@@ -316,7 +331,9 @@ namespace VNS.QMS
             lblHelpsothuong.Visible = chkLaythemsothuong.Checked;
             if (chkLaythemsothuong.Checked)
             {
-                lblHelpsothuong.Text = "Nếu bạn nhấn nút Lấy số thường. Hệ thống sẽ tự động in từ số " + (Utility.Int32Dbnull(txtSoKham.Text, 0) + 1).ToString() + " đến số " + (Utility.Int32Dbnull(txtSoKham.Text, 0) + nmrLaythemsothuong.Value).ToString();
+                lblHelpsothuong.Text = "Nếu bạn nhấn nút Lấy số thường. Hệ thống sẽ tự động in từ số " +
+                                       (Utility.Int32Dbnull(txtSoKham.Text, 0) + 1).ToString() + " đến số " +
+                                       (Utility.Int32Dbnull(txtSoKham.Text, 0) + nmrLaythemsothuong.Value).ToString();
                 nmrLaythemsothuong.Focus();
             }
             else
@@ -331,7 +348,9 @@ namespace VNS.QMS
             lblHelpsoYC.Visible = chkLaythemsoYC.Checked;
             if (chkLaythemsoYC.Checked)
             {
-                lblHelpsoYC.Text = "Nếu bạn nhấn nút Lấy số yêu cầu. Hệ thống sẽ tự động in từ số " + (Utility.Int32Dbnull(txtSoKhamYeuCau.Text, 0) + 1).ToString() + " đến số " + (Utility.Int32Dbnull(txtSoKhamYeuCau.Text, 0) + nmrLaythemsoYC.Value).ToString();
+                lblHelpsoYC.Text = "Nếu bạn nhấn nút Lấy số yêu cầu. Hệ thống sẽ tự động in từ số " +
+                                   (Utility.Int32Dbnull(txtSoKhamYeuCau.Text, 0) + 1).ToString() + " đến số " +
+                                   (Utility.Int32Dbnull(txtSoKhamYeuCau.Text, 0) + nmrLaythemsoYC.Value).ToString();
                 nmrLaythemsoYC.Focus();
             }
             else
@@ -486,6 +505,7 @@ namespace VNS.QMS
             bool RestoreStatus = true;
             try
             {
+                loaisoqms = "SOKHAM";
                 if (Reprint)
                 {
                     KcbQm objQms = new Select().From(KcbQm.Schema)
@@ -504,6 +524,7 @@ namespace VNS.QMS
                         txtSoKham.Focus();
                         return;
                     }
+                    
                     this.InPhieuKham(_QMSProperties.TenKhoaKhamBenh, this.cmdGetSoKham, Utility.sDbnull(objQms.SoQms), _QMSProperties.Sodichvu);
                     return;
                 }
@@ -600,6 +621,7 @@ namespace VNS.QMS
             bool RestoreStatus = true;
             try
             {
+                loaisoqms = "SOKHAM";
                 if (Reprint)
                 {
                     KcbQm objQms = new Select().From(KcbQm.Schema)
@@ -656,6 +678,7 @@ namespace VNS.QMS
             bool RestoreStatus = true;
             try
             {
+                loaisoqms = "SOTIEMCHUNG";
                 if (Reprint)
                 {
                     KcbQm objQms = new Select().From(KcbQm.Schema)
@@ -762,9 +785,18 @@ namespace VNS.QMS
                 DataTable dataTable = new DataTable();
                 Utility.AddColumToDataTable(ref dataTable, "So_Kham", typeof(string));
                 DataRow row = dataTable.NewRow();
+
                 row["So_Kham"] = Utility.sDbnull(sokham);
                 dataTable.Rows.Add(row);
-                CRPT_SOKHAM crpt_sokham = new CRPT_SOKHAM();
+                CrystalDecisions.CrystalReports.Engine.ReportDocument crpt_sokham = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                if(loaisoqms == "SOKHAM")
+                {
+                     crpt_sokham = new CRPT_SOKHAM();
+                }
+                else
+                {
+                     crpt_sokham = new CRPT_SOTIEMCHUNG();
+                }
                 crpt_sokham.SetDataSource(dataTable);
                 crpt_sokham.SetParameterValue("TEN_BENH_VIEN", _QMSProperties.TenBenhVien);
                 string str2 = NgayIn(DateTime.Now);
@@ -820,11 +852,6 @@ namespace VNS.QMS
         {
             string str = "Ngày ";
             return ((((((str + Strings.Right("0" + dt.Day.ToString(), 2)) + "/" + Strings.Right("0" + dt.Month.ToString(), 2)) + "/" + dt.Year) + " " + Strings.Right("0" + dt.Hour.ToString(), 2)) + ":" + Strings.Right("0" + dt.Minute.ToString(), 2)) + ":" + Strings.Right("0" + dt.Second.ToString(), 2));
-        }
-
-        private void cmdGetSoKham_Click_1(object sender, EventArgs e)
-        {
-
         }
 
     }

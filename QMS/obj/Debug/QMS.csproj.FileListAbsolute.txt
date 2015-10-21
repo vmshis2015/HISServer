@@ -143,3 +143,4 @@ E:\VMS\trunk\QMS\obj\Debug\QMS.csproj.GenerateResource.Cache
 E:\VMS\trunk\QMS\obj\Debug\QMS.exe.licenses
 E:\VMS\trunk\QMS\obj\Debug\QMS.exe
 E:\VMS\trunk\QMS\obj\Debug\QMS.pdb
+E:\VMS\trunk\QMS\obj\Debug\QMS.csprojResolveAssemblyReference.cache

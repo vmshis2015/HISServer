@@ -87,6 +87,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectionSQL.cs" />
+    <Compile Include="CRPT_SOTIEMCHUNG.cs">
+      <DependentUpon>CRPT_SOTIEMCHUNG.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="frm_QMS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,10 @@
     <Compile Include="UCs\ucQMSItem.Designer.cs">
       <DependentUpon>ucQMSItem.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CRPT_SOTIEMCHUNG.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRPT_SOTIEMCHUNG.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_QMS.resx">
       <DependentUpon>frm_QMS.cs</DependentUpon>
     </EmbeddedResource>
