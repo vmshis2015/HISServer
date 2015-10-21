@@ -169,11 +169,11 @@ namespace VNS.HIS.NGHIEPVU
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public void DeleteList(string p_strMa, ref string ActResult)
+        public void DeleteList(string p_strMa, string LoaiDanhmuc, ref string ActResult)
         {
             try
             {
-                int record = new Delete().From(DmucChung.Schema).Where(DmucChung.Columns.Ma).IsEqualTo(p_strMa).Execute();
+                int record = new Delete().From(DmucChung.Schema).Where(DmucChung.Columns.Ma).IsEqualTo(p_strMa).And(DmucChung.Columns.Loai).IsEqualTo(LoaiDanhmuc).Execute();
                 if (record > 0)
                     ActResult = ActionResult.Success.ToString();
                 else
