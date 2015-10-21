@@ -44,11 +44,13 @@ namespace VNS.HIS.UI.DANHMUC
         #endregion
          bool SaveAs = false;
         string _name = "";
+        private string loaidanhmuc = "";
         public DMUC_DCHUNG(string p_strArgs)
         {
             InitializeComponent();
             //Khởi tạo sự kiện
             InitEvents();
+            loaidanhmuc = p_strArgs;
             //Phân tích tham số để khởi tạo User interface(UI)
             AnalyzeArguments(p_strArgs);
         }
@@ -617,7 +619,7 @@ namespace VNS.HIS.UI.DANHMUC
 
                 if (!Utility.AcceptQuestion("Bạn có muốn xóa " + DeleteContent + " hay không?", "Xác nhận trước khi xóa danh mục", true)) return false;
                 //Thực hiện hành động xóa
-                m_BusRules.DeleteList(txtMa.Text.Trim(), ref ActResult);
+                m_BusRules.DeleteList(txtMa.Text.Trim(), loaidanhmuc, ref ActResult);
                 if (ActResult == ActionResult.Success.ToString())
                 {
                     RemoveRowfromDataTable(txtMa.Text.Trim());
