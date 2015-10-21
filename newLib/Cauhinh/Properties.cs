@@ -2370,7 +2370,13 @@ DisplayName("HIS Application Mode")]
             Hoikhikhongdangkyphongkham = true;
             FullDelete = false;
             SexInput = true;
+            Nhapngaythangnamsinh = false;
         }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình tính năng tiếp đón Bệnh nhân"),
+    Description("true=Nhập ngày tháng năm sinh.False= Nhập năm sinh"),
+    DisplayName("Nhập ngày tháng năm sinh")]
+        public bool Nhapngaythangnamsinh { get; set; }
+
         [Browsable(true), ReadOnly(false), Category("Cấu hình tính năng tiếp đón Bệnh nhân"),
      Description("true=Yêu cầu nhập giới tính khi thêm mới.False= giữ nguyên giới tính vừa chọn"),
      DisplayName("Yêu cầu nhập giới tính")]
