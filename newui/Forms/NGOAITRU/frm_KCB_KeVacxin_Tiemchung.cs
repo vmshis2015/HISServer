@@ -362,7 +362,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                 row[KcbDonthuocChitiet.Columns.NguoiTiem] = Utility.Int16Dbnull(txtNguoitiem.MyID,-1);
                                 row[KcbDonthuocChitiet.Columns.LydoTiemchung] = txtLydotiem.myCode;
                                 row[KcbDonthuocChitiet.Columns.MuiThu] = Utility.Int16Dbnull(txtMuithu.Text, 1);
-                                row[KcbDonthuocChitiet.Columns.VitriTiem] = Utility.sDbnull(txtVitritiem.Tag, txtVitritiem.Text);
+                                row[KcbDonthuocChitiet.Columns.VitriTiem] = txtVitritiem.myCode;
                                 if (chkHennhaclai.Checked)
                                 {
                                     row["hen_nhaclai"] = dtpHennhaclai.Text;
@@ -1573,6 +1573,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 this.LayDanhsachKhoVacxin();
                 this.LoadLaserPrinters();
                 this.txtCachDung.Init();
+                txtVitritiem.Init();
                 txtLydotiem.Init();
                 LayCongtiem();
                 this.GetData();
@@ -1940,6 +1941,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 MaDoituongKcb = Utility.sDbnull(drv[KcbDonthuocChitiet.Columns.MaDoituongKcb], "DV"),
                 KieuBiendong = Utility.sDbnull(drv[KcbDonthuocChitiet.Columns.KieuBiendong], "EXP"),
                 DaDung=0,
+                VitriTiem = Utility.sDbnull(drv[KcbDonthuocChitiet.Columns.VitriTiem], ""),
                 NguoiTiem = Utility.Int16Dbnull(drv[KcbDonthuocChitiet.Columns.NguoiTiem], -1),
                 LydoTiemchung = Utility.sDbnull(drv[KcbDonthuocChitiet.Columns.LydoTiemchung], ""),
                 MuiThu = Utility.ByteDbnull(drv[KcbDonthuocChitiet.Columns.MuiThu], (byte)1),
@@ -2273,6 +2275,7 @@ namespace VNS.HIS.UI.NGOAITRU
             cmdSearchBenhPhu.Click += new EventHandler(cmdSearchBenhPhu_Click);
             chkHennhaclai.CheckedChanged += chkHennhaclai_CheckedChanged;
             txtLydotiem._OnShowData += txtLydotiem__OnShowData;
+            txtVitritiem._OnShowData += txtVitritiem__OnShowData;
             chkMuithu.CheckedChanged += chkMuithu_CheckedChanged;
             cmdKecongtiem.Click+=cmdKecongtiem_Click;
         }
@@ -2377,6 +2380,18 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtLydotiem.SetCode(oldCode);
                 txtLydotiem.Focus();
             } 
+        }
+        void txtVitritiem__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtVitritiem.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtVitritiem.myCode;
+                txtVitritiem.Init();
+                txtVitritiem.SetCode(oldCode);
+                txtVitritiem.Focus();
+            }
         }
 
         void chkHennhaclai_CheckedChanged(object sender, EventArgs e)
@@ -2982,6 +2997,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     this.txtdrugtypeCode.Text = rowArray[0][DmucLoaithuoc.Columns.MaLoaithuoc].ToString();
 
                     txtLieuluong.Text = Utility.sDbnull(rowArray[0][DmucThuoc.Columns.HamLuong]);
+                    txtVitritiem.MyCode = Utility.sDbnull(rowArray[0]["cach_sudung"]);
                     txtVitritiem.Text = Utility.sDbnull(rowArray[0]["ten_cach_sudung"]);
                     txtVitritiem.Tag = Utility.sDbnull(rowArray[0]["cach_sudung"]);
                     txtLoaivacxin.Text = Utility.sDbnull(rowArray[0]["ten_loaithuoc"]);

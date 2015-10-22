@@ -62,9 +62,11 @@
             this.uiTabPage1 = new Janus.Windows.UI.Tab.UITabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.cmdKecongtiem = new Janus.Windows.EditControls.UIButton();
             this.pnlKedon = new System.Windows.Forms.Panel();
+            this.txtVitritiem = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
+            this.txtNguoitiem = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.chkMuithu = new Janus.Windows.EditControls.UICheckBox();
-            this.txtVitritiem = new Janus.Windows.GridEX.EditControls.EditBox();
             this.txtLydotiem = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.label8 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
@@ -184,8 +186,6 @@
             this.cboA4 = new Janus.Windows.EditControls.UIComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.txtNguoitiem = new VNS.HIS.UCs.AutoCompleteTextbox();
-            this.cmdKecongtiem = new Janus.Windows.EditControls.UIButton();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdPresDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabKeDonThuoc)).BeginInit();
@@ -501,13 +501,25 @@
             this.panel4.Size = new System.Drawing.Size(630, 46);
             this.panel4.TabIndex = 547;
             // 
+            // cmdKecongtiem
+            // 
+            this.cmdKecongtiem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdKecongtiem.Image = ((System.Drawing.Image)(resources.GetObject("cmdKecongtiem.Image")));
+            this.cmdKecongtiem.ImageSize = new System.Drawing.Size(30, 30);
+            this.cmdKecongtiem.ImageVerticalAlignment = Janus.Windows.EditControls.ImageVerticalAlignment.Near;
+            this.cmdKecongtiem.Location = new System.Drawing.Point(3, 6);
+            this.cmdKecongtiem.Name = "cmdKecongtiem";
+            this.cmdKecongtiem.Size = new System.Drawing.Size(129, 29);
+            this.cmdKecongtiem.TabIndex = 590;
+            this.cmdKecongtiem.Text = "&Kê công tiêm";
+            // 
             // pnlKedon
             // 
+            this.pnlKedon.Controls.Add(this.txtVitritiem);
             this.pnlKedon.Controls.Add(this.txtNguoitiem);
             this.pnlKedon.Controls.Add(this.chkMuithu);
             this.pnlKedon.Controls.Add(this.chkHienthithuoctheonhom);
             this.pnlKedon.Controls.Add(this.cmdAddDetail);
-            this.pnlKedon.Controls.Add(this.txtVitritiem);
             this.pnlKedon.Controls.Add(this.txtLydotiem);
             this.pnlKedon.Controls.Add(this.label8);
             this.pnlKedon.Controls.Add(this.label42);
@@ -541,6 +553,84 @@
             this.pnlKedon.TabIndex = 546;
             this.pnlKedon.TabStop = true;
             // 
+            // txtVitritiem
+            // 
+            this.txtVitritiem._backcolor = System.Drawing.SystemColors.Control;
+            this.txtVitritiem._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVitritiem._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtVitritiem.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtVitritiem.AutoCompleteList")));
+            this.txtVitritiem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtVitritiem.CaseSensitive = false;
+            this.txtVitritiem.CompareNoID = true;
+            this.txtVitritiem.DefaultCode = "-1";
+            this.txtVitritiem.DefaultID = "-1";
+            this.txtVitritiem.Drug_ID = null;
+            this.txtVitritiem.ExtraWidth = 0;
+            this.txtVitritiem.FillValueAfterSelect = false;
+            this.txtVitritiem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVitritiem.LOAI_DANHMUC = "CACHSUDUNGTHUOC";
+            this.txtVitritiem.Location = new System.Drawing.Point(466, 105);
+            this.txtVitritiem.MaxHeight = 150;
+            this.txtVitritiem.MinTypedCharacters = 2;
+            this.txtVitritiem.MyCode = "-1";
+            this.txtVitritiem.MyID = "-1";
+            this.txtVitritiem.Name = "txtVitritiem";
+            this.txtVitritiem.RaiseEvent = false;
+            this.txtVitritiem.RaiseEventEnter = false;
+            this.txtVitritiem.RaiseEventEnterWhenEmpty = false;
+            this.txtVitritiem.SelectedIndex = -1;
+            this.txtVitritiem.Size = new System.Drawing.Size(157, 21);
+            this.txtVitritiem.splitChar = '@';
+            this.txtVitritiem.splitCharIDAndCode = '#';
+            this.txtVitritiem.TabIndex = 575;
+            this.txtVitritiem.TakeCode = false;
+            this.txtVitritiem.txtMyCode = null;
+            this.txtVitritiem.txtMyCode_Edit = null;
+            this.txtVitritiem.txtMyID = null;
+            this.txtVitritiem.txtMyID_Edit = null;
+            this.txtVitritiem.txtMyName = null;
+            this.txtVitritiem.txtMyName_Edit = null;
+            this.txtVitritiem.txtNext = null;
+            // 
+            // txtNguoitiem
+            // 
+            this.txtNguoitiem._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtNguoitiem._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNguoitiem._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtNguoitiem.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNguoitiem.AutoCompleteList")));
+            this.txtNguoitiem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNguoitiem.CaseSensitive = false;
+            this.txtNguoitiem.CompareNoID = true;
+            this.txtNguoitiem.DefaultCode = "-1";
+            this.txtNguoitiem.DefaultID = "-1";
+            this.txtNguoitiem.Drug_ID = null;
+            this.txtNguoitiem.ExtraWidth = 0;
+            this.txtNguoitiem.FillValueAfterSelect = false;
+            this.txtNguoitiem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNguoitiem.Location = new System.Drawing.Point(93, 81);
+            this.txtNguoitiem.MaxHeight = 289;
+            this.txtNguoitiem.MinTypedCharacters = 2;
+            this.txtNguoitiem.MyCode = "-1";
+            this.txtNguoitiem.MyID = "-1";
+            this.txtNguoitiem.MyText = "";
+            this.txtNguoitiem.Name = "txtNguoitiem";
+            this.txtNguoitiem.RaiseEvent = true;
+            this.txtNguoitiem.RaiseEventEnter = true;
+            this.txtNguoitiem.RaiseEventEnterWhenEmpty = true;
+            this.txtNguoitiem.SelectedIndex = -1;
+            this.txtNguoitiem.Size = new System.Drawing.Size(282, 21);
+            this.txtNguoitiem.splitChar = '@';
+            this.txtNguoitiem.splitCharIDAndCode = '#';
+            this.txtNguoitiem.TabIndex = 4;
+            this.txtNguoitiem.TakeCode = false;
+            this.txtNguoitiem.txtMyCode = null;
+            this.txtNguoitiem.txtMyCode_Edit = null;
+            this.txtNguoitiem.txtMyID = null;
+            this.txtNguoitiem.txtMyID_Edit = null;
+            this.txtNguoitiem.txtMyName = null;
+            this.txtNguoitiem.txtMyName_Edit = null;
+            this.txtNguoitiem.txtNext = null;
+            // 
             // chkMuithu
             // 
             this.chkMuithu.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -552,20 +642,11 @@
             this.chkMuithu.TabStop = false;
             this.chkMuithu.Text = "Mũi thứ:";
             // 
-            // txtVitritiem
-            // 
-            this.txtVitritiem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVitritiem.Location = new System.Drawing.Point(466, 106);
-            this.txtVitritiem.Name = "txtVitritiem";
-            this.txtVitritiem.ReadOnly = true;
-            this.txtVitritiem.Size = new System.Drawing.Size(157, 21);
-            this.txtVitritiem.TabIndex = 9;
-            this.txtVitritiem.TabStop = false;
-            // 
             // txtLydotiem
             // 
             this.txtLydotiem._backcolor = System.Drawing.SystemColors.Control;
             this.txtLydotiem._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLydotiem._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLydotiem.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLydotiem.AutoCompleteList")));
             this.txtLydotiem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLydotiem.CaseSensitive = false;
@@ -578,7 +659,7 @@
             this.txtLydotiem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLydotiem.LOAI_DANHMUC = "LYDOTIEM";
             this.txtLydotiem.Location = new System.Drawing.Point(466, 80);
-            this.txtLydotiem.MaxHeight = -1;
+            this.txtLydotiem.MaxHeight = 150;
             this.txtLydotiem.MinTypedCharacters = 2;
             this.txtLydotiem.MyCode = "-1";
             this.txtLydotiem.MyID = "-1";
@@ -1098,6 +1179,7 @@
             // 
             this.txtCachDung._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtCachDung._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCachDung._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtCachDung.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtCachDung.AutoCompleteList")));
             this.txtCachDung.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCachDung.CaseSensitive = false;
@@ -1431,6 +1513,7 @@
             // 
             this.txtChanDoan._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtChanDoan._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChanDoan._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtChanDoan.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtChanDoan.AutoCompleteList")));
             this.txtChanDoan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtChanDoan.CaseSensitive = false;
@@ -1933,7 +2016,7 @@
             this.label29.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label29.Location = new System.Drawing.Point(269, 239);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(46, 15);
+            this.label29.Size = new System.Drawing.Size(47, 15);
             this.label29.TabIndex = 62;
             this.label29.Text = "Số  ĐT:";
             this.label29.Visible = false;
@@ -2077,57 +2160,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // txtNguoitiem
-            // 
-            this.txtNguoitiem._backcolor = System.Drawing.Color.WhiteSmoke;
-            this.txtNguoitiem._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNguoitiem._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtNguoitiem.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNguoitiem.AutoCompleteList")));
-            this.txtNguoitiem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNguoitiem.CaseSensitive = false;
-            this.txtNguoitiem.CompareNoID = true;
-            this.txtNguoitiem.DefaultCode = "-1";
-            this.txtNguoitiem.DefaultID = "-1";
-            this.txtNguoitiem.Drug_ID = null;
-            this.txtNguoitiem.ExtraWidth = 0;
-            this.txtNguoitiem.FillValueAfterSelect = false;
-            this.txtNguoitiem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNguoitiem.Location = new System.Drawing.Point(93, 81);
-            this.txtNguoitiem.MaxHeight = 289;
-            this.txtNguoitiem.MinTypedCharacters = 2;
-            this.txtNguoitiem.MyCode = "-1";
-            this.txtNguoitiem.MyID = "-1";
-            this.txtNguoitiem.MyText = "";
-            this.txtNguoitiem.Name = "txtNguoitiem";
-            this.txtNguoitiem.RaiseEvent = true;
-            this.txtNguoitiem.RaiseEventEnter = true;
-            this.txtNguoitiem.RaiseEventEnterWhenEmpty = true;
-            this.txtNguoitiem.SelectedIndex = -1;
-            this.txtNguoitiem.Size = new System.Drawing.Size(282, 21);
-            this.txtNguoitiem.splitChar = '@';
-            this.txtNguoitiem.splitCharIDAndCode = '#';
-            this.txtNguoitiem.TabIndex = 4;
-            this.txtNguoitiem.TakeCode = false;
-            this.txtNguoitiem.txtMyCode = null;
-            this.txtNguoitiem.txtMyCode_Edit = null;
-            this.txtNguoitiem.txtMyID = null;
-            this.txtNguoitiem.txtMyID_Edit = null;
-            this.txtNguoitiem.txtMyName = null;
-            this.txtNguoitiem.txtMyName_Edit = null;
-            this.txtNguoitiem.txtNext = null;
-            // 
-            // cmdKecongtiem
-            // 
-            this.cmdKecongtiem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdKecongtiem.Image = ((System.Drawing.Image)(resources.GetObject("cmdKecongtiem.Image")));
-            this.cmdKecongtiem.ImageSize = new System.Drawing.Size(30, 30);
-            this.cmdKecongtiem.ImageVerticalAlignment = Janus.Windows.EditControls.ImageVerticalAlignment.Near;
-            this.cmdKecongtiem.Location = new System.Drawing.Point(3, 6);
-            this.cmdKecongtiem.Name = "cmdKecongtiem";
-            this.cmdKecongtiem.Size = new System.Drawing.Size(129, 29);
-            this.cmdKecongtiem.TabIndex = 590;
-            this.cmdKecongtiem.Text = "&Kê công tiêm";
             // 
             // frm_KCB_KeVacxin_Tiemchung
             // 
@@ -2310,9 +2342,9 @@
         internal System.Windows.Forms.Label label36;
         private Janus.Windows.GridEX.EditControls.EditBox txtLieuluong;
         private Janus.Windows.EditControls.UICheckBox chkMuithu;
-        private Janus.Windows.GridEX.EditControls.EditBox txtVitritiem;
         private UCs.AutoCompleteTextbox txtNguoitiem;
         private Janus.Windows.EditControls.UIButton cmdKecongtiem;
+        private UCs.AutoCompleteTextbox_Danhmucchung txtVitritiem;
 
     }
 }
