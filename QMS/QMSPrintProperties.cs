@@ -189,7 +189,11 @@ namespace VNS.QMS
         Description("Tên khoa KCB"),
         Browsable(true), ReadOnly(false)]
         public string TenKhoaKhamBenh { get; set; }
-
+        [Category("Cấu hình phát số chờ tiếp đón KCB "),
+       DisplayName("Tên khoa KCB"),
+       Description("Tên khoa KCB"),
+       Browsable(true), ReadOnly(false)]
+        public string TenKhoaKhamBenhKhac { get; set; }
         [Category("Cấu hình phát số chờ tiếp đón KCB "),
         DisplayName("Tên khoa KCB theo yêu cầu"),
         Description("Tên khoa KCB theo yêu cầu"),
@@ -366,6 +370,15 @@ namespace VNS.QMS
         public string SokhacUutien { get; set; }
 
         [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+    Description("Nơi chờ hiển thị trên phiếu tiếp đón Số khám thường"),
+    DisplayName("Nơi chờ hiển thị trên phiếu tiếp đón Số khám thường")]
+        public string QuaySokham { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
+   Description("Nơi chờ hiển thị trên phiếu tiếp đón Số khám tiêm chủng"),
+   DisplayName("Nơi chờ hiển thị trên phiếu tiếp đón Số khám tiêm chủng")]
+        public string QuaySokhac { get; set; }
+
+        [Browsable(true), ReadOnly(false), Category("Hiển thị(QMS không chọn buồng)"),
     Description("Tên hiển thị trên phiếu QMS Ưu tiên"),
     DisplayName("Tên hiển thị trên phiếu QMS Ưu tiên")]
         public string Souutien { get; set; }
@@ -433,6 +446,8 @@ namespace VNS.QMS
             madoituonguutien = "ALL";
             madoituongdichvu = "DV";
             madoituongbhyt = "BHYT";
+            QuaySokham = "QUẦY TIẾP ĐÓN";
+            QuaySokhac = "QUẦY TIẾP ĐÓN";
             madoituongkhac = "ALL";
             tensouutien = "Lấy số Ưu tiên";
             tensobhyt = "Lấy số BHYT";
@@ -452,6 +467,7 @@ namespace VNS.QMS
             PrintStatus = true;
             Chopheplaysouutien = false;
             Chilaysouutien = false;
+            TenKhoaKhamBenhKhac = "PHÒNG KHÁM TIÊM CHỦNG";
             MaKhoaThuchien = "KKB";
             MaDoituongKCB = "ALL";
             NumberF = new Font("Arial", 50, FontStyle.Bold);

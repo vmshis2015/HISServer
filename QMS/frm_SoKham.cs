@@ -116,7 +116,7 @@ namespace VNS.QMS
                     Reprint = false;
                     txtsokhac.BackColor = cmdSotiemchung.BackColor;
                     txtsokhac.ReadOnly = true;
-                    cmdSotiemchung.Text = cmdSotiemchung.Tag.ToString();
+                   // cmdSotiemchung.Text = cmdSotiemchung.Tag.ToString();
                     mnuReprint.Checked = false;
                 }
                 UIAction._EnableControl(cmdSotiemchung, true, "");
@@ -552,7 +552,7 @@ namespace VNS.QMS
                     Reprint = false;
                     txtSoKham.BackColor = cmdGetSoKham.BackColor;
                     txtSoKham.ReadOnly = true;
-                    cmdGetSoKham.Text = cmdGetSoKham.Tag.ToString();
+                   // cmdGetSoKham.Text = cmdGetSoKham.Tag.ToString();
                     mnuReprint.Checked = false;
                 }
                 UIAction._EnableControl(cmdGetSoKham, true, "");
@@ -608,7 +608,7 @@ namespace VNS.QMS
                     Reprint = false;
                     txtSoKhamYeuCau.BackColor = cmdKhamYC.BackColor;
                     txtSoKhamYeuCau.ReadOnly = true;
-                    cmdKhamYC.Text = cmdKhamYC.Tag.ToString();
+                  //  cmdKhamYC.Text = cmdKhamYC.Tag.ToString();
                     mnuReprint.Checked = false;
                 }
                 UIAction._EnableControl(cmdKhamYC, true, "");
@@ -665,7 +665,7 @@ namespace VNS.QMS
                     Reprint = false;
                     txtSoKhamUuTien.BackColor = cmdKhamUuTien.BackColor;
                     txtSoKhamUuTien.ReadOnly = true;
-                    cmdKhamUuTien.Text = cmdKhamUuTien.Tag.ToString();
+                  //  cmdKhamUuTien.Text = cmdKhamUuTien.Tag.ToString();
                     mnuReprint.Checked = false;
                 }
                 UIAction._EnableControl(cmdKhamUuTien, true, "");
@@ -723,7 +723,7 @@ namespace VNS.QMS
                     Reprint = false;
                     txtsokhacUutien.BackColor = cmdSotiemchung_uutien.BackColor;
                     txtsokhacUutien.ReadOnly = true;
-                    cmdSotiemchung_uutien.Text = cmdSotiemchung_uutien.Tag.ToString();
+                   // cmdSotiemchung_uutien.Text = cmdSotiemchung_uutien.Tag.ToString();
                     mnuReprint.Checked = false;
                 }
                 UIAction._EnableControl(cmdSotiemchung_uutien, true, "");
@@ -766,10 +766,10 @@ namespace VNS.QMS
 
         private void frm_SoKham_Load(object sender, EventArgs e)
         {
-           this.LaySokham(0,txtSoKham, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh),"ALL", 0,0);
-           this.LaySokham(0, txtSoKhamUuTien, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), _QMSProperties.madoituonguutien,0,1);
+            this.LaySokham(0, txtSoKham, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), _QMSProperties.madoituongdichvu, 0, 0);
+           this.LaySokham(0, txtSoKhamUuTien, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), "ALL",0,1);
            this.LaySokham(0, txtSoKhamYeuCau, Utility.sDbnull(_QMSProperties.MaKhoaYeuCau),"ALL", 0,0);
-           this.LaySokham(0, txtSoKhamBHYT, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh),"ALL", 0,0);
+           this.LaySokham(0, txtSoKhamBHYT, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), _QMSProperties.madoituongbhyt, 0, 0);
            this.LaySokham(0, txtsokhac, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), _QMSProperties.madoituongkhac, 2,0);
            this.LaySokham(0, txtsokhacUutien, Utility.sDbnull(_QMSProperties.MaKhoaKhamBenh), _QMSProperties.madoituongkhac, 2, 1);
            hasLoaded = true;
@@ -788,21 +788,31 @@ namespace VNS.QMS
 
                 row["So_Kham"] = Utility.sDbnull(sokham);
                 dataTable.Rows.Add(row);
-                CrystalDecisions.CrystalReports.Engine.ReportDocument crpt_sokham = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                if(loaisoqms == "SOKHAM")
-                {
-                     crpt_sokham = new CRPT_SOKHAM();
-                }
-                else
-                {
-                     crpt_sokham = new CRPT_SOTIEMCHUNG();
-                }
+
+                CRPT_SOKHAM crpt_sokham = new CRPT_SOKHAM();
+              
                 crpt_sokham.SetDataSource(dataTable);
                 crpt_sokham.SetParameterValue("TEN_BENH_VIEN", _QMSProperties.TenBenhVien);
                 string str2 = NgayIn(DateTime.Now);
                 crpt_sokham.SetParameterValue("PrintDate", str2);
-                crpt_sokham.SetParameterValue("TenKhoa", Utility.sDbnull(tenkhoa));
+                if (loaisoqms == "SOKHAM")
+                {
+                    crpt_sokham.SetParameterValue("TenKhoa", Utility.sDbnull(tenkhoa));
+                }
+                else
+                {
+                    crpt_sokham.SetParameterValue("TenKhoa", Utility.sDbnull(_QMSProperties.TenKhoaKhamBenhKhac));
+                }
+               
                 crpt_sokham.SetParameterValue("LoaiDoiTuong", val);
+                if(loaisoqms=="SOKHAM")
+                {
+                    crpt_sokham.SetParameterValue("NoiChokham", _QMSProperties.QuaySokham);
+                }
+                else
+                {
+                    crpt_sokham.SetParameterValue("NoiChokham", _QMSProperties.QuaySokhac);
+                }
                 if (!string.IsNullOrEmpty(_QMSProperties.PrinterName))
                 {
                     crpt_sokham.PrintOptions.PrinterName = Utility.sDbnull(_QMSProperties.PrinterName);
