@@ -306,8 +306,8 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                                 {
                                     
                                     new Update(DmucThuoc.Schema)
-                                    .Set(DmucThuoc.Columns.SoDangky).EqualTo(objPhieuNhapCt.SoDky)
-                                    .Set(DmucThuoc.Columns.QD31).EqualTo(objPhieuNhapCt.SoQdinhthau)
+                                    //.Set(DmucThuoc.Columns.SoDangky).EqualTo(objPhieuNhapCt.SoDky)
+                                    //.Set(DmucThuoc.Columns.QD31).EqualTo(objPhieuNhapCt.SoQdinhthau)
                                         .Set(DmucThuoc.Columns.DonGia).EqualTo(objPhieuNhapCt.DonGia)
                                         .Set(DmucThuoc.Columns.GiaDv).EqualTo(objPhieuNhapCt.GiaBan)
                                         .Set(DmucThuoc.Columns.GiaBhyt).EqualTo(objPhieuNhapCt.GiaBhyt)
