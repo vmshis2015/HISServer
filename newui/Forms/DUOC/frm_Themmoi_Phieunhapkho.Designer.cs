@@ -98,7 +98,7 @@
             this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider3 = new System.Windows.Forms.ErrorProvider(this.components);
             this.label17 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
+            this.lblThangdu = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.lblBHYTcu = new System.Windows.Forms.Label();
@@ -107,8 +107,8 @@
             this.nmrThangDu = new System.Windows.Forms.NumericUpDown();
             this.label19 = new System.Windows.Forms.Label();
             this.txtSoLo = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
+            this.lblSTTThau = new System.Windows.Forms.Label();
+            this.lblQDthau = new System.Windows.Forms.Label();
             this.txtThanhTien = new MaskedTextBox.MaskedTextBox();
             this.txtGiaBHYT_cu = new MaskedTextBox.MaskedTextBox();
             this.txtPhuthuTT = new MaskedTextBox.MaskedTextBox();
@@ -1014,15 +1014,15 @@
             this.label17.Text = "Thành tiền";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label21
+            // lblThangdu
             // 
-            this.label21.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(402, 197);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(84, 15);
-            this.label21.TabIndex = 507;
-            this.label21.Text = "Thặng dư";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblThangdu.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThangdu.Location = new System.Drawing.Point(402, 197);
+            this.lblThangdu.Name = "lblThangdu";
+            this.lblThangdu.Size = new System.Drawing.Size(84, 15);
+            this.lblThangdu.TabIndex = 507;
+            this.lblThangdu.Text = "Thặng dư";
+            this.lblThangdu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label22
             // 
@@ -1102,27 +1102,27 @@
             this.txtSoLo.Size = new System.Drawing.Size(96, 21);
             this.txtSoLo.TabIndex = 16;
             // 
-            // label26
+            // lblSTTThau
             // 
-            this.label26.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label26.Location = new System.Drawing.Point(240, 223);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(58, 15);
-            this.label26.TabIndex = 526;
-            this.label26.Text = "Số Đ.Ký";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblSTTThau.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSTTThau.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblSTTThau.Location = new System.Drawing.Point(236, 221);
+            this.lblSTTThau.Name = "lblSTTThau";
+            this.lblSTTThau.Size = new System.Drawing.Size(65, 15);
+            this.lblSTTThau.TabIndex = 526;
+            this.lblSTTThau.Text = "STT Thầu:";
+            this.lblSTTThau.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label20
+            // lblQDthau
             // 
-            this.label20.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label20.Location = new System.Drawing.Point(3, 221);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(97, 15);
-            this.label20.TabIndex = 528;
-            this.label20.Text = "Số QĐ thầu:";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblQDthau.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblQDthau.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblQDthau.Location = new System.Drawing.Point(3, 221);
+            this.lblQDthau.Name = "lblQDthau";
+            this.lblQDthau.Size = new System.Drawing.Size(97, 15);
+            this.lblQDthau.TabIndex = 528;
+            this.lblQDthau.Text = "Số QĐ thầu:";
+            this.lblQDthau.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtThanhTien
             // 
@@ -1350,8 +1350,8 @@
             this.ClientSize = new System.Drawing.Size(928, 650);
             this.Controls.Add(this.txtsoQDthau);
             this.Controls.Add(this.txtsoDK);
-            this.Controls.Add(this.label20);
-            this.Controls.Add(this.label26);
+            this.Controls.Add(this.lblQDthau);
+            this.Controls.Add(this.lblSTTThau);
             this.Controls.Add(this.txtSoLo);
             this.Controls.Add(this.txtMaDonvitinh);
             this.Controls.Add(this.label19);
@@ -1370,7 +1370,7 @@
             this.Controls.Add(this.lblBHYTcu);
             this.Controls.Add(this.txtDrugName);
             this.Controls.Add(this.label22);
-            this.Controls.Add(this.label21);
+            this.Controls.Add(this.lblThangdu);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.cmdHuyThongTin);
             this.Controls.Add(this.cmdAddDetail);
@@ -1464,7 +1464,7 @@
         private System.Windows.Forms.Label label4;
         private Janus.Windows.GridEX.GridEX grdPhieuNhapChiTiet;
         private System.Windows.Forms.Label lblTongtien;
-        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label lblThangdu;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ToolTip toolTip1;
         private Janus.Windows.EditControls.UIButton cmdCauHinh;
@@ -1499,8 +1499,8 @@
         private System.Windows.Forms.Label label19;
         private Janus.Windows.EditControls.UICheckBox chkPhieuvay;
         private Janus.Windows.GridEX.EditControls.EditBox txtSoLo;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label lblQDthau;
+        private System.Windows.Forms.Label lblSTTThau;
         private UCs.AutoCompleteTextbox_Danhmucchung txtsoQDthau;
         private UCs.AutoCompleteTextbox_Danhmucchung txtsoDK;
         private UCs.AutoCompleteTextbox txtKhonhap;

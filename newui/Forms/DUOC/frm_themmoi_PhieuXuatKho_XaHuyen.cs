@@ -18,7 +18,7 @@ using VNS.HIS.UI.DANHMUC;
 
 namespace VNS.HIS.UI.THUOC
 {
-    public partial class frm_themmoi_phieuxuatkho_benhnhan : Form
+    public partial class frm_themmoi_PhieuXuatKho_XaHuyen : Form
     {
         private DataTable m_dtKhoNhap, m_dtKhoXuat = new DataTable();
         private int statusHethan = 1;
@@ -31,7 +31,7 @@ namespace VNS.HIS.UI.THUOC
         public string KIEU_THUOC_VT = "THUOC";
         private DataTable m_PhieuDuTru = new DataTable();
         
-        public frm_themmoi_phieuxuatkho_benhnhan()
+        public frm_themmoi_PhieuXuatKho_XaHuyen()
         {
             InitializeComponent();
             
@@ -43,7 +43,7 @@ namespace VNS.HIS.UI.THUOC
         {
             cmdExit.Click += new EventHandler(cmdExit_Click);
             grdKhoXuat.KeyDown += new KeyEventHandler(grdKhoXuat_KeyDown);
-            this.KeyDown += new KeyEventHandler(frm_themmoi_phieuxuatkho_benhnhan_KeyDown);
+            this.KeyDown += new KeyEventHandler(frm_themmoi_PhieuXuatKho_XaHuyen_KeyDown);
             txtLyDoXuat._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtLyDoXuat__OnShowData);
             txtNguoinhan._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtNguoinhan__OnShowData);
             txtNguoigiao._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtNguoigiao__OnShowData);
@@ -259,7 +259,7 @@ namespace VNS.HIS.UI.THUOC
             }
         }
        
-        void frm_themmoi_phieuxuatkho_benhnhan_KeyDown(object sender, KeyEventArgs e)
+        void frm_themmoi_PhieuXuatKho_XaHuyen_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) cmdExit_Click(cmdExit, new EventArgs());
             if (e.Control && e.KeyCode == Keys.S) cmdSave_Click(cmdSave, new EventArgs());
@@ -378,13 +378,13 @@ namespace VNS.HIS.UI.THUOC
         {
             if (KIEU_THUOC_VT == "THUOC")
             {
-                m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_LE_NGOAITRU();
-                m_dtKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_AO(false);
+                m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOXUATTHUOC_XAHUYEN();
+                m_dtKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_XAHUYEN();
             }
             else
             {
-                m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_LE(new List<string> { "TATCA", "NGOAITRU", "NOITRU" });
-                m_dtKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_AO(false);
+                m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOXUATVT_XAHUYEN();
+                m_dtKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOVT_XAHUYEN();
             }
             cboNhanVien.SelectedValue = globalVariables.gv_intIDNhanvien;
             txtKhoXuat.Init(m_dtKhoXuat, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
@@ -430,7 +430,7 @@ namespace VNS.HIS.UI.THUOC
         {
         }
         string ten_kieuthuoc_vt = "Thuốc";
-        private void frm_themmoi_phieuxuatkho_benhnhan_Load(object sender, EventArgs e)
+        private void frm_themmoi_PhieuXuatKho_XaHuyen_Load(object sender, EventArgs e)
         {
             ten_kieuthuoc_vt = KIEU_THUOC_VT == "VT" ? "Vật tư" : "Thuốc";
             txtLyDoXuat.Init();
@@ -530,7 +530,7 @@ namespace VNS.HIS.UI.THUOC
             objTPhieuNhapxuatthuoc.IdKhoxuat = Utility.Int16Dbnull(txtKhoXuat.MyID, -1);
             objTPhieuNhapxuatthuoc.MaNhacungcap = "";
             objTPhieuNhapxuatthuoc.MotaThem = txtLyDoXuat.Text;
-            objTPhieuNhapxuatthuoc.NoiTru = 0;
+           
             objTPhieuNhapxuatthuoc.TrangThai = 0;
             objTPhieuNhapxuatthuoc.KieuThuocvattu = KIEU_THUOC_VT;
             objTPhieuNhapxuatthuoc.IdNhanvien = Utility.Int16Dbnull(cboNhanVien.SelectedValue, -1);
@@ -544,8 +544,8 @@ namespace VNS.HIS.UI.THUOC
             objTPhieuNhapxuatthuoc.NguoiTao = globalVariables.UserName;
             objTPhieuNhapxuatthuoc.NguoiGiao =Utility.DoTrim( txtNguoigiao.Text);
             objTPhieuNhapxuatthuoc.NguoiNhan =Utility.DoTrim( txtNguoinhan.Text);
-            objTPhieuNhapxuatthuoc.LoaiPhieu = (byte)LoaiPhieu.PhieuXuatKhoBenhNhan;
-            objTPhieuNhapxuatthuoc.TenLoaiphieu = Utility.TenLoaiPhieu(LoaiPhieu.PhieuXuatKhoBenhNhan);
+            objTPhieuNhapxuatthuoc.LoaiPhieu = (byte)LoaiPhieu.PhieuXuatkhoTuyenXaHuyen;
+            objTPhieuNhapxuatthuoc.TenLoaiphieu = Utility.TenLoaiPhieu(LoaiPhieu.PhieuXuatkhoTuyenXaHuyen);
             objTPhieuNhapxuatthuoc.DuTru = Utility.Bool2byte(chkPhieudutru.Checked);
             return objTPhieuNhapxuatthuoc;
         }

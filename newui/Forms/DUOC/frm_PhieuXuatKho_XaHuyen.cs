@@ -19,7 +19,7 @@ using VNS.HIS.UI.Forms.Cauhinh;
 
 namespace VNS.HIS.UI.THUOC
 {
-    public partial class frm_PhieuXuatKho_Benhnhan : Form
+    public partial class frm_PhieuXuatKho_XaHuyen : Form
     {
         private int Distance = 488;
         private bool b_Hasloaded = false;
@@ -27,21 +27,21 @@ namespace VNS.HIS.UI.THUOC
         private DataTable m_dtDataPhieuChiTiet = new DataTable();
         
         private int id_PhieuNhap;
-        private string FileName = string.Format("{0}/{1}", Application.StartupPath, string.Format("SplitterDistancefrm_PhieuXuatKho_Benhnhan.txt"));
+        private string FileName = string.Format("{0}/{1}", Application.StartupPath, string.Format("SplitterDistancefrm_PhieuXuatKho_XaHuyen.txt"));
         private int SplitterDistance
         {
             get { return Distance; }
             set { Distance = value; }
         }
         public string KIEU_THUOC_VT = "THUOC";
-        public frm_PhieuXuatKho_Benhnhan(string KIEU_THUOC_VT)
+        public frm_PhieuXuatKho_XaHuyen(string KIEU_THUOC_VT)
         {
             InitializeComponent();
             this.KIEU_THUOC_VT = KIEU_THUOC_VT;
             
             dtFromdate.Value = globalVariables.SysDate.AddMonths(-1);
             dtToDate.Value = globalVariables.SysDate;
-            this.KeyDown += new KeyEventHandler(frm_PhieuXuatKho_Benhnhan_KeyDown);
+            this.KeyDown += new KeyEventHandler(frm_PhieuXuatKho_XaHuyen_KeyDown);
             splitContainer1.SplitterMoved += new SplitterEventHandler(splitContainer1_SplitterMoved);
             grdList.ApplyingFilter += new CancelEventHandler(grdList_ApplyingFilter);
             grdList.SelectionChanged += new EventHandler(grdList_SelectionChanged);
@@ -53,7 +53,7 @@ namespace VNS.HIS.UI.THUOC
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void frm_PhieuXuatKho_Benhnhan_KeyDown(object sender, KeyEventArgs e)
+        private void frm_PhieuXuatKho_XaHuyen_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.N && e.Control) cmdThemPhieuNhap.PerformClick();
             if (e.KeyCode == Keys.U && e.Control) cmdUpdatePhieuNhap.PerformClick();
@@ -127,7 +127,7 @@ namespace VNS.HIS.UI.THUOC
                                              chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",-1, -1,
                                              Utility.Int32Dbnull(cboKhoNhap.SelectedValue, -1), Utility.Int32Dbnull(cboKhoXuat.SelectedValue, -1),
                                              Utility.Int32Dbnull(cboNhanVien.SelectedValue, -1),
-                                             -1, "-1", Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI,(int) LoaiPhieu.PhieuXuatKhoBenhNhan, MaKho,0, KIEU_THUOC_VT);
+                                             -1, "-1", Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI,(int) LoaiPhieu.PhieuXuatkhoTuyenXaHuyen, MaKho, KIEU_THUOC_VT);
 
             Utility.SetDataSourceForDataGridEx_Basic(grdList, m_dtDataNhapKho, true, true, "1=1", "");
             if (!Utility.isValidGrid(grdList)) if(m_dtDataPhieuChiTiet!=null) m_dtDataPhieuChiTiet.Clear();
@@ -208,7 +208,7 @@ namespace VNS.HIS.UI.THUOC
             ModifyCommand();
         }
         string ten_kieuthuoc_vt = "Thuốc";
-        private void frm_PhieuXuatKho_Benhnhan_Load(object sender, EventArgs e)
+        private void frm_PhieuXuatKho_XaHuyen_Load(object sender, EventArgs e)
         {
             ten_kieuthuoc_vt = KIEU_THUOC_VT == "VT" ? "Vật tư" : "Thuốc";
             InitData();
@@ -224,13 +224,13 @@ namespace VNS.HIS.UI.THUOC
         {
             if (KIEU_THUOC_VT == "THUOC")
             {
-                m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_LE_NGOAITRU();
-                m_dtKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_AO(false);
+                m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOXUATTHUOC_XAHUYEN();
+                m_dtKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_XAHUYEN();
             }
             else
             {
-                m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_LE(new List<string> { "TATCA", "NGOAITRU", "NOITRU" });
-                m_dtKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_AO(false);
+                m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOXUATTHUOC_XAHUYEN();
+                m_dtKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOVT_XAHUYEN();
             }
 
             if(m_dtKhoXuat.Rows.Count>1)
@@ -360,7 +360,7 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                frm_themmoi_phieuxuatkho_benhnhan frm = new frm_themmoi_phieuxuatkho_benhnhan();
+                frm_themmoi_PhieuXuatKho_XaHuyen frm = new frm_themmoi_PhieuXuatKho_XaHuyen();
                 frm.m_enAction = action.Insert;
                 frm.p_mDataPhieuNhapKho = m_dtDataNhapKho;
                 frm.grdList = grdList;
@@ -396,7 +396,7 @@ namespace VNS.HIS.UI.THUOC
             {
                 if (!IsValid4UpdateDelete()) return;
                 int IdPhieu = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
-                frm_themmoi_phieuxuatkho_benhnhan frm = new frm_themmoi_phieuxuatkho_benhnhan();
+                frm_themmoi_PhieuXuatKho_XaHuyen frm = new frm_themmoi_PhieuXuatKho_XaHuyen();
                 frm.m_enAction = action.Update;
                 frm.KIEU_THUOC_VT = KIEU_THUOC_VT;
                 frm.grdList = grdList;

@@ -38,6 +38,7 @@ namespace VNS.HIS.UI.THUOC
         public Janus.Windows.GridEX.GridEX grdList;
         AutoCompleteStringCollection namesCollection = new AutoCompleteStringCollection();
         public string KIEU_THUOC_VT = "THUOC";
+        int songaycanhbao = 10;//Số ngày giữa ngày hết hạn và ngày hiện tại cần bật cảnh báo để người dùng nhập ngày hết hạn cho đúng
         #endregion
         BackgroundWorker _worker = null;
         #region "khai báo khởi tạo Form"
@@ -279,7 +280,10 @@ namespace VNS.HIS.UI.THUOC
                 txtsoDK.Init();
                 txtsoQDthau.Init();
                 txtLyDoNhap.Init(dtData);
-
+                songaycanhbao = Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NHAPKHO_KHOANGTHOIGIAN_CANHBAONGAYHETHAN", "10", false),10);
+                lblSTTThau.Enabled = lblQDthau.Enabled = txtsoDK.Enabled = txtsoQDthau.Enabled = THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NHAPKHO_BATNHAPTHONGTIN_QDTHAU", "0", false) == "1";
+                if (!txtsoDK.Enabled)
+                    lblSTTThau.ForeColor = lblQDthau.ForeColor = lblThangdu.ForeColor;
                 if (KIEU_THUOC_VT == "THUOC")
                 {
                     m_dtDataKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_CHAN();
@@ -454,8 +458,8 @@ namespace VNS.HIS.UI.THUOC
                    objThuoc= DmucThuoc.FetchByID(Utility.Int32Dbnull(txtDrug_ID.Text));
                    if (objThuoc != null)
                    {
-                       txtsoDK.Text = objThuoc.SoDangky;
-                       txtsoQDthau.Text = objThuoc.QD31;
+                      // txtsoDK.Text = objThuoc.SoDangky;
+                      // txtsoQDthau.Text = objThuoc.QD31;
                        DmucChung objMeasureUnit = THU_VIEN_CHUNG.LaydoituongDmucChung("DONVITINH", Utility.sDbnull(objThuoc.MaDonvitinh));
                        if (objMeasureUnit != null)
                        {
@@ -568,6 +572,29 @@ namespace VNS.HIS.UI.THUOC
                 Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn cần chọn thuốc để nhập", true);
                 txtDrugName.Focus();
                 return false;
+            }
+            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NHAPKHO_BATNHAPTHONGTIN_QDTHAU", "0", false) == "1")
+            {
+                if (Utility.DoTrim(txtsoQDthau.Text) == "")
+                {
+                    Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải nhập thông tin số QĐ thầu", true);
+                    txtsoQDthau.Focus();
+                    return false;
+                }
+                if (Utility.DoTrim(txtsoDK.Text) == "")
+                {
+                    Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải nhập thông tin số thứ tự thầu", true);
+                    txtsoDK.Focus();
+                    return false;
+                }
+            }
+            if (Microsoft.VisualBasic.DateAndTime.DateDiff(Microsoft.VisualBasic.DateInterval.Day, globalVariables.SysDate, dtNgayHetHan.Value) <= songaycanhbao)
+            {
+                if (Utility.AcceptQuestion("Ngày hết hạn của thuốc so với ngày hiện tại rất gần. Bạn có chắc chắn", "Cảnh báo ngày hết hạn", true))
+                {
+                    dtNgayHetHan.Focus();
+                    return false;
+                }
             }
             if (Utility.DoTrim(txtSoLo.Text) == "")
             {

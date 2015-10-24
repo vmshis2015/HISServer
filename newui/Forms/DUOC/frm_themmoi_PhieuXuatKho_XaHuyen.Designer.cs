@@ -1,6 +1,6 @@
 ﻿namespace VNS.HIS.UI.THUOC
 {
-    partial class frm_themmoi_phieuxuatkho_benhnhan
+    partial class frm_themmoi_PhieuXuatKho_XaHuyen
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_phieuxuatkho_benhnhan));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_PhieuXuatKho_XaHuyen));
             Janus.Windows.GridEX.GridEXLayout grdKhoXuat_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdPhieuXuatChiTiet_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.grpControl = new Janus.Windows.EditControls.UIGroupBox();
@@ -836,7 +836,7 @@
             this.uiGroupBox4.Name = "uiGroupBox4";
             this.uiGroupBox4.Size = new System.Drawing.Size(428, 506);
             this.uiGroupBox4.TabIndex = 69;
-            this.uiGroupBox4.Text = "Chi tiết thuốc xuất sang kho Bệnh nhân";
+            this.uiGroupBox4.Text = "Chi tiết thuốc xuất kho";
             // 
             // grdPhieuXuatChiTiet
             // 
@@ -913,7 +913,7 @@
             this.cmdExit.TabStop = false;
             this.cmdExit.Text = "Thoát";
             // 
-            // frm_themmoi_phieuxuatkho_benhnhan
+            // frm_themmoi_PhieuXuatKho_XaHuyen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -923,11 +923,11 @@
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frm_themmoi_phieuxuatkho_benhnhan";
+            this.Name = "frm_themmoi_PhieuXuatKho_XaHuyen";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Phiếu xuất từ kho lẻ Ngoại trú sang kho Bệnh nhân";
-            this.Load += new System.EventHandler(this.frm_themmoi_phieuxuatkho_benhnhan_Load);
+            this.Text = "Phiếu xuất từ kho thuốc tại đơn vị sang các kho xã huyện";
+            this.Load += new System.EventHandler(this.frm_themmoi_PhieuXuatKho_XaHuyen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grpControl)).EndInit();
             this.grpControl.ResumeLayout(false);
             this.grpControl.PerformLayout();
