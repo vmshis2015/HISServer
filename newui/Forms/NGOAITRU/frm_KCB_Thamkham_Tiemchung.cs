@@ -1496,7 +1496,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                                           SoKham,
                                                           Utility.Int32Dbnull(cboPhongKhamNgoaiTru.SelectedValue, -1),
                                                           globalVariables.MA_KHOA_THIEN);
-
+                //m_dtDanhsachbenhnhanthamkham.Select()
                 if (!m_dtDanhsachbenhnhanthamkham.Columns.Contains("MAUSAC"))
                     m_dtDanhsachbenhnhanthamkham.Columns.Add("MAUSAC", typeof(int));
 

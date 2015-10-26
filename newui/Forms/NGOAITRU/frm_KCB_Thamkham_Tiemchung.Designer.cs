@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel7 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
-            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel8 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
-            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel9 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
+            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel1 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
+            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel2 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
+            Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel3 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_KCB_Thamkham_Tiemchung));
             Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.Common.Layouts.JanusLayoutReference grdList_DesignTimeLayout_Reference_0 = new Janus.Windows.Common.Layouts.JanusLayoutReference("GridEXLayoutData.RootTable.Columns.Column0.ButtonImage");
             Janus.Windows.GridEX.GridEXLayout grdPresDetail_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdVTTH_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem9 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem10 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem11 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem12 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem4 = new Janus.Windows.EditControls.UIComboBoxItem();
             this.uiStatusBar1 = new Janus.Windows.UI.StatusBar.UIStatusBar();
             this.grpSearch = new Janus.Windows.EditControls.UIGroupBox();
             this.label42 = new System.Windows.Forms.Label();
@@ -84,6 +84,7 @@
             this.cmdThamkhamConfig = new Janus.Windows.EditControls.UIButton();
             this.cmdLuuChandoan = new Janus.Windows.EditControls.UIButton();
             this.chkKPL3 = new Janus.Windows.EditControls.UICheckBox();
+            this.cmdLapphieuhenTC = new Janus.Windows.EditControls.UIButton();
             this.panel3 = new System.Windows.Forms.Panel();
             this.uiGroupBox2 = new Janus.Windows.EditControls.UIGroupBox();
             this.pnlPatientInfor = new System.Windows.Forms.Panel();
@@ -207,7 +208,6 @@
             this.ctxDelVTTH = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuDelVTTH = new System.Windows.Forms.ToolStripMenuItem();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.cmdLapphieuhenTC = new Janus.Windows.EditControls.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.grpSearch)).BeginInit();
             this.grpSearch.SuspendLayout();
             this.ctxDelCLS.SuspendLayout();
@@ -246,29 +246,29 @@
             this.uiStatusBar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiStatusBar1.Location = new System.Drawing.Point(0, 713);
             this.uiStatusBar1.Name = "uiStatusBar1";
-            uiStatusBarPanel7.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            uiStatusBarPanel7.BorderColor = System.Drawing.Color.Empty;
-            uiStatusBarPanel7.Key = "";
-            uiStatusBarPanel7.ProgressBarValue = 0;
-            uiStatusBarPanel7.Text = "F1: Khám và kết luận";
-            uiStatusBarPanel7.Width = 129;
-            uiStatusBarPanel8.Alignment = System.Windows.Forms.HorizontalAlignment.Center;
-            uiStatusBarPanel8.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            uiStatusBarPanel8.BorderColor = System.Drawing.Color.Empty;
-            uiStatusBarPanel8.Key = "";
-            uiStatusBarPanel8.ProgressBarValue = 0;
-            uiStatusBarPanel8.Text = "F3: kê đơn thuốc";
-            uiStatusBarPanel8.Width = 105;
-            uiStatusBarPanel9.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
-            uiStatusBarPanel9.BorderColor = System.Drawing.Color.Empty;
-            uiStatusBarPanel9.Key = "";
-            uiStatusBarPanel9.ProgressBarValue = 0;
-            uiStatusBarPanel9.Text = "Ctrl+S: Lưu và kết thúc khám";
-            uiStatusBarPanel9.Width = 169;
+            uiStatusBarPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            uiStatusBarPanel1.BorderColor = System.Drawing.Color.Empty;
+            uiStatusBarPanel1.Key = "";
+            uiStatusBarPanel1.ProgressBarValue = 0;
+            uiStatusBarPanel1.Text = "F1: Khám và kết luận";
+            uiStatusBarPanel1.Width = 129;
+            uiStatusBarPanel2.Alignment = System.Windows.Forms.HorizontalAlignment.Center;
+            uiStatusBarPanel2.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            uiStatusBarPanel2.BorderColor = System.Drawing.Color.Empty;
+            uiStatusBarPanel2.Key = "";
+            uiStatusBarPanel2.ProgressBarValue = 0;
+            uiStatusBarPanel2.Text = "F3: kê đơn thuốc";
+            uiStatusBarPanel2.Width = 105;
+            uiStatusBarPanel3.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+            uiStatusBarPanel3.BorderColor = System.Drawing.Color.Empty;
+            uiStatusBarPanel3.Key = "";
+            uiStatusBarPanel3.ProgressBarValue = 0;
+            uiStatusBarPanel3.Text = "Ctrl+S: Lưu và kết thúc khám";
+            uiStatusBarPanel3.Width = 169;
             this.uiStatusBar1.Panels.AddRange(new Janus.Windows.UI.StatusBar.UIStatusBarPanel[] {
-            uiStatusBarPanel7,
-            uiStatusBarPanel8,
-            uiStatusBarPanel9});
+            uiStatusBarPanel1,
+            uiStatusBarPanel2,
+            uiStatusBarPanel3});
             this.uiStatusBar1.Size = new System.Drawing.Size(1004, 23);
             this.uiStatusBar1.TabIndex = 0;
             this.uiStatusBar1.TabStop = false;
@@ -754,6 +754,19 @@
             this.chkKPL3.TabIndex = 29;
             this.chkKPL3.Text = "&3. Đang hoặc mới kết thúc đợt điều trị corticoid/gammaglobulin";
             this.toolTip1.SetToolTip(this.chkKPL3, "3. Đang ");
+            // 
+            // cmdLapphieuhenTC
+            // 
+            this.cmdLapphieuhenTC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cmdLapphieuhenTC.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdLapphieuhenTC.Image = ((System.Drawing.Image)(resources.GetObject("cmdLapphieuhenTC.Image")));
+            this.cmdLapphieuhenTC.ImageSize = new System.Drawing.Size(20, 20);
+            this.cmdLapphieuhenTC.Location = new System.Drawing.Point(414, 14);
+            this.cmdLapphieuhenTC.Name = "cmdLapphieuhenTC";
+            this.cmdLapphieuhenTC.Size = new System.Drawing.Size(121, 30);
+            this.cmdLapphieuhenTC.TabIndex = 452;
+            this.cmdLapphieuhenTC.Text = "Lập phiếu hẹn";
+            this.toolTip1.SetToolTip(this.cmdLapphieuhenTC, "Nhấn vào đây để kết thúc khám cho Bệnh nhân(Phím tắt Ctrl+K)");
             // 
             // panel3
             // 
@@ -1965,6 +1978,7 @@
             this.chkKL_All.TabIndex = 550;
             this.chkKL_All.TabStop = false;
             this.chkKL_All.Text = "Chọn tất cả";
+            this.chkKL_All.Visible = false;
             // 
             // chkKPL_All
             // 
@@ -1975,6 +1989,7 @@
             this.chkKPL_All.TabIndex = 0;
             this.chkKPL_All.TabStop = false;
             this.chkKPL_All.Text = "Chọn tất cả";
+            this.chkKPL_All.Visible = false;
             // 
             // chkKPL8
             // 
@@ -2297,17 +2312,17 @@
             this.cboPrintPreviewDonthuoc.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboPrintPreviewDonthuoc.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboPrintPreviewDonthuoc.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem9.FormatStyle.Alpha = 0;
-            uiComboBoxItem9.IsSeparator = false;
-            uiComboBoxItem9.Text = "Xem trước khi in";
-            uiComboBoxItem9.Value = "0";
-            uiComboBoxItem10.FormatStyle.Alpha = 0;
-            uiComboBoxItem10.IsSeparator = false;
-            uiComboBoxItem10.Text = "In ngay";
-            uiComboBoxItem10.Value = "1";
+            uiComboBoxItem1.FormatStyle.Alpha = 0;
+            uiComboBoxItem1.IsSeparator = false;
+            uiComboBoxItem1.Text = "Xem trước khi in";
+            uiComboBoxItem1.Value = "0";
+            uiComboBoxItem2.FormatStyle.Alpha = 0;
+            uiComboBoxItem2.IsSeparator = false;
+            uiComboBoxItem2.Text = "In ngay";
+            uiComboBoxItem2.Value = "1";
             this.cboPrintPreviewDonthuoc.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem9,
-            uiComboBoxItem10});
+            uiComboBoxItem1,
+            uiComboBoxItem2});
             this.cboPrintPreviewDonthuoc.Location = new System.Drawing.Point(152, 59);
             this.cboPrintPreviewDonthuoc.Name = "cboPrintPreviewDonthuoc";
             this.cboPrintPreviewDonthuoc.Size = new System.Drawing.Size(216, 21);
@@ -2320,17 +2335,17 @@
             this.cboA4Donthuoc.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboA4Donthuoc.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboA4Donthuoc.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem11.FormatStyle.Alpha = 0;
-            uiComboBoxItem11.IsSeparator = false;
-            uiComboBoxItem11.Text = "A4";
-            uiComboBoxItem11.Value = "A4";
-            uiComboBoxItem12.FormatStyle.Alpha = 0;
-            uiComboBoxItem12.IsSeparator = false;
-            uiComboBoxItem12.Text = "A5";
-            uiComboBoxItem12.Value = "A5";
+            uiComboBoxItem3.FormatStyle.Alpha = 0;
+            uiComboBoxItem3.IsSeparator = false;
+            uiComboBoxItem3.Text = "A4";
+            uiComboBoxItem3.Value = "A4";
+            uiComboBoxItem4.FormatStyle.Alpha = 0;
+            uiComboBoxItem4.IsSeparator = false;
+            uiComboBoxItem4.Text = "A5";
+            uiComboBoxItem4.Value = "A5";
             this.cboA4Donthuoc.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem11,
-            uiComboBoxItem12});
+            uiComboBoxItem3,
+            uiComboBoxItem4});
             this.cboA4Donthuoc.Location = new System.Drawing.Point(95, 59);
             this.cboA4Donthuoc.Name = "cboA4Donthuoc";
             this.cboA4Donthuoc.Size = new System.Drawing.Size(55, 21);
@@ -2602,19 +2617,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // cmdLapphieuhenTC
-            // 
-            this.cmdLapphieuhenTC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdLapphieuhenTC.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdLapphieuhenTC.Image = ((System.Drawing.Image)(resources.GetObject("cmdLapphieuhenTC.Image")));
-            this.cmdLapphieuhenTC.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdLapphieuhenTC.Location = new System.Drawing.Point(414, 14);
-            this.cmdLapphieuhenTC.Name = "cmdLapphieuhenTC";
-            this.cmdLapphieuhenTC.Size = new System.Drawing.Size(121, 30);
-            this.cmdLapphieuhenTC.TabIndex = 452;
-            this.cmdLapphieuhenTC.Text = "Lập phiếu hẹn";
-            this.toolTip1.SetToolTip(this.cmdLapphieuhenTC, "Nhấn vào đây để kết thúc khám cho Bệnh nhân(Phím tắt Ctrl+K)");
             // 
             // frm_KCB_Thamkham_Tiemchung
             // 
