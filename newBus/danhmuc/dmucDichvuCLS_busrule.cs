@@ -14,7 +14,7 @@ namespace VNS.HIS.NGHIEPVU
     {
 
 
-       public static string Insert(DmucDichvuclsChitiet objClsChitiet, QheCamchidinhChungphieuCollection lstQhe)
+       public static string Insert(DmucDichvuclsChitiet objClsChitiet, QheCamchidinhChungphieuCollection lstQhe,QheDichvuMauketquaCollection lstqhemauKq)
        {
            try
            {
@@ -38,6 +38,9 @@ namespace VNS.HIS.NGHIEPVU
                            //    .Execute();
 
                        }
+                       new Delete().From(QheDichvuMauketqua.Schema)
+                           .Where(QheDichvuMauketqua.Columns.IdDichvuChitiet).IsEqualTo(objClsChitiet.IdChitietdichvu)
+                           .Execute();
                        new Delete().From(QheCamchidinhChungphieu.Schema)
                            .Where(QheCamchidinhChungphieu.Columns.IdDichvu).IsEqualTo(objClsChitiet.IdChitietdichvu)
                            .And(QheCamchidinhChungphieu.Columns.Loai).IsEqualTo(0)
@@ -51,6 +54,12 @@ namespace VNS.HIS.NGHIEPVU
                            obj.IdDichvu = objClsChitiet.IdChitietdichvu;
                        }
                        lstQhe.SaveAll();
+                       foreach (QheDichvuMauketqua obj in lstqhemauKq)
+                       {
+                           obj.IdDichvuChitiet = objClsChitiet.IdChitietdichvu;
+                       }
+                       lstqhemauKq.SaveAll();
+                       
                    }
                    scope.Complete();
                }
