@@ -256,6 +256,7 @@
             // 
             this.txtNhacungcap._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtNhacungcap._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNhacungcap._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtNhacungcap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNhacungcap.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNhacungcap.AutoCompleteList")));
@@ -390,6 +391,7 @@
             // 
             this.dtToDate.CustomFormat = "dd/MM/yyyy";
             this.dtToDate.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtToDate.Location = new System.Drawing.Point(279, 80);
             this.dtToDate.Name = "dtToDate";
             this.dtToDate.Size = new System.Drawing.Size(181, 21);
@@ -411,6 +413,7 @@
             // 
             this.dtFromdate.CustomFormat = "dd/MM/yyyy";
             this.dtFromdate.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtFromdate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtFromdate.Location = new System.Drawing.Point(94, 80);
             this.dtFromdate.Name = "dtFromdate";
             this.dtFromdate.Size = new System.Drawing.Size(177, 21);
