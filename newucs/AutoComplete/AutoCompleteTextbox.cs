@@ -311,6 +311,7 @@ namespace VNS.HIS.UCs
             this.HideSuggestionListBox();
 
         }
+        string defaultItem = "";
         /// <summary>
         /// 
         /// </summary>
@@ -325,8 +326,12 @@ namespace VNS.HIS.UCs
                 if (dtData == null) return;
                 if (!dtData.Columns.Contains("ShortCut"))
                     dtData.Columns.Add(new DataColumn("ShortCut", typeof(string)));
+                if (dtData.DefaultView.Count == 1)
+                    defaultItem = dtData.DefaultView[0][lstIdCodeName[1]].ToString().Trim();
                 foreach (DataRowView dr in dtData.DefaultView)
                 {
+                    if (dtData.Columns.Contains("mac_dinh") && Utility.Byte2Bool(dr["mac_dinh"]))
+                        defaultItem = dr[lstIdCodeName[1]].ToString().Trim();
                     string shortcut = "";
                     string realName = dr[lstIdCodeName[2]].ToString().Trim() + " " +
                                       Utility.Bodau(dr[lstIdCodeName[2]].ToString().Trim());
@@ -350,20 +355,22 @@ namespace VNS.HIS.UCs
                     }
                     dr["ShortCut"] = shortcut;
                 }
+                var source = new List<string>();
+                var query = from p in dtData.AsEnumerable()
+                            select Utility.sDbnull(p[lstIdCodeName[0]], "") + "#" + Utility.sDbnull(p[lstIdCodeName[1]], "") + "@" + Utility.sDbnull(p[lstIdCodeName[2]], "") + "@" + Utility.sDbnull(p["shortcut"], "");
+                source = query.ToList();
+                this.AutoCompleteList = source;
+                this.TextAlign = _TextAlign;
+                this.CaseSensitive = false;
+                this.MinTypedCharacters = 1;
+                SetCode(defaultItem);
             }
             catch
             {
             }
             finally
             {
-                var source = new List<string>();
-                var query = from p in dtData.AsEnumerable()
-                            select Utility.sDbnull(p[lstIdCodeName[0]], "") + "#" + Utility.sDbnull(p[lstIdCodeName[1]], "") + "@" + Utility.sDbnull(p[lstIdCodeName[2]], "") + "@" +Utility.sDbnull( p["shortcut"],"");
-                source = query.ToList();
-                this.AutoCompleteList = source;
-                this.TextAlign = _TextAlign;
-                this.CaseSensitive = false;
-                this.MinTypedCharacters = 1;
+               
 
             }
         }

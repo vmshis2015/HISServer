@@ -367,8 +367,8 @@ namespace VNS.HIS.UCs
         {
             myCode = code;
             MyCode = myCode;
-            if (m_dtDanhmucChung == null) return;
-            DataRow[] arrDr = m_dtDanhmucChung.Select("MA='" + code + "'");
+            if (dtData == null) return;
+            DataRow[] arrDr = dtData.Select("MA='" + code + "'");
             if (arrDr.Length > 0)
                 _Text = arrDr[0]["TEN"].ToString();
             else
@@ -378,7 +378,6 @@ namespace VNS.HIS.UCs
             }
 
         }
-        DataTable m_dtDanhmucChung = null;
         string defaultItem = "";
         public void Init()
         {
@@ -389,13 +388,13 @@ namespace VNS.HIS.UCs
                     _Visible = globalVariablesPrivate.objNhanvien != null && Utility.Coquyen("quyen_themdanhmucdungchung");
                 AllowEdit = _Visible;
 
-                m_dtDanhmucChung = LayDulieuDanhmucChung(new List<string>() { LOAI_DANHMUC });
-                if (m_dtDanhmucChung == null || m_dtDanhmucChung.Columns.Count <= 0) return;
-             if (!m_dtDanhmucChung.Columns.Contains("ShortCut")) m_dtDanhmucChung.Columns.Add(new DataColumn("ShortCut", typeof(string)));
-             m_dtDanhmucChung.DefaultView.Sort = DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten;
-                if(m_dtDanhmucChung.DefaultView.Count==1)
-                    defaultItem = m_dtDanhmucChung.DefaultView[0]["MA"].ToString().Trim();
-             foreach (DataRowView dr in m_dtDanhmucChung.DefaultView)
+                dtData = LayDulieuDanhmucChung(new List<string>() { LOAI_DANHMUC });
+                if (dtData == null || dtData.Columns.Count <= 0) return;
+                if (!dtData.Columns.Contains("ShortCut")) dtData.Columns.Add(new DataColumn("ShortCut", typeof(string)));
+             dtData.DefaultView.Sort = DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten;
+                if(dtData.DefaultView.Count==1)
+                    defaultItem = dtData.DefaultView[0]["MA"].ToString().Trim();
+             foreach (DataRowView dr in dtData.DefaultView)
              {
                  if (Utility.Byte2Bool(dr[DmucChung.Columns.TrangthaiMacdinh]))
                      defaultItem = dr["MA"].ToString().Trim();
@@ -423,7 +422,7 @@ namespace VNS.HIS.UCs
              }
 
              var source = new List<string>();
-             var query = from p in m_dtDanhmucChung.AsEnumerable()
+             var query = from p in dtData.AsEnumerable()
                          select "-1#" + p.Field<string>("MA").ToString() + "@" + p.Field<string>("TEN").ToString() + "@" + p.Field<string>("shortcut").ToString();
 
              source = query.ToList<string>();
@@ -447,20 +446,20 @@ namespace VNS.HIS.UCs
                     _Visible = globalVariablesPrivate.objNhanvien != null && Utility.Coquyen("quyen_themdanhmucdungchung");
                 AllowEdit = _Visible;
                 IncludeList =","+ IncludeList + ",";
-                m_dtDanhmucChung = LayDulieuDanhmucChung(new List<string>() { LOAI_DANHMUC });
-                DataTable tempt = m_dtDanhmucChung.Clone();
-                foreach (DataRow dr in m_dtDanhmucChung.Rows)
+                dtData = LayDulieuDanhmucChung(new List<string>() { LOAI_DANHMUC });
+                DataTable tempt = dtData.Clone();
+                foreach (DataRow dr in dtData.Rows)
                 {
                     if (IncludeList.Contains("ALL") || IncludeList.Contains("," + Utility.sDbnull(dr["MA"]) + ","))
                         tempt.ImportRow(dr);
                 }
-                m_dtDanhmucChung = tempt.Copy();
-                if (m_dtDanhmucChung == null || m_dtDanhmucChung.Columns.Count <= 0) return;
-                if (!m_dtDanhmucChung.Columns.Contains("ShortCut")) m_dtDanhmucChung.Columns.Add(new DataColumn("ShortCut", typeof(string)));
-                m_dtDanhmucChung.DefaultView.Sort = DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten;
-                if(m_dtDanhmucChung.Rows.Count==1)
-                    defaultItem = m_dtDanhmucChung.Rows[0]["MA"].ToString().Trim();
-                foreach (DataRowView dr in m_dtDanhmucChung.DefaultView)
+                dtData = tempt.Copy();
+                if (dtData == null || dtData.Columns.Count <= 0) return;
+                if (!dtData.Columns.Contains("ShortCut")) dtData.Columns.Add(new DataColumn("ShortCut", typeof(string)));
+                dtData.DefaultView.Sort = DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten;
+                if(dtData.Rows.Count==1)
+                    defaultItem = dtData.Rows[0]["MA"].ToString().Trim();
+                foreach (DataRowView dr in dtData.DefaultView)
                 {
                     if (Utility.Byte2Bool(dr[DmucChung.Columns.TrangthaiMacdinh]))
                         defaultItem = dr["MA"].ToString().Trim();
@@ -488,7 +487,7 @@ namespace VNS.HIS.UCs
                 }
 
                 var source = new List<string>();
-                var query = from p in m_dtDanhmucChung.AsEnumerable()
+                var query = from p in dtData.AsEnumerable()
                            
                             select "-1#" + p.Field<string>("MA").ToString() + "@" + p.Field<string>("TEN").ToString() + "@" + p.Field<string>("shortcut").ToString();
 
@@ -579,14 +578,14 @@ namespace VNS.HIS.UCs
                 if (arrDr.Length <= 0)
                     return;
 
-                m_dtDanhmucChung = arrDr.CopyToDataTable();
-                if (m_dtDanhmucChung == null) return;
-                if (!m_dtDanhmucChung.Columns.Contains("ShortCut")) m_dtDanhmucChung.Columns.Add(new DataColumn("ShortCut", typeof(string)));
+                dtData = arrDr.CopyToDataTable();
+                if (dtData == null) return;
+                if (!dtData.Columns.Contains("ShortCut")) dtData.Columns.Add(new DataColumn("ShortCut", typeof(string)));
 
-                m_dtDanhmucChung.DefaultView.Sort = DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten;
-                if (m_dtDanhmucChung.DefaultView.Count == 1)
-                    defaultItem = m_dtDanhmucChung.DefaultView[0]["MA"].ToString().Trim();
-                foreach (DataRowView dr in m_dtDanhmucChung.DefaultView)
+                dtData.DefaultView.Sort = DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten;
+                if (dtData.DefaultView.Count == 1)
+                    defaultItem = dtData.DefaultView[0]["MA"].ToString().Trim();
+                foreach (DataRowView dr in dtData.DefaultView)
                 {
                     if (Utility.Byte2Bool(dr[DmucChung.Columns.TrangthaiMacdinh]))
                         defaultItem = dr["MA"].ToString().Trim();
@@ -614,7 +613,7 @@ namespace VNS.HIS.UCs
                 }
 
                 var source = new List<string>();
-                var query = from p in m_dtDanhmucChung.AsEnumerable()
+                var query = from p in dtData.AsEnumerable()
                             select "-1#" + p.Field<string>("MA").ToString() + "@" + p.Field<string>("TEN").ToString() + "@" + p.Field<string>("shortcut").ToString();
 
                 source = query.ToList<string>();

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using VNS.Libs;
 using VNS.HIS.DAL;
 using VNS.HIS.BusRule.Classes;
+using SubSonic;
 
 namespace VNS.UCs
 {
@@ -22,6 +23,7 @@ namespace VNS.UCs
         bool useRtf = false;
         bool hasChanged = false;
         public bool onlyView = false;
+        public bool hasAutoCorrect = false;
         public ucDynamicParam()
         {
             InitializeComponent();
@@ -47,6 +49,8 @@ namespace VNS.UCs
         {
             if (!isSaved)
                 Save();
+            if (!hasAutoCorrect)
+                AutoCorrectLastWord();
         }
         public bool _RichTextbox
         {
@@ -74,6 +78,7 @@ namespace VNS.UCs
         }
         void txtValue_TextChanged(object sender, EventArgs e)
         {
+            hasAutoCorrect = false;
             isSaved = false;
         }
 
@@ -83,7 +88,32 @@ namespace VNS.UCs
             {
                 if (AutoSaveWhenEnterKey)
                     Save();
-                if (_OnEnterKey != null) _OnEnterKey(this);
+                if (_OnEnterKey != null)
+                {
+                    if (!hasAutoCorrect)
+                        AutoCorrectLastWord();
+                    _OnEnterKey(this);
+                }
+            }
+            if (e.KeyCode == Keys.Space)
+            {
+               
+                AutoCorrectLastWord();
+                return;
+            }
+        }
+        void AutoCorrectLastWord()
+        {
+            string lastWord = Utility.DoTrim(txtValue.Text).Split(' ').Last();
+            DmucChung objCorrectList = new Select().From(DmucChung.Schema).Where(DmucChung.Columns.Loai).IsEqualTo("AUTOCORRECT")
+                .And(DmucChung.Columns.Ma).IsEqualTo(lastWord).ExecuteSingle<DmucChung>();
+            if (objCorrectList != null)
+            {
+                string BeginText = Utility.DoTrim(txtValue.Text.Replace(lastWord, ""));
+                txtValue.Text = BeginText + (BeginText.Length > 0 ? " " : "") + Utility.DoTrim(objCorrectList.Ten) + " ";
+
+                txtValue.rtbDocument.Select(txtValue.Text.Length, 0);
+                hasAutoCorrect = true;
             }
         }
         public void FocusMe()

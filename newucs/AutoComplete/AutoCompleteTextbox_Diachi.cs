@@ -569,7 +569,12 @@ namespace VNS.HIS.UCs
             //}
             if (Utility.DoTrim( TenTp) != "")
             {
-                if (Utility.DoTrim(TenTp).Contains(" ") || Utility.CheckUnicode(TenTp) || Utility.DoTrim(TenTp).Length > 6)//Gõ trực tiếp tên thay vì gõ tắt
+                if (Utility.DoTrim(TenTp).Contains(" ") || Utility.CheckUnicode(TenTp) || Utility.DoTrim(TenTp).Length > 6)
+                {
+                    _rowFilter = "1=0";
+                }
+                else if (Utility.DoTrim(TenTp).Contains(" ") || Utility.DoTrim(TenTp).Length > 6)//Gõ trực tiếp tên thay vì gõ tắt
+                   // if (Utility.DoTrim(TenTp).Contains(" ") || Utility.CheckUnicode(TenTp) || Utility.DoTrim(TenTp).Length > 6)//Gõ trực tiếp tên thay vì gõ tắt
                 {
                     _rowFilter = " Value like '%" + TenTp + "%' Or ComparedValue like '%" + TenTp + "%'";
                 }
