@@ -269,7 +269,7 @@ namespace VNS.HIS.UI.NOITRU
 
         void dtpBOD_TextChanged(object sender, EventArgs e)
         {
-            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "1")
+            if (PropertyLib._KCBProperties.Nhapngaythangnamsinh)
             {
                 txtTuoi.Text = Utility.sDbnull(globalVariables.SysDate.Year - dtpBOD.Value.Year);
             }
@@ -998,7 +998,7 @@ namespace VNS.HIS.UI.NOITRU
         {
             try
             {
-                if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "1") return;
+                if (PropertyLib._KCBProperties.Nhapngaythangnamsinh) return;
                 if (txtNamSinh.Text.Length < 4) return;
                 if (!string.IsNullOrEmpty(txtNamSinh.Text))
                 {
@@ -1037,7 +1037,7 @@ namespace VNS.HIS.UI.NOITRU
             {
                 if (!string.IsNullOrEmpty(txtTuoi.Text))
                 {
-                    if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "0")
+                    if (!PropertyLib._KCBProperties.Nhapngaythangnamsinh)
                         txtNamSinh.Text = Utility.sDbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(txtTuoi.Text, 0));
                     else
                         dtpBOD.Value = new DateTime(Utility.Int32Dbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(txtTuoi.Text, 0)),dtpBOD.Value.Month, dtpBOD.Value.Day);
@@ -1312,7 +1312,7 @@ namespace VNS.HIS.UI.NOITRU
                 txtTEN_BN.Focus();
                 return false;
             }
-            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "0" && string.IsNullOrEmpty(txtNamSinh.Text))
+            if (!PropertyLib._KCBProperties.Nhapngaythangnamsinh && string.IsNullOrEmpty(txtNamSinh.Text))
             {
                 Utility.SetMsg(lblMsg, "Bạn phải nhập ngày tháng năm sinh, hoặc năm sinh cho bệnh nhân ", true);
                 txtNamSinh.Focus();
@@ -1631,7 +1631,7 @@ namespace VNS.HIS.UI.NOITRU
         }
         private void txtNamSinh_LostFocus(object sender, EventArgs e)
         {
-            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "1") return;
+            if (PropertyLib._KCBProperties.Nhapngaythangnamsinh) return;
             if (!string.IsNullOrEmpty(txtNamSinh.Text))
             {
                 if (txtNamSinh.Text.Length < 4)
@@ -1738,8 +1738,8 @@ namespace VNS.HIS.UI.NOITRU
         private void CauHinhKCB()
         {
             dtpBOD.Value = globalVariables.SysDate;
-            dtpBOD.Visible=THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "1";
-            txtNamSinh.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "0";
+            dtpBOD.Visible = PropertyLib._KCBProperties.Nhapngaythangnamsinh;
+            txtNamSinh.Visible = !PropertyLib._KCBProperties.Nhapngaythangnamsinh;
             if (dtpBOD.Visible)
                 txtTuoi.Text = Utility.sDbnull(globalVariables.SysDate.Year - dtpBOD.Value.Year);
            

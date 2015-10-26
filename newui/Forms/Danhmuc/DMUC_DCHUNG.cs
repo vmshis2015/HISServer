@@ -676,7 +676,7 @@ namespace VNS.HIS.UI.DANHMUC
                         Utility.ShowMsg("Có lỗi khi tìm kiếm dữ liệu:\n" , "Thông báo");
 
                 }
-                txtMa.Init(m_dtData, new List<string>() { DmucChung.Columns.Ma, DmucChung.Columns.Ma, DmucChung.Columns.Ten });
+                txtMa.Init(m_dtData, new List<string>() { DmucChung.Columns.Ma, DmucChung.Columns.Ma, DmucChung.Columns.Ma });
                 txtTen.Init(m_dtData, new List<string>() { DmucChung.Columns.Ten, DmucChung.Columns.Ten, DmucChung.Columns.Ten });
                 //Gán dữ liệu vào lưới
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtData, true, true, "1=1", "STT_HTHI,TEN");

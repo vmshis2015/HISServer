@@ -277,7 +277,7 @@ namespace VNS.HIS.UI.DANHMUC
                 {
                     if (!Utility.isValidGrid(grdServiceDetail))
                     {
-                        Utility.ShowMsg("Bạn cần chọn một bản ghi trên lưới trước khi xóa");
+                        Utility.ShowMsg("Bạn cần chọn một dịch vụ trên lưới trước khi xóa");
                         return;
                     }
                     v_ServiceDetail_Id = Utility.Int32Dbnull(grdServiceDetail.CurrentRow.Cells[DmucDichvuclsChitiet.Columns.IdChitietdichvu].Value, -1);
@@ -287,7 +287,7 @@ namespace VNS.HIS.UI.DANHMUC
                         Utility.ShowMsg("Dịch vụ bạn chọn xóa đã từng được Bác sĩ dùng để chỉ định cho Bệnh nhân nên bạn không thể xóa");
                         return;
                     }
-                    if (Utility.AcceptQuestion("Bạn có muốn xoá bản ghi đang chọn không", "Thông báo", true))
+                    if (Utility.AcceptQuestion("Bạn có muốn xoá dịch vụ đang chọn không", "Thông báo", true))
                     {
                          SPs.DmucXoadanhmucDichvuclsChitiet(v_ServiceDetail_Id).Execute();
                         dsTable.Select(DmucDichvuclsChitiet.Columns.IdChitietdichvu + "=" + v_ServiceDetail_Id)[0].Delete();
@@ -300,7 +300,7 @@ namespace VNS.HIS.UI.DANHMUC
                 {
                     if (!Utility.isValidGrid(grdChitiet))
                     {
-                        Utility.ShowMsg("Bạn cần chọn một bản ghi trên lưới trước khi xóa");
+                        Utility.ShowMsg("Bạn cần chọn một dịch vụ trên lưới trước khi xóa");
                         return;
                     }
                     v_ServiceDetail_Id = Utility.Int32Dbnull(grdChitiet.CurrentRow.Cells[DmucDichvuclsChitiet.Columns.IdChitietdichvu].Value, -1);
@@ -311,7 +311,7 @@ namespace VNS.HIS.UI.DANHMUC
                         return;
                     }
 
-                    if (Utility.AcceptQuestion("Bạn có muốn xoá bản ghi đang chọn không", "Thông báo", true))
+                    if (Utility.AcceptQuestion("Bạn có muốn xoá dịch vụ đang chọn không", "Thông báo", true))
                     {
                         SPs.DmucXoadanhmucDichvuclsChitiet(v_ServiceDetail_Id).Execute();
                         dsTable.Select(DmucDichvuclsChitiet.Columns.IdChitietdichvu + "=" + v_ServiceDetail_Id)[0].Delete();
@@ -342,19 +342,19 @@ namespace VNS.HIS.UI.DANHMUC
                 bool b_FlagService = false;
                 if (!Utility.isValidCheckedGrid(_currentGRd))
                 {
-                    Utility.ShowMsg("Bạn cần check chọn ít nhất một bản ghi trên lưới trước khi xóa");
+                    Utility.ShowMsg("Bạn cần check chọn ít nhất một dịch vụ trên lưới trước khi xóa");
                     return;
                 }
                 if (_currentGRd.GetCheckedRows().Length <= 0)
                 {
-                    Utility.ShowMsg("Bạn phải chọn một bản ghi thực hiện xoá", "Thông báo");
+                    Utility.ShowMsg("Bạn phải chọn một dịch vụ thực hiện xoá", "Thông báo");
                     _currentGRd.Focus();
                     return;
                 }
                 string lsterr = "";
                 if (_currentGRd.CurrentRow != null)
                 {
-                    if (Utility.AcceptQuestion("Bạn có muốn xoá các bản ghi đang chọn không", "Thông báo", true))
+                    if (Utility.AcceptQuestion("Bạn có muốn xoá các dịch vụ đang chọn không", "Thông báo", true))
                     {
                         foreach (Janus.Windows.GridEX.GridEXRow gridExRow in _currentGRd.GetCheckedRows())
                         {

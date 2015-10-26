@@ -129,28 +129,34 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             chkInsaukhiluu.CheckedChanged += chkInsaukhiluu_CheckedChanged;
             cmdConfig.Click += cmdConfig_Click;
 
-            cmdDelFTPImages.Click+=cmdDelFTPImages_Click;
-            txtMafileDoc._OnShowData += txtMafileDoc__OnShowData;
-            txtMafileDoc._OnEnterMe += txtMafileDoc__OnEnterMe;
+            txtMauKQ._OnEnterMe += txtMauKQ__OnEnterMe;
             
+            lnkAutoCorrect.Click += lnkAutoCorrect_Click;
+            lnkDelFTPImages.Click += lnkDelFTPImages_Click;
+            lnkGetImagesFromFTP.Click += lnkGetImagesFromFTP_Click;
         }
 
-        void txtMafileDoc__OnEnterMe()
+        void lnkGetImagesFromFTP_Click(object sender, EventArgs e)
         {
-            txtMauchuan.Text = txtMafileDoc.Text;
+            GetImagesFromFTP();
         }
 
-        void txtMafileDoc__OnShowData()
+        void lnkDelFTPImages_Click(object sender, EventArgs e)
         {
-            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtMafileDoc.LOAI_DANHMUC);
-            _DMUC_DCHUNG.ShowDialog();
-            if (!_DMUC_DCHUNG.m_blnCancel)
-            {
-                string oldCode = txtMafileDoc.myCode;
-                txtMafileDoc.Init();
-                txtMafileDoc.SetCode(oldCode);
-                txtMafileDoc.Focus();
-            }
+            DelFTPImages();
+        }
+
+        void lnkAutoCorrect_Click(object sender, EventArgs e)
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG("AUTOCORRECT");
+            _DMUC_DCHUNG.ShowDialog();   
+        }
+
+        void txtMauKQ__OnEnterMe()
+        {
+            txtMauchuan.Text = txtMauKQ.Text;
+            docChuan = txtMauchuan.Text;
+            FillDynamicValues();
         }
 
         void imgBox__OnViewImage(ImgBox imgBox)
@@ -208,8 +214,14 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                         Utility.ShowMsg("Bạn cần chọn chỉ định chi tiết cần cập nhật kết quả");
                         return;
                     }
+                    if (txtMauKQ.MyCode == "-1")
+                    {
+                        Utility.ShowMsg("Bạn cần chọn mẫu kết quả của dịch vụ trước khi tạo thông tin nhập kết quả");
+                        return;
+                    }
                     frm_DynamicSetup _DynamicSetup = new frm_DynamicSetup();
                     _DynamicSetup.objDichvuchitiet = objDichvuchitiet;
+                    _DynamicSetup.MafileDoc = txtMauKQ.MyCode;
                     _DynamicSetup.ImageID = -1;
                     _DynamicSetup.Id_chidinhchitiet = -1;
                     if (_DynamicSetup.ShowDialog() == DialogResult.OK)
@@ -312,8 +324,8 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             {
                 chkPreview.Checked = PropertyLib._FTPProperties.PrintPreview;
                 chkInsaukhiluu.Checked = PropertyLib._FTPProperties.PrintAfterSave;
-                cmdGetImages.Enabled = PropertyLib._FTPProperties.Push2FTP;
-                cmdDelFTPImages.Enabled = PropertyLib._FTPProperties.Push2FTP;
+                lnkGetImagesFromFTP.Enabled = PropertyLib._FTPProperties.Push2FTP;
+                lnkDelFTPImages.Enabled = PropertyLib._FTPProperties.Push2FTP;
                 FtpClient = new FTPclient(PropertyLib._FTPProperties.IPAddress, PropertyLib._FTPProperties.UID, PropertyLib._FTPProperties.PWD);
                 _FtpClientCurrentDirectory = FtpClient.CurrentDirectory;
                 _baseDirectory = Utility.DoTrim(PropertyLib._FTPProperties.ImageFolder);
@@ -477,9 +489,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         /// <param name="e"></param>
         private void frm_quanlycacphongchucnang_Load(object sender, EventArgs e)
         {
-            //SearchFormRadio();
-            //RoleConfigUserRadio();
-            txtMafileDoc.Init();
+           
             InitData();
            
             ModifyCommand();
@@ -600,17 +610,10 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 pic3.Tag = imgBox3.Tag;
                 pic4.Tag = imgBox4.Tag;
                 DmucDichvuclsChitiet objDichvuchitiet = DmucDichvuclsChitiet.FetchByID(Utility.Int32Dbnull(txtIdDichvuChitiet.Text, -1));
-                if (objDichvuchitiet != null)
-                {
-                    txtMauchuan.Text = objDichvuchitiet.MauChuan;
-                    docChuan = txtMauchuan.Text;
-                }
-                else
-                {
-                    txtMauchuan.Clear();
-                    docChuan = txtMauchuan.Text;
-                }
-                FillDynamicValues();
+                
+                DataTable dtMauQK = clsHinhanh.HinhanhLaydanhsachMauKQtheoDichvuCLS(objDichvuchitiet.IdChitietdichvu);
+                txtMauKQ.Init(dtMauQK, new List<string>() { QheDichvuMauketqua.Columns.MaMauKQ, QheDichvuMauketqua.Columns.MaMauKQ,DmucChung.Columns.Ten });
+                txtMauKQ__OnEnterMe();
                 new KCB_HinhAnh().UpdateXacNhanDaThucHien(v_id_chitietchidinh, 2);
                 ModifyButtonAssignDetail_Status();
                 FocusMe(flowDynamics);
@@ -630,7 +633,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             {
                 flowDynamics.Controls.Clear();
 
-                DataTable dtData = clsHinhanh.GetDynamicFieldsValues(Utility.Int32Dbnull(txtIdDichvuChitiet.Text), "", "", -1, Utility.Int32Dbnull(txtidchidinhchitiet.Text));
+                DataTable dtData = clsHinhanh.GetDynamicFieldsValues(Utility.Int32Dbnull(txtIdDichvuChitiet.Text), txtMauKQ.MyCode, "", "", -1, Utility.Int32Dbnull(txtidchidinhchitiet.Text));
                 
                 foreach (DataRow dr in dtData.Select("1=1","Stt_hthi"))
                 {
@@ -639,7 +642,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
 
                     _ucTextSysparam.TabStop = true;
                     _ucTextSysparam._OnEnterKey += _ucTextSysparam__OnEnterKey;
-                    _ucTextSysparam.TabIndex = 10 + Utility.Int32Dbnull(dr[DynamicField.Columns.Stt],0);
+                    _ucTextSysparam.TabIndex = 10 + Utility.Int32Dbnull(dr[DynamicField.Columns.Stt], flowDynamics.Controls.Count);
                     
                     _ucTextSysparam.Init();
                     if (Utility.Byte2Bool(dr[DynamicField.Columns.Rtxt]))
@@ -2057,7 +2060,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                     Utility.ShowMsg("Không lấy được thông tin dịch vụ CĐHA từ chi tiết chỉ định");
                     return;
                 }
-                DataTable dtDynamicValues = clsHinhanh.GetDynamicFieldsValues(objDichvuchitiet.IdChitietdichvu, objDichvuchitiet.Bodypart, objDichvuchitiet.ViewPosition, -1, Utility.Int32Dbnull(txtidchidinhchitiet.Text, -1));
+                DataTable dtDynamicValues = clsHinhanh.GetDynamicFieldsValues(objDichvuchitiet.IdChitietdichvu, txtMauKQ.MyCode, objDichvuchitiet.Bodypart, objDichvuchitiet.ViewPosition, -1, Utility.Int32Dbnull(txtidchidinhchitiet.Text, -1));
                 foreach (DataRow dr in dtDynamicValues.Rows)
                 {
                     string SCode = Utility.sDbnull(dr[DynamicValue.Columns.Ma], "");
@@ -2365,14 +2368,14 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             }
         }
         bool m_blnForced2GetImagesFromFTP = false;
-        private void cmdGetImages_Click(object sender, EventArgs e)
+        private void GetImagesFromFTP()
         {
             m_blnForced2GetImagesFromFTP = true;
             BeginExam();
             m_blnForced2GetImagesFromFTP = false;
         }
 
-        private void cmdDelFTPImages_Click(object sender, EventArgs e)
+        private void DelFTPImages()
         {
             if (!Directory.Exists(_baseDirectory)) return;
             List<string> lstFiles = Directory.GetFiles(_baseDirectory).ToList<string>();
@@ -2389,10 +2392,20 @@ namespace VNS.HIS.UI.Forms.HinhAnh
 
         private void chkPush2FTP_CheckedChanged(object sender, EventArgs e)
         {
-            cmdGetImages.Enabled = PropertyLib._FTPProperties.Push2FTP;
-            cmdDelFTPImages.Enabled = PropertyLib._FTPProperties.Push2FTP;
+            lnkGetImagesFromFTP.Enabled = PropertyLib._FTPProperties.Push2FTP;
+            lnkDelFTPImages.Enabled = PropertyLib._FTPProperties.Push2FTP;
             PropertyLib._FTPProperties.Push2FTP = PropertyLib._FTPProperties.Push2FTP;
             PropertyLib.SaveProperty(PropertyLib._FTPProperties);
+        }
+
+        private void txtMauKQ_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

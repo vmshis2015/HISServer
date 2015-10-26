@@ -241,6 +241,29 @@ namespace VNS.HIS.UI.NGOAITRU
             mnuShowResult.Click += mnuShowResult_Click;
             lnkSize.Click += lnkSize_Click;
             cmdLuuChandoan.Click += cmdLuuChandoan_Click;
+            txtMauKQ._OnEnterMe += txtMauKQ__OnEnterMe;
+        }
+
+        void txtMauKQ__OnEnterMe()
+        {
+            try
+            {
+                if (!Utility.isValidGrid(grdAssignDetail)) return;
+                int IdChitietdichvu =
+                       Utility.Int32Dbnull(
+                           Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.IdChitietdichvu), 0);
+
+                int IdChitietchidinh =
+                    Utility.Int32Dbnull(
+                        Utility.GetValueFromGridColumn(grdAssignDetail, VKcbChidinhcl.Columns.IdChitietchidinh), 0);
+                FillDynamicValues(IdChitietdichvu, IdChitietchidinh);
+            }
+            catch (Exception ex)
+            {
+
+                Utility.CatchException(ex);
+            }
+            
         }
 
         private void grdAssignDetail_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -2301,6 +2324,10 @@ namespace VNS.HIS.UI.NGOAITRU
                     }
                     else //XQ,SA,DT,NS
                     {
+                        DataTable dtMauQK = clsHinhanh.HinhanhLaydanhsachMauKQtheoDichvuCLS(IdChitietdichvu);
+                        txtMauKQ.Init(dtMauQK, new List<string>() { QheDichvuMauketqua.Columns.MaMauKQ, QheDichvuMauketqua.Columns.MaMauKQ, DmucChung.Columns.Ten });
+                        txtMauKQ__OnEnterMe();
+
                         FillDynamicValues(IdChitietdichvu, IdChitietchidinh);
                     }
                     Application.DoEvents();
@@ -2318,7 +2345,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 pnlDynamicValues.Controls.Clear();
 
-                DataTable dtData = clsHinhanh.GetDynamicFieldsValues(IdDichvuChitiet, "", "", -1, idchidinhchitiet);
+                DataTable dtData = clsHinhanh.GetDynamicFieldsValues(IdDichvuChitiet, txtMauKQ.myCode, "", "", -1, idchidinhchitiet);
                 var lnkViewImage = new LinkLabel();
                 lnkViewImage.Text = "Xem hình ảnh";
                 lnkViewImage.Tag = idchidinhchitiet;

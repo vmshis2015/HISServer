@@ -12,6 +12,7 @@ using VNS.HIS.NGHIEPVU;
 using SubSonic;
 using System.Data;
 using VNS.Libs;
+using Janus.Windows.GridEX;
 
 namespace VNS.HIS.UI.DANHMUC
 {
@@ -20,7 +21,8 @@ namespace VNS.HIS.UI.DANHMUC
         
         #region "THUOC TINH"
         private Query query = DmucDichvuclsChitiet.CreateQuery();
-      
+        DataTable dtMauQK = new DataTable();
+        DmucDichvuclsChitiet objDichVuChitiet = null;
         public action m_enAction = action.Insert;
         public  DataTable dtDataServiceDetail=new DataTable();
         public Janus.Windows.GridEX.GridEX grdlist;
@@ -28,6 +30,7 @@ namespace VNS.HIS.UI.DANHMUC
         bool m_blnLoaded = false;
         private  DataTable m_dtDichvuCLS=new DataTable();
         DataTable m_dtqheCamchidinhCLSChungphieu = new DataTable();
+        DataTable m_dtqhemauKQ = new DataTable();
         // private Query query = DmucDichvuclsChitiet.CreateQuery();
         #endregion
         
@@ -46,6 +49,56 @@ namespace VNS.HIS.UI.DANHMUC
             txtDichvu._OnEnterMe += txtDichvu__OnEnterMe;
             chkKiemnghiem.CheckedChanged += chkKiemnghiem_CheckedChanged;
             txtServiceDetailCode.LostFocus += txtServiceDetailCode_LostFocus;
+            txtMauKQ._OnEnterMe += txtMauKQ__OnEnterMe;
+            txtMauKQ._OnShowData += txtMauKQ__OnShowData;
+            mnuMacdinh.Click += mnuMacdinh_Click;
+        }
+
+        void mnuMacdinh_Click(object sender, EventArgs e)
+        {
+            if (!Utility.isValidGrid(grdMauKQ)) return;
+            foreach (GridEXRow row in grdMauKQ.GetDataRows())
+            {
+                row.BeginEdit();
+                if (row.Cells["MA"].Value.ToString() == grdMauKQ.CurrentRow.Cells["MA"].Value.ToString())
+                    row.Cells["mac_dinh"].Value = 1;
+                else
+                    row.Cells["mac_dinh"].Value = 0;
+                row.EndEdit();
+            }
+        }
+
+        void txtMauKQ__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtMauKQ.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                 dtMauQK = new Select().From(DmucChung.Schema).Where(DmucChung.Columns.Loai).IsEqualTo("MAUKETQUA").ExecuteDataSet().Tables[0];
+                if (!dtMauQK.Columns.Contains("mac_dinh")) dtMauQK.Columns.Add(new DataColumn("mac_dinh", typeof(byte)));
+                Utility.SetDataSourceForDataGridEx_Basic(grdMauKQ, dtMauQK, true, true, "1=1", "mac_dinh desc," + DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten);
+                if (objDichVuChitiet != null)
+                    LoadQheMauKQ(objDichVuChitiet.IdChitietdichvu);
+                string oldCode = txtMauKQ.myCode;
+                txtMauKQ.Init();
+                txtMauKQ.SetCode(oldCode);
+                txtMauKQ.Focus();
+            }  
+        }
+
+        void txtMauKQ__OnEnterMe()
+        {
+            foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdMauKQ.GetDataRows())
+            {
+                gridExRow.BeginEdit();
+                if (Utility.sDbnull(gridExRow.Cells[DmucChung.Columns.Ma].Value) == Utility.sDbnull(txtMauKQ.MyCode))
+                {
+                    gridExRow.Cells["CHON"].Value = 1;
+                    gridExRow.IsChecked = true;
+                    break;
+                }
+                gridExRow.BeginEdit();
+            } 
         }
 
         void txtServiceDetailCode_LostFocus(object sender, EventArgs e)
@@ -119,12 +172,30 @@ namespace VNS.HIS.UI.DANHMUC
         {
             BindService();
             txtDonvitinh.Init();
+            txtMauKQ.Init();
             txtPhuongphapthu.Init();
             m_dtqheCamchidinhCLSChungphieu = new Select().From(QheCamchidinhChungphieu.Schema).Where(QheCamchidinhChungphieu.Columns.Loai).IsEqualTo(0).ExecuteDataSet().Tables[0];
+            m_dtqhemauKQ = new Select().From(QheDichvuMauketqua.Schema).ExecuteDataSet().Tables[0];
             DataTable dtChitiet = SPs.DmucLaydanhmucDichvuclsChitiet(1, -1).GetDataSet().Tables[0];
             Utility.AddColumToDataTable(ref dtChitiet, "CHON", typeof(int));
             txtDichvu.Init(dtChitiet, new List<string>() { DmucDichvuclsChitiet.Columns.IdDichvu, DmucDichvuclsChitiet.Columns.MaChitietdichvu, DmucDichvuclsChitiet.Columns.TenChitietdichvu });
+            
             Utility.SetDataSourceForDataGridEx_Basic(grdDanhsachCamChidinhChungphieu, dtChitiet, true, true, "1=1", "CHON DESC," + VDmucDichvuclsChitiet.Columns.SttHthiLoaidvu + "," + VDmucDichvuclsChitiet.Columns.SttHthiDichvu + "," + VDmucDichvuclsChitiet.Columns.SttHthi + "," + VDmucDichvuclsChitiet.Columns.TenChitietdichvu);
+            DataTable dtMauQK = txtMauKQ.dtData.Copy();
+            if (!dtMauQK.Columns.Contains("mac_dinh")) dtMauQK.Columns.Add(new DataColumn("mac_dinh", typeof(byte)));
+            var q = from p in m_dtqhemauKQ.AsEnumerable()
+                    where Utility.ByteDbnull(p[QheDichvuMauketqua.Columns.MacDinh], 0) == 1
+                    select p;
+            if (q.Any())
+            {
+                DataRow[] arrDr = dtMauQK.Select("MA='" + q.FirstOrDefault()[QheDichvuMauketqua.Columns.MaMauKQ].ToString() + "'");
+                if (arrDr.Length > 0)
+                    arrDr[0]["mac_dinh"] = 1;
+                dtMauQK.AcceptChanges();
+            }
+            
+            txtMauKQ.Init(dtMauQK, new List<string>() { DmucChung.Columns.Ma, DmucChung.Columns.Ma, DmucChung.Columns.Ten });
+            Utility.SetDataSourceForDataGridEx_Basic(grdMauKQ, dtMauQK, true, true, "1=1", "mac_dinh desc," + DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten);
             m_blnLoaded = true;
             SetControlStatus();
         }
@@ -247,7 +318,7 @@ namespace VNS.HIS.UI.DANHMUC
         /// </summary>
         void getData()
         {
-            DmucDichvuclsChitiet objDichVuChitiet = DmucDichvuclsChitiet.FetchByID(Utility.Int32Dbnull(txtID.Text, -1));
+            objDichVuChitiet = DmucDichvuclsChitiet.FetchByID(Utility.Int32Dbnull(txtID.Text, -1));
             if(objDichVuChitiet!=null)
             {
                 txtServiceDetailName.Text = Utility.sDbnull(objDichVuChitiet.TenChitietdichvu, "");
@@ -286,9 +357,35 @@ namespace VNS.HIS.UI.DANHMUC
                     cboPhongthuchien.SelectedIndex = Utility.GetSelectedIndex(cboPhongthuchien, objDichVuChitiet.IdPhongThuchien.Value.ToString());
                 }
                 cbonhombaocao.SelectedIndex = Utility.GetSelectedIndex(cbonhombaocao, objDichVuChitiet.NhomBaocao);
-                LoadQheCamchidinhchung(objDichVuChitiet.IdDichvu);
+                LoadQheCamchidinhchung(objDichVuChitiet.IdChitietdichvu);
+                LoadQheMauKQ(objDichVuChitiet.IdChitietdichvu);
             }
            
+        }
+        private void LoadQheMauKQ(int id_chitiet)
+        {
+            DataRow[] arrDr = m_dtqhemauKQ.Select(QheDichvuMauketqua.Columns.IdDichvuChitiet + "=" + id_chitiet );
+            foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdMauKQ.GetDataRows())
+            {
+                gridExRow.BeginEdit();
+                    var query = from kho in arrDr.AsEnumerable()
+                                where
+                                Utility.sDbnull(kho[QheDichvuMauketqua.Columns.MaMauKQ], "-1")
+                                == Utility.sDbnull(gridExRow.Cells[DmucChung.Columns.Ma].Value)
+                                select kho;
+                    if (query.Count() > 0)
+                    {
+                        
+                        gridExRow.IsChecked = true;
+                    }
+                    else
+                    {
+                        gridExRow.IsChecked = false;
+                    }
+               
+                gridExRow.EndEdit();
+
+            }
         }
         private void LoadQheCamchidinhchung(int id_chitiet)
         {
@@ -354,22 +451,22 @@ namespace VNS.HIS.UI.DANHMUC
             }
             if (m_enAction == action.Insert)
             {
-                q = new Select().From(DmucDichvuclsChitiet.Schema)
-                    .Where(DmucDichvuclsChitiet.Columns.MaChitietdichvu).IsEqualTo(Utility.DoTrim(txtServiceDetailCode.Text));
-                if (q.GetRecordCount() > 0)
-                {
-                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có mã như vậy. Mời bạn kiểm tra lại", true);
-                    txtServiceDetailCode.Focus();
-                    return false;
-                }
-                q = new Select().From(DmucDichvuclsChitiet.Schema)
-                    .Where(DmucDichvuclsChitiet.Columns.MaChitietdichvuBhyt).IsEqualTo(Utility.DoTrim(txtMaBhyt.Text));
-                if (q.GetRecordCount() > 0)
-                {
-                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Mã QĐ 29 như vậy. Mời bạn kiểm tra lại", true);
-                    txtMaBhyt.Focus();
-                    return false;
-                }
+                //q = new Select().From(DmucDichvuclsChitiet.Schema)
+                //    .Where(DmucDichvuclsChitiet.Columns.MaChitietdichvu).IsEqualTo(Utility.DoTrim(txtServiceDetailCode.Text));
+                //if (q.GetRecordCount() > 0)
+                //{
+                //    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có mã như vậy. Mời bạn kiểm tra lại", true);
+                //    txtServiceDetailCode.Focus();
+                //    return false;
+                //}
+                //q = new Select().From(DmucDichvuclsChitiet.Schema)
+                //    .Where(DmucDichvuclsChitiet.Columns.MaChitietdichvuBhyt).IsEqualTo(Utility.DoTrim(txtMaBhyt.Text));
+                //if (q.GetRecordCount() > 0)
+                //{
+                //    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Mã QĐ 29 như vậy. Mời bạn kiểm tra lại", true);
+                //    txtMaBhyt.Focus();
+                //    return false;
+                //}
 
                 q = new Select().From(DmucDichvuclsChitiet.Schema)
                     .Where(DmucDichvuclsChitiet.Columns.TenChitietdichvu).IsEqualTo(Utility.DoTrim(txtServiceDetailName.Text));
@@ -390,27 +487,27 @@ namespace VNS.HIS.UI.DANHMUC
             }
             if (m_enAction == action.Update)
             {
-                q = new Select().From(DmucDichvuclsChitiet.Schema)
-                   .Where(DmucDichvuclsChitiet.Columns.MaChitietdichvu).IsEqualTo(Utility.DoTrim(txtServiceDetailCode.Text)).And(DmucDichvuclsChitiet.Columns.IdChitietdichvu).
-                   IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
+                //q = new Select().From(DmucDichvuclsChitiet.Schema)
+                //   .Where(DmucDichvuclsChitiet.Columns.MaChitietdichvu).IsEqualTo(Utility.DoTrim(txtServiceDetailCode.Text)).And(DmucDichvuclsChitiet.Columns.IdChitietdichvu).
+                //   IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
 
-                if (q.GetRecordCount() > 0)
-                {
-                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Mã như vậy. Mời bạn kiểm tra lại", true);
-                    txtServiceDetailCode.Focus();
-                    return false;
-                }
+                //if (q.GetRecordCount() > 0)
+                //{
+                //    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Mã như vậy. Mời bạn kiểm tra lại", true);
+                //    txtServiceDetailCode.Focus();
+                //    return false;
+                //}
 
-                q = new Select().From(DmucDichvuclsChitiet.Schema)
-                  .Where(DmucDichvuclsChitiet.Columns.MaChitietdichvuBhyt).IsEqualTo(Utility.DoTrim(txtMaBhyt.Text)).And(DmucDichvuclsChitiet.Columns.IdChitietdichvu).
-                  IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
+                //q = new Select().From(DmucDichvuclsChitiet.Schema)
+                //  .Where(DmucDichvuclsChitiet.Columns.MaChitietdichvuBhyt).IsEqualTo(Utility.DoTrim(txtMaBhyt.Text)).And(DmucDichvuclsChitiet.Columns.IdChitietdichvu).
+                //  IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
 
-                if (q.GetRecordCount() > 0)
-                {
-                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Mã QĐ 29 như vậy. Mời bạn kiểm tra lại", true);
-                    txtMaBhyt.Focus();
-                    return false;
-                }
+                //if (q.GetRecordCount() > 0)
+                //{
+                //    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Mã QĐ 29 như vậy. Mời bạn kiểm tra lại", true);
+                //    txtMaBhyt.Focus();
+                //    return false;
+                //}
 
                 q = new Select().From(DmucDichvuclsChitiet.Schema)
                     .Where(DmucDichvuclsChitiet.Columns.TenChitietdichvu).IsEqualTo(Utility.DoTrim(txtServiceDetailName.Text)).And(DmucDichvuclsChitiet.Columns.IdChitietdichvu).
@@ -446,7 +543,7 @@ namespace VNS.HIS.UI.DANHMUC
 
         void Insert()
         {
-            int actionResult = CreateServiceDetail();
+            int actionResult = LuuThongtin();
             if (actionResult > -1)
             {
                 Utility.SetMsg(lblMsg, "Thêm thông tin thành công", false);
@@ -465,12 +562,13 @@ namespace VNS.HIS.UI.DANHMUC
             }
         }
 
-        private int CreateServiceDetail()
+        private int LuuThongtin()
         {
             try
             {
 
-                DmucDichvuclsChitiet objDichVuChitiet = new DmucDichvuclsChitiet();
+                objDichVuChitiet = new DmucDichvuclsChitiet();
+                objDichVuChitiet.IsNew = true;
                 objDichVuChitiet.DonGia = Utility.DecimaltoDbnull(txtDongia.Text, 0);
                 objDichVuChitiet.GiaBhyt = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
                 objDichVuChitiet.PhuthuDungtuyen = Utility.DecimaltoDbnull(txtPTDT.Text, 0);
@@ -503,13 +601,27 @@ namespace VNS.HIS.UI.DANHMUC
                 objDichVuChitiet.MaPhuongphapthu = txtPhuongphapthu.myCode;
                 objDichVuChitiet.SoluongChitieu = (int)Utility.DecimaltoDbnull(txtsoluongchitieu.Text, 0);
                 objDichVuChitiet.IsNew = true;
-                dmucDichvuCLS_busrule.Insert(objDichVuChitiet, GetQheCamchidinhChungphieuCollection());
+                dmucDichvuCLS_busrule.Insert(objDichVuChitiet, GetQheCamchidinhChungphieuCollection(), GetQheDichvuMauKQ());
                 return objDichVuChitiet.IdDichvu;
             }
             catch
             {
                 return -1;
             }
+        }
+        private QheDichvuMauketquaCollection GetQheDichvuMauKQ()
+        {
+            QheDichvuMauketquaCollection lst = new QheDichvuMauketquaCollection();
+            foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdMauKQ.GetCheckedRows())
+            {
+                QheDichvuMauketqua objQheDichvuMauketqua = new QheDichvuMauketqua();
+                objQheDichvuMauketqua.IdDichvuChitiet = -1;
+                objQheDichvuMauketqua.MaMauKQ = Utility.sDbnull(gridExRow.Cells[DmucChung.Columns.Ma].Value);
+                objQheDichvuMauketqua.MacDinh = Utility.ByteDbnull(gridExRow.Cells["mac_dinh"].Value);
+                objQheDichvuMauketqua.IsNew = true;
+                lst.Add(objQheDichvuMauketqua);
+            }
+            return lst;
         }
         private QheCamchidinhChungphieuCollection GetQheCamchidinhChungphieuCollection()
         {
@@ -600,7 +712,8 @@ namespace VNS.HIS.UI.DANHMUC
             try
             {
 
-                DmucDichvuclsChitiet objDichVuChitiet = DmucDichvuclsChitiet.FetchByID(Utility.Int32Dbnull(txtID.Text, 0));
+                objDichVuChitiet = DmucDichvuclsChitiet.FetchByID(Utility.Int32Dbnull(txtID.Text, 0));
+                objDichVuChitiet.MarkOld();
                 objDichVuChitiet.DonGia = Utility.DecimaltoDbnull(txtDongia.Text, 0);
                 objDichVuChitiet.GiaBhyt = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
                 objDichVuChitiet.PhuthuDungtuyen = Utility.DecimaltoDbnull(txtPTDT.Text, 0);
@@ -635,7 +748,7 @@ namespace VNS.HIS.UI.DANHMUC
                 objDichVuChitiet.IsNew = false;
                 objDichVuChitiet.MarkOld();
 
-                dmucDichvuCLS_busrule.Insert(objDichVuChitiet, GetQheCamchidinhChungphieuCollection());
+                dmucDichvuCLS_busrule.Insert(objDichVuChitiet, GetQheCamchidinhChungphieuCollection(),GetQheDichvuMauKQ());
                
                 //Tạm bỏ 29/08/2015
                 //new Update(KcbThanhtoanChitiet.Schema)
@@ -649,8 +762,9 @@ namespace VNS.HIS.UI.DANHMUC
 
                 ProcessData1();
             }
-            catch
+            catch(Exception ex)
             {
+                Utility.CatchException(ex);
             }
         }
 

@@ -78,6 +78,7 @@
             // 
             // cmdSave
             // 
+            this.cmdSave.Font = new System.Drawing.Font("Arial", 9F);
             this.cmdSave.Image = ((System.Drawing.Image)(resources.GetObject("cmdSave.Image")));
             this.cmdSave.ImageSize = new System.Drawing.Size(20, 20);
             this.cmdSave.Location = new System.Drawing.Point(510, 6);

@@ -312,7 +312,7 @@ namespace VNS.HIS.UI.Forms.Dungchung
         }
         void dtpBOD_TextChanged(object sender, EventArgs e)
         {
-            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "1")
+            if (PropertyLib._KCBProperties.Nhapngaythangnamsinh)
             {
                 txtTuoi.Text = Utility.sDbnull(globalVariables.SysDate.Year - dtpBOD.Value.Year);
             }
@@ -810,7 +810,7 @@ namespace VNS.HIS.UI.Forms.Dungchung
                 txtTEN_BN.Focus();
                 return false;
             }
-            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "0" && string.IsNullOrEmpty(txtNamSinh.Text))
+            if (!PropertyLib._KCBProperties.Nhapngaythangnamsinh && string.IsNullOrEmpty(txtNamSinh.Text))
             {
                 Utility.SetMsg(lblMsg, "Bạn phải nhập ngày tháng năm sinh, hoặc năm sinh cho bệnh nhân ", true);
                 txtNamSinh.Focus();
@@ -1124,8 +1124,8 @@ namespace VNS.HIS.UI.Forms.Dungchung
         private void CauHinhKCB()
         {
             dtpBOD.Value = globalVariables.SysDate;
-            dtpBOD.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "1";
-            txtNamSinh.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_NHAP_NGAYTHANGNAMSINH", false) == "0";
+            dtpBOD.Visible = PropertyLib._KCBProperties.Nhapngaythangnamsinh;
+            txtNamSinh.Visible = !PropertyLib._KCBProperties.Nhapngaythangnamsinh;
             if (dtpBOD.Visible)
                 txtTuoi.Text = Utility.sDbnull(globalVariables.SysDate.Year - dtpBOD.Value.Year);
 

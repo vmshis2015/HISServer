@@ -101,7 +101,6 @@
             this.pnlXN = new System.Windows.Forms.Panel();
             this.grdKetqua = new Janus.Windows.GridEX.GridEX();
             this.pnlXQ = new System.Windows.Forms.Panel();
-            this.pnlDynamicValues = new System.Windows.Forms.FlowLayoutPanel();
             this.barcode1 = new Mabry.Windows.Forms.Barcode.Barcode();
             this.tabPageChidinhThuoc = new Janus.Windows.UI.Tab.UITabPage();
             this.pnltabkedon = new System.Windows.Forms.Panel();
@@ -157,6 +156,10 @@
             this.label15 = new System.Windows.Forms.Label();
             this.txtDiaChi = new Janus.Windows.GridEX.EditControls.EditBox();
             this.dtInput_Date = new Janus.Windows.CalendarCombo.CalendarCombo();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.txtMauKQ = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
+            this.label9 = new System.Windows.Forms.Label();
+            this.pnlDynamicValues = new System.Windows.Forms.FlowLayoutPanel();
             this.ctxTronggoi_tutuc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdAssignDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdGoidichvu)).BeginInit();
@@ -202,6 +205,7 @@
             this.uiTabThongtinBN.SuspendLayout();
             this.uiTabPage6.SuspendLayout();
             this.pnlPatientInfor.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // ctxTronggoi_tutuc
@@ -950,12 +954,12 @@
             // 
             // tabPhieuDieuTri
             // 
-            this.tabPhieuDieuTri.Controls.Add(this.pnlXN);
             this.tabPhieuDieuTri.Controls.Add(this.pnlXQ);
+            this.tabPhieuDieuTri.Controls.Add(this.pnlXN);
             this.tabPhieuDieuTri.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPhieuDieuTri.Location = new System.Drawing.Point(1, 24);
             this.tabPhieuDieuTri.Name = "tabPhieuDieuTri";
-            this.tabPhieuDieuTri.Size = new System.Drawing.Size(0, 513);
+            this.tabPhieuDieuTri.Size = new System.Drawing.Size(319, 513);
             this.tabPhieuDieuTri.TabStop = true;
             this.tabPhieuDieuTri.Text = "Kết quả CLS";
             // 
@@ -965,7 +969,7 @@
             this.pnlXN.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlXN.Location = new System.Drawing.Point(0, 0);
             this.pnlXN.Name = "pnlXN";
-            this.pnlXN.Size = new System.Drawing.Size(0, 513);
+            this.pnlXN.Size = new System.Drawing.Size(319, 513);
             this.pnlXN.TabIndex = 0;
             // 
             // grdKetqua
@@ -988,7 +992,7 @@
             this.grdKetqua.Name = "grdKetqua";
             this.grdKetqua.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdKetqua.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
-            this.grdKetqua.Size = new System.Drawing.Size(0, 513);
+            this.grdKetqua.Size = new System.Drawing.Size(319, 513);
             this.grdKetqua.TabIndex = 256;
             this.grdKetqua.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdKetqua.TotalRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
@@ -1001,22 +1005,13 @@
             // pnlXQ
             // 
             this.pnlXQ.Controls.Add(this.pnlDynamicValues);
+            this.pnlXQ.Controls.Add(this.panel3);
             this.pnlXQ.Controls.Add(this.lnkSize);
             this.pnlXQ.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlXQ.Location = new System.Drawing.Point(0, 0);
             this.pnlXQ.Name = "pnlXQ";
-            this.pnlXQ.Size = new System.Drawing.Size(0, 513);
+            this.pnlXQ.Size = new System.Drawing.Size(319, 513);
             this.pnlXQ.TabIndex = 22;
-            // 
-            // pnlDynamicValues
-            // 
-            this.pnlDynamicValues.AutoScroll = true;
-            this.pnlDynamicValues.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDynamicValues.Location = new System.Drawing.Point(0, 0);
-            this.pnlDynamicValues.Name = "pnlDynamicValues";
-            this.pnlDynamicValues.Size = new System.Drawing.Size(0, 497);
-            this.pnlDynamicValues.TabIndex = 503;
-            this.pnlDynamicValues.TabStop = true;
             // 
             // barcode1
             // 
@@ -1740,6 +1735,77 @@
             this.dtInput_Date.TabStop = false;
             this.dtInput_Date.Value = new System.DateTime(2013, 8, 10, 0, 0, 0, 0);
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.txtMauKQ);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(319, 28);
+            this.panel3.TabIndex = 510;
+            // 
+            // txtMauKQ
+            // 
+            this.txtMauKQ._backcolor = System.Drawing.SystemColors.Control;
+            this.txtMauKQ._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMauKQ._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtMauKQ.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMauKQ.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMauKQ.AutoCompleteList")));
+            this.txtMauKQ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMauKQ.CaseSensitive = false;
+            this.txtMauKQ.CompareNoID = true;
+            this.txtMauKQ.DefaultCode = "-1";
+            this.txtMauKQ.DefaultID = "-1";
+            this.txtMauKQ.Drug_ID = null;
+            this.txtMauKQ.ExtraWidth = 0;
+            this.txtMauKQ.FillValueAfterSelect = false;
+            this.txtMauKQ.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMauKQ.LOAI_DANHMUC = "MAUKETQUA";
+            this.txtMauKQ.Location = new System.Drawing.Point(67, 3);
+            this.txtMauKQ.MaxHeight = -1;
+            this.txtMauKQ.MinTypedCharacters = 2;
+            this.txtMauKQ.MyCode = "-1";
+            this.txtMauKQ.MyID = "-1";
+            this.txtMauKQ.Name = "txtMauKQ";
+            this.txtMauKQ.RaiseEvent = false;
+            this.txtMauKQ.RaiseEventEnter = true;
+            this.txtMauKQ.RaiseEventEnterWhenEmpty = false;
+            this.txtMauKQ.SelectedIndex = -1;
+            this.txtMauKQ.Size = new System.Drawing.Size(245, 21);
+            this.txtMauKQ.splitChar = '@';
+            this.txtMauKQ.splitCharIDAndCode = '#';
+            this.txtMauKQ.TabIndex = 507;
+            this.txtMauKQ.TakeCode = false;
+            this.txtMauKQ.txtMyCode = null;
+            this.txtMauKQ.txtMyCode_Edit = null;
+            this.txtMauKQ.txtMyID = null;
+            this.txtMauKQ.txtMyID_Edit = null;
+            this.txtMauKQ.txtMyName = null;
+            this.txtMauKQ.txtMyName_Edit = null;
+            this.txtMauKQ.txtNext = null;
+            // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(2, 3);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(59, 21);
+            this.label9.TabIndex = 508;
+            this.label9.Text = "Mẫu KQ:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // pnlDynamicValues
+            // 
+            this.pnlDynamicValues.AutoScroll = true;
+            this.pnlDynamicValues.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDynamicValues.Location = new System.Drawing.Point(0, 28);
+            this.pnlDynamicValues.Name = "pnlDynamicValues";
+            this.pnlDynamicValues.Size = new System.Drawing.Size(319, 469);
+            this.pnlDynamicValues.TabIndex = 511;
+            this.pnlDynamicValues.TabStop = true;
+            // 
             // frm_TonghopRavien
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1802,6 +1868,8 @@
             this.uiTabPage6.ResumeLayout(false);
             this.pnlPatientInfor.ResumeLayout(false);
             this.pnlPatientInfor.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1868,7 +1936,6 @@
         private System.Windows.Forms.Panel pnlXN;
         private Janus.Windows.GridEX.GridEX grdKetqua;
         private System.Windows.Forms.Panel pnlXQ;
-        private System.Windows.Forms.FlowLayoutPanel pnlDynamicValues;
         private System.Windows.Forms.LinkLabel lnkSize;
         private Janus.Windows.EditControls.UIGroupBox uiGroupBox2;
         private System.Windows.Forms.Panel panel5;
@@ -1925,5 +1992,9 @@
         private System.Windows.Forms.ToolStripMenuItem mnuCancel;
         private System.Windows.Forms.ComboBox cboKhoanoitru;
         private System.Windows.Forms.Label lblKhoatonghop;
+        private System.Windows.Forms.FlowLayoutPanel pnlDynamicValues;
+        private System.Windows.Forms.Panel panel3;
+        private UCs.AutoCompleteTextbox_Danhmucchung txtMauKQ;
+        private System.Windows.Forms.Label label9;
     }
 }

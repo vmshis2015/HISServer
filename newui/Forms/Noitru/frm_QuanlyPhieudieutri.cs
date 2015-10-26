@@ -2651,7 +2651,7 @@ namespace VNS.HIS.UI.NOITRU
             {
                 pnlDynamicValues.Controls.Clear();
 
-                DataTable dtData = clsHinhanh.GetDynamicFieldsValues(IdDichvuChitiet, "", "", -1, idchidinhchitiet);
+                DataTable dtData = clsHinhanh.GetDynamicFieldsValues(IdDichvuChitiet, txtMauKQ.myCode, "", "", -1, idchidinhchitiet);
 
                 foreach (DataRow dr in dtData.Select("1=1", "Stt_hthi"))
                 {

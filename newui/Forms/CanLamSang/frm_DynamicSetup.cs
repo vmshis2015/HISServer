@@ -21,6 +21,7 @@ namespace VNS.HIS.UI.HinhAnh
         
         public long ImageID = -1;
         public long Id_chidinhchitiet = -1;
+        public string MafileDoc ="-1";
         bool hasDeleted = false;
         public frm_DynamicSetup()
         {
@@ -149,6 +150,7 @@ namespace VNS.HIS.UI.HinhAnh
 
                     obj.Id = Utility.Int32Dbnull(_row.Cells[DynamicField.Columns.Id].Value, -1);
                     obj.IdDichvuchitiet = objDichvuchitiet.IdChitietdichvu;
+                    obj.MaDoc = MafileDoc;
                     obj.Ma = Utility.sDbnull(_row.Cells[DynamicField.Columns.Ma].Value, "-1");
                     obj.Mota = Utility.sDbnull(_row.Cells[DynamicField.Columns.Mota].Value, "-1");
                     obj.Stt = Utility.Int16Dbnull(_row.Cells[DynamicField.Columns.Stt].Value, 0);
@@ -184,7 +186,7 @@ namespace VNS.HIS.UI.HinhAnh
         {
             try
             {
-                return SPs.HinhanhGetDynamicFieldsValues(objDichvuchitiet.IdChitietdichvu, objDichvuchitiet.Bodypart, objDichvuchitiet.ViewPosition, ImageID, Id_chidinhchitiet).GetDataSet().Tables[0];
+                return SPs.HinhanhGetDynamicFieldsValues(objDichvuchitiet.IdChitietdichvu,MafileDoc, objDichvuchitiet.Bodypart, objDichvuchitiet.ViewPosition, ImageID, Id_chidinhchitiet).GetDataSet().Tables[0];
             }
             catch (Exception)
             {

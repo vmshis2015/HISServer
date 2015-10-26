@@ -47,18 +47,18 @@
             Janus.Windows.GridEX.GridEXLayout grdVTTH_tronggoi_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdChedoDinhduong_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.Common.Layouts.JanusLayoutReference grdChedoDinhduong_DesignTimeLayout_Reference_0 = new Janus.Windows.Common.Layouts.JanusLayoutReference("GridEXLayoutData.RootTable.Columns.Column1.ButtonImage");
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem25 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem26 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem27 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem28 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem29 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem30 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem31 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem32 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem33 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem34 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem35 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem36 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem4 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem5 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem6 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem7 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem8 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem9 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem10 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem11 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem12 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.GridEX.GridEXLayout grdTamung_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.grpSearch = new Janus.Windows.EditControls.UIGroupBox();
             this.chkChuyenkhoa = new Janus.Windows.EditControls.UICheckBox();
@@ -144,6 +144,8 @@
             this.tabDiagInfo = new Janus.Windows.UI.Tab.UITab();
             this.TabPageChanDoan = new Janus.Windows.UI.Tab.UITabPage();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.txtMaBenhphu = new VNS.HIS.UCs.AutoCompleteTextbox();
+            this.txtMaBenhChinh = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.grd_ICD = new Janus.Windows.GridEX.GridEX();
             this.txtIdChandoan = new Janus.Windows.GridEX.EditControls.EditBox();
             this.dtpNgaychandoan = new System.Windows.Forms.DateTimePicker();
@@ -176,7 +178,6 @@
             this.pnlXN = new System.Windows.Forms.Panel();
             this.grdKetqua = new Janus.Windows.GridEX.GridEX();
             this.pnlXQ = new System.Windows.Forms.Panel();
-            this.pnlDynamicValues = new System.Windows.Forms.FlowLayoutPanel();
             this.barcode1 = new Mabry.Windows.Forms.Barcode.Barcode();
             this.pnlCLS = new System.Windows.Forms.Panel();
             this.chkIntach = new System.Windows.Forms.CheckBox();
@@ -294,8 +295,10 @@
             this.pnlThongbao = new System.Windows.Forms.Panel();
             this.lblChenhlech = new System.Windows.Forms.Label();
             this.ucError1 = new VNS.HIS.UCs.UCError();
-            this.txtMaBenhphu = new VNS.HIS.UCs.AutoCompleteTextbox();
-            this.txtMaBenhChinh = new VNS.HIS.UCs.AutoCompleteTextbox();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.txtMauKQ = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
+            this.label10 = new System.Windows.Forms.Label();
+            this.pnlDynamicValues = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.grpSearch)).BeginInit();
             this.grpSearch.SuspendLayout();
             this.ctxDelCLS.SuspendLayout();
@@ -364,6 +367,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdTamung)).BeginInit();
             this.panel12.SuspendLayout();
             this.pnlThongbao.SuspendLayout();
+            this.panel13.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpSearch
@@ -1472,6 +1476,84 @@
             this.panel9.Size = new System.Drawing.Size(585, 453);
             this.panel9.TabIndex = 476;
             // 
+            // txtMaBenhphu
+            // 
+            this.txtMaBenhphu._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtMaBenhphu._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaBenhphu._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtMaBenhphu.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMaBenhphu.AutoCompleteList")));
+            this.txtMaBenhphu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMaBenhphu.CaseSensitive = false;
+            this.txtMaBenhphu.CompareNoID = true;
+            this.txtMaBenhphu.DefaultCode = "-1";
+            this.txtMaBenhphu.DefaultID = "-1";
+            this.txtMaBenhphu.Drug_ID = null;
+            this.txtMaBenhphu.ExtraWidth = 0;
+            this.txtMaBenhphu.FillValueAfterSelect = false;
+            this.txtMaBenhphu.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaBenhphu.Location = new System.Drawing.Point(113, 141);
+            this.txtMaBenhphu.MaxHeight = 289;
+            this.txtMaBenhphu.MinTypedCharacters = 2;
+            this.txtMaBenhphu.MyCode = "-1";
+            this.txtMaBenhphu.MyID = "-1";
+            this.txtMaBenhphu.MyText = "";
+            this.txtMaBenhphu.Name = "txtMaBenhphu";
+            this.txtMaBenhphu.RaiseEvent = false;
+            this.txtMaBenhphu.RaiseEventEnter = true;
+            this.txtMaBenhphu.RaiseEventEnterWhenEmpty = true;
+            this.txtMaBenhphu.SelectedIndex = -1;
+            this.txtMaBenhphu.Size = new System.Drawing.Size(325, 21);
+            this.txtMaBenhphu.splitChar = '@';
+            this.txtMaBenhphu.splitCharIDAndCode = '#';
+            this.txtMaBenhphu.TabIndex = 10;
+            this.txtMaBenhphu.TakeCode = false;
+            this.txtMaBenhphu.txtMyCode = null;
+            this.txtMaBenhphu.txtMyCode_Edit = null;
+            this.txtMaBenhphu.txtMyID = null;
+            this.txtMaBenhphu.txtMyID_Edit = null;
+            this.txtMaBenhphu.txtMyName = null;
+            this.txtMaBenhphu.txtMyName_Edit = null;
+            this.txtMaBenhphu.txtNext = null;
+            // 
+            // txtMaBenhChinh
+            // 
+            this.txtMaBenhChinh._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtMaBenhChinh._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaBenhChinh._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtMaBenhChinh.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMaBenhChinh.AutoCompleteList")));
+            this.txtMaBenhChinh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMaBenhChinh.CaseSensitive = false;
+            this.txtMaBenhChinh.CompareNoID = true;
+            this.txtMaBenhChinh.DefaultCode = "-1";
+            this.txtMaBenhChinh.DefaultID = "-1";
+            this.txtMaBenhChinh.Drug_ID = null;
+            this.txtMaBenhChinh.ExtraWidth = 0;
+            this.txtMaBenhChinh.FillValueAfterSelect = false;
+            this.txtMaBenhChinh.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaBenhChinh.Location = new System.Drawing.Point(113, 116);
+            this.txtMaBenhChinh.MaxHeight = 289;
+            this.txtMaBenhChinh.MinTypedCharacters = 2;
+            this.txtMaBenhChinh.MyCode = "-1";
+            this.txtMaBenhChinh.MyID = "-1";
+            this.txtMaBenhChinh.MyText = "";
+            this.txtMaBenhChinh.Name = "txtMaBenhChinh";
+            this.txtMaBenhChinh.RaiseEvent = false;
+            this.txtMaBenhChinh.RaiseEventEnter = true;
+            this.txtMaBenhChinh.RaiseEventEnterWhenEmpty = true;
+            this.txtMaBenhChinh.SelectedIndex = -1;
+            this.txtMaBenhChinh.Size = new System.Drawing.Size(325, 21);
+            this.txtMaBenhChinh.splitChar = '@';
+            this.txtMaBenhChinh.splitCharIDAndCode = '#';
+            this.txtMaBenhChinh.TabIndex = 9;
+            this.txtMaBenhChinh.TakeCode = false;
+            this.txtMaBenhChinh.txtMyCode = null;
+            this.txtMaBenhChinh.txtMyCode_Edit = null;
+            this.txtMaBenhChinh.txtMyID = null;
+            this.txtMaBenhChinh.txtMyID_Edit = null;
+            this.txtMaBenhChinh.txtMyName = null;
+            this.txtMaBenhChinh.txtMyName_Edit = null;
+            this.txtMaBenhChinh.txtNext = null;
+            // 
             // grd_ICD
             // 
             this.grd_ICD.AllowDelete = Janus.Windows.GridEX.InheritableBoolean.True;
@@ -1550,6 +1632,7 @@
             // 
             this.txtChanDoanKemTheo._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtChanDoanKemTheo._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChanDoanKemTheo._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtChanDoanKemTheo.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtChanDoanKemTheo.AutoCompleteList")));
             this.txtChanDoanKemTheo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtChanDoanKemTheo.CaseSensitive = false;
@@ -1772,6 +1855,7 @@
             // 
             this.txtChanDoan._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtChanDoan._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChanDoan._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtChanDoan.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtChanDoan.AutoCompleteList")));
             this.txtChanDoan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtChanDoan.CaseSensitive = false;
@@ -1885,12 +1969,12 @@
             // 
             // tabPhieuDieuTri
             // 
-            this.tabPhieuDieuTri.Controls.Add(this.pnlXN);
             this.tabPhieuDieuTri.Controls.Add(this.pnlXQ);
+            this.tabPhieuDieuTri.Controls.Add(this.pnlXN);
             this.tabPhieuDieuTri.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPhieuDieuTri.Location = new System.Drawing.Point(1, 24);
             this.tabPhieuDieuTri.Name = "tabPhieuDieuTri";
-            this.tabPhieuDieuTri.Size = new System.Drawing.Size(0, 378);
+            this.tabPhieuDieuTri.Size = new System.Drawing.Size(198, 378);
             this.tabPhieuDieuTri.TabStop = true;
             this.tabPhieuDieuTri.Text = "Kết quả CLS";
             // 
@@ -1900,7 +1984,7 @@
             this.pnlXN.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlXN.Location = new System.Drawing.Point(0, 0);
             this.pnlXN.Name = "pnlXN";
-            this.pnlXN.Size = new System.Drawing.Size(0, 378);
+            this.pnlXN.Size = new System.Drawing.Size(198, 378);
             this.pnlXN.TabIndex = 0;
             // 
             // grdKetqua
@@ -1923,7 +2007,7 @@
             this.grdKetqua.Name = "grdKetqua";
             this.grdKetqua.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdKetqua.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
-            this.grdKetqua.Size = new System.Drawing.Size(0, 378);
+            this.grdKetqua.Size = new System.Drawing.Size(198, 378);
             this.grdKetqua.TabIndex = 256;
             this.grdKetqua.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdKetqua.TotalRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
@@ -1936,22 +2020,13 @@
             // pnlXQ
             // 
             this.pnlXQ.Controls.Add(this.pnlDynamicValues);
+            this.pnlXQ.Controls.Add(this.panel13);
             this.pnlXQ.Controls.Add(this.lnkSize);
             this.pnlXQ.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlXQ.Location = new System.Drawing.Point(0, 0);
             this.pnlXQ.Name = "pnlXQ";
-            this.pnlXQ.Size = new System.Drawing.Size(0, 378);
+            this.pnlXQ.Size = new System.Drawing.Size(198, 378);
             this.pnlXQ.TabIndex = 22;
-            // 
-            // pnlDynamicValues
-            // 
-            this.pnlDynamicValues.AutoScroll = true;
-            this.pnlDynamicValues.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDynamicValues.Location = new System.Drawing.Point(0, 0);
-            this.pnlDynamicValues.Name = "pnlDynamicValues";
-            this.pnlDynamicValues.Size = new System.Drawing.Size(0, 362);
-            this.pnlDynamicValues.TabIndex = 503;
-            this.pnlDynamicValues.TabStop = true;
             // 
             // barcode1
             // 
@@ -2262,6 +2337,7 @@
             // 
             this.txtHoly._backcolor = System.Drawing.SystemColors.Control;
             this.txtHoly._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHoly._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtHoly.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtHoly.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtHoly.AutoCompleteList")));
@@ -2375,6 +2451,7 @@
             // 
             this.txtChedodinhduong._backcolor = System.Drawing.SystemColors.Control;
             this.txtChedodinhduong._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChedodinhduong._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtChedodinhduong.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtChedodinhduong.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtChedodinhduong.AutoCompleteList")));
@@ -2462,17 +2539,17 @@
             this.cboPrintPreviewTomtatdieutringoaitru.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboPrintPreviewTomtatdieutringoaitru.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboPrintPreviewTomtatdieutringoaitru.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem25.FormatStyle.Alpha = 0;
-            uiComboBoxItem25.IsSeparator = false;
-            uiComboBoxItem25.Text = "Xem trước khi in";
-            uiComboBoxItem25.Value = "0";
-            uiComboBoxItem26.FormatStyle.Alpha = 0;
-            uiComboBoxItem26.IsSeparator = false;
-            uiComboBoxItem26.Text = "In ngay";
-            uiComboBoxItem26.Value = "1";
+            uiComboBoxItem1.FormatStyle.Alpha = 0;
+            uiComboBoxItem1.IsSeparator = false;
+            uiComboBoxItem1.Text = "Xem trước khi in";
+            uiComboBoxItem1.Value = "0";
+            uiComboBoxItem2.FormatStyle.Alpha = 0;
+            uiComboBoxItem2.IsSeparator = false;
+            uiComboBoxItem2.Text = "In ngay";
+            uiComboBoxItem2.Value = "1";
             this.cboPrintPreviewTomtatdieutringoaitru.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem25,
-            uiComboBoxItem26});
+            uiComboBoxItem1,
+            uiComboBoxItem2});
             this.cboPrintPreviewTomtatdieutringoaitru.Location = new System.Drawing.Point(152, 226);
             this.cboPrintPreviewTomtatdieutringoaitru.Name = "cboPrintPreviewTomtatdieutringoaitru";
             this.cboPrintPreviewTomtatdieutringoaitru.Size = new System.Drawing.Size(216, 21);
@@ -2485,17 +2562,17 @@
             this.cboA4Tomtatdieutringoaitru.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboA4Tomtatdieutringoaitru.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboA4Tomtatdieutringoaitru.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem27.FormatStyle.Alpha = 0;
-            uiComboBoxItem27.IsSeparator = false;
-            uiComboBoxItem27.Text = "A4";
-            uiComboBoxItem27.Value = "A4";
-            uiComboBoxItem28.FormatStyle.Alpha = 0;
-            uiComboBoxItem28.IsSeparator = false;
-            uiComboBoxItem28.Text = "A5";
-            uiComboBoxItem28.Value = "A5";
+            uiComboBoxItem3.FormatStyle.Alpha = 0;
+            uiComboBoxItem3.IsSeparator = false;
+            uiComboBoxItem3.Text = "A4";
+            uiComboBoxItem3.Value = "A4";
+            uiComboBoxItem4.FormatStyle.Alpha = 0;
+            uiComboBoxItem4.IsSeparator = false;
+            uiComboBoxItem4.Text = "A5";
+            uiComboBoxItem4.Value = "A5";
             this.cboA4Tomtatdieutringoaitru.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem27,
-            uiComboBoxItem28});
+            uiComboBoxItem3,
+            uiComboBoxItem4});
             this.cboA4Tomtatdieutringoaitru.Location = new System.Drawing.Point(95, 226);
             this.cboA4Tomtatdieutringoaitru.Name = "cboA4Tomtatdieutringoaitru";
             this.cboA4Tomtatdieutringoaitru.Size = new System.Drawing.Size(55, 21);
@@ -2518,17 +2595,17 @@
             this.cboPrintPreviewCLS.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboPrintPreviewCLS.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboPrintPreviewCLS.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem29.FormatStyle.Alpha = 0;
-            uiComboBoxItem29.IsSeparator = false;
-            uiComboBoxItem29.Text = "Xem trước khi in";
-            uiComboBoxItem29.Value = "0";
-            uiComboBoxItem30.FormatStyle.Alpha = 0;
-            uiComboBoxItem30.IsSeparator = false;
-            uiComboBoxItem30.Text = "In ngay";
-            uiComboBoxItem30.Value = "1";
+            uiComboBoxItem5.FormatStyle.Alpha = 0;
+            uiComboBoxItem5.IsSeparator = false;
+            uiComboBoxItem5.Text = "Xem trước khi in";
+            uiComboBoxItem5.Value = "0";
+            uiComboBoxItem6.FormatStyle.Alpha = 0;
+            uiComboBoxItem6.IsSeparator = false;
+            uiComboBoxItem6.Text = "In ngay";
+            uiComboBoxItem6.Value = "1";
             this.cboPrintPreviewCLS.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem29,
-            uiComboBoxItem30});
+            uiComboBoxItem5,
+            uiComboBoxItem6});
             this.cboPrintPreviewCLS.Location = new System.Drawing.Point(152, 169);
             this.cboPrintPreviewCLS.Name = "cboPrintPreviewCLS";
             this.cboPrintPreviewCLS.Size = new System.Drawing.Size(216, 21);
@@ -2541,17 +2618,17 @@
             this.cboA4Cls.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboA4Cls.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboA4Cls.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem31.FormatStyle.Alpha = 0;
-            uiComboBoxItem31.IsSeparator = false;
-            uiComboBoxItem31.Text = "A4";
-            uiComboBoxItem31.Value = "A4";
-            uiComboBoxItem32.FormatStyle.Alpha = 0;
-            uiComboBoxItem32.IsSeparator = false;
-            uiComboBoxItem32.Text = "A5";
-            uiComboBoxItem32.Value = "A5";
+            uiComboBoxItem7.FormatStyle.Alpha = 0;
+            uiComboBoxItem7.IsSeparator = false;
+            uiComboBoxItem7.Text = "A4";
+            uiComboBoxItem7.Value = "A4";
+            uiComboBoxItem8.FormatStyle.Alpha = 0;
+            uiComboBoxItem8.IsSeparator = false;
+            uiComboBoxItem8.Text = "A5";
+            uiComboBoxItem8.Value = "A5";
             this.cboA4Cls.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem31,
-            uiComboBoxItem32});
+            uiComboBoxItem7,
+            uiComboBoxItem8});
             this.cboA4Cls.Location = new System.Drawing.Point(95, 169);
             this.cboA4Cls.Name = "cboA4Cls";
             this.cboA4Cls.Size = new System.Drawing.Size(55, 21);
@@ -2603,17 +2680,17 @@
             this.cboPrintPreviewDonthuoc.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboPrintPreviewDonthuoc.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboPrintPreviewDonthuoc.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem33.FormatStyle.Alpha = 0;
-            uiComboBoxItem33.IsSeparator = false;
-            uiComboBoxItem33.Text = "Xem trước khi in";
-            uiComboBoxItem33.Value = "0";
-            uiComboBoxItem34.FormatStyle.Alpha = 0;
-            uiComboBoxItem34.IsSeparator = false;
-            uiComboBoxItem34.Text = "In ngay";
-            uiComboBoxItem34.Value = "1";
+            uiComboBoxItem9.FormatStyle.Alpha = 0;
+            uiComboBoxItem9.IsSeparator = false;
+            uiComboBoxItem9.Text = "Xem trước khi in";
+            uiComboBoxItem9.Value = "0";
+            uiComboBoxItem10.FormatStyle.Alpha = 0;
+            uiComboBoxItem10.IsSeparator = false;
+            uiComboBoxItem10.Text = "In ngay";
+            uiComboBoxItem10.Value = "1";
             this.cboPrintPreviewDonthuoc.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem33,
-            uiComboBoxItem34});
+            uiComboBoxItem9,
+            uiComboBoxItem10});
             this.cboPrintPreviewDonthuoc.Location = new System.Drawing.Point(152, 59);
             this.cboPrintPreviewDonthuoc.Name = "cboPrintPreviewDonthuoc";
             this.cboPrintPreviewDonthuoc.Size = new System.Drawing.Size(216, 21);
@@ -2626,17 +2703,17 @@
             this.cboA4Donthuoc.BorderStyle = Janus.Windows.UI.BorderStyle.Sunken;
             this.cboA4Donthuoc.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboA4Donthuoc.Font = new System.Drawing.Font("Arial", 9F);
-            uiComboBoxItem35.FormatStyle.Alpha = 0;
-            uiComboBoxItem35.IsSeparator = false;
-            uiComboBoxItem35.Text = "A4";
-            uiComboBoxItem35.Value = "A4";
-            uiComboBoxItem36.FormatStyle.Alpha = 0;
-            uiComboBoxItem36.IsSeparator = false;
-            uiComboBoxItem36.Text = "A5";
-            uiComboBoxItem36.Value = "A5";
+            uiComboBoxItem11.FormatStyle.Alpha = 0;
+            uiComboBoxItem11.IsSeparator = false;
+            uiComboBoxItem11.Text = "A4";
+            uiComboBoxItem11.Value = "A4";
+            uiComboBoxItem12.FormatStyle.Alpha = 0;
+            uiComboBoxItem12.IsSeparator = false;
+            uiComboBoxItem12.Text = "A5";
+            uiComboBoxItem12.Value = "A5";
             this.cboA4Donthuoc.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem35,
-            uiComboBoxItem36});
+            uiComboBoxItem11,
+            uiComboBoxItem12});
             this.cboA4Donthuoc.Location = new System.Drawing.Point(95, 59);
             this.cboA4Donthuoc.Name = "cboA4Donthuoc";
             this.cboA4Donthuoc.Size = new System.Drawing.Size(55, 21);
@@ -2980,6 +3057,7 @@
             // 
             this.txtNhommau._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtNhommau._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNhommau._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtNhommau.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNhommau.AutoCompleteList")));
             this.txtNhommau.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNhommau.CaseSensitive = false;
@@ -3597,83 +3675,76 @@
             this.ucError1.TabIndex = 462;
             this.ucError1.Visible = false;
             // 
-            // txtMaBenhphu
+            // panel13
             // 
-            this.txtMaBenhphu._backcolor = System.Drawing.Color.WhiteSmoke;
-            this.txtMaBenhphu._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaBenhphu._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtMaBenhphu.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMaBenhphu.AutoCompleteList")));
-            this.txtMaBenhphu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMaBenhphu.CaseSensitive = false;
-            this.txtMaBenhphu.CompareNoID = true;
-            this.txtMaBenhphu.DefaultCode = "-1";
-            this.txtMaBenhphu.DefaultID = "-1";
-            this.txtMaBenhphu.Drug_ID = null;
-            this.txtMaBenhphu.ExtraWidth = 0;
-            this.txtMaBenhphu.FillValueAfterSelect = false;
-            this.txtMaBenhphu.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaBenhphu.Location = new System.Drawing.Point(113, 141);
-            this.txtMaBenhphu.MaxHeight = 289;
-            this.txtMaBenhphu.MinTypedCharacters = 2;
-            this.txtMaBenhphu.MyCode = "-1";
-            this.txtMaBenhphu.MyID = "-1";
-            this.txtMaBenhphu.MyText = "";
-            this.txtMaBenhphu.Name = "txtMaBenhphu";
-            this.txtMaBenhphu.RaiseEvent = false;
-            this.txtMaBenhphu.RaiseEventEnter = true;
-            this.txtMaBenhphu.RaiseEventEnterWhenEmpty = true;
-            this.txtMaBenhphu.SelectedIndex = -1;
-            this.txtMaBenhphu.Size = new System.Drawing.Size(325, 21);
-            this.txtMaBenhphu.splitChar = '@';
-            this.txtMaBenhphu.splitCharIDAndCode = '#';
-            this.txtMaBenhphu.TabIndex = 10;
-            this.txtMaBenhphu.TakeCode = false;
-            this.txtMaBenhphu.txtMyCode = null;
-            this.txtMaBenhphu.txtMyCode_Edit = null;
-            this.txtMaBenhphu.txtMyID = null;
-            this.txtMaBenhphu.txtMyID_Edit = null;
-            this.txtMaBenhphu.txtMyName = null;
-            this.txtMaBenhphu.txtMyName_Edit = null;
-            this.txtMaBenhphu.txtNext = null;
+            this.panel13.Controls.Add(this.txtMauKQ);
+            this.panel13.Controls.Add(this.label10);
+            this.panel13.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel13.Location = new System.Drawing.Point(0, 0);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(198, 28);
+            this.panel13.TabIndex = 510;
             // 
-            // txtMaBenhChinh
+            // txtMauKQ
             // 
-            this.txtMaBenhChinh._backcolor = System.Drawing.Color.WhiteSmoke;
-            this.txtMaBenhChinh._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaBenhChinh._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtMaBenhChinh.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMaBenhChinh.AutoCompleteList")));
-            this.txtMaBenhChinh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMaBenhChinh.CaseSensitive = false;
-            this.txtMaBenhChinh.CompareNoID = true;
-            this.txtMaBenhChinh.DefaultCode = "-1";
-            this.txtMaBenhChinh.DefaultID = "-1";
-            this.txtMaBenhChinh.Drug_ID = null;
-            this.txtMaBenhChinh.ExtraWidth = 0;
-            this.txtMaBenhChinh.FillValueAfterSelect = false;
-            this.txtMaBenhChinh.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaBenhChinh.Location = new System.Drawing.Point(113, 116);
-            this.txtMaBenhChinh.MaxHeight = 289;
-            this.txtMaBenhChinh.MinTypedCharacters = 2;
-            this.txtMaBenhChinh.MyCode = "-1";
-            this.txtMaBenhChinh.MyID = "-1";
-            this.txtMaBenhChinh.MyText = "";
-            this.txtMaBenhChinh.Name = "txtMaBenhChinh";
-            this.txtMaBenhChinh.RaiseEvent = false;
-            this.txtMaBenhChinh.RaiseEventEnter = true;
-            this.txtMaBenhChinh.RaiseEventEnterWhenEmpty = true;
-            this.txtMaBenhChinh.SelectedIndex = -1;
-            this.txtMaBenhChinh.Size = new System.Drawing.Size(325, 21);
-            this.txtMaBenhChinh.splitChar = '@';
-            this.txtMaBenhChinh.splitCharIDAndCode = '#';
-            this.txtMaBenhChinh.TabIndex = 9;
-            this.txtMaBenhChinh.TakeCode = false;
-            this.txtMaBenhChinh.txtMyCode = null;
-            this.txtMaBenhChinh.txtMyCode_Edit = null;
-            this.txtMaBenhChinh.txtMyID = null;
-            this.txtMaBenhChinh.txtMyID_Edit = null;
-            this.txtMaBenhChinh.txtMyName = null;
-            this.txtMaBenhChinh.txtMyName_Edit = null;
-            this.txtMaBenhChinh.txtNext = null;
+            this.txtMauKQ._backcolor = System.Drawing.SystemColors.Control;
+            this.txtMauKQ._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMauKQ._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtMauKQ.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMauKQ.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMauKQ.AutoCompleteList")));
+            this.txtMauKQ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMauKQ.CaseSensitive = false;
+            this.txtMauKQ.CompareNoID = true;
+            this.txtMauKQ.DefaultCode = "-1";
+            this.txtMauKQ.DefaultID = "-1";
+            this.txtMauKQ.Drug_ID = null;
+            this.txtMauKQ.ExtraWidth = 0;
+            this.txtMauKQ.FillValueAfterSelect = false;
+            this.txtMauKQ.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMauKQ.LOAI_DANHMUC = "MAUKETQUA";
+            this.txtMauKQ.Location = new System.Drawing.Point(67, 3);
+            this.txtMauKQ.MaxHeight = -1;
+            this.txtMauKQ.MinTypedCharacters = 2;
+            this.txtMauKQ.MyCode = "-1";
+            this.txtMauKQ.MyID = "-1";
+            this.txtMauKQ.Name = "txtMauKQ";
+            this.txtMauKQ.RaiseEvent = false;
+            this.txtMauKQ.RaiseEventEnter = true;
+            this.txtMauKQ.RaiseEventEnterWhenEmpty = false;
+            this.txtMauKQ.SelectedIndex = -1;
+            this.txtMauKQ.Size = new System.Drawing.Size(124, 21);
+            this.txtMauKQ.splitChar = '@';
+            this.txtMauKQ.splitCharIDAndCode = '#';
+            this.txtMauKQ.TabIndex = 507;
+            this.txtMauKQ.TakeCode = false;
+            this.txtMauKQ.txtMyCode = null;
+            this.txtMauKQ.txtMyCode_Edit = null;
+            this.txtMauKQ.txtMyID = null;
+            this.txtMauKQ.txtMyID_Edit = null;
+            this.txtMauKQ.txtMyName = null;
+            this.txtMauKQ.txtMyName_Edit = null;
+            this.txtMauKQ.txtNext = null;
+            // 
+            // label10
+            // 
+            this.label10.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(2, 3);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(59, 21);
+            this.label10.TabIndex = 508;
+            this.label10.Text = "Mẫu KQ:";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // pnlDynamicValues
+            // 
+            this.pnlDynamicValues.AutoScroll = true;
+            this.pnlDynamicValues.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDynamicValues.Location = new System.Drawing.Point(0, 28);
+            this.pnlDynamicValues.Name = "pnlDynamicValues";
+            this.pnlDynamicValues.Size = new System.Drawing.Size(198, 334);
+            this.pnlDynamicValues.TabIndex = 511;
+            this.pnlDynamicValues.TabStop = true;
             // 
             // frm_QuanlyPhieudieutri
             // 
@@ -3768,6 +3839,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdTamung)).EndInit();
             this.panel12.ResumeLayout(false);
             this.pnlThongbao.ResumeLayout(false);
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3976,7 +4049,6 @@
         private System.Windows.Forms.Panel pnlXN;
         private Janus.Windows.GridEX.GridEX grdKetqua;
         private System.Windows.Forms.Panel pnlXQ;
-        private System.Windows.Forms.FlowLayoutPanel pnlDynamicValues;
         private System.Windows.Forms.LinkLabel lnkSize;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem mnuShowResult;
@@ -4010,5 +4082,9 @@
         private System.Windows.Forms.Panel pnlVTTHTronggoi;
         private UCs.AutoCompleteTextbox txtMaBenhphu;
         private UCs.AutoCompleteTextbox txtMaBenhChinh;
+        private System.Windows.Forms.FlowLayoutPanel pnlDynamicValues;
+        private System.Windows.Forms.Panel panel13;
+        private UCs.AutoCompleteTextbox_Danhmucchung txtMauKQ;
+        private System.Windows.Forms.Label label10;
     }
 }
