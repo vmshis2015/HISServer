@@ -1,6 +1,6 @@
 ﻿namespace VNS.HIS.UI.Baocao
 {
-    partial class fm_baocaodoanhthutienkham
+    partial class frm_baocaodoanhthutiemchung
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fm_baocaodoanhthutienkham));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_baocaodoanhthutiemchung));
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
@@ -228,6 +228,7 @@
             this.chkChitiet.Size = new System.Drawing.Size(209, 23);
             this.chkChitiet.TabIndex = 7;
             this.chkChitiet.Text = "Chi tiết theo từng Bệnh nhân?";
+            this.chkChitiet.Visible = false;
             // 
             // panel1
             // 
@@ -379,7 +380,7 @@
             this.chkByDate.TabIndex = 4;
             this.chkByDate.Text = "Từ ngày";
             // 
-            // fm_baocaodoanhthutienkham
+            // frm_baocaodoanhthutiemchung
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -394,7 +395,7 @@
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "fm_baocaodoanhthutienkham";
+            this.Name = "frm_baocaodoanhthutiemchung";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BÁO CÁO THU TIỀN DỊCH VỤ KCB";

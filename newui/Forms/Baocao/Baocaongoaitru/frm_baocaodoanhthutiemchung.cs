@@ -17,22 +17,19 @@ using VNS.HIS.BusRule.Classes;
 
 namespace VNS.HIS.UI.Baocao
 {
-    public partial class fm_baocaodoanhthutienkham : Form
+    public partial class frm_baocaodoanhthutiemchung : Form
     {
         public DataTable _dtData = new DataTable();
         bool m_blnhasLoaded = false;
         string tieude = "", reportname = "";
         decimal tong_tien = 0m;
-        public fm_baocaodoanhthutienkham()
+        private string thamso = "";
+        public frm_baocaodoanhthutiemchung(string sThamso)
         {
             InitializeComponent();
             Initevents();
-           
-         
-          
-            
             dtNgayInPhieu.Value = globalVariables.SysDate;
-        
+            thamso = sThamso;
             dtToDate.Value = dtNgayInPhieu.Value = dtFromDate.Value = globalVariables.SysDate;
         }
         void Initevents()
@@ -71,6 +68,7 @@ namespace VNS.HIS.UI.Baocao
                 DataBinding.BindDataCombobox(cboNhanvien, THU_VIEN_CHUNG.LaydanhsachThunganvien(),
                                       DmucNhanvien.Columns.UserName, DmucNhanvien.Columns.TenNhanvien, "Chọn nhân viên thu ngân", true);
                 m_dtKhoathucHien = THU_VIEN_CHUNG.Laydanhmuckhoa("NGOAI", 0);
+                
                 DataBinding.BindDataCombobox(cboKhoa, m_dtKhoathucHien,
                                      DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong, "Chọn khoa KCB", true);
                 var query = from khoa in m_dtKhoathucHien.AsEnumerable()
@@ -160,10 +158,12 @@ namespace VNS.HIS.UI.Baocao
             if (chkChitiet.Checked)
             {
                 _dtData =
-                   BAOCAO_NGOAITRU.BaocaoThutienkhamChitiet(
-                    chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
-                    chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
-                    Utility.sDbnull(cboDoituongKCB.SelectedValue, -1), Utility.sDbnull(cboNhanvien.SelectedValue, -1),Utility.Int16Dbnull(cboLoaidichvu.SelectedValue, -1), Utility.sDbnull(cboKhoa.SelectedValue, -1));
+                    BAOCAO_NGOAITRU.BaocaoThutientiemchungchitiet(
+                        chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
+                        chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
+                        Utility.sDbnull(cboDoituongKCB.SelectedValue, -1),
+                        Utility.sDbnull(cboNhanvien.SelectedValue, -1),
+                        Utility.Int16Dbnull(cboLoaidichvu.SelectedValue, -1), Utility.sDbnull(thamso,""), Utility.sDbnull(cboKhoa.SelectedValue, -1));
                 THU_VIEN_CHUNG.CreateXML(_dtData, "baocao_thutien_tiemchung_chitiet.xml");
                 Utility.SetDataSourceForDataGridEx(grdChitiet, _dtData, false, true, "1=1", "");
                 Janus.Windows.GridEX.GridEXColumn gridExColumnTientong = grdChitiet.RootTable.Columns["Thanh_Tien"];
@@ -172,10 +172,12 @@ namespace VNS.HIS.UI.Baocao
             else
             {
                 _dtData =
-                  BAOCAO_NGOAITRU.BaocaoThutienkhamTonghop(
-                    chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
-                    chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
-                    Utility.sDbnull(cboDoituongKCB.SelectedValue, -1), Utility.sDbnull(cboNhanvien.SelectedValue, -1), Utility.Int16Dbnull(cboLoaidichvu.SelectedValue, -1), Utility.sDbnull(cboKhoa.SelectedValue, -1));
+                    BAOCAO_NGOAITRU.BaocaoThutientiemchungtonghop(
+                        chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
+                        chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
+                        Utility.sDbnull(cboDoituongKCB.SelectedValue, -1),
+                        Utility.sDbnull(cboNhanvien.SelectedValue, -1),
+                        Utility.Int16Dbnull(cboLoaidichvu.SelectedValue, -1), Utility.sDbnull(thamso,""), Utility.sDbnull(cboKhoa.SelectedValue, -1));
                 THU_VIEN_CHUNG.CreateXML(_dtData, "baocao_thutien_tiemchung_tonghop.xml");
                 Utility.SetDataSourceForDataGridEx(grdList, _dtData, false, true, "1=1", "");
                 Janus.Windows.GridEX.GridEXColumn gridExColumnTientong = grdList.RootTable.Columns["Thanh_Tien"];
