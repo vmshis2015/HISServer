@@ -47,12 +47,24 @@ namespace VNS.HIS.BusRule.Classes
             }
 
         }
-
-        public static DataTable GetDynamicFieldsValues(int? IdChitietdichvu, string bodypart, string viewposition, long? ImageId, long? idchitietchidinh)
+        public static DataTable HinhanhLaydanhsachMauKQtheoDichvuCLS(int? IdChitietdichvu)
         {
             try
             {
-                return SPs.HinhanhGetDynamicFieldsValues(IdChitietdichvu, bodypart, viewposition, ImageId, idchitietchidinh).GetDataSet().Tables[0];
+                return SPs.HinhanhLaydanhsachMauKQtheoDichvuCLS(IdChitietdichvu).GetDataSet().Tables[0];
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        public static DataTable GetDynamicFieldsValues(int? IdChitietdichvu,string mafiledoc, string bodypart, string viewposition, long? ImageId, long? idchitietchidinh)
+        {
+            try
+            {
+                return SPs.HinhanhGetDynamicFieldsValues(IdChitietdichvu,mafiledoc, bodypart, viewposition, ImageId, idchitietchidinh).GetDataSet().Tables[0];
             }
             catch (Exception)
             {
