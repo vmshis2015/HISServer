@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_quanlycacphongchucnang));
             Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem5 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem6 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem7 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem8 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem4 = new Janus.Windows.EditControls.UIComboBoxItem();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_quanlycacphongchucnang));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -150,6 +150,8 @@
             this.gridEXExporter2 = new Janus.Windows.GridEX.Export.GridEXExporter(this.components);
             this.uiGroupBox13 = new Janus.Windows.EditControls.UIGroupBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtMafileDoc = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
+            this.label8 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TabInfo)).BeginInit();
             this.TabInfo.SuspendLayout();
@@ -244,6 +246,8 @@
             // 
             // grpChiDinhCLS
             // 
+            this.grpChiDinhCLS.Controls.Add(this.label8);
+            this.grpChiDinhCLS.Controls.Add(this.txtMafileDoc);
             this.grpChiDinhCLS.Controls.Add(this.cmdConfig);
             this.grpChiDinhCLS.Controls.Add(this.cmdDelFTPImages);
             this.grpChiDinhCLS.Controls.Add(this.chkInsaukhiluu);
@@ -331,6 +335,7 @@
             this.lnkSize.Name = "lnkSize";
             this.lnkSize.Size = new System.Drawing.Size(127, 16);
             this.lnkSize.TabIndex = 501;
+            this.lnkSize.TabStop = true;
             this.lnkSize.Text = "Cấu hình kích thước";
             this.toolTip1.SetToolTip(this.lnkSize, "Nhấn vào đây để cấu hình kích thước cho các đối tượng nhập kết quả");
             // 
@@ -343,6 +348,7 @@
             this.lnkMore.Name = "lnkMore";
             this.lnkMore.Size = new System.Drawing.Size(76, 16);
             this.lnkMore.TabIndex = 500;
+            this.lnkMore.TabStop = true;
             this.lnkMore.Text = "Thêm giá trị";
             this.toolTip1.SetToolTip(this.lnkMore, "Nhấn vào đây để thêm các giá trị kết quả ứng với dịch vụ CĐHA đang chọn(Có thể th" +
         "ực hiện ở cả danh mục dịch vụ Cận lâm sàng chi tiết)");
@@ -396,7 +402,7 @@
             // label15
             // 
             this.label15.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(6, 92);
+            this.label15.Location = new System.Drawing.Point(1, 130);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(102, 21);
             this.label15.TabIndex = 488;
@@ -410,9 +416,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowDynamics.AutoScroll = true;
             this.flowDynamics.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowDynamics.Location = new System.Drawing.Point(113, 92);
+            this.flowDynamics.Location = new System.Drawing.Point(113, 130);
             this.flowDynamics.Name = "flowDynamics";
-            this.flowDynamics.Size = new System.Drawing.Size(716, 423);
+            this.flowDynamics.Size = new System.Drawing.Size(716, 385);
             this.flowDynamics.TabIndex = 19;
             this.flowDynamics.TabStop = true;
             // 
@@ -1400,27 +1406,27 @@
             // 
             // cboPatientSex
             // 
-            uiComboBoxItem5.FormatStyle.Alpha = 0;
-            uiComboBoxItem5.IsSeparator = false;
-            uiComboBoxItem5.Text = "Giới tính";
-            uiComboBoxItem5.Value = -1;
-            uiComboBoxItem6.FormatStyle.Alpha = 0;
-            uiComboBoxItem6.IsSeparator = false;
-            uiComboBoxItem6.Text = "Nam(Male)";
-            uiComboBoxItem6.Value = 0;
-            uiComboBoxItem7.FormatStyle.Alpha = 0;
-            uiComboBoxItem7.IsSeparator = false;
-            uiComboBoxItem7.Text = "Nữ(Female)";
-            uiComboBoxItem7.Value = 1;
-            uiComboBoxItem8.FormatStyle.Alpha = 0;
-            uiComboBoxItem8.IsSeparator = false;
-            uiComboBoxItem8.Text = "Khác";
-            uiComboBoxItem8.Value = 2;
+            uiComboBoxItem1.FormatStyle.Alpha = 0;
+            uiComboBoxItem1.IsSeparator = false;
+            uiComboBoxItem1.Text = "Giới tính";
+            uiComboBoxItem1.Value = -1;
+            uiComboBoxItem2.FormatStyle.Alpha = 0;
+            uiComboBoxItem2.IsSeparator = false;
+            uiComboBoxItem2.Text = "Nam(Male)";
+            uiComboBoxItem2.Value = 0;
+            uiComboBoxItem3.FormatStyle.Alpha = 0;
+            uiComboBoxItem3.IsSeparator = false;
+            uiComboBoxItem3.Text = "Nữ(Female)";
+            uiComboBoxItem3.Value = 1;
+            uiComboBoxItem4.FormatStyle.Alpha = 0;
+            uiComboBoxItem4.IsSeparator = false;
+            uiComboBoxItem4.Text = "Khác";
+            uiComboBoxItem4.Value = 2;
             this.cboPatientSex.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem5,
-            uiComboBoxItem6,
-            uiComboBoxItem7,
-            uiComboBoxItem8});
+            uiComboBoxItem1,
+            uiComboBoxItem2,
+            uiComboBoxItem3,
+            uiComboBoxItem4});
             this.cboPatientSex.Location = new System.Drawing.Point(85, 77);
             this.cboPatientSex.Name = "cboPatientSex";
             this.cboPatientSex.SelectedIndex = 0;
@@ -1487,6 +1493,55 @@
             // 
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp";
+            // 
+            // txtMafileDoc
+            // 
+            this.txtMafileDoc._backcolor = System.Drawing.SystemColors.Control;
+            this.txtMafileDoc._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMafileDoc._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtMafileDoc.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMafileDoc.AutoCompleteList")));
+            this.txtMafileDoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMafileDoc.CaseSensitive = false;
+            this.txtMafileDoc.CompareNoID = true;
+            this.txtMafileDoc.DefaultCode = "-1";
+            this.txtMafileDoc.DefaultID = "-1";
+            this.txtMafileDoc.Drug_ID = null;
+            this.txtMafileDoc.ExtraWidth = 0;
+            this.txtMafileDoc.FillValueAfterSelect = false;
+            this.txtMafileDoc.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMafileDoc.LOAI_DANHMUC = "MAFILEDOC";
+            this.txtMafileDoc.Location = new System.Drawing.Point(114, 95);
+            this.txtMafileDoc.MaxHeight = -1;
+            this.txtMafileDoc.MinTypedCharacters = 2;
+            this.txtMafileDoc.MyCode = "-1";
+            this.txtMafileDoc.MyID = "-1";
+            this.txtMafileDoc.Name = "txtMafileDoc";
+            this.txtMafileDoc.RaiseEvent = false;
+            this.txtMafileDoc.RaiseEventEnter = true;
+            this.txtMafileDoc.RaiseEventEnterWhenEmpty = false;
+            this.txtMafileDoc.SelectedIndex = -1;
+            this.txtMafileDoc.Size = new System.Drawing.Size(715, 21);
+            this.txtMafileDoc.splitChar = '@';
+            this.txtMafileDoc.splitCharIDAndCode = '#';
+            this.txtMafileDoc.TabIndex = 505;
+            this.txtMafileDoc.TakeCode = false;
+            this.txtMafileDoc.txtMyCode = null;
+            this.txtMafileDoc.txtMyCode_Edit = null;
+            this.txtMafileDoc.txtMyID = null;
+            this.txtMafileDoc.txtMyID_Edit = null;
+            this.txtMafileDoc.txtMyName = null;
+            this.txtMafileDoc.txtMyName_Edit = null;
+            this.txtMafileDoc.txtNext = null;
+            // 
+            // label8
+            // 
+            this.label8.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(6, 95);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(102, 21);
+            this.label8.TabIndex = 506;
+            this.label8.Text = "Nhập kết quả";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frm_quanlycacphongchucnang
             // 
@@ -1649,5 +1704,7 @@
         private Janus.Windows.EditControls.UICheckBox chkInsaukhiluu;
         private Janus.Windows.EditControls.UIButton cmdDelFTPImages;
         private Janus.Windows.EditControls.UIButton cmdConfig;
+        private System.Windows.Forms.Label label8;
+        private UCs.AutoCompleteTextbox_Danhmucchung txtMafileDoc;
     }
 }

@@ -32,9 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_DynamicSetup));
             Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmdConfig = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
-            this.cmdConfig = new Janus.Windows.EditControls.UIButton();
             this.grdList = new Janus.Windows.GridEX.GridEX();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
@@ -51,6 +51,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(784, 49);
             this.panel1.TabIndex = 0;
+            // 
+            // cmdConfig
+            // 
+            this.cmdConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdConfig.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdConfig.Image = ((System.Drawing.Image)(resources.GetObject("cmdConfig.Image")));
+            this.cmdConfig.ImageSize = new System.Drawing.Size(24, 24);
+            this.cmdConfig.Location = new System.Drawing.Point(3, 3);
+            this.cmdConfig.Name = "cmdConfig";
+            this.cmdConfig.Size = new System.Drawing.Size(43, 34);
+            this.cmdConfig.TabIndex = 505;
+            this.cmdConfig.TabStop = false;
             // 
             // cmdExit
             // 
@@ -74,18 +86,6 @@
             this.cmdSave.TabIndex = 9;
             this.cmdSave.Text = "Cập nhập(Ctrl+S)";
             this.toolTip1.SetToolTip(this.cmdSave, "Cập nhật lại tất cả dữ liệu");
-            // 
-            // cmdConfig
-            // 
-            this.cmdConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdConfig.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdConfig.Image = ((System.Drawing.Image)(resources.GetObject("cmdConfig.Image")));
-            this.cmdConfig.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdConfig.Location = new System.Drawing.Point(3, 3);
-            this.cmdConfig.Name = "cmdConfig";
-            this.cmdConfig.Size = new System.Drawing.Size(43, 34);
-            this.cmdConfig.TabIndex = 505;
-            this.cmdConfig.TabStop = false;
             // 
             // grdList
             // 

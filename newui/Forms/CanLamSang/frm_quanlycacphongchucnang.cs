@@ -11,6 +11,7 @@ using Janus.Windows.UI.Tab;
 using Microsoft.VisualBasic;
 using NLog;
 using SubSonic;
+using VNS.HIS.UI.DANHMUC;
 using VNS.Libs;
 using System.Linq;
 using VNS.HIS.DAL;
@@ -129,7 +130,27 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             cmdConfig.Click += cmdConfig_Click;
 
             cmdDelFTPImages.Click+=cmdDelFTPImages_Click;
+            txtMafileDoc._OnShowData += txtMafileDoc__OnShowData;
+            txtMafileDoc._OnEnterMe += txtMafileDoc__OnEnterMe;
             
+        }
+
+        void txtMafileDoc__OnEnterMe()
+        {
+            txtMauchuan.Text = txtMafileDoc.Text;
+        }
+
+        void txtMafileDoc__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtMafileDoc.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtMafileDoc.myCode;
+                txtMafileDoc.Init();
+                txtMafileDoc.SetCode(oldCode);
+                txtMafileDoc.Focus();
+            }
         }
 
         void imgBox__OnViewImage(ImgBox imgBox)
@@ -458,6 +479,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         {
             //SearchFormRadio();
             //RoleConfigUserRadio();
+            txtMafileDoc.Init();
             InitData();
            
             ModifyCommand();
