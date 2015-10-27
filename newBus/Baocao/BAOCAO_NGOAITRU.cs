@@ -154,7 +154,7 @@ namespace VNS.HIS.BusRule.Classes
         }
         public static DataTable BaocaoThutientiemchungtonghop(DateTime? FromDate, DateTime? ToDate, string maDoituongKCB, string maTNV, short idLoaithanhtoan, string kieukham, string MAKHOATHIEN)
         {
-            return SPs.BaocaoThutientiemchungTonghop(FromDate, ToDate, maDoituongKCB, maTNV, idLoaithanhtoan, MAKHOATHIEN).GetDataSet().Tables[0];
+            return SPs.BaocaoThutientiemchungTonghop(FromDate, ToDate, maDoituongKCB, maTNV, kieukham,idLoaithanhtoan, MAKHOATHIEN).GetDataSet().Tables[0];
         }
         public static DataTable BaocaoThutientiemchungchitiet(DateTime? FromDate, DateTime? ToDate, string MaDoiTuong, string CreateBy, short idLoaithanhtoan, string kieukham, string MAKHOATHIEN)
         {
