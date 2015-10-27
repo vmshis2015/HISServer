@@ -877,7 +877,8 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                 TPhieuXuatthuocBenhnhanChitiet objXuatBnhanCt = new TPhieuXuatthuocBenhnhanChitiet();
                 objXuatBnhanCt.IdPhieu = Utility.Int32Dbnull(objPhieuXuatBnhan.IdPhieu);
                 objXuatBnhanCt.SoLuong = iSoLuonTru;
-                
+                objXuatBnhanCt.SoDky = objDetail.SoDky;
+                objXuatBnhanCt.SoQdinhthau = objDetail.SoQdinhthau;
                 objXuatBnhanCt.ChiDan = objDetail.MotaThem;
                 objXuatBnhanCt.IdThuoc = Utility.Int32Dbnull(objDetail.IdThuoc);
                 objXuatBnhanCt.NgayHethan = objDetail.NgayHethan;// objTThuockho.NgayHethan.Date;
