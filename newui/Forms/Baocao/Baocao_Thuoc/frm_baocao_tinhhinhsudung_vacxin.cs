@@ -344,10 +344,9 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                                                                                       dtNgayIn.Value, FromDateToDate,
                                                                                       Utility.sDbnull(cboKho.Text), chkTheoNhomThuoc.Checked);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
         }
         /// <summary>

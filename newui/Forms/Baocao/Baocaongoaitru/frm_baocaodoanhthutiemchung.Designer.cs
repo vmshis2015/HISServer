@@ -33,8 +33,9 @@
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem4 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.GridEX.GridEXLayout grdChitiet_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.cmdExportToExcel = new Janus.Windows.EditControls.UIButton();
             this.dtNgayInPhieu = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.label3 = new System.Windows.Forms.Label();
@@ -49,8 +50,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.chkChitiet = new Janus.Windows.EditControls.UICheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.grdList = new Janus.Windows.GridEX.GridEX();
             this.grdChitiet = new Janus.Windows.GridEX.GridEX();
+            this.grdList = new Janus.Windows.GridEX.GridEX();
             this.cboKhoa = new Janus.Windows.EditControls.UIComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cboNhanvien = new Janus.Windows.EditControls.UIComboBox();
@@ -63,8 +64,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
             this.uiGroupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdChitiet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdExportToExcel
@@ -73,7 +74,7 @@
             this.cmdExportToExcel.Font = new System.Drawing.Font("Arial", 9F);
             this.cmdExportToExcel.Image = ((System.Drawing.Image)(resources.GetObject("cmdExportToExcel.Image")));
             this.cmdExportToExcel.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdExportToExcel.Location = new System.Drawing.Point(364, 530);
+            this.cmdExportToExcel.Location = new System.Drawing.Point(364, 498);
             this.cmdExportToExcel.Name = "cmdExportToExcel";
             this.cmdExportToExcel.Size = new System.Drawing.Size(133, 30);
             this.cmdExportToExcel.TabIndex = 9;
@@ -91,7 +92,7 @@
             // 
             this.dtNgayInPhieu.DropDownCalendar.Name = "";
             this.dtNgayInPhieu.Font = new System.Drawing.Font("Arial", 9F);
-            this.dtNgayInPhieu.Location = new System.Drawing.Point(81, 530);
+            this.dtNgayInPhieu.Location = new System.Drawing.Point(81, 498);
             this.dtNgayInPhieu.Name = "dtNgayInPhieu";
             this.dtNgayInPhieu.ShowUpDown = true;
             this.dtNgayInPhieu.Size = new System.Drawing.Size(200, 21);
@@ -104,7 +105,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial", 9F);
-            this.label3.Location = new System.Drawing.Point(3, 534);
+            this.label3.Location = new System.Drawing.Point(3, 502);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 15);
             this.label3.TabIndex = 88;
@@ -116,7 +117,7 @@
             this.cmdInPhieuXN.Font = new System.Drawing.Font("Arial", 9F);
             this.cmdInPhieuXN.Image = ((System.Drawing.Image)(resources.GetObject("cmdInPhieuXN.Image")));
             this.cmdInPhieuXN.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdInPhieuXN.Location = new System.Drawing.Point(503, 530);
+            this.cmdInPhieuXN.Location = new System.Drawing.Point(503, 498);
             this.cmdInPhieuXN.Name = "cmdInPhieuXN";
             this.cmdInPhieuXN.Size = new System.Drawing.Size(133, 30);
             this.cmdInPhieuXN.TabIndex = 8;
@@ -130,7 +131,7 @@
             this.cmdExit.Font = new System.Drawing.Font("Arial", 9F);
             this.cmdExit.Image = ((System.Drawing.Image)(resources.GetObject("cmdExit.Image")));
             this.cmdExit.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdExit.Location = new System.Drawing.Point(642, 530);
+            this.cmdExit.Location = new System.Drawing.Point(642, 498);
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(133, 30);
             this.cmdExit.TabIndex = 10;
@@ -179,7 +180,7 @@
             this.uiGroupBox2.Image = ((System.Drawing.Image)(resources.GetObject("uiGroupBox2.Image")));
             this.uiGroupBox2.Location = new System.Drawing.Point(0, 59);
             this.uiGroupBox2.Name = "uiGroupBox2";
-            this.uiGroupBox2.Size = new System.Drawing.Size(784, 465);
+            this.uiGroupBox2.Size = new System.Drawing.Size(784, 433);
             this.uiGroupBox2.TabIndex = 116;
             this.uiGroupBox2.Text = "Thông tin tìm kiếm";
             // 
@@ -192,16 +193,21 @@
             uiComboBoxItem1.Value = ((short)(-1));
             uiComboBoxItem2.FormatStyle.Alpha = 0;
             uiComboBoxItem2.IsSeparator = false;
-            uiComboBoxItem2.Text = "Phí khám chữa bệnh";
+            uiComboBoxItem2.Text = "Tiền công khám";
             uiComboBoxItem2.Value = ((short)(1));
             uiComboBoxItem3.FormatStyle.Alpha = 0;
             uiComboBoxItem3.IsSeparator = false;
-            uiComboBoxItem3.Text = "Chi phí dịch vụ Cận lâm sàng(XN,CĐHA...)";
+            uiComboBoxItem3.Text = "Tiền vacxin";
             uiComboBoxItem3.Value = ((short)(2));
+            uiComboBoxItem4.FormatStyle.Alpha = 0;
+            uiComboBoxItem4.IsSeparator = false;
+            uiComboBoxItem4.Text = "Tiền tiêm";
+            uiComboBoxItem4.Value = "11";
             this.cboLoaidichvu.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
             uiComboBoxItem1,
             uiComboBoxItem2,
-            uiComboBoxItem3});
+            uiComboBoxItem3,
+            uiComboBoxItem4});
             this.cboLoaidichvu.ItemsFormatStyle.FontBold = Janus.Windows.UI.TriState.True;
             this.cboLoaidichvu.Location = new System.Drawing.Point(419, 54);
             this.cboLoaidichvu.Name = "cboLoaidichvu";
@@ -239,26 +245,8 @@
             this.panel1.Controls.Add(this.grdList);
             this.panel1.Location = new System.Drawing.Point(6, 164);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(772, 295);
+            this.panel1.Size = new System.Drawing.Size(772, 263);
             this.panel1.TabIndex = 46;
-            // 
-            // grdList
-            // 
-            this.grdList.ColumnAutoResize = true;
-            grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
-            this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
-            this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdList.GroupByBoxVisible = false;
-            this.grdList.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdList.Location = new System.Drawing.Point(0, 0);
-            this.grdList.Name = "grdList";
-            this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdList.Size = new System.Drawing.Size(772, 295);
-            this.grdList.TabIndex = 20;
-            this.grdList.TabStop = false;
-            this.grdList.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdList.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
-            this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // grdChitiet
             // 
@@ -271,12 +259,30 @@
             this.grdChitiet.Location = new System.Drawing.Point(0, 0);
             this.grdChitiet.Name = "grdChitiet";
             this.grdChitiet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdChitiet.Size = new System.Drawing.Size(772, 295);
+            this.grdChitiet.Size = new System.Drawing.Size(772, 263);
             this.grdChitiet.TabIndex = 21;
             this.grdChitiet.TabStop = false;
             this.grdChitiet.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdChitiet.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
             this.grdChitiet.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // grdList
+            // 
+            this.grdList.ColumnAutoResize = true;
+            grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
+            this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
+            this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdList.GroupByBoxVisible = false;
+            this.grdList.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdList.Location = new System.Drawing.Point(0, 0);
+            this.grdList.Name = "grdList";
+            this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdList.Size = new System.Drawing.Size(772, 263);
+            this.grdList.TabIndex = 20;
+            this.grdList.TabStop = false;
+            this.grdList.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdList.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
+            this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // cboKhoa
             // 
@@ -384,7 +390,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 562);
+            this.ClientSize = new System.Drawing.Size(784, 530);
             this.Controls.Add(this.uiGroupBox2);
             this.Controls.Add(this.baocaO_TIEUDE1);
             this.Controls.Add(this.cmdExportToExcel);
@@ -404,8 +410,8 @@
             this.uiGroupBox2.ResumeLayout(false);
             this.uiGroupBox2.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdChitiet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
