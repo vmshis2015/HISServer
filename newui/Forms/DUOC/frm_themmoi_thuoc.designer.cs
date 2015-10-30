@@ -61,13 +61,6 @@
             this.txtDesc = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.txtSoluong = new MaskedTextBox.MaskedTextBox();
-            this.txtGiaBHYT = new MaskedTextBox.MaskedTextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtDongia = new MaskedTextBox.MaskedTextBox();
-            this.txtPTDT = new MaskedTextBox.MaskedTextBox();
-            this.txtPTTT = new MaskedTextBox.MaskedTextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.chkTutuc = new Janus.Windows.EditControls.UICheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.optNoitru = new System.Windows.Forms.RadioButton();
@@ -94,21 +87,28 @@
             this.label17 = new System.Windows.Forms.Label();
             this.cboDrugNature = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.txtCode = new System.Windows.Forms.TextBox();
             this.Label5 = new System.Windows.Forms.Label();
             this.Label3 = new System.Windows.Forms.Label();
             this.txtID = new System.Windows.Forms.TextBox();
             this.Label1 = new System.Windows.Forms.Label();
+            this.pnlGia = new System.Windows.Forms.Panel();
+            this.txtGiaDV = new MaskedTextBox.MaskedTextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtPTTT = new MaskedTextBox.MaskedTextBox();
+            this.txtPTDT = new MaskedTextBox.MaskedTextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtGiaBHYT = new MaskedTextBox.MaskedTextBox();
+            this.txtDongia = new MaskedTextBox.MaskedTextBox();
             this.cmdSave = new System.Windows.Forms.Button();
             this.cmdClose = new System.Windows.Forms.Button();
             this.chkThemlientuc = new Janus.Windows.EditControls.UICheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmdNew = new Janus.Windows.EditControls.UIButton();
-            this.txtGiaDV = new MaskedTextBox.MaskedTextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.pnlGia = new System.Windows.Forms.Panel();
             this.GroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdDmucthuoc)).BeginInit();
             this.pnlGia.SuspendLayout();
@@ -801,84 +801,6 @@
             this.txtSoluong.TabIndex = 20;
             this.txtSoluong.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // txtGiaBHYT
-            // 
-            this.txtGiaBHYT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtGiaBHYT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGiaBHYT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGiaBHYT.Location = new System.Drawing.Point(597, 4);
-            this.txtGiaBHYT.Masked = MaskedTextBox.Mask.Decimal;
-            this.txtGiaBHYT.Name = "txtGiaBHYT";
-            this.txtGiaBHYT.Size = new System.Drawing.Size(96, 21);
-            this.txtGiaBHYT.TabIndex = 15;
-            this.txtGiaBHYT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label13
-            // 
-            this.label13.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label13.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(521, 7);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(71, 15);
-            this.label13.TabIndex = 1620;
-            this.label13.Text = "Giá BHYT";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDongia
-            // 
-            this.txtDongia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDongia.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDongia.Location = new System.Drawing.Point(101, 4);
-            this.txtDongia.Masked = MaskedTextBox.Mask.Decimal;
-            this.txtDongia.Name = "txtDongia";
-            this.txtDongia.Size = new System.Drawing.Size(191, 21);
-            this.txtDongia.TabIndex = 14;
-            this.txtDongia.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtPTDT
-            // 
-            this.txtPTDT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPTDT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPTDT.Location = new System.Drawing.Point(101, 29);
-            this.txtPTDT.Masked = MaskedTextBox.Mask.Decimal;
-            this.txtPTDT.Name = "txtPTDT";
-            this.txtPTDT.Size = new System.Drawing.Size(192, 21);
-            this.txtPTDT.TabIndex = 16;
-            this.txtPTDT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtPTTT
-            // 
-            this.txtPTTT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtPTTT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPTTT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPTTT.Location = new System.Drawing.Point(388, 29);
-            this.txtPTTT.Masked = MaskedTextBox.Mask.Decimal;
-            this.txtPTTT.Name = "txtPTTT";
-            this.txtPTTT.Size = new System.Drawing.Size(305, 21);
-            this.txtPTTT.TabIndex = 17;
-            this.txtPTTT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label11
-            // 
-            this.label11.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label11.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(293, 32);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(90, 15);
-            this.label11.TabIndex = 437;
-            this.label11.Text = "Phụ thu TT";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label10
-            // 
-            this.label10.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(0, 32);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(96, 15);
-            this.label10.TabIndex = 435;
-            this.label10.Text = "Phụ thu ĐT";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // chkTutuc
             // 
             this.chkTutuc.Checked = true;
@@ -1201,17 +1123,6 @@
             this.label16.Text = "Tính chất";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(-11, 7);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(107, 15);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Giá nhập:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1281,6 +1192,137 @@
             this.Label1.Text = "ID";
             this.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // pnlGia
+            // 
+            this.pnlGia.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pnlGia.Controls.Add(this.txtGiaDV);
+            this.pnlGia.Controls.Add(this.label7);
+            this.pnlGia.Controls.Add(this.label25);
+            this.pnlGia.Controls.Add(this.label10);
+            this.pnlGia.Controls.Add(this.label11);
+            this.pnlGia.Controls.Add(this.txtPTTT);
+            this.pnlGia.Controls.Add(this.txtPTDT);
+            this.pnlGia.Controls.Add(this.label13);
+            this.pnlGia.Controls.Add(this.txtGiaBHYT);
+            this.pnlGia.Controls.Add(this.txtDongia);
+            this.pnlGia.Location = new System.Drawing.Point(11, 205);
+            this.pnlGia.Name = "pnlGia";
+            this.pnlGia.Size = new System.Drawing.Size(708, 54);
+            this.pnlGia.TabIndex = 13;
+            this.pnlGia.TabStop = true;
+            // 
+            // txtGiaDV
+            // 
+            this.txtGiaDV.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtGiaDV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGiaDV.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGiaDV.Location = new System.Drawing.Point(388, 4);
+            this.txtGiaDV.Masked = MaskedTextBox.Mask.Decimal;
+            this.txtGiaDV.Name = "txtGiaDV";
+            this.txtGiaDV.Size = new System.Drawing.Size(125, 21);
+            this.txtGiaDV.TabIndex = 14;
+            this.txtGiaDV.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(-11, 7);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(107, 15);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Giá nhập:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label25
+            // 
+            this.label25.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label25.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(297, 7);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(86, 15);
+            this.label25.TabIndex = 1744;
+            this.label25.Text = "Giá Dịch vụ:";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label10
+            // 
+            this.label10.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(0, 32);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(96, 15);
+            this.label10.TabIndex = 435;
+            this.label10.Text = "Phụ thu ĐT";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label11.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(293, 32);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(90, 15);
+            this.label11.TabIndex = 437;
+            this.label11.Text = "Phụ thu TT";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPTTT
+            // 
+            this.txtPTTT.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtPTTT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPTTT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPTTT.Location = new System.Drawing.Point(388, 29);
+            this.txtPTTT.Masked = MaskedTextBox.Mask.Decimal;
+            this.txtPTTT.Name = "txtPTTT";
+            this.txtPTTT.Size = new System.Drawing.Size(305, 21);
+            this.txtPTTT.TabIndex = 17;
+            this.txtPTTT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtPTDT
+            // 
+            this.txtPTDT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPTDT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPTDT.Location = new System.Drawing.Point(101, 29);
+            this.txtPTDT.Masked = MaskedTextBox.Mask.Decimal;
+            this.txtPTDT.Name = "txtPTDT";
+            this.txtPTDT.Size = new System.Drawing.Size(192, 21);
+            this.txtPTDT.TabIndex = 16;
+            this.txtPTDT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label13
+            // 
+            this.label13.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label13.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(521, 7);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(71, 15);
+            this.label13.TabIndex = 1620;
+            this.label13.Text = "Giá BHYT";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtGiaBHYT
+            // 
+            this.txtGiaBHYT.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtGiaBHYT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGiaBHYT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGiaBHYT.Location = new System.Drawing.Point(597, 4);
+            this.txtGiaBHYT.Masked = MaskedTextBox.Mask.Decimal;
+            this.txtGiaBHYT.Name = "txtGiaBHYT";
+            this.txtGiaBHYT.Size = new System.Drawing.Size(96, 21);
+            this.txtGiaBHYT.TabIndex = 15;
+            this.txtGiaBHYT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtDongia
+            // 
+            this.txtDongia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDongia.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDongia.Location = new System.Drawing.Point(101, 4);
+            this.txtDongia.Masked = MaskedTextBox.Mask.Decimal;
+            this.txtDongia.Name = "txtDongia";
+            this.txtDongia.Size = new System.Drawing.Size(191, 21);
+            this.txtDongia.TabIndex = 14;
+            this.txtDongia.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // cmdSave
             // 
             this.cmdSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1337,48 +1379,6 @@
             this.cmdNew.TabIndex = 31;
             this.cmdNew.Text = "&Thêm mới";
             this.cmdNew.ToolTipText = "Nhấn vào đây để thêm mới Bệnh nhân";
-            // 
-            // txtGiaDV
-            // 
-            this.txtGiaDV.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtGiaDV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGiaDV.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGiaDV.Location = new System.Drawing.Point(388, 4);
-            this.txtGiaDV.Masked = MaskedTextBox.Mask.Decimal;
-            this.txtGiaDV.Name = "txtGiaDV";
-            this.txtGiaDV.Size = new System.Drawing.Size(125, 21);
-            this.txtGiaDV.TabIndex = 14;
-            this.txtGiaDV.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label25
-            // 
-            this.label25.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label25.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(297, 7);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(86, 15);
-            this.label25.TabIndex = 1744;
-            this.label25.Text = "Giá Dịch vụ:";
-            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // pnlGia
-            // 
-            this.pnlGia.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pnlGia.Controls.Add(this.txtGiaDV);
-            this.pnlGia.Controls.Add(this.label7);
-            this.pnlGia.Controls.Add(this.label25);
-            this.pnlGia.Controls.Add(this.label10);
-            this.pnlGia.Controls.Add(this.label11);
-            this.pnlGia.Controls.Add(this.txtPTTT);
-            this.pnlGia.Controls.Add(this.txtPTDT);
-            this.pnlGia.Controls.Add(this.label13);
-            this.pnlGia.Controls.Add(this.txtGiaBHYT);
-            this.pnlGia.Controls.Add(this.txtDongia);
-            this.pnlGia.Location = new System.Drawing.Point(11, 205);
-            this.pnlGia.Name = "pnlGia";
-            this.pnlGia.Size = new System.Drawing.Size(708, 54);
-            this.pnlGia.TabIndex = 13;
-            this.pnlGia.TabStop = true;
             // 
             // frm_themmoi_thuoc
             // 
