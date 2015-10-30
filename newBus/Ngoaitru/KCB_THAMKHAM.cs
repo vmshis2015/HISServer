@@ -250,11 +250,11 @@ namespace VNS.HIS.BusRule.Classes
                     GetDataSet().Tables[0];
         }
 
-        public DataTable LayDSachBnhanThamkham(DateTime regFrom, DateTime regTo, string patientName, int Status, int SoPhieu, int DepartmentID, string MaKhoaThucHien)
+        public DataTable LayDSachBnhanThamkham(DateTime regFrom, DateTime regTo, string patientName, int Status, int SoPhieu, int DepartmentID,string LoaiBN, string MaKhoaThucHien)
         {
             return SPs.KcbThamkhamLaydanhsachBnhanChokham(regFrom, regTo, patientName, Status,
                                                       SoPhieu,
-                                                     DepartmentID,
+                                                     DepartmentID,LoaiBN,
                                                       MaKhoaThucHien).
                     GetDataSet().Tables[0];
         }
@@ -319,6 +319,11 @@ namespace VNS.HIS.BusRule.Classes
         public DataSet NoitruLayDanhsachVtthGoidichvu(int PatientID, string PatientCode)
         {
             return SPs.NoitruLaydanhsachVtthGoidichvu(PatientID, PatientCode).GetDataSet();
+        }
+
+        public DataSet InMauPhieuChuyenKhoa(string maluotkham, long idbenhnhan)
+        {
+            return SPs.ThamkhamInmauphieuChuyenkhoa(maluotkham, idbenhnhan).GetDataSet();
         }
         public DataSet NoitruLaythongtinVTTHTrongoi(int PatientID, string PatientCode, int idPhieudieutri, int Idgoi)
         {
