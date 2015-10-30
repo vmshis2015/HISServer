@@ -78,6 +78,7 @@ namespace VNS.HIS.UI.HinhAnh
             }
             catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
         }
         //private void cmdSave_Click(object sender, EventArgs e)
@@ -190,7 +191,7 @@ namespace VNS.HIS.UI.HinhAnh
         {
             try
             {
-                return SPs.HinhanhGetDynamicFieldsValues(objDichvuchitiet.IdChitietdichvu, objDichvuchitiet.Bodypart, objDichvuchitiet.ViewPosition, ImageID, Id_chidinhchitiet).GetDataSet().Tables[0];
+                return SPs.HinhanhGetDynamicFieldsValues(objDichvuchitiet.IdChitietdichvu, objDichvuchitiet.MauChuan, objDichvuchitiet.Bodypart, objDichvuchitiet.ViewPosition, ImageID, Id_chidinhchitiet).GetDataSet().Tables[0];
             }
             catch (Exception)
             {
