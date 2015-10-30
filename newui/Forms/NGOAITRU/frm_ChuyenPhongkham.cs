@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using VNS.HIS.BusRule.Classes;
+using VNS.HIS.Classes;
 using VNS.Libs;
 using VNS.HIS.DAL;
 using SubSonic;
@@ -22,6 +24,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
         bool AutoLoad = false;
         public bool m_blnCancel = true;
         public string MA_DTUONG = "DV";
+        private readonly KCB_THAMKHAM _KCB_THAMKHAM = new KCB_THAMKHAM();
         public DmucDichvukcb _DmucDichvukcb = null;
         public KcbDangkyKcb objDangkyKcb_Cu = null;
         public frm_ChuyenPhongkham()
@@ -81,36 +84,68 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
        
         void cmdChuyen_Click(object sender, EventArgs e)
         {
-            Utility.SetMsg(lblMsg, "", true);
-            
-            if (_DmucDichvukcb == null)
+            try
             {
-                Utility.SetMsg(lblMsg, "Bạn cần chọn phòng khám cần chuyển", true);
-                txtPhongkham.Focus();
-                txtPhongkham.SelectAll();
-                return;
-            }
-            if (txtPhongkham.MyID.ToString() == objDangkyKcb_Cu.IdPhongkham.ToString())
-            {
-                Utility.SetMsg(lblMsg, "Bạn phải chọn phòng khám khác "+txtPhonghientai.Text, true);
-                txtPhongkham.Focus();
-                txtPhongkham.SelectAll();
-                return;
-            }
-            if(Utility.DoTrim( txtLydo.Text)=="")
-            {
-                 Utility.SetMsg(lblMsg, "Bạn cần nhập lý do chuyển phòng", true);
-                 txtLydo.Focus();
-                 return;
-            }
-            _DmucDichvukcb.IdPhongkham =Utility.Int16Dbnull( txtPhongkham.MyID,-1);
-            if (ChuyenPhongkham.ChuyenPhong(objDangkyKcb_Cu.IdKham,Utility.DoTrim( txtLydo.Text), _DmucDichvukcb)==ActionResult.Success)
-            {
+                Utility.SetMsg(lblMsg, "", true);
 
-                m_blnCancel = false;
-                this.Close();
+                if (_DmucDichvukcb == null)
+                {
+                    Utility.SetMsg(lblMsg, "Bạn cần chọn phòng khám cần chuyển", true);
+                    txtPhongkham.Focus();
+                    txtPhongkham.SelectAll();
+                    return;
+                }
+                if (txtPhongkham.MyID.ToString() == objDangkyKcb_Cu.IdPhongkham.ToString())
+                {
+                    Utility.SetMsg(lblMsg, "Bạn phải chọn phòng khám khác " + txtPhonghientai.Text, true);
+                    txtPhongkham.Focus();
+                    txtPhongkham.SelectAll();
+                    return;
+                }
+                if (Utility.DoTrim(txtLydo.Text) == "")
+                {
+                    Utility.SetMsg(lblMsg, "Bạn cần nhập lý do chuyển phòng", true);
+                    txtLydo.Focus();
+                    return;
+                }
+                _DmucDichvukcb.IdPhongkham = Utility.Int16Dbnull(txtPhongkham.MyID, -1);
+                if (ChuyenPhongkham.ChuyenPhong(objDangkyKcb_Cu.IdKham, Utility.DoTrim(txtLydo.Text), _DmucDichvukcb) == ActionResult.Success)
+                {
+                    InMauChuyenKhoa(Utility.sDbnull(objDangkyKcb_Cu.MaLuotkham,""), Utility.Int64Dbnull(objDangkyKcb_Cu.IdBenhnhan,-1));
+                    m_blnCancel = false;
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg("Lỗi"+ ex.Message);
+                //throw;
             }
            
+           
+        }
+
+        private void InMauChuyenKhoa(string maLuotkham, long idBenhnhan)
+        {
+            try
+            {
+               DataTable _dtInphieu = _KCB_THAMKHAM.InMauPhieuChuyenKhoa(maLuotkham, idBenhnhan).Tables[0];
+               THU_VIEN_CHUNG.CreateXML(_dtInphieu, "thamkham_phieukham_chuyenkhoa.xml");
+                string reportcode = "";
+                if (radkhamchuyenkhoa.Checked)
+                {
+                    reportcode = "PHIEUKHAM_CHUYENKHOA";
+                }
+                else
+                {
+                    reportcode = "PHIEUKHAM_BENHPHAM";
+                }
+                KCB_INPHIEU.INMAU_CHUYENKHAM_CHUYENKHOA(_dtInphieu, "PHIẾU KHÁM CHUYÊN KHOA", reportcode, txtLydo.Text);
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
+            }
         }
 
         void frm_ChuyenPhongkham_KeyDown(object sender, KeyEventArgs e)
@@ -167,10 +202,6 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                     _DmucDichvukcb= null;
                     return;
                 }
-                //_DmucDichvukcb=new Select().From(DmucDichvukcb.Schema).
-                //    Where(DmucDichvukcb.Columns.IdKieukham).IsEqualTo(Utility.Int32Dbnull(txtKieuKham.MyID, -1))
-                //    .And(DmucDichvukcb.Columns.IdPhongkham).IsEqualTo(Utility.Int32Dbnull(txtPhongkham.MyID, -1))
-                //    .And(DmucDichvukcb.Columns.DonGia).IsEqualTo(Utility.Int32Dbnull(txtPhongkham.MyID, -1))
                 DataRow[] arrDr =
                     m_ExamTypeRelationList.Select("(ma_doituong_kcb='ALL' OR ma_doituong_kcb='" + MA_DTUONG + "') AND id_kieukham=" +
                                                   txtKieuKham.MyID.ToString().Trim() + " AND  id_phongkham=" + txtPhongkham.MyID.ToString().Trim());
@@ -273,7 +304,6 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 this.txtPhongkham.TextAlign = HorizontalAlignment.Center;
                 this.txtPhongkham.CaseSensitive = false;
                 this.txtPhongkham.MinTypedCharacters = 1;
-
             }
         }
 

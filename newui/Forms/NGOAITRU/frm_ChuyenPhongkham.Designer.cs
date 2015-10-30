@@ -50,6 +50,8 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtPhonghientai = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtLydo = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
+            this.radkhamchuyenkhoa = new System.Windows.Forms.RadioButton();
+            this.radkhambenhpham = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,6 +103,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // 
             this.txtKieuKham._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtKieuKham._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKieuKham._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtKieuKham.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKieuKham.AutoCompleteList")));
             this.txtKieuKham.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtKieuKham.CaseSensitive = false;
@@ -117,6 +120,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtKieuKham.MinTypedCharacters = 2;
             this.txtKieuKham.MyCode = "-1";
             this.txtKieuKham.MyID = "-1";
+            this.txtKieuKham.MyText = "";
             this.txtKieuKham.Name = "txtKieuKham";
             this.txtKieuKham.RaiseEvent = true;
             this.txtKieuKham.RaiseEventEnter = false;
@@ -140,6 +144,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // 
             this.txtPhongkham._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtPhongkham._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPhongkham._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtPhongkham.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtPhongkham.AutoCompleteList")));
             this.txtPhongkham.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPhongkham.CaseSensitive = false;
@@ -156,6 +161,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtPhongkham.MinTypedCharacters = 2;
             this.txtPhongkham.MyCode = "-1";
             this.txtPhongkham.MyID = "-1";
+            this.txtPhongkham.MyText = "";
             this.txtPhongkham.Name = "txtPhongkham";
             this.txtPhongkham.RaiseEvent = true;
             this.txtPhongkham.RaiseEventEnter = false;
@@ -277,9 +283,9 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // lblMsg
             // 
             this.lblMsg.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMsg.Location = new System.Drawing.Point(115, 235);
+            this.lblMsg.Location = new System.Drawing.Point(115, 265);
             this.lblMsg.Name = "lblMsg";
-            this.lblMsg.Size = new System.Drawing.Size(389, 51);
+            this.lblMsg.Size = new System.Drawing.Size(389, 37);
             this.lblMsg.TabIndex = 555;
             this.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -319,6 +325,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // 
             this.txtLydo._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtLydo._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLydo._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLydo.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLydo.AutoCompleteList")));
             this.txtLydo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLydo.CaseSensitive = false;
@@ -331,7 +338,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtLydo.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLydo.LOAI_DANHMUC = "LYDOCHUYENPHONGKHAM";
             this.txtLydo.Location = new System.Drawing.Point(115, 208);
-            this.txtLydo.MaxHeight = -1;
+            this.txtLydo.MaxHeight = 150;
             this.txtLydo.MinTypedCharacters = 2;
             this.txtLydo.MyCode = "-1";
             this.txtLydo.MyID = "-1";
@@ -353,11 +360,35 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtLydo.txtMyName_Edit = null;
             this.txtLydo.txtNext = null;
             // 
+            // radkhamchuyenkhoa
+            // 
+            this.radkhamchuyenkhoa.AutoSize = true;
+            this.radkhamchuyenkhoa.Checked = true;
+            this.radkhamchuyenkhoa.Location = new System.Drawing.Point(144, 245);
+            this.radkhamchuyenkhoa.Name = "radkhamchuyenkhoa";
+            this.radkhamchuyenkhoa.Size = new System.Drawing.Size(155, 17);
+            this.radkhamchuyenkhoa.TabIndex = 560;
+            this.radkhamchuyenkhoa.TabStop = true;
+            this.radkhamchuyenkhoa.Text = "Chuyển khám chuyên khoa";
+            this.radkhamchuyenkhoa.UseVisualStyleBackColor = true;
+            // 
+            // radkhambenhpham
+            // 
+            this.radkhambenhpham.AutoSize = true;
+            this.radkhambenhpham.Location = new System.Drawing.Point(303, 245);
+            this.radkhambenhpham.Name = "radkhambenhpham";
+            this.radkhambenhpham.Size = new System.Drawing.Size(171, 17);
+            this.radkhambenhpham.TabIndex = 561;
+            this.radkhambenhpham.Text = "Chuyển xét nghiệm bệnh phẩm";
+            this.radkhambenhpham.UseVisualStyleBackColor = true;
+            // 
             // frm_ChuyenPhongkham
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 362);
+            this.Controls.Add(this.radkhambenhpham);
+            this.Controls.Add(this.radkhamchuyenkhoa);
             this.Controls.Add(this.txtLydo);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtPhonghientai);
@@ -407,5 +438,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
         public System.Windows.Forms.TextBox txtPhonghientai;
         private System.Windows.Forms.Label label4;
         private AutoCompleteTextbox_Danhmucchung txtLydo;
+        private System.Windows.Forms.RadioButton radkhamchuyenkhoa;
+        private System.Windows.Forms.RadioButton radkhambenhpham;
     }
 }

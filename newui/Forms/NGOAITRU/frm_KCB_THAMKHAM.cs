@@ -112,12 +112,12 @@ namespace VNS.HIS.UI.NGOAITRU
         private GridEXRow row_Selected;
         private bool trieuchung;
 
-
-        public frm_KCB_THAMKHAM()
+        string Args = "ALL";
+        public frm_KCB_THAMKHAM(string sthamso)
         {
             InitializeComponent();
             KeyPreview = true;
-
+            Args = sthamso;
             log = LogManager.GetCurrentClassLogger();
 
 
@@ -1074,7 +1074,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         !chkByDate.Checked ? globalVariables.SysDate.AddDays(-7) : dt_FormDate,
                         !chkByDate.Checked ? globalVariables.SysDate : dt_ToDate, txtTenBN.Text, Status,
                         SoKham,
-                        Utility.Int32Dbnull(cboPhongKhamNgoaiTru.SelectedValue, -1),
+                        Utility.Int32Dbnull(cboPhongKhamNgoaiTru.SelectedValue, -1), this.Args.Split('-')[0],
                         globalVariables.MA_KHOA_THIEN);
 
                 if (!m_dtDanhsachbenhnhanthamkham.Columns.Contains("MAUSAC"))

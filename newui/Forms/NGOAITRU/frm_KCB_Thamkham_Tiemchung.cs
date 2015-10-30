@@ -103,12 +103,12 @@ namespace VNS.HIS.UI.NGOAITRU
         List<string> lstKQKhongchitietColumns = new List<string>() { "Ket_qua", "bt_nam", "bt_nu" };
         List<string> lstKQCochitietColumns = new List<string>() { "ten_chitietdichvu", "Ket_qua", "bt_nam", "bt_nu" };
 
-
-        public frm_KCB_Thamkham_Tiemchung()
+        string Args = "ALL";
+        public frm_KCB_Thamkham_Tiemchung(string sThamso)
         {
             InitializeComponent();
             KeyPreview = true;
-           
+            Args = sThamso;
             log = LogManager.GetCurrentClassLogger();
            
             
@@ -1494,7 +1494,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
                 m_dtDanhsachbenhnhanthamkham = _KCB_THAMKHAM.LayDSachBnhanThamkham(!chkByDate.Checked ? globalVariables.SysDate.AddDays(-7) : dt_FormDate, !chkByDate.Checked ? globalVariables.SysDate : dt_ToDate, txtTenBN.Text, Status,
                                                           SoKham,
-                                                          Utility.Int32Dbnull(cboPhongKhamNgoaiTru.SelectedValue, -1),
+                                                          Utility.Int32Dbnull(cboPhongKhamNgoaiTru.SelectedValue, -1), this.Args.Split('-')[0],
                                                           globalVariables.MA_KHOA_THIEN);
                 //m_dtDanhsachbenhnhanthamkham.Select()
                 if (!m_dtDanhsachbenhnhanthamkham.Columns.Contains("MAUSAC"))

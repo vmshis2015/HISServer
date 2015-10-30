@@ -624,6 +624,7 @@
             this.cboKieuKham.Text = "CHỌN DỊCH VỤ KCB";
             this.cboKieuKham.ValueMember = "ID";
             this.cboKieuKham.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2003;
+            this.cboKieuKham.ValueChanged += new System.EventHandler(this.cboKieuKham_ValueChanged);
             // 
             // label22
             // 
@@ -1034,6 +1035,7 @@
             // 
             this.txtLoaiBN._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtLoaiBN._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoaiBN._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLoaiBN.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLoaiBN.AutoCompleteList")));
             this.txtLoaiBN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLoaiBN.CaseSensitive = false;
@@ -1073,6 +1075,7 @@
             // 
             this.txtMaDTsinhsong._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtMaDTsinhsong._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaDTsinhsong._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtMaDTsinhsong.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMaDTsinhsong.AutoCompleteList")));
             this.txtMaDTsinhsong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMaDTsinhsong.CaseSensitive = false;
@@ -1112,6 +1115,7 @@
             // 
             this.txtTrieuChungBD._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtTrieuChungBD._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTrieuChungBD._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtTrieuChungBD.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtTrieuChungBD.AutoCompleteList")));
             this.txtTrieuChungBD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTrieuChungBD.CaseSensitive = false;
@@ -1150,6 +1154,7 @@
             // 
             this.txtDantoc._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtDantoc._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDantoc._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtDantoc.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtDantoc.AutoCompleteList")));
             this.txtDantoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDantoc.CaseSensitive = false;
@@ -1878,6 +1883,7 @@
             // 
             this.txtLoaikham._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtLoaikham._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoaikham._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLoaikham.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLoaikham.AutoCompleteList")));
             this.txtLoaikham.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLoaikham.CaseSensitive = false;
@@ -2020,6 +2026,7 @@
             // 
             this.txtSoKcb._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtSoKcb._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSoKcb._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtSoKcb.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtSoKcb.AutoCompleteList")));
             this.txtSoKcb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSoKcb.CaseSensitive = false;
@@ -2214,6 +2221,7 @@
             // 
             this.txtNgheNghiep._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtNgheNghiep._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNgheNghiep._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtNgheNghiep.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNgheNghiep.AutoCompleteList")));
             this.txtNgheNghiep.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNgheNghiep.CaseSensitive = false;

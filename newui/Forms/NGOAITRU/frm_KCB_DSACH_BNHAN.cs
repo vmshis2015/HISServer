@@ -658,8 +658,7 @@ namespace VNS.HIS.UI.NGOAITRU
             if (!b_HasKham)
             {
                 KcbDangkyKcb objRegExam = new KcbDangkyKcb();
-                DmucDichvukcb objDichvuKCB =
-                DmucDichvukcb.FetchByID(Utility.Int32Dbnull(cboKieuKham.Value));
+                DmucDichvukcb objDichvuKCB = DmucDichvukcb.FetchByID(Utility.Int32Dbnull(cboKieuKham.Value));
                 DmucKhoaphong objdepartment = new Select().From(DmucKhoaphong.Schema).Where(DmucKhoaphong.MaKhoaphongColumn).IsEqualTo(globalVariables.MA_KHOA_THIEN).ExecuteSingle<DmucKhoaphong>();
                 DmucDoituongkcb objDoituongKCB = new Select().From(DmucDoituongkcb.Schema).Where(DmucDoituongkcb.MaDoituongKcbColumn).IsEqualTo(MA_DTUONG).ExecuteSingle<DmucDoituongkcb>();
                 if (objDichvuKCB != null)
@@ -669,6 +668,15 @@ namespace VNS.HIS.UI.NGOAITRU
                     int dungtuyen = Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.DungTuyen), 0);
                     objRegExam.IdDichvuKcb = Utility.Int16Dbnull(objDichvuKCB.IdDichvukcb, -1);
                     objRegExam.IdKieukham = objDichvuKCB.IdKieukham;
+                    objRegExam.NhomBaocao = objDichvuKCB.NhomBaocao;
+                    objRegExam.LaPhidichvukemtheo = 0;
+                    objRegExam.SttKham = -1;
+                    objRegExam.IdCha = -1;
+                    if(objLuotkham !=null)
+                    {
+                        objRegExam.MadoituongGia = objLuotkham.MadoituongGia;
+                    }
+                   
                     objRegExam.DonGia = Utility.DecimaltoDbnull(objDichvuKCB.DonGia, 0);
                     objRegExam.NguoiTao = globalVariables.UserName;
                     if (objdepartment != null)
@@ -705,6 +713,8 @@ namespace VNS.HIS.UI.NGOAITRU
                     objRegExam.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
                     objRegExam.TenDichvuKcb = cboKieuKham.Text;
                     objRegExam.NgayTiepdon = globalVariables.SysDate;
+                    objRegExam.IpMaytao = globalVariables.gv_strIPAddress;
+                    objRegExam.TenMaytao = globalVariables.gv_strComputerName;
                     objRegExam.MaLuotkham = MaLuotkham;
                     if (THU_VIEN_CHUNG.IsNgoaiGio())
                     {

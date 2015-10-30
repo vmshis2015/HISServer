@@ -415,6 +415,9 @@ namespace VNS.HIS.UI.NGOAITRU
         void txtExamtypeCode__OnSelectionChanged()
         {
             cboKieuKham.Text = txtMyNameEdit.Text;
+            cboKieuKham.Value = txtExamtypeCode.txtMyID;
+            txtKieuKham.Text = cboKieuKham.Text;
+            txtIDKieuKham.Text = Utility.sDbnull(txtExamtypeCode.txtMyID);
         }
 
         void cmdInhoadon_Click(object sender, EventArgs e)
@@ -1259,7 +1262,16 @@ namespace VNS.HIS.UI.NGOAITRU
                     
                     txtNoigioithieu.Text = objLuotkham.NoiGioithieu;
                     txtLoaiBN.SetCode(objLuotkham.NhomBenhnhan);
-
+                    if (objLuotkham.LoaiTuoi > 0)
+                    {
+                        dtpBOD.CustomFormat = "dd/MM/yyyy HH:mm";
+                        lblLoaituoi.Visible = true;
+                    }
+                    else
+                    {
+                        dtpBOD.CustomFormat = "yyyy";
+                        lblLoaituoi.Visible = false;
+                    }
                     if (dtpBOD.CustomFormat != "yyyy")
                     {
                         txtTuoi.Text = Utility.sDbnull(objLuotkham.Tuoi, "0");
@@ -1446,8 +1458,6 @@ namespace VNS.HIS.UI.NGOAITRU
             if (!m_PhongKham.Columns.Contains("ShortCut"))
                 m_PhongKham.Columns.Add(new DataColumn("ShortCut", typeof(string)));
             txtPhongkham.Init(m_PhongKham, new List<string>() { DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong });
-
-
         }
         private void AutocompleteMaDvu()
         {
@@ -1482,7 +1492,7 @@ namespace VNS.HIS.UI.NGOAITRU
             finally
             {
               
-
+                
             }
         }
         private void AutocompleteKieuKham()
@@ -1492,16 +1502,13 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (m_kieuKham == null) return;
                 if (!m_kieuKham.Columns.Contains("ShortCut"))
                     m_kieuKham.Columns.Add(new DataColumn("ShortCut", typeof (string)));
-                txtKieuKham.Init(m_kieuKham, new List<string>() { DmucKieukham.Columns.IdKieukham, DmucKieukham.Columns.MaKieukham, DmucKieukham.Columns.TenKieukham });
+                    txtKieuKham.Init(m_kieuKham, new List<string>() { DmucKieukham.Columns.IdKieukham, DmucKieukham.Columns.MaKieukham, DmucKieukham.Columns.TenKieukham });
+
             }
             catch
             {
             }
-            finally
-            {
-               
-
-            }
+           
         }
 
        
@@ -2393,13 +2400,22 @@ namespace VNS.HIS.UI.NGOAITRU
                 cboKieuKham.DataMember = DmucDichvukcb.Columns.IdDichvukcb;
                 cboKieuKham.ValueMember = DmucDichvukcb.Columns.IdDichvukcb;
                 cboKieuKham.DisplayMember = DmucDichvukcb.Columns.TenDichvukcb;
+                //cboKieuKham.ValueChanged += new EventHandler(cboKieuKham_ValueChanged);
               //  cboKieuKham.Visible = globalVariables.UserName == "ADMIN";
                 if (m_dtDanhsachDichvuKCB == null || m_dtDanhsachDichvuKCB.Columns.Count <= 0) return;
                 AllowTextChanged = true;
                 if (m_dtDanhsachDichvuKCB.Rows.Count == 1 && m_enAction != action.Update)
                 {
                     cboKieuKham.SelectedIndex = 0;
-                    
+                    var id_kieukham = (from s in m_dtDanhsachDichvuKCB.AsEnumerable()
+                                          select s).FirstOrDefault();
+                    txtIDPkham.Text = Utility.sDbnull(id_kieukham["id_phongkham"]);
+                    txtIDKieuKham.Text = Utility.sDbnull(id_kieukham["id_kieukham"]);
+                   // txtIDKieuKham.Text = Utility.sDbnull(txtExamtypeCode.MyID);
+                   // txtIDKieuKham.Text = Utility.sDbnull(cboKieuKham.Value);
+                   // cboKieuKham.Value = txtExamtypeCode.txtMyID;
+                   // txtKieuKham.Text = cboKieuKham.Text;
+                    AutoLoadKieuKham();
                 }
                 AllowTextChanged = oldStatus;
             }
@@ -2477,7 +2493,41 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (!AllowAgeChanged) return;
                 if (!string.IsNullOrEmpty(txtTuoi.Text))
                 {
-                    dtpBOD.Value = new DateTime(Utility.Int32Dbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(txtTuoi.Text, 0)), dtpBOD.Value.Month, dtpBOD.Value.Day, dtpBOD.Value.Hour, dtpBOD.Value.Minute, 0);
+                    if (dtpBOD.CustomFormat == "yyyy")
+                    {
+                        dtpBOD.Value =
+                            new DateTime(
+                                Utility.Int32Dbnull(globalVariables.SysDate.Year - Utility.Int32Dbnull(txtTuoi.Text, 0)),
+                                dtpBOD.Value.Month, dtpBOD.Value.Day, dtpBOD.Value.Hour, dtpBOD.Value.Minute, 0);
+                    }
+                    else
+                    {
+                        if(objBenhnhan != null && objLuotkham !=null)
+                        {
+                            dtpBOD.Value = Convert.ToDateTime(objBenhnhan.NgaySinh);
+                            UIAction.SetText(lblLoaituoi, objLuotkham.LoaiTuoi == 0 ? "" : (objLuotkham.LoaiTuoi == 1 ? "Tháng" : "Tuần"));
+                        }
+                         
+                    }
+                    //else
+                    //{
+                    //    if (objLuotkham !=null)
+                    //    {
+                            
+                    //        if(objLuotkham.LoaiTuoi == 1)
+                    //    {
+                    //        dtpBOD.Value = dtpBOD.Value.AddMonths(Utility.Int32Dbnull(objLuotkham.Tuoi,0));
+                    //    }
+                    //    else
+                    //    {
+                    //        if(objLuotkham.LoaiTuoi == 2)
+                    //        {
+                    //            dtpBOD.Value = dtpBOD.Value.ad(Utility.Int32Dbnull(objLuotkham.Tuoi, 0));
+                    //        }
+                    //    }
+                    //    }
+                        
+                    //}
                 }
             }
             catch (Exception exception)
