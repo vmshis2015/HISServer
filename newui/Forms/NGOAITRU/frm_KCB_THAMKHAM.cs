@@ -273,7 +273,12 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void cmdLuuChandoan_Click(object sender, EventArgs e)
         {
-            _KCB_THAMKHAM.LuuHoibenhvaChandoan(TaoDulieuChandoanKetluan(), null, false);
+          ActionResult act=  _KCB_THAMKHAM.LuuHoibenhvaChandoan(TaoDulieuChandoanKetluan(), null, false);
+          if (act == ActionResult.Success)
+          {
+              _KcbChandoanKetluan.IsNew = false;
+              _KcbChandoanKetluan.MarkOld();
+          }
         }
 
         private void grdPresDetail_UpdatingCell(object sender, UpdatingCellEventArgs e)

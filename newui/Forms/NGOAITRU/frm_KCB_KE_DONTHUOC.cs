@@ -1065,10 +1065,6 @@ namespace VNS.HIS.UI.NGOAITRU
                 this._KcbChandoanKetluan.Chandoan = Utility.ReplaceString(this.txtChanDoan.Text);
                 this._KcbChandoanKetluan.Noitru =(byte)noitru;
             }
-            else
-            {
-                this._KcbChandoanKetluan = null;
-            }
         }
 
         private KcbDonthuocChitiet[] CreateArrayPresDetail()
@@ -2324,6 +2320,7 @@ namespace VNS.HIS.UI.NGOAITRU
         bool AllowDrugChanged = false;
         void txtdrug__OnEnterMe()
         {
+            if (Utility.Int32Dbnull(txtdrug.MyID, -1) <=0) return;
             AllowDrugChanged = true;
             txtDrugID_TextChanged(txtDrugID, new EventArgs());
             AutoFill_Chidandungthuoc();
@@ -2929,12 +2926,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 this.m_blnGetDrugCodeFromList = false;
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                if (globalVariables.IsAdmin)
-                {
-                    Utility.ShowMsg(exception.ToString());
-                }
+                Utility.CatchException(ex);
             }
             finally
             {
