@@ -3576,7 +3576,7 @@ namespace  VNS.HIS.UI.THANHTOAN
         /// <param name="e"></param>
         private void cmdDanhSachPhoiBHYT_Click(object sender, EventArgs e)
         {
-            var frm = new frm_DanhSach_Phoi_BHYT();
+            var frm = new frm_Danhsach_benhnhan_inphoi_BHYT();
             frm.ShowDialog();
         }
 
@@ -3989,6 +3989,12 @@ namespace  VNS.HIS.UI.THANHTOAN
         }
 
         #endregion
+
+        private void cmdDanhsachinphoi_Click(object sender, EventArgs e)
+        {
+            frm_Danhsach_benhnhan_inphoi_BHYT frm = new frm_Danhsach_benhnhan_inphoi_BHYT();
+            frm.ShowDialog();
+        }
 
        
 
