@@ -2473,7 +2473,17 @@ DisplayName("HIS Application Mode")]
         public int Chieucao { get; set; }
 
     }
-
+    public  class  XMLProperties
+    {
+        public XMLProperties()
+        {
+            Chonduongdan = "A";
+        }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình xuất File XML"),
+        Description("Điền vào đường dẫn File XML xuất ra"),
+        DisplayName("Điền vào đường dẫn File XML")]
+        public string Chonduongdan { get; set; }
+    }
     public class ThuocProperties
     {
         public ThuocProperties()

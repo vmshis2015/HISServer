@@ -561,6 +561,28 @@ namespace VNS.Properties
                 return new ThuocProperties();
             }
         }
-
+        public static XMLProperties _xmlproperties = null;
+        public static XMLProperties GetXMLProperties()
+        {
+            try
+            {
+                if (!System.IO.Directory.Exists(globalVariables.m_strPropertiesFolder))
+                {
+                    Directory.CreateDirectory(globalVariables.m_strPropertiesFolder);
+                }
+                var myProperty = new XMLProperties();
+                string filePath = string.Format(@"{0}\{1}.xml", globalVariables.m_strPropertiesFolder, myProperty.GetType().Name);
+                if (!File.Exists(filePath)) return myProperty;
+                var myFileStream = new FileStream(filePath, FileMode.Open);
+                var mySerializer = new XmlSerializer(myProperty.GetType());
+                myProperty = (XMLProperties)mySerializer.Deserialize(myFileStream);
+                myFileStream.Close();
+                return myProperty;
+            }
+            catch (Exception ex)
+            {
+                return new XMLProperties();
+            }
+        }
     }
 }
