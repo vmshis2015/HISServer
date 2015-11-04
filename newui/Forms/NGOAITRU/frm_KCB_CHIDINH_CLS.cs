@@ -631,7 +631,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             objKcbChidinhcls.IdLichsuDoituongKcb = objLuotkham.IdLichsuDoituongKcb;
             objKcbChidinhcls.MatheBhyt = objLuotkham.MatheBhyt;
-            objKcbChidinhcls.MaChidinh = string.Empty;
+            objKcbChidinhcls.MaChidinh = txtAssignCode.Text;
             objKcbChidinhcls.MaLuotkham = objLuotkham.MaLuotkham;
             objKcbChidinhcls.IdBenhnhan = Utility.Int64Dbnull(objLuotkham.IdBenhnhan, -1);
             objKcbChidinhcls.IdBacsiChidinh = Utility.Int16Dbnull(txtBacsi.MyID, globalVariables.gv_intIDNhanvien);

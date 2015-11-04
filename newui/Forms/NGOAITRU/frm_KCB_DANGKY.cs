@@ -415,9 +415,9 @@ namespace VNS.HIS.UI.NGOAITRU
         void txtExamtypeCode__OnSelectionChanged()
         {
             cboKieuKham.Text = txtMyNameEdit.Text;
-            cboKieuKham.Value = txtExamtypeCode.txtMyID;
+            cboKieuKham.Value = txtExamtypeCode.MyID;
             txtKieuKham.Text = cboKieuKham.Text;
-            txtIDKieuKham.Text = Utility.sDbnull(txtExamtypeCode.txtMyID);
+            txtIDKieuKham.Text = Utility.sDbnull(txtExamtypeCode.MyID);
         }
 
         void cmdInhoadon_Click(object sender, EventArgs e)
@@ -470,6 +470,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     txtKieuKham.SetId(objDichvuKCB.IdKieukham);
                     txtIDPkham.Text = Utility.sDbnull(objDichvuKCB.IdPhongkham);
+                    cboKieuKham.Text = Utility.sDbnull(objDichvuKCB.TenDichvukcb);
                     //txtPhongkham._Text=
                 }
                 else
@@ -1213,7 +1214,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 txtTEN_BN.Text = Utility.sDbnull(objBenhnhan.TenBenhnhan);
                 txtSoDT.Text = Utility.sDbnull(objBenhnhan.DienThoai);
-                txtDiachi_bhyt._Text = Utility.sDbnull(objBenhnhan.DiachiBhyt);
+              
                 txtSoBATCQG.Text = Utility.sDbnull(objBenhnhan.SoTiemchungQg);
                 txtDiachi._Text = Utility.sDbnull(objBenhnhan.DiaChi);
                 AllowAgeChanged = false;
@@ -1227,8 +1228,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtEmail.Text = Utility.sDbnull(objBenhnhan.Email);
                 txtCMT.Text = Utility.sDbnull(objBenhnhan.Cmt);
                 objLuotkham = new Select().From(KcbLuotkham.Schema)
-                   .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(Utility.sDbnull(_maluotkham,""))
-                   .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(Utility.Int32Dbnull(_mabenhnhan,-1)).ExecuteSingle
+                   .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(Utility.sDbnull(txtMaLankham.Text.Trim(),""))
+                   .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(Utility.Int32Dbnull(txtMaBN.Text.Trim(),-1)).ExecuteSingle
                    <KcbLuotkham>();
                 if (objLuotkham != null)
                 {
@@ -1253,7 +1254,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     txtSolankham.Text = Utility.sDbnull(objLuotkham.SolanKham);
                     _IdDoituongKcb = objLuotkham.IdDoituongKcb;
                     dtpInputDate.Value = objLuotkham.NgayTiepdon;
-                    dtCreateDate.Value = objLuotkham.NgayTiepdon;
+                   // dtCreateDate.Value = objLuotkham.NgayTiepdon;
                     chkCapCuu.Checked = Utility.Int32Dbnull(objLuotkham.TrangthaiCapcuu, 0) == 1;
                     chkTraiTuyen.Checked = Utility.Int32Dbnull(objLuotkham.DungTuyen, 0) == 0;
                     lblTuyenBHYT.Text = chkTraiTuyen.Checked ? "TRÁI TUYẾN" : "ĐÚNG TUYẾN";
@@ -1310,7 +1311,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         txtOthu4.Text = Utility.sDbnull(objLuotkham.MatheBhyt).Substring(5, 2);
                         txtOthu5.Text = Utility.sDbnull(objLuotkham.MatheBhyt).Substring(7, 3);
                         txtOthu6.Text = Utility.sDbnull(objLuotkham.MatheBhyt).Substring(10, 5);
-
+                        txtDiachi_bhyt._Text = Utility.sDbnull(objBenhnhan.DiachiBhyt);
                         txtMaDTsinhsong.SetCode(objLuotkham.MadtuongSinhsong);
                         chkGiayBHYT.Checked = Utility.Byte2Bool(objLuotkham.GiayBhyt);
 
