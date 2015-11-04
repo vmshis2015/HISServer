@@ -861,12 +861,16 @@ namespace VNS.HIS.Classes
        private KcbPhieuDct CreatePhieuDongChiTra(KcbLuotkham objLuotkham, DataTable m_dtPayment)
        {
            KcbPhieuDct objPhieuDct = new KcbPhieuDct();
+           objPhieuDct.MaPhieuDct = Utility.sDbnull(THU_VIEN_CHUNG.TaomaDongChiTra(globalVariables.SysDate));
            objPhieuDct.MaLuotkham = Utility.sDbnull(objLuotkham.MaLuotkham);
            objPhieuDct.IdBenhnhan = Utility.Int32Dbnull(objLuotkham.IdBenhnhan);
            objPhieuDct.LoaiThanhtoan = 0;
            objPhieuDct.NguoiTao = globalVariables.UserName;
+           objPhieuDct.TrangthaiXml = 0;
            objPhieuDct.NgayTao = globalVariables.SysDate;
            objPhieuDct.IpMaytao = globalVariables.gv_strIPAddress;
+           objPhieuDct.MatheBhyt = Utility.sDbnull(objLuotkham.MatheBhyt,"");
+           objPhieuDct.MaKhoaThuchien = Utility.sDbnull(objLuotkham.MaKhoaThuchien,"");
            objPhieuDct.TenMaytao = globalVariables.gv_strComputerName;
            objPhieuDct.TongTien = (decimal)m_dtPayment.Compute("SUM(TT_DCT)", "1=1");// Utility.DecimaltoDbnull(txtSoTienGoc.Text);
            objPhieuDct.BnhanChitra = (decimal)m_dtPayment.Compute("SUM(BN_CT)", "1=1"); //Utility.DecimaltoDbnull(txtTienBNCT.Text);
