@@ -928,7 +928,16 @@ namespace VNS.Libs
             }
             return MaNhapKho;
         }
-
+        //public static string MaPhieuDongChiTra(int LoaiPhieu)
+        //{
+        //    string MaDongChiTra = "";
+        //    DataTable dataTable = SPs.ThuocTaomaphieu(LoaiPhieu).GetDataSet().Tables[0];
+        //    if (dataTable.Rows.Count > 0)
+        //    {
+        //        MaDongChiTra = Utility.sDbnull(dataTable.Rows[0][0]);
+        //    }
+        //    return MaDongChiTra;
+        //}
         public static string MaTraLaiKho()
         {
             string MaNhapKho = "";
@@ -1953,6 +1962,19 @@ namespace VNS.Libs
            DataTable dataTable = new DataTable();
            dataTable = SPs.TaoMathanhtoan(dateTime).GetDataSet().Tables[0];
            if (dataTable.Rows.Count > 0) return dataTable.Rows[0][KcbThanhtoan.Columns.MaThanhtoan].ToString();
+           else
+           {
+               return "";
+           }
+       }
+       public static string TaomaDongChiTra(DateTime dateTime)
+       {
+           DataTable dataTable = new DataTable();
+           dataTable = SPs.TaoMadongchitra(dateTime).GetDataSet().Tables[0];
+           if (dataTable.Rows.Count > 0)
+           {
+               return dataTable.Rows[0][KcbPhieuDct.Columns.MaPhieuDct].ToString();
+           }
            else
            {
                return "";
