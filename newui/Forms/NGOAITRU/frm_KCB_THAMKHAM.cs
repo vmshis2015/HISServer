@@ -4940,6 +4940,14 @@ namespace VNS.HIS.UI.NGOAITRU
                     objLuotkham.Locked = chkDaThucHien.Checked ? (byte) 1 : (byte) 0;
                     objLuotkham.TrangthaiNgoaitru = objLuotkham.Locked;
                 }
+                else
+                {
+                    objLuotkham.NguoiKetthuc = chkDaThucHien.Checked ? globalVariables.UserName : "";
+                    objLuotkham.NgayKetthuc = globalVariables.SysDate;
+                }
+                objLuotkham.SongayDieutri = Utility.Int32Dbnull(txtSongaydieutri.Text, 0);
+                objLuotkham.HuongDieutri = Utility.sDbnull(txtHuongdieutri.Text,"");
+                objLuotkham.KetLuan = Utility.sDbnull(txtKet_Luan.Text);
                 ActionResult actionResult =
                     _KCB_THAMKHAM.UpdateExamInfo(
                         TaoDulieuChandoanKetluan(), objkcbdangky, objLuotkham);
