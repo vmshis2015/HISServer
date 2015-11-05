@@ -425,6 +425,7 @@ namespace VNS.HIS.UI.DANHMUC
             frm_themmoi_dichvucls_chitiet frm=new frm_themmoi_dichvucls_chitiet();
             frm.txtID.Text = "-1";
             frm.m_enAction = action.Insert;
+            frm.grdlistChitiet = grdChitiet;
             frm.grdlist = grdServiceDetail;
             frm.dtDataServiceDetail = dsTable;
             frm.Service_ID = Utility.Int32Dbnull(txtLoaiDichvu.MyID, -1);
@@ -447,6 +448,7 @@ namespace VNS.HIS.UI.DANHMUC
                     frm.txtID.Text = grdServiceDetail.GetValue(DmucDichvuclsChitiet.Columns.IdChitietdichvu).ToString();
                     frm.m_enAction = action.Update;
                     frm.grdlist = grdServiceDetail;
+                    frm.grdlistChitiet = grdChitiet;
                     frm.dtDataServiceDetail = dsTable;
                     if (grdServiceDetail.CurrentRow != null)
                         frm.drServiceDetail = Utility.FetchOnebyCondition(dsTable, DmucDichvuclsChitiet.Columns.IdChitietdichvu + "=" + v_ServiceDetail_Id);
@@ -462,6 +464,7 @@ namespace VNS.HIS.UI.DANHMUC
                     frm.txtID.Text = grdChitiet.GetValue(DmucDichvuclsChitiet.Columns.IdChitietdichvu).ToString();
                     frm.m_enAction = action.Update;
                     frm.grdlist = grdChitiet;
+                    frm.grdlistChitiet = grdChitiet;
                     frm.dtDataServiceDetail = dsTable;
                     if (grdChitiet.CurrentRow != null)
                         frm.drServiceDetail = Utility.FetchOnebyCondition(dsTable, DmucDichvuclsChitiet.Columns.IdChitietdichvu + "=" + v_ServiceDetail_Id);

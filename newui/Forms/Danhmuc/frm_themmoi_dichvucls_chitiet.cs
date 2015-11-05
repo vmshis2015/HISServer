@@ -26,6 +26,7 @@ namespace VNS.HIS.UI.DANHMUC
         public action m_enAction = action.Insert;
         public  DataTable dtDataServiceDetail=new DataTable();
         public Janus.Windows.GridEX.GridEX grdlist;
+        public Janus.Windows.GridEX.GridEX grdlistChitiet;
         public DataRow drServiceDetail;
         bool m_blnLoaded = false;
         private  DataTable m_dtDichvuCLS=new DataTable();
@@ -602,7 +603,7 @@ namespace VNS.HIS.UI.DANHMUC
                 objDichVuChitiet.SoluongChitieu = (int)Utility.DecimaltoDbnull(txtsoluongchitieu.Text, 0);
                 objDichVuChitiet.IsNew = true;
                 dmucDichvuCLS_busrule.Insert(objDichVuChitiet, GetQheCamchidinhChungphieuCollection(), GetQheDichvuMauKQ());
-                return objDichVuChitiet.IdDichvu;
+                return objDichVuChitiet.IdChitietdichvu;
             }
             catch
             {
@@ -657,7 +658,7 @@ namespace VNS.HIS.UI.DANHMUC
             dr[DmucDichvuclsChitiet.Columns.IdDichvu] = Utility.Int16Dbnull(txtLoaiDichvu.MyID, -1);
             dr[DmucDichvuclsChitiet.Columns.NgayTao] =globalVariables.SysDate;
             dr[DmucDichvuclsChitiet.Columns.NguoiTao] = globalVariables.UserName;
-            dr[DmucDichvuclsChitiet.Columns.IdDichvu] = ServiceDetailId;
+            dr[DmucDichvuclsChitiet.Columns.IdChitietdichvu] = ServiceDetailId;
             dr[DmucDichvuclsChitiet.Columns.TuTuc] = Utility.Bool2byte(chkTutuc.Checked);
             dr[DmucDichvuclsChitiet.Columns.LaChiphithem] = Utility.Bool2byte(chkLachiphithem.Checked);
             dr[DmucDichvuclsChitiet.Columns.CoChitiet] = Utility.Bool2byte(chkCochitiet.Checked);
@@ -692,7 +693,10 @@ namespace VNS.HIS.UI.DANHMUC
             dr["ten_nhombaocao_chitiet"] = Utility.sDbnull(cbonhombaocao.Text, "");
             dtDataServiceDetail.Rows.Add(dr);
             dtDataServiceDetail.AcceptChanges();
-            Utility.GotoNewRowJanus(grdlist,DmucDichvuclsChitiet.Columns.IdDichvu, ServiceDetailId.ToString());
+            if (Utility.Int32Dbnull(txtDichvuCha.MyID, -1) <= 0)
+                Utility.GotoNewRowJanus(grdlist, DmucDichvuclsChitiet.Columns.IdChitietdichvu, ServiceDetailId.ToString());
+            else
+                Utility.GotoNewRowJanus(grdlistChitiet, DmucDichvuclsChitiet.Columns.IdChitietdichvu, ServiceDetailId.ToString());
             if (!chkThemmoilientuc.Checked) this.Close();
             else
             {
@@ -781,7 +785,7 @@ namespace VNS.HIS.UI.DANHMUC
                         dr[DmucDichvuclsChitiet.Columns.MaChitietdichvu] = Utility.sDbnull(txtServiceDetailCode.Text, "");
                         dr[DmucDichvuclsChitiet.Columns.MaChitietdichvuBhyt] = Utility.sDbnull(txtMaBhyt.Text, "");
                         dr[DmucDichvuclsChitiet.Columns.NgaySua] = globalVariables.SysDate;
-                        dr[DmucDichvuclsChitiet.Columns.NguoiSua] =globalVariables.UserName;
+                        dr[DmucDichvuclsChitiet.Columns.NguoiSua] = globalVariables.UserName;
                         dr[DmucDichvuclsChitiet.Columns.DonGia] = Utility.DecimaltoDbnull(txtDongia.Text, 0);
                         dr[DmucDichvuclsChitiet.Columns.GiaBhyt] = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
                         dr[DmucDichvuclsChitiet.Columns.PhuthuDungtuyen] = Utility.DecimaltoDbnull(txtPTDT.Text, 0);
@@ -792,7 +796,7 @@ namespace VNS.HIS.UI.DANHMUC
                         dr[DmucDichvuclsChitiet.Columns.SingleService] = Utility.Bool2byte(chkSingle.Checked);
                         dr[DmucDichvuclsChitiet.Columns.IdCha] = Utility.Int32Dbnull(txtDichvuCha.MyID, -1);
                         dr[DmucDichvuclsChitiet.Columns.SttHthi] = txtIntOrder.Value;
-                        dr[DmucDichvuclsChitiet.Columns.MotaThem] =Utility.DoTrim(txtMotathem.Text);
+                        dr[DmucDichvuclsChitiet.Columns.MotaThem] = Utility.DoTrim(txtMotathem.Text);
                         dr[DmucDichvuclsChitiet.Columns.IdDichvu] = Utility.Int16Dbnull(txtLoaiDichvu.MyID, -1);
                         dr[DmucDichvuclsChitiet.Columns.BinhthuongNam] = Utility.DoTrim(txtBTNam.Text);
                         dr[DmucDichvuclsChitiet.Columns.BinhthuongNu] = Utility.DoTrim(txtBTNu.Text);
@@ -824,13 +828,15 @@ namespace VNS.HIS.UI.DANHMUC
 
                 }
                 dtDataServiceDetail.AcceptChanges();
-                //Utility.GotoNewRow(grdlist, "coDmucDichvuclsChitiet_ID", txtID.Text);
-                Utility.GotoNewRowJanus(grdlist, DmucDichvuclsChitiet.Columns.IdDichvu, Utility.Int32Dbnull(txtID.Text, 0).ToString());
+                if (Utility.Int32Dbnull(txtDichvuCha.MyID, -1) <= 0)
+                    Utility.GotoNewRowJanus(grdlist, DmucDichvuclsChitiet.Columns.IdChitietdichvu, txtID.Text);
+                else
+                    Utility.GotoNewRowJanus(grdlistChitiet, DmucDichvuclsChitiet.Columns.IdChitietdichvu, txtID.Text);
             }
             catch (Exception)
             {
-                
-               // throw;
+
+                // throw;
             }
            
             this.Close();

@@ -30,13 +30,16 @@ namespace VNS.HIS.UI.DANHMUC
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_dichvucls_chitiet));
             Janus.Windows.GridEX.GridEXLayout grdMauKQ_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdDanhsachCamChidinhChungphieu_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_dichvucls_chitiet));
             this.grpControl = new System.Windows.Forms.GroupBox();
             this.uiTab1 = new Janus.Windows.UI.Tab.UITab();
             this.uiTabPage3 = new Janus.Windows.UI.Tab.UITabPage();
+            this.txtMauKQ = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.grdMauKQ = new Janus.Windows.GridEX.GridEX();
+            this.ctxMauKQ = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuMacdinh = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPhieuDieuTri = new Janus.Windows.UI.Tab.UITabPage();
             this.txtDichvu = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.vbLine2 = new VNS.UCs.VBLine();
@@ -100,18 +103,15 @@ namespace VNS.HIS.UI.DANHMUC
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkThemmoilientuc = new Janus.Windows.EditControls.UICheckBox();
-            this.ctxMauKQ = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.mnuMacdinh = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtMauKQ = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.grpControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiTab1)).BeginInit();
             this.uiTab1.SuspendLayout();
             this.uiTabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdMauKQ)).BeginInit();
+            this.ctxMauKQ.SuspendLayout();
             this.tabPhieuDieuTri.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdDanhsachCamChidinhChungphieu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtIntOrder)).BeginInit();
-            this.ctxMauKQ.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpControl
@@ -203,6 +203,46 @@ namespace VNS.HIS.UI.DANHMUC
             this.uiTabPage3.TabStop = true;
             this.uiTabPage3.Text = "Mẫu KQ";
             // 
+            // txtMauKQ
+            // 
+            this.txtMauKQ._backcolor = System.Drawing.SystemColors.Control;
+            this.txtMauKQ._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMauKQ._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtMauKQ.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMauKQ.AutoCompleteList")));
+            this.txtMauKQ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMauKQ.CaseSensitive = false;
+            this.txtMauKQ.CompareNoID = true;
+            this.txtMauKQ.DefaultCode = "-1";
+            this.txtMauKQ.DefaultID = "-1";
+            this.txtMauKQ.Drug_ID = null;
+            this.txtMauKQ.ExtraWidth = 0;
+            this.txtMauKQ.FillValueAfterSelect = false;
+            this.txtMauKQ.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMauKQ.LOAI_DANHMUC = "MAUKETQUA";
+            this.txtMauKQ.Location = new System.Drawing.Point(4, 3);
+            this.txtMauKQ.MaxHeight = -1;
+            this.txtMauKQ.MinTypedCharacters = 2;
+            this.txtMauKQ.MyCode = "-1";
+            this.txtMauKQ.MyID = "-1";
+            this.txtMauKQ.Name = "txtMauKQ";
+            this.txtMauKQ.RaiseEvent = false;
+            this.txtMauKQ.RaiseEventEnter = false;
+            this.txtMauKQ.RaiseEventEnterWhenEmpty = false;
+            this.txtMauKQ.SelectedIndex = -1;
+            this.txtMauKQ.Size = new System.Drawing.Size(272, 22);
+            this.txtMauKQ.splitChar = '@';
+            this.txtMauKQ.splitCharIDAndCode = '#';
+            this.txtMauKQ.TabIndex = 0;
+            this.txtMauKQ.TabStop = false;
+            this.txtMauKQ.TakeCode = false;
+            this.txtMauKQ.txtMyCode = null;
+            this.txtMauKQ.txtMyCode_Edit = null;
+            this.txtMauKQ.txtMyID = null;
+            this.txtMauKQ.txtMyID_Edit = null;
+            this.txtMauKQ.txtMyName = null;
+            this.txtMauKQ.txtMyName_Edit = null;
+            this.txtMauKQ.txtNext = null;
+            // 
             // grdMauKQ
             // 
             this.grdMauKQ.ContextMenuStrip = this.ctxMauKQ;
@@ -221,6 +261,19 @@ namespace VNS.HIS.UI.DANHMUC
             this.grdMauKQ.TabIndex = 26;
             this.grdMauKQ.TabStop = false;
             this.grdMauKQ.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // ctxMauKQ
+            // 
+            this.ctxMauKQ.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuMacdinh});
+            this.ctxMauKQ.Name = "ctxMauKQ";
+            this.ctxMauKQ.Size = new System.Drawing.Size(256, 26);
+            // 
+            // mnuMacdinh
+            // 
+            this.mnuMacdinh.Name = "mnuMacdinh";
+            this.mnuMacdinh.Size = new System.Drawing.Size(255, 22);
+            this.mnuMacdinh.Text = "Đặt mẫu đang chọn làm mặc định";
             // 
             // tabPhieuDieuTri
             // 
@@ -461,8 +514,6 @@ namespace VNS.HIS.UI.DANHMUC
             // chkSingle
             // 
             this.chkSingle.AutoSize = true;
-            this.chkSingle.Checked = true;
-            this.chkSingle.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSingle.Location = new System.Drawing.Point(473, 434);
             this.chkSingle.Name = "chkSingle";
             this.chkSingle.Size = new System.Drawing.Size(104, 19);
@@ -1041,59 +1092,6 @@ namespace VNS.HIS.UI.DANHMUC
             this.toolTip1.SetToolTip(this.chkThemmoilientuc, "Chọn mục này nếu muốn đánh dấu chi tiết CLS này luôn coi là tự túc đối với đối tư" +
         "ợng BHYT cho dù có được áp quan hệ giá hay không!");
             // 
-            // ctxMauKQ
-            // 
-            this.ctxMauKQ.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuMacdinh});
-            this.ctxMauKQ.Name = "ctxMauKQ";
-            this.ctxMauKQ.Size = new System.Drawing.Size(256, 26);
-            // 
-            // mnuMacdinh
-            // 
-            this.mnuMacdinh.Name = "mnuMacdinh";
-            this.mnuMacdinh.Size = new System.Drawing.Size(255, 22);
-            this.mnuMacdinh.Text = "Đặt mẫu đang chọn làm mặc định";
-            // 
-            // txtMauKQ
-            // 
-            this.txtMauKQ._backcolor = System.Drawing.SystemColors.Control;
-            this.txtMauKQ._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMauKQ._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtMauKQ.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMauKQ.AutoCompleteList")));
-            this.txtMauKQ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMauKQ.CaseSensitive = false;
-            this.txtMauKQ.CompareNoID = true;
-            this.txtMauKQ.DefaultCode = "-1";
-            this.txtMauKQ.DefaultID = "-1";
-            this.txtMauKQ.Drug_ID = null;
-            this.txtMauKQ.ExtraWidth = 0;
-            this.txtMauKQ.FillValueAfterSelect = false;
-            this.txtMauKQ.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMauKQ.LOAI_DANHMUC = "MAUKETQUA";
-            this.txtMauKQ.Location = new System.Drawing.Point(4, 3);
-            this.txtMauKQ.MaxHeight = -1;
-            this.txtMauKQ.MinTypedCharacters = 2;
-            this.txtMauKQ.MyCode = "-1";
-            this.txtMauKQ.MyID = "-1";
-            this.txtMauKQ.Name = "txtMauKQ";
-            this.txtMauKQ.RaiseEvent = false;
-            this.txtMauKQ.RaiseEventEnter = false;
-            this.txtMauKQ.RaiseEventEnterWhenEmpty = false;
-            this.txtMauKQ.SelectedIndex = -1;
-            this.txtMauKQ.Size = new System.Drawing.Size(272, 22);
-            this.txtMauKQ.splitChar = '@';
-            this.txtMauKQ.splitCharIDAndCode = '#';
-            this.txtMauKQ.TabIndex = 0;
-            this.txtMauKQ.TabStop = false;
-            this.txtMauKQ.TakeCode = false;
-            this.txtMauKQ.txtMyCode = null;
-            this.txtMauKQ.txtMyCode_Edit = null;
-            this.txtMauKQ.txtMyID = null;
-            this.txtMauKQ.txtMyID_Edit = null;
-            this.txtMauKQ.txtMyName = null;
-            this.txtMauKQ.txtMyName_Edit = null;
-            this.txtMauKQ.txtNext = null;
-            // 
             // frm_themmoi_dichvucls_chitiet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1121,11 +1119,11 @@ namespace VNS.HIS.UI.DANHMUC
             this.uiTabPage3.ResumeLayout(false);
             this.uiTabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdMauKQ)).EndInit();
+            this.ctxMauKQ.ResumeLayout(false);
             this.tabPhieuDieuTri.ResumeLayout(false);
             this.tabPhieuDieuTri.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdDanhsachCamChidinhChungphieu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtIntOrder)).EndInit();
-            this.ctxMauKQ.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
