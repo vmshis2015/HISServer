@@ -10,6 +10,97 @@ namespace VMS.HIS.HLC.ASTM
 {
     public class RocheCommunication
     {
+        public static DataTable ReadOrders(string FilePath)
+        {
+            DataTable dt = new DataTable("Order");
+            dt.Columns.AddRange(new DataColumn[] { 
+                new DataColumn("Header", typeof(string)), 
+                new DataColumn("P", typeof(string)),
+                new DataColumn("O", typeof(string)) ,
+            new DataColumn("MA", typeof(string)),
+            new DataColumn("KQ", typeof(string))});
+
+            List<string> lstLines = new List<string>();
+            try
+            {
+                using (StreamReader _reader = new StreamReader(FilePath))
+                {
+                    while (_reader.Peek() > -1)
+                    {
+                        lstLines.Add(_reader.ReadLine());
+                    }
+                    _reader.BaseStream.Flush();
+                    _reader.Close();
+                }
+                var patientinfor = from p in lstLines.AsEnumerable()
+                                   where p.StartsWith("P")
+                                   select p;
+                var HeaderInfor = from p in lstLines.AsEnumerable()
+                                 where p.StartsWith("H")
+                                 select p;
+                List<string> lstOLines = (from p in lstLines.AsEnumerable()
+                                           where p.StartsWith("O")
+                                           select p).ToList<string>();
+                foreach (string Ol in lstOLines)
+                {
+                    string[] arrValues = Ol.Split('|');
+                    string ma_chidinh = arrValues[2];
+                    string ngay_chidinh = arrValues[6];
+                    string[] lstMaXN = arrValues[4].Replace("^","").Split('\\');
+                    foreach (string ma in lstMaXN)
+                    {
+                        DataRow dr = dt.NewRow();
+                        dr["Header"] = HeaderInfor.FirstOrDefault();
+                        dr["P"] = patientinfor.FirstOrDefault();
+                        dr["O"] = "O|1|" + ma_chidinh + "|ALL|||" + ngay_chidinh + "|||||||||||||||||||F|";
+                        dr["MA"] = ma;
+                        dr["KQ"] = "";
+                        dt.Rows.Add(dr);
+                    }
+                }
+                dt.AcceptChanges();
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg(ex.Message);
+                return null;
+            }
+        }
+        public static int WriteResultMessage(string ResultFolderPath, DataTable dtData)
+        {
+            if (!Directory.Exists(ResultFolderPath)) return -1;
+            if (dtData == null || dtData.Rows.Count <= 0) return -2;
+            string Header = dtData.Rows[0]["Header"].ToString();
+            string patientInfor = dtData.Rows[0]["P"].ToString();
+            List<string> LstOrderItems = (from p in dtData.AsEnumerable()
+                                          select p["O"].ToString()).Distinct().ToList<string>();
+            string Footer = "L|1|N";
+            string CommentLine = "C|1||Test 11150 comment|";
+            string orderfileName = Utility.FixedFolder(ResultFolderPath) + "Result_Message.txt";
+            using (StreamWriter _writer = new StreamWriter(orderfileName, false))
+            {
+                _writer.WriteLine(Header);
+                _writer.WriteLine(patientInfor);
+                foreach (string orderitems in LstOrderItems)
+                {
+                    _writer.WriteLine(orderitems);
+                    DataRow[] arrDr = dtData.Select("O='" + orderitems + "'");
+                    int idx = 1;
+                    foreach (DataRow dr in arrDr)
+                    {
+                        string _R = "R|" + idx.ToString() + "|^^^" + dr["MA"].ToString() + "^^^^|" + dr["KQ"].ToString() + "|mmol/L||||F||||20121031115507||";
+                        _writer.WriteLine(_R);
+                        _writer.WriteLine(CommentLine);
+                        idx++;
+                    }
+                }
+                _writer.WriteLine(Footer);
+                _writer.Flush();
+                _writer.Close();
+            }
+            return 0;
+        }
         public static int WriteOrderMessage(string orderFolderPath, DataTable dtData)
         {
             if (!Directory.Exists(orderFolderPath)) return -1;
