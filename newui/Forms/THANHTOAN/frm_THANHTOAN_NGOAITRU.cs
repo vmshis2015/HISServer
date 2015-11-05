@@ -881,22 +881,6 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             TimKiemBenhNhan();
         }
-        private void FilterThanhToan()
-        {
-            try
-            {
-                string _rowFilter = "1=1";
-                //if (radChuaTT.Checked) _rowFilter = string.Format("{0}={1}", "TT_ThanhToan", 0);
-                //if (radDaTT.Checked) _rowFilter = string.Format("{0}={1}", "TT_ThanhToan", 1);
-                m_dtDataTimKiem.DefaultView.RowFilter = _rowFilter;
-                m_dtDataTimKiem.AcceptChanges();
-            }
-            catch (Exception)
-            {
-                Utility.ShowMsgBox("Lỗi trong quá trình Defaultview");
-            }
-
-        }
         private void TimKiemBenhNhan()
         {
             try
@@ -919,6 +903,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 Utility.AddColumToDataTable(ref m_dtDataTimKiem, "CHON", typeof(Int32));
                 
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtDataTimKiem, true, true, "1=1", "");
+                FilterThanhToan();
                 ClearControl();
                 //if (m_dtDataTimKiem.Rows.Count <= 0)
                 //{
@@ -931,8 +916,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                 Utility.GonewRowJanus(grdList, KcbLuotkham.Columns.MaLuotkham, txtPatient_Code.Text);
                 ModifyCommand();
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Messge:"+ ex.Message);
             }
             finally
             {
@@ -3994,6 +3980,36 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             frm_Danhsach_benhnhan_inphoi_BHYT frm = new frm_Danhsach_benhnhan_inphoi_BHYT();
             frm.ShowDialog();
+        }
+        private void FilterThanhToan()
+        {
+            try
+            {
+                string _rowFilter = "1=1";
+                if (radChuathanhtoan.Checked) _rowFilter = string.Format("{0}={1}", "trangthai", 0);
+                if (radDaThanhtoan.Checked) _rowFilter = string.Format("{0}={1}", "trangthai", 1);
+                m_dtDataTimKiem.DefaultView.RowFilter = _rowFilter;
+                m_dtDataTimKiem.AcceptChanges();
+            }
+            catch (Exception)
+            {
+                Utility.ShowMsgBox("Lỗi trong quá trình Defaultview");
+            }
+
+        }
+        private void radTatca_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterThanhToan();
+        }
+
+        private void radDaThanhtoan_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterThanhToan();
+        }
+
+        private void radChuathanhtoan_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterThanhToan();
         }
 
        

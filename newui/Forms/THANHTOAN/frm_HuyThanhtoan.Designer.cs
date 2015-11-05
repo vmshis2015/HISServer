@@ -47,10 +47,10 @@
             this.dtmNgayInPhoiBHYT = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.label38 = new System.Windows.Forms.Label();
             this.pnlActions = new System.Windows.Forms.Panel();
-            this.pnlInhoadon = new System.Windows.Forms.Panel();
-            this.txtSoTienCanNop = new Janus.Windows.GridEX.EditControls.EditBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlHuyThanhtoan = new System.Windows.Forms.Panel();
+            this.pnlInhoadon = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.txtSoTienCanNop = new Janus.Windows.GridEX.EditControls.EditBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtTongtienDCT = new Janus.Windows.GridEX.EditControls.EditBox();
             this.txtsotiendathu = new Janus.Windows.GridEX.EditControls.EditBox();
@@ -74,9 +74,9 @@
             this.grdPaymentDetail = new Janus.Windows.GridEX.GridEX();
             this.pnlInfor.SuspendLayout();
             this.pnlActions.SuspendLayout();
+            this.pnlHuyThanhtoan.SuspendLayout();
             this.pnlInhoadon.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.pnlHuyThanhtoan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
             this.uiGroupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdPaymentDetail)).BeginInit();
@@ -263,7 +263,7 @@
             this.pnlInfor.Controls.Add(this.txtTongChiPhi);
             this.pnlInfor.Controls.Add(this.txtTuTuc);
             this.pnlInfor.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlInfor.Location = new System.Drawing.Point(0, 521);
+            this.pnlInfor.Location = new System.Drawing.Point(0, 473);
             this.pnlInfor.Name = "pnlInfor";
             this.pnlInfor.Size = new System.Drawing.Size(1008, 209);
             this.pnlInfor.TabIndex = 8;
@@ -318,6 +318,17 @@
             this.pnlActions.Size = new System.Drawing.Size(1008, 35);
             this.pnlActions.TabIndex = 0;
             // 
+            // pnlHuyThanhtoan
+            // 
+            this.pnlHuyThanhtoan.Controls.Add(this.cmdPrint);
+            this.pnlHuyThanhtoan.Controls.Add(this.chkNoview);
+            this.pnlHuyThanhtoan.Controls.Add(this.cmdExit);
+            this.pnlHuyThanhtoan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlHuyThanhtoan.Location = new System.Drawing.Point(0, 0);
+            this.pnlHuyThanhtoan.Name = "pnlHuyThanhtoan";
+            this.pnlHuyThanhtoan.Size = new System.Drawing.Size(1008, 35);
+            this.pnlHuyThanhtoan.TabIndex = 1;
+            // 
             // pnlInhoadon
             // 
             this.pnlInhoadon.Controls.Add(this.flowLayoutPanel1);
@@ -327,21 +338,6 @@
             this.pnlInhoadon.Name = "pnlInhoadon";
             this.pnlInhoadon.Size = new System.Drawing.Size(1008, 35);
             this.pnlInhoadon.TabIndex = 2;
-            // 
-            // txtSoTienCanNop
-            // 
-            this.txtSoTienCanNop.BackColor = System.Drawing.Color.White;
-            this.txtSoTienCanNop.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSoTienCanNop.ForeColor = System.Drawing.Color.Red;
-            this.txtSoTienCanNop.Location = new System.Drawing.Point(0, 0);
-            this.txtSoTienCanNop.Name = "txtSoTienCanNop";
-            this.txtSoTienCanNop.ReadOnly = true;
-            this.txtSoTienCanNop.Size = new System.Drawing.Size(167, 29);
-            this.txtSoTienCanNop.TabIndex = 381;
-            this.txtSoTienCanNop.Tag = "NO";
-            this.txtSoTienCanNop.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far;
-            this.txtSoTienCanNop.Visible = false;
-            this.txtSoTienCanNop.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2003;
             // 
             // flowLayoutPanel1
             // 
@@ -358,16 +354,20 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(736, 35);
             this.flowLayoutPanel1.TabIndex = 23;
             // 
-            // pnlHuyThanhtoan
+            // txtSoTienCanNop
             // 
-            this.pnlHuyThanhtoan.Controls.Add(this.cmdPrint);
-            this.pnlHuyThanhtoan.Controls.Add(this.chkNoview);
-            this.pnlHuyThanhtoan.Controls.Add(this.cmdExit);
-            this.pnlHuyThanhtoan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlHuyThanhtoan.Location = new System.Drawing.Point(0, 0);
-            this.pnlHuyThanhtoan.Name = "pnlHuyThanhtoan";
-            this.pnlHuyThanhtoan.Size = new System.Drawing.Size(1008, 35);
-            this.pnlHuyThanhtoan.TabIndex = 1;
+            this.txtSoTienCanNop.BackColor = System.Drawing.Color.White;
+            this.txtSoTienCanNop.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSoTienCanNop.ForeColor = System.Drawing.Color.Red;
+            this.txtSoTienCanNop.Location = new System.Drawing.Point(0, 0);
+            this.txtSoTienCanNop.Name = "txtSoTienCanNop";
+            this.txtSoTienCanNop.ReadOnly = true;
+            this.txtSoTienCanNop.Size = new System.Drawing.Size(167, 29);
+            this.txtSoTienCanNop.TabIndex = 381;
+            this.txtSoTienCanNop.Tag = "NO";
+            this.txtSoTienCanNop.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far;
+            this.txtSoTienCanNop.Visible = false;
+            this.txtSoTienCanNop.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2003;
             // 
             // label9
             // 
@@ -586,7 +586,7 @@
             this.uiGroupBox2.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox2.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox2.Name = "uiGroupBox2";
-            this.uiGroupBox2.Size = new System.Drawing.Size(1008, 521);
+            this.uiGroupBox2.Size = new System.Drawing.Size(1008, 473);
             this.uiGroupBox2.TabIndex = 9;
             this.uiGroupBox2.Text = "Chi tiết các dịch vụ đã thanh toán cho lần thanh toán đang chọn";
             this.uiGroupBox2.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2003;
@@ -615,7 +615,7 @@
             this.grdPaymentDetail.RecordNavigator = true;
             this.grdPaymentDetail.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdPaymentDetail.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
-            this.grdPaymentDetail.Size = new System.Drawing.Size(1002, 501);
+            this.grdPaymentDetail.Size = new System.Drawing.Size(1002, 453);
             this.grdPaymentDetail.TabIndex = 116;
             this.grdPaymentDetail.TableHeaders = Janus.Windows.GridEX.InheritableBoolean.Default;
             this.grdPaymentDetail.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
@@ -628,7 +628,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.ClientSize = new System.Drawing.Size(1008, 682);
             this.Controls.Add(this.uiGroupBox2);
             this.Controls.Add(this.pnlInfor);
             this.KeyPreview = true;
@@ -642,10 +642,10 @@
             this.pnlInfor.ResumeLayout(false);
             this.pnlInfor.PerformLayout();
             this.pnlActions.ResumeLayout(false);
+            this.pnlHuyThanhtoan.ResumeLayout(false);
             this.pnlInhoadon.ResumeLayout(false);
             this.pnlInhoadon.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.pnlHuyThanhtoan.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).EndInit();
             this.uiGroupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdPaymentDetail)).EndInit();
