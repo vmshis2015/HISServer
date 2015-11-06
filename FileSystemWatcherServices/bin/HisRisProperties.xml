@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HisRisProperties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <WebServiceUrl>http://vietbait.vn:8008/HRW.asmx</WebServiceUrl>
+  <BarcodeLength>11</BarcodeLength>
+  <AutoSearch>false</AutoSearch>
+  <AutoSave>false</AutoSave>
+  <KhongluuBNchuacochidinhCLSHIS>false</KhongluuBNchuacochidinhCLSHIS>
+  <Luuchidinh>false</Luuchidinh>
+  <ServerName>CUONGDV-PC\MSSQLSERVER2008</ServerName>
+  <DataBase>RIS_HIEPHOA</DataBase>
+  <User>sa</User>
+  <PassWord>123456</PassWord>
+  <AutoSaveRawData>false</AutoSaveRawData>
+  <ParentBranchName />
+  <BranchName />
+  <TitleReport />
+</HisRisProperties>
