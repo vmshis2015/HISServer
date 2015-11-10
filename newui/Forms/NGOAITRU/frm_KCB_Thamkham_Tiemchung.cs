@@ -1492,7 +1492,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     Status = radChuaKham.Checked ? 0 : 1;
                 }
 
-                m_dtDanhsachbenhnhanthamkham = _KCB_THAMKHAM.LayDSachBnhanThamkham(!chkByDate.Checked ? globalVariables.SysDate.AddDays(-7) : dt_FormDate, !chkByDate.Checked ? globalVariables.SysDate : dt_ToDate, txtTenBN.Text, Status,
+                m_dtDanhsachbenhnhanthamkham = _KCB_THAMKHAM.LayDSachBnhanThamkhamTiemchung(!chkByDate.Checked ? globalVariables.SysDate.AddDays(-7) : dt_FormDate, !chkByDate.Checked ? globalVariables.SysDate : dt_ToDate, txtTenBN.Text, Status,
                                                           SoKham,
                                                           Utility.Int32Dbnull(cboPhongKhamNgoaiTru.SelectedValue, -1), this.Args.Split('-')[0],
                                                           globalVariables.MA_KHOA_THIEN);
