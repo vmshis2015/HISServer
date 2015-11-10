@@ -38,9 +38,9 @@ namespace VMS.FSW
                 if (e.ChangeType == WatcherChangeTypes.Deleted) return;
                 StartAnalysisFile(e.FullPath);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                myLog.Error(string.Format(ex.Message));
             }
         }
         void StartAnalysisFile(string fullpath)
