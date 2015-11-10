@@ -63,7 +63,7 @@
             this.cmdThoat});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(1184, 31);
+            this.toolStrip.Size = new System.Drawing.Size(1006, 31);
             this.toolStrip.TabIndex = 4;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -128,7 +128,7 @@
             this.uiGroupBox1.Image = ((System.Drawing.Image)(resources.GetObject("uiGroupBox1.Image")));
             this.uiGroupBox1.Location = new System.Drawing.Point(0, 31);
             this.uiGroupBox1.Name = "uiGroupBox1";
-            this.uiGroupBox1.Size = new System.Drawing.Size(1184, 508);
+            this.uiGroupBox1.Size = new System.Drawing.Size(1006, 508);
             this.uiGroupBox1.TabIndex = 7;
             this.uiGroupBox1.Text = "&Thông tin kho thuốc";
             // 
@@ -155,7 +155,7 @@
             this.grdKhoThuoc.Name = "grdKhoThuoc";
             this.grdKhoThuoc.RecordNavigator = true;
             this.grdKhoThuoc.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdKhoThuoc.Size = new System.Drawing.Size(1178, 487);
+            this.grdKhoThuoc.Size = new System.Drawing.Size(1000, 487);
             this.grdKhoThuoc.TabIndex = 0;
             this.grdKhoThuoc.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
@@ -200,7 +200,7 @@
             uiStatusBarPanel3,
             uiStatusBarPanel4,
             uiStatusBarPanel5});
-            this.uiStatusBar1.Size = new System.Drawing.Size(1184, 23);
+            this.uiStatusBar1.Size = new System.Drawing.Size(1006, 23);
             this.uiStatusBar1.TabIndex = 6;
             this.uiStatusBar1.VisualStyle = Janus.Windows.UI.VisualStyle.OfficeXP;
             // 
@@ -208,7 +208,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 562);
+            this.ClientSize = new System.Drawing.Size(1006, 562);
             this.Controls.Add(this.uiGroupBox1);
             this.Controls.Add(this.uiStatusBar1);
             this.Controls.Add(this.toolStrip);

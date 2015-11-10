@@ -648,8 +648,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.uiGroupBox4);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer1.Size = new System.Drawing.Size(1008, 574);
-            this.splitContainer1.SplitterDistance = 249;
+            this.splitContainer1.Size = new System.Drawing.Size(1008, 526);
+            this.splitContainer1.SplitterDistance = 228;
             this.splitContainer1.TabIndex = 69;
             // 
             // uiGroupBox1
@@ -660,7 +660,7 @@
             this.uiGroupBox1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox1.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox1.Name = "uiGroupBox1";
-            this.uiGroupBox1.Size = new System.Drawing.Size(1008, 206);
+            this.uiGroupBox1.Size = new System.Drawing.Size(1008, 185);
             this.uiGroupBox1.TabIndex = 1;
             this.uiGroupBox1.Text = "Danh sách thuốc trong tủ trực khoa nội trú";
             // 
@@ -687,7 +687,7 @@
             this.grdKhoXuat.Name = "grdKhoXuat";
             this.grdKhoXuat.RecordNavigator = true;
             this.grdKhoXuat.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdKhoXuat.Size = new System.Drawing.Size(1002, 185);
+            this.grdKhoXuat.Size = new System.Drawing.Size(1002, 164);
             this.grdKhoXuat.TabIndex = 2;
             this.grdKhoXuat.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
             this.grdKhoXuat.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
@@ -718,7 +718,7 @@
             this.panel2.Controls.Add(this.cmdPrevius);
             this.panel2.Controls.Add(this.cmdNext);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 206);
+            this.panel2.Location = new System.Drawing.Point(0, 185);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1008, 43);
             this.panel2.TabIndex = 0;
@@ -758,7 +758,7 @@
             this.uiGroupBox4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox4.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox4.Name = "uiGroupBox4";
-            this.uiGroupBox4.Size = new System.Drawing.Size(1008, 272);
+            this.uiGroupBox4.Size = new System.Drawing.Size(1008, 245);
             this.uiGroupBox4.TabIndex = 69;
             this.uiGroupBox4.Text = "Chi tiết trả kho lẻ nội trú";
             // 
@@ -780,7 +780,7 @@
             this.grdPhieuXuatChiTiet.Name = "grdPhieuXuatChiTiet";
             this.grdPhieuXuatChiTiet.RecordNavigator = true;
             this.grdPhieuXuatChiTiet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdPhieuXuatChiTiet.Size = new System.Drawing.Size(1002, 251);
+            this.grdPhieuXuatChiTiet.Size = new System.Drawing.Size(1002, 224);
             this.grdPhieuXuatChiTiet.TabIndex = 0;
             this.grdPhieuXuatChiTiet.TabStop = false;
             this.grdPhieuXuatChiTiet.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
@@ -793,7 +793,7 @@
             this.panel1.Controls.Add(this.cmdSave);
             this.panel1.Controls.Add(this.cmdExit);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 272);
+            this.panel1.Location = new System.Drawing.Point(0, 245);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1008, 49);
             this.panel1.TabIndex = 70;
@@ -853,7 +853,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.ClientSize = new System.Drawing.Size(1008, 682);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.grpControl);
             this.KeyPreview = true;

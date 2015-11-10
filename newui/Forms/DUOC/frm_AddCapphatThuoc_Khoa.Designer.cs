@@ -49,6 +49,7 @@
             this.txtMaPhieu = new Janus.Windows.GridEX.EditControls.EditBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
+            this.grdKhoXuat = new Janus.Windows.GridEX.GridEX();
             this.panel3 = new System.Windows.Forms.Panel();
             this.cmdGetData = new Janus.Windows.EditControls.UIButton();
             this.chkIsHetHan = new Janus.Windows.EditControls.UICheckBox();
@@ -58,14 +59,13 @@
             this.cmdPrevius = new Janus.Windows.EditControls.UIButton();
             this.cmdNext = new Janus.Windows.EditControls.UIButton();
             this.uiGroupBox4 = new Janus.Windows.EditControls.UIGroupBox();
+            this.grdPhieuXuatChiTiet = new Janus.Windows.GridEX.GridEX();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdInPhieuNhap = new Janus.Windows.EditControls.UIButton();
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.grdKhoXuat = new Janus.Windows.GridEX.GridEX();
-            this.grdPhieuXuatChiTiet = new Janus.Windows.GridEX.GridEX();
             ((System.ComponentModel.ISupportInitialize)(this.grpControl)).BeginInit();
             this.grpControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -74,15 +74,15 @@
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdKhoXuat)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox4)).BeginInit();
             this.uiGroupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdPhieuXuatChiTiet)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdKhoXuat)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdPhieuXuatChiTiet)).BeginInit();
             this.SuspendLayout();
             // 
             // grpControl
@@ -252,7 +252,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.uiGroupBox4);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(1092, 606);
+            this.splitContainer1.Size = new System.Drawing.Size(1092, 593);
             this.splitContainer1.SplitterDistance = 600;
             this.splitContainer1.TabIndex = 69;
             // 
@@ -263,9 +263,38 @@
             this.uiGroupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiGroupBox1.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox1.Name = "uiGroupBox1";
-            this.uiGroupBox1.Size = new System.Drawing.Size(524, 606);
+            this.uiGroupBox1.Size = new System.Drawing.Size(524, 593);
             this.uiGroupBox1.TabIndex = 1;
             this.uiGroupBox1.Text = "&Thông tin thuốc, vật tư trong kho cần chuyển";
+            // 
+            // grdKhoXuat
+            // 
+            this.grdKhoXuat.CellSelectionMode = Janus.Windows.GridEX.CellSelectionMode.SingleCell;
+            grdKhoXuat_DesignTimeLayout.LayoutString = resources.GetString("grdKhoXuat_DesignTimeLayout.LayoutString");
+            this.grdKhoXuat.DesignTimeLayout = grdKhoXuat_DesignTimeLayout;
+            this.grdKhoXuat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdKhoXuat.DynamicFiltering = true;
+            this.grdKhoXuat.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdKhoXuat.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.grdKhoXuat.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdKhoXuat.FlatBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.grdKhoXuat.FocusCellFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.grdKhoXuat.FocusCellFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
+            this.grdKhoXuat.FocusStyle = Janus.Windows.GridEX.FocusStyle.Solid;
+            this.grdKhoXuat.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.grdKhoXuat.FrozenColumns = 3;
+            this.grdKhoXuat.GroupByBoxVisible = false;
+            this.grdKhoXuat.GroupTotals = Janus.Windows.GridEX.GroupTotals.Always;
+            this.grdKhoXuat.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdKhoXuat.Location = new System.Drawing.Point(3, 61);
+            this.grdKhoXuat.Name = "grdKhoXuat";
+            this.grdKhoXuat.RecordNavigator = true;
+            this.grdKhoXuat.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdKhoXuat.Size = new System.Drawing.Size(518, 529);
+            this.grdKhoXuat.TabIndex = 3;
+            this.grdKhoXuat.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdKhoXuat.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
+            this.grdKhoXuat.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // panel3
             // 
@@ -313,7 +342,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel2.Location = new System.Drawing.Point(524, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(76, 606);
+            this.panel2.Size = new System.Drawing.Size(76, 593);
             this.panel2.TabIndex = 0;
             // 
             // cmdTaoNhanh
@@ -356,9 +385,34 @@
             this.uiGroupBox4.Image = ((System.Drawing.Image)(resources.GetObject("uiGroupBox4.Image")));
             this.uiGroupBox4.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox4.Name = "uiGroupBox4";
-            this.uiGroupBox4.Size = new System.Drawing.Size(488, 557);
+            this.uiGroupBox4.Size = new System.Drawing.Size(488, 544);
             this.uiGroupBox4.TabIndex = 69;
             this.uiGroupBox4.Text = "&Thông tin phiếu nhập";
+            // 
+            // grdPhieuXuatChiTiet
+            // 
+            this.grdPhieuXuatChiTiet.AlternatingColors = true;
+            this.grdPhieuXuatChiTiet.CellSelectionMode = Janus.Windows.GridEX.CellSelectionMode.SingleCell;
+            grdPhieuXuatChiTiet_DesignTimeLayout.LayoutString = resources.GetString("grdPhieuXuatChiTiet_DesignTimeLayout.LayoutString");
+            this.grdPhieuXuatChiTiet.DesignTimeLayout = grdPhieuXuatChiTiet_DesignTimeLayout;
+            this.grdPhieuXuatChiTiet.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdPhieuXuatChiTiet.DynamicFiltering = true;
+            this.grdPhieuXuatChiTiet.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdPhieuXuatChiTiet.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.grdPhieuXuatChiTiet.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.grdPhieuXuatChiTiet.GroupByBoxVisible = false;
+            this.grdPhieuXuatChiTiet.GroupTotals = Janus.Windows.GridEX.GroupTotals.Always;
+            this.grdPhieuXuatChiTiet.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdPhieuXuatChiTiet.Location = new System.Drawing.Point(3, 18);
+            this.grdPhieuXuatChiTiet.Name = "grdPhieuXuatChiTiet";
+            this.grdPhieuXuatChiTiet.RecordNavigator = true;
+            this.grdPhieuXuatChiTiet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdPhieuXuatChiTiet.Size = new System.Drawing.Size(482, 523);
+            this.grdPhieuXuatChiTiet.TabIndex = 1;
+            this.grdPhieuXuatChiTiet.TabStop = false;
+            this.grdPhieuXuatChiTiet.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdPhieuXuatChiTiet.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
+            this.grdPhieuXuatChiTiet.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // panel1
             // 
@@ -366,7 +420,7 @@
             this.panel1.Controls.Add(this.cmdSave);
             this.panel1.Controls.Add(this.cmdExit);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 557);
+            this.panel1.Location = new System.Drawing.Point(0, 544);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(488, 49);
             this.panel1.TabIndex = 70;
@@ -419,65 +473,11 @@
             // 
             this.errorProvider2.ContainerControl = this;
             // 
-            // grdKhoXuat
-            // 
-            this.grdKhoXuat.CellSelectionMode = Janus.Windows.GridEX.CellSelectionMode.SingleCell;
-            grdKhoXuat_DesignTimeLayout.LayoutString = resources.GetString("grdKhoXuat_DesignTimeLayout.LayoutString");
-            this.grdKhoXuat.DesignTimeLayout = grdKhoXuat_DesignTimeLayout;
-            this.grdKhoXuat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdKhoXuat.DynamicFiltering = true;
-            this.grdKhoXuat.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
-            this.grdKhoXuat.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.grdKhoXuat.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
-            this.grdKhoXuat.FlatBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.grdKhoXuat.FocusCellFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.grdKhoXuat.FocusCellFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
-            this.grdKhoXuat.FocusStyle = Janus.Windows.GridEX.FocusStyle.Solid;
-            this.grdKhoXuat.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.grdKhoXuat.FrozenColumns = 3;
-            this.grdKhoXuat.GroupByBoxVisible = false;
-            this.grdKhoXuat.GroupTotals = Janus.Windows.GridEX.GroupTotals.Always;
-            this.grdKhoXuat.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdKhoXuat.Location = new System.Drawing.Point(3, 61);
-            this.grdKhoXuat.Name = "grdKhoXuat";
-            this.grdKhoXuat.RecordNavigator = true;
-            this.grdKhoXuat.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdKhoXuat.Size = new System.Drawing.Size(518, 542);
-            this.grdKhoXuat.TabIndex = 3;
-            this.grdKhoXuat.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdKhoXuat.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
-            this.grdKhoXuat.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
-            // 
-            // grdPhieuXuatChiTiet
-            // 
-            this.grdPhieuXuatChiTiet.AlternatingColors = true;
-            this.grdPhieuXuatChiTiet.CellSelectionMode = Janus.Windows.GridEX.CellSelectionMode.SingleCell;
-            grdPhieuXuatChiTiet_DesignTimeLayout.LayoutString = resources.GetString("grdPhieuXuatChiTiet_DesignTimeLayout.LayoutString");
-            this.grdPhieuXuatChiTiet.DesignTimeLayout = grdPhieuXuatChiTiet_DesignTimeLayout;
-            this.grdPhieuXuatChiTiet.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdPhieuXuatChiTiet.DynamicFiltering = true;
-            this.grdPhieuXuatChiTiet.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
-            this.grdPhieuXuatChiTiet.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.grdPhieuXuatChiTiet.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.grdPhieuXuatChiTiet.GroupByBoxVisible = false;
-            this.grdPhieuXuatChiTiet.GroupTotals = Janus.Windows.GridEX.GroupTotals.Always;
-            this.grdPhieuXuatChiTiet.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdPhieuXuatChiTiet.Location = new System.Drawing.Point(3, 18);
-            this.grdPhieuXuatChiTiet.Name = "grdPhieuXuatChiTiet";
-            this.grdPhieuXuatChiTiet.RecordNavigator = true;
-            this.grdPhieuXuatChiTiet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdPhieuXuatChiTiet.Size = new System.Drawing.Size(482, 536);
-            this.grdPhieuXuatChiTiet.TabIndex = 1;
-            this.grdPhieuXuatChiTiet.TabStop = false;
-            this.grdPhieuXuatChiTiet.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdPhieuXuatChiTiet.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
-            this.grdPhieuXuatChiTiet.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
-            // 
             // frm_AddCapphatThuoc_Khoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1092, 695);
+            this.ClientSize = new System.Drawing.Size(1092, 682);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.grpControl);
             this.KeyPreview = true;
@@ -497,16 +497,16 @@
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).EndInit();
             this.uiGroupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdKhoXuat)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox4)).EndInit();
             this.uiGroupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdPhieuXuatChiTiet)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdKhoXuat)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdPhieuXuatChiTiet)).EndInit();
             this.ResumeLayout(false);
 
         }

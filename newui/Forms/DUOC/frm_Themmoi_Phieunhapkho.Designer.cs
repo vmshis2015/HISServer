@@ -36,6 +36,7 @@
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel4 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             Janus.Windows.GridEX.GridEXLayout grdPhieuNhapChiTiet_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.grpControl = new Janus.Windows.EditControls.UIGroupBox();
+            this.maskedEditBox1 = new Janus.Windows.GridEX.EditControls.MaskedEditBox();
             this.txtKhonhap = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.chkPhieuvay = new Janus.Windows.EditControls.UICheckBox();
             this.txtNguoinhan = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
@@ -64,7 +65,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.dtNgayNhap = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSoHoaDon = new Janus.Windows.GridEX.EditControls.EditBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -121,6 +121,7 @@
             this.txtDrugName = new VNS.HIS.UCs.AutoCompleteTextbox_Thuoc();
             this.txtsoDK = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.txtsoQDthau = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
+            this.dtNgayNhap = new Janus.Windows.CalendarCombo.CalendarCombo();
             ((System.ComponentModel.ISupportInitialize)(this.grpControl)).BeginInit();
             this.grpControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
@@ -138,6 +139,8 @@
             // grpControl
             // 
             this.grpControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.grpControl.Controls.Add(this.dtNgayNhap);
+            this.grpControl.Controls.Add(this.maskedEditBox1);
             this.grpControl.Controls.Add(this.txtKhonhap);
             this.grpControl.Controls.Add(this.chkPhieuvay);
             this.grpControl.Controls.Add(this.txtNguoinhan);
@@ -166,7 +169,6 @@
             this.grpControl.Controls.Add(this.label5);
             this.grpControl.Controls.Add(this.label4);
             this.grpControl.Controls.Add(this.label3);
-            this.grpControl.Controls.Add(this.dtNgayNhap);
             this.grpControl.Controls.Add(this.label2);
             this.grpControl.Controls.Add(this.txtSoHoaDon);
             this.grpControl.Controls.Add(this.label1);
@@ -178,6 +180,13 @@
             this.grpControl.Size = new System.Drawing.Size(928, 166);
             this.grpControl.TabIndex = 0;
             this.grpControl.Text = "Thông tin phiếu nhập kho";
+            // 
+            // maskedEditBox1
+            // 
+            this.maskedEditBox1.Location = new System.Drawing.Point(824, 51);
+            this.maskedEditBox1.Name = "maskedEditBox1";
+            this.maskedEditBox1.Size = new System.Drawing.Size(100, 21);
+            this.maskedEditBox1.TabIndex = 482;
             // 
             // txtKhonhap
             // 
@@ -603,15 +612,6 @@
             this.label3.Text = "Ngày hóa đơn";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // dtNgayNhap
-            // 
-            this.dtNgayNhap.CustomFormat = "dd/MM/yyyy";
-            this.dtNgayNhap.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtNgayNhap.Location = new System.Drawing.Point(109, 51);
-            this.dtNgayNhap.Name = "dtNgayNhap";
-            this.dtNgayNhap.Size = new System.Drawing.Size(272, 21);
-            this.dtNgayNhap.TabIndex = 0;
-            // 
             // label2
             // 
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -654,7 +654,7 @@
             // uiStatusBar1
             // 
             this.uiStatusBar1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiStatusBar1.Location = new System.Drawing.Point(0, 627);
+            this.uiStatusBar1.Location = new System.Drawing.Point(0, 659);
             this.uiStatusBar1.Name = "uiStatusBar1";
             uiStatusBarPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
             uiStatusBarPanel1.BorderColor = System.Drawing.Color.Empty;
@@ -702,7 +702,7 @@
             this.uiGroupBox2.Controls.Add(this.cmdExit);
             this.uiGroupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.uiGroupBox2.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox2.Location = new System.Drawing.Point(0, 575);
+            this.uiGroupBox2.Location = new System.Drawing.Point(0, 607);
             this.uiGroupBox2.Name = "uiGroupBox2";
             this.uiGroupBox2.Size = new System.Drawing.Size(928, 52);
             this.uiGroupBox2.TabIndex = 20;
@@ -824,9 +824,9 @@
             this.uiGroupBox4.Controls.Add(this.grdPhieuNhapChiTiet);
             this.uiGroupBox4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.uiGroupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox4.Location = new System.Drawing.Point(0, 297);
+            this.uiGroupBox4.Location = new System.Drawing.Point(0, 303);
             this.uiGroupBox4.Name = "uiGroupBox4";
-            this.uiGroupBox4.Size = new System.Drawing.Size(928, 278);
+            this.uiGroupBox4.Size = new System.Drawing.Size(928, 304);
             this.uiGroupBox4.TabIndex = 60;
             this.uiGroupBox4.Text = "Thông tin phiếu nhập";
             // 
@@ -843,7 +843,7 @@
             this.grdPhieuNhapChiTiet.Name = "grdPhieuNhapChiTiet";
             this.grdPhieuNhapChiTiet.RecordNavigator = true;
             this.grdPhieuNhapChiTiet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdPhieuNhapChiTiet.Size = new System.Drawing.Size(922, 258);
+            this.grdPhieuNhapChiTiet.Size = new System.Drawing.Size(922, 284);
             this.grdPhieuNhapChiTiet.TabIndex = 2;
             this.grdPhieuNhapChiTiet.TabStop = false;
             this.grdPhieuNhapChiTiet.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
@@ -1344,10 +1344,24 @@
             this.txtsoQDthau.txtMyName_Edit = null;
             this.txtsoQDthau.txtNext = null;
             // 
+            // dtNgayNhap
+            // 
+            // 
+            // 
+            // 
+            this.dtNgayNhap.DropDownCalendar.Name = "";
+            this.dtNgayNhap.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtNgayNhap.Location = new System.Drawing.Point(109, 50);
+            this.dtNgayNhap.Name = "dtNgayNhap";
+            this.dtNgayNhap.ShowUpDown = true;
+            this.dtNgayNhap.Size = new System.Drawing.Size(272, 21);
+            this.dtNgayNhap.TabIndex = 483;
+            this.dtNgayNhap.Value = new System.DateTime(2014, 9, 12, 0, 0, 0, 0);
+            // 
             // frm_Themmoi_Phieunhapkho
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(928, 650);
+            this.ClientSize = new System.Drawing.Size(928, 682);
             this.Controls.Add(this.txtsoQDthau);
             this.Controls.Add(this.txtsoDK);
             this.Controls.Add(this.lblQDthau);
@@ -1427,7 +1441,6 @@
         private System.Windows.Forms.Label label1;
         private Janus.Windows.GridEX.EditControls.EditBox txtMaPhieu;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker dtNgayNhap;
         private System.Windows.Forms.Label label8;
         private Janus.Windows.EditControls.UIComboBox cboNhanVien;
         private System.Windows.Forms.Label label9;
@@ -1504,5 +1517,7 @@
         private UCs.AutoCompleteTextbox_Danhmucchung txtsoQDthau;
         private UCs.AutoCompleteTextbox_Danhmucchung txtsoDK;
         private UCs.AutoCompleteTextbox txtKhonhap;
+        private Janus.Windows.GridEX.EditControls.MaskedEditBox maskedEditBox1;
+        private Janus.Windows.CalendarCombo.CalendarCombo dtNgayNhap;
     }
 }

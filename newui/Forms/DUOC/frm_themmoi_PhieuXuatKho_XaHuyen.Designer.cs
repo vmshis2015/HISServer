@@ -33,6 +33,8 @@
             Janus.Windows.GridEX.GridEXLayout grdKhoXuat_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdPhieuXuatChiTiet_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.grpControl = new Janus.Windows.EditControls.UIGroupBox();
+            this.txtVAT = new System.Windows.Forms.NumericUpDown();
+            this.label17 = new System.Windows.Forms.Label();
             this.txtKhonhan = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.txtKhoXuat = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.txtNguoigiao = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
@@ -85,6 +87,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.grpControl)).BeginInit();
             this.grpControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVAT)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -103,6 +106,8 @@
             // grpControl
             // 
             this.grpControl.BackColor = System.Drawing.SystemColors.Control;
+            this.grpControl.Controls.Add(this.txtVAT);
+            this.grpControl.Controls.Add(this.label17);
             this.grpControl.Controls.Add(this.txtKhonhan);
             this.grpControl.Controls.Add(this.txtKhoXuat);
             this.grpControl.Controls.Add(this.txtNguoigiao);
@@ -144,6 +149,27 @@
             this.grpControl.Size = new System.Drawing.Size(1008, 175);
             this.grpControl.TabIndex = 1;
             this.grpControl.Text = "Thông tin phiếu xuất";
+            // 
+            // txtVAT
+            // 
+            this.txtVAT.DecimalPlaces = 2;
+            this.txtVAT.Location = new System.Drawing.Point(779, 18);
+            this.txtVAT.Name = "txtVAT";
+            this.txtVAT.Size = new System.Drawing.Size(87, 22);
+            this.txtVAT.TabIndex = 491;
+            this.txtVAT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtVAT.ThousandsSeparator = true;
+            // 
+            // label17
+            // 
+            this.label17.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.Red;
+            this.label17.Location = new System.Drawing.Point(693, 21);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(83, 20);
+            this.label17.TabIndex = 490;
+            this.label17.Text = "Chiết khấu:";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtKhonhan
             // 
@@ -397,7 +423,7 @@
             // 
             this.txtSoCT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSoCT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSoCT.Location = new System.Drawing.Point(784, 14);
+            this.txtSoCT.Location = new System.Drawing.Point(959, 14);
             this.txtSoCT.Name = "txtSoCT";
             this.txtSoCT.Size = new System.Drawing.Size(10, 21);
             this.txtSoCT.TabIndex = 4;
@@ -429,9 +455,9 @@
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(690, 17);
+            this.label12.Location = new System.Drawing.Point(953, 17);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(98, 22);
+            this.label12.Size = new System.Drawing.Size(10, 22);
             this.label12.TabIndex = 476;
             this.label12.Text = "Số CT kèm theo:";
             this.label12.Visible = false;
@@ -440,7 +466,7 @@
             // 
             this.txtCo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCo.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCo.Location = new System.Drawing.Point(900, 14);
+            this.txtCo.Location = new System.Drawing.Point(980, 15);
             this.txtCo.Name = "txtCo";
             this.txtCo.Size = new System.Drawing.Size(10, 21);
             this.txtCo.TabIndex = 6;
@@ -451,9 +477,9 @@
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(868, 15);
+            this.label11.Location = new System.Drawing.Point(964, 16);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(26, 20);
+            this.label11.Size = new System.Drawing.Size(10, 20);
             this.label11.TabIndex = 474;
             this.label11.Text = "TK Có:";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -463,7 +489,7 @@
             // 
             this.txtNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNo.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNo.Location = new System.Drawing.Point(852, 13);
+            this.txtNo.Location = new System.Drawing.Point(932, 14);
             this.txtNo.Name = "txtNo";
             this.txtNo.Size = new System.Drawing.Size(10, 21);
             this.txtNo.TabIndex = 5;
@@ -474,9 +500,9 @@
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(794, 15);
+            this.label10.Location = new System.Drawing.Point(916, 16);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(52, 20);
+            this.label10.Size = new System.Drawing.Size(10, 20);
             this.label10.TabIndex = 472;
             this.label10.Text = "TK Nợ:";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -702,7 +728,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.uiGroupBox4);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(1008, 555);
+            this.splitContainer1.Size = new System.Drawing.Size(1008, 507);
             this.splitContainer1.SplitterDistance = 576;
             this.splitContainer1.TabIndex = 69;
             // 
@@ -714,7 +740,7 @@
             this.uiGroupBox1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox1.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox1.Name = "uiGroupBox1";
-            this.uiGroupBox1.Size = new System.Drawing.Size(526, 555);
+            this.uiGroupBox1.Size = new System.Drawing.Size(526, 507);
             this.uiGroupBox1.TabIndex = 1;
             this.uiGroupBox1.Text = "Danh sách thuốc trong kho xuất";
             // 
@@ -741,7 +767,7 @@
             this.grdKhoXuat.Name = "grdKhoXuat";
             this.grdKhoXuat.RecordNavigator = true;
             this.grdKhoXuat.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdKhoXuat.Size = new System.Drawing.Size(520, 534);
+            this.grdKhoXuat.Size = new System.Drawing.Size(520, 486);
             this.grdKhoXuat.TabIndex = 2;
             this.grdKhoXuat.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdKhoXuat.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
@@ -776,7 +802,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel2.Location = new System.Drawing.Point(526, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(50, 555);
+            this.panel2.Size = new System.Drawing.Size(50, 507);
             this.panel2.TabIndex = 0;
             // 
             // cmdTaoNhanh
@@ -834,7 +860,7 @@
             this.uiGroupBox4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox4.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox4.Name = "uiGroupBox4";
-            this.uiGroupBox4.Size = new System.Drawing.Size(428, 506);
+            this.uiGroupBox4.Size = new System.Drawing.Size(428, 458);
             this.uiGroupBox4.TabIndex = 69;
             this.uiGroupBox4.Text = "Chi tiết thuốc xuất kho";
             // 
@@ -856,7 +882,7 @@
             this.grdPhieuXuatChiTiet.Name = "grdPhieuXuatChiTiet";
             this.grdPhieuXuatChiTiet.RecordNavigator = true;
             this.grdPhieuXuatChiTiet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdPhieuXuatChiTiet.Size = new System.Drawing.Size(422, 485);
+            this.grdPhieuXuatChiTiet.Size = new System.Drawing.Size(422, 437);
             this.grdPhieuXuatChiTiet.TabIndex = 0;
             this.grdPhieuXuatChiTiet.TabStop = false;
             this.grdPhieuXuatChiTiet.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
@@ -869,7 +895,7 @@
             this.panel1.Controls.Add(this.cmdSave);
             this.panel1.Controls.Add(this.cmdExit);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 506);
+            this.panel1.Location = new System.Drawing.Point(0, 458);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(428, 49);
             this.panel1.TabIndex = 70;
@@ -917,7 +943,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.ClientSize = new System.Drawing.Size(1008, 682);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.grpControl);
             this.KeyPreview = true;
@@ -931,6 +957,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.grpControl)).EndInit();
             this.grpControl.ResumeLayout(false);
             this.grpControl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVAT)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -1004,5 +1031,7 @@
         private System.Windows.Forms.Label label16;
         private UCs.AutoCompleteTextbox txtKhonhan;
         private UCs.AutoCompleteTextbox txtKhoXuat;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.NumericUpDown txtVAT;
     }
 }

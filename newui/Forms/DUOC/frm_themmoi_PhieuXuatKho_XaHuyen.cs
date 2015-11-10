@@ -142,7 +142,12 @@ namespace VNS.HIS.UI.THUOC
                 txtSoluongdutru.Focus();
                 return false;
             }
-
+            if (Utility.DecimaltoDbnull(txtVAT.Text, -1) <0)
+            {
+                Utility.SetMsg(lblMsg, "Bạn phải nhập % chiết khấu", true);
+                txtVAT.Focus();
+                return false;
+            }
             return true;
         }
 
@@ -842,13 +847,12 @@ namespace VNS.HIS.UI.THUOC
                 decimal Giaban = 0m;
                 decimal GiaBhyt = 0m;
                 Int32 soluongchuyen = 0;
-
+                decimal gianhap = 0;
                 decimal vat = 0m;
                 int isHetHan = 0;
                 long IdThuockho = 0;
                 int soluongthat = 0;
                 int tongsoluongchuyen = 0;
-
                 tongsoluongchuyen = 0;
                 int soluongao = Utility.Int32Dbnull(gridExRow.Cells["sLuongAo"].Value,0);
                 soluongthat = Utility.Int32Dbnull(gridExRow.Cells["SO_LUONG_THAT"].Value);
@@ -860,9 +864,10 @@ namespace VNS.HIS.UI.THUOC
                     NgayNhap = Convert.ToDateTime(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.NgayNhap].Value).Date;
                     solo = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoLo].Value);
                     id_thuoc = Utility.Int32Dbnull(gridExRow.Cells[TThuockho.Columns.IdThuoc].Value, -1);
-
                     dongia = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.GiaNhap].Value, 0);
+                    dongia = Utility.DecimaltoDbnull(dongia*(1m + Utility.DecimaltoDbnull(txtVAT.Text)/100));
                     Giaban = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.GiaBan].Value, 0);
+                    gianhap = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.GiaNhap].Value, 0);
                     GiaBhyt = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.GiaBhyt].Value, 0);
                     vat = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.Vat].Value, 0);
                     isHetHan = Utility.Int32Dbnull(gridExRow.Cells["IsHetHan"].Value, 0);
@@ -892,14 +897,14 @@ namespace VNS.HIS.UI.THUOC
                         drv[TPhieuNhapxuatthuocChitiet.Columns.Vat] = vat;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBhyt] = GiaBhyt;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.NgayNhap] = NgayNhap;
-                        drv[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap] = dongia;
+                        drv[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap] = gianhap;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.DonGia] = dongia;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.MaNhacungcap] = manhacungcap;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.SoLo] = solo;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.SoDky] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoDky].Value);
                         drv[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau].Value);
                         drv[TPhieuNhapxuatthuocChitiet.Columns.IdThuockho] = -1;
-                        drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBan] = Giaban;
+                        drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBan] = dongia;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.IdChuyen] = IdThuockho;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.SoLuong] = soluongchuyen;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.ThanhTien] = dongia * soluongchuyen;
@@ -965,6 +970,7 @@ namespace VNS.HIS.UI.THUOC
                 string solo = "";
                 int id_thuoc = -1;
                 decimal dongia = 0m;
+                decimal gianhap = 0m;
                 decimal Giaban = 0m;
                 decimal GiaBhyt = 0m;
                 Int32 soluong = 0;
@@ -979,6 +985,7 @@ namespace VNS.HIS.UI.THUOC
                 id_thuoc = Utility.Int32Dbnull(gridExRow.Cells[TThuockho.Columns.IdThuoc].Value, -1);
                 IdThuockho = Utility.Int32Dbnull(gridExRow.Cells[TThuockho.Columns.IdChuyen].Value, -1);
                 dongia = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.GiaNhap].Value, 0);
+                gianhap = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.GiaNhap].Value, 0);
                 GiaBhyt = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.GiaBhyt].Value, 0);
                 Giaban = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.GiaBan].Value, 0);
                 soluong = Utility.Int32Dbnull(gridExRow.Cells["SO_LUONG"].Value, 0);
@@ -1009,14 +1016,14 @@ namespace VNS.HIS.UI.THUOC
                     drv[TPhieuNhapxuatthuocChitiet.Columns.Vat] = vat;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBhyt] = GiaBhyt;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.NgayNhap] = NgayNhap;
-                    drv[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap] = dongia;
-                    drv[TPhieuNhapxuatthuocChitiet.Columns.DonGia] = dongia;
+                    drv[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap] = gianhap;
+                    drv[TPhieuNhapxuatthuocChitiet.Columns.DonGia] = gianhap;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.MaNhacungcap] = manhacungcap;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.SoLo] = solo;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.SoDky] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoDky].Value);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau].Value);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.IdThuockho] = IdThuockho;
-                    drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBan] = Giaban;
+                    drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBan] = gianhap;
 
                     drv[TPhieuNhapxuatthuocChitiet.Columns.SoLuong] = soluong;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.ThanhTien] = dongia * soluong;

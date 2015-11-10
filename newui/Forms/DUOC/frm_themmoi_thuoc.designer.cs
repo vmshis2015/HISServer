@@ -330,7 +330,7 @@
             this.txtName.splitChar = '@';
             this.txtName.splitCharIDAndCode = '#';
             this.txtName.TabIndex = 4;
-            this.txtName.TakeCode = true;
+            this.txtName.TakeCode = false;
             this.txtName.txtMyCode = null;
             this.txtName.txtMyCode_Edit = null;
             this.txtName.txtMyID = null;

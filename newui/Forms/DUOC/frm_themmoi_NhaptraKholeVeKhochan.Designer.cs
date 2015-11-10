@@ -407,7 +407,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.uiGroupBox4);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(1008, 560);
+            this.splitContainer1.Size = new System.Drawing.Size(1008, 512);
             this.splitContainer1.SplitterDistance = 567;
             this.splitContainer1.TabIndex = 69;
             this.splitContainer1.TabStop = false;
@@ -419,7 +419,7 @@
             this.uiGroupBox1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox1.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox1.Name = "uiGroupBox1";
-            this.uiGroupBox1.Size = new System.Drawing.Size(518, 560);
+            this.uiGroupBox1.Size = new System.Drawing.Size(518, 512);
             this.uiGroupBox1.TabIndex = 1;
             this.uiGroupBox1.Text = "Thông tin thuốc, vật tư trong kho trả";
             // 
@@ -447,7 +447,7 @@
             this.grdKhoXuat.Name = "grdKhoXuat";
             this.grdKhoXuat.RecordNavigator = true;
             this.grdKhoXuat.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdKhoXuat.Size = new System.Drawing.Size(512, 539);
+            this.grdKhoXuat.Size = new System.Drawing.Size(512, 491);
             this.grdKhoXuat.TabIndex = 3;
             this.grdKhoXuat.TabStop = false;
             this.grdKhoXuat.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
@@ -461,7 +461,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel2.Location = new System.Drawing.Point(518, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(49, 560);
+            this.panel2.Size = new System.Drawing.Size(49, 512);
             this.panel2.TabIndex = 0;
             // 
             // cmdPrevius
@@ -495,7 +495,7 @@
             this.uiGroupBox4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox4.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox4.Name = "uiGroupBox4";
-            this.uiGroupBox4.Size = new System.Drawing.Size(437, 511);
+            this.uiGroupBox4.Size = new System.Drawing.Size(437, 463);
             this.uiGroupBox4.TabIndex = 69;
             this.uiGroupBox4.Text = "Chi tiết phiếu trả";
             // 
@@ -519,7 +519,7 @@
             this.grdPhieuXuatChiTiet.Name = "grdPhieuXuatChiTiet";
             this.grdPhieuXuatChiTiet.RecordNavigator = true;
             this.grdPhieuXuatChiTiet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdPhieuXuatChiTiet.Size = new System.Drawing.Size(431, 490);
+            this.grdPhieuXuatChiTiet.Size = new System.Drawing.Size(431, 442);
             this.grdPhieuXuatChiTiet.TabIndex = 1;
             this.grdPhieuXuatChiTiet.TabStop = false;
             this.grdPhieuXuatChiTiet.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
@@ -532,7 +532,7 @@
             this.panel1.Controls.Add(this.cmdSave);
             this.panel1.Controls.Add(this.cmdExit);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 511);
+            this.panel1.Location = new System.Drawing.Point(0, 463);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(437, 49);
             this.panel1.TabIndex = 70;
@@ -580,7 +580,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.ClientSize = new System.Drawing.Size(1008, 682);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.grpControl);
             this.KeyPreview = true;
