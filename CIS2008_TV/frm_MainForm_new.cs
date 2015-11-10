@@ -55,6 +55,7 @@ namespace CIS.CoreApp
                 }
 
                 InitializeComponent();
+                LogConfig();
                 lblUpdateVersion.Click += new EventHandler(lblUpdateVersion_Click);
                 lblDepartment.Click += new EventHandler(lblDepartment_Click);
                 Utility.autoStartWServices(new List<string> { "Spooler" });
@@ -124,7 +125,29 @@ namespace CIS.CoreApp
             }
 
         }
+        public static void LogConfig()
+        {
+            try
+            {
+                var config = new LoggingConfiguration();
+                var fileTarget = new FileTarget
+                {
+                    FileName =
+                        "${basedir}/AppLogs/${date:format=yy}${date:format=MM}${date:format=dd}/${logger}.log",
+                    //"${basedir}/AppLogs/${date:format=yyyy}/${date:format=MM}/${date:format=dd}/${logger}.log",
+                    Layout =
+                        "${date:format=dd/MM/yyy HH\\:mm\\:ss}|${threadid}|${level}|${logger}|${message}",
+                    ArchiveAboveSize = 5242880
+                };
+                config.AddTarget("file", fileTarget);
+                config.LoggingRules.Add(new LoggingRule("*", LogLevel.Trace, fileTarget));
+                LogManager.Configuration = config;
+            }
+            catch (Exception ex)
+            {
 
+            }
+        }
         void mnureLoad_Click(object sender, EventArgs e)
         {
             try
