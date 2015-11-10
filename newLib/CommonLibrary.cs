@@ -6920,6 +6920,28 @@ namespace VNS.Libs
             }
 
         }
+        public static string MoveFile(string source, string dest)
+        {
+            try
+            {
+                CreateFolder(dest);
+                File.Copy(source, dest,true);
+                File.Delete(source);
+                return "";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+
+            }
+        }
+        public static string FixedFolder( string FolderPath)
+        {
+            string reval = FolderPath;
+            if (!reval.EndsWith(@"\"))
+                reval += @"\";
+            return reval;
+        }
         public static string Laygiatrithamsohethong(string ParamName, string defaultval, bool fromDB)
         {
             try
