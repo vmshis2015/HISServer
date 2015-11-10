@@ -936,6 +936,7 @@ namespace VNS.Libs
             if (_loaiphieu == LoaiPhieu.PhieuNhapTraLaiKhoLeVeKhoChan) return "PNTL";
             if (_loaiphieu == LoaiPhieu.PhieuNhapTraKhoLe) return "PNTKL";
             if (_loaiphieu == LoaiPhieu.PhieuHuy) return "PHUY";
+            if (_loaiphieu == LoaiPhieu.PhieuXuatkhoTuyenXaHuyen) return "PXKTH";
             if (_loaiphieu == LoaiPhieu.PhieuThanhly) return "PTL";
             if (_loaiphieu == LoaiPhieu.PhieuTraNCC) return "PTNCC";
             if (_loaiphieu == LoaiPhieu.Phieutrathuocthua) return "PTraTThua";

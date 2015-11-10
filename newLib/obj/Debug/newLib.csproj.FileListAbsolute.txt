@@ -62,6 +62,10 @@ D:\Projects\VMSClient\trunk\newLib\obj\Debug\newLib.Properties.Resources.resourc
 D:\Projects\VMSClient\trunk\newLib\obj\Debug\newLib.csproj.GenerateResource.Cache
 D:\Projects\VMSClient\trunk\newLib\obj\Debug\VNS.Libs.dll
 D:\Projects\VMSClient\trunk\newLib\obj\Debug\VNS.Libs.pdb
+E:\MyHIS\Running\VNS.Libs.dll
+E:\MyHIS\Running\VNS.Libs.pdb
+E:\VMS\MyHIS\Running\VNS.Libs.dll
+E:\VMS\MyHIS\Running\VNS.Libs.pdb
 E:\VMS\trunk\newLib\obj\Debug\newLib.csprojResolveAssemblyReference.cache
 E:\VMS\trunk\newLib\obj\Debug\VNS.Libs.ReportTitle.resources
 E:\VMS\trunk\newLib\obj\Debug\VNS.Properties.frm_Properties.resources
@@ -73,7 +77,3 @@ E:\VMS\trunk\newLib\obj\Debug\newLib.csproj.GenerateResource.Cache
 E:\VMS\trunk\newLib\obj\Debug\VNS.Libs.dll.licenses
 E:\VMS\trunk\newLib\obj\Debug\VNS.Libs.dll
 E:\VMS\trunk\newLib\obj\Debug\VNS.Libs.pdb
-E:\MyHIS\Running\VNS.Libs.dll
-E:\MyHIS\Running\VNS.Libs.pdb
-E:\VMS\MyHIS\Running\VNS.Libs.dll
-E:\VMS\MyHIS\Running\VNS.Libs.pdb
