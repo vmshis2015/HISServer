@@ -86,8 +86,9 @@ namespace MaskedTextBox
                         {
                             AllowedChanged = false;
                             if (txtBox.Text.StartsWith(",")) txtBox.Text = txtBox.Text.Substring(1);
-                            txtBox.Text = String.Format (Utility.FormatDecimal(), Convert.ToDecimal(txtBox.Text));
-                            if (_endWithdot && !txtBox.Text.Contains(".")) txtBox.Text += ".";
+                            string _text= String.Format (Utility.FormatDecimal(), Convert.ToDecimal(txtBox.Text));
+                            if (_endWithdot && !_text.Contains(".")) _text += ".";
+                            txtBox.Text = _text;
                             AllowedChanged = true;
                         }
                         if (_end) txtBox.Select(txtBox.Text.Length, 0);
