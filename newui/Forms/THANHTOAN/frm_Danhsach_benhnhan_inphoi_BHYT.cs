@@ -7,15 +7,19 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 using SubSonic;
 using VNS.Libs;
 using VNS.HIS.DAL;
+using VNS.Properties;
+
 namespace  VNS.HIS.UI.THANHTOAN
 {
     public partial class frm_Danhsach_benhnhan_inphoi_BHYT : Form
     {
         private DataTable m_dtTimKiem=new DataTable();
         private bool b_Hasloaded = false;
+        private string _sLocalPath = Application.StartupPath + "XML";
         public frm_Danhsach_benhnhan_inphoi_BHYT()
         {
             InitializeComponent();
@@ -23,6 +27,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             txtMaLanKham.LostFocus+=new EventHandler(txtMaLanKham_LostFocus);
             txtMaLanKham.KeyDown+=new KeyEventHandler(txtMaLanKham_KeyDown);
             Utility.VisiableGridEx(grdList,KcbPhieuDct.Columns.IdPhieuDct,globalVariables.IsAdmin);
+            PropertyLib._xmlproperties = PropertyLib.GetXMLProperties();
 
         }
         private void txtMaLanKham_KeyDown(object sender, KeyEventArgs e)
@@ -82,6 +87,7 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             try
             {
+                if (!chkByDate.Checked) dtFromDate.Value = Convert.ToDateTime("1900-01-01");
                 m_dtTimKiem =
                     SPs.ThanhtoanDanhsachInphoiBhyt(dtFromDate.Value, dtToDate.Value,
                                                     Utility.sDbnull(txtMaLanKham.Text, ""),Utility.Int16Dbnull(radNgoaiTru.Checked ? 0 : 1),
@@ -197,6 +203,267 @@ namespace  VNS.HIS.UI.THANHTOAN
         private void radDaduyet_CheckedChanged(object sender, EventArgs e)
         {
             ModifyCommand();
+        }
+        
+        private void cmdConfig_Click(object sender, EventArgs e)
+        {
+            if (PropertyLib._xmlproperties != null)
+            {
+                frm_Properties frm = new frm_Properties(PropertyLib._xmlproperties);
+                frm.ShowDialog();
+                //CauHinhKCB();
+            }
+          
+        }
+
+        private void cmdExportXML_Click(object sender, EventArgs e)
+        {
+            try
+            {
+               // var xmlWriterSettings = new XmlWriterSettings()
+               // {
+               //     Indent = true,
+               //     IndentChars = "\t"
+               //     //NewLineOnAttributes = true
+               // };
+               // xmlWriter = XmlWriter.Create("C:\\abc.xml", xmlWriterSettings);
+               //// xmlWriter.WriteProcessingInstruction("xml", string.Format("version={0}1.0{0} encoding={0}UTF-8{0} standalone={0}yes{0}", ((char)34)));
+               // xmlWriter.WriteStartElement("CHECKOUT");
+               // xmlWriter.WriteStartElement("CHECKOUT1");
+               // xmlWriter.WriteStartElement("CHECKOUT2");
+               // xmlWriter.WriteElementString("a", "aaa");
+               // xmlWriter.WriteElementString("b", "bbb");
+               // xmlWriter.WriteElementString("c", "ccc");
+               // xmlWriter.WriteElementString("d", "ddd");
+               // xmlWriter.WriteEndElement();
+               // xmlWriter.Flush();
+                foreach (Janus.Windows.GridEX.GridEXRow row in grdList.GetCheckedRows())
+                {
+                    string maluot_kham = Utility.sDbnull(row.Cells["ma_luotkham"].Value);
+                    int id_benhnhan = Utility.Int32Dbnull(row.Cells["id_benhnhan"].Value);
+                    ProcessCreateXML(maluot_kham, id_benhnhan);
+                }
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg("Lỗi:" +ex.Message);
+            }
+            finally
+            {
+                if(xmlWriter !=null)
+                {
+                    //xmlWriter.WriteEndElement();
+                    //xmlWriter.WriteEndDocument();
+                    xmlWriter.Close();
+                }
+            }
+        }
+        private string sLocalFilePath;
+        private string sFileName;
+        private DataSet dtXML = new DataSet();
+        private XmlWriter xmlWriter = null;
+        private bool ProcessCreateXML(string maluotKham, int idBenhnhan)
+        {
+            try
+            {
+                 dtXML = SPs.ViettelLaythongtinDuyetbaohiem(Utility.sDbnull(maluotKham, ""),
+                                                                   Utility.Int32Dbnull(idBenhnhan, -1)).GetDataSet();
+                if(dtXML.Tables[0].Rows.Count <=0) return false;
+                _sLocalPath = Utility.sDbnull(PropertyLib._xmlproperties.Chonduongdan);
+                if (!Directory.Exists(_sLocalPath)) Directory.CreateDirectory(_sLocalPath);
+                var xmlWriterSettings = new XmlWriterSettings()
+                {
+                    Indent = true,
+                    IndentChars = "\t",
+                    OmitXmlDeclaration = true
+                };
+                sFileName = Utility.sDbnull(dtXML.Tables[2].Rows[0]["NGAY_VAO"]) + "_" +
+                            Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_THE"]) + "_CheckOut.xml";
+                sLocalFilePath = _sLocalPath + "\\" + sFileName;
+                xmlWriter = XmlWriter.Create(sLocalFilePath, xmlWriterSettings);
+                ProcessXMLWrite();
+                grdList.UnCheckAllRecords();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
+                return false;
+            }
+            finally
+            {
+                //xmlWriter.WriteEndElement();
+                //xmlWriter.WriteEndDocument();
+                if(xmlWriter !=null)
+                xmlWriter.Close();
+            }
+        }
+
+        private bool ProcessXMLWrite()
+        {
+            try
+            {
+                xmlWriter.WriteProcessingInstruction("xml",string.Format("version={0}1.0{0}", ((char)34)));
+                xmlWriter.WriteStartElement("CHECKOUT");
+                if(dtXML.Tables[0].Rows.Count>0)
+                {
+                    xmlWriter.WriteStartElement("THONGTINBENHNHAN");
+                    xmlWriter.WriteElementString("MA_LK", Utility.sDbnull(dtXML.Tables[0].Rows[0]["MA_LK"]));
+                    xmlWriter.WriteElementString("NGAYGIOVAO", Utility.sDbnull(dtXML.Tables[0].Rows[0]["NGAYGIOVAO"]));
+                    xmlWriter.WriteElementString("NGAYGIORA", Utility.sDbnull(dtXML.Tables[0].Rows[0]["NGAYGIORA"]));
+                    xmlWriter.WriteElementString("MABENHVIEN", Utility.sDbnull(dtXML.Tables[0].Rows[0]["MABENHVIEN"]));
+                    xmlWriter.WriteElementString("CHANDOAN", Utility.sDbnull(dtXML.Tables[0].Rows[0]["CHANDOAN"]));
+                    xmlWriter.WriteElementString("TRANGTHAI", Utility.sDbnull(dtXML.Tables[0].Rows[0]["TRANGTHAI"]));
+                    xmlWriter.WriteElementString("KETQUA", Utility.sDbnull(dtXML.Tables[0].Rows[0]["KETQUA"]));
+                    xmlWriter.WriteElementString("SODIENTHOAI_LH", Utility.sDbnull(dtXML.Tables[0].Rows[0]["SODIENTHOAI_LH"]));
+                    xmlWriter.WriteElementString("NGUOILIENHE", Utility.sDbnull(dtXML.Tables[0].Rows[0]["NGUOILIENHE"]));
+                    xmlWriter.WriteEndElement();
+                }
+
+                if(dtXML.Tables[2].Rows.Count>0)
+                {
+                    xmlWriter.WriteStartElement("THONGTINCHITIET");
+
+                    xmlWriter.WriteStartElement("TONGHOP");
+                    xmlWriter.WriteElementString("MA_LK", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_LK"]));
+                    xmlWriter.WriteElementString("STT", Utility.sDbnull(dtXML.Tables[2].Rows[0]["STT"]));
+                    xmlWriter.WriteElementString("MA_BN", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_BN"]));
+                    xmlWriter.WriteElementString("HO_TEN", Utility.sDbnull(dtXML.Tables[2].Rows[0]["HO_TEN"]));
+                    xmlWriter.WriteElementString("NGAY_SINH", Utility.sDbnull(dtXML.Tables[2].Rows[0]["NGAY_SINH"]));
+                    xmlWriter.WriteElementString("GIOI_TINH", Utility.sDbnull(dtXML.Tables[2].Rows[0]["GIOI_TINH"]));
+                    xmlWriter.WriteElementString("DIA_CHI", Utility.sDbnull(dtXML.Tables[2].Rows[0]["DIA_CHI"]));
+                    xmlWriter.WriteElementString("MA_THE", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_THE"]));
+                    xmlWriter.WriteElementString("MA_DKBD", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_DKBD"]));
+                    xmlWriter.WriteElementString("GT_THE_TU", Utility.sDbnull(dtXML.Tables[2].Rows[0]["GT_THE_TU"]));
+                    xmlWriter.WriteElementString("GT_THE_DEN", Utility.sDbnull(dtXML.Tables[2].Rows[0]["GT_THE_DEN"]));
+                    xmlWriter.WriteElementString("MA_BENH", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_BENH"]));
+                    xmlWriter.WriteElementString("MA_BENHKHAC", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_BENHKHAC"]));
+                    xmlWriter.WriteElementString("TEN_BENH", Utility.sDbnull(dtXML.Tables[2].Rows[0]["TEN_BENH"]));
+                    xmlWriter.WriteElementString("MA_LYDO_VVIEN", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_LYDO_VVIEN"]));
+                    xmlWriter.WriteElementString("MA_NOI_CHUYEN", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_NOI_CHUYEN"]));
+                    xmlWriter.WriteElementString("MA_TAI_NAN", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_TAI_NAN"]));
+                    xmlWriter.WriteElementString("NGAY_VAO", Utility.sDbnull(dtXML.Tables[2].Rows[0]["NGAY_VAO"]));
+                    xmlWriter.WriteElementString("NGAY_RA", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_LK"]));
+                    xmlWriter.WriteElementString("SO_NGAY_DTRI", Utility.sDbnull(dtXML.Tables[2].Rows[0]["SO_NGAY_DTRI"]));
+                    xmlWriter.WriteElementString("KET_QUA_DTRI", Utility.sDbnull(dtXML.Tables[2].Rows[0]["KET_QUA_DTRI"]));
+                    xmlWriter.WriteElementString("TINH_TRANG_RV", Utility.sDbnull(dtXML.Tables[2].Rows[0]["TINH_TRANG_RV"]));
+                    xmlWriter.WriteElementString("NGAY_TTOAN", Utility.sDbnull(dtXML.Tables[2].Rows[0]["NGAY_TTOAN"]));
+                    xmlWriter.WriteElementString("MUC_HUONG", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MUC_HUONG"]));
+                    xmlWriter.WriteElementString("T_TONGCHI", Utility.sDbnull(dtXML.Tables[2].Rows[0]["T_TONGCHI"]));
+                    xmlWriter.WriteElementString("T_BNTT", Utility.sDbnull(dtXML.Tables[2].Rows[0]["T_BNTT"]));
+                    xmlWriter.WriteElementString("T_BHTT", Utility.sDbnull(dtXML.Tables[2].Rows[0]["T_BHTT"]));
+                    xmlWriter.WriteElementString("T_NGUONKHAC", Utility.sDbnull(dtXML.Tables[2].Rows[0]["T_NGUONKHAC"]));
+                    xmlWriter.WriteElementString("T_NGOAIDS", Utility.sDbnull(dtXML.Tables[2].Rows[0]["T_NGOAIDS"]));
+                    xmlWriter.WriteElementString("NAM_QT", Utility.sDbnull(dtXML.Tables[2].Rows[0]["NAM_QT"]));
+                    xmlWriter.WriteElementString("THANG_QT", Utility.sDbnull(dtXML.Tables[2].Rows[0]["THANG_QT"]));
+                    xmlWriter.WriteElementString("MA_LOAIKCB", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_LOAIKCB"]));
+                    xmlWriter.WriteElementString("MA_CSKCB", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_CSKCB"]));
+                    xmlWriter.WriteElementString("MA_KHUVUC", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_KHUVUC"],"_"));
+                    xmlWriter.WriteElementString("MA_PTTT_QT", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_PTTT_QT"],"_"));
+                    xmlWriter.WriteElementString("SO_PHIEU", Utility.sDbnull(dtXML.Tables[2].Rows[0]["SO_PHIEU"]));
+                    xmlWriter.WriteEndElement();
+                   
+                    if(dtXML.Tables[3].Rows.Count>0)
+                    {
+                        xmlWriter.WriteStartElement("BANG_CTTHUOC");
+                        foreach (DataRow row in dtXML.Tables[3].Rows)
+                        {
+                            xmlWriter.WriteStartElement("CTTHUOC");
+                            xmlWriter.WriteElementString("MA_LK", Utility.sDbnull(row["MA_LK"]));
+                            xmlWriter.WriteElementString("STT", Utility.sDbnull(row["STT"]));
+                            xmlWriter.WriteElementString("MA_THUOC", Utility.sDbnull(row["MA_THUOC"]));
+                            xmlWriter.WriteElementString("MA_NHOM", Utility.sDbnull(row["MA_NHOM"]));
+                            xmlWriter.WriteElementString("TEN_THUOC", Utility.sDbnull(row["TEN_THUOC"]));
+                            xmlWriter.WriteElementString("DON_VI_TINH", Utility.sDbnull(row["DON_VI_TINH"]));
+                            xmlWriter.WriteElementString("HAM_LUONG", Utility.sDbnull(row["HAM_LUONG"]));
+                            xmlWriter.WriteElementString("DUONG_DUNG", Utility.sDbnull(row["DUONG_DUNG"]));
+                            xmlWriter.WriteElementString("SO_DANG_KY", Utility.sDbnull(row["SO_DANG_KY"]));
+                            xmlWriter.WriteElementString("SO_LUONG", Utility.sDbnull(row["SO_LUONG"]));
+                            xmlWriter.WriteElementString("DON_GIA", Utility.sDbnull(row["DON_GIA"]));
+                            xmlWriter.WriteElementString("TYLE_TT", Utility.sDbnull(row["TYLE_TT"]));
+                            xmlWriter.WriteElementString("THANH_TIEN", Utility.sDbnull(row["THANH_TIEN"]));
+                            xmlWriter.WriteElementString("MA_KHOA", Utility.sDbnull(row["MA_KHOA"]));
+                            xmlWriter.WriteElementString("MA_BAC_SI", Utility.sDbnull(row["MA_BAC_SI"]));
+                            xmlWriter.WriteElementString("MA_BENH", Utility.sDbnull(row["MA_BENH"]));
+                            xmlWriter.WriteElementString("NGAY_YL", Utility.sDbnull(row["NGAY_YL"]));
+                            xmlWriter.WriteElementString("TEN_KHOABV", Utility.sDbnull(row["TEN_KHOABV"]));
+                            xmlWriter.WriteEndElement();
+                        }
+                        xmlWriter.WriteEndElement();
+                    }
+                    if (dtXML.Tables[4].Rows.Count > 0)
+                    {
+                        xmlWriter.WriteStartElement("BANG_CTDV");
+                        foreach (DataRow row in dtXML.Tables[4].Rows)
+                        {
+                            xmlWriter.WriteStartElement("CTDV");
+                            xmlWriter.WriteElementString("MA_LK", Utility.sDbnull(row["MA_LK"]));
+                            xmlWriter.WriteElementString("STT", Utility.sDbnull(row["STT"]));
+                            xmlWriter.WriteElementString("MA_DICH_VU", Utility.sDbnull(row["MA_DICH_VU"]));
+                            xmlWriter.WriteElementString("MA_VAT_TU", Utility.sDbnull(row["MA_VAT_TU"]));
+                            xmlWriter.WriteElementString("MA_NHOM", Utility.sDbnull(row["MA_NHOM"]));
+                            xmlWriter.WriteElementString("TEN_DICH_VU", Utility.sDbnull(row["TEN_DICH_VU"]));
+                            xmlWriter.WriteElementString("DON_VI_TINH", Utility.sDbnull(row["DON_VI_TINH"]));
+                            xmlWriter.WriteElementString("SO_LUONG", Utility.sDbnull(row["SO_LUONG"]));
+                            xmlWriter.WriteElementString("DON_GIA", Utility.sDbnull(row["DON_GIA"]));
+                            xmlWriter.WriteElementString("TYLE_TT", Utility.sDbnull(row["TYLE_TT"]));
+                            xmlWriter.WriteElementString("THANH_TIEN", Utility.sDbnull(row["THANH_TIEN"]));
+                            xmlWriter.WriteElementString("MA_KHOA", Utility.sDbnull(row["MA_KHOA"]));
+                            xmlWriter.WriteElementString("MA_BAC_SI", Utility.sDbnull(row["MA_BAC_SI"]));
+                            xmlWriter.WriteElementString("MA_BENH", Utility.sDbnull(row["MA_BENH"]));
+                            xmlWriter.WriteElementString("NGAY_YL", Utility.sDbnull(row["NGAY_YL"]));
+                            xmlWriter.WriteElementString("NGAY_KQ", Utility.sDbnull(row["NGAY_KQ"]));
+                            xmlWriter.WriteElementString("TEN_KHOABV", Utility.sDbnull(row["TEN_KHOABV"]));
+                            xmlWriter.WriteEndElement();
+                        }
+                        xmlWriter.WriteEndElement();
+                    }
+                    if (dtXML.Tables[5].Rows.Count > 0)
+                    {
+                        xmlWriter.WriteStartElement("BANG_CT_CLS");
+                        foreach (DataRow row in dtXML.Tables[5].Rows)
+                        {
+                            xmlWriter.WriteStartElement("CLS");
+                            xmlWriter.WriteElementString("MA_LK", Utility.sDbnull(row["MA_LK"]));
+                            xmlWriter.WriteElementString("STT", Utility.sDbnull(row["STT"]));
+                            xmlWriter.WriteElementString("MA_DICH_VU", Utility.sDbnull(row["MA_DICH_VU"]));
+                            xmlWriter.WriteElementString("MA_CHI_SO", Utility.sDbnull(row["MA_CHI_SO"]));
+                            xmlWriter.WriteElementString("TEN_CHI_SO", Utility.sDbnull(row["TEN_CHI_SO"]));
+                            xmlWriter.WriteElementString("GIA_TRI", Utility.sDbnull(row["GIA_TRI"]));
+                            xmlWriter.WriteElementString("MA_MAY", Utility.sDbnull(row["MA_MAY"]));
+                            xmlWriter.WriteElementString("MO_TA", Utility.sDbnull(row["MO_TA"]));
+                            xmlWriter.WriteElementString("KET_LUAN", Utility.sDbnull(row["KET_LUAN"]));
+                            xmlWriter.WriteEndElement();
+                        }
+                        xmlWriter.WriteEndElement();
+                    }
+                    if(dtXML.Tables[6].Rows.Count > 0)
+                    {
+                        xmlWriter.WriteStartElement("BANG_DIENBIENBENH");
+                        foreach (DataRow row in dtXML.Tables[6].Rows)
+                        {
+                            xmlWriter.WriteStartElement("DIENBIENBENH");
+                            xmlWriter.WriteElementString("MA_LK", Utility.sDbnull(row["MA_LK"]));
+                            xmlWriter.WriteElementString("STT", Utility.sDbnull(row["STT"]));
+                            xmlWriter.WriteElementString("DIENBIEN", Utility.sDbnull(row["DIENBIEN"]));
+                            xmlWriter.WriteElementString("HOI_CHAN", Utility.sDbnull(row["HOI_CHAN"]));
+                            xmlWriter.WriteElementString("PHAU_THUAT", Utility.sDbnull(row["PHAU_THUAT"]));
+                            xmlWriter.WriteElementString("NGAY_YL", Utility.sDbnull(row["NGAY_YL"]));
+                            xmlWriter.WriteEndElement();
+                        }
+                        xmlWriter.WriteEndElement();
+                    }
+                    xmlWriter.WriteFullEndElement();
+                }
+                xmlWriter.Flush();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+          
+
         }
     }
 }

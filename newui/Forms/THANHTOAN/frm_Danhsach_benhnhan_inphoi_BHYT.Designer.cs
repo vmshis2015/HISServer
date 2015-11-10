@@ -38,6 +38,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.grdList = new Janus.Windows.GridEX.GridEX();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
+            this.cmdConfig = new Janus.Windows.EditControls.UIButton();
             this.uiGroupBox3 = new Janus.Windows.EditControls.UIGroupBox();
             this.radChuaduyet = new Janus.Windows.EditControls.UIRadioButton();
             this.radDaduyet = new Janus.Windows.EditControls.UIRadioButton();
@@ -54,7 +55,7 @@
             this.txtMaLanKham = new Janus.Windows.GridEX.EditControls.EditBox();
             this.dtFromDate = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.uiGroupBox4 = new Janus.Windows.EditControls.UIGroupBox();
-            this.uiButton1 = new Janus.Windows.EditControls.UIButton();
+            this.cmdExportXML = new Janus.Windows.EditControls.UIButton();
             this.cmdXuatExcel = new Janus.Windows.EditControls.UIButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -74,9 +75,9 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 644);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 660);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1022, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1008, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -86,7 +87,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1022, 644);
+            this.panel1.Size = new System.Drawing.Size(1008, 660);
             this.panel1.TabIndex = 1;
             // 
             // splitContainer1
@@ -104,8 +105,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.uiGroupBox4);
-            this.splitContainer1.Size = new System.Drawing.Size(1022, 644);
-            this.splitContainer1.SplitterDistance = 575;
+            this.splitContainer1.Size = new System.Drawing.Size(1008, 660);
+            this.splitContainer1.SplitterDistance = 589;
             this.splitContainer1.TabIndex = 0;
             // 
             // grdList
@@ -128,11 +129,12 @@
             this.grdList.Name = "grdList";
             this.grdList.RecordNavigator = true;
             this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdList.Size = new System.Drawing.Size(1022, 471);
+            this.grdList.Size = new System.Drawing.Size(1008, 485);
             this.grdList.TabIndex = 5;
             // 
             // uiGroupBox1
             // 
+            this.uiGroupBox1.Controls.Add(this.cmdConfig);
             this.uiGroupBox1.Controls.Add(this.uiGroupBox3);
             this.uiGroupBox1.Controls.Add(this.uiGroupBox2);
             this.uiGroupBox1.Controls.Add(this.lblChuaKetThuc);
@@ -148,9 +150,22 @@
             this.uiGroupBox1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox1.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox1.Name = "uiGroupBox1";
-            this.uiGroupBox1.Size = new System.Drawing.Size(1022, 104);
+            this.uiGroupBox1.Size = new System.Drawing.Size(1008, 104);
             this.uiGroupBox1.TabIndex = 4;
             this.uiGroupBox1.Text = "&Thông tin tìm kiếm";
+            // 
+            // cmdConfig
+            // 
+            this.cmdConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdConfig.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdConfig.Image = ((System.Drawing.Image)(resources.GetObject("cmdConfig.Image")));
+            this.cmdConfig.ImageSize = new System.Drawing.Size(24, 24);
+            this.cmdConfig.Location = new System.Drawing.Point(962, 9);
+            this.cmdConfig.Name = "cmdConfig";
+            this.cmdConfig.Size = new System.Drawing.Size(43, 34);
+            this.cmdConfig.TabIndex = 31;
+            this.cmdConfig.TabStop = false;
+            this.cmdConfig.Click += new System.EventHandler(this.cmdConfig_Click);
             // 
             // uiGroupBox3
             // 
@@ -244,12 +259,12 @@
             // 
             // 
             this.dtToDate.DropDownCalendar.Name = "";
-            this.dtToDate.Enabled = false;
             this.dtToDate.Location = new System.Drawing.Point(257, 54);
             this.dtToDate.Name = "dtToDate";
             this.dtToDate.ShowUpDown = true;
             this.dtToDate.Size = new System.Drawing.Size(159, 21);
             this.dtToDate.TabIndex = 7;
+            this.dtToDate.Value = new System.DateTime(2015, 11, 2, 0, 0, 0, 0);
             // 
             // chkByDate
             // 
@@ -265,7 +280,7 @@
             // chkChuaKetThuc
             // 
             this.chkChuaKetThuc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkChuaKetThuc.Location = new System.Drawing.Point(911, 58);
+            this.chkChuaKetThuc.Location = new System.Drawing.Point(774, 68);
             this.chkChuaKetThuc.Name = "chkChuaKetThuc";
             this.chkChuaKetThuc.Size = new System.Drawing.Size(115, 23);
             this.chkChuaKetThuc.TabIndex = 5;
@@ -310,31 +325,32 @@
             // 
             // 
             this.dtFromDate.DropDownCalendar.Name = "";
-            this.dtFromDate.Enabled = false;
             this.dtFromDate.Location = new System.Drawing.Point(92, 54);
             this.dtFromDate.Name = "dtFromDate";
             this.dtFromDate.ShowUpDown = true;
             this.dtFromDate.Size = new System.Drawing.Size(159, 21);
             this.dtFromDate.TabIndex = 0;
+            this.dtFromDate.Value = new System.DateTime(2015, 11, 2, 0, 0, 0, 0);
             // 
             // uiGroupBox4
             // 
-            this.uiGroupBox4.Controls.Add(this.uiButton1);
+            this.uiGroupBox4.Controls.Add(this.cmdExportXML);
             this.uiGroupBox4.Controls.Add(this.cmdXuatExcel);
             this.uiGroupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiGroupBox4.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox4.Name = "uiGroupBox4";
-            this.uiGroupBox4.Size = new System.Drawing.Size(1022, 65);
+            this.uiGroupBox4.Size = new System.Drawing.Size(1008, 67);
             this.uiGroupBox4.TabIndex = 0;
             this.uiGroupBox4.Text = "Chức năng";
             // 
-            // uiButton1
+            // cmdExportXML
             // 
-            this.uiButton1.Location = new System.Drawing.Point(423, 19);
-            this.uiButton1.Name = "uiButton1";
-            this.uiButton1.Size = new System.Drawing.Size(131, 35);
-            this.uiButton1.TabIndex = 14;
-            this.uiButton1.Text = "Xuất XML";
+            this.cmdExportXML.Location = new System.Drawing.Point(423, 19);
+            this.cmdExportXML.Name = "cmdExportXML";
+            this.cmdExportXML.Size = new System.Drawing.Size(131, 35);
+            this.cmdExportXML.TabIndex = 14;
+            this.cmdExportXML.Text = "Xuất XML";
+            this.cmdExportXML.Click += new System.EventHandler(this.cmdExportXML_Click);
             // 
             // cmdXuatExcel
             // 
@@ -349,9 +365,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1022, 666);
+            this.ClientSize = new System.Drawing.Size(1008, 682);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -406,6 +423,7 @@
         private Janus.Windows.CalendarCombo.CalendarCombo dtFromDate;
         private Janus.Windows.EditControls.UIGroupBox uiGroupBox4;
         private Janus.Windows.EditControls.UIButton cmdXuatExcel;
-        private Janus.Windows.EditControls.UIButton uiButton1;
+        private Janus.Windows.EditControls.UIButton cmdExportXML;
+        private Janus.Windows.EditControls.UIButton cmdConfig;
     }
 }
