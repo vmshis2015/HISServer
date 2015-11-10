@@ -437,6 +437,27 @@ namespace VNS.HIS.UCs
                 Utility.ShowMsg("Lỗi khi tạo Autocomplete cho danh mục dùng chung\n" + ex.Message);
             }
         }
+        public void Init(List<string> lstValues)
+        {
+            try
+            {
+              
+                var source = new List<string>();
+                var query = from p in lstValues
+                            select "-1#" + p + "@" + p + "@" + "SC";
+
+                source = query.ToList<string>();
+                this.AutoCompleteList = source;
+                //this.TextAlign = HorizontalAlignment.Center;
+                this.CaseSensitive = false;
+                this.MinTypedCharacters = 1;
+                SetCode(defaultItem);
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg("Lỗi khi tạo Autocomplete cho danh mục dùng chung\n" + ex.Message);
+            }
+        }
         public void Init(string IncludeList)
         {
             try
