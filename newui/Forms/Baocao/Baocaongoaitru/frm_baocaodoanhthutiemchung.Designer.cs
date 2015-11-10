@@ -193,36 +193,36 @@
             uiComboBoxItem1.Value = ((short)(-1));
             uiComboBoxItem2.FormatStyle.Alpha = 0;
             uiComboBoxItem2.IsSeparator = false;
-            uiComboBoxItem2.Text = "Tiền công khám";
-            uiComboBoxItem2.Value = ((short)(1));
+            uiComboBoxItem2.Text = "Tiền mặt";
+            uiComboBoxItem2.Value = "TM";
             uiComboBoxItem3.FormatStyle.Alpha = 0;
             uiComboBoxItem3.IsSeparator = false;
-            uiComboBoxItem3.Text = "Tiền vacxin";
-            uiComboBoxItem3.Value = ((short)(2));
+            uiComboBoxItem3.Text = "Chuyển khoản";
+            uiComboBoxItem3.Value = "CK";
             uiComboBoxItem4.FormatStyle.Alpha = 0;
             uiComboBoxItem4.IsSeparator = false;
-            uiComboBoxItem4.Text = "Tiền tiêm";
-            uiComboBoxItem4.Value = "11";
+            uiComboBoxItem4.Text = "Séc";
+            uiComboBoxItem4.Value = "SEC";
             this.cboLoaidichvu.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
             uiComboBoxItem1,
             uiComboBoxItem2,
             uiComboBoxItem3,
             uiComboBoxItem4});
             this.cboLoaidichvu.ItemsFormatStyle.FontBold = Janus.Windows.UI.TriState.True;
-            this.cboLoaidichvu.Location = new System.Drawing.Point(419, 54);
+            this.cboLoaidichvu.Location = new System.Drawing.Point(465, 54);
             this.cboLoaidichvu.Name = "cboLoaidichvu";
             this.cboLoaidichvu.SelectInDataSource = true;
-            this.cboLoaidichvu.Size = new System.Drawing.Size(336, 21);
+            this.cboLoaidichvu.Size = new System.Drawing.Size(290, 21);
             this.cboLoaidichvu.TabIndex = 2;
-            this.cboLoaidichvu.Text = "Chọn loại chi phí";
+            this.cboLoaidichvu.Text = "Chọn loại thanh toán";
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(329, 56);
+            this.label2.Location = new System.Drawing.Point(358, 55);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 15);
+            this.label2.Size = new System.Drawing.Size(101, 19);
             this.label2.TabIndex = 59;
-            this.label2.Text = "Loại chi phí:";
+            this.label2.Text = "Loại thanh toán:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // chkChitiet
@@ -337,7 +337,7 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(13, 56);
+            this.label1.Location = new System.Drawing.Point(13, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(104, 15);
             this.label1.TabIndex = 16;

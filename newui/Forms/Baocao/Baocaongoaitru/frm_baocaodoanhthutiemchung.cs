@@ -163,7 +163,7 @@ namespace VNS.HIS.UI.Baocao
                         chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
                         Utility.sDbnull(cboDoituongKCB.SelectedValue, -1),
                         Utility.sDbnull(cboNhanvien.SelectedValue, -1),
-                        Utility.Int16Dbnull(cboLoaidichvu.SelectedValue, -1), Utility.sDbnull(thamso,""), Utility.sDbnull(cboKhoa.SelectedValue, -1));
+                        Utility.sDbnull(cboLoaidichvu.SelectedValue, ""), Utility.sDbnull(thamso,""), Utility.sDbnull(cboKhoa.SelectedValue, -1));
                 THU_VIEN_CHUNG.CreateXML(_dtData, "baocao_thutien_tiemchung_chitiet.xml");
                 Utility.SetDataSourceForDataGridEx(grdChitiet, _dtData, false, true, "1=1", "");
                 Janus.Windows.GridEX.GridEXColumn gridExColumnTientong = grdChitiet.RootTable.Columns["Thanh_Tien"];
@@ -192,13 +192,13 @@ namespace VNS.HIS.UI.Baocao
             Utility.UpdateLogotoDatatable(ref _dtData);
            
            
-            string Condition = string.Format("Từ ngày {0} đến {1} - Đối tượng : {2} - Nhân viên :{3}", dtFromDate.Text, dtToDate.Text,
+            string Condition = string.Format("Từ ngày {0} đến {1} - Đối tượng : {2} - Nhân viên :{3} - Phương thức thanh toán: {4}" , dtFromDate.Text, dtToDate.Text,
                                           cboDoituongKCB.SelectedIndex >= 0
                                               ? Utility.sDbnull(cboDoituongKCB.Text)
                                               : "Tất cả",
                                           cboNhanvien.SelectedIndex > 0
                                               ? Utility.sDbnull(cboNhanvien.Text)
-                                              : "Tất cả");
+                                              : "Tất cả", cboLoaidichvu.SelectedIndex>0 ?Utility.sDbnull(cboLoaidichvu.Text):"Tất cả");
             var crpt = Utility.GetReport(chkChitiet.Checked ? "baocao_thutien_tiemchung_chitiet" : "baocao_thutien_tiemchung_tonghop", ref tieude, ref reportname);
             if (crpt == null) return;
 
