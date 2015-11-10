@@ -121,7 +121,7 @@ namespace VNS.Libs
 
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuocVT);
-          sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
+          //sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(0);
           sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
           m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
           return m_dtKhoThuoc;

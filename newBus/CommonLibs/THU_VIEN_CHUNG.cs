@@ -928,6 +928,16 @@ namespace VNS.Libs
             }
             return MaNhapKho;
         }
+        public static string MaXuatKhoTuyenHuyen(int LoaiPhieu)
+        {
+            string Maxuatkhotuyenhuyen = "";
+            DataTable dataTable = SPs.ThuocTaomaphieu(LoaiPhieu).GetDataSet().Tables[0];
+            if (dataTable.Rows.Count > 0)
+            {
+                Maxuatkhotuyenhuyen = Utility.sDbnull(dataTable.Rows[0][0]);
+            }
+            return Maxuatkhotuyenhuyen;
+        }
         //public static string MaPhieuDongChiTra(int LoaiPhieu)
         //{
         //    string MaDongChiTra = "";
