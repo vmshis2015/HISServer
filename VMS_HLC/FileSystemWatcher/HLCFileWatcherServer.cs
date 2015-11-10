@@ -168,7 +168,7 @@ namespace VMS.FSW
                                             kq.NgayTao = DateTime.Now;
                                             kq.NguoiSua = "WIN_SERVICE";
                                             kq.NgaySua = DateTime.Now;
-                                            kq.TrangThai = 1;
+                                            kq.TrangThai = 4;
                                             kq.NgayXacnhan = DateTime.Now;
                                             kq.NguoiXacnhan = "WIN_SERVICE";
                                             kq.NguoiXacnhan = "WIN_SERVICE";
