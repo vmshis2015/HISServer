@@ -3209,7 +3209,7 @@ namespace  VNS.HIS.UI.THANHTOAN
         /// <param name="e"></param>
         private void cmdDanhSachPhoiBHYT_Click(object sender, EventArgs e)
         {
-            var frm = new frm_DanhSach_Phoi_BHYT();
+            var frm = new frm_Danhsach_benhnhan_inphoi_BHYT();
             frm.ShowDialog();
         }
 
