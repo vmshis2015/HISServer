@@ -1,0 +1,12 @@
+D:\Projects\MyRIS\Running\RicherTextBox.dll
+D:\Projects\MyRIS\Running\RicherTextBox.pdb
+D:\Projects\MyHIS\Running\RicherTextBox.dll
+D:\Projects\MyHIS\Running\RicherTextBox.pdb
+D:\Projects\RicherRichTextBoxPrj\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.csprojResolveAssemblyReference.cache
+D:\Projects\RicherRichTextBoxPrj\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.FindForm.resources
+D:\Projects\RicherRichTextBoxPrj\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.Properties.Resources.resources
+D:\Projects\RicherRichTextBoxPrj\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.ReplaceForm.resources
+D:\Projects\RicherRichTextBoxPrj\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.RicherTextBox.resources
+D:\Projects\RicherRichTextBoxPrj\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.csproj.GenerateResource.Cache
+D:\Projects\RicherRichTextBoxPrj\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.dll
+D:\Projects\RicherRichTextBoxPrj\RicherTextBox_src\RicherTextBox\obj\Debug\RicherTextBox.pdb
