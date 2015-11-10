@@ -261,6 +261,15 @@ namespace VNS.HIS.BusRule.Classes
                                                       MaKhoaThucHien).
                     GetDataSet().Tables[0];
         }
+
+        public DataTable LayDSachBnhanThamkhamTiemchung(DateTime regFrom, DateTime regTo, string patientName, int Status, int SoPhieu, int DepartmentID, string LoaiBN, string MaKhoaThucHien)
+        {
+            return SPs.KcbThamkhamLaydanhsachBnhanTiemchungChokham(regFrom, regTo, patientName, Status,
+                                                      SoPhieu,
+                                                     DepartmentID, LoaiBN,
+                                                      MaKhoaThucHien).
+                    GetDataSet().Tables[0];
+        }
         public DataTable LayThongtinBenhnhanKCB(string PatientCode, int PatientID, int RegID)
         {
             return SPs.KcbThamkhamLaythongtinBenhnhankcb(PatientCode, PatientID, RegID).
