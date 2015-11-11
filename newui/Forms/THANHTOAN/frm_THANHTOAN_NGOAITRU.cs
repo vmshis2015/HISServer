@@ -3201,38 +3201,30 @@ namespace  VNS.HIS.UI.THANHTOAN
                 Utility.WaitNow(this);
                 if (objLuotkham != null)
                 {
-                    SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
-                        .Where(KcbChidinhclsChitiet.Columns.IdChidinh).In(
-                            new Select(KcbChidinhcl.Columns.IdChidinh).From(KcbChidinhcl.Schema)
-                                .Where(KcbChidinhcl.Columns.MaLuotkham)
-                                .IsEqualTo(
-                                    txtPatient_Code.Text).And(KcbChidinhcl.Columns.IdBenhnhan).IsEqualTo(
-                                        Utility.Int32Dbnull(txtPatient_ID.Text)))
-                        .And(KcbChidinhclsChitiet.Columns.TrangThai)
-                        .IsEqualTo(0);
-                    if (sqlQuery.GetRecordCount() <= 0)
+                    DataRow[] arrDr = m_dtChiPhiThanhtoan.Select("id_loaithanhtoan=2 and trangthai_chuyencls=0");
+                    if (arrDr.Length == 0)
                     {
                         Utility.SetMsg(lblMsg, string.Format("Các chỉ định CLS đã được chuyển hết"), false);
                         return;
                     }
-                    var assignDetailCollection =
-                        sqlQuery.ExecuteAsCollection<KcbChidinhclsChitietCollection>();
-                    foreach (KcbChidinhclsChitiet assignDetail in assignDetailCollection)
+                    else
                     {
-                        assignDetail.TrangThai =  (byte?)TrangThaiCLS.ChuyenCLS;
-                        assignDetail.NguoiSua = globalVariables.UserName;
-                        assignDetail.NgaySua = globalVariables.SysDate;
-                        //assignDetail.IpMacSua = globalVariables.IpMacAddress;
-                        //assignDetail.IpMaySua = globalVariables.IpAddress;
-                        new Update(KcbChidinhclsChitiet.Schema)
-                            .Set(KcbChidinhclsChitiet.Columns.NgaySua).EqualTo(globalVariables.SysDate)
-                            .Set(KcbChidinhclsChitiet.Columns.NguoiSua).EqualTo(globalVariables.UserName)
-                            .Set(KcbChidinhclsChitiet.Columns.TrangThai).EqualTo(assignDetail.TrangThai)
-                            .Where(KcbChidinhclsChitiet.Columns.IdChitietchidinh)
-                            .IsEqualTo(assignDetail.IdChitietchidinh)
-                            .Execute();
+
+                        foreach (DataRow dr in arrDr)
+                        {
+                            dr["trangthai_chuyencls"] = 1;
+                        }
+                        m_dtChiPhiThanhtoan.AcceptChanges();
+                        int result = new Update(KcbChidinhclsChitiet.Schema)
+                        .Set(KcbChidinhclsChitiet.Columns.NgaySua).EqualTo(globalVariables.SysDate)
+                        .Set(KcbChidinhclsChitiet.Columns.NguoiSua).EqualTo(globalVariables.UserName)
+                        .Set(KcbChidinhclsChitiet.Columns.TrangThai).EqualTo(1)
+                        .Where(KcbChidinhclsChitiet.Columns.TrangThai).IsEqualTo(0)
+                        .And(KcbChidinhclsChitiet.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                        .And(KcbChidinhclsChitiet.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                        .Execute();
+                        Utility.SetMsg(lblMsg, string.Format("Bạn vừa chuyển CLS thành công {0} dịch vụ", result.ToString()), false);
                     }
-                    Utility.SetMsg(lblMsg, string.Format("Bạn vừa chuyển CLS thành công {0} chỉ định", sqlQuery.GetRecordCount().ToString()), false);
                 }
             }
             catch (Exception ex)
@@ -3283,19 +3275,22 @@ namespace  VNS.HIS.UI.THANHTOAN
                     Utility.SetMsg(lblMsg, string.Format("Không có chỉ định CLS có thể hủy chuyển"), false);
                     return;
                 }
-                var assignDetailCollection = sqlQuery.ExecuteAsCollection<KcbChidinhclsChitietCollection>();
-                foreach (KcbChidinhclsChitiet assignDetail in assignDetailCollection)
+                DataRow[] arrDr = m_dtChiPhiThanhtoan.Select("id_loaithanhtoan=2 and trangthai_chuyencls=1");
+                foreach (DataRow dr in arrDr)
                 {
-                    assignDetail.TrangThai = (byte?)TrangThaiCLS.KhongChuyenCLS;
-                    assignDetail.NguoiSua = globalVariables.UserName;
-                    assignDetail.NgaySua = globalVariables.SysDate;
-                    new Update(KcbChidinhclsChitiet.Schema)
-                        .Set(KcbChidinhclsChitiet.Columns.NgaySua).EqualTo(globalVariables.SysDate)
-                        .Set(KcbChidinhclsChitiet.Columns.NguoiSua).EqualTo(globalVariables.UserName)
-                        .Set(KcbChidinhclsChitiet.Columns.TrangThai).EqualTo(assignDetail.TrangThai)
-                        .Where(KcbChidinhclsChitiet.Columns.IdChitietchidinh).IsEqualTo(assignDetail.IdChitietchidinh).Execute();
+                    dr["trangthai_chuyencls"] = 0;
                 }
-                Utility.SetMsg(lblMsg, string.Format("Bạn vừa hủy chuyển CLS {0} chỉ định", sqlQuery.GetRecordCount().ToString()), false);
+                m_dtChiPhiThanhtoan.AcceptChanges();
+               int result= new Update(KcbChidinhclsChitiet.Schema)
+                .Set(KcbChidinhclsChitiet.Columns.NgaySua).EqualTo(globalVariables.SysDate)
+                .Set(KcbChidinhclsChitiet.Columns.NguoiSua).EqualTo(globalVariables.UserName)
+                .Set(KcbChidinhclsChitiet.Columns.TrangThai).EqualTo(0)
+                .Where(KcbChidinhclsChitiet.Columns.TrangThai).IsEqualTo(1)
+                .And(KcbChidinhclsChitiet.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                .And(KcbChidinhclsChitiet.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                .Execute();
+
+               Utility.SetMsg(lblMsg, string.Format("Bạn vừa hủy chuyển CLS thành công {0} dịch vụ", result.ToString()), false);
                
             }
             catch (Exception exception)
