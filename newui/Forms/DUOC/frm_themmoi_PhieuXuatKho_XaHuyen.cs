@@ -52,10 +52,8 @@ namespace VNS.HIS.UI.THUOC
             cmdAddDetail.Click += new EventHandler(cmdAddDetail_Click);
             txtKhoXuat._OnEnterMe += txtKhoXuat__OnEnterMe;
         }
-
         void txtKhoXuat__OnEnterMe()
         {
-
             Laythuoctrongkhoxuat();
         }
         void Laythuoctrongkhoxuat()
@@ -904,7 +902,7 @@ namespace VNS.HIS.UI.THUOC
                         drv[TPhieuNhapxuatthuocChitiet.Columns.SoDky] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoDky].Value);
                         drv[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau] = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau].Value);
                         drv[TPhieuNhapxuatthuocChitiet.Columns.IdThuockho] = -1;
-                        drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBan] = dongia;
+                        drv[TPhieuNhapxuatthuocChitiet.Columns.GiaBan] = Giaban;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.IdChuyen] = IdThuockho;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.SoLuong] = soluongchuyen;
                         drv[TPhieuNhapxuatthuocChitiet.Columns.ThanhTien] = dongia * soluongchuyen;
