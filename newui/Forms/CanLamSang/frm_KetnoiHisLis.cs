@@ -105,21 +105,40 @@ namespace VNS.HIS.UI.Forms.CanLamSang
                 }
                 else
                 {
-                    int result = VMS.HIS.HLC.ASTM.RocheCommunication.WriteOrderMessage(THU_VIEN_CHUNG.Laygiatrithamsohethong("ASTM_ORDERS_FOLDER", @"\\192.168.1.254\Orders", false), dt2LIS);
-                    if (result == 0)//Thành công
-                    {
-                        SPs.HisLisCapnhatdulieuchuyensangLis(string.Join(",", lstIdchidinhchitiet.ToArray())).Execute();
-                        dsData.Tables[0].AsEnumerable()
-                            .Where(c => lstIdchidinhchitiet.Contains(Utility.sDbnull(c.Field<long>(KcbChidinhclsChitiet.Columns.IdChitietchidinh))))
-                            .ToList<DataRow>()
-                            .ForEach(c1 => c1["trang_thai"] = 2);
-                        dsData.Tables[1].AsEnumerable()
-                           .Where(c => lstIdchidinhchitiet.Contains(Utility.sDbnull(c.Field<long>(KcbChidinhclsChitiet.Columns.IdChitietchidinh))))
-                           .ToList<DataRow>()
-                           .ForEach(c1 => c1["trang_thai"] = 2);
-                        dsData.AcceptChanges();
-                        Utility.SetMsg(lblMsg, string.Format("Các dữ liệu dịch vụ cận lâm sàng của Bệnh nhân đã được gửi thành công sang LIS"), false);
-                    }
+                    //Lấy các dữ liệu cần chuyển sang LIS
+                     List<long> lstIchidinh = (from q in grdChidinh.GetCheckedRows()
+                                      select Utility.Int64Dbnull(q.Cells[KcbChidinhcl.Columns.IdChidinh].Value, 0)
+                                     ).ToList<long>();
+                     List<DataRow> lstData2Send = (from p in dsData.Tables[1].AsEnumerable()
+                                                      where lstIchidinh.Contains(Utility.Int64Dbnull(p[KcbChidinhclsChitiet.Columns.IdChidinh]))
+                                                      && Utility.Int64Dbnull(p["trang_thai"], 0) == 1
+                                                      select p).ToList<DataRow>();
+                     if (lstData2Send.Any())
+                     {
+                         dt2LIS = lstData2Send.CopyToDataTable();
+                         lstIdchidinhchitiet=(from p in lstData2Send
+                                              select Utility.sDbnull(p[KcbChidinhclsChitiet.Columns.IdChitietchidinh], 0)).Distinct().ToList<string>();
+
+                         int result = VMS.HIS.HLC.ASTM.RocheCommunication.WriteOrderMessage(THU_VIEN_CHUNG.Laygiatrithamsohethong("ASTM_ORDERS_FOLDER", @"\\192.168.1.254\Orders", false), dt2LIS);
+                         if (result == 0)//Thành công
+                         {
+                             SPs.HisLisCapnhatdulieuchuyensangLis(string.Join(",", lstIdchidinhchitiet.ToArray())).Execute();
+                             dsData.Tables[0].AsEnumerable()
+                                 .Where(c => lstIdchidinhchitiet.Contains(Utility.sDbnull(c.Field<long>(KcbChidinhclsChitiet.Columns.IdChitietchidinh))))
+                                 .ToList<DataRow>()
+                                 .ForEach(c1 => c1["trang_thai"] = 2);
+                             dsData.Tables[1].AsEnumerable()
+                                .Where(c => lstIdchidinhchitiet.Contains(Utility.sDbnull(c.Field<long>(KcbChidinhclsChitiet.Columns.IdChitietchidinh))))
+                                .ToList<DataRow>()
+                                .ForEach(c1 => c1["trang_thai"] = 2);
+                             dsData.AcceptChanges();
+                             Utility.SetMsg(lblMsg, string.Format("Các dữ liệu dịch vụ cận lâm sàng của Bệnh nhân đã được gửi thành công sang LIS"), false);
+                         }
+                     }
+                     else
+                     {
+                         Utility.SetMsg(lblMsg, string.Format("Không tìm được chi tiết nào có trạng thái đã chuyển CLS(trạng thái=1) để chuyển sang LIS"), false);
+                     }
                 }
             }
         }
@@ -169,7 +188,7 @@ namespace VNS.HIS.UI.Forms.CanLamSang
                 }
                 else//Chi hien thi cac phieu con chua du lieu chua chuyen sang LIS
                 {
-                    rowfilter += " AND  trang_thai=2";
+                    rowfilter += " AND  trang_thai=1";
                 }
 
                 DataRow[] arrDr = dsData.Tables[0].Select(rowfilter);
