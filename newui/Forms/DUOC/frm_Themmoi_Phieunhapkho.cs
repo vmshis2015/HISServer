@@ -862,10 +862,10 @@ namespace VNS.HIS.UI.THUOC
             cmdInPhieuNhap.Enabled = grdPhieuNhapChiTiet.RowCount > 0;
             cmdXoaThongTin.Enabled = grdPhieuNhapChiTiet.RowCount > 0;
             TinhSumThanhTien();
-            if(grdPhieuNhapChiTiet.RowCount>0)
-            {
-                txtVAT.Enabled = false;
-            }
+            //if(grdPhieuNhapChiTiet.RowCount>0)
+            //{
+            //    txtVAT.Enabled = false;
+            //}
         }
         private void TinhSumThanhTien()
         {

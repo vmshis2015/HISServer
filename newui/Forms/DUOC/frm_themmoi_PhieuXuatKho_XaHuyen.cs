@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -375,6 +376,14 @@ namespace VNS.HIS.UI.THUOC
                                       DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.TenNhanvien, "---Nhân viên---",false);
             cboNhanVien.Enabled = false;
             LoadKho();
+            if(File.Exists(Application.StartupPath + "\\CAUHINH\\TyLeGiaXuatTuyenHuyen.txt"))
+            {
+                txtVAT.Text = File.ReadAllText(Application.StartupPath + "\\CAUHINH\\TyLeGiaXuatTuyenHuyen.txt");
+            }
+            else
+            {
+                txtVAT.Text = "0";
+            }
         }
 
         private void LoadKho()
@@ -511,6 +520,7 @@ namespace VNS.HIS.UI.THUOC
                         UpdatePhieuXuatKho();
                         break;
                 }
+                File.WriteAllText(Application.StartupPath + "\\CAUHINH\\TyLeGiaXuatTuyenHuyen.txt",txtVAT.Text);
             }
             catch(Exception ex)
             {
@@ -693,7 +703,7 @@ namespace VNS.HIS.UI.THUOC
 
             if (txtKhonhan.MyID.ToString() == "-1")
             {
-                Utility.SetMsg(lblMsg, "Bạn phải chọn kho để nhập "+(ten_kieuthuoc_vt) +"", true);
+                Utility.SetMsg(lblMsg, "Bạn phải chọn kho để chuyển"+(ten_kieuthuoc_vt) +"", true);
                 txtKhonhan.Focus();
                 return false;
             }

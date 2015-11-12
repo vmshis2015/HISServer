@@ -270,8 +270,8 @@
             // 
             // cboKhoXuat
             // 
-            this.cboKhoXuat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboKhoXuat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboKhoXuat.Location = new System.Drawing.Point(456, 54);
             this.cboKhoXuat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cboKhoXuat.MaxDropDownItems = 15;
@@ -339,8 +339,8 @@
             // 
             // cboNhanVien
             // 
-            this.cboNhanVien.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboNhanVien.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboNhanVien.Location = new System.Drawing.Point(457, 26);
             this.cboNhanVien.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cboNhanVien.MaxDropDownItems = 15;
@@ -365,6 +365,8 @@
             // 
             // dtToDate
             // 
+            this.dtToDate.CustomFormat = "dd/MM/yyyy";
+            this.dtToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtToDate.Location = new System.Drawing.Point(279, 85);
             this.dtToDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dtToDate.Name = "dtToDate";
@@ -385,6 +387,8 @@
             // 
             // dtFromdate
             // 
+            this.dtFromdate.CustomFormat = "dd/MM/yyyy";
+            this.dtFromdate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtFromdate.Location = new System.Drawing.Point(94, 85);
             this.dtFromdate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dtFromdate.Name = "dtFromdate";
@@ -447,7 +451,7 @@
             // 
             this.grdList.AlternatingColors = true;
             this.grdList.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
-                " thông tin phiếu nhập khoa</FilterRowInfoText></LocalizableData>";
+    " thông tin phiếu nhập khoa</FilterRowInfoText></LocalizableData>";
             grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
             this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
             this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;

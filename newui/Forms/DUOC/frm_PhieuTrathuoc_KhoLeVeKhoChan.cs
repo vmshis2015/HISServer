@@ -99,8 +99,8 @@ namespace VNS.HIS.UI.THUOC
                                           chkByDate.Checked
                                               ? dtToDate.Value.ToString("dd/MM/yyyy")
                                               : "01/01/1900", TRANG_THAI,
+                                               Utility.Int32Dbnull(cboKhoTra.SelectedValue, -1),
                                           Utility.Int32Dbnull(cboKhoLinh.SelectedValue, -1),
-                                          Utility.Int32Dbnull(cboKhoTra.SelectedValue, -1),
                                           -1,
                                           Utility.sDbnull(txtMaPhieuTraKho.Text, -1),(int?) LoaiPhieu.PhieuNhapTraLaiKhoLeVeKhoChan
                                           ).GetDataSet().Tables[0];
