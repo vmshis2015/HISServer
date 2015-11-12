@@ -266,6 +266,12 @@ namespace VNS.Libs
         NgoaiTru = 0
     } ;
 
+    public enum LoaiBenhAn
+    {
+        BA_Thuong = 1,
+        BA_TuyenGiap = 2,
+        BA_DaiThaoDuong = 3
+    };
     public enum CallActionExamInfo
     {
         FromMeetingPatient = 0,
@@ -2362,7 +2368,16 @@ namespace VNS.Libs
         {
             return GetStaffRowFilter(globalVariables.Receptionist);
         }
-
+        /// <summary>
+        /// Lấy về ký hiệu bệnh án
+        /// </summary>
+        /// <returns></returns>
+        public static string GetLoaiBenhAn(LoaiBenhAn _loaibenhan)
+        {
+            if (_loaibenhan == LoaiBenhAn.BA_Thuong) return "THU";
+            if (_loaibenhan == LoaiBenhAn.BA_DaiThaoDuong) return "DTD";
+            return "";
+        }
         /// <summary>
         /// Lấy về các nhân viên là bác sĩ chẩn đoán dựa vào biến hệ thống có tên DiagnosticDoctor
         /// </summary>
