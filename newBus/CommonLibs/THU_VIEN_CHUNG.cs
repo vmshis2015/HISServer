@@ -558,10 +558,10 @@ namespace VNS.Libs
                 return null;
             }
         }
-        public static string SinhMaBenhAn()
+        public static string SinhMaBenhAn(string loaibenhan)
         {
             string MaxMaBenhAN = "";
-            StoredProcedure sp = SPs.CommonSinhmaBenhAn(MaxMaBenhAN);
+            StoredProcedure sp = SPs.KcbSinhmaBenhanBacninh(loaibenhan,MaxMaBenhAN);
             sp.Execute();
             sp.OutputValues.ForEach(delegate(object objOutput)
             {
@@ -938,16 +938,6 @@ namespace VNS.Libs
             }
             return Maxuatkhotuyenhuyen;
         }
-        //public static string MaPhieuDongChiTra(int LoaiPhieu)
-        //{
-        //    string MaDongChiTra = "";
-        //    DataTable dataTable = SPs.ThuocTaomaphieu(LoaiPhieu).GetDataSet().Tables[0];
-        //    if (dataTable.Rows.Count > 0)
-        //    {
-        //        MaDongChiTra = Utility.sDbnull(dataTable.Rows[0][0]);
-        //    }
-        //    return MaDongChiTra;
-        //}
         public static string MaTraLaiKho()
         {
             string MaNhapKho = "";

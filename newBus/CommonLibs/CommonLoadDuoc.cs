@@ -182,6 +182,64 @@ namespace VNS.Libs
           return m_dtKhoThuoc;
       }
       /// <summary>
+      /// Hàm thực hiện danh sách kho thuốc ảo
+      /// </summary>
+      /// <returns></returns>
+      public static  DataTable LAYTHONGTIN_KHOAO_THUOC()
+      {
+          try
+          {
+              DataTable m_dtKhoThuoc = new DataTable();
+              SqlQuery sqlQuery = new Select().From(TDmucKho.Schema);
+              if (!globalVariables.IsAdmin)
+              {
+
+                  sqlQuery.And(TDmucKho.Columns.IdKho).In(new Select(QheNhanvienKho.Columns.IdKho)
+                                                            .From(QheNhanvienKho.Schema).Where(QheNhanvienKho.Columns.IdNhanvien)
+                                                            .IsEqualTo(globalVariables.gv_intIDNhanvien));
+              }
+              sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuoc);
+              sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(1);
+              sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
+              m_dtKhoThuoc = sqlQuery.ExecuteDataSet().Tables[0];
+              return m_dtKhoThuoc;
+          }
+          catch (Exception ex)
+          {
+              Utility.ShowMsg("Lỗi:"+ ex.Message);
+              return null;
+          }
+      }
+      /// <summary>
+      /// HÀM THỰC HIỆN LẤY DANH SÁCH KHO VẬT TƯ ẢO
+      /// </summary>
+      /// <returns></returns>
+      public static DataTable LAYTHONGTIN_KHOAO_VT()
+      {
+          try
+          {
+              DataTable m_dtKhoVt = new DataTable();
+              SqlQuery sqlQuery = new Select().From(TDmucKho.Schema);
+              if (!globalVariables.IsAdmin)
+              {
+
+                  sqlQuery.And(TDmucKho.Columns.IdKho).In(new Select(QheNhanvienKho.Columns.IdKho)
+                                                            .From(QheNhanvienKho.Schema).Where(QheNhanvienKho.Columns.IdNhanvien)
+                                                            .IsEqualTo(globalVariables.gv_intIDNhanvien));
+              }
+              sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoVT);
+              sqlQuery.And(TDmucKho.Columns.LoaiKho).IsEqualTo(1);
+              sqlQuery.OrderAsc(TDmucKho.Columns.SttHthi);
+              m_dtKhoVt = sqlQuery.ExecuteDataSet().Tables[0];
+              return m_dtKhoVt;
+          }
+          catch (Exception ex)
+          {
+              Utility.ShowMsg("Lỗi:" + ex.Message);
+              return null;
+          }
+      }
+      /// <summary>
       /// HÀM THỰC HIÊN VIỆC LẤY THÔNG TIN CỦA KHO CHẴN
       /// </summary>
       /// <returns></returns>
