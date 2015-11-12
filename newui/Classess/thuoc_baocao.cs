@@ -221,7 +221,44 @@ namespace VNS.HIS.UI.Baocao
             if (query.Any()) return query.CopyToDataTable();
             else return null;
         }
-        
+        public static void Baocaoxuatvacxintuyehuyen(DataTable m_dtReport, string tenbaocao, string sTitleReport, DateTime NgayIn, string FromDateToDate)
+        {
+
+            string tieude = "", reportname = "";
+            var crpt = Utility.GetReport(tenbaocao, ref tieude, ref reportname);
+            if (crpt == null) return;
+
+            MoneyByLetter _moneyByLetter = new MoneyByLetter();
+            // VNS.HIS.UI.BaoCao.PhieuBaoCao.CRPT_BAOCAO_CHITIET_NHAPKHO crpt = new CRPT_BAOCAO_CHITIET_NHAPKHO();
+            var objForm = new frmPrintPreview(sTitleReport, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+            string tinhtong = TinhTong(m_dtReport);
+            Utility.UpdateLogotoDatatable(ref m_dtReport);
+            try
+            {
+
+                crpt.SetDataSource(m_dtReport);
+
+
+                //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "  PHÒNG TIẾP ĐÓN   ".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
+                objForm.mv_sReportFileName = Path.GetFileName(reportname);
+                objForm.mv_sReportCode = tenbaocao;
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+                Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "FromDateToDate", FromDateToDate);
+                Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+                Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
+                Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+                Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, NgayIn));
+                objForm.crptViewer.ReportSource = crpt;
+                objForm.ShowDialog();
+                // Utility.DefaultNow(this);
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
+        }
 
       public static void BaocaoNhapkhoChitiet(DataTable m_dtReport,string tenbaocao, string sTitleReport, DateTime NgayIn, string FromDateToDate)
         {
@@ -247,7 +284,7 @@ namespace VNS.HIS.UI.Baocao
                 Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
                 Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
                 Utility.SetParameterValue(crpt,"FromDateToDate", FromDateToDate);
-                Utility.SetParameterValue(crpt,"sMoneyLetter", _moneyByLetter.sMoneyToLetter(tinhtong));
+               // Utility.SetParameterValue(crpt,"sMoneyLetter", _moneyByLetter.sMoneyToLetter(tinhtong));
                //  frmPrintPreview objForm = new frmPrintPreview("", crpt, true, strPatientCode == null ? false : true);
                 //  Utility.SetParameterValue(crpt,"TongTien", Total.ToString());
                 //Utility.SetParameterValue(crpt,"characterMoney", MoneyByLetter.sMoneyToLetter(Total.ToString()));
