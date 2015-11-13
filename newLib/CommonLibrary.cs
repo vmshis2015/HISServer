@@ -429,6 +429,20 @@ namespace VNS.Libs
     ///</summary>
     public class Utility
     {
+        public static long GetSequence()
+        {
+            try
+            {
+                SysSequence _newitem = new SysSequence();
+                _newitem.IsNew = true;
+                _newitem.Save();
+                return _newitem.SeqId;
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
         public static string getTrinhky(string reportName,DateTime NgayinphoiBHYT)
         {
             DataTable dtbNguoiKy = new DataTable();
