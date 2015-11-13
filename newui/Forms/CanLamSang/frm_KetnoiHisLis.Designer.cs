@@ -127,7 +127,7 @@
             this.grpThongTinBN.Location = new System.Drawing.Point(0, 0);
             this.grpThongTinBN.Name = "grpThongTinBN";
             this.grpThongTinBN.Size = new System.Drawing.Size(1008, 182);
-            this.grpThongTinBN.TabIndex = 1;
+            this.grpThongTinBN.TabIndex = 0;
             this.grpThongTinBN.Text = "Thông tin tìm kiếm";
             this.grpThongTinBN.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.VS2005;
             // 
@@ -478,11 +478,11 @@
             // lblMsg
             // 
             this.lblMsg.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMsg.Font = new System.Drawing.Font("Arial", 9F);
             this.lblMsg.ForeColor = System.Drawing.Color.Black;
             this.lblMsg.Location = new System.Drawing.Point(0, 0);
             this.lblMsg.Name = "lblMsg";
-            this.lblMsg.Size = new System.Drawing.Size(696, 51);
+            this.lblMsg.Size = new System.Drawing.Size(785, 51);
             this.lblMsg.TabIndex = 473;
             // 
             // cmdConfirm
@@ -495,6 +495,7 @@
             this.cmdConfirm.Name = "cmdConfirm";
             this.cmdConfirm.Size = new System.Drawing.Size(177, 30);
             this.cmdConfirm.TabIndex = 1;
+            this.cmdConfirm.Tag = "1";
             this.cmdConfirm.Text = "Đẩy sang LIS(Ctrl+S)";
             this.toolTip1.SetToolTip(this.cmdConfirm, "Xác nhận kết quả sau khi lưu thông tin(Ctrl+A)");
             // 

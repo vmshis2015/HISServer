@@ -79,15 +79,31 @@ namespace VNS.HIS.UI.Forms.CanLamSang
             List<long> lstIchidinh = (from q in grdChidinh.GetCheckedRows()
                                       select Utility.Int64Dbnull(q.Cells[KcbChidinhcl.Columns.IdChidinh].Value, 0)
                                      ).ToList<long>();
-            //Kiểm tra có dịch vụ trang_thai=1(chuyển cận) hay không?
-            var p = from q in dsData.Tables[0].AsEnumerable()
-                    where lstIchidinh.Contains(Utility.Int64Dbnull(q[KcbChidinhcl.Columns.IdChidinh], 0))
-                    && Utility.Int64Dbnull(q["trang_thai"], 0) == 1
-                    select q;
-            if (!p.Any())
+            if (cmdConfirm.Tag.ToString() == "1")
             {
-                Utility.SetMsg(lblMsg, string.Format("Các dịch vụ trong các phiếu chỉ định bạn chọn đã được chuyển sang LIS hoặc chưa được chuyển cận. Mời bạn kiểm tra lại"), false);
-                return false;
+                //Kiểm tra có dịch vụ trang_thai=1(chuyển cận) hay không?
+                var p = from q in dsData.Tables[0].AsEnumerable()
+                        where lstIchidinh.Contains(Utility.Int64Dbnull(q[KcbChidinhcl.Columns.IdChidinh], 0))
+                        && Utility.Int64Dbnull(q["trang_thai"], 0) == 1
+                        select q;
+                if (!p.Any())
+                {
+                    Utility.SetMsg(lblMsg, string.Format("Các dịch vụ trong các phiếu chỉ định bạn chọn đã được chuyển sang LIS hoặc chưa được chuyển cận. Mời bạn kiểm tra lại"), false);
+                    return false;
+                }
+            }
+            else
+            {
+                //Kiểm tra có dịch vụ trang_thai=2(đã chuyển sang LIS) hay không?
+                var p = from q in dsData.Tables[0].AsEnumerable()
+                        where lstIchidinh.Contains(Utility.Int64Dbnull(q[KcbChidinhcl.Columns.IdChidinh], 0))
+                        && Utility.Int64Dbnull(q["trang_thai"], 0) == 2
+                        select q;
+                if (!p.Any())
+                {
+                    Utility.SetMsg(lblMsg, string.Format("Các phiếu chỉ định bạn chọn không chứa bất kỳ dịch vụ nào ĐÃ CHUYỂN SANG LIS để HỦY BỎ. Mời bạn kiểm tra lại"), false);
+                    return false;
+                }
             }
             return true;
         }
@@ -105,40 +121,86 @@ namespace VNS.HIS.UI.Forms.CanLamSang
                 }
                 else
                 {
-                    //Lấy các dữ liệu cần chuyển sang LIS
-                     List<long> lstIchidinh = (from q in grdChidinh.GetCheckedRows()
-                                      select Utility.Int64Dbnull(q.Cells[KcbChidinhcl.Columns.IdChidinh].Value, 0)
-                                     ).ToList<long>();
-                     List<DataRow> lstData2Send = (from p in dsData.Tables[1].AsEnumerable()
+                    if (cmdConfirm.Tag.ToString() == "1")
+                    {
+                        //Lấy các dữ liệu cần chuyển sang LIS
+                        List<long> lstIchidinh = (from q in grdChidinh.GetCheckedRows()
+                                                  select Utility.Int64Dbnull(q.Cells[KcbChidinhcl.Columns.IdChidinh].Value, 0)
+                                        ).ToList<long>();
+                        List<DataRow> lstData2Send = (from p in dsData.Tables[0].AsEnumerable()
                                                       where lstIchidinh.Contains(Utility.Int64Dbnull(p[KcbChidinhclsChitiet.Columns.IdChidinh]))
                                                       && Utility.Int64Dbnull(p["trang_thai"], 0) == 1
                                                       select p).ToList<DataRow>();
-                     if (lstData2Send.Any())
-                     {
-                         dt2LIS = lstData2Send.CopyToDataTable();
-                         lstIdchidinhchitiet=(from p in lstData2Send
-                                              select Utility.sDbnull(p[KcbChidinhclsChitiet.Columns.IdChitietchidinh], 0)).Distinct().ToList<string>();
 
-                         int result = VMS.HIS.HLC.ASTM.RocheCommunication.WriteOrderMessage(THU_VIEN_CHUNG.Laygiatrithamsohethong("ASTM_ORDERS_FOLDER", @"\\192.168.1.254\Orders", false), dt2LIS);
-                         if (result == 0)//Thành công
-                         {
-                             SPs.HisLisCapnhatdulieuchuyensangLis(string.Join(",", lstIdchidinhchitiet.ToArray())).Execute();
-                             dsData.Tables[0].AsEnumerable()
-                                 .Where(c => lstIdchidinhchitiet.Contains(Utility.sDbnull(c.Field<long>(KcbChidinhclsChitiet.Columns.IdChitietchidinh))))
-                                 .ToList<DataRow>()
-                                 .ForEach(c1 => c1["trang_thai"] = 2);
-                             dsData.Tables[1].AsEnumerable()
-                                .Where(c => lstIdchidinhchitiet.Contains(Utility.sDbnull(c.Field<long>(KcbChidinhclsChitiet.Columns.IdChitietchidinh))))
-                                .ToList<DataRow>()
-                                .ForEach(c1 => c1["trang_thai"] = 2);
-                             dsData.AcceptChanges();
-                             Utility.SetMsg(lblMsg, string.Format("Các dữ liệu dịch vụ cận lâm sàng của Bệnh nhân đã được gửi thành công sang LIS"), false);
-                         }
-                     }
-                     else
-                     {
-                         Utility.SetMsg(lblMsg, string.Format("Không tìm được chi tiết nào có trạng thái đã chuyển CLS(trạng thái=1) để chuyển sang LIS"), false);
-                     }
+                        List<DataRow> lstData2Send_real = (from p in dsData.Tables[1].AsEnumerable()
+                                                      where lstIchidinh.Contains(Utility.Int64Dbnull(p[KcbChidinhclsChitiet.Columns.IdChidinh]))
+                                                      && Utility.Int64Dbnull(p["trang_thai"], 0) == 1
+                                                      select p).ToList<DataRow>();
+                        if (lstData2Send.Any())
+                        {
+                            dt2LIS = lstData2Send_real.CopyToDataTable();
+                            lstIdchidinhchitiet = (from p in lstData2Send
+                                                   select Utility.sDbnull(p[KcbChidinhclsChitiet.Columns.IdChitietchidinh], 0)).Distinct().ToList<string>();
+
+                            int result = VMS.HIS.HLC.ASTM.RocheCommunication.WriteOrderMessage(THU_VIEN_CHUNG.Laygiatrithamsohethong("ASTM_ORDERS_FOLDER", @"\\192.168.1.254\Orders", false), dt2LIS);
+                            if (result == 0)//Thành công
+                            {
+                                SPs.HisLisCapnhatdulieuchuyensangLis(string.Join(",", lstIdchidinhchitiet.ToArray()),2,1).Execute();
+                                dsData.Tables[0].AsEnumerable()
+                                    .Where(c => lstIdchidinhchitiet.Contains(Utility.sDbnull(c.Field<long>(KcbChidinhclsChitiet.Columns.IdChitietchidinh))))
+                                    .ToList<DataRow>()
+                                    .ForEach(c1 => { c1["trang_thai"] = 2; c1["ten_trangthai"] = "Đang thực hiện"; });
+                                dsData.Tables[1].AsEnumerable()
+                                   .Where(c => lstIdchidinhchitiet.Contains(Utility.sDbnull(c.Field<long>(KcbChidinhclsChitiet.Columns.IdChitietchidinh))))
+                                   .ToList<DataRow>()
+                                   .ForEach(c1 => { c1["trang_thai"] = 2; c1["ten_trangthai"] = "Đang thực hiện"; });
+                                dsData.AcceptChanges();
+                                Utility.SetMsg(lblMsg, string.Format("Các dữ liệu dịch vụ cận lâm sàng của Bệnh nhân đã được gửi thành công sang LIS"), false);
+                            }
+                        }
+                        else
+                        {
+                            Utility.SetMsg(lblMsg, string.Format("Không tìm được chi tiết nào có trạng thái đã chuyển CLS(trạng thái=1) để chuyển sang LIS"), false);
+                        }
+                    }
+                    else//Hủy chuyển sang LIS
+                    {
+                        //Lấy các dữ liệu cần chuyển sang LIS
+                        List<long> lstIchidinh = (from q in grdChidinh.GetCheckedRows()
+                                                  select Utility.Int64Dbnull(q.Cells[KcbChidinhcl.Columns.IdChidinh].Value, 0)
+                                        ).ToList<long>();
+                        List<DataRow> lstData2Send = (from p in dsData.Tables[0].AsEnumerable()
+                                                      where lstIchidinh.Contains(Utility.Int64Dbnull(p[KcbChidinhclsChitiet.Columns.IdChidinh]))
+                                                      && Utility.Int64Dbnull(p["trang_thai"], 0) == 2
+                                                      select p).ToList<DataRow>();
+                        List<DataRow> lstData2Send_real = (from p in dsData.Tables[1].AsEnumerable()
+                                                           where lstIchidinh.Contains(Utility.Int64Dbnull(p[KcbChidinhclsChitiet.Columns.IdChidinh]))
+                                                           && Utility.Int64Dbnull(p["trang_thai"], 0) == 2
+                                                           select p).ToList<DataRow>();
+                        if (lstData2Send.Any())
+                        {
+                            dt2LIS = lstData2Send_real.CopyToDataTable();
+                            lstIdchidinhchitiet = (from p in lstData2Send
+                                                   select Utility.sDbnull(p[KcbChidinhclsChitiet.Columns.IdChitietchidinh], 0)).Distinct().ToList<string>();
+
+                                SPs.HisLisCapnhatdulieuchuyensangLis(string.Join(",", lstIdchidinhchitiet.ToArray()),1,2).Execute();
+                                dsData.Tables[0].AsEnumerable()
+                                    .Where(c => lstIdchidinhchitiet.Contains(Utility.sDbnull(c.Field<long>(KcbChidinhclsChitiet.Columns.IdChitietchidinh))))
+                                    .ToList<DataRow>()
+                                    .ForEach(c1 => { c1["trang_thai"] = 1; c1["ten_trangthai"] = "Đã chuyển cận"; });
+                                dsData.Tables[1].AsEnumerable()
+                                   .Where(c => lstIdchidinhchitiet.Contains(Utility.sDbnull(c.Field<long>(KcbChidinhclsChitiet.Columns.IdChitietchidinh))))
+                                   .ToList<DataRow>()
+                                   .ForEach(c1 => { c1["trang_thai"] = 1; c1["ten_trangthai"] = "Đã chuyển cận"; });
+                                dsData.AcceptChanges();
+                                Utility.SetMsg(lblMsg, string.Format("Các dữ liệu dịch vụ cận lâm sàng của Bệnh nhân đã được hủy gửi sang LIS thành công-->Chú ý báo nhân viên khoa xét nghiệm dừng không làm xét nghiệm cho các chỉ định vừa hủy"), false);
+                        }
+                        else
+                        {
+                            Utility.SetMsg(lblMsg, string.Format("Không tìm được chi tiết nào có trạng thái đã chuyển sang LIS(trạng thái=2) để hủy chuyển"), false);
+                        }
+                    }
+                    Hienthiphieuchidinh();
                 }
             }
         }
@@ -223,6 +285,11 @@ namespace VNS.HIS.UI.Forms.CanLamSang
                 ProcessTabKey(true);
                 return;
             }
+            if (e.KeyCode == Keys.F5)
+            {
+                txtMaluotkham_KeyDown(txtMaluotkham, new KeyEventArgs(Keys.Enter));
+                return;
+            }
             if (e.KeyCode == Keys.F2)
             {
                 txtMaluotkham.Focus();
@@ -234,6 +301,7 @@ namespace VNS.HIS.UI.Forms.CanLamSang
 
         void frm_KetnoiHisLis_Load(object sender, EventArgs e)
         {
+            txtMaluotkham.SelectAll();
             txtMaluotkham.Focus();
         }
 
@@ -332,18 +400,31 @@ namespace VNS.HIS.UI.Forms.CanLamSang
                 {
                     lstIDPhieu.Add(id_chidinh);
                     if (optAll.Checked)
+                    {
                         dtPhieuChidinh.ImportRow(dr);
+                        cmdConfirm.Text = "Đẩy sang LIS(Ctrl+S)";
+                        cmdConfirm.ToolTipText = "Chuyển dữ liệu Bệnh nhân & Chỉ định sang bên LIS";
+                        cmdConfirm.Tag = "1";
+                    }
                     else if (optTransfered.Checked)
                     {
                         DataRow[] chidinhchitiet = dsData.Tables[0].Select("Id_chidinh=" + id_chidinh.ToString() + " AND trang_thai>=2");
-                        if (chidinhchitiet.Length >0)
+                        if (chidinhchitiet.Length > 0)
                             dtPhieuChidinh.ImportRow(dr);
+
+                        cmdConfirm.Text = "Hủy chuyển LIS(Ctrl+H)";
+                        cmdConfirm.ToolTipText = "Hủy chuyển các phiếu chỉ định đã được chuyển sang LIS-->Cần báo phòng xét nghiệm dừng không làm dịch vụ cho Bệnh nhân hủy nếu đang thực hiện";
+                        cmdConfirm.Tag = "0";
                     }
                     else//Chi hien thi cac phieu con chua du lieu chua chuyen sang LIS
                     {
                         DataRow[] chidinhchitiet = dsData.Tables[0].Select("Id_chidinh=" + id_chidinh.ToString() + " AND trang_thai=1");
-                        if (chidinhchitiet.Length >0)
+                        if (chidinhchitiet.Length > 0)
                             dtPhieuChidinh.ImportRow(dr);
+
+                        cmdConfirm.Text = "Đẩy sang LIS(Ctrl+S)";
+                        cmdConfirm.ToolTipText = "Chuyển dữ liệu Bệnh nhân & Chỉ định sang bên LIS";
+                        cmdConfirm.Tag = "1";
                     }
                 }
             }
