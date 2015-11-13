@@ -145,7 +145,11 @@ namespace VMS.HIS.HLC.ASTM
                 LstOrderItems.Add(orderItems);
             }
             if (!orderFolderPath.EndsWith(@"\")) orderFolderPath += @"\";
-            string orderfileName =orderFolderPath+ "Order" + Microsoft.VisualBasic.Strings.Right("000000" + dtData.Rows[0][KcbChidinhcl.Columns.IdChidinh].ToString(), 6) + ".txt";
+            string seqNum = Utility.GetSequence().ToString();
+            if (seqNum == "-1") seqNum = Microsoft.VisualBasic.Strings.Right("000000" + dtData.Rows[0][KcbChidinhcl.Columns.IdChidinh].ToString(), 6);
+            else
+                seqNum = Microsoft.VisualBasic.Strings.Right("000000" + seqNum, 6);
+            string orderfileName = orderFolderPath + "Order" + seqNum + ".txt";
             using (StreamWriter _writer = new StreamWriter(orderfileName,false))
             {
                 _writer.WriteLine(Header);
