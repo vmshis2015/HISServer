@@ -23,7 +23,8 @@ namespace VMS.HIS.HLC.ASTM
             List<string> lstLines = new List<string>();
             try
             {
-                using (new NetworkConnection(Path.GetDirectoryName(FilePath), Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                string _folder = Path.GetDirectoryName(FilePath);
+                using (new NetworkConnection(_folder, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
                 using (StreamReader _reader = new StreamReader(FilePath))
                 {
                     while (_reader.Peek() > -1)
@@ -70,6 +71,7 @@ namespace VMS.HIS.HLC.ASTM
         }
         public static int WriteResultMessage(string ResultFolderPath, DataTable dtData)
         {
+            string ResultFolderPath_org = ResultFolderPath;
             if (!Directory.Exists(ResultFolderPath)) return -1;
             if (dtData == null || dtData.Rows.Count <= 0) return -2;
             string Header = dtData.Rows[0]["Header"].ToString();
@@ -79,7 +81,7 @@ namespace VMS.HIS.HLC.ASTM
             string Footer = "L|1|N";
             string CommentLine = "C|1||Test 11150 comment|";
             string orderfileName = Utility.FixedFolder(ResultFolderPath) + "Result_Message.txt";
-            using (new NetworkConnection(ResultFolderPath, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+            using (new NetworkConnection(ResultFolderPath_org, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
             using (StreamWriter _writer = new StreamWriter(orderfileName, false))
             {
                 _writer.WriteLine(Header);
@@ -105,6 +107,7 @@ namespace VMS.HIS.HLC.ASTM
         }
         public static int WriteOrderMessage(string orderFolderPath, DataTable dtData)
         {
+            string orderFolderPath_org = orderFolderPath;
             if (!Directory.Exists(orderFolderPath)) return -1;
             if (dtData==null || dtData.Rows.Count <= 0) return -2;
             string Header = @"H|\^&|||VMS-HIS|||||PSM||P||" + Utility.GetYYYYMMDDHHMMSS(globalVariables.SysDate);
@@ -152,7 +155,7 @@ namespace VMS.HIS.HLC.ASTM
             else
                 seqNum = Microsoft.VisualBasic.Strings.Right("000000" + seqNum, 6);
             string orderfileName = orderFolderPath + "Order" + seqNum + ".txt";
-            using (new NetworkConnection(orderFolderPath, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+            using (new NetworkConnection(orderFolderPath_org, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
             using (StreamWriter _writer = new StreamWriter(orderfileName,false))
             {
                 _writer.WriteLine(Header);
