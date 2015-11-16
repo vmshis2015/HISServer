@@ -133,7 +133,9 @@ namespace VMS.FSW
         {
             try
             {
-                IEnumerable<FileInfo> fileList = _watcherPathInfo.GetFiles("*.txt",
+                 IEnumerable<FileInfo> fileList =null;
+                using (new NetworkConnection(WatchedPath, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+              fileList = _watcherPathInfo.GetFiles("*.txt",
                     SearchOption.TopDirectoryOnly);
                 // Nếu không tồn tại file nào trả về thời gian hiện tại
                 if (!fileList.Any()) return DateTime.Now;
