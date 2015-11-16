@@ -189,8 +189,8 @@
             this.cboLoaidichvu.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             uiComboBoxItem1.FormatStyle.Alpha = 0;
             uiComboBoxItem1.IsSeparator = false;
-            uiComboBoxItem1.Text = "Tất cả";
-            uiComboBoxItem1.Value = ((short)(-1));
+            uiComboBoxItem1.Text = "Chọn hình thức thanh toán";
+            uiComboBoxItem1.Value = -1;
             uiComboBoxItem2.FormatStyle.Alpha = 0;
             uiComboBoxItem2.IsSeparator = false;
             uiComboBoxItem2.Text = "Tiền mặt";
@@ -211,10 +211,9 @@
             this.cboLoaidichvu.ItemsFormatStyle.FontBold = Janus.Windows.UI.TriState.True;
             this.cboLoaidichvu.Location = new System.Drawing.Point(465, 54);
             this.cboLoaidichvu.Name = "cboLoaidichvu";
-            this.cboLoaidichvu.SelectInDataSource = true;
             this.cboLoaidichvu.Size = new System.Drawing.Size(290, 21);
             this.cboLoaidichvu.TabIndex = 2;
-            this.cboLoaidichvu.Text = "Chọn loại thanh toán";
+            this.cboLoaidichvu.Text = "Chọn hình thức thanh toán";
             // 
             // label2
             // 

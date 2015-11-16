@@ -163,7 +163,9 @@ namespace VNS.HIS.UI.Baocao
                         chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
                         Utility.sDbnull(cboDoituongKCB.SelectedValue, -1),
                         Utility.sDbnull(cboNhanvien.SelectedValue, -1),
-                        Utility.sDbnull(cboLoaidichvu.SelectedValue, ""), Utility.sDbnull(thamso,""), Utility.sDbnull(cboKhoa.SelectedValue, -1));
+                        Utility.sDbnull(cboLoaidichvu.SelectedValue, ""), 
+                        Utility.sDbnull(thamso, ""),
+                        Utility.sDbnull(cboKhoa.SelectedValue, -1));
                 THU_VIEN_CHUNG.CreateXML(_dtData, "baocao_thutien_tiemchung_chitiet.xml");
                 Utility.SetDataSourceForDataGridEx(grdChitiet, _dtData, false, true, "1=1", "");
                 Janus.Windows.GridEX.GridEXColumn gridExColumnTientong = grdChitiet.RootTable.Columns["Thanh_Tien"];
