@@ -7,7 +7,7 @@ using System.Linq;
 using System.Security.Permissions;
 using System.Threading;
 using System.Timers;
-
+using VNS.Libs;
 using Timer = System.Timers.Timer;
 
 namespace VMS.FSW
@@ -101,7 +101,9 @@ namespace VMS.FSW
             // Lấy ra tên file mới
             try
             {
-                IEnumerable<FileInfo> fileList = _watcherPathInfo.GetFiles("*.txt",SearchOption.TopDirectoryOnly);
+                IEnumerable<FileInfo> fileList=null;
+                using (new NetworkConnection(WatchedPath, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                    fileList = _watcherPathInfo.GetFiles("*.txt", SearchOption.TopDirectoryOnly);
                 fileList.OrderBy(c => c.LastWriteTime);
                 List<string> fileQuery = new List<string>();
                 foreach (FileInfo f in fileList)

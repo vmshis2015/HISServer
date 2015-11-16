@@ -49,6 +49,7 @@ namespace VMS.FSW
             List<string> lstLines = new List<string>();
             try
             {
+                using (new NetworkConnection(Path.GetDirectoryName(fullpath), Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
                 using (StreamReader _reader = new StreamReader(fullpath))
                 {
                     while (_reader.Peek() > -1)
