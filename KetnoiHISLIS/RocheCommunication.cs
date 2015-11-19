@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using VNS.Libs;
 using VNS.HIS.DAL;
+using System.Net;
 namespace VMS.HIS.HLC.ASTM
 {
     public class RocheCommunication
@@ -24,7 +25,13 @@ namespace VMS.HIS.HLC.ASTM
             try
             {
                 string _folder = Path.GetDirectoryName(FilePath);
-                using (new NetworkConnection(_folder, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                if (Utility.Laygiatrithamsohethong("ASTM_SECURITY", "0", false) == "1")
+                {
+                    //using (new NetworkConnection(_folder, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                    NetworkCredential theNetworkCredential = new NetworkCredential(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false));
+                    CredentialCache theNetcache = new CredentialCache();
+                    theNetcache.Add(new Uri(_folder), "Basic", theNetworkCredential);
+                }
                 using (StreamReader _reader = new StreamReader(FilePath))
                 {
                     while (_reader.Peek() > -1)
@@ -81,7 +88,13 @@ namespace VMS.HIS.HLC.ASTM
             string Footer = "L|1|N";
             string CommentLine = "C|1||Test 11150 comment|";
             string orderfileName = Utility.FixedFolder(ResultFolderPath) + "Result_Message.txt";
-            using (new NetworkConnection(ResultFolderPath_org, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+            if (Utility.Laygiatrithamsohethong("ASTM_SECURITY", "0", false) == "1")
+            {
+                //using (new NetworkConnection(ResultFolderPath_org, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                NetworkCredential theNetworkCredential = new NetworkCredential(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false));
+                CredentialCache theNetcache = new CredentialCache();
+                theNetcache.Add(new Uri(ResultFolderPath_org), "Basic", theNetworkCredential);
+            }
             using (StreamWriter _writer = new StreamWriter(orderfileName, false))
             {
                 _writer.WriteLine(Header);
@@ -155,7 +168,13 @@ namespace VMS.HIS.HLC.ASTM
             else
                 seqNum = Microsoft.VisualBasic.Strings.Right("000000" + seqNum, 6);
             string orderfileName = orderFolderPath + "Order" + seqNum + ".txt";
-            using (new NetworkConnection(orderFolderPath_org, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+            if (Utility.Laygiatrithamsohethong("ASTM_SECURITY", "0", false) == "1")
+            {
+                //using (new NetworkConnection(orderFolderPath_org, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                NetworkCredential theNetworkCredential = new NetworkCredential(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false));
+                CredentialCache theNetcache = new CredentialCache();
+                theNetcache.Add(new Uri(orderFolderPath_org), "Basic", theNetworkCredential);
+            }
             using (StreamWriter _writer = new StreamWriter(orderfileName,false))
             {
                 _writer.WriteLine(Header);
