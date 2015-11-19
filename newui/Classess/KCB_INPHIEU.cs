@@ -261,20 +261,82 @@ namespace VNS.HIS.Classes
                 string tieude = "", reportname = "";
                 if (PropertyLib._MayInProperties.CoGiayInCLS == Papersize.A4) KhoGiay = "A4";
                 if (KhoGiay == "A5")
-                    if (inTach && selectedIndex == 0)//Nếu in riêng mà chọn tất
+                    if (inTach) //Nếu in riêng mà chọn tất
                     {
-                        _reportCode = "thamkham_InphieuchidinhCLS_RIENG_A5";
+                        if(PropertyLib._ThamKhamProperties.ChophepintachCLSKhacPhieu)
+                        {
+                            switch (selectedIndex)
+                            {
+                                case 0:
+                                    _reportCode = "thamkham_InphieuchidinhCLS_RIENG_A5";
+                                    break;
+                                case 1:
+                                    _reportCode = "thamkham_InphieuXetNghiem_A5";
+                                    break;
+                                case 2:
+                                    _reportCode = "thamkham_InphieuSieuAm_A5";
+                                    break;
+                                case 3:
+                                    _reportCode = "thamkham_InphieuXQuang_A5";
+                                    break;
+                                case 5:
+                                    _reportCode = "thamkham_InphieuNoiSoi_A5";
+                                    break;
+                                case 6:
+                                    _reportCode = "thamkham_InphieuDienTim_A5";
+                                    break;
+                                default:
+                                    _reportCode = "thamkham_InphieuchidinhCLS_RIENG_A5";
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            _reportCode = "thamkham_InphieuchidinhCLS_RIENG_A5";
+                        }
+                        
                     }
-                       
-
                     else
                     {
                         inchung = true;
                         _reportCode = "thamkham_InphieuchidinhCLS_A5";
                     }
                 else//Khổ giấy A4
-                    if (inTach && selectedIndex == 0)//Nếu in riêng mà chọn tất-->Gọi báo cáo nhóm theo nhóm in
-                        _reportCode = "thamkham_InphieuchidinhCLS_RIENG_A4";
+                    if (inTach && selectedIndex == 0)
+                    {
+                        if (PropertyLib._ThamKhamProperties.ChophepintachCLSKhacPhieu)
+                        {
+                            switch (selectedIndex)
+                            {
+                                case 0:
+                                    _reportCode = "thamkham_InphieuchidinhCLS_RIENG_A4";
+                                    break;
+                                case 1:
+                                    _reportCode = "thamkham_InphieuXetNghiem_A4";
+                                    break;
+                                case 2:
+                                    _reportCode = "thamkham_InphieuSieuAm_A4";
+                                    break;
+                                case 3:
+                                    _reportCode = "thamkham_InphieuXQuang_A4";
+                                    break;
+                                case 5:
+                                    _reportCode = "thamkham_InphieuNoiSoi_A4";
+                                    break;
+                                case 6:
+                                    _reportCode = "thamkham_InphieuDienTim_A4";
+                                    break;
+                                default:
+                                    _reportCode = "thamkham_InphieuchidinhCLS_RIENG_A4";
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            _reportCode = "thamkham_InphieuchidinhCLS_RIENG_A4";
+                        }
+                    }//Nếu in riêng mà chọn tất-->Gọi báo cáo nhóm theo nhóm in
+                      //  _reportCode = "thamkham_InphieuchidinhCLS_RIENG_A4";
                     else
                     {
                         inchung = true;
