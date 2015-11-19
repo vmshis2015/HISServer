@@ -8,6 +8,7 @@ using VNS.HIS.DAL;
 using VNS.Libs;
 using System.Linq;
 using System.Transactions;
+using System.Net;
 
 namespace VMS.FSW
 {
@@ -49,7 +50,13 @@ namespace VMS.FSW
             List<string> lstLines = new List<string>();
             try
             {
-                using (new NetworkConnection(Path.GetDirectoryName(fullpath), Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                    if (Utility.Laygiatrithamsohethong("ASTM_SECURITY", "0", false) == "1")
+                    {
+                        //using (new NetworkConnection(_watcherPathInfo, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                        NetworkCredential theNetworkCredential = new NetworkCredential(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false));
+                        CredentialCache theNetcache = new CredentialCache();
+                        theNetcache.Add(new Uri(Path.GetDirectoryName(fullpath)), "Basic", theNetworkCredential);
+                    }
                 using (StreamReader _reader = new StreamReader(fullpath))
                 {
                     while (_reader.Peek() > -1)
