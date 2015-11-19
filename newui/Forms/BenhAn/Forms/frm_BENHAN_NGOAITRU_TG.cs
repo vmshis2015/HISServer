@@ -25,6 +25,7 @@ namespace VNS.HIS.UI.BENH_AN
         private string MaBenhNhanText = "";
         private string strBenhAn = Application.StartupPath + @"\CAUHINH\BAn_NTru_DongSauLuu.txt";
         private bool AllowTextChanged = false;
+        public string loaibenhan = "";
 
         public frm_BENHAN_NGOAITRU_TG()
         {
@@ -224,7 +225,7 @@ namespace VNS.HIS.UI.BENH_AN
 
             if (em_Action == action.Insert)
             {
-                txtMaBenhAn.Text = THU_VIEN_CHUNG.SinhMaBenhAn();
+                txtMaBenhAn.Text = THU_VIEN_CHUNG.SinhMaBenhAn(loaibenhan);
             }
            
 

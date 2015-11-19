@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_BENHAN_NGOAITRU));
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel1 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel2 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel3 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel4 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_BENHAN_NGOAITRU));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.uiStatusBar1 = new Janus.Windows.UI.StatusBar.UIStatusBar();
-            this.pnlBottom = new System.Windows.Forms.Panel();
-            this.cmdConfig = new Janus.Windows.EditControls.UIButton();
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
             this.cmdInBenhAn = new System.Windows.Forms.Button();
             this.cmdDelete = new System.Windows.Forms.Button();
+            this.uiStatusBar1 = new Janus.Windows.UI.StatusBar.UIStatusBar();
+            this.pnlBottom = new System.Windows.Forms.Panel();
+            this.cmdConfig = new Janus.Windows.EditControls.UIButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -49,6 +49,49 @@
             this.pnlBottom.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // cmdSave
+            // 
+            this.cmdSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSave.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdSave.Image = ((System.Drawing.Image)(resources.GetObject("cmdSave.Image")));
+            this.cmdSave.Location = new System.Drawing.Point(514, 10);
+            this.cmdSave.Name = "cmdSave";
+            this.cmdSave.Size = new System.Drawing.Size(140, 38);
+            this.cmdSave.TabIndex = 112;
+            this.cmdSave.Text = "Lưu (Ctrl+S)";
+            this.toolTip1.SetToolTip(this.cmdSave, "Nhấn vào đây để lưu Bệnh án");
+            this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click_1);
+            // 
+            // cmdInBenhAn
+            // 
+            this.cmdInBenhAn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdInBenhAn.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdInBenhAn.Image = ((System.Drawing.Image)(resources.GetObject("cmdInBenhAn.Image")));
+            this.cmdInBenhAn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdInBenhAn.Location = new System.Drawing.Point(661, 10);
+            this.cmdInBenhAn.Name = "cmdInBenhAn";
+            this.cmdInBenhAn.Size = new System.Drawing.Size(140, 38);
+            this.cmdInBenhAn.TabIndex = 113;
+            this.cmdInBenhAn.Text = "In Bệnh Án(F4)";
+            this.cmdInBenhAn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.cmdInBenhAn, "Nhấn vào đây để in bệnh án");
+            this.cmdInBenhAn.UseVisualStyleBackColor = true;
+            // 
+            // cmdDelete
+            // 
+            this.cmdDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdDelete.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdDelete.Image = ((System.Drawing.Image)(resources.GetObject("cmdDelete.Image")));
+            this.cmdDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdDelete.Location = new System.Drawing.Point(807, 10);
+            this.cmdDelete.Name = "cmdDelete";
+            this.cmdDelete.Size = new System.Drawing.Size(140, 38);
+            this.cmdDelete.TabIndex = 114;
+            this.cmdDelete.Text = "Xóa Bệnh Án";
+            this.cmdDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.cmdDelete, "Nhấn vào đây để xóa bệnh án");
+            this.cmdDelete.UseVisualStyleBackColor = true;
             // 
             // uiStatusBar1
             // 
@@ -120,48 +163,6 @@
             this.cmdConfig.TabIndex = 115;
             this.cmdConfig.TabStop = false;
             // 
-            // cmdSave
-            // 
-            this.cmdSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSave.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdSave.Image = ((System.Drawing.Image)(resources.GetObject("cmdSave.Image")));
-            this.cmdSave.Location = new System.Drawing.Point(514, 10);
-            this.cmdSave.Name = "cmdSave";
-            this.cmdSave.Size = new System.Drawing.Size(140, 38);
-            this.cmdSave.TabIndex = 112;
-            this.cmdSave.Text = "Lưu (Ctrl+S)";
-            this.toolTip1.SetToolTip(this.cmdSave, "Nhấn vào đây để lưu Bệnh án");
-            // 
-            // cmdInBenhAn
-            // 
-            this.cmdInBenhAn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdInBenhAn.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdInBenhAn.Image = ((System.Drawing.Image)(resources.GetObject("cmdInBenhAn.Image")));
-            this.cmdInBenhAn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdInBenhAn.Location = new System.Drawing.Point(661, 10);
-            this.cmdInBenhAn.Name = "cmdInBenhAn";
-            this.cmdInBenhAn.Size = new System.Drawing.Size(140, 38);
-            this.cmdInBenhAn.TabIndex = 113;
-            this.cmdInBenhAn.Text = "In Bệnh Án(F4)";
-            this.cmdInBenhAn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolTip1.SetToolTip(this.cmdInBenhAn, "Nhấn vào đây để in bệnh án");
-            this.cmdInBenhAn.UseVisualStyleBackColor = true;
-            // 
-            // cmdDelete
-            // 
-            this.cmdDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdDelete.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdDelete.Image = ((System.Drawing.Image)(resources.GetObject("cmdDelete.Image")));
-            this.cmdDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDelete.Location = new System.Drawing.Point(807, 10);
-            this.cmdDelete.Name = "cmdDelete";
-            this.cmdDelete.Size = new System.Drawing.Size(140, 38);
-            this.cmdDelete.TabIndex = 114;
-            this.cmdDelete.Text = "Xóa Bệnh Án";
-            this.cmdDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolTip1.SetToolTip(this.cmdDelete, "Nhấn vào đây để xóa bệnh án");
-            this.cmdDelete.UseVisualStyleBackColor = true;
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -194,7 +195,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1000, 701);
+            this.tabPage2.Size = new System.Drawing.Size(1000, 625);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "II. LÝ DO VÀO VIỆN";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -205,7 +206,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1000, 701);
+            this.tabPage3.Size = new System.Drawing.Size(1000, 625);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "III. HỎI BỆNH";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -216,7 +217,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1000, 701);
+            this.tabPage4.Size = new System.Drawing.Size(1000, 625);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "IV. KHÁM BỆNH";
             this.tabPage4.UseVisualStyleBackColor = true;

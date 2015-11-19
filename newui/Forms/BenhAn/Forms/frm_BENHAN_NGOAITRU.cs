@@ -1,47 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.IO;
+using System.Windows.Forms;
+using CrystalDecisions.CrystalReports.Engine;
 using Janus.Windows.CalendarCombo;
 using Janus.Windows.EditControls;
 using Janus.Windows.GridEX.EditControls;
-
-using VNS.Libs;
-using VNS.HIS.NGHIEPVU;
-using VNS.HIS.DAL;
-
-using System.Windows.Forms;
 using SubSonic;
+using VNS.HIS.DAL;
 using VNS.HIS.UI.Forms.BenhAn.UCs;
+using VNS.Libs;
 using VNS.Properties;
 
 namespace VNS.HIS.UI.BENH_AN
 {
     public partial class frm_BENHAN_NGOAITRU : Form
     {
-        public action m_enAct = action.Insert;
+        private readonly string strBenhAn = Application.StartupPath + @"\CAUHINH\BAn_NTru_DongSauLuu.txt";
+        private bool AllowTextChanged = false;
         private string MaBenhAnText = "";
+        public string loaibenhan = "";
+        public action m_enAct = action.Insert;
         private string strIdBenhnhan = "";
         private string strMaluotkham = "";
-        private string strBenhAn = Application.StartupPath + @"\CAUHINH\BAn_NTru_DongSauLuu.txt";
-        private bool AllowTextChanged = false;
         public uc_bant_1 uc_bant_11;
         public uc_bant_2 uc_bant_21;
         public uc_bant_3 uc_bant_31;
         public uc_bant_4 uc_bant_41;
+
         public frm_BENHAN_NGOAITRU()
         {
-
             InitializeComponent();
             uc_bant_11 = new uc_bant_1();
             uc_bant_21 = new uc_bant_2();
             uc_bant_31 = new uc_bant_3();
             uc_bant_41 = new uc_bant_4();
-            
+
             //pnlPanel.Controls.Add(uc_bant_11);
             //pnlPanel.Controls.Add(uc_bant_21);
             //pnlPanel.Controls.Add(uc_bant_31);
@@ -80,24 +74,22 @@ namespace VNS.HIS.UI.BENH_AN
             uc_bant_11.txtMaBenhAn.KeyDown += txtMaBenhAn_KeyDown;
             uc_bant_11.cmdSearch.Click += cmdSearch_Click;
             // cmdDelete.Click += cmdDelete_Click;
-
         }
 
-        void cmdSearch_Click(object sender, EventArgs e)
+        private void cmdSearch_Click(object sender, EventArgs e)
         {
             txtMaBenhAn_KeyDown(uc_bant_11.txtMaBenhAn, new KeyEventArgs(Keys.Enter));
         }
 
-        void cmdConfig_Click(object sender, EventArgs e)
+        private void cmdConfig_Click(object sender, EventArgs e)
         {
-            frm_Properties _Properties = new frm_Properties(PropertyLib._BenhAnProperties);
+            var _Properties = new frm_Properties(PropertyLib._BenhAnProperties);
             _Properties.ShowDialog();
         }
 
         private void txtMaBN_KeyDown(object sender, KeyEventArgs e)
         {
-           
-            if (e.KeyCode == Keys.Enter )
+            if (e.KeyCode == Keys.Enter)
             {
                 Utility.SetMsg(uiStatusBar1.Panels["MSG"], "", false);
                 if (uc_bant_11.txtMaBN.Text.Trim() != "")
@@ -109,7 +101,8 @@ namespace VNS.HIS.UI.BENH_AN
                 }
                 else
                 {
-                    Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải nhập mã bệnh nhân trước khi nhấn Enter để tìm kiếm", true);
+                    Utility.SetMsg(uiStatusBar1.Panels["MSG"],
+                                   "Bạn phải nhập mã bệnh nhân trước khi nhấn Enter để tìm kiếm", true);
                 }
             }
         }
@@ -117,7 +110,6 @@ namespace VNS.HIS.UI.BENH_AN
         // LẤY THÔNG TIN BỆNH ÁN CỦA BỆNH NHÂN
         private void LayThongTinBenhNhan(string id_benhnhan)
         {
-
             try
             {
                 DataTable temdt = SPs.KcbLaythongtinBenhnhan(Utility.Int32Dbnull(id_benhnhan, 0)).GetDataSet().Tables[0];
@@ -126,25 +118,26 @@ namespace VNS.HIS.UI.BENH_AN
                     uc_bant_11.txtDiaChi.Text = Utility.sDbnull(temdt.Rows[0][VKcbLuotkham.Columns.DiaChi], "");
                     uc_bant_11.txtHoTen.Text = Utility.sDbnull(temdt.Rows[0][VKcbLuotkham.Columns.TenBenhnhan], "");
                     uc_bant_11.txtNamSinh.Text = Utility.sDbnull(temdt.Rows[0][VKcbLuotkham.Columns.NamSinh], "");
-                    uc_bant_11.cboGioiTinh.SelectedValue = Utility.sDbnull(temdt.Rows[0][VKcbLuotkham.Columns.GioiTinh], "");
+                    uc_bant_11.cboGioiTinh.SelectedValue = Utility.sDbnull(
+                        temdt.Rows[0][VKcbLuotkham.Columns.GioiTinh], "");
                     uc_bant_11.txtNgheNghiep.Text = Utility.sDbnull(temdt.Rows[0][VKcbLuotkham.Columns.NgheNghiep], "");
                     uc_bant_11.dtThoiDiemDkKham.Text = Utility.sDbnull(temdt.Rows[0][VKcbLuotkham.Columns.NgayTiepdon]);
                     uc_bant_11.txtDanToc.Text = Utility.sDbnull(VKcbLuotkham.Columns.DanToc);
                     strIdBenhnhan = id_benhnhan;
-                    uc_bant_11.txtDoiTuong.Text = Utility.sDbnull(temdt.Rows[0][VKcbLuotkham.Columns.MaDoituongKcb].ToString());
+                    uc_bant_11.txtDoiTuong.Text =
+                        Utility.sDbnull(temdt.Rows[0][VKcbLuotkham.Columns.MaDoituongKcb].ToString());
                     uc_bant_11.dtInsToDate.Text = temdt.Rows[0][VKcbLuotkham.Columns.NgayketthucBhyt].ToString();
-                    uc_bant_11.txtSoBaoHiemYte.Text = Utility.sDbnull(temdt.Rows[0][VKcbLuotkham.Columns.MatheBhyt].ToString());
+                    uc_bant_11.txtSoBaoHiemYte.Text =
+                        Utility.sDbnull(temdt.Rows[0][VKcbLuotkham.Columns.MatheBhyt].ToString());
                 }
                 else
                 {
                     MessageBox.Show("Không tồn tại mã bệnh nhân vừa nhập");
                     uc_bant_11.txtMaBN.Focus();
                 }
-
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show("Lỗi khi tìm kiếm thông tin BN:\n" + ex.Message);
                 uc_bant_11.txtMaBN.Focus();
             }
@@ -153,31 +146,38 @@ namespace VNS.HIS.UI.BENH_AN
         //TÌM BỆNH NHAN THEO MÃ BỆNH NHÂN
         private void FindPatientID(string id_benhnhan)
         {
-
             LayThongTinBenhNhan(uc_bant_11.txtMaBN.Text);
             uc_bant_41.dtDieuTriNgoaiTruTu.Value = uc_bant_41.dtDieuTriNgoaiTruDen.Value = DateTime.Now;
             try
             {
-                KcbBenhAn _KcbBenhAn =
+                var _KcbBenhAn =
                     new Select().From(KcbBenhAn.Schema).
-                        Where(KcbBenhAn.Columns.IdBnhan).IsEqualTo(Utility.sDbnull(uc_bant_11.txtMaBN.Text)).ExecuteSingle<KcbBenhAn>();
+                        Where(KcbBenhAn.Columns.IdBnhan).IsEqualTo(Utility.sDbnull(uc_bant_11.txtMaBN.Text)).
+                        ExecuteSingle<KcbBenhAn>();
 
                 //Đã Tồn tại thông tin bệnh án ngoại trú. Sửa
-                if (_KcbBenhAn!=null)
+                if (_KcbBenhAn != null)
                 {
                     m_enAct = action.Update;
                     LayDulieubenh_an(_KcbBenhAn);
                     Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bệnh nhân đã có Bệnh án-->Sửa", true);
-                    this.Text = string.Format("Bạn đang thực hiện sửa Bệnh án Đái tháo đường cho Bệnh nhân Id={0} -  Mã lượt khám={1} - Số BA={2} - Id BA={3}", uc_bant_11.txtMaBN.Text, uc_bant_11.txtMaLanKham.Text, uc_bant_11.txtMaBenhAn.Text, uc_bant_11.txtID_BA.Text);
+                    Text =
+                        string.Format(
+                            "Bạn đang thực hiện sửa Bệnh án Đái tháo đường cho Bệnh nhân Id={0} -  Mã lượt khám={1} - Số BA={2} - Id BA={3}",
+                            uc_bant_11.txtMaBN.Text, uc_bant_11.txtMaLanKham.Text, uc_bant_11.txtMaBenhAn.Text,
+                            uc_bant_11.txtID_BA.Text);
                     uc_bant_11.txtNgaySinh.Focus();
                     MaBenhAnText = uc_bant_11.txtMaBenhAn.Text;
                     cmdInBenhAn.Enabled = true;
                 }
-                //chưa tồn tại thông tin ngoại tru. Them
+                    //chưa tồn tại thông tin ngoại tru. Them
                 else
                 {
                     Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bệnh nhân chưa đã có Bệnh án-->Thêm mới", true);
-                    this.Text = string.Format("Bạn đang thực hiện tạo Bệnh án Đái tháo đường cho Bệnh nhân Id={0} -  Mã lượt khám={1} ", uc_bant_11.txtMaBN.Text, uc_bant_11.txtMaLanKham.Text);
+                    Text =
+                        string.Format(
+                            "Bạn đang thực hiện tạo Bệnh án Đái tháo đường cho Bệnh nhân Id={0} -  Mã lượt khám={1} ",
+                            uc_bant_11.txtMaBN.Text, uc_bant_11.txtMaLanKham.Text);
                     m_enAct = action.Insert;
                     uc_bant_11.txtMaBenhAn.Clear();
                     uc_bant_11.txtNgaySinh.Focus();
@@ -193,7 +193,6 @@ namespace VNS.HIS.UI.BENH_AN
 
         private void frm_BENHAN_NGOAITRU_Load(object sender, EventArgs e)
         {
-
             if (uc_bant_11.txtMaBN.Text.Trim() == "")
             {
                 uc_bant_11.txtMaBN.SelectAll();
@@ -201,41 +200,42 @@ namespace VNS.HIS.UI.BENH_AN
             }
             else
             {
-
+                SinhMaBenhAn();
                 strIdBenhnhan = uc_bant_11.txtMaBN.Text;
                 LayThongTinBenhNhan(uc_bant_11.txtMaBN.Text);
                 uc_bant_41.dtDieuTriNgoaiTruTu.Value = uc_bant_41.dtDieuTriNgoaiTruDen.Value = DateTime.Now;
                 if (m_enAct == action.Insert)
                 {
                     Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bệnh nhân chưa đã có Bệnh án-->Thêm mới", true);
-                    this.Text = string.Format("Bạn đang thực hiện tạo Bệnh án Đái tháo đường cho Bệnh nhân Id={0} -  Mã lượt khám={1}", uc_bant_11.txtMaBN.Text, uc_bant_11.txtMaLanKham.Text);
+                    Text =
+                        string.Format(
+                            "Bạn đang thực hiện tạo Bệnh án Đái tháo đường cho Bệnh nhân Id={0} -  Mã lượt khám={1}",
+                            uc_bant_11.txtMaBN.Text, uc_bant_11.txtMaLanKham.Text);
                     cmdInBenhAn.Enabled = false;
                     uc_bant_11.txtMaBenhAn.Focus();
-
                 }
                 if (m_enAct == action.Update)
                 {
                     Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bệnh nhân đã có Bệnh án-->Sửa", true);
-                    this.Text = string.Format("Bạn đang thực hiện tạo Bệnh án Đái tháo đường cho Bệnh nhân Id={0} -  Mã lượt khám={1}", uc_bant_11.txtMaBN.Text, uc_bant_11.txtMaLanKham.Text);
+                    Text =
+                        string.Format(
+                            "Bạn đang thực hiện tạo Bệnh án Đái tháo đường cho Bệnh nhân Id={0} -  Mã lượt khám={1}",
+                            uc_bant_11.txtMaBN.Text, uc_bant_11.txtMaLanKham.Text);
                     LayDulieubenh_an(null);
                     cmdInBenhAn.Enabled = true;
                     MaBenhAnText = uc_bant_11.txtMaBenhAn.Text;
                     uc_bant_11.txtMaBenhAn.Focus();
                 }
-               
             }
         }
 
         //SINH MÃ BỆNH ÁN
         private void SinhMaBenhAn()
         {
-
             if (m_enAct == action.Insert)
             {
-                uc_bant_11.txtMaBenhAn.Text = THU_VIEN_CHUNG.SinhMaBenhAn();
+                uc_bant_11.txtMaBenhAn.Text = THU_VIEN_CHUNG.SinhMaBenhAn(loaibenhan);
             }
-
-
         }
 
         // LAY DU LIEU BENH AN
@@ -244,10 +244,10 @@ namespace VNS.HIS.UI.BENH_AN
         {
             try
             {
-                if(objBenhAnNgoaiTru==null)
-                objBenhAnNgoaiTru =
-                    new Select().From(KcbBenhAn.Schema).Where(KcbBenhAn.Columns.IdBnhan).IsEqualTo(
-                        Utility.Int32Dbnull(uc_bant_11.txtMaBN.Text.Trim())).ExecuteSingle<KcbBenhAn>();
+                if (objBenhAnNgoaiTru == null)
+                    objBenhAnNgoaiTru =
+                        new Select().From(KcbBenhAn.Schema).Where(KcbBenhAn.Columns.IdBnhan).IsEqualTo(
+                            Utility.Int32Dbnull(uc_bant_11.txtMaBN.Text.Trim())).ExecuteSingle<KcbBenhAn>();
                 if (objBenhAnNgoaiTru != null)
                 {
                     m_enAct = action.Update;
@@ -265,13 +265,13 @@ namespace VNS.HIS.UI.BENH_AN
                     uc_bant_11.chkYTe.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.YTe) == 1;
                     uc_bant_11.chkTuDen.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.YTe) == 2;
                     uc_bant_11.dtThoiDiemDkKham.Value = Convert.ToDateTime(objBenhAnNgoaiTru.NgayKham);
-                   
+
                     uc_bant_21.chkldvvMetMoi.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.LdoVaovienMm) == 1;
                     uc_bant_21.chkldvvGay.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.LdoVaovienGsc) == 1;
                     uc_bant_21.chkldvvKhat.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.LdoVaovienKndn) == 1;
                     uc_bant_21.chkldvvGiamThiLuc.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.LdoVaovienGtl) == 1;
                     uc_bant_21.chkldvvKhac.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.LdoVaovienKhac) == 1;
-                    
+
                     uc_bant_31.txtNamChanDoanDTD.Text = Utility.sDbnull(objBenhAnNgoaiTru.HbNam, "");
                     uc_bant_31.txtNoiChanDoanDTD.Text = Utility.sDbnull(objBenhAnNgoaiTru.HbNoiCdoan, "");
                     uc_bant_31.chkhbDeu.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.HbDieuTri) == 1;
@@ -293,8 +293,10 @@ namespace VNS.HIS.UI.BENH_AN
                     uc_bant_31.txthbSoLanDai.Text = Utility.sDbnull(objBenhAnNgoaiTru.HtaiDai, "");
                     uc_bant_31.chkhbGiamThiLuc.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.HtaiGiamtl) == 1;
                     uc_bant_31.chkhbKhac.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.HtaiKhac) == 1;
-                    uc_bant_31.chktsbChuaPhatHienBenh.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.TsbBtChuaphathien) == 1;
-                    uc_bant_31.chktsbNhoiMauCoTim.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.TsbBtNhoimaucotim) == 1;
+                    uc_bant_31.chktsbChuaPhatHienBenh.Checked =
+                        Utility.Int16Dbnull(objBenhAnNgoaiTru.TsbBtChuaphathien) == 1;
+                    uc_bant_31.chktsbNhoiMauCoTim.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.TsbBtNhoimaucotim) ==
+                                                            1;
                     uc_bant_31.txttsbNamNhoiMauCoTim.Text = Utility.sDbnull(objBenhAnNgoaiTru.TsbBtNamNmct, "");
                     uc_bant_31.chktsbTBMN.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.TsbBtTbmn) == 1;
                     uc_bant_31.txttsbNamTBMN.Text = Utility.sDbnull(objBenhAnNgoaiTru.TsbBtNamTbmn, "");
@@ -304,13 +306,15 @@ namespace VNS.HIS.UI.BENH_AN
                     uc_bant_31.txttsbKhac.Text = Utility.sDbnull(objBenhAnNgoaiTru.TsbBtKhac, "");
                     uc_bant_31.chktsbDTD.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.TsgdDtd) == 1;
                     uc_bant_31.chktsbTangHuyetAp.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.TsgdTanghuyetap) == 1;
-                    uc_bant_31.chktsgdNhoiMauCoTim.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.TsgdNhoimaucotim) == 1;
+                    uc_bant_31.chktsgdNhoiMauCoTim.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.TsgdNhoimaucotim) ==
+                                                             1;
                     uc_bant_31.txttsgdKhac.Text = Utility.sDbnull(objBenhAnNgoaiTru.TsgdKhac, "");
-                   
+
                     uc_bant_41.chkkbMatNuocCo.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.KcbMatnuoc) == 1;
                     uc_bant_41.chkkbMatNuocKhong.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.KcbMatnuoc) == 2;
                     uc_bant_41.chkkbXuatHuetDuoiDaCo.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.KcbXuathuyet) == 1;
-                    uc_bant_41.chkkbXuatHuyetDuoiDaKhong.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.KcbXuathuyet) == 2;
+                    uc_bant_41.chkkbXuatHuyetDuoiDaKhong.Checked =
+                        Utility.Int16Dbnull(objBenhAnNgoaiTru.KcbXuathuyet) == 2;
                     uc_bant_41.chkkbPhuCo.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.KcbPhu) == 1;
                     uc_bant_41.chkkbPhuKhong.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.KcbPhu) == 2;
                     uc_bant_41.txtkbKhac.Text = Utility.sDbnull(objBenhAnNgoaiTru.KcbToanthanKhac);
@@ -320,7 +324,7 @@ namespace VNS.HIS.UI.BENH_AN
                     uc_bant_41.txtkbTiengTim.Text = Utility.sDbnull(objBenhAnNgoaiTru.KcbTiengtim);
                     uc_bant_41.txtkbHoHap.Text = Utility.sDbnull(objBenhAnNgoaiTru.KcbHohap);
                     uc_bant_41.txtkbBung.Text = Utility.sDbnull(objBenhAnNgoaiTru.KcbBung);
-                   uc_bant_41.chkkbChanPhaiPXGXGiam.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.KcbChanphai) == 1;
+                    uc_bant_41.chkkbChanPhaiPXGXGiam.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.KcbChanphai) == 1;
                     uc_bant_41.chkkbChanPhaiBinhThuong.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.KcbChanphai) == 2;
                     uc_bant_41.chkkbChanPhaiTang.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.KcbChanphai) == 3;
                     uc_bant_41.txtkbChanPhaiKhac.Text = Utility.sDbnull(objBenhAnNgoaiTru.KcbChanphaiKhac);
@@ -361,34 +365,38 @@ namespace VNS.HIS.UI.BENH_AN
 
                     if (Utility.sDbnull(objBenhAnNgoaiTru.NguoiTao, "") != "")
                     {
-
                         //LStaff objNguoiTao =
                         //    new Select("*").From(LStaff.Schema).Where(LStaff.Columns.Uid).IsEqualTo(
                         //        Utility.sDbnull(objBenhAnNgoaiTru.NguoiTao)).ExecuteSingle<LStaff>();
                         //label95.Text = Utility.sDbnull(objNguoiTao.StaffName);
                     }
-                    this.Text = string.Format("Bạn đang thực hiện sửa Bệnh án Đái tháo đường cho Bệnh nhân Id={0} -  Mã lượt khám={1} - Số BA={2} - Id BA={3}", uc_bant_11.txtMaBN.Text, uc_bant_11.txtMaLanKham.Text, uc_bant_11.txtMaBenhAn.Text, uc_bant_11.txtID_BA.Text);
+                    Text =
+                        string.Format(
+                            "Bạn đang thực hiện sửa Bệnh án Đái tháo đường cho Bệnh nhân Id={0} -  Mã lượt khám={1} - Số BA={2} - Id BA={3}",
+                            uc_bant_11.txtMaBN.Text, uc_bant_11.txtMaLanKham.Text, uc_bant_11.txtMaBenhAn.Text,
+                            uc_bant_11.txtID_BA.Text);
                 }
                 else
                 {
                     m_enAct = action.Insert;
-                    this.Text = string.Format("Bạn đang thực hiện sửa Bệnh án Đái tháo đường cho Bệnh nhân Id={0} -  Mã lượt khám={1} - Số BA={2} - Id BA={3}", uc_bant_11.txtMaBN.Text, uc_bant_11.txtMaLanKham.Text, uc_bant_11.txtMaBenhAn.Text, uc_bant_11.txtID_BA.Text);
+                    Text =
+                        string.Format(
+                            "Bạn đang thực hiện sửa Bệnh án Đái tháo đường cho Bệnh nhân Id={0} -  Mã lượt khám={1} - Số BA={2} - Id BA={3}",
+                            uc_bant_11.txtMaBN.Text, uc_bant_11.txtMaLanKham.Text, uc_bant_11.txtMaBenhAn.Text,
+                            uc_bant_11.txtID_BA.Text);
                     MessageBox.Show("Không lấy được thông tin bệnh án");
                 }
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show("Lỗi khi tìm kiếm thông tin BN:\n" + ex.Message);
             }
         }
 
 
-
-
         private void chkkbChanPhaiPXGXGiam_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbChanPhaiPXGXGiam.Checked == true)
+            if (uc_bant_41.chkkbChanPhaiPXGXGiam.Checked)
             {
                 uc_bant_41.chkkbChanPhaiBinhThuong.Checked = false;
                 uc_bant_41.chkkbChanPhaiTang.Checked = false;
@@ -397,7 +405,7 @@ namespace VNS.HIS.UI.BENH_AN
 
         private void chkkbChanPhaiBinhThuong_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbChanPhaiBinhThuong.Checked == true)
+            if (uc_bant_41.chkkbChanPhaiBinhThuong.Checked)
             {
                 uc_bant_41.chkkbChanPhaiPXGXGiam.Checked = false;
                 uc_bant_41.chkkbChanPhaiTang.Checked = false;
@@ -406,7 +414,7 @@ namespace VNS.HIS.UI.BENH_AN
 
         private void chkkbChanPhaiTang_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbChanPhaiTang.Checked == true)
+            if (uc_bant_41.chkkbChanPhaiTang.Checked)
             {
                 uc_bant_41.chkkbChanPhaiPXGXGiam.Checked = false;
                 uc_bant_41.chkkbChanPhaiBinhThuong.Checked = false;
@@ -415,18 +423,16 @@ namespace VNS.HIS.UI.BENH_AN
 
         private void chkkbChanTraiPXGXGiam_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbChanTraiPXGXGiam.Checked == true)
+            if (uc_bant_41.chkkbChanTraiPXGXGiam.Checked)
             {
-
                 uc_bant_41.chkkbChanTraiBinhThuong.Checked = false;
                 uc_bant_41.chkkbChanTraiTang.Checked = false;
             }
-
         }
 
         private void chkkbChanTraiBinhThuong_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbChanTraiBinhThuong.Checked == true)
+            if (uc_bant_41.chkkbChanTraiBinhThuong.Checked)
             {
                 uc_bant_41.chkkbChanTraiPXGXGiam.Checked = false;
                 uc_bant_41.chkkbChanTraiTang.Checked = false;
@@ -435,7 +441,7 @@ namespace VNS.HIS.UI.BENH_AN
 
         private void chkkbChanTraiTang_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbChanTraiTang.Checked == true)
+            if (uc_bant_41.chkkbChanTraiTang.Checked)
             {
                 uc_bant_41.chkkbChanTraiPXGXGiam.Checked = false;
                 uc_bant_41.chkkbChanTraiBinhThuong.Checked = false;
@@ -444,19 +450,19 @@ namespace VNS.HIS.UI.BENH_AN
 
         private void chkhbDeu_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_31.chkhbDeu.Checked == true)
+            if (uc_bant_31.chkhbDeu.Checked)
                 uc_bant_31.chkhbKhongDeu.Checked = false;
         }
 
         private void chkhbKhongDeu_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_31.chkhbKhongDeu.Checked == true)
+            if (uc_bant_31.chkhbKhongDeu.Checked)
                 uc_bant_31.chkhbDeu.Checked = false;
         }
 
         private void chkhbTiemInsulin_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_31.chkhbTiemInsulin.Checked == true)
+            if (uc_bant_31.chkhbTiemInsulin.Checked)
             {
                 uc_bant_31.txtLuongInsulin.Visible = true;
                 uc_bant_31.txthbCachDungInsulin.Visible = true;
@@ -471,12 +477,11 @@ namespace VNS.HIS.UI.BENH_AN
 
         private void chkhbGaySutCan_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_31.chkhbGaySutCan.Checked == true)
+            if (uc_bant_31.chkhbGaySutCan.Checked)
             {
                 uc_bant_31.txthbKgDau.Visible = true;
                 uc_bant_31.txthbKgSau.Visible = true;
                 uc_bant_31.txthbKgDau.Focus();
-
             }
             else
             {
@@ -487,7 +492,7 @@ namespace VNS.HIS.UI.BENH_AN
 
         private void chkhbKhat_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_31.chkhbKhat.Checked == true)
+            if (uc_bant_31.chkhbKhat.Checked)
             {
                 uc_bant_31.txthbSoLanUongNuoc.Visible = true;
                 uc_bant_31.txthbSoLanUongNuoc.Focus();
@@ -500,7 +505,7 @@ namespace VNS.HIS.UI.BENH_AN
 
         private void chkhbDai_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_31.chkhbDai.Checked == true)
+            if (uc_bant_31.chkhbDai.Checked)
             {
                 uc_bant_31.txthbSoLanDai.Visible = true;
                 uc_bant_31.txthbSoLanDai.Focus();
@@ -540,12 +545,11 @@ namespace VNS.HIS.UI.BENH_AN
                 uc_bant_41.txtkbNhipTim.SelectAll();
                 uc_bant_41.txtkbNhipTim.Focus();
             }
-
         }
 
         private void chktsbNhoiMauCoTim_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_31.chktsbNhoiMauCoTim.Checked == true)
+            if (uc_bant_31.chktsbNhoiMauCoTim.Checked)
             {
                 uc_bant_31.txttsbNamNhoiMauCoTim.Visible = true;
                 uc_bant_31.txttsbNamNhoiMauCoTim.Focus();
@@ -558,7 +562,7 @@ namespace VNS.HIS.UI.BENH_AN
 
         private void chktsbTBMN_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_31.chktsbTBMN.Checked == true)
+            if (uc_bant_31.chktsbTBMN.Checked)
             {
                 uc_bant_31.txttsbNamTBMN.Visible = true;
                 uc_bant_31.txttsbNamTBMN.Focus();
@@ -571,57 +575,55 @@ namespace VNS.HIS.UI.BENH_AN
 
         private void chkkbMatNuocCo_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbMatNuocCo.Checked == true)
+            if (uc_bant_41.chkkbMatNuocCo.Checked)
                 uc_bant_41.chkkbMatNuocKhong.Checked = false;
         }
 
         private void chkkbMatNuocKhong_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbMatNuocKhong.Checked == true)
+            if (uc_bant_41.chkkbMatNuocKhong.Checked)
                 uc_bant_41.chkkbMatNuocCo.Checked = false;
         }
 
         private void chkkbXuatHuetDuoiDaCo_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbXuatHuetDuoiDaCo.Checked == true)
+            if (uc_bant_41.chkkbXuatHuetDuoiDaCo.Checked)
                 uc_bant_41.chkkbXuatHuyetDuoiDaKhong.Checked = false;
         }
 
         private void chkkbXuatHuyetDuoiDaKhong_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbXuatHuyetDuoiDaKhong.Checked == true)
+            if (uc_bant_41.chkkbXuatHuyetDuoiDaKhong.Checked)
                 uc_bant_41.chkkbXuatHuetDuoiDaCo.Checked = false;
         }
 
         private void chkkbPhuCo_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbPhuCo.Checked == true)
+            if (uc_bant_41.chkkbPhuCo.Checked)
                 uc_bant_41.chkkbPhuKhong.Checked = false;
         }
 
         private void chkkbPhuKhong_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbPhuKhong.Checked == true)
+            if (uc_bant_41.chkkbPhuKhong.Checked)
                 uc_bant_41.chkkbPhuCo.Checked = false;
         }
 
         private void chkkbNhipTimDeu_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbNhipTimDeu.Checked == true)
+            if (uc_bant_41.chkkbNhipTimDeu.Checked)
                 uc_bant_41.chkkbNhipTimKhong.Checked = false;
         }
 
         private void chkkbNhipTimKhong_CheckedChanged(object sender, EventArgs e)
         {
-            if (uc_bant_41.chkkbNhipTimKhong.Checked == true)
+            if (uc_bant_41.chkkbNhipTimKhong.Checked)
                 uc_bant_41.chkkbNhipTimDeu.Checked = false;
         }
 
 
-
         private void PerformAction()
         {
-
             switch (m_enAct)
             {
                 case action.Update:
@@ -636,7 +638,6 @@ namespace VNS.HIS.UI.BENH_AN
                 case action.Delete:
                     DeletePatient();
                     break;
-
             }
         }
 
@@ -651,20 +652,16 @@ namespace VNS.HIS.UI.BENH_AN
                     m_enAct = action.Insert;
                     uc_bant_11.txtID_BA.Clear();
                     uc_bant_11.txtMaBenhAn.Clear();
-                    Utility.SetMsg(uiStatusBar1.Panels["MSG"],"Bạn đã xóa bệnh án cho bệnh nhân thành công",false);
-
+                    Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn đã xóa bệnh án cho bệnh nhân thành công", false);
                 }
                 catch (Exception)
                 {
                 }
-
-
             }
         }
 
         private void UpdatePatient()
         {
-
             SqlQuery KT_IN_BENH_AN =
                 new Select().From(KcbBenhAn.Schema).
                     Where(KcbBenhAn.Columns.InPhieuLog).IsEqualTo(Utility.Int16Dbnull(1)).And(
@@ -683,7 +680,9 @@ namespace VNS.HIS.UI.BENH_AN
                             .And(KcbBenhAn.Columns.IdBnhan).IsNotEqualTo(Utility.sDbnull(uc_bant_11.txtMaBN.Text, -1));
                     if (KT_SO_BENH_AN.GetRecordCount() > 0)
                     {
-                        MessageBox.Show(string.Format("Mã bệnh án {0} đã được sử dụng cho bệnh nhân khác. Mời bạn kiểm tra lại",uc_bant_11.txtMaBenhAn.Text));
+                        MessageBox.Show(
+                            string.Format("Mã bệnh án {0} đã được sử dụng cho bệnh nhân khác. Mời bạn kiểm tra lại",
+                                          uc_bant_11.txtMaBenhAn.Text));
                     }
                     else
                     {
@@ -691,13 +690,7 @@ namespace VNS.HIS.UI.BENH_AN
                         objBenhAnNgoaiTru.Save();
                         MessageBox.Show("Sửa bệnh án thành công");
 
-                        if (PropertyLib._BenhAnProperties.Tudongthoatformngaysaukhiluu) this.Close();
-                        else
-                        {
-
-                        }
-
-                        //this.Close();
+                        if (PropertyLib._BenhAnProperties.Tudongthoatformngaysaukhiluu) Close();
                     }
                 }
                 catch (Exception ex)
@@ -709,7 +702,6 @@ namespace VNS.HIS.UI.BENH_AN
 
         private void InsertPatient()
         {
-
             try
             {
                 if (string.IsNullOrEmpty(uc_bant_11.txtMaBenhAn.Text))
@@ -731,33 +723,27 @@ namespace VNS.HIS.UI.BENH_AN
                     objBenhAnNgoaiTru.Save();
                     MessageBox.Show("Lưu bệnh án thành công");
 
-                    if (PropertyLib._BenhAnProperties.Tudongthoatformngaysaukhiluu) this.Close();
+                    if (PropertyLib._BenhAnProperties.Tudongthoatformngaysaukhiluu) Close();
                     else
                     {
                         FindPatientID(uc_bant_11.txtMaBN.Text);
                         //cmdInBenhAn.Enabled = true;
                         //m_enAct = action.Update;
-
-
                     }
 
                     // this.Close();
                 }
-
-
             }
             catch (Exception)
             {
-
                 throw;
             }
             //KcbBenhAn objBenhAnNgoaiTru = new CreateBenhAnNgoaiTru();
-
         }
 
         private KcbBenhAn CreateBenhAnNgoaiTru()
         {
-            KcbBenhAn objBenhAnNgoaiTru = new KcbBenhAn();
+            var objBenhAnNgoaiTru = new KcbBenhAn();
             try
             {
                 if (m_enAct == action.Update)
@@ -767,9 +753,6 @@ namespace VNS.HIS.UI.BENH_AN
                     objBenhAnNgoaiTru.MarkOld();
                     objBenhAnNgoaiTru.NgaySua = globalVariables.SysDate;
                     objBenhAnNgoaiTru.NguoiSua = globalVariables.UserName;
-
-
-
                 }
                 if (m_enAct == action.Insert)
                 {
@@ -778,6 +761,8 @@ namespace VNS.HIS.UI.BENH_AN
                 }
 
                 objBenhAnNgoaiTru.SoBenhAn = Utility.sDbnull(uc_bant_11.txtMaBenhAn.Text, -1);
+                objBenhAnNgoaiTru.LoaiBa = Utility.sDbnull(loaibenhan);
+                objBenhAnNgoaiTru.MaLuotkham = Utility.sDbnull(uc_bant_11.txtMaLanKham.Text);
                 objBenhAnNgoaiTru.IdBnhan = Utility.Int32Dbnull(uc_bant_11.txtMaBN.Text);
                 objBenhAnNgoaiTru.NgaySinh = Utility.sDbnull(uc_bant_11.txtNgaySinh.Text);
                 objBenhAnNgoaiTru.ThangSinh = Utility.sDbnull(uc_bant_11.txtThangSinh.Text);
@@ -832,7 +817,8 @@ namespace VNS.HIS.UI.BENH_AN
                 objBenhAnNgoaiTru.HtaiDai = Utility.sDbnull(uc_bant_31.txthbSoLanDai.Text);
                 objBenhAnNgoaiTru.HtaiGiamtl = Utility.Int16Dbnull(uc_bant_31.chkhbGiamThiLuc.Checked ? 1 : 0);
                 objBenhAnNgoaiTru.HtaiKhac = Utility.sDbnull(uc_bant_31.chkhbKhac.Checked ? 1 : 0);
-                objBenhAnNgoaiTru.TsbBtChuaphathien = Utility.Int16Dbnull(uc_bant_31.chktsbChuaPhatHienBenh.Checked ? 1 : 0);
+                objBenhAnNgoaiTru.TsbBtChuaphathien =
+                    Utility.Int16Dbnull(uc_bant_31.chktsbChuaPhatHienBenh.Checked ? 1 : 0);
                 objBenhAnNgoaiTru.TsbBtNhoimaucotim = Utility.Int16Dbnull(uc_bant_31.chktsbNhoiMauCoTim.Checked ? 1 : 0);
                 objBenhAnNgoaiTru.TsbBtNamNmct = Utility.sDbnull(uc_bant_31.txttsbNamNhoiMauCoTim.Text);
                 objBenhAnNgoaiTru.TsbBtTbmn = Utility.Int16Dbnull(uc_bant_31.chktsbTBMN.Checked ? 1 : 0);
@@ -958,21 +944,16 @@ namespace VNS.HIS.UI.BENH_AN
             }
             catch (Exception ex)
             {
-
                 Utility.CatchException("Lỗi khi tạo dữ liệu bệnh án ngoại trú", ex);
                 return null;
             }
-
-
         }
-
 
 
         private void cmdSave_Click_1(object sender, EventArgs e)
         {
             if (!KiemTraDuLieu()) return;
             PerformAction();
-
         }
 
         private bool KiemTraDuLieu()
@@ -987,7 +968,9 @@ namespace VNS.HIS.UI.BENH_AN
             }
             if (uc_bant_11.txtMaBN.Text != strIdBenhnhan)
             {
-                Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Mã bệnh nhân đã bị thay đổi-->Mời bạn nhập lại mã bệnh nhân và nhấn phím Enter để nạp lại thông tin", true);
+                Utility.SetMsg(uiStatusBar1.Panels["MSG"],
+                               "Mã bệnh nhân đã bị thay đổi-->Mời bạn nhập lại mã bệnh nhân và nhấn phím Enter để nạp lại thông tin",
+                               true);
                 uc_bant_11.txtMaBN.Focus();
                 return false;
             }
@@ -995,15 +978,19 @@ namespace VNS.HIS.UI.BENH_AN
             {
                 if (uc_bant_11.txtMaBenhAn.Text == "")
                 {
-                    Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn đang ở chế độ sửa thông tin nên Mã bệnh án không được phép để trống",true);
+                    Utility.SetMsg(uiStatusBar1.Panels["MSG"],
+                                   "Bạn đang ở chế độ sửa thông tin nên Mã bệnh án không được phép để trống", true);
                     uc_bant_11.txtMaBenhAn.Focus();
                     return false;
                 }
             }
 
-            if (Utility.Int32Dbnull(uc_bant_11.txtMaBenhAn.Text) <= Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_SO_BENH_AN", false), -1))
+            if (Utility.Int32Dbnull(uc_bant_11.txtMaBenhAn.Text) <=
+                Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_SO_BENH_AN", false), -1))
             {
-                Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Số Bệnh án phải lớn hơn số khởi tạo: " + THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_SO_BENH_AN", false),true);
+                Utility.SetMsg(uiStatusBar1.Panels["MSG"],
+                               "Số Bệnh án phải lớn hơn số khởi tạo: " +
+                               THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_SO_BENH_AN", false), true);
 
                 uc_bant_11.txtMaBenhAn.Focus();
                 uc_bant_11.txtMaBenhAn.SelectAll();
@@ -1015,19 +1002,18 @@ namespace VNS.HIS.UI.BENH_AN
 
         private void cmdInBenhAn_Click_1(object sender, EventArgs e)
         {
-            
             DataTable dsTable = SPs.KcbThamkhamLaythongtinBenhanNgoaitru(uc_bant_11.txtMaBN.Text).GetDataSet().Tables[0];
-            CrystalDecisions.CrystalReports.Engine.ReportDocument crpt;
+            ReportDocument crpt;
             string tieude = "", reportname = "";
             crpt = Utility.GetReport("thamkham_BENH_AN_NGOAITRU", ref tieude, ref reportname);
             if (crpt == null) return;
-            frmPrintPreview objForm = new frmPrintPreview("bệnh án", crpt, true, true);
+            var objForm = new frmPrintPreview("bệnh án", crpt, true, true);
             objForm.mv_sReportFileName = Path.GetFileName(reportname);
             objForm.mv_sReportCode = "thamkham_BENH_AN_NGOAITRU";
             crpt.SetDataSource(dsTable);
             objForm.crptViewer.ReportSource = crpt;
             objForm.ShowDialog();
-            KcbBenhAn objBenhAnNgoaiTru = new KcbBenhAn();
+            var objBenhAnNgoaiTru = new KcbBenhAn();
             objBenhAnNgoaiTru.IsLoaded = true;
             objBenhAnNgoaiTru.MarkOld();
             objBenhAnNgoaiTru.Id = Utility.Int32Dbnull(uc_bant_11.txtID_BA.Text, -1);
@@ -1042,14 +1028,12 @@ namespace VNS.HIS.UI.BENH_AN
             if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
-
             }
         }
 
 
         private void txtMaLanKham_KeyDown(object sender, KeyEventArgs e)
         {
-
             if (e.KeyCode == Keys.Enter)
             {
                 Utility.SetMsg(uiStatusBar1.Panels["MSG"], "", false);
@@ -1058,7 +1042,7 @@ namespace VNS.HIS.UI.BENH_AN
                     string _temp = uc_bant_11.txtMaLanKham.Text.Trim();
                     ClearControl();
                     uc_bant_11.txtMaLanKham.Text = _temp;
-                    KcbLuotkham objMaBn =
+                    var objMaBn =
                         new Select().From(KcbLuotkham.Schema).Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(
                             Utility.Int32Dbnull(uc_bant_11.txtMaLanKham.Text.Trim())).ExecuteSingle<KcbLuotkham>();
                     if (objMaBn != null)
@@ -1066,21 +1050,20 @@ namespace VNS.HIS.UI.BENH_AN
                         uc_bant_11.txtMaBN.Text = Utility.sDbnull(objMaBn.IdBenhnhan, "");
                         strIdBenhnhan = uc_bant_11.txtMaBN.Text;
                         FindPatientID(uc_bant_11.txtMaBN.Text.Trim());
-
                     }
                     else
                     {
-                        Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Mã lần khám không tồn tại-->Mời bạn kiểm tra lại",true);
+                        Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Mã lần khám không tồn tại-->Mời bạn kiểm tra lại",
+                                       true);
                         uc_bant_11.txtMaLanKham.Focus();
                     }
                 }
                 else
                 {
-                    Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải nhập mã lượt khám trước khi nhấn Enter để tìm kiếm", true);
+                    Utility.SetMsg(uiStatusBar1.Panels["MSG"],
+                                   "Bạn phải nhập mã lượt khám trước khi nhấn Enter để tìm kiếm", true);
                 }
-
             }
-
         }
 
         private void txtMaLanKham_KeyPress(object sender, KeyPressEventArgs e)
@@ -1113,9 +1096,6 @@ namespace VNS.HIS.UI.BENH_AN
                 e.Handled = true;
         }
 
-       
-
-      
 
         private void Try2CreateFolder()
         {
@@ -1129,16 +1109,13 @@ namespace VNS.HIS.UI.BENH_AN
             }
         }
 
-        
 
         private void txtMaBenhAn_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void txtMaBenhAn_KeyDown(object sender, KeyEventArgs e)
         {
-
             if (e.KeyCode == Keys.Enter)
             {
                 Utility.SetMsg(uiStatusBar1.Panels["MSG"], "", false);
@@ -1147,7 +1124,7 @@ namespace VNS.HIS.UI.BENH_AN
                     string _temp = uc_bant_11.txtMaBenhAn.Text.Trim();
                     ClearControl();
                     uc_bant_11.txtMaBenhAn.Text = _temp;
-                    KcbBenhAn objMa_Benh_An =
+                    var objMa_Benh_An =
                         new Select().From(KcbBenhAn.Schema).Where(KcbBenhAn.Columns.SoBenhAn).IsEqualTo(
                             Utility.Int32Dbnull(uc_bant_11.txtMaBenhAn.Text.Trim())).ExecuteSingle<KcbBenhAn>();
                     if (objMa_Benh_An != null)
@@ -1155,13 +1132,11 @@ namespace VNS.HIS.UI.BENH_AN
                         uc_bant_11.txtMaBN.Text = Utility.sDbnull(objMa_Benh_An.IdBnhan, "");
                         strIdBenhnhan = uc_bant_11.txtMaBN.Text;
                         FindPatientID(uc_bant_11.txtMaBN.Text.Trim());
-
                     }
                     else
                     {
                         Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Không tìm được Bệnh án theo số bạn nhập ", true);
                         uc_bant_11.txtMaBenhAn.Focus();
-
                     }
                 }
                 else
@@ -1173,8 +1148,8 @@ namespace VNS.HIS.UI.BENH_AN
         {
             m_enAct = action.Delete;
             PerformAction();
-
         }
+
         private void ClearControlOfUc(Control parent)
         {
             try
@@ -1184,46 +1159,44 @@ namespace VNS.HIS.UI.BENH_AN
                     if (control is EditBox)
                     {
                         var txtControl = new EditBox();
-                        txtControl = ((EditBox)control);
+                        txtControl = ((EditBox) control);
                         txtControl.Clear();
                     }
                     if (control is CalendarCombo)
                     {
                         var txtControl = new CalendarCombo();
-                        txtControl = ((CalendarCombo)control);
+                        txtControl = ((CalendarCombo) control);
                         txtControl.NullValue = true;
                     }
 
                     if (control is UICheckBox)
                     {
                         var txtControl = new UICheckBox();
-                        txtControl = ((UICheckBox)control);
+                        txtControl = ((UICheckBox) control);
                         txtControl.Checked = false;
                     }
                     if (control is MaskedEditBox)
                     {
                         var txtControl = new MaskedEditBox();
-                        txtControl = ((MaskedEditBox)control);
+                        txtControl = ((MaskedEditBox) control);
                         txtControl.Clear();
                     }
                     if (control is RichTextBox)
                     {
                         var txtControl = new RichTextBox();
-                        txtControl = ((RichTextBox)control);
+                        txtControl = ((RichTextBox) control);
                         txtControl.Clear();
                     }
-
                 }
             }
             catch (Exception ex)
             {
-
                 Utility.CatchException(ex);
             }
         }
+
         private void ClearControl()
         {
-
             uc_bant_11.txtNgaySinh.Clear();
             uc_bant_11.txtThangSinh.Clear();
             uc_bant_11.txtDienThoai.Clear();
@@ -1235,10 +1208,6 @@ namespace VNS.HIS.UI.BENH_AN
             ClearControlOfUc(uc_bant_21);
             ClearControlOfUc(uc_bant_31);
             ClearControlOfUc(uc_bant_41);
-           
         }
-
     }
 }
-  
-  
