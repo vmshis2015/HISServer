@@ -29,19 +29,26 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem4 = new Janus.Windows.EditControls.UIComboBoxItem();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_quanlycacphongchucnang));
+            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem5 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem6 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem7 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem8 = new Janus.Windows.EditControls.UIComboBoxItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.TabInfo = new Janus.Windows.UI.Tab.UITab();
+            this.tabCapNhap = new Janus.Windows.UI.Tab.UITabPage();
             this.grpChiDinhCLS = new Janus.Windows.EditControls.UIGroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cboLaserPrinters = new System.Windows.Forms.ComboBox();
+            this.lnkDelFTPImages = new System.Windows.Forms.LinkLabel();
+            this.lnkGetImagesFromFTP = new System.Windows.Forms.LinkLabel();
+            this.lnkAutoCorrect = new System.Windows.Forms.LinkLabel();
+            this.txtMauKQ = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.txtMauchuan = new Janus.Windows.GridEX.EditControls.EditBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cmdConfig = new Janus.Windows.EditControls.UIButton();
@@ -109,6 +116,7 @@
             this.cmdPrintRadio = new Janus.Windows.EditControls.UIButton();
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
             this.chkXacnhan = new Janus.Windows.EditControls.UICheckBox();
+            this.tabDanhsach = new Janus.Windows.UI.Tab.UITabPage();
             this.grdList = new Janus.Windows.GridEX.GridEX();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolChooseBN = new System.Windows.Forms.ToolStripMenuItem();
@@ -147,20 +155,16 @@
             this.gridEXExporter2 = new Janus.Windows.GridEX.Export.GridEXExporter(this.components);
             this.uiGroupBox13 = new Janus.Windows.EditControls.UIGroupBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.lnkAutoCorrect = new System.Windows.Forms.LinkLabel();
-            this.lnkGetImagesFromFTP = new System.Windows.Forms.LinkLabel();
-            this.lnkDelFTPImages = new System.Windows.Forms.LinkLabel();
-            this.tabCapNhap = new Janus.Windows.UI.Tab.UITabPage();
-            this.tabDanhsach = new Janus.Windows.UI.Tab.UITabPage();
-            this.txtMauKQ = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TabInfo)).BeginInit();
             this.TabInfo.SuspendLayout();
+            this.tabCapNhap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpChiDinhCLS)).BeginInit();
             this.grpChiDinhCLS.SuspendLayout();
             this.grb1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox8)).BeginInit();
             this.uiGroupBox8.SuspendLayout();
+            this.tabDanhsach.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpTimKiem)).BeginInit();
@@ -168,8 +172,6 @@
             this.panel2.SuspendLayout();
             this.ctxImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox13)).BeginInit();
-            this.tabCapNhap.SuspendLayout();
-            this.tabDanhsach.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -233,8 +235,22 @@
             this.TabInfo.ChangingSelectedTab += new Janus.Windows.UI.Tab.TabCancelEventHandler(this.TabInfo_ChangingSelectedTab);
             this.TabInfo.TabIndexChanged += new System.EventHandler(this.TabInfo_TabIndexChanged);
             // 
+            // tabCapNhap
+            // 
+            this.tabCapNhap.Controls.Add(this.grpChiDinhCLS);
+            this.tabCapNhap.Controls.Add(this.grb1);
+            this.tabCapNhap.Controls.Add(this.uiGroupBox8);
+            this.tabCapNhap.Image = ((System.Drawing.Image)(resources.GetObject("tabCapNhap.Image")));
+            this.tabCapNhap.Location = new System.Drawing.Point(1, 27);
+            this.tabCapNhap.Name = "tabCapNhap";
+            this.tabCapNhap.Size = new System.Drawing.Size(1012, 696);
+            this.tabCapNhap.TabStop = true;
+            this.tabCapNhap.Text = "Cập nhập thông tin";
+            // 
             // grpChiDinhCLS
             // 
+            this.grpChiDinhCLS.Controls.Add(this.label9);
+            this.grpChiDinhCLS.Controls.Add(this.cboLaserPrinters);
             this.grpChiDinhCLS.Controls.Add(this.lnkDelFTPImages);
             this.grpChiDinhCLS.Controls.Add(this.lnkGetImagesFromFTP);
             this.grpChiDinhCLS.Controls.Add(this.lnkAutoCorrect);
@@ -280,6 +296,105 @@
             this.grpChiDinhCLS.TabIndex = 1;
             this.grpChiDinhCLS.Text = "Thông tin kết quả";
             this.grpChiDinhCLS.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2003;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.Black;
+            this.label9.Location = new System.Drawing.Point(835, 301);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(80, 21);
+            this.label9.TabIndex = 511;
+            this.label9.Text = "Chọn máy in:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cboLaserPrinters
+            // 
+            this.cboLaserPrinters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboLaserPrinters.BackColor = System.Drawing.Color.White;
+            this.cboLaserPrinters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboLaserPrinters.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboLaserPrinters.FormattingEnabled = true;
+            this.cboLaserPrinters.Location = new System.Drawing.Point(835, 335);
+            this.cboLaserPrinters.Name = "cboLaserPrinters";
+            this.cboLaserPrinters.Size = new System.Drawing.Size(167, 22);
+            this.cboLaserPrinters.TabIndex = 510;
+            // 
+            // lnkDelFTPImages
+            // 
+            this.lnkDelFTPImages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lnkDelFTPImages.AutoSize = true;
+            this.lnkDelFTPImages.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkDelFTPImages.Location = new System.Drawing.Point(832, 250);
+            this.lnkDelFTPImages.Name = "lnkDelFTPImages";
+            this.lnkDelFTPImages.Size = new System.Drawing.Size(164, 16);
+            this.lnkDelFTPImages.TabIndex = 509;
+            this.lnkDelFTPImages.TabStop = true;
+            this.lnkDelFTPImages.Text = "Xóa ảnh download từ FTP?";
+            // 
+            // lnkGetImagesFromFTP
+            // 
+            this.lnkGetImagesFromFTP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lnkGetImagesFromFTP.AutoSize = true;
+            this.lnkGetImagesFromFTP.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkGetImagesFromFTP.Location = new System.Drawing.Point(832, 225);
+            this.lnkGetImagesFromFTP.Name = "lnkGetImagesFromFTP";
+            this.lnkGetImagesFromFTP.Size = new System.Drawing.Size(99, 16);
+            this.lnkGetImagesFromFTP.TabIndex = 508;
+            this.lnkGetImagesFromFTP.TabStop = true;
+            this.lnkGetImagesFromFTP.Text = "Lấy ảnh từ FTP";
+            // 
+            // lnkAutoCorrect
+            // 
+            this.lnkAutoCorrect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lnkAutoCorrect.AutoSize = true;
+            this.lnkAutoCorrect.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkAutoCorrect.Location = new System.Drawing.Point(835, 371);
+            this.lnkAutoCorrect.Name = "lnkAutoCorrect";
+            this.lnkAutoCorrect.Size = new System.Drawing.Size(77, 16);
+            this.lnkAutoCorrect.TabIndex = 507;
+            this.lnkAutoCorrect.TabStop = true;
+            this.lnkAutoCorrect.Text = "AutoCorrect";
+            // 
+            // txtMauKQ
+            // 
+            this.txtMauKQ._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtMauKQ._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMauKQ._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtMauKQ.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMauKQ.AutoCompleteList")));
+            this.txtMauKQ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMauKQ.CaseSensitive = false;
+            this.txtMauKQ.CompareNoID = true;
+            this.txtMauKQ.DefaultCode = "-1";
+            this.txtMauKQ.DefaultID = "-1";
+            this.txtMauKQ.Drug_ID = null;
+            this.txtMauKQ.ExtraWidth = 0;
+            this.txtMauKQ.FillValueAfterSelect = false;
+            this.txtMauKQ.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMauKQ.Location = new System.Drawing.Point(108, 43);
+            this.txtMauKQ.MaxHeight = 289;
+            this.txtMauKQ.MinTypedCharacters = 2;
+            this.txtMauKQ.MyCode = "-1";
+            this.txtMauKQ.MyID = "-1";
+            this.txtMauKQ.MyText = "";
+            this.txtMauKQ.Name = "txtMauKQ";
+            this.txtMauKQ.RaiseEvent = true;
+            this.txtMauKQ.RaiseEventEnter = true;
+            this.txtMauKQ.RaiseEventEnterWhenEmpty = false;
+            this.txtMauKQ.SelectedIndex = -1;
+            this.txtMauKQ.Size = new System.Drawing.Size(721, 21);
+            this.txtMauKQ.splitChar = '@';
+            this.txtMauKQ.splitCharIDAndCode = '#';
+            this.txtMauKQ.TabIndex = 18;
+            this.txtMauKQ.TakeCode = false;
+            this.txtMauKQ.txtMyCode = null;
+            this.txtMauKQ.txtMyCode_Edit = null;
+            this.txtMauKQ.txtMyID = null;
+            this.txtMauKQ.txtMyID_Edit = null;
+            this.txtMauKQ.txtMyName = null;
+            this.txtMauKQ.txtMyName_Edit = null;
+            this.txtMauKQ.txtNext = null;
             // 
             // txtMauchuan
             // 
@@ -1013,7 +1128,7 @@
             this.cmdSaveAndAccept.Name = "cmdSaveAndAccept";
             this.cmdSaveAndAccept.Size = new System.Drawing.Size(133, 27);
             this.cmdSaveAndAccept.TabIndex = 92;
-            this.cmdSaveAndAccept.Text = "Lưu và xác nhận";
+            this.cmdSaveAndAccept.Text = "Duyệt kết quả";
             this.cmdSaveAndAccept.Click += new System.EventHandler(this.cmdSaveAndAccept_Click);
             // 
             // cmdPrintRadio
@@ -1037,7 +1152,7 @@
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(133, 27);
             this.cmdSave.TabIndex = 91;
-            this.cmdSave.Text = "Lưu (Ctrl+S)";
+            this.cmdSave.Text = "Lưu và in(Ctrl+S)";
             // 
             // chkXacnhan
             // 
@@ -1051,6 +1166,17 @@
             this.chkXacnhan.Text = "Đã xác nhận kết quả?";
             this.toolTip1.SetToolTip(this.chkXacnhan, "Chọn mục này nếu muốn kết thúc nhập kết quả cho cận lâm sàng đang chọn(Nếu kết th" +
         "úc, các bác sĩ ở phòng khám có thể xem kết quả này)");
+            // 
+            // tabDanhsach
+            // 
+            this.tabDanhsach.Controls.Add(this.grdList);
+            this.tabDanhsach.Controls.Add(this.grpTimKiem);
+            this.tabDanhsach.Image = ((System.Drawing.Image)(resources.GetObject("tabDanhsach.Image")));
+            this.tabDanhsach.Location = new System.Drawing.Point(1, 27);
+            this.tabDanhsach.Name = "tabDanhsach";
+            this.tabDanhsach.Size = new System.Drawing.Size(1012, 696);
+            this.tabDanhsach.TabStop = true;
+            this.tabDanhsach.Text = "Danh sách bệnh nhân chờ";
             // 
             // grdList
             // 
@@ -1384,27 +1510,27 @@
             // 
             // cboPatientSex
             // 
-            uiComboBoxItem1.FormatStyle.Alpha = 0;
-            uiComboBoxItem1.IsSeparator = false;
-            uiComboBoxItem1.Text = "Giới tính";
-            uiComboBoxItem1.Value = -1;
-            uiComboBoxItem2.FormatStyle.Alpha = 0;
-            uiComboBoxItem2.IsSeparator = false;
-            uiComboBoxItem2.Text = "Nam(Male)";
-            uiComboBoxItem2.Value = 0;
-            uiComboBoxItem3.FormatStyle.Alpha = 0;
-            uiComboBoxItem3.IsSeparator = false;
-            uiComboBoxItem3.Text = "Nữ(Female)";
-            uiComboBoxItem3.Value = 1;
-            uiComboBoxItem4.FormatStyle.Alpha = 0;
-            uiComboBoxItem4.IsSeparator = false;
-            uiComboBoxItem4.Text = "Khác";
-            uiComboBoxItem4.Value = 2;
+            uiComboBoxItem5.FormatStyle.Alpha = 0;
+            uiComboBoxItem5.IsSeparator = false;
+            uiComboBoxItem5.Text = "Giới tính";
+            uiComboBoxItem5.Value = -1;
+            uiComboBoxItem6.FormatStyle.Alpha = 0;
+            uiComboBoxItem6.IsSeparator = false;
+            uiComboBoxItem6.Text = "Nam(Male)";
+            uiComboBoxItem6.Value = 0;
+            uiComboBoxItem7.FormatStyle.Alpha = 0;
+            uiComboBoxItem7.IsSeparator = false;
+            uiComboBoxItem7.Text = "Nữ(Female)";
+            uiComboBoxItem7.Value = 1;
+            uiComboBoxItem8.FormatStyle.Alpha = 0;
+            uiComboBoxItem8.IsSeparator = false;
+            uiComboBoxItem8.Text = "Khác";
+            uiComboBoxItem8.Value = 2;
             this.cboPatientSex.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem1,
-            uiComboBoxItem2,
-            uiComboBoxItem3,
-            uiComboBoxItem4});
+            uiComboBoxItem5,
+            uiComboBoxItem6,
+            uiComboBoxItem7,
+            uiComboBoxItem8});
             this.cboPatientSex.Location = new System.Drawing.Point(85, 77);
             this.cboPatientSex.Name = "cboPatientSex";
             this.cboPatientSex.SelectedIndex = 0;
@@ -1472,104 +1598,6 @@
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp";
             // 
-            // lnkAutoCorrect
-            // 
-            this.lnkAutoCorrect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lnkAutoCorrect.AutoSize = true;
-            this.lnkAutoCorrect.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkAutoCorrect.Location = new System.Drawing.Point(835, 371);
-            this.lnkAutoCorrect.Name = "lnkAutoCorrect";
-            this.lnkAutoCorrect.Size = new System.Drawing.Size(77, 16);
-            this.lnkAutoCorrect.TabIndex = 507;
-            this.lnkAutoCorrect.TabStop = true;
-            this.lnkAutoCorrect.Text = "AutoCorrect";
-            // 
-            // lnkGetImagesFromFTP
-            // 
-            this.lnkGetImagesFromFTP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lnkGetImagesFromFTP.AutoSize = true;
-            this.lnkGetImagesFromFTP.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkGetImagesFromFTP.Location = new System.Drawing.Point(832, 225);
-            this.lnkGetImagesFromFTP.Name = "lnkGetImagesFromFTP";
-            this.lnkGetImagesFromFTP.Size = new System.Drawing.Size(99, 16);
-            this.lnkGetImagesFromFTP.TabIndex = 508;
-            this.lnkGetImagesFromFTP.TabStop = true;
-            this.lnkGetImagesFromFTP.Text = "Lấy ảnh từ FTP";
-            // 
-            // lnkDelFTPImages
-            // 
-            this.lnkDelFTPImages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lnkDelFTPImages.AutoSize = true;
-            this.lnkDelFTPImages.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkDelFTPImages.Location = new System.Drawing.Point(832, 250);
-            this.lnkDelFTPImages.Name = "lnkDelFTPImages";
-            this.lnkDelFTPImages.Size = new System.Drawing.Size(164, 16);
-            this.lnkDelFTPImages.TabIndex = 509;
-            this.lnkDelFTPImages.TabStop = true;
-            this.lnkDelFTPImages.Text = "Xóa ảnh download từ FTP?";
-            // 
-            // tabCapNhap
-            // 
-            this.tabCapNhap.Controls.Add(this.grpChiDinhCLS);
-            this.tabCapNhap.Controls.Add(this.grb1);
-            this.tabCapNhap.Controls.Add(this.uiGroupBox8);
-            this.tabCapNhap.Image = ((System.Drawing.Image)(resources.GetObject("tabCapNhap.Image")));
-            this.tabCapNhap.Location = new System.Drawing.Point(1, 27);
-            this.tabCapNhap.Name = "tabCapNhap";
-            this.tabCapNhap.Size = new System.Drawing.Size(1012, 696);
-            this.tabCapNhap.TabStop = true;
-            this.tabCapNhap.Text = "Cập nhập thông tin";
-            // 
-            // tabDanhsach
-            // 
-            this.tabDanhsach.Controls.Add(this.grdList);
-            this.tabDanhsach.Controls.Add(this.grpTimKiem);
-            this.tabDanhsach.Image = ((System.Drawing.Image)(resources.GetObject("tabDanhsach.Image")));
-            this.tabDanhsach.Location = new System.Drawing.Point(1, 27);
-            this.tabDanhsach.Name = "tabDanhsach";
-            this.tabDanhsach.Size = new System.Drawing.Size(1012, 696);
-            this.tabDanhsach.TabStop = true;
-            this.tabDanhsach.Text = "Danh sách bệnh nhân chờ";
-            // 
-            // txtMauKQ
-            // 
-            this.txtMauKQ._backcolor = System.Drawing.Color.WhiteSmoke;
-            this.txtMauKQ._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMauKQ._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtMauKQ.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMauKQ.AutoCompleteList")));
-            this.txtMauKQ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMauKQ.CaseSensitive = false;
-            this.txtMauKQ.CompareNoID = true;
-            this.txtMauKQ.DefaultCode = "-1";
-            this.txtMauKQ.DefaultID = "-1";
-            this.txtMauKQ.Drug_ID = null;
-            this.txtMauKQ.ExtraWidth = 0;
-            this.txtMauKQ.FillValueAfterSelect = false;
-            this.txtMauKQ.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMauKQ.Location = new System.Drawing.Point(108, 43);
-            this.txtMauKQ.MaxHeight = 289;
-            this.txtMauKQ.MinTypedCharacters = 2;
-            this.txtMauKQ.MyCode = "-1";
-            this.txtMauKQ.MyID = "-1";
-            this.txtMauKQ.MyText = "";
-            this.txtMauKQ.Name = "txtMauKQ";
-            this.txtMauKQ.RaiseEvent = true;
-            this.txtMauKQ.RaiseEventEnter = true;
-            this.txtMauKQ.RaiseEventEnterWhenEmpty = false;
-            this.txtMauKQ.SelectedIndex = -1;
-            this.txtMauKQ.Size = new System.Drawing.Size(721, 21);
-            this.txtMauKQ.splitChar = '@';
-            this.txtMauKQ.splitCharIDAndCode = '#';
-            this.txtMauKQ.TabIndex = 18;
-            this.txtMauKQ.TakeCode = false;
-            this.txtMauKQ.txtMyCode = null;
-            this.txtMauKQ.txtMyCode_Edit = null;
-            this.txtMauKQ.txtMyID = null;
-            this.txtMauKQ.txtMyID_Edit = null;
-            this.txtMauKQ.txtMyName = null;
-            this.txtMauKQ.txtMyName_Edit = null;
-            this.txtMauKQ.txtNext = null;
-            // 
             // frm_quanlycacphongchucnang
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1590,6 +1618,7 @@
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TabInfo)).EndInit();
             this.TabInfo.ResumeLayout(false);
+            this.tabCapNhap.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpChiDinhCLS)).EndInit();
             this.grpChiDinhCLS.ResumeLayout(false);
             this.grpChiDinhCLS.PerformLayout();
@@ -1598,6 +1627,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox8)).EndInit();
             this.uiGroupBox8.ResumeLayout(false);
             this.uiGroupBox8.PerformLayout();
+            this.tabDanhsach.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpTimKiem)).EndInit();
@@ -1606,8 +1636,6 @@
             this.panel2.ResumeLayout(false);
             this.ctxImage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox13)).EndInit();
-            this.tabCapNhap.ResumeLayout(false);
-            this.tabDanhsach.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1734,5 +1762,7 @@
         private System.Windows.Forms.LinkLabel lnkAutoCorrect;
         private System.Windows.Forms.LinkLabel lnkDelFTPImages;
         private System.Windows.Forms.LinkLabel lnkGetImagesFromFTP;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cboLaserPrinters;
     }
 }

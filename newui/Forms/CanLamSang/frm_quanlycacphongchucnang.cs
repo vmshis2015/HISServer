@@ -26,6 +26,7 @@ using System.Drawing.Printing;
 using Aspose.Words.Tables;
 using Aspose.Words.Drawing;
 using VNS.HIS.UI.HinhAnh;
+using System.Runtime.InteropServices;
 
 
 namespace VNS.HIS.UI.Forms.HinhAnh
@@ -46,7 +47,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         private DataTable m_dtDataForm = new DataTable();
         private DataTable m_dtFormListBookmark = new DataTable();
         private DataTable m_dtFormServiceDetail = new DataTable();
-
+        KcbChidinhclsChitiet objKcbChidinhclsChitiet = null;
         /// <summary>
         ///     hàm thuc chiện
         /// </summary>
@@ -82,7 +83,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         {
             InitializeComponent();
             log = LogManager.GetCurrentClassLogger();
-            
+            LoadLaserPrinters();
             sTitleReport = ServiceCode;
             dtmFrom.Value = globalVariables.SysDate;
             dtmTo.Value = dtmFrom.Value;
@@ -134,6 +135,12 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             lnkAutoCorrect.Click += lnkAutoCorrect_Click;
             lnkDelFTPImages.Click += lnkDelFTPImages_Click;
             lnkGetImagesFromFTP.Click += lnkGetImagesFromFTP_Click;
+            cboLaserPrinters.SelectedIndexChanged += cboLaserPrinters_SelectedIndexChanged;
+        }
+
+        void cboLaserPrinters_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmdPrintRadio.Enabled = cboLaserPrinters.Items.Count > 0 && cboLaserPrinters.SelectedIndex >= 0;
         }
 
         void lnkGetImagesFromFTP_Click(object sender, EventArgs e)
@@ -227,6 +234,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                     if (_DynamicSetup.ShowDialog() == DialogResult.OK)
                     {
                         FillDynamicValues();
+                        FocusMe(flowDynamics);
                     }
                 }
                 catch (Exception)
@@ -326,6 +334,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 chkInsaukhiluu.Checked = PropertyLib._FTPProperties.PrintAfterSave;
                 lnkGetImagesFromFTP.Enabled = PropertyLib._FTPProperties.Push2FTP;
                 lnkDelFTPImages.Enabled = PropertyLib._FTPProperties.Push2FTP;
+                
                 FtpClient = new FTPclient(PropertyLib._FTPProperties.IPAddress, PropertyLib._FTPProperties.UID, PropertyLib._FTPProperties.PWD);
                 _FtpClientCurrentDirectory = FtpClient.CurrentDirectory;
                 _baseDirectory = Utility.DoTrim(PropertyLib._FTPProperties.ImageFolder);
@@ -364,6 +373,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         {
             try
             {
+                objKcbChidinhclsChitiet = null;
                 int id_benhnhan = -1;
                 string ma_luotkham =Utility.DoTrim( txtMaluotkham_tk.Text);
                 if(ma_luotkham=="") ma_luotkham="NULL";
@@ -609,6 +619,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 pic2.Tag = imgBox2.Tag;
                 pic3.Tag = imgBox3.Tag;
                 pic4.Tag = imgBox4.Tag;
+                objKcbChidinhclsChitiet = KcbChidinhclsChitiet.FetchByID(Utility.Int32Dbnull(txtidchidinhchitiet.Text, -1));
                 DmucDichvuclsChitiet objDichvuchitiet = DmucDichvuclsChitiet.FetchByID(Utility.Int32Dbnull(txtIdDichvuChitiet.Text, -1));
                 
                 DataTable dtMauQK = clsHinhanh.HinhanhLaydanhsachMauKQtheoDichvuCLS(objDichvuchitiet.IdChitietdichvu);
@@ -987,10 +998,15 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         {
             try
             {
-                Utility.SetMsg(lblMsg, "",false);
-                KcbChidinhclsChitiet objKcbChidinhclsChitiet = KcbChidinhclsChitiet.FetchByID(Utility.Int32Dbnull(txtidchidinhchitiet.Text, -1));
+                Utility.SetMsg(lblMsg, "", false);
+               
+                if (objKcbChidinhclsChitiet == null)
+                {
+                    Utility.ShowMsg("Chỉ định cận lâm sàng này đã được người khác xóa hoặc sửa đổi. Đề nghị bạn nhấn lại nút tìm kiếm để kiểm tra lại");
+                    return null;
+                }
                 objKcbChidinhclsChitiet.FTPImage = Utility.Bool2byte(PropertyLib._FTPProperties.Push2FTP);
-                if (chkSaveImg.Checked )
+                if (chkSaveImg.Checked)
                 {
                     if (PropertyLib._FTPProperties.Push2FTP)
                     {
@@ -1057,34 +1073,34 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 objKcbChidinhclsChitiet.NgayThuchien = globalVariables.SysDate;
                 return objKcbChidinhclsChitiet;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
-                Utility.CatchException("Lỗi khi lưu kết quả hình ảnh",ex);
+                Utility.CatchException("Lỗi khi lưu kết quả hình ảnh", ex);
             }
         }
         bool isValidData()
         {
             Utility.SetMsg(lblMsg, "", true);
+           
+            if (objKcbChidinhclsChitiet == null)
+            {
+                Utility.SetMsg(lblMsg, "Bạn cần chọn dịch vụ cần nhập kết quả trước khi Lưu", true);
+                TabInfo.SelectedTab = tabDanhsach;
+                return false;
+            }
+            if (Utility.DoTrim(Utility.sDbnull( objKcbChidinhclsChitiet.NguoiThuchien,""))!="" &&  objKcbChidinhclsChitiet.NguoiThuchien != globalVariables.UserName)
+            {
+                UpdateSaveMode(false);
+                Utility.SetMsg(lblMsg, string.Format("Dịch vụ này đã được sửa bởi Người dùng {0} nên bạn chỉ có thể xem và không được phép chỉnh sửa", objKcbChidinhclsChitiet.NguoiThuchien), true);
+                return false;
+            }
             if (!HasValue(flowDynamics))
             {
                 Utility.SetMsg(lblMsg, "Bạn phải nhập ít nhất một kết quả trước khi Lưu", true);
                 FocusMe(flowDynamics);
                 return false;
             }
-            //if (Utility.DoTrim(txtsDesc.Text) == "")
-            //{
-            //    Utility.SetMsg(lblMsg, "Mô tả không được bỏ trống", true);
-            //    txtsDesc.Focus();
-            //    return false;
-            //}
-            //if (Utility.DoTrim(txtKetluan.Text) == "")
-            //{
-            //    Utility.SetMsg(lblMsg, "Kết luận không được bỏ trống", true);
-            //    txtKetluan.Focus();
-            //    return false;
-            //}
-           
             return true;
         }
         private void cmdSave_Click(object sender, EventArgs e)
@@ -1150,6 +1166,13 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 
             }
             
+        }
+        void UpdateSaveMode(bool AllowSave)
+        {
+            foreach (ucDynamicParam ctrl in flowDynamics.Controls)
+            {
+                ctrl.AllowSave = AllowSave;
+            }
         }
         bool HasValue(FlowLayoutPanel pnlParent)
         {
@@ -1817,8 +1840,10 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             if (!isValidData()) return;
             chkXacnhan.Checked = true;
             if (SaveResult())
-                if (chkXacnhan.Checked)
-                    cmdPrintRadio_Click(cmdPrintRadio, e);
+            {
+                //if (chkInsaukhiluu.Checked)
+                //    cmdPrintRadio_Click(cmdPrintRadio, e);
+            }
         }
 
         private void linkClean_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -2004,6 +2029,13 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         {
             try
             {
+                Utility.SetMsg(lblMsg, "", false);
+                if (cboLaserPrinters.Items.Count <= 0 || cboLaserPrinters.SelectedIndex < 0)
+                {
+                    Utility.SetMsg(lblMsg, "Bạn cần chọn máy in trước khi in", true);
+                    cboLaserPrinters.Focus();
+                    return;
+                }
                 DataRow[] arrDr =
                         m_dKcbChidinhclsChitiet.Select("id_chitietchidinh=" +
                                                 Utility.Int32Dbnull(txtidchidinhchitiet.Text, -1));
@@ -2041,6 +2073,11 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         {
             try
             {
+                if (Utility.DoTrim( PropertyLib._FTPProperties.TenmayInPhieutraKQ).ToUpper() != Utility.DoTrim(cboLaserPrinters.Text).ToUpper())
+                {
+                    PropertyLib._FTPProperties.TenmayInPhieutraKQ = Utility.DoTrim(cboLaserPrinters.Text);
+                    PropertyLib.SaveProperty(PropertyLib._FTPProperties);
+                }
                 List<string> fieldNames = new List<string>() {"TEN_SO_YTE", "TEN_BENHVIEN",	"DIACHI_BENHVIEN",
                     "DIENTHOAI_BENHVIEN",		"MA_LUOTKHAM",	"ID_BENHNHAN",	"TEN_BENHNHAN",	"DIA_CHI",	"DOITUONG_KCB",
                     "NOI_CHIDINH",	"CHANDOAN",	"ID_PHIEU","ten_chitietdichvu",	"NAMSINH",	"TUOI",	"GIOI_TINH",
@@ -2115,11 +2152,21 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                     }
                     else
                     {
-                        PrinterSettings printerSettings = new PrinterSettings();
-                        printerSettings.DefaultPageSettings.Margins.Top = 0;
-                        printerSettings.Copies = 1;
+                        string oldDefaultPrinter = System.Printing.LocalPrintServer.GetDefaultPrintQueue().FullName;
+                        Try2SetDefaultPrinter4Computer(cboLaserPrinters.Text);
 
-                        doc.Print(printerSettings);
+                        ProcessStartInfo info = new ProcessStartInfo(path);
+                        info.Verb = "Print";
+                        info.CreateNoWindow = false;
+                        info.WindowStyle = ProcessWindowStyle.Hidden;
+                        Process.Start(info);
+                        Try2SetDefaultPrinter4Computer(oldDefaultPrinter);
+                        //PrinterSettings printerSettings = new PrinterSettings();
+                        //printerSettings.PrinterName = cboLaserPrinters.Text;
+                        //printerSettings.DefaultPageSettings.Margins.Top = 0;
+                        //printerSettings.Copies = 1;
+
+                        //doc.Print(cboLaserPrinters.Text);
                     }
 
                 }
@@ -2133,7 +2180,50 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             {
             }
         }
+        private void Try2SetDefaultPrinter4Computer(string printerName)
+        {
+            try
+            {
+                SetDefaultPrinter(printerName);
+            }
+            catch
+            {
+            }
+        }
+        [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool SetDefaultPrinter(string Name);
+        void LoadLaserPrinters()
+        {
+            try
+            {
+                //khoi tao may in
+                String pkInstalledPrinters;
+                cboLaserPrinters.Items.Clear();
+                for (int i = 0; i < PrinterSettings.InstalledPrinters.Count; i++)
+                {
+                    pkInstalledPrinters = PrinterSettings.InstalledPrinters[i];
+                    cboLaserPrinters.Items.Add(pkInstalledPrinters);
+                }
+                if (cboLaserPrinters.Items.Count <= 0)
+                    Utility.ShowMsg("no printers found on your computer", "warning");
+                else
+                {
+                    if (Utility.DoTrim(PropertyLib._FTPProperties.TenmayInPhieutraKQ) == "")
+                        cboLaserPrinters.SelectedIndex = 0;
+                    else
+                        cboLaserPrinters.Text = Utility.DoTrim(PropertyLib._FTPProperties.TenmayInPhieutraKQ);
+                }
+                cmdPrintRadio.Enabled = cboLaserPrinters.Items.Count > 0 && cboLaserPrinters.SelectedIndex >= 0;
 
+            }
+            catch
+            {
+            }
+            finally
+            {
+
+            }
+        }
         void MailMerge_MergeField(object sender, Aspose.Words.Reporting.MergeFieldEventArgs e)
         {
             if (e.FieldName.Contains("imgPath"))
