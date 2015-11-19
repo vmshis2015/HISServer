@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Permissions;
 using System.Threading;
 using System.Timers;
@@ -102,7 +103,13 @@ namespace VMS.FSW
             try
             {
                 IEnumerable<FileInfo> fileList=null;
-                using (new NetworkConnection(WatchedPath, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                if (Utility.Laygiatrithamsohethong("ASTM_SECURITY", "0", false) == "1")
+                {
+                    //using (new NetworkConnection(_watcherPathInfo, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                    NetworkCredential theNetworkCredential = new NetworkCredential(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false));
+                    CredentialCache theNetcache = new CredentialCache();
+                    theNetcache.Add(new Uri(WatchedPath), "Basic", theNetworkCredential);
+                }
                     fileList = _watcherPathInfo.GetFiles("*.txt", SearchOption.TopDirectoryOnly);
                 fileList.OrderBy(c => c.LastWriteTime);
                 List<string> fileQuery = new List<string>();
@@ -134,7 +141,13 @@ namespace VMS.FSW
             try
             {
                  IEnumerable<FileInfo> fileList =null;
-                using (new NetworkConnection(WatchedPath, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                 if (Utility.Laygiatrithamsohethong("ASTM_SECURITY", "0", false) == "1")
+                 {
+                     //using (new NetworkConnection(_watcherPathInfo, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                     NetworkCredential theNetworkCredential = new NetworkCredential(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false));
+                     CredentialCache theNetcache = new CredentialCache();
+                     theNetcache.Add(new Uri(WatchedPath), "Basic", theNetworkCredential);
+                 }
               fileList = _watcherPathInfo.GetFiles("*.txt",
                     SearchOption.TopDirectoryOnly);
                 // Nếu không tồn tại file nào trả về thời gian hiện tại
