@@ -2554,12 +2554,16 @@ DisplayName("HIS Application Mode")]
             HienthiKetquaCLSTrongluoiChidinh = false;
             ChieucaoluoidanhsachBenhnhan = 0;
             AntimkiemNangcao = true;
+            ChophepintachCLSKhacPhieu = false;
         }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình tính năng in phiếu CLS - Phiếu chỉ định"),
+     Description("Cho phép in tách phiếu cận lâm sàng khác phiếu"),
+     DisplayName("Cho phép in tách phiếu cận lâm sàng khác phiếu")]
+        public bool ChophepintachCLSKhacPhieu { get; set; }
         [Browsable(true), ReadOnly(false), Category("Cấu hình tính năng kê thuốc - vật tư tiêu hao"),
-     Description("true=Bác sĩ chỉ tìm kiếm theo mã lượt khám. False=Bác sĩ có thể tìm kiếm BN theo ngày đăng ký, tên, số thứ tự khám..."),
-     DisplayName("Ẩn tìm kiếm nâng cao")]
+   Description("true=Bác sĩ chỉ tìm kiếm theo mã lượt khám. False=Bác sĩ có thể tìm kiếm BN theo ngày đăng ký, tên, số thứ tự khám..."),
+   DisplayName("Ẩn tìm kiếm nâng cao")]
         public bool AntimkiemNangcao { get; set; }
-
         [Browsable(true), ReadOnly(false), Category("Cấu hình tính năng kê thuốc - vật tư tiêu hao"),
      Description("<=0:Không hiển thị lưới. >0: Chiều cao của vùng lưới hiển thị"),
      DisplayName("Chiều cao lưới danh sách Bệnh nhân")]

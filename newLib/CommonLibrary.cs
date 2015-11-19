@@ -271,7 +271,14 @@ namespace VNS.Libs
     {
         BA_Thuong = 1,
         BA_TuyenGiap = 2,
-        BA_DaiThaoDuong = 3
+        BA_DaiThaoDuong = 3,
+        BA_TangHuyetAp = 4,
+        BA_Basedow = 5,
+        BA_ViemGanB = 6,
+        BA_Cop = 7,
+        BA_TaiMuiHong = 8,
+        BA_RangHamMat = 9,
+
     };
     public enum CallActionExamInfo
     {
@@ -2396,6 +2403,14 @@ namespace VNS.Libs
         {
             if (_loaibenhan == LoaiBenhAn.BA_Thuong) return "THU";
             if (_loaibenhan == LoaiBenhAn.BA_DaiThaoDuong) return "DTD";
+            if (_loaibenhan == LoaiBenhAn.BA_TangHuyetAp) return "THA";
+            if (_loaibenhan == LoaiBenhAn.BA_Basedow) return "BAS";
+            if (_loaibenhan == LoaiBenhAn.BA_Cop) return "COP";
+            if (_loaibenhan == LoaiBenhAn.BA_ViemGanB) return "VGB";
+            if (_loaibenhan == LoaiBenhAn.BA_TaiMuiHong) return "TMH";
+            if (_loaibenhan == LoaiBenhAn.BA_RangHamMat) return "RHM";
+
+
             return "";
         }
         /// <summary>
