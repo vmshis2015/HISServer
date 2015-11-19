@@ -319,6 +319,10 @@ namespace VNS.HIS.UI.NGOAITRU
             //if (chkTraiTuyen.Checked && chkGiayBHYT.Checked)
             //    chkTraiTuyen.Checked = false;
             TinhPtramBHYT();
+            if(chkGiayBHYT.Checked)
+            {
+                chkTraiTuyen.Checked = false;
+            }
         }
 
         void txtMaDTsinhsong__OnEnterMe()
@@ -612,6 +616,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             lblTuyenBHYT.Text = chkTraiTuyen.Checked ? "TRÁI TUYẾN" : "ĐÚNG TUYẾN";
             TinhPtramBHYT();
+            if (chkTraiTuyen.Checked) chkGiayBHYT.Checked = false;
         }
 
         private void txtMaQuyenloi_BHYT_LostFocus(object sender, EventArgs e)
@@ -1992,23 +1997,23 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 if (!string.IsNullOrEmpty(txtOthu4.Text))
                 {
-                    if (txtOthu4.Text.Length <= 1)
-                    {
-                        Utility.ShowMsg("Hai kí tự ô số 4 của mã bảo hiểm nằm trong khoảng từ 01->99", "Thông báo",
-                                        MessageBoxIcon.Information);
-                        txtOthu4.Focus();
-                        txtOthu4.SelectAll();
-                        return false;
-                    }
+                    //if (txtOthu4.Text.Length <= 1)
+                    //{
+                    //    Utility.ShowMsg("Hai kí tự ô số 4 của mã bảo hiểm nằm trong khoảng từ 01->99", "Thông báo",
+                    //                    MessageBoxIcon.Information);
+                    //    txtOthu4.Focus();
+                    //    txtOthu4.SelectAll();
+                    //    return false;
+                    //}
 
-                    if (Utility.Int32Dbnull(txtOthu4.Text, 0) <= 0)
-                    {
-                        Utility.ShowMsg("Hai kí tự ô số 4 của mã bảo hiểm không được phép có chữ cái và phải nằm trong khoảng từ 01->99", "Thông báo",
-                                        MessageBoxIcon.Information);
-                        txtOthu4.Focus();
-                        txtOthu4.SelectAll();
-                        return false;
-                    }
+                    //if (Utility.Int32Dbnull(txtOthu4.Text, 0) <= 0)
+                    //{
+                    //    Utility.ShowMsg("Hai kí tự ô số 4 của mã bảo hiểm không được phép có chữ cái và phải nằm trong khoảng từ 01->99", "Thông báo",
+                    //                    MessageBoxIcon.Information);
+                    //    txtOthu4.Focus();
+                    //    txtOthu4.SelectAll();
+                    //    return false;
+                    //}
                 }
                 if (!string.IsNullOrEmpty(txtOthu5.Text))
                 {
@@ -3627,6 +3632,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             catch (Exception)
             {
+
             }
         }
 
@@ -5347,8 +5353,8 @@ namespace VNS.HIS.UI.NGOAITRU
                     objRegExam.NguoiTao = globalVariables.UserName;
                     objRegExam.LaPhidichvukemtheo = 0;
                     objRegExam.SttKham = -1;
-                    if (objQMS != null)
-                        objRegExam.SttKham = Utility.Int16Dbnull(objQMS.SttKham, -1);
+                    objRegExam.SttKham =
+                            THU_VIEN_CHUNG.LaySothutuKCB(Utility.Int32Dbnull(objDichvuKCB.IdPhongkham, -1));
                     objRegExam.IdCha = -1;
                     if (objdepartment != null)
                     {

@@ -636,6 +636,7 @@
             // 
             this.txtCachDung._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtCachDung._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCachDung._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtCachDung.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtCachDung.AutoCompleteList")));
             this.txtCachDung.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCachDung.CaseSensitive = false;
@@ -826,7 +827,6 @@
             this.dtExpire_Date.Size = new System.Drawing.Size(89, 21);
             this.dtExpire_Date.TabIndex = 543;
             this.dtExpire_Date.TabStop = false;
-            this.dtExpire_Date.Value = new System.DateTime(2013, 11, 18, 0, 0, 0, 0);
             // 
             // txtSoLuongDung
             // 
@@ -1230,6 +1230,7 @@
             // 
             this.txtChanDoan._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtChanDoan._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChanDoan._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtChanDoan.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtChanDoan.AutoCompleteList")));
             this.txtChanDoan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtChanDoan.CaseSensitive = false;
@@ -1660,7 +1661,7 @@
             this.label29.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label29.Location = new System.Drawing.Point(269, 239);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(46, 15);
+            this.label29.Size = new System.Drawing.Size(47, 15);
             this.label29.TabIndex = 62;
             this.label29.Text = "Số  ĐT:";
             this.label29.Visible = false;

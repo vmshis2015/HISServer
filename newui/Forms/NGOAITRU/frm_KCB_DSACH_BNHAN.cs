@@ -107,7 +107,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         void grdList_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            cmdSuaThongTinBN.PerformClick();
+           // cmdSuaThongTinBN.PerformClick();
         }
 
         void cmdPrintAssign_Click(object sender, EventArgs e)

@@ -2516,7 +2516,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 else
                 {
-                    int num = Utility.Int32Dbnull(this.grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value, -1);
+                    int num =
+                        Utility.Int32Dbnull(
+                            this.grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value, -1);
                     string s = "";
                     List<int> vals = this.GetIdChitiet(Utility.Int32Dbnull(this.grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1), Utility.DecimaltoDbnull(this.grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.DonGia].Value, -1), ref s);
                     if (new SubSonic.Select().From(KcbDonthuocChitiet.Schema).Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).In(vals).And(KcbDonthuocChitiet.Columns.TrangthaiThanhtoan).IsEqualTo(1).GetRecordCount() > 0)
@@ -2896,6 +2898,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     this.txtTinhchat.Text = rowArray[0][DmucThuoc.Columns.TinhChat].ToString();
                     this.txtGioihanke.Text = Utility.sDbnull(rowArray[0][DmucThuoc.Columns.GioihanKedon], "");
                     this.txtMotathem.Text = rowArray[0][DmucThuoc.Columns.MotaThem].ToString();
+                    this.dtExpire_Date.Value = Convert .ToDateTime(rowArray[0]["ngay_hethan"]);
                     txtDonvichiaBut.Text =Utility.sDbnull( rowArray[0][DmucThuoc.Columns.DonviBut],"");
                     this.txtPrice.Text = rowArray[0]["GIA_BAN"].ToString();
                     this.tu_tuc = Utility.Int32Dbnull(rowArray[0]["tu_tuc"], 0);

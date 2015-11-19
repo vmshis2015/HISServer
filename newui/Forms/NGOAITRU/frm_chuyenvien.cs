@@ -86,10 +86,11 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 objForm.mv_sReportCode = "thamkham_phieuchuyenvien";
                 Utility.SetParameterValue(crpt, "StaffName", StaffName);
                 Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.Branch_Name);
                 Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
                 Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
                 Utility.SetParameterValue(crpt, "sTitleReport", baocaO_TIEUDE1.TIEUDE);
-                Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(dtpNgayin.Value));
+                Utility.SetParameterValue(crpt, "CurrentDate", Utility.FormatDateTimeWithThanhPho(dtpNgayin.Value));
                 Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
@@ -409,7 +410,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 txtTrangthainguoibenh.Init();
                 txtHuongdieutri.Init();
                 txtdauhieucls.Init();
-                
+                dtNgaychuyenvien.Value = DateTime.Now;
             }
             catch (Exception ex)
             {
@@ -504,7 +505,9 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                             txtIdravien.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbLuotkham.Columns.IdRavien], "-1");
                             txtidBuong.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbLuotkham.Columns.IdBuong], "-1");
                             txtidgiuong.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbLuotkham.Columns.IdGiuong], "-1");
-
+                            txtThuocsudung.Text = Utility.sDbnull(dt_Patient.Rows[0]["thuoc_sudung"], "");
+                            txtChandoan.Text = Utility.sDbnull(dt_Patient.Rows[0]["chan_doan"],"");
+                            txtketquaCls.Text = Utility.sDbnull(dt_Patient.Rows[0]["ketqua_cls"], "");
                             objPhieuchuyenvien = new Select().From(KcbPhieuchuyenvien.Schema)
                                .Where(KcbPhieuchuyenvien.Columns.IdBenhnhan).IsEqualTo(txtIdBn.Text)
                                .And(KcbPhieuchuyenvien.Columns.MaLuotkham).IsEqualTo(txtMaluotkham.Text)

@@ -545,15 +545,19 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 return;
             }
-            if (cboChonBenhAn.SelectedIndex == 1)
+            if (cboChonBenhAn.SelectedIndex == 6)
             {
                 BenhAnDaithaoduong();
             }
-            if (cboChonBenhAn.SelectedIndex == 2)
+            if (cboChonBenhAn.SelectedIndex == 7)
             {
                 BenhAnTG();
             }
-            if (cboChonBenhAn.SelectedIndex == 3)
+            if (cboChonBenhAn.SelectedIndex == 1 || 
+                cboChonBenhAn.SelectedIndex == 2 ||
+                cboChonBenhAn.SelectedIndex == 3 ||
+                cboChonBenhAn.SelectedIndex == 4 ||
+                cboChonBenhAn.SelectedIndex == 5 )
             {
                 BenhAnThuong();
             }
@@ -564,9 +568,21 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 var frm = new Frm_BenhAnThuong();
+                switch (cboChonBenhAn.SelectedIndex)
+                {
+                    case 1: frm.loaibenhan = Utility.GetLoaiBenhAn(LoaiBenhAn.BA_DaiThaoDuong);
+                    break;
+                    case 2: frm.loaibenhan = Utility.GetLoaiBenhAn(LoaiBenhAn.BA_Basedow);
+                    break;
+                    case 3: frm.loaibenhan = Utility.GetLoaiBenhAn(LoaiBenhAn.BA_TangHuyetAp);
+                    break;
+                    case 4: frm.loaibenhan = Utility.GetLoaiBenhAn(LoaiBenhAn.BA_ViemGanB);
+                    break;
+                    case 5: frm.loaibenhan = Utility.GetLoaiBenhAn(LoaiBenhAn.BA_Cop);
+                    break;
+                }
                 frm.txtMaBN.Text = txtPatient_ID.Text;
                 frm.txtMaLanKham.Text = m_strMaLuotkham;
-
                 frm.txtHuyetApTu.Text = Utility.sDbnull(txtHa.Text);
                 frm.txtNhietDo.Text = Utility.sDbnull(txtNhietDo.Text);
                 frm.txtNhipTho.Text = Utility.sDbnull(txtNhipTho.Text);
@@ -694,7 +710,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 var frm = new frm_BENHAN_NGOAITRU();
                 frm.uc_bant_11.txtMaBN.Text = txtPatient_ID.Text;
                 frm.uc_bant_11.txtMaLanKham.Text = m_strMaLuotkham;
-
+                frm.loaibenhan = Utility.GetLoaiBenhAn(LoaiBenhAn.BA_DaiThaoDuong);
                 frm.uc_bant_41.txtHuyetApTu.Text = Utility.sDbnull(txtHa.Text);
                 frm.uc_bant_41.txtNhietDo.Text = Utility.sDbnull(txtNhietDo.Text);
                 frm.uc_bant_41.txtNhipTho.Text = Utility.sDbnull(txtNhipTho.Text);
@@ -3948,13 +3964,21 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 string mayin = "";
-                int v_AssignId = Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh),
-                                                     -1);
+                int v_AssignId = Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh),-1);
+                string service_Code = "";
                 string v_AssignCode = Utility.sDbnull(grdAssignDetail.GetValue(KcbChidinhcl.Columns.MaChidinh), -1);
                 string nhomincls = "ALL";
                 if (cboServicePrint.SelectedIndex > 0)
                 {
                     nhomincls = Utility.sDbnull(cboServicePrint.SelectedValue, "ALL");
+                    switch (cboServicePrint.SelectedIndex)
+                    {
+                        case 1:
+                            service_Code = "";
+                            break;
+                    }
+                       
+                           
                 }
                 KCB_INPHIEU.InphieuChidinhCLS((int) objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, v_AssignId,
                                               v_AssignCode, nhomincls, cboServicePrint.SelectedIndex, chkIntach.Checked,
@@ -5477,5 +5501,27 @@ namespace VNS.HIS.UI.NGOAITRU
         }
 
         #endregion
+
+        private void txtNhietDo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //string original = (sender as Janus.Windows.UI.).Text;
+            //if (!char.IsDigit(e.KeyChar))
+            //{
+            //    e.Handled = true;
+            //}
+            //if (e.KeyChar == '.')
+            //{
+            //    if (original.Contains('.'))
+            //        e.Handled = true;
+            //    else if (!(original.Contains('.')))
+            //        e.Handled = false;
+
+            //}
+            //else if (char.IsDigit(e.KeyChar) || e.KeyChar == '\b')
+            //{
+            //    e.Handled = false;
+            //}
+
+        }
     }
 }
