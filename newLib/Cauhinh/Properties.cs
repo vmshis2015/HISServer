@@ -472,7 +472,12 @@ DisplayName("HIS Application Mode")]
             ImageFolder = Application.StartupPath + @"\ImageSA";
             PrintAfterSave = false;
             PrintPreview = true;
+            TenmayInPhieutraKQ = "";
         }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình FTP"),
+ Description("Tên máy in phiếu trả kết quả"),
+ DisplayName("Tên máy in phiếu trả kết quả")]
+        public string TenmayInPhieutraKQ { get; set; }
         [Browsable(true), ReadOnly(false), Category("Cấu hình FTP"),
  Description("In ngay sau khi lưu"),
  DisplayName("In ngay sau khi lưu")]
