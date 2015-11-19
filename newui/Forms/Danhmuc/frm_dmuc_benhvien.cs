@@ -554,7 +554,10 @@ namespace VNS.HIS.UI.DANHMUC
             {
                 var source = new List<string>();
                 var query = from p in m_dtThanhpho.AsEnumerable()
-                            select p.Field<Int16>(DmucDiachinh.Columns.MaDiachinh).ToString() + "#" + p.Field<string>(DmucDiachinh.Columns.MaDiachinh).ToString() + "@" + p.Field<string>(DmucDiachinh.Columns.TenDiachinh).ToString() + "@" + p.Field<string>("shortcut").ToString();
+                              select p[DmucDiachinh.MaDiachinhColumn.ColumnName].ToString() + "#" 
+                            + p[DmucDiachinh.MaDiachinhColumn.ColumnName].ToString() + "@" 
+                            + p[DmucDiachinh.TenDiachinhColumn.ColumnName].ToString() + "@" +
+                                p.Field<string>("shortcut").ToString();
                 source = query.ToList();
                 this.txtThanhpho.AutoCompleteList = source;
                 this.txtThanhpho.TextAlign = HorizontalAlignment.Left;
