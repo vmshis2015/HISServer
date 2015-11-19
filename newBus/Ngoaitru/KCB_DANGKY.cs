@@ -1833,6 +1833,8 @@ namespace VNS.HIS.BusRule.Classes
                         objLichsuKcb.Save();
 
                         //Thêm lần khám
+
+                        objLuotkham.MaLuotkham = THU_VIEN_CHUNG.KCB_SINH_MALANKHAM((byte)(objKcbDanhsachBenhnhan.KieuBenhnhan == 0 ? 0 : 1));
                         objLuotkham.IdBenhnhan = objKcbDanhsachBenhnhan.IdBenhnhan;
                         objLuotkham.SoBenhAn = string.Empty;
                         objLuotkham.IdLichsuDoituongKcb = objLichsuKcb.IdLichsuDoituongKcb;
