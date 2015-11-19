@@ -15,7 +15,9 @@ namespace VNS.UCs
 {
     public partial class ucDynamicParam : UserControl
     {
+        
         DataRow dr = null;
+        public bool AllowSave = true;
         bool AutoSaveWhenEnterKey = false;
         public bool isSaved=false;
         public delegate void OnEnterKey(ucDynamicParam obj);
@@ -24,6 +26,10 @@ namespace VNS.UCs
         bool hasChanged = false;
         public bool onlyView = false;
         public bool hasAutoCorrect = false;
+        public bool hasAutoCorrectOther = false;
+
+        public bool AllowTxtChanged = true;
+        public bool AllowRtbTextChanged = true;
         public ucDynamicParam()
         {
             InitializeComponent();
@@ -37,13 +43,11 @@ namespace VNS.UCs
             txtValue._OnKeyDown += txtValue_KeyDown;
             txtValue._OnLostFocus += txtValue_LostFocus;
             txtValue._OnTextChanged += txtValue_TextChanged;
-            //txtValue.KeyDown += txtValue_KeyDown;
-            //txtValue.TextChanged += txtValue_TextChanged;
-            //txtValue.LostFocus += txtValue_LostFocus;
+            
             
         }
 
-      
+        bool spacekey = false;
 
         void txtValue_LostFocus(object sender, EventArgs e)
         {
@@ -51,6 +55,7 @@ namespace VNS.UCs
                 Save();
             if (!hasAutoCorrect)
                 AutoCorrectLastWord();
+
         }
         public bool _RichTextbox
         {
@@ -97,25 +102,45 @@ namespace VNS.UCs
             }
             if (e.KeyCode == Keys.Space)
             {
+                spacekey = true;
                
                 AutoCorrectLastWord();
+                spacekey = false;
+               
                 return;
             }
         }
+       
         void AutoCorrectLastWord()
         {
-            string lastWord = Utility.DoTrim(txtValue.Text).Split(' ').Last();
-            DmucChung objCorrectList = new Select().From(DmucChung.Schema).Where(DmucChung.Columns.Loai).IsEqualTo("AUTOCORRECT")
-                .And(DmucChung.Columns.Ma).IsEqualTo(lastWord).ExecuteSingle<DmucChung>();
-            if (objCorrectList != null)
+            try
             {
-                string BeginText = Utility.DoTrim(txtValue.Text.Replace(lastWord, ""));
-                txtValue.Text = BeginText + (BeginText.Length > 0 ? " " : "") + Utility.DoTrim(objCorrectList.Ten) + " ";
+                AllowRtbTextChanged = false;
+                int SelectionStart = txtValue.rtbDocument.SelectionStart;
+                if (spacekey) txtValue.Text.Insert(SelectionStart, " ");
+                int start = txtValue.Text.Substring(0, SelectionStart).LastIndexOf(' ');
+                if (start < 0) start = 0;
+                int end = SelectionStart;
+                string lastWord = Utility.DoTrim(txtValue.Text.Substring(0, SelectionStart)).Split(' ').Last().Split('\n').Last().Replace("\n", "").Replace("\t", "").Replace("\v", "").Replace("\r", "").Replace("\f", "").Replace("\b", "").Replace("\a", "").Replace("\0", "").Replace("\\", "").Replace("\"", "").Replace("\'", "");
+                DmucChung objCorrectList = new Select().From(DmucChung.Schema).Where(DmucChung.Columns.Loai).IsEqualTo("AUTOCORRECT")
+                    .And(DmucChung.Columns.Ma).IsEqualTo(lastWord).ExecuteSingle<DmucChung>();
+                if (objCorrectList != null)
+                {
 
-                txtValue.rtbDocument.Select(txtValue.Text.Length, 0);
+                    txtValue.rtbDocument.Find(lastWord, start, end, RichTextBoxFinds.None);
+                    if (txtValue.rtbDocument.SelectionLength > 0)
+                        txtValue.rtbDocument.SelectedText = Utility.DoTrim(objCorrectList.Ten);
+
+                }
+                AllowRtbTextChanged = true;
                 hasAutoCorrect = true;
             }
+            catch (Exception ex)
+            {
+            }
+          
         }
+
         public void FocusMe()
         {
             txtValue.Select();
@@ -172,6 +197,7 @@ namespace VNS.UCs
         {
             try
             {
+                if (!AllowSave) return;
                 List<DynamicValue> lstValues = new List<DynamicValue>();
                 if (dr != null )
                 {
