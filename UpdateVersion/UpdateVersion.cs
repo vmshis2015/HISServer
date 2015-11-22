@@ -312,15 +312,15 @@ namespace UpdateVersion
             {
                 HIS.WS.LoginWS _LoginWS = new HIS.WS.LoginWS();
 
-                string _path = Application.StartupPath + @"\Properties\";
+                string _path = Application.StartupPath + @"\Properties";
 
                 ConfigProperties _ConfigProperties = PropertyLib.GetConfigProperties(_path);
-                string ServerName = PropertyLib._ConfigProperties.DataBaseServer;
-                string sUName = PropertyLib._ConfigProperties.UID;
-                string sPwd = PropertyLib._ConfigProperties.PWD;
-                string sDbName = PropertyLib._ConfigProperties.DataBaseName;
-                _LoginWS.Url = PropertyLib._ConfigProperties.WSURL;
-                if (PropertyLib._ConfigProperties.RunUnderWS)
+                string ServerName = _ConfigProperties.DataBaseServer;
+                string sUName = _ConfigProperties.UID;
+                string sPwd = _ConfigProperties.PWD;
+                string sDbName = _ConfigProperties.DataBaseName;
+                _LoginWS.Url = _ConfigProperties.WSURL;
+                if (_ConfigProperties.RunUnderWS)
                 {
                     string DataBaseServer = "";
                     string DataBaseName = "";

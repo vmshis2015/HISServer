@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="HIS_WS_LoginWS" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost:1695/AdminWS.asmx</Value>
+      <Value Profile="(Default)">http://127.0.0.1:8002/HISAdminWS/AdminWS.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>
