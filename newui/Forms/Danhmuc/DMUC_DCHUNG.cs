@@ -806,6 +806,7 @@ namespace VNS.HIS.UI.DANHMUC
                     txtTen.Text = _name;
                     txtMa.Focus();
                 }
+                cmdDelete.Visible = globalVariables.IsAdmin;
             }
             catch (Exception ex)
             {

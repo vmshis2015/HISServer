@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DMUC_DCHUNG));
+            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.pnlTOP = new System.Windows.Forms.Panel();
             this.ribbonStatusBar1 = new Janus.Windows.Ribbon.RibbonStatusBar();
             this.labelCommand1 = new Janus.Windows.Ribbon.LabelCommand();
@@ -49,6 +49,8 @@
             this.pnlView = new System.Windows.Forms.Panel();
             this.uiTab1 = new Janus.Windows.UI.Tab.UITab();
             this.uiTabPage1 = new Janus.Windows.UI.Tab.UITabPage();
+            this.txtTen = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
+            this.txtMa = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.chkDefault = new Janus.Windows.EditControls.UICheckBox();
             this.chkAutoNew = new Janus.Windows.EditControls.UICheckBox();
             this.txtMotathem = new Janus.Windows.GridEX.EditControls.EditBox();
@@ -69,8 +71,6 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRefresh = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtMa = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
-            this.txtTen = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.pnlBottom.SuspendLayout();
             this.pnlView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiTab1)).BeginInit();
@@ -203,6 +203,7 @@
             this.cmdDelete.Size = new System.Drawing.Size(89, 25);
             this.cmdDelete.TabIndex = 2;
             this.cmdDelete.Text = "Xóa";
+            this.cmdDelete.Visible = false;
             // 
             // cmdSave
             // 
@@ -255,6 +256,82 @@
             this.uiTabPage1.Size = new System.Drawing.Size(782, 124);
             this.uiTabPage1.TabStop = true;
             this.uiTabPage1.Text = "Thông tin";
+            // 
+            // txtTen
+            // 
+            this.txtTen._backcolor = System.Drawing.SystemColors.Control;
+            this.txtTen._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTen._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtTen.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtTen.AutoCompleteList")));
+            this.txtTen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTen.CaseSensitive = false;
+            this.txtTen.CompareNoID = true;
+            this.txtTen.DefaultCode = "-1";
+            this.txtTen.DefaultID = "-1";
+            this.txtTen.Drug_ID = null;
+            this.txtTen.ExtraWidth = 0;
+            this.txtTen.FillValueAfterSelect = false;
+            this.txtTen.LOAI_DANHMUC = "NHACUNGCAP";
+            this.txtTen.Location = new System.Drawing.Point(345, 13);
+            this.txtTen.MaxHeight = 300;
+            this.txtTen.MinTypedCharacters = 2;
+            this.txtTen.MyCode = "-1";
+            this.txtTen.MyID = "-1";
+            this.txtTen.Name = "txtTen";
+            this.txtTen.RaiseEvent = false;
+            this.txtTen.RaiseEventEnter = false;
+            this.txtTen.RaiseEventEnterWhenEmpty = false;
+            this.txtTen.SelectedIndex = -1;
+            this.txtTen.Size = new System.Drawing.Size(420, 21);
+            this.txtTen.splitChar = '@';
+            this.txtTen.splitCharIDAndCode = '#';
+            this.txtTen.TabIndex = 1;
+            this.txtTen.TakeCode = false;
+            this.txtTen.txtMyCode = null;
+            this.txtTen.txtMyCode_Edit = null;
+            this.txtTen.txtMyID = null;
+            this.txtTen.txtMyID_Edit = null;
+            this.txtTen.txtMyName = null;
+            this.txtTen.txtMyName_Edit = null;
+            this.txtTen.txtNext = null;
+            // 
+            // txtMa
+            // 
+            this.txtMa._backcolor = System.Drawing.SystemColors.Control;
+            this.txtMa._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMa._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtMa.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMa.AutoCompleteList")));
+            this.txtMa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMa.CaseSensitive = false;
+            this.txtMa.CompareNoID = true;
+            this.txtMa.DefaultCode = "-1";
+            this.txtMa.DefaultID = "-1";
+            this.txtMa.Drug_ID = null;
+            this.txtMa.ExtraWidth = 0;
+            this.txtMa.FillValueAfterSelect = false;
+            this.txtMa.LOAI_DANHMUC = "NHACUNGCAP";
+            this.txtMa.Location = new System.Drawing.Point(114, 13);
+            this.txtMa.MaxHeight = 300;
+            this.txtMa.MinTypedCharacters = 2;
+            this.txtMa.MyCode = "-1";
+            this.txtMa.MyID = "-1";
+            this.txtMa.Name = "txtMa";
+            this.txtMa.RaiseEvent = false;
+            this.txtMa.RaiseEventEnter = false;
+            this.txtMa.RaiseEventEnterWhenEmpty = false;
+            this.txtMa.SelectedIndex = -1;
+            this.txtMa.Size = new System.Drawing.Size(150, 21);
+            this.txtMa.splitChar = '@';
+            this.txtMa.splitCharIDAndCode = '#';
+            this.txtMa.TabIndex = 0;
+            this.txtMa.TakeCode = false;
+            this.txtMa.txtMyCode = null;
+            this.txtMa.txtMyCode_Edit = null;
+            this.txtMa.txtMyID = null;
+            this.txtMa.txtMyID_Edit = null;
+            this.txtMa.txtMyName = null;
+            this.txtMa.txtMyName_Edit = null;
+            this.txtMa.txtNext = null;
             // 
             // chkDefault
             // 
@@ -446,80 +523,6 @@
             this.mnuRefresh.Name = "mnuRefresh";
             this.mnuRefresh.Size = new System.Drawing.Size(141, 22);
             this.mnuRefresh.Text = "Refresh (F5)";
-            // 
-            // txtMa
-            // 
-            this.txtMa._backcolor = System.Drawing.SystemColors.Control;
-            this.txtMa._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMa.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMa.AutoCompleteList")));
-            this.txtMa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMa.CaseSensitive = false;
-            this.txtMa.CompareNoID = true;
-            this.txtMa.DefaultCode = "-1";
-            this.txtMa.DefaultID = "-1";
-            this.txtMa.Drug_ID = null;
-            this.txtMa.ExtraWidth = 0;
-            this.txtMa.FillValueAfterSelect = false;
-            this.txtMa.LOAI_DANHMUC = "NHACUNGCAP";
-            this.txtMa.Location = new System.Drawing.Point(114, 13);
-            this.txtMa.MaxHeight = 300;
-            this.txtMa.MinTypedCharacters = 2;
-            this.txtMa.MyCode = "-1";
-            this.txtMa.MyID = "-1";
-            this.txtMa.Name = "txtMa";
-            this.txtMa.RaiseEvent = false;
-            this.txtMa.RaiseEventEnter = false;
-            this.txtMa.RaiseEventEnterWhenEmpty = false;
-            this.txtMa.SelectedIndex = -1;
-            this.txtMa.Size = new System.Drawing.Size(150, 21);
-            this.txtMa.splitChar = '@';
-            this.txtMa.splitCharIDAndCode = '#';
-            this.txtMa.TabIndex = 0;
-            this.txtMa.TakeCode = false;
-            this.txtMa.txtMyCode = null;
-            this.txtMa.txtMyCode_Edit = null;
-            this.txtMa.txtMyID = null;
-            this.txtMa.txtMyID_Edit = null;
-            this.txtMa.txtMyName = null;
-            this.txtMa.txtMyName_Edit = null;
-            this.txtMa.txtNext = null;
-            // 
-            // txtTen
-            // 
-            this.txtTen._backcolor = System.Drawing.SystemColors.Control;
-            this.txtTen._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTen.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtTen.AutoCompleteList")));
-            this.txtTen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTen.CaseSensitive = false;
-            this.txtTen.CompareNoID = true;
-            this.txtTen.DefaultCode = "-1";
-            this.txtTen.DefaultID = "-1";
-            this.txtTen.Drug_ID = null;
-            this.txtTen.ExtraWidth = 0;
-            this.txtTen.FillValueAfterSelect = false;
-            this.txtTen.LOAI_DANHMUC = "NHACUNGCAP";
-            this.txtTen.Location = new System.Drawing.Point(345, 13);
-            this.txtTen.MaxHeight = 300;
-            this.txtTen.MinTypedCharacters = 2;
-            this.txtTen.MyCode = "-1";
-            this.txtTen.MyID = "-1";
-            this.txtTen.Name = "txtTen";
-            this.txtTen.RaiseEvent = false;
-            this.txtTen.RaiseEventEnter = false;
-            this.txtTen.RaiseEventEnterWhenEmpty = false;
-            this.txtTen.SelectedIndex = -1;
-            this.txtTen.Size = new System.Drawing.Size(420, 21);
-            this.txtTen.splitChar = '@';
-            this.txtTen.splitCharIDAndCode = '#';
-            this.txtTen.TabIndex = 1;
-            this.txtTen.TakeCode = false;
-            this.txtTen.txtMyCode = null;
-            this.txtTen.txtMyCode_Edit = null;
-            this.txtTen.txtMyID = null;
-            this.txtTen.txtMyID_Edit = null;
-            this.txtTen.txtMyName = null;
-            this.txtTen.txtMyName_Edit = null;
-            this.txtTen.txtNext = null;
             // 
             // DMUC_DCHUNG
             // 
