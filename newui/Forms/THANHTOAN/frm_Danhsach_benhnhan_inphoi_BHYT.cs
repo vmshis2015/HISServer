@@ -343,7 +343,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                     xmlWriter.WriteElementString("MA_NOI_CHUYEN", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_NOI_CHUYEN"]));
                     xmlWriter.WriteElementString("MA_TAI_NAN", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_TAI_NAN"]));
                     xmlWriter.WriteElementString("NGAY_VAO", Utility.sDbnull(dtXML.Tables[2].Rows[0]["NGAY_VAO"]));
-                    xmlWriter.WriteElementString("NGAY_RA", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_LK"]));
+                    xmlWriter.WriteElementString("NGAY_RA", Utility.sDbnull(dtXML.Tables[2].Rows[0]["NGAY_RA"]));
                     xmlWriter.WriteElementString("SO_NGAY_DTRI", Utility.sDbnull(dtXML.Tables[2].Rows[0]["SO_NGAY_DTRI"]));
                     xmlWriter.WriteElementString("KET_QUA_DTRI", Utility.sDbnull(dtXML.Tables[2].Rows[0]["KET_QUA_DTRI"]));
                     xmlWriter.WriteElementString("TINH_TRANG_RV", Utility.sDbnull(dtXML.Tables[2].Rows[0]["TINH_TRANG_RV"]));

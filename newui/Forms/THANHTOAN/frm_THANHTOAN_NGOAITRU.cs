@@ -318,6 +318,7 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             if (!isValidICD()) return;
             _THANHTOAN.UpdateICD10(objLuotkham, Utility.DoTrim(txtICD.MyCode));
+            objLuotkham.MabenhChinh = Utility.DoTrim(txtICD.MyCode);
         }
         bool isValidICD()
         {
@@ -2238,7 +2239,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 Utility.SetMsg(lblMsg, "Bạn cần chọn Bệnh nhân cần thanh toán", true);
                 return;
             }
-            if (string.IsNullOrEmpty(txtICD.Text))
+            if (string.IsNullOrEmpty(objLuotkham.MabenhChinh))
             {
                 Utility.SetMsg(lblMsg, "Chưa có mã bệnh ICD. Quay lại phòng khám của bác sĩ để nhập",true);
                 txtICD.Focus();

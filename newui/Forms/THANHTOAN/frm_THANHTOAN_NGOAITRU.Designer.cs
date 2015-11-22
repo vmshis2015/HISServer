@@ -112,18 +112,26 @@
             this.txtPatientName = new Janus.Windows.GridEX.EditControls.EditBox();
             this.grdList = new Janus.Windows.GridEX.GridEX();
             this.pnlTimkiem = new System.Windows.Forms.Panel();
+            this.radChuathanhtoan = new Janus.Windows.EditControls.UIRadioButton();
+            this.radDaThanhtoan = new Janus.Windows.EditControls.UIRadioButton();
+            this.radTatca = new Janus.Windows.EditControls.UIRadioButton();
             this.cmdChuyenDT = new Janus.Windows.EditControls.UIButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tabThongTinThanhToan = new Janus.Windows.UI.Tab.UITab();
+            this.tabPagePayment = new Janus.Windows.UI.Tab.UITabPage();
             this.grdPayment = new Janus.Windows.GridEX.GridEX();
+            this.tabPagePhieuChi = new Janus.Windows.UI.Tab.UITabPage();
             this.grdPhieuChi = new Janus.Windows.GridEX.GridEX();
             this.tabThongTinCanThanhToan = new Janus.Windows.UI.Tab.UITab();
+            this.tabpageThongTinThanhToan = new Janus.Windows.UI.Tab.UITabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.uiTabHoadon_chiphi = new Janus.Windows.UI.Tab.UITab();
+            this.tabpageKCB = new Janus.Windows.UI.Tab.UITabPage();
             this.grdDSKCB = new Janus.Windows.GridEX.GridEX();
             this.pnlSeri = new System.Windows.Forms.Panel();
             this.txtSerie = new Janus.Windows.GridEX.EditControls.EditBox();
             this.label44 = new System.Windows.Forms.Label();
+            this.tabpageHoaDon = new Janus.Windows.UI.Tab.UITabPage();
             this.gpThongTinHoaDon = new Janus.Windows.EditControls.UIGroupBox();
             this.cmdKhaibaoHoadondo = new Janus.Windows.EditControls.UIButton();
             this.label18 = new System.Windows.Forms.Label();
@@ -188,12 +196,17 @@
             this.cmdInBienlaiTonghop = new Janus.Windows.EditControls.UIButton();
             this.cmdInphieuDCT = new Janus.Windows.EditControls.UIButton();
             this.cmdInphoiBHYT = new Janus.Windows.EditControls.UIButton();
+            this.tabPageThongTinChiTietThanhToan = new Janus.Windows.UI.Tab.UITabPage();
             this.grdThongTinChuaThanhToan = new Janus.Windows.GridEX.GridEX();
+            this.TabPageTamung = new Janus.Windows.UI.Tab.UITabPage();
+            this.ucTamung1 = new VNS.HIS.UCs.Noitru.ucTamung();
+            this.tabPageThongTinDaThanhToan = new Janus.Windows.UI.Tab.UITabPage();
             this.grdThongTinDaThanhToan = new Janus.Windows.GridEX.GridEX();
             this.uiGroupBox7 = new Janus.Windows.EditControls.UIGroupBox();
             this.cmdInPhieuChi = new Janus.Windows.EditControls.UIButton();
             this.cmdLayThongTinDaThanhToan = new Janus.Windows.EditControls.UIButton();
             this.cmdTraLaiTien = new Janus.Windows.EditControls.UIButton();
+            this.TabpageCauhinh = new Janus.Windows.UI.Tab.UITabPage();
             this.cmdPrintProperties = new Janus.Windows.EditControls.UIButton();
             this.chkPreviewHoadon = new Janus.Windows.EditControls.UICheckBox();
             this.chkPreviewInBienlai = new Janus.Windows.EditControls.UICheckBox();
@@ -220,19 +233,6 @@
             this.txtCanhbao = new Janus.Windows.GridEX.EditControls.EditBox();
             this.vbLine2 = new VNS.UCs.VBLine();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.radTatca = new Janus.Windows.EditControls.UIRadioButton();
-            this.radDaThanhtoan = new Janus.Windows.EditControls.UIRadioButton();
-            this.radChuathanhtoan = new Janus.Windows.EditControls.UIRadioButton();
-            this.tabPagePayment = new Janus.Windows.UI.Tab.UITabPage();
-            this.tabPagePhieuChi = new Janus.Windows.UI.Tab.UITabPage();
-            this.tabpageThongTinThanhToan = new Janus.Windows.UI.Tab.UITabPage();
-            this.tabPageThongTinChiTietThanhToan = new Janus.Windows.UI.Tab.UITabPage();
-            this.TabPageTamung = new Janus.Windows.UI.Tab.UITabPage();
-            this.ucTamung1 = new VNS.HIS.UCs.Noitru.ucTamung();
-            this.tabPageThongTinDaThanhToan = new Janus.Windows.UI.Tab.UITabPage();
-            this.TabpageCauhinh = new Janus.Windows.UI.Tab.UITabPage();
-            this.tabpageKCB = new Janus.Windows.UI.Tab.UITabPage();
-            this.tabpageHoaDon = new Janus.Windows.UI.Tab.UITabPage();
             this.ctxBienlai.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -244,15 +244,20 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabThongTinThanhToan)).BeginInit();
             this.tabThongTinThanhToan.SuspendLayout();
+            this.tabPagePayment.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdPayment)).BeginInit();
+            this.tabPagePhieuChi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdPhieuChi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabThongTinCanThanhToan)).BeginInit();
             this.tabThongTinCanThanhToan.SuspendLayout();
+            this.tabpageThongTinThanhToan.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiTabHoadon_chiphi)).BeginInit();
             this.uiTabHoadon_chiphi.SuspendLayout();
+            this.tabpageKCB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdDSKCB)).BeginInit();
             this.pnlSeri.SuspendLayout();
+            this.tabpageHoaDon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gpThongTinHoaDon)).BeginInit();
             this.gpThongTinHoaDon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdHoaDonCapPhat)).BeginInit();
@@ -262,19 +267,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.grpChucNangThanhToan)).BeginInit();
             this.grpChucNangThanhToan.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.tabPageThongTinChiTietThanhToan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdThongTinChuaThanhToan)).BeginInit();
+            this.TabPageTamung.SuspendLayout();
+            this.tabPageThongTinDaThanhToan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdThongTinDaThanhToan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox7)).BeginInit();
             this.uiGroupBox7.SuspendLayout();
-            this.tabPagePayment.SuspendLayout();
-            this.tabPagePhieuChi.SuspendLayout();
-            this.tabpageThongTinThanhToan.SuspendLayout();
-            this.tabPageThongTinChiTietThanhToan.SuspendLayout();
-            this.TabPageTamung.SuspendLayout();
-            this.tabPageThongTinDaThanhToan.SuspendLayout();
             this.TabpageCauhinh.SuspendLayout();
-            this.tabpageKCB.SuspendLayout();
-            this.tabpageHoaDon.SuspendLayout();
             this.SuspendLayout();
             // 
             // uiStatusBar1
@@ -610,9 +610,9 @@
             this.pnlSuangayinphoi.Controls.Add(this.cmdCapnhatngayinphoiBHYT);
             this.pnlSuangayinphoi.Controls.Add(this.cmdHuyInPhoiBHYT);
             this.pnlSuangayinphoi.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlSuangayinphoi.Location = new System.Drawing.Point(0, 170);
+            this.pnlSuangayinphoi.Location = new System.Drawing.Point(0, 173);
             this.pnlSuangayinphoi.Name = "pnlSuangayinphoi";
-            this.pnlSuangayinphoi.Size = new System.Drawing.Size(365, 73);
+            this.pnlSuangayinphoi.Size = new System.Drawing.Size(365, 70);
             this.pnlSuangayinphoi.TabIndex = 377;
             // 
             // lblMessage
@@ -620,7 +620,7 @@
             this.lblMessage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.lblMessage.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblMessage.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMessage.Location = new System.Drawing.Point(0, 37);
+            this.lblMessage.Location = new System.Drawing.Point(0, 34);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(365, 36);
             this.lblMessage.TabIndex = 378;
@@ -632,7 +632,7 @@
             // 
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label17.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(8, 5);
+            this.label17.Location = new System.Drawing.Point(8, 2);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(97, 24);
             this.label17.TabIndex = 358;
@@ -651,7 +651,7 @@
             this.dtNgayInPhoi.DropDownCalendar.Name = "";
             this.dtNgayInPhoi.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtNgayInPhoi.IsNullDate = true;
-            this.dtNgayInPhoi.Location = new System.Drawing.Point(105, 8);
+            this.dtNgayInPhoi.Location = new System.Drawing.Point(105, 5);
             this.dtNgayInPhoi.Name = "dtNgayInPhoi";
             this.dtNgayInPhoi.Size = new System.Drawing.Size(109, 21);
             this.dtNgayInPhoi.TabIndex = 355;
@@ -663,7 +663,7 @@
             this.cmdCapnhatngayinphoiBHYT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdCapnhatngayinphoiBHYT.Image = ((System.Drawing.Image)(resources.GetObject("cmdCapnhatngayinphoiBHYT.Image")));
             this.cmdCapnhatngayinphoiBHYT.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdCapnhatngayinphoiBHYT.Location = new System.Drawing.Point(266, 5);
+            this.cmdCapnhatngayinphoiBHYT.Location = new System.Drawing.Point(266, 2);
             this.cmdCapnhatngayinphoiBHYT.Name = "cmdCapnhatngayinphoiBHYT";
             this.cmdCapnhatngayinphoiBHYT.Office2007ColorScheme = Janus.Windows.UI.Office2007ColorScheme.Custom;
             this.cmdCapnhatngayinphoiBHYT.Office2007CustomColor = System.Drawing.Color.WhiteSmoke;
@@ -679,7 +679,7 @@
             this.cmdHuyInPhoiBHYT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdHuyInPhoiBHYT.Image = ((System.Drawing.Image)(resources.GetObject("cmdHuyInPhoiBHYT.Image")));
             this.cmdHuyInPhoiBHYT.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdHuyInPhoiBHYT.Location = new System.Drawing.Point(226, 5);
+            this.cmdHuyInPhoiBHYT.Location = new System.Drawing.Point(226, 2);
             this.cmdHuyInPhoiBHYT.Name = "cmdHuyInPhoiBHYT";
             this.cmdHuyInPhoiBHYT.Size = new System.Drawing.Size(38, 27);
             this.cmdHuyInPhoiBHYT.TabIndex = 356;
@@ -1127,6 +1127,35 @@
             this.pnlTimkiem.Size = new System.Drawing.Size(365, 127);
             this.pnlTimkiem.TabIndex = 30;
             // 
+            // radChuathanhtoan
+            // 
+            this.radChuathanhtoan.Location = new System.Drawing.Point(242, 101);
+            this.radChuathanhtoan.Name = "radChuathanhtoan";
+            this.radChuathanhtoan.Size = new System.Drawing.Size(123, 22);
+            this.radChuathanhtoan.TabIndex = 282;
+            this.radChuathanhtoan.Text = "Chưa thanh toán";
+            this.radChuathanhtoan.CheckedChanged += new System.EventHandler(this.radChuathanhtoan_CheckedChanged);
+            // 
+            // radDaThanhtoan
+            // 
+            this.radDaThanhtoan.Location = new System.Drawing.Point(122, 101);
+            this.radDaThanhtoan.Name = "radDaThanhtoan";
+            this.radDaThanhtoan.Size = new System.Drawing.Size(104, 22);
+            this.radDaThanhtoan.TabIndex = 281;
+            this.radDaThanhtoan.Text = "Đã thanh toán";
+            this.radDaThanhtoan.CheckedChanged += new System.EventHandler(this.radDaThanhtoan_CheckedChanged);
+            // 
+            // radTatca
+            // 
+            this.radTatca.Checked = true;
+            this.radTatca.Location = new System.Drawing.Point(36, 101);
+            this.radTatca.Name = "radTatca";
+            this.radTatca.Size = new System.Drawing.Size(79, 22);
+            this.radTatca.TabIndex = 280;
+            this.radTatca.TabStop = true;
+            this.radTatca.Text = "Tất cả";
+            this.radTatca.CheckedChanged += new System.EventHandler(this.radTatca_CheckedChanged);
+            // 
             // cmdChuyenDT
             // 
             this.cmdChuyenDT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1164,6 +1193,15 @@
             this.tabPagePhieuChi});
             this.tabThongTinThanhToan.VisualStyle = Janus.Windows.UI.Tab.TabVisualStyle.Flat;
             // 
+            // tabPagePayment
+            // 
+            this.tabPagePayment.Controls.Add(this.grdPayment);
+            this.tabPagePayment.Location = new System.Drawing.Point(1, 23);
+            this.tabPagePayment.Name = "tabPagePayment";
+            this.tabPagePayment.Size = new System.Drawing.Size(639, 84);
+            this.tabPagePayment.TabStop = true;
+            this.tabPagePayment.Text = "Lịch sử thanh toán (Alt +4)";
+            // 
             // grdPayment
             // 
             this.grdPayment.AlternatingColors = true;
@@ -1198,6 +1236,15 @@
             this.grdPayment.TotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
             this.grdPayment.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
             this.grdPayment.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // tabPagePhieuChi
+            // 
+            this.tabPagePhieuChi.Controls.Add(this.grdPhieuChi);
+            this.tabPagePhieuChi.Location = new System.Drawing.Point(1, 23);
+            this.tabPagePhieuChi.Name = "tabPagePhieuChi";
+            this.tabPagePhieuChi.Size = new System.Drawing.Size(639, 132);
+            this.tabPagePhieuChi.TabStop = true;
+            this.tabPagePhieuChi.Text = "Lịch sử trả lại tiền (Phiếu chi)  (Alt + 5)";
             // 
             // grdPhieuChi
             // 
@@ -1249,6 +1296,17 @@
             this.TabpageCauhinh});
             this.tabThongTinCanThanhToan.VisualStyle = Janus.Windows.UI.Tab.TabVisualStyle.VS2005;
             // 
+            // tabpageThongTinThanhToan
+            // 
+            this.tabpageThongTinThanhToan.Controls.Add(this.panel4);
+            this.tabpageThongTinThanhToan.Controls.Add(this.pnlThongtintien);
+            this.tabpageThongTinThanhToan.Controls.Add(this.grpChucNangThanhToan);
+            this.tabpageThongTinThanhToan.Location = new System.Drawing.Point(1, 23);
+            this.tabpageThongTinThanhToan.Name = "tabpageThongTinThanhToan";
+            this.tabpageThongTinThanhToan.Size = new System.Drawing.Size(641, 525);
+            this.tabpageThongTinThanhToan.TabStop = true;
+            this.tabpageThongTinThanhToan.Text = "Tổng hợp(Alt+1)";
+            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.uiTabHoadon_chiphi);
@@ -1270,6 +1328,17 @@
             this.tabpageKCB,
             this.tabpageHoaDon});
             this.uiTabHoadon_chiphi.VisualStyle = Janus.Windows.UI.Tab.TabVisualStyle.Flat;
+            // 
+            // tabpageKCB
+            // 
+            this.tabpageKCB.Controls.Add(this.grdDSKCB);
+            this.tabpageKCB.Controls.Add(this.pnlSeri);
+            this.tabpageKCB.Location = new System.Drawing.Point(1, 23);
+            this.tabpageKCB.Name = "tabpageKCB";
+            this.tabpageKCB.Size = new System.Drawing.Size(307, 312);
+            this.tabpageKCB.TabStop = true;
+            this.tabpageKCB.Text = "Chi phí";
+            this.tabpageKCB.ToolTipText = "Nhấn phím tắt F8 để chọn Thông tin Khám chữa bệnh";
             // 
             // grdDSKCB
             // 
@@ -1324,6 +1393,17 @@
             this.label44.Size = new System.Drawing.Size(58, 22);
             this.label44.TabIndex = 40;
             this.label44.Text = "Serie";
+            // 
+            // tabpageHoaDon
+            // 
+            this.tabpageHoaDon.Controls.Add(this.gpThongTinHoaDon);
+            this.tabpageHoaDon.Controls.Add(this.grdHoaDonCapPhat);
+            this.tabpageHoaDon.Location = new System.Drawing.Point(1, 23);
+            this.tabpageHoaDon.Name = "tabpageHoaDon";
+            this.tabpageHoaDon.Size = new System.Drawing.Size(307, 312);
+            this.tabpageHoaDon.TabStop = true;
+            this.tabpageHoaDon.Text = "Hóa đơn đỏ";
+            this.tabpageHoaDon.ToolTipText = "Nhấn phím tắt F7 để chọn Thông tin hóa đơn";
             // 
             // gpThongTinHoaDon
             // 
@@ -2208,6 +2288,15 @@
             this.cmdInphoiBHYT.Text = "In phôi BHYT";
             this.toolTip1.SetToolTip(this.cmdInphoiBHYT, "Nhấn vào đây để in phôi BHYT");
             // 
+            // tabPageThongTinChiTietThanhToan
+            // 
+            this.tabPageThongTinChiTietThanhToan.Controls.Add(this.grdThongTinChuaThanhToan);
+            this.tabPageThongTinChiTietThanhToan.Location = new System.Drawing.Point(1, 23);
+            this.tabPageThongTinChiTietThanhToan.Name = "tabPageThongTinChiTietThanhToan";
+            this.tabPageThongTinChiTietThanhToan.Size = new System.Drawing.Size(641, 525);
+            this.tabPageThongTinChiTietThanhToan.TabStop = true;
+            this.tabPageThongTinChiTietThanhToan.Text = "Dịch vụ chi tiết(Alt+2)";
+            // 
             // grdThongTinChuaThanhToan
             // 
             this.grdThongTinChuaThanhToan.AlternatingRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -2242,6 +2331,33 @@
             this.grdThongTinChuaThanhToan.TotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
             this.grdThongTinChuaThanhToan.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
             this.grdThongTinChuaThanhToan.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // TabPageTamung
+            // 
+            this.TabPageTamung.Controls.Add(this.ucTamung1);
+            this.TabPageTamung.Location = new System.Drawing.Point(1, 23);
+            this.TabPageTamung.Name = "TabPageTamung";
+            this.TabPageTamung.Size = new System.Drawing.Size(641, 525);
+            this.TabPageTamung.TabStop = true;
+            this.TabPageTamung.Text = "Tạm ứng";
+            // 
+            // ucTamung1
+            // 
+            this.ucTamung1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucTamung1.Location = new System.Drawing.Point(0, 0);
+            this.ucTamung1.Name = "ucTamung1";
+            this.ucTamung1.Size = new System.Drawing.Size(641, 525);
+            this.ucTamung1.TabIndex = 1;
+            // 
+            // tabPageThongTinDaThanhToan
+            // 
+            this.tabPageThongTinDaThanhToan.Controls.Add(this.grdThongTinDaThanhToan);
+            this.tabPageThongTinDaThanhToan.Controls.Add(this.uiGroupBox7);
+            this.tabPageThongTinDaThanhToan.Location = new System.Drawing.Point(1, 23);
+            this.tabPageThongTinDaThanhToan.Name = "tabPageThongTinDaThanhToan";
+            this.tabPageThongTinDaThanhToan.Size = new System.Drawing.Size(641, 525);
+            this.tabPageThongTinDaThanhToan.TabStop = true;
+            this.tabPageThongTinDaThanhToan.Text = "Dịch vụ đã thanh toán(Alt+3)";
             // 
             // grdThongTinDaThanhToan
             // 
@@ -2324,6 +2440,40 @@
             this.cmdTraLaiTien.Size = new System.Drawing.Size(107, 27);
             this.cmdTraLaiTien.TabIndex = 15;
             this.cmdTraLaiTien.Text = "Trả lại tiền";
+            // 
+            // TabpageCauhinh
+            // 
+            this.TabpageCauhinh.Controls.Add(this.cmdPrintProperties);
+            this.TabpageCauhinh.Controls.Add(this.cmdCauHinh);
+            this.TabpageCauhinh.Controls.Add(this.chkPreviewHoadon);
+            this.TabpageCauhinh.Controls.Add(this.chkPreviewInBienlai);
+            this.TabpageCauhinh.Controls.Add(this.chkHienthiDichvusaukhinhannutthanhtoan);
+            this.TabpageCauhinh.Controls.Add(this.cmdSaveforNext);
+            this.TabpageCauhinh.Controls.Add(this.chkPreviewInphoiBHYT);
+            this.TabpageCauhinh.Controls.Add(this.vbLine4);
+            this.TabpageCauhinh.Controls.Add(this.chkTudonginhoadonsauthanhtoan);
+            this.TabpageCauhinh.Controls.Add(this.cbomayinhoadon);
+            this.TabpageCauhinh.Controls.Add(this.label21);
+            this.TabpageCauhinh.Controls.Add(this.chkHoixacnhanthanhtoan);
+            this.TabpageCauhinh.Controls.Add(this.chkHoixacnhanhuythanhtoan);
+            this.TabpageCauhinh.Controls.Add(this.chkViewtruockhihuythanhtoan);
+            this.TabpageCauhinh.Controls.Add(this.vbLine3);
+            this.TabpageCauhinh.Controls.Add(this.vbLine1);
+            this.TabpageCauhinh.Controls.Add(this.cmdLuuLai);
+            this.TabpageCauhinh.Controls.Add(this.chkChanBenhNhan);
+            this.TabpageCauhinh.Controls.Add(this.lblwarningMsg);
+            this.TabpageCauhinh.Controls.Add(this.cmdxoa);
+            this.TabpageCauhinh.Controls.Add(this.cbomayinphoiBHYT);
+            this.TabpageCauhinh.Controls.Add(this.label48);
+            this.TabpageCauhinh.Controls.Add(this.label49);
+            this.TabpageCauhinh.Controls.Add(this.cmdsave);
+            this.TabpageCauhinh.Controls.Add(this.txtCanhbao);
+            this.TabpageCauhinh.Controls.Add(this.vbLine2);
+            this.TabpageCauhinh.Location = new System.Drawing.Point(1, 23);
+            this.TabpageCauhinh.Name = "TabpageCauhinh";
+            this.TabpageCauhinh.Size = new System.Drawing.Size(641, 525);
+            this.TabpageCauhinh.TabStop = true;
+            this.TabpageCauhinh.Text = "Cấu hình";
             // 
             // cmdPrintProperties
             // 
@@ -2625,156 +2775,6 @@
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp nhanh:";
             // 
-            // radTatca
-            // 
-            this.radTatca.Checked = true;
-            this.radTatca.Location = new System.Drawing.Point(36, 101);
-            this.radTatca.Name = "radTatca";
-            this.radTatca.Size = new System.Drawing.Size(79, 22);
-            this.radTatca.TabIndex = 280;
-            this.radTatca.TabStop = true;
-            this.radTatca.Text = "Tất cả";
-            this.radTatca.CheckedChanged += new System.EventHandler(this.radTatca_CheckedChanged);
-            // 
-            // radDaThanhtoan
-            // 
-            this.radDaThanhtoan.Location = new System.Drawing.Point(122, 101);
-            this.radDaThanhtoan.Name = "radDaThanhtoan";
-            this.radDaThanhtoan.Size = new System.Drawing.Size(104, 22);
-            this.radDaThanhtoan.TabIndex = 281;
-            this.radDaThanhtoan.Text = "Đã thanh toán";
-            this.radDaThanhtoan.CheckedChanged += new System.EventHandler(this.radDaThanhtoan_CheckedChanged);
-            // 
-            // radChuathanhtoan
-            // 
-            this.radChuathanhtoan.Location = new System.Drawing.Point(242, 101);
-            this.radChuathanhtoan.Name = "radChuathanhtoan";
-            this.radChuathanhtoan.Size = new System.Drawing.Size(123, 22);
-            this.radChuathanhtoan.TabIndex = 282;
-            this.radChuathanhtoan.Text = "Chưa thanh toán";
-            this.radChuathanhtoan.CheckedChanged += new System.EventHandler(this.radChuathanhtoan_CheckedChanged);
-            // 
-            // tabPagePayment
-            // 
-            this.tabPagePayment.Controls.Add(this.grdPayment);
-            this.tabPagePayment.Location = new System.Drawing.Point(1, 23);
-            this.tabPagePayment.Name = "tabPagePayment";
-            this.tabPagePayment.Size = new System.Drawing.Size(639, 84);
-            this.tabPagePayment.TabStop = true;
-            this.tabPagePayment.Text = "Lịch sử thanh toán (Alt +4)";
-            // 
-            // tabPagePhieuChi
-            // 
-            this.tabPagePhieuChi.Controls.Add(this.grdPhieuChi);
-            this.tabPagePhieuChi.Location = new System.Drawing.Point(1, 23);
-            this.tabPagePhieuChi.Name = "tabPagePhieuChi";
-            this.tabPagePhieuChi.Size = new System.Drawing.Size(639, 132);
-            this.tabPagePhieuChi.TabStop = true;
-            this.tabPagePhieuChi.Text = "Lịch sử trả lại tiền (Phiếu chi)  (Alt + 5)";
-            // 
-            // tabpageThongTinThanhToan
-            // 
-            this.tabpageThongTinThanhToan.Controls.Add(this.panel4);
-            this.tabpageThongTinThanhToan.Controls.Add(this.pnlThongtintien);
-            this.tabpageThongTinThanhToan.Controls.Add(this.grpChucNangThanhToan);
-            this.tabpageThongTinThanhToan.Location = new System.Drawing.Point(1, 23);
-            this.tabpageThongTinThanhToan.Name = "tabpageThongTinThanhToan";
-            this.tabpageThongTinThanhToan.Size = new System.Drawing.Size(641, 525);
-            this.tabpageThongTinThanhToan.TabStop = true;
-            this.tabpageThongTinThanhToan.Text = "Tổng hợp(Alt+1)";
-            // 
-            // tabPageThongTinChiTietThanhToan
-            // 
-            this.tabPageThongTinChiTietThanhToan.Controls.Add(this.grdThongTinChuaThanhToan);
-            this.tabPageThongTinChiTietThanhToan.Location = new System.Drawing.Point(1, 23);
-            this.tabPageThongTinChiTietThanhToan.Name = "tabPageThongTinChiTietThanhToan";
-            this.tabPageThongTinChiTietThanhToan.Size = new System.Drawing.Size(641, 525);
-            this.tabPageThongTinChiTietThanhToan.TabStop = true;
-            this.tabPageThongTinChiTietThanhToan.Text = "Dịch vụ chi tiết(Alt+2)";
-            // 
-            // TabPageTamung
-            // 
-            this.TabPageTamung.Controls.Add(this.ucTamung1);
-            this.TabPageTamung.Location = new System.Drawing.Point(1, 23);
-            this.TabPageTamung.Name = "TabPageTamung";
-            this.TabPageTamung.Size = new System.Drawing.Size(641, 525);
-            this.TabPageTamung.TabStop = true;
-            this.TabPageTamung.Text = "Tạm ứng";
-            // 
-            // ucTamung1
-            // 
-            this.ucTamung1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucTamung1.Location = new System.Drawing.Point(0, 0);
-            this.ucTamung1.Name = "ucTamung1";
-            this.ucTamung1.Size = new System.Drawing.Size(641, 525);
-            this.ucTamung1.TabIndex = 1;
-            // 
-            // tabPageThongTinDaThanhToan
-            // 
-            this.tabPageThongTinDaThanhToan.Controls.Add(this.grdThongTinDaThanhToan);
-            this.tabPageThongTinDaThanhToan.Controls.Add(this.uiGroupBox7);
-            this.tabPageThongTinDaThanhToan.Location = new System.Drawing.Point(1, 23);
-            this.tabPageThongTinDaThanhToan.Name = "tabPageThongTinDaThanhToan";
-            this.tabPageThongTinDaThanhToan.Size = new System.Drawing.Size(641, 525);
-            this.tabPageThongTinDaThanhToan.TabStop = true;
-            this.tabPageThongTinDaThanhToan.Text = "Dịch vụ đã thanh toán(Alt+3)";
-            // 
-            // TabpageCauhinh
-            // 
-            this.TabpageCauhinh.Controls.Add(this.cmdPrintProperties);
-            this.TabpageCauhinh.Controls.Add(this.cmdCauHinh);
-            this.TabpageCauhinh.Controls.Add(this.chkPreviewHoadon);
-            this.TabpageCauhinh.Controls.Add(this.chkPreviewInBienlai);
-            this.TabpageCauhinh.Controls.Add(this.chkHienthiDichvusaukhinhannutthanhtoan);
-            this.TabpageCauhinh.Controls.Add(this.cmdSaveforNext);
-            this.TabpageCauhinh.Controls.Add(this.chkPreviewInphoiBHYT);
-            this.TabpageCauhinh.Controls.Add(this.vbLine4);
-            this.TabpageCauhinh.Controls.Add(this.chkTudonginhoadonsauthanhtoan);
-            this.TabpageCauhinh.Controls.Add(this.cbomayinhoadon);
-            this.TabpageCauhinh.Controls.Add(this.label21);
-            this.TabpageCauhinh.Controls.Add(this.chkHoixacnhanthanhtoan);
-            this.TabpageCauhinh.Controls.Add(this.chkHoixacnhanhuythanhtoan);
-            this.TabpageCauhinh.Controls.Add(this.chkViewtruockhihuythanhtoan);
-            this.TabpageCauhinh.Controls.Add(this.vbLine3);
-            this.TabpageCauhinh.Controls.Add(this.vbLine1);
-            this.TabpageCauhinh.Controls.Add(this.cmdLuuLai);
-            this.TabpageCauhinh.Controls.Add(this.chkChanBenhNhan);
-            this.TabpageCauhinh.Controls.Add(this.lblwarningMsg);
-            this.TabpageCauhinh.Controls.Add(this.cmdxoa);
-            this.TabpageCauhinh.Controls.Add(this.cbomayinphoiBHYT);
-            this.TabpageCauhinh.Controls.Add(this.label48);
-            this.TabpageCauhinh.Controls.Add(this.label49);
-            this.TabpageCauhinh.Controls.Add(this.cmdsave);
-            this.TabpageCauhinh.Controls.Add(this.txtCanhbao);
-            this.TabpageCauhinh.Controls.Add(this.vbLine2);
-            this.TabpageCauhinh.Location = new System.Drawing.Point(1, 23);
-            this.TabpageCauhinh.Name = "TabpageCauhinh";
-            this.TabpageCauhinh.Size = new System.Drawing.Size(641, 525);
-            this.TabpageCauhinh.TabStop = true;
-            this.TabpageCauhinh.Text = "Cấu hình";
-            // 
-            // tabpageKCB
-            // 
-            this.tabpageKCB.Controls.Add(this.grdDSKCB);
-            this.tabpageKCB.Controls.Add(this.pnlSeri);
-            this.tabpageKCB.Location = new System.Drawing.Point(1, 23);
-            this.tabpageKCB.Name = "tabpageKCB";
-            this.tabpageKCB.Size = new System.Drawing.Size(307, 312);
-            this.tabpageKCB.TabStop = true;
-            this.tabpageKCB.Text = "Chi phí";
-            this.tabpageKCB.ToolTipText = "Nhấn phím tắt F8 để chọn Thông tin Khám chữa bệnh";
-            // 
-            // tabpageHoaDon
-            // 
-            this.tabpageHoaDon.Controls.Add(this.gpThongTinHoaDon);
-            this.tabpageHoaDon.Controls.Add(this.grdHoaDonCapPhat);
-            this.tabpageHoaDon.Location = new System.Drawing.Point(1, 23);
-            this.tabpageHoaDon.Name = "tabpageHoaDon";
-            this.tabpageHoaDon.Size = new System.Drawing.Size(307, 312);
-            this.tabpageHoaDon.TabStop = true;
-            this.tabpageHoaDon.Text = "Hóa đơn đỏ";
-            this.tabpageHoaDon.ToolTipText = "Nhấn phím tắt F7 để chọn Thông tin hóa đơn";
-            // 
             // frm_THANHTOAN_NGOAITRU
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -2805,16 +2805,21 @@
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabThongTinThanhToan)).EndInit();
             this.tabThongTinThanhToan.ResumeLayout(false);
+            this.tabPagePayment.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdPayment)).EndInit();
+            this.tabPagePhieuChi.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdPhieuChi)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabThongTinCanThanhToan)).EndInit();
             this.tabThongTinCanThanhToan.ResumeLayout(false);
+            this.tabpageThongTinThanhToan.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uiTabHoadon_chiphi)).EndInit();
             this.uiTabHoadon_chiphi.ResumeLayout(false);
+            this.tabpageKCB.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdDSKCB)).EndInit();
             this.pnlSeri.ResumeLayout(false);
             this.pnlSeri.PerformLayout();
+            this.tabpageHoaDon.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gpThongTinHoaDon)).EndInit();
             this.gpThongTinHoaDon.ResumeLayout(false);
             this.gpThongTinHoaDon.PerformLayout();
@@ -2826,20 +2831,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.grpChucNangThanhToan)).EndInit();
             this.grpChucNangThanhToan.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.tabPageThongTinChiTietThanhToan.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdThongTinChuaThanhToan)).EndInit();
+            this.TabPageTamung.ResumeLayout(false);
+            this.tabPageThongTinDaThanhToan.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdThongTinDaThanhToan)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox7)).EndInit();
             this.uiGroupBox7.ResumeLayout(false);
-            this.tabPagePayment.ResumeLayout(false);
-            this.tabPagePhieuChi.ResumeLayout(false);
-            this.tabpageThongTinThanhToan.ResumeLayout(false);
-            this.tabPageThongTinChiTietThanhToan.ResumeLayout(false);
-            this.TabPageTamung.ResumeLayout(false);
-            this.tabPageThongTinDaThanhToan.ResumeLayout(false);
             this.TabpageCauhinh.ResumeLayout(false);
             this.TabpageCauhinh.PerformLayout();
-            this.tabpageKCB.ResumeLayout(false);
-            this.tabpageHoaDon.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
