@@ -1003,14 +1003,21 @@ namespace VNS.HIS.UI.BENH_AN
         private void cmdInBenhAn_Click_1(object sender, EventArgs e)
         {
             DataTable dsTable = SPs.KcbThamkhamLaythongtinBenhanNgoaitru(uc_bant_11.txtMaBN.Text).GetDataSet().Tables[0];
+            THU_VIEN_CHUNG.CreateXML(dsTable, "thamkham_BENH_AN_NGOAITRU");
             ReportDocument crpt;
             string tieude = "", reportname = "";
             crpt = Utility.GetReport("thamkham_BENH_AN_NGOAITRU", ref tieude, ref reportname);
             if (crpt == null) return;
             var objForm = new frmPrintPreview("bệnh án", crpt, true, true);
+            crpt.SetDataSource(dsTable);
             objForm.mv_sReportFileName = Path.GetFileName(reportname);
             objForm.mv_sReportCode = "thamkham_BENH_AN_NGOAITRU";
-            crpt.SetDataSource(dsTable);
+            Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+            Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+            Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+            Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
+            Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+            Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
             objForm.crptViewer.ReportSource = crpt;
             objForm.ShowDialog();
             var objBenhAnNgoaiTru = new KcbBenhAn();

@@ -477,12 +477,46 @@ namespace VNS.HIS.UI.BENH_AN
             // kiểm tra chưa khóa : in
 
             DataTable dsTable = SPs.KcbThamkhamLaythongtinBenhanNgoaitru(txtMaBN.Text).GetDataSet().Tables[0];
+            THU_VIEN_CHUNG.CreateXML(dsTable, "thamkham_benh_an_thuong");
             ReportDocument crpt;
+            string reportcode = "thamkham_benh_an_thuong";
+            switch (loaibenhan)
+            {
+                case "VGB":
+                    reportcode = "thamkham_benh_an_thuong";
+                    break;
+                case "DTD":
+                    reportcode = "thamkham_benh_an_thuong";
+                    break;
+                case "THA":
+                    reportcode = "thamkham_benh_an_thuong";
+                    break;
+                case "BAS":
+                    reportcode = "thamkham_benh_an_thuong";
+                    break;
+                case "COP":
+                    reportcode = "thamkham_benh_an_thuong";
+                    break;
+                case "TMH":
+                    reportcode = "thamkham_benhan_taimuihong";
+                    break;
+                case "RHM":
+                    reportcode = "thamkham_benhan_rhm";
+                    break;
+            }
             string tieude = "", reportname = "";
-            crpt = Utility.GetReport("thamkham_benh_an_thuong", ref tieude, ref reportname);
+            crpt = Utility.GetReport(reportcode, ref tieude, ref reportname);
             if (crpt == null) return;
             var objForm = new frmPrintPreview("bệnh án", crpt, true, true);
             crpt.SetDataSource(dsTable);
+            objForm.mv_sReportFileName = Path.GetFileName(reportname);
+            objForm.mv_sReportCode = reportcode;
+            Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+            Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+            Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+            Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
+            Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+            Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
             objForm.crptViewer.ReportSource = crpt;
             objForm.ShowDialog();
             var objBenhAnNgoaiTru = new KcbBenhAn();
