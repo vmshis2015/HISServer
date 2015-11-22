@@ -52,6 +52,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtLydo = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.radkhamchuyenkhoa = new System.Windows.Forms.RadioButton();
             this.radkhambenhpham = new System.Windows.Forms.RadioButton();
+            this.cmdInPhieukhamchuyenkhoa = new Janus.Windows.EditControls.UIButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -185,7 +186,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.cmdChuyen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdChuyen.Image = ((System.Drawing.Image)(resources.GetObject("cmdChuyen.Image")));
             this.cmdChuyen.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdChuyen.Location = new System.Drawing.Point(167, 320);
+            this.cmdChuyen.Location = new System.Drawing.Point(240, 320);
             this.cmdChuyen.Name = "cmdChuyen";
             this.cmdChuyen.Size = new System.Drawing.Size(141, 35);
             this.cmdChuyen.TabIndex = 2;
@@ -274,7 +275,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.cmdClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdClose.Image = ((System.Drawing.Image)(resources.GetObject("cmdClose.Image")));
             this.cmdClose.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdClose.Location = new System.Drawing.Point(322, 320);
+            this.cmdClose.Location = new System.Drawing.Point(402, 320);
             this.cmdClose.Name = "cmdClose";
             this.cmdClose.Size = new System.Drawing.Size(141, 35);
             this.cmdClose.TabIndex = 3;
@@ -382,11 +383,24 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.radkhambenhpham.Text = "Chuyển xét nghiệm bệnh phẩm";
             this.radkhambenhpham.UseVisualStyleBackColor = true;
             // 
+            // cmdInPhieukhamchuyenkhoa
+            // 
+            this.cmdInPhieukhamchuyenkhoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdInPhieukhamchuyenkhoa.Image = ((System.Drawing.Image)(resources.GetObject("cmdInPhieukhamchuyenkhoa.Image")));
+            this.cmdInPhieukhamchuyenkhoa.ImageSize = new System.Drawing.Size(24, 24);
+            this.cmdInPhieukhamchuyenkhoa.Location = new System.Drawing.Point(78, 320);
+            this.cmdInPhieukhamchuyenkhoa.Name = "cmdInPhieukhamchuyenkhoa";
+            this.cmdInPhieukhamchuyenkhoa.Size = new System.Drawing.Size(141, 35);
+            this.cmdInPhieukhamchuyenkhoa.TabIndex = 562;
+            this.cmdInPhieukhamchuyenkhoa.Text = "In phiếu chuyên khoa (F4)";
+            this.cmdInPhieukhamchuyenkhoa.Click += new System.EventHandler(this.cmdInPhieukhamchuyenkhoa_Click);
+            // 
             // frm_ChuyenPhongkham
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 362);
+            this.Controls.Add(this.cmdInPhieukhamchuyenkhoa);
             this.Controls.Add(this.radkhambenhpham);
             this.Controls.Add(this.radkhamchuyenkhoa);
             this.Controls.Add(this.txtLydo);
@@ -440,5 +454,6 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
         private AutoCompleteTextbox_Danhmucchung txtLydo;
         private System.Windows.Forms.RadioButton radkhamchuyenkhoa;
         private System.Windows.Forms.RadioButton radkhambenhpham;
+        private Janus.Windows.EditControls.UIButton cmdInPhieukhamchuyenkhoa;
     }
 }

@@ -358,5 +358,19 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
 
             }
         }
+
+        private void cmdInPhieukhamchuyenkhoa_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                InMauChuyenKhoa(Utility.sDbnull(objDangkyKcb_Cu.MaLuotkham, ""), Utility.Int64Dbnull(objDangkyKcb_Cu.IdBenhnhan, -1));
+                m_blnCancel = true;
+                this.Close();
+            }
+            catch(Exception ex)
+            {
+                Utility.ShowMsg("Lỗi: " + ex.Message);
+            }
+        }
     }
 }
