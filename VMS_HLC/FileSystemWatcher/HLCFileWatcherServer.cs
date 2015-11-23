@@ -153,6 +153,11 @@ namespace VMS.FSW
                                                     kq.IsNew = false;
                                                     kq.MarkOld();
                                                 }
+                                                DmucDichvuclsChitiet objDvuchitiet = DmucDichvuclsChitiet.FetchByID(Utility.Int64Dbnull(arrCt[0]["id_chitietdichvu"]));
+                                                if (objDvuchitiet != null)
+                                                {
+                                                    kq.TenThongso = objDvuchitiet.TenChitietdichvu;
+                                                }
                                                 kq.IdChidinh = Utility.Int64Dbnull(arrCt[0]["id_chidinh"]);
                                                 kq.IdChitietchidinh = Utility.Int64Dbnull(arrCt[0]["id_chitietchidinh"]);
                                                 kq.IdDichvu = Utility.Int32Dbnull(arrCt[0]["id_dichvu"]);
