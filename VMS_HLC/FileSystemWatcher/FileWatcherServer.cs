@@ -21,14 +21,15 @@ namespace VMS.FSW
         {
             try
             {
-                var watcherObject = new WatcherObject(folderPath, intervalTime);
+                WatcherObject watcherObject = new WatcherObject(folderPath, intervalTime);
+                watcherObject.myLog = this.myLog;
                 watcherObject.Change += OnChanged;
                 watcherObject.Rename += OnRenamed;
                 _watchers.Add(watcherObject);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                myLog.Error(string.Format("AddWatcher.Exception-->{0}", ex.Message));
             }
         }
 

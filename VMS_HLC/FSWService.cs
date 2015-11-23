@@ -39,7 +39,7 @@ namespace VMS.FSW
                 File.WriteAllText(_intervalFile, _interval.ToString());
             }
             HLCFW = new HLCFileWatcherServer();
-            
+            HLCFW.myLog.Trace(string.Format("Add SystemFileWatcher for the Folder {0}", Utility.Laygiatrithamsohethong("ASTM_RESULTS_FOLDER", @"\\192.168.1.254\Results\", false)));
             HLCFW.AddWatcher(Utility.Laygiatrithamsohethong("ASTM_RESULTS_FOLDER", @"\\192.168.1.254\Results\", false), _interval);
             
         }

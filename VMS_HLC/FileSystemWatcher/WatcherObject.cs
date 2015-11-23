@@ -8,6 +8,7 @@ using System.Net;
 using System.Security.Permissions;
 using System.Threading;
 using System.Timers;
+using NLog;
 using VNS.Libs;
 using Timer = System.Timers.Timer;
 
@@ -16,7 +17,7 @@ namespace VMS.FSW
     public class WatcherObject
     {
         #region Attributes
-       
+        public Logger myLog;
         private readonly Timer _myTimer = new Timer(15000);
         public Dictionary<string, FileSystemEventArgs> ListEvent = new Dictionary<string, FileSystemEventArgs>();
         public Dictionary<string, object> ListObject = new Dictionary<string, object>();
@@ -63,27 +64,44 @@ namespace VMS.FSW
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public void StartWatch()
         {
-            bool writeNotExists = false;
-            while (!Directory.Exists(WatchedPath))
-            //while (!CheckPath(WatchedPath))
+            try
             {
-                if (!writeNotExists)
+                bool writeNotExists = false;
+                myLog.Trace("Start Watching...");
+                if (Utility.Laygiatrithamsohethong("ASTM_SECURITY", "0", false) == "1")
                 {
-                    writeNotExists = true;
+                    NetworkCredential theNetworkCredential = new NetworkCredential(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false));
+                    CredentialCache theNetcache = new CredentialCache();
+                    theNetcache.Add(new Uri(WatchedPath), "Basic", theNetworkCredential);
                 }
-                //Nếu chưa tìm thấy thư mục cần theo dõi thì lặp lại liên tục
-                Thread.Sleep(2000);
+                //while (!Directory.Exists(WatchedPath))
+                ////while (!CheckPath(WatchedPath))
+                //{
+                //    myLog.Trace(string.Format("WatchedPath {0} is not existed", WatchedPath));
+                //    if (!writeNotExists)
+                //    {
+                //        writeNotExists = true;
+                //    }
+                //    //Nếu chưa tìm thấy thư mục cần theo dõi thì lặp lại liên tục
+                //    Thread.Sleep(2000);
+                //}
+                _lastModifitime = GetlastModifiedTime();
+                // Create a new FileSystemWatcher and set its properties.
+                //_fileWatcher = new FileSystemWatcher
+                //{
+                //    Path = WatchedPath,
+                //    NotifyFilter = NotifyFilters.LastWrite
+                //};
+                // Lấy về thời gian thay đổi cuối cùng của thư mục
+
+                _myTimer.Start();
             }
-            _lastModifitime = GetlastModifiedTime();
-            // Create a new FileSystemWatcher and set its properties.
-            _fileWatcher = new FileSystemWatcher
+            catch (Exception ex)
             {
-                Path = WatchedPath,
-                NotifyFilter = NotifyFilters.LastWrite
-            };
-            // Lấy về thời gian thay đổi cuối cùng của thư mục
-            
-            _myTimer.Start();
+
+                myLog.Error(string.Format("StartWatch.Exception-->{0}", ex.Message));
+            }
+           
             
         }
 
@@ -102,29 +120,37 @@ namespace VMS.FSW
             // Lấy ra tên file mới
             try
             {
-                IEnumerable<FileInfo> fileList=null;
+                List<string> fileList=new List<string>();
+                myLog.Trace(string.Format("Veryfying NetworkCredential..."));
                 if (Utility.Laygiatrithamsohethong("ASTM_SECURITY", "0", false) == "1")
                 {
-                    //using (new NetworkConnection(_watcherPathInfo, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                    
                     NetworkCredential theNetworkCredential = new NetworkCredential(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false));
                     CredentialCache theNetcache = new CredentialCache();
                     theNetcache.Add(new Uri(WatchedPath), "Basic", theNetworkCredential);
                 }
-                    fileList = _watcherPathInfo.GetFiles("*.txt", SearchOption.TopDirectoryOnly);
-                fileList.OrderBy(c => c.LastWriteTime);
+                myLog.Trace(string.Format("Gettings result files..."));
+                using (new NetworkConnection(WatchedPath, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                {
+                    fileList = Directory.GetFiles(WatchedPath, "*.txt", SearchOption.TopDirectoryOnly).ToList();
+                }
+               // fileList.OrderBy(c => c.LastWriteTime);
                 List<string> fileQuery = new List<string>();
-                foreach (FileInfo f in fileList)
+                foreach (string f in fileList)
                     //if (f.LastWriteTime.Ticks > _lastModifitime.Ticks)//Tạm bỏ đi do sẽ di chuyển file đã phân tích sang thư mục khác+ đề phòng file đọc bị lỗi lại không được đưa vào danh sách để đọc lại
-                        fileQuery.Add(f.FullName);
+                        fileQuery.Add(f);
                 foreach (string s in fileQuery)
                 {
-                    
-                    Change.Invoke(_fileWatcher, new FileSystemEventArgs(WatcherChangeTypes.Changed, WatchedPath, s.Substring(s.LastIndexOf('\\') + 1)));
+                    myLog.Trace(string.Format("Invoking Analysis() method"));
+                   // Change.Invoke(_fileWatcher, new FileSystemEventArgs(WatcherChangeTypes.Changed, WatchedPath, s.Substring(s.LastIndexOf('\\') + 1)));
+                    Change.Invoke(null, new FileSystemEventArgs(WatcherChangeTypes.Changed, WatchedPath, s.Substring(s.LastIndexOf('\\') + 1)));
                     _lastModifitime = new FileInfo(s).LastWriteTime;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+
+                myLog.Error(string.Format("StartWatch.Exception-->{0}", ex.Message));
             }
             finally
             {
@@ -148,8 +174,11 @@ namespace VMS.FSW
                      CredentialCache theNetcache = new CredentialCache();
                      theNetcache.Add(new Uri(WatchedPath), "Basic", theNetworkCredential);
                  }
-              fileList = _watcherPathInfo.GetFiles("*.txt",
-                    SearchOption.TopDirectoryOnly);
+                 using (new NetworkConnection(WatchedPath, Utility.CreateCredentials(Utility.Laygiatrithamsohethong("ASTM_UID", "UserName", false), Utility.Laygiatrithamsohethong("ASTM_PWD", "PassWord", false))))
+                 {
+                     fileList = _watcherPathInfo.GetFiles("*.txt",
+                           SearchOption.TopDirectoryOnly);
+                 }
                 // Nếu không tồn tại file nào trả về thời gian hiện tại
                 if (!fileList.Any()) return DateTime.Now;
                 
