@@ -377,10 +377,10 @@ namespace VNS.HIS.UI.DANHMUC
             if (!m_blnAllowCurrentCellChanged) return;
             cmdNew.Visible = true;
             cmdUpdate.Visible = true;
-            cmdDelete.Visible = true;
+           // cmdDelete.Visible = true;
             
             cmdUpdate.Enabled = Utility.isValidGrid(grdList);
-            cmdDelete.Enabled = Utility.isValidGrid(grdList);
+          //  cmdDelete.Enabled = Utility.isValidGrid(grdList);
             cmdPrint.Enabled = Utility.isValidGrid(grdList);
             cmdSave.Visible = false;
             cmdCancel.Text = _THOAT;
@@ -388,11 +388,11 @@ namespace VNS.HIS.UI.DANHMUC
             #region contextmenu
             mnuInsert.Visible = cmdNew.Visible;
             mnuUpdate.Visible = cmdUpdate.Visible;
-            mnuDelete.Visible = cmdDelete.Visible;
+         //   mnuDelete.Visible = cmdDelete.Visible;
 
             mnuInsert.Enabled = cmdNew.Enabled;
             mnuUpdate.Enabled = cmdUpdate.Enabled;
-            mnuDelete.Enabled = cmdDelete.Enabled;
+           // mnuDelete.Enabled = cmdDelete.Enabled;
             mnuPrint.Enabled = cmdPrint.Enabled;
             #endregion
            

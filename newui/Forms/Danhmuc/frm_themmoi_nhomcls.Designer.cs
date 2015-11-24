@@ -287,6 +287,7 @@
             // 
             this.txtLoainhom._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtLoainhom._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoainhom._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLoainhom.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLoainhom.AutoCompleteList")));
             this.txtLoainhom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLoainhom.CaseSensitive = false;
@@ -299,7 +300,7 @@
             this.txtLoainhom.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLoainhom.LOAI_DANHMUC = "LOAINHOMCHIDINHCLS";
             this.txtLoainhom.Location = new System.Drawing.Point(99, 51);
-            this.txtLoainhom.MaxHeight = -1;
+            this.txtLoainhom.MaxHeight = 150;
             this.txtLoainhom.MinTypedCharacters = 2;
             this.txtLoainhom.MyCode = "-1";
             this.txtLoainhom.MyID = "-1";

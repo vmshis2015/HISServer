@@ -278,6 +278,7 @@
             // 
             this.txtLoainhom._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtLoainhom._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoainhom._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLoainhom.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLoainhom.AutoCompleteList")));
             this.txtLoainhom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLoainhom.CaseSensitive = false;
