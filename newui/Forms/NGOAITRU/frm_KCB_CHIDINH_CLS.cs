@@ -137,7 +137,15 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             frm_quanlynhomchidinh_cls _quanlynhomchidinh_cls = new frm_quanlynhomchidinh_cls();
             _quanlynhomchidinh_cls.ShowDialog();
-            txtNhomDichvuCLS.Init(new Select().From(DmucNhomcanlamsang.Schema).ExecuteDataSet().Tables[0], new List<string>() { DmucNhomcanlamsang.Columns.Id, DmucNhomcanlamsang.Columns.MaNhom, DmucNhomcanlamsang.Columns.TenNhom });
+            txtNhomDichvuCLS.Init(
+                new Select().From(DmucNhomcanlamsang.Schema).Where(DmucNhomcanlamsang.Columns.NguoiTao).IsEqualTo(
+                    globalVariables.UserName).Or(globalVariables.UserName).IsEqualTo("ADMIN").ExecuteDataSet().Tables[0],
+                new List<string>()
+                    {
+                        DmucNhomcanlamsang.Columns.Id,
+                        DmucNhomcanlamsang.Columns.MaNhom,
+                        DmucNhomcanlamsang.Columns.TenNhom
+                    });
         }
 
         void grdAssignDetail_KeyDown(object sender, KeyEventArgs e)
@@ -1171,7 +1179,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     txtFilterName.SelectAll();
                     txtFilterName.Focus();
                 }
-                else if (e.KeyCode == Keys.Space && Utility.sDbnull(grdServiceDetail.CurrentColumn.Key, "") != "colCHON")
+                else if (e.KeyCode == Keys.Space && grdServiceDetail.CurrentColumn != null && Utility.sDbnull(grdServiceDetail.CurrentColumn.Key, "") != "colCHON")
                 {
                     grdServiceDetail.CurrentRow.IsChecked = !grdServiceDetail.CurrentRow.IsChecked;
                     if (chkChiDinhNhanh.Checked)
@@ -1179,11 +1187,29 @@ namespace VNS.HIS.UI.NGOAITRU
                         if (grdServiceDetail.CurrentRow.IsChecked)
                         {
                             AddOneRow_ServiceDetail();
-                            //txtFilterName.SelectAll();
-                            //txtFilterName.Focus();
                         }
                     }
                 }
+            //if (grdServiceDetail.Focused)
+            //    if (e.KeyCode == Keys.Enter)
+            //    {
+            //        cmdAddDetail.PerformClick();
+            //        txtFilterName.SelectAll();
+            //        txtFilterName.Focus();
+            //    }
+            //    else if (e.KeyCode == Keys.Space && Utility.sDbnull(grdServiceDetail.CurrentColumn.Key, "") != "colCHON")
+            //    {
+            //        grdServiceDetail.CurrentRow.IsChecked = !grdServiceDetail.CurrentRow.IsChecked;
+            //        if (chkChiDinhNhanh.Checked)
+            //        {
+            //            if (grdServiceDetail.CurrentRow.IsChecked)
+            //            {
+            //                AddOneRow_ServiceDetail();
+            //                //txtFilterName.SelectAll();
+            //                //txtFilterName.Focus();
+            //            }
+            //        }
+            //    }
         }
 
         /// <summary>

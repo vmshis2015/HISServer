@@ -231,7 +231,10 @@ namespace VNS.HIS.UI.NGOAITRU
                 reval = Utility.Int32Dbnull(spitem.OutputValues[0], -1);
                 if (reval != 0)
                 {
-                    Utility.ShowMsg(string.Format("Mã lượt khám bạn vừa nhập {0} không có trong danh mục hoặc đang được sử dụng bởi người dùng khác. Hãy nhấn OK để hệ thống tự động sinh mã lần khám mới nhất", Utility.DoTrim(txtMaLankham.Text)));
+                    Utility.ShowMsg(
+                        string.Format(
+                            "Mã lượt khám bạn vừa nhập {0} không có trong danh mục hoặc đang được sử dụng bởi người dùng khác. Hãy nhấn OK để hệ thống tự động sinh mã lần khám mới nhất",
+                            Utility.DoTrim(txtMaLankham.Text)));
                     SinhMaLanKham();
                     txtMaLankham.SelectAll();
                     txtMaLankham.Focus();
@@ -1289,7 +1292,9 @@ namespace VNS.HIS.UI.NGOAITRU
                     }
                     AllowAgeChanged = true;
                     _MaDoituongKcb = Utility.sDbnull(objLuotkham.MaDoituongKcb);
-                    objDoituongKCB = new Select().From(DmucDoituongkcb.Schema).Where(DmucDoituongkcb.MaDoituongKcbColumn).IsEqualTo(_MaDoituongKcb).ExecuteSingle<DmucDoituongkcb>();
+                    objDoituongKCB =
+                        new Select().From(DmucDoituongkcb.Schema).Where(DmucDoituongkcb.MaDoituongKcbColumn).IsEqualTo(
+                            _MaDoituongKcb).ExecuteSingle<DmucDoituongkcb>();
 
                     ChangeObjectRegion();
                     PtramBhytCu = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0);
@@ -1385,11 +1390,10 @@ namespace VNS.HIS.UI.NGOAITRU
             this.txtDiachi_bhyt.AutoCompleteList = globalVariables.LstAutocompleteAddressSource;
             this.txtDiachi_bhyt.CaseSensitive = false;
             this.txtDiachi_bhyt.MinTypedCharacters = 1;
-
             this.txtDiachi.AutoCompleteList = globalVariables.LstAutocompleteAddressSource;
             this.txtDiachi.CaseSensitive = false;
             this.txtDiachi.MinTypedCharacters = 1;
-
+            
             
          
         }

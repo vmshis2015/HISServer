@@ -168,7 +168,8 @@ namespace VNS.HIS.UI.NGOAITRU
             txtMaBenhChinh.GotFocus += txtMaBenhChinh_GotFocus;
             txtMaBenhChinh.KeyDown += txtMaBenhChinh_KeyDown;
             txtMaBenhChinh.TextChanged += txtMaBenhChinh_TextChanged;
-
+            txtMach.LostFocus += txtMach_LostFocus;
+            txtNhipTim.LostFocus += txtNhipTim_LostFocus;
             txtMaBenhphu.GotFocus += txtMaBenhphu_GotFocus;
             txtMaBenhphu.KeyDown += txtMaBenhphu_KeyDown;
             txtMaBenhphu.TextChanged += txtMaBenhphu_TextChanged;
@@ -547,11 +548,13 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             if (cboChonBenhAn.SelectedIndex == 6)
             {
-                BenhAnDaithaoduong();
+                BenhAnThuong();
+                //   BenhAnDaithaoduong();
             }
             if (cboChonBenhAn.SelectedIndex == 7)
             {
-                BenhAnTG();
+                BenhAnThuong();
+               // BenhAnTG();
             }
             if (cboChonBenhAn.SelectedIndex == 1 || 
                 cboChonBenhAn.SelectedIndex == 2 ||
@@ -579,6 +582,10 @@ namespace VNS.HIS.UI.NGOAITRU
                     case 4: frm.loaibenhan = Utility.GetLoaiBenhAn(LoaiBenhAn.BA_ViemGanB);
                     break;
                     case 5: frm.loaibenhan = Utility.GetLoaiBenhAn(LoaiBenhAn.BA_Cop);
+                    break;
+                    case 6: frm.loaibenhan = Utility.GetLoaiBenhAn(LoaiBenhAn.BA_TaiMuiHong);
+                    break;
+                    case 7: frm.loaibenhan = Utility.GetLoaiBenhAn(LoaiBenhAn.BA_RangHamMat);
                     break;
                 }
                 frm.txtMaBN.Text = txtPatient_ID.Text;
@@ -1199,8 +1206,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 cmdUpdate.Enabled =
                     cmdDelteAssign.Enabled =
                     Utility.isValidGrid(grdAssignDetail) && !string.IsNullOrEmpty(m_strMaLuotkham);
-
-
+                cmdConfirm.Enabled = Utility.isValidGrid(grdAssignDetail) && !string.IsNullOrEmpty(m_strMaLuotkham);
+                
                 chkDaThucHien.Visible = chkDaThucHien.Checked;
                 if (objLuotkham != null)
                 {
@@ -1253,7 +1260,28 @@ namespace VNS.HIS.UI.NGOAITRU
 
             return true;
         }
-
+        private void HienThiChuyenCan()
+        {
+            int id_chidinh = Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), -1);
+            if (m_dtAssignDetail.Select("trangthai_chitiet >1 and id_chidinh = '"+id_chidinh+"'").Length > 0)
+            {
+                cmdConfirm.Enabled = false;
+                cmdConfirm.Text = "Đã được thực hiện";
+                cmdConfirm.Tag = 3;
+            }
+            if (m_dtAssignDetail.Select("trangthai_chuyencls=1 and id_chidinh = '" + id_chidinh + "'").Length > 0)
+            {
+                cmdConfirm.Enabled = true;
+                cmdConfirm.Text = "Hủy chuyển CLS";
+                cmdConfirm.Tag = 2;
+            }
+            if (m_dtAssignDetail.Select("trangthai_chuyencls=0 and id_chidinh = '" + id_chidinh + "'").Length > 0)
+            {
+                cmdConfirm.Enabled = true;
+                cmdConfirm.Text = "Chuyển ClS";
+                cmdConfirm.Tag = 1;
+            }
+        }
         private void Laythongtinchidinhngoaitru()
         {
             ds =
@@ -1265,7 +1293,7 @@ namespace VNS.HIS.UI.NGOAITRU
             m_dtVTTH = ds.Tables[2];
             Utility.SetDataSourceForDataGridEx(grdAssignDetail, m_dtAssignDetail, false, true, "",
                                                "stt_hthi_dichvu,stt_hthi_chitiet,ten_chitietdichvu");
-
+            HienThiChuyenCan();
             m_dtDonthuocChitiet_View = m_dtPresDetail.Clone();
             foreach (DataRow dr in m_dtPresDetail.Rows)
             {
@@ -1383,6 +1411,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
                 if (cboServicePrint.Items.Count > 0) cboServicePrint.SelectedIndex = 0;
                 cmdNhapVien.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU", "0", true) == "1";
+                cmdConfirm.Visible = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_CHOPHEPBACSY_CHUYENCAN","0",true) == "1";
                 cmdHuyNhapVien.Visible = cmdNhapVien.Visible;
 
                 hasLoaded = true;
@@ -2268,6 +2297,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private void grdAssignDetail_SelectionChanged(object sender, EventArgs e)
         {
             ModifyCommmands();
+            HienThiChuyenCan();
             ShowResult();
         }
 
@@ -3116,18 +3146,27 @@ namespace VNS.HIS.UI.NGOAITRU
                 v_dtData.AcceptChanges();
                 v_dtData.AcceptChanges();
                 Utility.UpdateLogotoDatatable(ref v_dtData);
-                string tieude = "", reportname = "";
+                string tieude = "", reportname = "",
+                reportcode = "";
+                reportcode = "thamkham_InPhieutomtatdieutringoaitru_A4";
                 ReportDocument crpt = Utility.GetReport("thamkham_InPhieutomtatdieutringoaitru_A4", ref tieude,
                                                         ref reportname);
                 if (PropertyLib._MayInProperties.CoGiayInTomtatDieutriNgoaitru == Papersize.A5)
+                {
+                    reportcode = "thamkham_InPhieutomtatdieutringoaitru_A4";
                     crpt = Utility.GetReport("thamkham_InPhieutomtatdieutringoaitru_A5", ref tieude, ref reportname);
+                }
+                    
                 if (crpt == null) return false;
                 var objForm = new frmPrintPreview("PHIẾU TÓM TẮT ĐIỀU TRỊ NGOẠI TRÚ", crpt, true, true);
                 crpt.SetDataSource(v_dtData);
                 crpt.Subreports[0].SetDataSource(sub_dtData);
+                objForm.mv_sReportFileName = Path.GetFileName(reportname);
+                objForm.mv_sReportCode = reportcode;
                 Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
                 Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
                 Utility.SetParameterValue(crpt, "NGAY_KEDON", NGAY_KEDON);
+                Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
                 objForm.crptViewer.ReportSource = crpt;
                 //In ngay
                 if (cboPrintPreviewTomtatdieutringoaitru.SelectedValue.ToString() == "1")
@@ -3159,16 +3198,28 @@ namespace VNS.HIS.UI.NGOAITRU
                         dr["ma_icd"] = ICD_Code;
                     }
                     dt.AcceptChanges();
+                    Utility.UpdateLogotoDatatable(ref dt);
+                    string reportcode1 = "";
+                    reportcode1 = "thamkham_Inphieulinhthuocngoaitru_A4";
                     ReportDocument crpt1 = Utility.GetReport("thamkham_Inphieulinhthuocngoaitru_A4", ref tieude,
                                                              ref reportname);
+
                     if (PropertyLib._MayInProperties.CoGiayInTomtatDieutriNgoaitru == Papersize.A5)
+                    {
                         crpt1 = Utility.GetReport("thamkham_Inphieulinhthuocngoaitru_A5", ref tieude, ref reportname);
+                        reportcode1 = "thamkham_Inphieulinhthuocngoaitru_A5";
+                    }
+                      
                     if (crpt1 == null) return false;
+                    
                     var objForm1 = new frmPrintPreview("PHIẾU LĨNH THUỐC NGOẠI TRÚ", crpt1, true, true);
                     crpt1.SetDataSource(dt);
+                    objForm1.mv_sReportFileName = Path.GetFileName(reportname);
+                    objForm1.mv_sReportCode =reportcode1 ;
                     crpt1.SetParameterValue("ParentBranchName", globalVariables.ParentBranch_Name);
                     crpt1.SetParameterValue("BranchName", globalVariables.Branch_Name);
                     crpt1.SetParameterValue("NGAY_KEDON", NGAY_KEDON);
+                    Utility.SetParameterValue(crpt1, "txtTrinhky", Utility.getTrinhky(objForm1.mv_sReportFileName, globalVariables.SysDate));
                     objForm1.crptViewer.ReportSource = crpt1;
                     if (cboPrintPreviewTomtatdieutringoaitru.SelectedValue.ToString() == "1")
                         objForm1.addTrinhKy_OnFormLoad();
@@ -3741,6 +3792,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
                     .Where(KcbChidinhclsChitiet.Columns.IdChitietchidinh).IsEqualTo(id_chidinhchitiet)
                     .And(KcbChidinhclsChitiet.Columns.TrangthaiThanhtoan).IsEqualTo(1);
+               
                 if (sqlQuery.GetRecordCount() > 0)
                 {
                     b_Cancel = true;
@@ -3820,11 +3872,14 @@ namespace VNS.HIS.UI.NGOAITRU
             if (!Utility.isValidGrid(grdAssignDetail)) return false;
             int id_chidinh = Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), "-1");
             SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
-                .Where(KcbChidinhclsChitiet.Columns.IdChidinh).IsEqualTo(id_chidinh)
-                .And(KcbChidinhclsChitiet.Columns.TrangthaiThanhtoan).IsGreaterThanOrEqualTo(1);
+                .Where(KcbChidinhclsChitiet.Columns.IdChidinh).IsEqualTo(id_chidinh).And(
+                    KcbChidinhclsChitiet.Columns.TrangthaiThanhtoan).IsGreaterThanOrEqualTo(1)
+                    .Or(KcbChidinhclsChitiet.Columns.TrangThai).IsGreaterThanOrEqualTo(1)
+                    .And(KcbChidinhclsChitiet.Columns.IdChidinh).IsEqualTo(id_chidinh);
+           
             if (sqlQuery.GetRecordCount() > 0)
             {
-                Utility.ShowMsg("Phiếu này đã thanh toán, Mời bạn thêm phiếu mới để thực hiện", "Thông báo");
+                Utility.ShowMsg("Phiếu này đã thanh toán hoặc chuyển đã cận \n Mời bạn thêm phiếu mới để thực hiện", "Thông báo");
                 cmdInsertAssign.Focus();
                 return false;
             }
@@ -5522,6 +5577,117 @@ namespace VNS.HIS.UI.NGOAITRU
             //    e.Handled = false;
             //}
 
+        }
+
+        private void cmdConfirm_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Utility.WaitNow(this);
+                if (objLuotkham != null)
+                {
+                    if (cmdConfirm.Tag.ToString() == "1")
+                    {
+                        int id_chidinh =
+                            Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), -1);
+                        DataRow[] arrDr = m_dtAssignDetail.Select("trangthai_chuyencls=0 and id_chidinh = '" + id_chidinh + "' ");
+                        if (arrDr.Length == 0)
+                        {
+                            Utility.SetMsg(lblMsg, string.Format("Các chỉ định CLS đã được chuyển hết"), false);
+                            Utility.DefaultNow(this);
+                            return;
+                        }
+                        else
+                        {
+                            foreach (DataRow dr in arrDr)
+                            {
+                                dr["trangthai_chuyencls"] = 1;
+                            }
+                            m_dtAssignDetail.AcceptChanges();
+                            int result = new Update(KcbChidinhclsChitiet.Schema)
+                                .Set(KcbChidinhclsChitiet.Columns.NgaySua).EqualTo(globalVariables.SysDate)
+                                .Set(KcbChidinhclsChitiet.Columns.NguoiSua).EqualTo(globalVariables.UserName)
+                                .Set(KcbChidinhclsChitiet.Columns.TrangThai).EqualTo(1)
+                                .Where(KcbChidinhclsChitiet.Columns.TrangThai).IsEqualTo(0)
+                                .And(KcbChidinhclsChitiet.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                                .And(KcbChidinhclsChitiet.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                                .And(KcbChidinhclsChitiet.Columns.IdChidinh).IsEqualTo(id_chidinh)
+                                .Execute();
+                            Utility.SetMsg(lblMsg,
+                                           string.Format("Bạn vừa chuyển CLS thành công {0} dịch vụ", result.ToString()),
+                                           false);
+                        }
+                    }
+                    else
+                    {
+                        int id_chidinh =
+                            Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), -1);
+                        bool hasFound = false;
+                        Utility.WaitNow(this);
+                        SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
+                            .Where(KcbChidinhclsChitiet.Columns.IdChidinh).In(
+                                new Select(KcbChidinhcl.Columns.IdChidinh).From(KcbChidinhcl.Schema).Where(
+                                    KcbChidinhcl.Columns.MaLuotkham)
+                                    .IsEqualTo(txtPatient_Code.Text)
+                                    .And(KcbChidinhcl.Columns.IdBenhnhan)
+                                    .IsEqualTo(Utility.Int32Dbnull(txtPatient_ID.Text)))
+                            .And(KcbChidinhclsChitiet.Columns.TrangThai).IsEqualTo(1)
+                            .And(KcbChidinhclsChitiet.Columns.IdChidinh).IsEqualTo(
+                                Utility.Int32Dbnull(id_chidinh));
+                        hasFound = sqlQuery.GetRecordCount() > 0;
+                        if (sqlQuery.GetRecordCount() <= 0)
+                        {
+                            Utility.SetMsg(lblMsg, string.Format("Không có chỉ định CLS có thể hủy chuyển"), false);
+                            Utility.DefaultNow(this);
+                            return;
+                        }
+                        DataRow[] arrDr = m_dtAssignDetail.Select("trangthai_chuyencls=1 and id_chidinh = '"+id_chidinh+"'");
+                        foreach (DataRow dr in arrDr)
+                        {
+                            dr["trangthai_chuyencls"] = 0;
+                        }
+                        m_dtAssignDetail.AcceptChanges();
+                        int result = new Update(KcbChidinhclsChitiet.Schema)
+                            .Set(KcbChidinhclsChitiet.Columns.NgaySua).EqualTo(globalVariables.SysDate)
+                            .Set(KcbChidinhclsChitiet.Columns.NguoiSua).EqualTo(globalVariables.UserName)
+                            .Set(KcbChidinhclsChitiet.Columns.TrangThai).EqualTo(0)
+                            .Where(KcbChidinhclsChitiet.Columns.TrangThai).IsEqualTo(1)
+                            .And(KcbChidinhclsChitiet.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                            .And(KcbChidinhclsChitiet.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                            .And(KcbChidinhclsChitiet.Columns.IdChidinh).IsEqualTo(Utility.Int32Dbnull(id_chidinh))
+                            .Execute();
+
+                        Utility.SetMsg(lblMsg,
+                                       string.Format("Bạn vừa hủy chuyển CLS thành công {0} dịch vụ", result.ToString()),
+                                       false);
+                    }
+                }
+                ModifyCommmands();
+                HienThiChuyenCan();
+                Utility.DefaultNow(this);
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
+                Utility.DefaultNow(this);
+            }
+            
+          
+        }
+
+        private void txtNhipTim_LostFocus(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtMach.Text))
+            {
+                txtMach.Text = txtNhipTim.Text;
+            }
+        }
+        private void txtMach_LostFocus(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtNhipTim.Text))
+            {
+                txtNhipTim.Text = txtMach.Text;
+            }
         }
     }
 }

@@ -1713,16 +1713,18 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 string yourString = "";
-                yourString = yourString + this.txtCachDung.Text + " ";
+             //   yourString = yourString + this.txtCachDung.Text + " ";
                 if (!string.IsNullOrEmpty(this.txtSoLuongDung.Text))
                 {
-                    string str3 = yourString;
-                    yourString = str3 + "Mỗi ngày dùng " + this.txtSoLuongDung.Text.Trim() + " " + this.txtDonViDung.Text;
+                    
+                    yourString = "Mỗi ngày dùng " + this.txtSoLuongDung.Text.Trim() + " " + this.txtDonViDung.Text;
                 }
                 if (!string.IsNullOrEmpty(this.txtSolan.Text))
                 {
+                    string str3 = yourString;
                     yourString = yourString + " chia làm  " + this.txtSolan.Text + " lần";
                 }
+                yourString = yourString + " " + txtCachDung.Text;
                 //if (!string.IsNullOrEmpty(this.txtChiDanThem.Text))
                 //{
                 //    yourString = yourString + ". " + this.txtChiDanThem.Text;
