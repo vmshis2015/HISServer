@@ -2080,7 +2080,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 }
                 List<string> fieldNames = new List<string>() {"TEN_SO_YTE", "TEN_BENHVIEN",	"DIACHI_BENHVIEN",
                     "DIENTHOAI_BENHVIEN",		"MA_LUOTKHAM",	"ID_BENHNHAN",	"TEN_BENHNHAN",	"DIA_CHI",	"DOITUONG_KCB",
-                    "NOI_CHIDINH",	"CHANDOAN",	"ID_PHIEU","ten_chitietdichvu",	"NAMSINH",	"TUOI",	"GIOI_TINH",
+                    "NOI_CHIDINH",	"CHANDOAN",	"ID_PHIEU","ten_chitietdichvu",	"NAM_SINH",	"TUOI",	"GIOI_TINH",
                     "MATHE_BHYT",	"Ket_qua",	"KET_LUAN",	"DE_NGHI",	"NGAYTHANGNAM","imgPath1","imgPath2","imgPath3","imgPath4"};
                 List<string> Values = new List<string>() {  globalVariables.ParentBranch_Name,  globalVariables.Branch_Name,  globalVariables.Branch_Address,
                  globalVariables.Branch_Phone,Utility.sDbnull( drData["MA_LUOTKHAM"],""),Utility.sDbnull( drData["ID_BENHNHAN"],""),Utility.sDbnull( drData["TEN_BENHNHAN"],""),
