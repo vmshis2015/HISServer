@@ -252,6 +252,7 @@ namespace VNS.HIS.Classes
                 }
                 THU_VIEN_CHUNG.CreateXML(dt,"Thamkham_InphieuCLS.XML");
                 Utility.UpdateLogotoDatatable(ref dt);
+                //string v_machidinh = v_AssignCode.Replace("", "");
                 Utility.CreateBarcodeData(ref dt, v_AssignCode);
 
                 var crpt = new ReportDocument();
