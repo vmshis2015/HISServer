@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_BenhAnThuong));
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem4 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem5 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem6 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
             this.grpThongTinBenhNhan = new Janus.Windows.EditControls.UIGroupBox();
             this.uiButton1 = new Janus.Windows.EditControls.UIButton();
             this.txtID_BA = new Janus.Windows.GridEX.EditControls.EditBox();
@@ -391,9 +391,9 @@
             // txtMaLanKham
             // 
             this.txtMaLanKham.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaLanKham.Location = new System.Drawing.Point(353, 24);
+            this.txtMaLanKham.Location = new System.Drawing.Point(329, 24);
             this.txtMaLanKham.Name = "txtMaLanKham";
-            this.txtMaLanKham.Size = new System.Drawing.Size(148, 29);
+            this.txtMaLanKham.Size = new System.Drawing.Size(172, 29);
             this.txtMaLanKham.TabIndex = 442;
             this.txtMaLanKham.TabStop = false;
             this.txtMaLanKham.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center;
@@ -404,7 +404,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(251, 32);
+            this.label9.Location = new System.Drawing.Point(235, 32);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(96, 16);
             this.label9.TabIndex = 441;
@@ -687,22 +687,22 @@
             // 
             this.cboGioiTinh.ComboStyle = Janus.Windows.EditControls.ComboStyle.DropDownList;
             this.cboGioiTinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            uiComboBoxItem4.FormatStyle.Alpha = 0;
-            uiComboBoxItem4.IsSeparator = false;
-            uiComboBoxItem4.Text = "Nữ";
-            uiComboBoxItem4.Value = 1;
-            uiComboBoxItem5.FormatStyle.Alpha = 0;
-            uiComboBoxItem5.IsSeparator = false;
-            uiComboBoxItem5.Text = "Nam";
-            uiComboBoxItem5.Value = 0;
-            uiComboBoxItem6.FormatStyle.Alpha = 0;
-            uiComboBoxItem6.IsSeparator = false;
-            uiComboBoxItem6.Text = "Khác";
-            uiComboBoxItem6.Value = 2;
+            uiComboBoxItem1.FormatStyle.Alpha = 0;
+            uiComboBoxItem1.IsSeparator = false;
+            uiComboBoxItem1.Text = "Nữ";
+            uiComboBoxItem1.Value = 1;
+            uiComboBoxItem2.FormatStyle.Alpha = 0;
+            uiComboBoxItem2.IsSeparator = false;
+            uiComboBoxItem2.Text = "Nam";
+            uiComboBoxItem2.Value = 0;
+            uiComboBoxItem3.FormatStyle.Alpha = 0;
+            uiComboBoxItem3.IsSeparator = false;
+            uiComboBoxItem3.Text = "Khác";
+            uiComboBoxItem3.Value = 2;
             this.cboGioiTinh.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem4,
-            uiComboBoxItem5,
-            uiComboBoxItem6});
+            uiComboBoxItem1,
+            uiComboBoxItem2,
+            uiComboBoxItem3});
             this.cboGioiTinh.Location = new System.Drawing.Point(123, 100);
             this.cboGioiTinh.Name = "cboGioiTinh";
             this.cboGioiTinh.Size = new System.Drawing.Size(75, 21);

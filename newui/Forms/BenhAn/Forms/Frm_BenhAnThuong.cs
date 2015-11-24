@@ -151,6 +151,31 @@ namespace VNS.HIS.UI.BENH_AN
                 //  KcbBenhAn objBenhAnNgoaiTru = KcbBenhAn.FetchByID(Utility.Int32Dbnull(txtSoKham.Text));
                 if (objBenhAnNgoaiTru != null)
                 {
+                    switch (objBenhAnNgoaiTru.LoaiBa)
+                    {
+                        case "DTD":
+                            this.Text = "Bệnh án ĐáiTháo Đường";
+                            break;
+                        case "BAS":
+                            this.Text = "Bệnh án Basedow";
+                            break;
+                        case "RHM   ":
+                            this.Text = "Bệnh án Răng Hàm Mặt";
+                            break;
+                        case "TMH":
+                            this.Text = "Bệnh án Tai Mũi Họng";
+                            break;
+                        case "COP":
+                            this.Text = "Bệnh án Cop";
+                            break;
+                        case "VGB":
+                            this.Text = "Bệnh án Viêm Gan B";
+                            break;
+                        case "THA":
+                            this.Text = "Bệnh án Tăng huyết áp";
+                            break;
+                    }
+
                     txtID_BA.Text = Utility.sDbnull(objBenhAnNgoaiTru.Id, "");
                     txtMaBenhAn.Text = Utility.sDbnull(objBenhAnNgoaiTru.SoBenhAn, -1);
                     txtMaBN.Text = Utility.sDbnull(objBenhAnNgoaiTru.IdBnhan, "");
