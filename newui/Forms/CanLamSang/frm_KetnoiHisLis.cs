@@ -352,9 +352,13 @@ namespace VNS.HIS.UI.Forms.CanLamSang
                 AllowChanged = false;
                 objLuotkham = null;
                 ma_luotkham = "ALL";
-                if (Utility.DoTrim(txtMaluotkham.Text) != "")
-                    ma_luotkham = Utility.AutoFullPatientCode(txtMaluotkham.Text);
-                txtMaluotkham.Text = ma_luotkham;
+                KcbChidinhcl objchidinh =
+                    new Select().From(KcbChidinhcl.Schema).Where(KcbChidinhcl.Columns.MaChidinh).IsEqualTo(
+                        txtMaluotkham.Text).ExecuteSingle<KcbChidinhcl>();
+                ma_luotkham = objchidinh.MaLuotkham;
+                //if (Utility.DoTrim(txtMaluotkham.Text) != "")
+                //    ma_luotkham = Utility.AutoFullPatientCode(txtMaluotkham.Text);
+              //  txtMaluotkham.Text = ma_luotkham;
                 objLuotkham = KcbLuotkham.FetchByID(ma_luotkham);
                 if (objLuotkham == null)
                 {

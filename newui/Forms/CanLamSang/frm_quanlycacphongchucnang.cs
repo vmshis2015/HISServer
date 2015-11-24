@@ -1176,11 +1176,17 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         }
         bool HasValue(FlowLayoutPanel pnlParent)
         {
-            foreach (ucDynamicParam ctrl in pnlParent.Controls)
+            if (pnlParent.Controls.Count <= 0) return true;
+            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("HINHANH_BATNHAPKETQUA", "0", true) == "1")
             {
-                if (Utility.DoTrim(ctrl._Giatri) != "")
-                    return true;
+                foreach (ucDynamicParam ctrl in pnlParent.Controls)
+                {
+                    if (Utility.DoTrim(ctrl._Giatri) != "")
+                        return true;
+                }
             }
+            else
+                return true;
             return false;
         }
         void SaveNow(FlowLayoutPanel pnlParent)
