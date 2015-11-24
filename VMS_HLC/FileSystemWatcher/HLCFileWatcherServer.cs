@@ -89,8 +89,8 @@ namespace VMS.FSW
                         myLog.Trace(string.Format("File format is valid"));
                         myLog.Trace(string.Format("Number of AssignCode {0}", lstmachidinh.Count.ToString()));
                         KcbKetquaClCollection lstKq = new KcbKetquaClCollection();
-                        myLog.Trace(string.Format("GetData base on PID {0} and AssignCode List {1} ", patientinfor.FirstOrDefault().Split('|')[3], string.Join(",", lstmachidinh.ToArray())));
-                        DataTable dtData = SPs.HisLisLaydulieuCapnhatketquatuLis(patientinfor.FirstOrDefault().Split('|')[3], string.Join(",", lstmachidinh.ToArray())).GetDataSet().Tables[0];
+                        myLog.Trace(string.Format("GetData base on PID {0} and AssignCode List {1} ", patientinfor.FirstOrDefault().Split('|')[2], string.Join(",", lstmachidinh.ToArray())));
+                        DataTable dtData = SPs.HisLisLaydulieuCapnhatketquatuLis(patientinfor.FirstOrDefault().Split('|')[2], string.Join(",", lstmachidinh.ToArray())).GetDataSet().Tables[0];
 
                         if (dtData != null && dtData.Rows.Count > 0)
                         {
