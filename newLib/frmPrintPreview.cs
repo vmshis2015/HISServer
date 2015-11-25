@@ -215,7 +215,45 @@ namespace VNS.Libs
                 
             }
         }
-        
+        void LoadPrintNumberByUserName()
+        {
+            try
+            {
+                string UserPrintNumberFile = Application.StartupPath + @"\UserPrintNumber\" + globalVariables.UserName + ".txt";
+                string ParentFolder = Path.GetDirectoryName(UserPrintNumberFile);
+                if (!Directory.Exists(ParentFolder)) Directory.CreateDirectory(ParentFolder);
+                string Number = GetFirstValueFromFile(UserPrintNumberFile);
+                if (Number == "-1")
+                    LoadPrintNumberByReportCode();
+                else
+                {
+                    txtCopyPage.Text = Number;
+                }
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+        }
+        public static string GetFirstValueFromFile(string fileName)
+        {
+            try
+            {
+                if (!File.Exists(fileName)) return "-1";
+                using (StreamReader _Reader = new StreamReader(fileName))
+                {
+                    object obj = _Reader.ReadLine();
+                    if (obj == null) return "-1";
+                    return obj.ToString().Trim();
+                }
+                return "-1";
+            }
+            catch
+            {
+                return "-1";
+            }
+        }
         public void Hide_Control()
         {
             cmdTrinhKy.Visible = false;
@@ -490,6 +528,7 @@ namespace VNS.Libs
                 }
                 new Update(SysReport.Schema).Set(SysReport.Columns.PrintNumber).EqualTo(Utility.Int32Dbnull(txtCopyPage.Text,1))
                     .Where(SysReport.Columns.MaBaocao).IsEqualTo(mv_sReportCode).Execute();
+                WritePrintNumber(txtCopyPage.Text);
                 if (cboPrinter.SelectedIndex > -1)
                 {
                     RptDoc.PrintOptions.PrinterName = cboPrinter.Text;
@@ -521,6 +560,27 @@ namespace VNS.Libs
             {
 
 
+            }
+
+        }
+          void WritePrintNumber(string _number)
+        {
+            try
+            {
+
+                string UserPrintNumberFile = Application.StartupPath + @"\UserPrintNumber\" + globalVariables.UserName + ".txt";
+                string ParentFolder = Path.GetDirectoryName(UserPrintNumberFile);
+                if (!Directory.Exists(ParentFolder)) Directory.CreateDirectory(ParentFolder);
+                bool IsAppend = File.Exists(UserPrintNumberFile);
+                using (StreamWriter writer = new StreamWriter(UserPrintNumberFile, IsAppend))
+                {
+                    writer.WriteLine(_number);
+                    writer.Flush();
+                    writer.Close();
+                }
+            }
+            catch
+            {
             }
 
         }
