@@ -36,7 +36,10 @@ using Janus.Windows.UI.StatusBar;
 using newLib;
 using System.ServiceProcess;
 using System.ComponentModel;
-
+using Leadtools;
+using Leadtools.Barcode;
+using Leadtools.Codecs;
+using Leadtools.Forms;
 
 namespace VNS.Libs
 {
@@ -6497,6 +6500,31 @@ namespace VNS.Libs
         {
             try
             {
+                string ErrMsg="";
+                int resolution =Utility.Int32Dbnull( Laygiatrithamsohethong("BARCODE_RESOLUTION","300",false),300);
+                int Width =Utility.Int32Dbnull( Laygiatrithamsohethong("BARCODE_WIDTH","600",false),600);
+                int Height =Utility.Int32Dbnull( Laygiatrithamsohethong("BARCODE_HEIGHT","200",false),200);
+
+                if (!dt.Columns.Contains("BarCode")) dt.Columns.Add("BarCode", typeof(byte[]));
+                byte[] bytBarcode = BarcodeLibs.BarcodeCreator.CreateBarcode(BarcodeSymbology.Code128, _value, resolution, Width, Height, true, ref ErrMsg);
+                if (bytBarcode == null)
+                    CreateBarcodeDataMarby(ref dt, _value);
+                else
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        dr["BarCode"] = bytBarcode;
+                    }
+                }
+            }
+            catch
+            {
+            }
+        }
+        public static void CreateBarcodeDataMarby(ref DataTable dt, string _value)
+        {
+            try
+            {
                 if (!dt.Columns.Contains("BarCode")) dt.Columns.Add("BarCode", typeof(byte[]));
                 Mabry.Windows.Forms.Barcode.Barcode barcode = new Mabry.Windows.Forms.Barcode.Barcode();
                 barcode.BackColor = System.Drawing.Color.White;
@@ -6908,7 +6936,7 @@ namespace VNS.Libs
                     filereport = Utility.DoTrim(_object.FileRieng);
                 fileName = filereport.ToUpper().Replace(".RPT", "") + ".RPT";
                 tieude = _object.TieuDe;
-                string REPORT_FOLDER=Laygiatrithamsohethong("REPORT_FOLDER", "0", true);
+                string REPORT_FOLDER = Laygiatrithamsohethong("REPORT_FOLDER", "0", true);
                  REPORT_FOLDER = REPORT_FOLDER == "0" ? Application.StartupPath + @"\reports\" : REPORT_FOLDER;
                  string fullPath = REPORT_FOLDER + filereport.ToUpper().Replace(".RPT", "") + ".RPT";
                 if (Laygiatrithamsohethong("REPORT_LOADFROMDLL", "0", false) == "1")
