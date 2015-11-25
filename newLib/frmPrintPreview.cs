@@ -220,7 +220,7 @@ namespace VNS.Libs
         {
             try
             {
-                string UserPrintNumberFile = Application.StartupPath + @"\UserPrintNumber\" + globalVariables.UserName + ".txt";
+                string UserPrintNumberFile = Application.StartupPath + @"\UserPrintNumber\" + globalVariables.UserName + "_" + mv_sReportFileName + ".txt";
                 string ParentFolder = Path.GetDirectoryName(UserPrintNumberFile);
                 if (!Directory.Exists(ParentFolder)) Directory.CreateDirectory(ParentFolder);
                 string Number = GetFirstValueFromFile(UserPrintNumberFile);
@@ -568,7 +568,7 @@ namespace VNS.Libs
             try
             {
 
-                string UserPrintNumberFile = Application.StartupPath + @"\UserPrintNumber\" + globalVariables.UserName + ".txt";
+                string UserPrintNumberFile = Application.StartupPath + @"\UserPrintNumber\" + globalVariables.UserName + "_" + mv_sReportFileName + ".txt";
                 string ParentFolder = Path.GetDirectoryName(UserPrintNumberFile);
                 if (!Directory.Exists(ParentFolder)) Directory.CreateDirectory(ParentFolder);
                 bool IsAppend = File.Exists(UserPrintNumberFile);
