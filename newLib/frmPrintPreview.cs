@@ -197,6 +197,7 @@ namespace VNS.Libs
         {
             try
             {
+
                 SysReport objReport = new Select().From(SysReport.Schema).Where(SysReport.Columns.MaBaocao).IsEqualTo(mv_sReportCode).ExecuteSingle<SysReport>();
                 if (objReport != null)
                     txtCopyPage.Text = Utility.Int16Dbnull(objReport.PrintNumber, 1).ToString();
@@ -268,7 +269,6 @@ namespace VNS.Libs
             try
             {
                 LoadPrintNumberByReportCode();
-
                 mv_oRptFieldObj = GetTrinhky(this.crptViewer.ParameterFieldInfo);
                 mv_oNguoiKy = new cls_SignInfor(string.IsNullOrEmpty(mv_sReportFileName) ? RptDoc.ToString() : mv_sReportFileName, "");
                 if (mv_oNguoiKy != null)

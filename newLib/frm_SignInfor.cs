@@ -17,7 +17,7 @@ namespace VNS.Libs
         {
             InitializeComponent();
             InitializeEvents();
-            //cmdUpdateAllUser.Visible = globalVariables.IsAdmin;     
+            cmdUpdateAllUser.Visible = globalVariables.IsAdmin;     
         }
 
         // public string mv_sSoLuongCanIn ="1";

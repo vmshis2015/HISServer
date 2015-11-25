@@ -41,8 +41,7 @@ namespace VNS.Libs
 
                      new Delete().From(SysTrinhky.Schema)
                          .Where(SysTrinhky.Columns.ReportName).IsEqualTo(TenBaoCao)
-                         .And(SysTrinhky.Columns.ObjectName).IsEqualTo(
-                             Utility.sDbnull(gridExRow.Cells[SysUser.Columns.PkSuid].Value, "")).Execute();
+                         .And(SysTrinhky.Columns.ObjectName).IsEqualTo(Utility.sDbnull(gridExRow.Cells[SysUser.Columns.PkSuid].Value, "")).Execute();
 
 
 
@@ -56,9 +55,6 @@ namespace VNS.Libs
                             Utility.sDbnull(gridExRow.Cells[SysUser.Columns.PkSuid].Value, ""));
                        if(sqlQuery.GetRecordCount()<=0)
                         SysTrinhky.Insert(TenBaoCao, Utility.sDbnull(gridExRow.Cells[SysUser.Columns.PkSuid].Value, ""),NoiDung);
-
-                    
-
                 }
                 Utility.ShowMsg("Bạn thực hiện thành công","Thông báo thành công");
 

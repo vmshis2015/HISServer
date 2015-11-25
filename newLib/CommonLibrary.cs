@@ -6532,10 +6532,10 @@ namespace VNS.Libs
                 barcode.BarColor = System.Drawing.Color.Black;
                 barcode.BarRatio = 2F;
                 barcode.Name = "barcode";
-                barcode.Size = new System.Drawing.Size(140, 60);
+                barcode.Size = new System.Drawing.Size(140, 80);
                 barcode.Symbology = Mabry.Windows.Forms.Barcode.Barcode.BarcodeSymbologies.Code128;
                 barcode.Data = _value;
-                barcode.Font = new Font("Arial", 10, FontStyle.Bold, GraphicsUnit.Point, 0); 
+                barcode.Font = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel, 0); 
                 byte[] bytBarcode = Utility.GenerateBarCode(barcode);
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -9553,7 +9553,7 @@ namespace VNS.Libs
             {
                
                 SqlQuery sqlQuery = new Select().From(SysTrinhky.Schema).Where(SysTrinhky.Columns.ReportName).IsEqualTo(
-                    sv_sBieuMau);
+                    sv_sBieuMau).And(SysTrinhky.Columns.ObjectName).IsEqualTo(globalVariables.UserName);
                 dtbNguoiKy = sqlQuery.ExecuteDataSet().Tables[0];
             }
             catch (Exception ex)
@@ -9654,22 +9654,26 @@ namespace VNS.Libs
         //thu tuc de ghi cau hinh cua file RPT len Database
         public void updateRPTtoDB()
         {
-            SqlQuery sqlQuery = new Select().From(SysTrinhky.Schema)
-                .Where(SysTrinhky.Columns.ReportName).IsEqualTo(mv_TEN_BIEUBC);
+            //SqlQuery sqlQuery = new Select().From(SysTrinhky.Schema)
+            //    .Where(SysTrinhky.Columns.ReportName).IsEqualTo(mv_TEN_BIEUBC).And(SysTrinhky.Columns.ObjectName).IsEqualTo(globalVariables.UserName);
 
-            if (sqlQuery.GetRecordCount() > 0)
-            {
-                SysTrinhky objSysUpdateTrinhky = CreateTrinhKy();
-                new Update(SysTrinhky.Schema)
-                    .Set(SysTrinhky.Columns.Trinhky).EqualTo(objSysUpdateTrinhky.Trinhky)
-                    .Where(SysTrinhky.Columns.ReportName).IsEqualTo(objSysUpdateTrinhky.ReportName).Execute();
-            }
-            else
-            {
+            //if (sqlQuery.GetRecordCount() > 0)
+            //{
+            //    SysTrinhky objSysUpdateTrinhky = CreateTrinhKy();
+            //    new Update(SysTrinhky.Schema)
+            //        .Set(SysTrinhky.Columns.Trinhky).EqualTo(objSysUpdateTrinhky.Trinhky)
+            //        .Set(SysTrinhky.Columns.ObjectName).EqualTo(objSysUpdateTrinhky.ObjectName)
+            //        .Where(SysTrinhky.Columns.ReportName).IsEqualTo(objSysUpdateTrinhky.ReportName).Execute();
+            //}
+            //else
+            //{
+             
                 SysTrinhky objNewSysTrinhky = CreateTrinhKy();
+                new Delete().From(SysTrinhky.Schema).Where(SysTrinhky.Columns.ReportName).IsEqualTo(objNewSysTrinhky.ReportName).And(
+                SysTrinhky.Columns.ObjectName).IsEqualTo(objNewSysTrinhky.ObjectName).Execute();
                 objNewSysTrinhky.IsNew = true;
                 objNewSysTrinhky.Save();
-            }
+            //}
            
         }
 

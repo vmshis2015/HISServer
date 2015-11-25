@@ -154,6 +154,7 @@
             this.txtTrinhky.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset204 Microsoft" +
     " Sans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs18\\par\r\n}\r\n";
             this.txtTrinhky.SaveVisible = true;
+            this.txtTrinhky.SelectionLength = 0;
             this.txtTrinhky.SeparatorAlignVisible = true;
             this.txtTrinhky.SeparatorBoldUnderlineItalicVisible = true;
             this.txtTrinhky.SeparatorFontColorVisible = true;
