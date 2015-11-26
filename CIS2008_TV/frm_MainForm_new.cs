@@ -21,11 +21,11 @@ using System.Collections.Generic;
 using VNS.Properties;
 using System.Data;
 using System.Diagnostics;
-using Leadtools;
-using Leadtools.Barcode;
+using Leadtools;using Leadtools.Barcode;
 using Leadtools.Codecs;
 using Leadtools.Demos;
 using Leadtools.Forms;
+
 namespace CIS.CoreApp
 {
     /// <summary>
@@ -59,13 +59,19 @@ namespace CIS.CoreApp
                 }
 
                 InitializeComponent();
+                //Leadtools.Dicom.DicomEngine.Startup();
+                //Leadtools.Runtime.License.Support.UnlockNO(false);
                 if (!Support.SetLicense())
+                {
+                    Utility.ShowMsg("SetLicense failed");
                     return;
+                }
                 if (RasterSupport.IsLocked(RasterSupportType.Barcodes1D) && RasterSupport.IsLocked(RasterSupportType.Barcodes2D))
                 {
                     Messager.ShowError(this, DemosGlobalization.GetResxString(GetType(), "Resx_LEADBarcodeSupport"));
 
                 }
+                
                 LogConfig();
                 lblUpdateVersion.Click += new EventHandler(lblUpdateVersion_Click);
                 lblDepartment.Click += new EventHandler(lblDepartment_Click);
@@ -125,7 +131,7 @@ namespace CIS.CoreApp
             }
             catch (Exception ex)
             {
-                Utility.CatchException("Lỗi khởi tạo HIS", ex);
+                Utility.CatchException(ex);
             }
             finally
             {
@@ -1848,6 +1854,98 @@ namespace CIS.CoreApp
         public static VNSCore.AWS.LoginWS _AdminWS;
     }
 }
+//namespace Leadtools.Runtime.License
+//{
+//    public static class Support
+//    {
+//        public static bool KernelExpired
+//        {
+//            get
+//            {
+//                if (RasterSupport.KernelExpired)
+//                {
+//                    return true;
+//                }
+//                else
+//                    return false;
+//            }
+//        }
+
+
+//        public static void UnlockNO(bool check)
+//        {
+//            RasterSupport.Unlock(RasterSupportType.Abc, "R3naWU3mHs");
+//            RasterSupport.Unlock(RasterSupportType.AbicRead, "dpKdJvh2P7");
+//            RasterSupport.Unlock(RasterSupportType.AbicSave, "Nb39Cvv6Q2");
+//            RasterSupport.Unlock(RasterSupportType.Barcodes1D, "UbXxzPTCVP");
+//            RasterSupport.Unlock(RasterSupportType.Barcodes1DSilver, "jvMTAubUkH");
+//            RasterSupport.Unlock(RasterSupportType.BarcodesDataMatrixRead, "E4Fy2TzBCc");
+//            RasterSupport.Unlock(RasterSupportType.BarcodesDataMatrixWrite, "Np2utTGDD3");
+//            RasterSupport.Unlock(RasterSupportType.BarcodesPdfRead, "n4WidQyJxd");
+//            RasterSupport.Unlock(RasterSupportType.BarcodesPdfWrite, "WpKd6QFMyB");
+//            RasterSupport.Unlock(RasterSupportType.BarcodesQRRead, "ypC4PUHpip");
+//            RasterSupport.Unlock(RasterSupportType.BarcodesQRWrite, "BbXXGuVSjk");
+//            RasterSupport.Unlock(RasterSupportType.Bitonal, "KbGGrSUz3N");
+//            RasterSupport.Unlock(RasterSupportType.Ccow, "QvMN82YPTR");
+//            RasterSupport.Unlock(RasterSupportType.Cmw, "rhiWfrmt5X");
+//            RasterSupport.Unlock(RasterSupportType.Dicom, "y47S3rZv6U");
+//            RasterSupport.Unlock(RasterSupportType.Document, "HbQR9NSXQ3");
+//            RasterSupport.Unlock(RasterSupportType.DocumentWriters, "BhaNezSEBB");
+//            RasterSupport.Unlock(RasterSupportType.DocumentWritersPdf, "3b39Q3YMdX");
+//            RasterSupport.Unlock(RasterSupportType.ExtGray, "bpTmxSfx8R");
+//            RasterSupport.Unlock(RasterSupportType.Forms, "GpC33ZK78k");
+//            RasterSupport.Unlock(RasterSupportType.IcrPlus, "9vdKEtBhFy");
+//            RasterSupport.Unlock(RasterSupportType.IcrProfessional, "3p2UAxjTy5");
+//            RasterSupport.Unlock(RasterSupportType.J2k, "Hvu2PRAr3z");
+//            RasterSupport.Unlock(RasterSupportType.Jbig2, "43WiSV4YNB");
+//            RasterSupport.Unlock(RasterSupportType.Jpip, "YbGG7wWiVJ");
+//            RasterSupport.Unlock(RasterSupportType.Pro, "");
+//            RasterSupport.Unlock(RasterSupportType.LeadOmr, "J3vh828GC8");
+//            RasterSupport.Unlock(RasterSupportType.MediaWriter, "TpjDw2kJD2");
+//            RasterSupport.Unlock(RasterSupportType.Medical, "ZhyFRnk3sY");
+//            RasterSupport.Unlock(RasterSupportType.Medical3d, "DvuzH3ePeu");
+//            RasterSupport.Unlock(RasterSupportType.MedicalNet, "b4nBinY7tv");
+//            RasterSupport.Unlock(RasterSupportType.MedicalServer, "QbXwuZxA3h");
+//            RasterSupport.Unlock(RasterSupportType.Mobile, "");
+//            RasterSupport.Unlock(RasterSupportType.Nitf, "G37rmw5dTr");
+//            RasterSupport.Unlock(RasterSupportType.OcrAdvantage, "vhyejyrZ4T");
+//            RasterSupport.Unlock(RasterSupportType.OcrAdvantagePdfLeadOutput, "83nacy746p");
+//            RasterSupport.Unlock(RasterSupportType.OcrArabic, "RpTMEwJfUN");
+//            RasterSupport.Unlock(RasterSupportType.OcrArabicPdfLeadOutput, "mhiVa3Trfr");
+//            RasterSupport.Unlock(RasterSupportType.OcrPlus, "rvdKxn8Zr4");
+//            RasterSupport.Unlock(RasterSupportType.OcrPlusPdfOutput, "4hS7bsn9bF");
+//            RasterSupport.Unlock(RasterSupportType.OcrPlusPdfLeadOutput, "Bv4CWXckvf");
+//            RasterSupport.Unlock(RasterSupportType.OcrProfessional, "jhr6pXRnwc");
+//            RasterSupport.Unlock(RasterSupportType.OcrProfessionalAsian, "WbQQMTuFE4");
+//            RasterSupport.Unlock(RasterSupportType.OcrProfessionalPdfOutput, "T3eYHx6Rx3");
+//            RasterSupport.Unlock(RasterSupportType.OcrProfessionalPdfLeadOutput, "NvdjSYDX2v");
+//            RasterSupport.Unlock(RasterSupportType.PdfAdvanced, "8hivUWQbSU");
+//            RasterSupport.Unlock(RasterSupportType.PdfRead, "Wvuz2WC3rX");
+//            RasterSupport.Unlock(RasterSupportType.PdfSave, "tv4CJsa5aJ");
+//            RasterSupport.Unlock(RasterSupportType.PrintDriver, "YvMsmzECAE");
+//            RasterSupport.Unlock(RasterSupportType.PrintDriverServer, "v37Ry49tHN");
+//            RasterSupport.Unlock(RasterSupportType.Vector, "KpC5bPeAUs");
+
+
+//            if (check)
+//            {
+//                Array a = Enum.GetValues(typeof(RasterSupportType));
+//                foreach (RasterSupportType i in a)
+//                {
+//                    if (i != RasterSupportType.Vector && i != RasterSupportType.MedicalNet)
+//                    {
+//                        if (RasterSupport.IsLocked(i))
+//                        {
+//                        }
+//                    }
+//                }
+//            }
+
+//        }
+
+
+//    }
+//}
 namespace Leadtools.Demos
 {
     public static class Support
@@ -1864,19 +1962,17 @@ namespace Leadtools.Demos
             {
                 try
                 {
+
                     string developerKey = System.IO.File.ReadAllText(keyFilePath);
                     RasterSupport.SetLicense(licenseFilePath, developerKey);
                 }
-                catch { System.Diagnostics.Debug.WriteLine("Default LIC failed!"); }
+                catch (Exception ex) { Utility.ShowMsg(ex.Message); }
             }
 
             if (RasterSupport.KernelExpired)
             {
                 string msg = "Your license file is missing, invalid or expired. LEADTOOLS will not function. Please contact LEAD Sales for information on obtaining a valid license.";
                 string logmsg = string.Format("*** NOTE: {0} ***{1}", msg, Environment.NewLine);
-                System.Diagnostics.Debugger.Log(0, null, "*******************************************************************************" + Environment.NewLine);
-                System.Diagnostics.Debugger.Log(0, null, logmsg);
-                System.Diagnostics.Debugger.Log(0, null, "*******************************************************************************" + Environment.NewLine);
 
                 //MessageBox.Show(null, msg, "No LEADTOOLS License", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 //System.Diagnostics.Process.Start("https://www.leadtools.com/downloads/evaluation-form.asp?evallicenseonly=true");

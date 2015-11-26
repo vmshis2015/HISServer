@@ -41,7 +41,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\..\MyHIS\Running\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;LTV19_CONFIG,LEADTOOLS_V16_OR_LATER,LEADTOOLS_V17_OR_LATER;LEADTOOLS_V175_OR_LATER;LEADTOOLS_V18_OR_LATER;FOR_DOTNET4;LEADTOOLS_V19_OR_LATER;FOR_WIN32</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
@@ -86,6 +86,62 @@
     <Reference Include="Janus.Windows.Schedule.v3, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Janus.Windows.TimeLine.v3, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Janus.Windows.UI.v3, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Leadtools, Version=17.0.0.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\Leadtools.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Barcode, Version=17.0.0.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\Leadtools.Barcode.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Barcode.OneD, Version=17.0.0.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\Leadtools.Barcode.OneD.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Codecs, Version=17.0.0.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\Leadtools.Codecs.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Codecs.Fax, Version=17.0.0.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\Leadtools.Codecs.Fax.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Codecs.Tif, Version=17.0.0.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\Leadtools.Codecs.Tif.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Demos.Dialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Leadtools\LEADTOOLS 19\Bin\Dotnet\x64\Leadtools.Demos.Dialogs.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Drawing, Version=17.0.0.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\Leadtools.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Forms, Version=17.0.0.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\Leadtools.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.ImageProcessing.Color, Version=19.0.0.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\Leadtools.ImageProcessing.Color.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.ImageProcessing.Core, Version=19.0.0.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\Leadtools.ImageProcessing.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.ImageProcessing.Effects, Version=19.0.0.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\Leadtools.ImageProcessing.Effects.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.ImageProcessing.SpecialEffects, Version=19.0.0.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\Leadtools.ImageProcessing.SpecialEffects.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.ImageProcessing.Utilities, Version=19.0.0.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MyHIS\Running\Leadtools.ImageProcessing.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=AMD64" />
     <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL" />
     <Reference Include="SubSonic, Version=2.2.0.0, Culture=neutral, PublicKeyToken=eadb47849839a332, processorArchitecture=MSIL" />
@@ -300,16 +356,16 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:1695/AdminWS.asmx">
+    <WebReferenceUrl Include="http://127.0.0.1:8002/HISAdminWS/AdminWS.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\AWS\</RelPath>
-      <UpdateFromURL>http://localhost:1695/AdminWS.asmx</UpdateFromURL>
+      <UpdateFromURL>http://127.0.0.1:8002/HISAdminWS/AdminWS.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>Core_AWS_AdminWS</CachedSettingsPropName>
+      <CachedSettingsPropName>Core_AWS_LoginWS</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
