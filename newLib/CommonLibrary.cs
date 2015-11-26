@@ -6507,7 +6507,7 @@ namespace VNS.Libs
                 bool BARCODE_MEMORY = Laygiatrithamsohethong("BARCODE_MEMORY", "0", false) == "1";
 
                 if (!dt.Columns.Contains("BarCode")) dt.Columns.Add("BarCode", typeof(byte[]));
-                byte[] bytBarcode = BarcodeLibs.BarcodeCreator.CreateBarcode(BarcodeSymbology.Code128, _value, resolution, Width, Height, true,BARCODE_MEMORY, ref ErrMsg);
+                byte[] bytBarcode = BarcodeLibs.BarcodeCreator.CreateBarcode(BarcodeSymbology.Code128,  _value, resolution, Width, Height, true,BARCODE_MEMORY, ref ErrMsg);
                 if (bytBarcode == null)
                     CreateBarcodeDataMarby(ref dt, _value);
                 else
