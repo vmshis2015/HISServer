@@ -186,6 +186,8 @@
             this.label38 = new System.Windows.Forms.Label();
             this.txtDachietkhau = new Janus.Windows.GridEX.EditControls.EditBox();
             this.ctxHuyChietkhau = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuTutuc = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuHuyChietkhau = new System.Windows.Forms.ToolStripMenuItem();
             this.txtTienChietkhau = new Janus.Windows.GridEX.EditControls.EditBox();
             this.grpChucNangThanhToan = new Janus.Windows.EditControls.UIGroupBox();
@@ -2138,10 +2140,23 @@
             // ctxHuyChietkhau
             // 
             this.ctxHuyChietkhau.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuTutuc,
+            this.toolStripMenuItem1,
             this.mnuHuyChietkhau});
             this.ctxHuyChietkhau.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.ctxHuyChietkhau.Name = "contextMenuStrip1";
-            this.ctxHuyChietkhau.Size = new System.Drawing.Size(217, 26);
+            this.ctxHuyChietkhau.Size = new System.Drawing.Size(217, 54);
+            // 
+            // mnuTutuc
+            // 
+            this.mnuTutuc.Name = "mnuTutuc";
+            this.mnuTutuc.Size = new System.Drawing.Size(216, 22);
+            this.mnuTutuc.Text = "Tự túc";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(213, 6);
             // 
             // mnuHuyChietkhau
             // 
@@ -2302,11 +2317,11 @@
             this.grdThongTinChuaThanhToan.AlternatingRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.grdThongTinChuaThanhToan.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><RecordNavigator>Số bả" +
     "n ghi:|/</RecordNavigator></LocalizableData>";
-            this.grdThongTinChuaThanhToan.CellSelectionMode = Janus.Windows.GridEX.CellSelectionMode.SingleCell;
             this.grdThongTinChuaThanhToan.ContextMenuStrip = this.ctxHuyChietkhau;
             grdThongTinChuaThanhToan_DesignTimeLayout.LayoutString = resources.GetString("grdThongTinChuaThanhToan_DesignTimeLayout.LayoutString");
             this.grdThongTinChuaThanhToan.DesignTimeLayout = grdThongTinChuaThanhToan_DesignTimeLayout;
             this.grdThongTinChuaThanhToan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdThongTinChuaThanhToan.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None;
             this.grdThongTinChuaThanhToan.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
             this.grdThongTinChuaThanhToan.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.grdThongTinChuaThanhToan.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
@@ -2323,6 +2338,7 @@
             this.grdThongTinChuaThanhToan.RecordNavigator = true;
             this.grdThongTinChuaThanhToan.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdThongTinChuaThanhToan.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
+            this.grdThongTinChuaThanhToan.SelectionMode = Janus.Windows.GridEX.SelectionMode.MultipleSelection;
             this.grdThongTinChuaThanhToan.Size = new System.Drawing.Size(641, 525);
             this.grdThongTinChuaThanhToan.TabIndex = 115;
             this.grdThongTinChuaThanhToan.TableHeaders = Janus.Windows.GridEX.InheritableBoolean.Default;
@@ -3031,5 +3047,7 @@
         private Janus.Windows.EditControls.UIRadioButton radChuathanhtoan;
         private Janus.Windows.EditControls.UIRadioButton radDaThanhtoan;
         private Janus.Windows.EditControls.UIRadioButton radTatca;
+        private System.Windows.Forms.ToolStripMenuItem mnuTutuc;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
     }
 }

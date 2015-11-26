@@ -175,9 +175,187 @@ namespace  VNS.HIS.UI.THANHTOAN
             cmdChiphithem.Click += cmdChiphithem_Click;
             mnuPhanbotientheoPTTT.Click += mnuPhanbotientheoPTTT_Click;
             cmdHoanung.Click += cmdHoanung_Click;
+            mnuTutuc.Click += mnuTutuc_Click;
+            grdThongTinChuaThanhToan.SelectionChanged += grdThongTinChuaThanhToan_SelectionChanged;
             
         }
 
+        void grdThongTinChuaThanhToan_SelectionChanged(object sender, EventArgs e)
+        {
+            ChangeMenu(grdThongTinChuaThanhToan.CurrentRow);
+        }
+        bool UpdateTutuc(long Id, int id_loaithanhtoan,byte tu_tuc,ref decimal BNCT,ref decimal BHCT)
+        {
+            bool reval = false;
+           
+            try
+            {
+                switch (id_loaithanhtoan)
+                {
+                    case 0:
+                    case 1:
+                        KcbDangkyKcb objKcbDangkyKcb = KcbDangkyKcb.FetchByID(Id);
+                        if (objKcbDangkyKcb != null)
+                        {
+                            reval = TinhCLS.CapnhatTrangthaiTutuc(objKcbDangkyKcb, objLuotkham, false, tu_tuc, Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0));
+                        }
+                        break;
+                    case 8://Gói dịch vụ
+                    case 11://Công tiêm chủng
+                    case 9://Chi phí thêm
+                    case 2://Phí CLS
+                        KcbChidinhclsChitiet objChidinhclsChitiet = KcbChidinhclsChitiet.FetchByID(Id);
+                        if (objChidinhclsChitiet != null)
+                        {
+                           reval= TinhCLS.CapnhatTrangthaiTutuc(objChidinhclsChitiet, objLuotkham, false,tu_tuc, Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0));
+                        }
+                        break;
+                    case 3://Đơn thuốc ngoại trú,nội trú
+                    case 5://Vật tư tiêu hao
+                        KcbDonthuocChitiet objDonthuocChitiet = KcbDonthuocChitiet.FetchByID(Id);
+                        if (objDonthuocChitiet != null)
+                        {
+                            reval = TinhCLS.CapnhatTrangthaiTutuc(objDonthuocChitiet, objLuotkham, false, tu_tuc, Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0));
+                        }
+                        break;
+                    case 4://Giường bệnh
+                        NoitruPhanbuonggiuong objPhanbuonggiuong = NoitruPhanbuonggiuong.FetchByID(Id);
+                        if (objPhanbuonggiuong != null)
+                        {
+                            reval = TinhCLS.CapnhatTrangthaiTutuc(objPhanbuonggiuong, objLuotkham, false, tu_tuc, Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0));
+                        }
+                        break;
+                    case 10://Sổ khám
+                        KcbDangkySokham objDangkySokham = KcbDangkySokham.FetchByID(Id);
+                        if (objDangkySokham != null)
+                        {
+                            reval = TinhCLS.CapnhatTrangthaiTutuc(objDangkySokham, objLuotkham, false, tu_tuc, Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0));
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                return reval;
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+                return false;
+            }
+           
+        }
+        void UpdateAllValues()
+        {
+          decimal  BHYT_PTRAM_TRAITUYENNOITRU = Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0m);
+            foreach (DataRowView drv in m_dtChiPhiThanhtoan.DefaultView)
+            {
+                if (Utility.Int32Dbnull(drv["tinh_chiphi"], 0) == 1 && Utility.Int32Dbnull(drv["trangthai_huy"], 0) == 0)
+                {
+                    if (Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.TuTuc], 0) == 0)
+                    {
+                        decimal BHCT = 0m;
+                        if (objLuotkham.DungTuyen == 1)
+                        {
+                            BHCT = Utility.DecimaltoDbnull(drv[KcbChidinhclsChitiet.Columns.DonGia], 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                        }
+                        else
+                        {
+                            if (objLuotkham.TrangthaiNoitru <= 0)
+                                BHCT = Utility.DecimaltoDbnull(drv[KcbChidinhclsChitiet.Columns.DonGia], 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                            else//Nội trú cần tính=đơn giá * % đầu thẻ * % tuyến
+                                BHCT = Utility.DecimaltoDbnull(drv[KcbChidinhclsChitiet.Columns.DonGia], 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) / 100) * (BHYT_PTRAM_TRAITUYENNOITRU / 100);
+                        }
+                        decimal BNCT =
+                            Utility.DecimaltoDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.DonGia].Value, 0) -
+                            BHCT;
+                        drv[KcbChidinhclsChitiet.Columns.BhytChitra] = BHCT;
+                        drv[KcbChidinhclsChitiet.Columns.BnhanChitra] = BNCT;
+                        drv["TT_TUTUC"] = 0;
+                        drv["TT_BN_KHONG_TUTUC"] = Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) * Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+
+                    }
+                    else//Tự túc
+                    {
+                        drv[KcbChidinhclsChitiet.Columns.BhytChitra] = 0;
+                        drv[KcbChidinhclsChitiet.Columns.BnhanChitra] =
+                            Utility.DecimaltoDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.DonGia].Value, 0);
+                        drv["TT_TUTUC"] = Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) * Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                        drv["TT_BN_KHONG_TUTUC"] = 0;
+
+                    }
+                    drv["TT_BHYT"] = (Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.BhytChitra], 0)) * Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    drv["TT_BN"] = (Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) + Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    drv["TT"] = (Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.DonGia], 0) + Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    drv["TT_PHUTHU"] = (Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    drv["TT_KHONG_PHUTHU"] = Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.DonGia], 0) * Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    drv["TT_BN_KHONG_PHUTHU"] = Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) * Utility.Int32Dbnull(drv[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                }
+            }
+            SetSumTotalProperties();
+        }
+        void mnuTutuc_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                decimal BNCT = 0m;
+                decimal BHCT = 0m;
+                bool FoundNotValid = false;
+                foreach (GridEXSelectedItem item in grdThongTinChuaThanhToan.SelectedItems)
+                {
+                    GridEXRow row=item.GetRow();
+                    if (row.RowType == RowType.Record)
+                    {
+                        long Id = Utility.Int64Dbnull(Utility.GetValueFromGridColumn(row, "id_phieu_chitiet"), -1);
+                        byte id_loaithanhtoan = Utility.ByteDbnull(Utility.GetValueFromGridColumn(row, "id_loaithanhtoan"), -1);
+                        int TrangthaiThanhtoan = Utility.Int32Dbnull(Utility.GetValueFromGridColumn(row, KcbChidinhclsChitiet.Columns.TrangthaiThanhtoan, "0"), 0);
+                        if (mnuTutuc.Tag.ToString() == "0")//Tự túc
+                        {
+                            if (TrangthaiThanhtoan > 0)//Đã thanh toán
+                            {
+                                FoundNotValid = true;
+                                Utility.ShowMsg("Chỉ định bạn đang chọn đã thanh toán nên không cho phép thay đổi trạng thái tự túc. Đề nghị bạn kiểm tra lại");
+                                return;
+                            }
+                            if (UpdateTutuc(Id, id_loaithanhtoan, (byte)1, ref BNCT, ref BHCT))
+                            {
+                                //grdThongTinChuaThanhToan.CurrentRow.BeginEdit();
+                                //grdThongTinChuaThanhToan.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TuTuc].Value = 1;
+                                //grdThongTinChuaThanhToan.CurrentRow.EndEdit();
+                                //ChangeMenu(grdThongTinChuaThanhToan.CurrentRow);
+                            }
+                        }
+                        else//Không tự túc
+                        {
+                            if (TrangthaiThanhtoan > 0)//Đã thanh toán
+                            {
+                                FoundNotValid = true;
+
+                                return;
+                            }
+                            if (UpdateTutuc(Id, id_loaithanhtoan, (byte)0, ref BNCT, ref BHCT))
+                            {
+                                //grdThongTinChuaThanhToan.CurrentRow.BeginEdit();
+                                //grdThongTinChuaThanhToan.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.TuTuc].Value = 0;
+                                //grdThongTinChuaThanhToan.CurrentRow.EndEdit();
+                                //ChangeMenu(grdThongTinChuaThanhToan.CurrentRow);
+                            }
+                        }
+                    }
+                }
+                if(FoundNotValid)
+                    Utility.ShowMsg("Một số dịch vụ bạn đang chọn đã thanh toán nên không cho phép thay đổi trạng thái tự túc. Đề nghị bạn kiểm tra lại\n Nhấn OK để kết thúc việc cập nhật");
+                getData();
+                
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        void ChangeMenu(GridEXRow _row)
+        {
+            mnuTutuc.Text = Utility.GetValueFromGridColumn(_row, KcbThanhtoanChitiet.Columns.TuTuc) == "1" ? "Giá đối tượng" : "Tự túc";
+            mnuTutuc.Tag = Utility.GetValueFromGridColumn(_row, KcbThanhtoanChitiet.Columns.TuTuc);
+        }
         void cmdHoanung_Click(object sender, EventArgs e)
         {
             objLuotkham = Utility.getKcbLuotkham(Utility.Int64Dbnull(txtPatient_ID.Text), Utility.DoTrim(txtPatient_Code.Text));
