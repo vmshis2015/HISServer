@@ -143,6 +143,364 @@ namespace VNS.Libs
                
            }
        }
+       public static bool CapnhatTrangthaiTutuc(KcbChidinhclsChitiet objChidinhChitiet, KcbLuotkham objLuotkham, bool noitru,byte tu_tuc, decimal PTramBHYT)
+       {
+           try
+           {
+               byte TrangthaiBhyt = 1;
+               decimal BHYT_PTRAM_TRAITUYENNOITRU = Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0m);
+               bool b_ExistPtramBHYT = false;
+               objChidinhChitiet.TuTuc = tu_tuc;
+               if (!THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb.Value))//Đối tượng DV
+               {
+                   TrangthaiBhyt = (byte)0;
+                   objChidinhChitiet.TuTuc = 0;
+               }
+               else
+                   TrangthaiBhyt = (byte)(globalVariables.gv_blnApdungChedoDuyetBHYT ? 0 : 1);
+               if (Utility.Int32Dbnull(objChidinhChitiet.TrangthaiHuy, -1) == -1) objChidinhChitiet.TrangthaiHuy = 0;
+               DmucDichvuclsChitiet obServiceDetail =
+                   DmucDichvuclsChitiet.FetchByID(Utility.Int32Dbnull(objChidinhChitiet.IdChitietdichvu));
+               if (obServiceDetail != null)
+               {
+                   objChidinhChitiet.GiaDanhmuc = Utility.DecimaltoDbnull(obServiceDetail.DonGia);
+               }
+               objChidinhChitiet.PtramBhyt = PTramBHYT;
+               objChidinhChitiet.PtramBhytGoc = objLuotkham.PtramBhytGoc;
+              // objChidinhChitiet.LoaiChietkhau = 0;
+              // objChidinhChitiet.TrangthaiBhyt = TrangthaiBhyt;
+              //objChidinhChitiet.IdLoaichidinh = 0;//Chưa hiểu trường này-->Cần xem lại
+               if (Utility.Int32Dbnull(objChidinhChitiet.TuTuc, 0) == 1)
+               {
+                   objChidinhChitiet.BhytChitra = 0;
+                   objChidinhChitiet.BnhanChitra = Utility.DecimaltoDbnull(objChidinhChitiet.DonGia, 0);
+                   objChidinhChitiet.PtramBhyt = 0;
+               }
+               else
+               {
+                   //Mục tính BHYT đặc biệt để dành sử dụng trong tương lai
+                   PtramBHYTDacBiet(objChidinhChitiet, objLuotkham, 2, ref b_ExistPtramBHYT);
+                   if (b_ExistPtramBHYT)
+                   {
+                       objChidinhChitiet.BhytChitra = Utility.DecimaltoDbnull(objChidinhChitiet.DonGia) *
+                                              Utility.DecimaltoDbnull(objChidinhChitiet.PtramBhyt) / 100;
+                       objChidinhChitiet.BnhanChitra = Utility.DecimaltoDbnull(objChidinhChitiet.DonGia, 0) -
+                                             Utility.DecimaltoDbnull(objChidinhChitiet.BhytChitra);
+                   }
+                   else//99% rơi vào nhánh này
+                   {
+
+                       PTramBHYT = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt);
+                       decimal BHCT = 0m;
+                       if (objLuotkham.DungTuyen == 1)//BHYT đúng tuyến rơi vào nhánh này dù nội trú ngay ngoại trú
+                       {
+                           BHCT = Utility.DecimaltoDbnull(objChidinhChitiet.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                       }
+                       else//DV và BHYT trái tuyến
+                       {
+                           if (objLuotkham.TrangthaiNoitru <= 0 || !noitru)//Đối tượng ngoại trú hoặc Chỉ định ngoại trú-->Lấy phần trăm ngoại trú
+                               BHCT = Utility.DecimaltoDbnull(objChidinhChitiet.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                           else//Nội trú cần tính=đơn giá * % đầu thẻ * % tuyến
+                               BHCT = Utility.DecimaltoDbnull(objChidinhChitiet.DonGia.Value, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) / 100) * (BHYT_PTRAM_TRAITUYENNOITRU / 100);
+                       }
+                       decimal BNCT = Utility.DecimaltoDbnull(objChidinhChitiet.DonGia, 0) - BHCT;
+                       objChidinhChitiet.BhytChitra = BHCT;
+                       objChidinhChitiet.BnhanChitra = BNCT;
+                   }
+
+               }
+               objChidinhChitiet.MarkOld();
+               objChidinhChitiet.IsNew = false;
+               objChidinhChitiet.Save();
+               return true;
+           }
+           catch (Exception ex)
+           {
+               Utility.CatchException(ex);
+               return false;
+           }
+          
+       }
+       public static bool CapnhatTrangthaiTutuc(NoitruPhanbuonggiuong objDoituong, KcbLuotkham objLuotkham, bool noitru, byte tu_tuc, decimal PTramBHYT)
+       {
+           try
+           {
+               byte TrangthaiBhyt = 1;
+               decimal BHYT_PTRAM_TRAITUYENNOITRU = Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0m);
+               bool b_ExistPtramBHYT = false;
+               objDoituong.TuTuc = tu_tuc;
+               if (!THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb.Value))//Đối tượng DV
+               {
+                   TrangthaiBhyt = (byte)0;
+                   objDoituong.TuTuc = 0;
+               }
+               else
+                   TrangthaiBhyt = (byte)(globalVariables.gv_blnApdungChedoDuyetBHYT ? 0 : 1);
+               if (Utility.Int32Dbnull(objDoituong.TrangthaiHuy, -1) == -1) objDoituong.TrangthaiHuy = 0;
+
+               // objChidinhChitiet.LoaiChietkhau = 0;
+               // objChidinhChitiet.TrangthaiBhyt = TrangthaiBhyt;
+               //objChidinhChitiet.IdLoaichidinh = 0;//Chưa hiểu trường này-->Cần xem lại
+               if (Utility.Int32Dbnull(objDoituong.TuTuc, 0) == 1)
+               {
+                   objDoituong.BhytChitra = 0;
+                   objDoituong.BnhanChitra = Utility.DecimaltoDbnull(objDoituong.DonGia, 0);
+               }
+               else
+               {
+                   if (b_ExistPtramBHYT)
+                   {
+                       objDoituong.BhytChitra = Utility.DecimaltoDbnull(objDoituong.DonGia) *
+                                              Utility.DecimaltoDbnull(objLuotkham.PtramBhyt) / 100;
+                       objDoituong.BnhanChitra = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) -
+                                             Utility.DecimaltoDbnull(objDoituong.BhytChitra);
+                   }
+                   else//99% rơi vào nhánh này
+                   {
+
+                       PTramBHYT = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt);
+                       decimal BHCT = 0m;
+                       if (objLuotkham.DungTuyen == 1)//BHYT đúng tuyến rơi vào nhánh này dù nội trú ngay ngoại trú
+                       {
+                           BHCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                       }
+                       else//DV và BHYT trái tuyến
+                       {
+                           if (objLuotkham.TrangthaiNoitru <= 0 || !noitru)//Đối tượng ngoại trú hoặc Chỉ định ngoại trú-->Lấy phần trăm ngoại trú
+                               BHCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                           else//Nội trú cần tính=đơn giá * % đầu thẻ * % tuyến
+                               BHCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) / 100) * (BHYT_PTRAM_TRAITUYENNOITRU / 100);
+                       }
+                       decimal BNCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) - BHCT;
+                       objDoituong.BhytChitra = BHCT;
+                       objDoituong.BnhanChitra = BNCT;
+                   }
+
+               }
+               objDoituong.MarkOld();
+               objDoituong.IsNew = false;
+               objDoituong.Save();
+               return true;
+           }
+           catch (Exception ex)
+           {
+               Utility.CatchException(ex);
+               return false;
+           }
+
+       }
+       public static bool CapnhatTrangthaiTutuc(KcbDangkySokham objDoituong, KcbLuotkham objLuotkham, bool noitru, byte tu_tuc, decimal PTramBHYT)
+       {
+           try
+           {
+               byte TrangthaiBhyt = 1;
+               decimal BHYT_PTRAM_TRAITUYENNOITRU = Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0m);
+               bool b_ExistPtramBHYT = false;
+               objDoituong.TuTuc = tu_tuc;
+               if (!THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb.Value))//Đối tượng DV
+               {
+                   TrangthaiBhyt = (byte)0;
+                   objDoituong.TuTuc = 0;
+               }
+               else
+                   TrangthaiBhyt = (byte)(globalVariables.gv_blnApdungChedoDuyetBHYT ? 0 : 1);
+
+               objDoituong.PtramBhyt = PTramBHYT;
+               objDoituong.PtramBhytGoc = Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, PTramBHYT);
+               // objChidinhChitiet.LoaiChietkhau = 0;
+               // objChidinhChitiet.TrangthaiBhyt = TrangthaiBhyt;
+               //objChidinhChitiet.IdLoaichidinh = 0;//Chưa hiểu trường này-->Cần xem lại
+               if (Utility.Int32Dbnull(objDoituong.TuTuc, 0) == 1)
+               {
+                   objDoituong.BhytChitra = 0;
+                   objDoituong.BnhanChitra = Utility.DecimaltoDbnull(objDoituong.DonGia, 0);
+                   objDoituong.PtramBhyt = 0;
+               }
+               else
+               {
+                   if (b_ExistPtramBHYT)
+                   {
+                       objDoituong.BhytChitra = Utility.DecimaltoDbnull(objDoituong.DonGia) *
+                                              Utility.DecimaltoDbnull(objDoituong.PtramBhyt) / 100;
+                       objDoituong.BnhanChitra = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) -
+                                             Utility.DecimaltoDbnull(objDoituong.BhytChitra);
+                   }
+                   else//99% rơi vào nhánh này
+                   {
+
+                       PTramBHYT = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt);
+                       decimal BHCT = 0m;
+                       if (objLuotkham.DungTuyen == 1)//BHYT đúng tuyến rơi vào nhánh này dù nội trú ngay ngoại trú
+                       {
+                           BHCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                       }
+                       else//DV và BHYT trái tuyến
+                       {
+                           if (objLuotkham.TrangthaiNoitru <= 0 || !noitru)//Đối tượng ngoại trú hoặc Chỉ định ngoại trú-->Lấy phần trăm ngoại trú
+                               BHCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                           else//Nội trú cần tính=đơn giá * % đầu thẻ * % tuyến
+                               BHCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) / 100) * (BHYT_PTRAM_TRAITUYENNOITRU / 100);
+                       }
+                       decimal BNCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) - BHCT;
+                       objDoituong.BhytChitra = BHCT;
+                       objDoituong.BnhanChitra = BNCT;
+                   }
+
+               }
+               objDoituong.MarkOld();
+               objDoituong.IsNew = false;
+               objDoituong.Save();
+               return true;
+           }
+           catch (Exception ex)
+           {
+               Utility.CatchException(ex);
+               return false;
+           }
+
+       }
+       public static bool CapnhatTrangthaiTutuc(KcbDonthuocChitiet objDoituong, KcbLuotkham objLuotkham, bool noitru, byte tu_tuc, decimal PTramBHYT)
+       {
+           try
+           {
+               byte TrangthaiBhyt = 1;
+               decimal BHYT_PTRAM_TRAITUYENNOITRU = Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0m);
+               bool b_ExistPtramBHYT = false;
+               objDoituong.TuTuc = tu_tuc;
+               if (!THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb.Value))//Đối tượng DV
+               {
+                   TrangthaiBhyt = (byte)0;
+                   objDoituong.TuTuc = 0;
+               }
+               else
+                   TrangthaiBhyt = (byte)(globalVariables.gv_blnApdungChedoDuyetBHYT ? 0 : 1);
+               if (Utility.Int32Dbnull(objDoituong.TrangthaiHuy, -1) == -1) objDoituong.TrangthaiHuy = 0;
+
+               objDoituong.PtramBhyt = PTramBHYT;
+               objDoituong.PtramBhytGoc = objLuotkham.PtramBhytGoc;
+               // objChidinhChitiet.LoaiChietkhau = 0;
+               // objChidinhChitiet.TrangthaiBhyt = TrangthaiBhyt;
+               //objChidinhChitiet.IdLoaichidinh = 0;//Chưa hiểu trường này-->Cần xem lại
+               if (Utility.Int32Dbnull(objDoituong.TuTuc, 0) == 1)
+               {
+                   objDoituong.BhytChitra = 0;
+                   objDoituong.BnhanChitra = Utility.DecimaltoDbnull(objDoituong.DonGia, 0);
+                   objDoituong.PtramBhyt = 0;
+               }
+               else
+               {
+                   if (b_ExistPtramBHYT)
+                   {
+                       objDoituong.BhytChitra = Utility.DecimaltoDbnull(objDoituong.DonGia) *
+                                              Utility.DecimaltoDbnull(objDoituong.PtramBhyt) / 100;
+                       objDoituong.BnhanChitra = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) -
+                                             Utility.DecimaltoDbnull(objDoituong.BhytChitra);
+                   }
+                   else//99% rơi vào nhánh này
+                   {
+
+                       PTramBHYT = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt);
+                       decimal BHCT = 0m;
+                       if (objLuotkham.DungTuyen == 1)//BHYT đúng tuyến rơi vào nhánh này dù nội trú ngay ngoại trú
+                       {
+                           BHCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                       }
+                       else//DV và BHYT trái tuyến
+                       {
+                           if (objLuotkham.TrangthaiNoitru <= 0 || !noitru)//Đối tượng ngoại trú hoặc Chỉ định ngoại trú-->Lấy phần trăm ngoại trú
+                               BHCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                           else//Nội trú cần tính=đơn giá * % đầu thẻ * % tuyến
+                               BHCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) / 100) * (BHYT_PTRAM_TRAITUYENNOITRU / 100);
+                       }
+                       decimal BNCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) - BHCT;
+                       objDoituong.BhytChitra = BHCT;
+                       objDoituong.BnhanChitra = BNCT;
+                   }
+
+               }
+               objDoituong.MarkOld();
+               objDoituong.IsNew = false;
+               objDoituong.Save();
+               return true;
+           }
+           catch (Exception ex)
+           {
+               Utility.CatchException(ex);
+               return false;
+           }
+
+       }
+       public static bool CapnhatTrangthaiTutuc(KcbDangkyKcb objDoituong, KcbLuotkham objLuotkham, bool noitru, byte tu_tuc, decimal PTramBHYT)
+       {
+           try
+           {
+               byte TrangthaiBhyt = 1;
+               decimal BHYT_PTRAM_TRAITUYENNOITRU = Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false), 0m);
+               bool b_ExistPtramBHYT = false;
+               objDoituong.TuTuc = tu_tuc;
+               if (!THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb.Value))//Đối tượng DV
+               {
+                   TrangthaiBhyt = (byte)0;
+                   objDoituong.TuTuc = 0;
+               }
+               else
+                   TrangthaiBhyt = (byte)(globalVariables.gv_blnApdungChedoDuyetBHYT ? 0 : 1);
+               if (Utility.Int32Dbnull(objDoituong.TrangthaiHuy, -1) == -1) objDoituong.TrangthaiHuy = 0;
+              
+               objDoituong.PtramBhyt = PTramBHYT;
+               objDoituong.PtramBhytGoc = objLuotkham.PtramBhytGoc;
+               // objChidinhChitiet.LoaiChietkhau = 0;
+               // objChidinhChitiet.TrangthaiBhyt = TrangthaiBhyt;
+               //objChidinhChitiet.IdLoaichidinh = 0;//Chưa hiểu trường này-->Cần xem lại
+               if (Utility.Int32Dbnull(objDoituong.TuTuc, 0) == 1)
+               {
+                   objDoituong.BhytChitra = 0;
+                   objDoituong.BnhanChitra = Utility.DecimaltoDbnull(objDoituong.DonGia, 0);
+                   objDoituong.PtramBhyt = 0;
+               }
+               else
+               {
+                   if (b_ExistPtramBHYT)
+                   {
+                       objDoituong.BhytChitra = Utility.DecimaltoDbnull(objDoituong.DonGia) *
+                                              Utility.DecimaltoDbnull(objDoituong.PtramBhyt) / 100;
+                       objDoituong.BnhanChitra = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) -
+                                             Utility.DecimaltoDbnull(objDoituong.BhytChitra);
+                   }
+                   else//99% rơi vào nhánh này
+                   {
+
+                       PTramBHYT = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt);
+                       decimal BHCT = 0m;
+                       if (objLuotkham.DungTuyen == 1)//BHYT đúng tuyến rơi vào nhánh này dù nội trú ngay ngoại trú
+                       {
+                           BHCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                       }
+                       else//DV và BHYT trái tuyến
+                       {
+                           if (objLuotkham.TrangthaiNoitru <= 0 || !noitru)//Đối tượng ngoại trú hoặc Chỉ định ngoại trú-->Lấy phần trăm ngoại trú
+                               BHCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0) / 100);
+                           else//Nội trú cần tính=đơn giá * % đầu thẻ * % tuyến
+                               BHCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) * (Utility.DecimaltoDbnull(objLuotkham.PtramBhytGoc, 0) / 100) * (BHYT_PTRAM_TRAITUYENNOITRU / 100);
+                       }
+                       decimal BNCT = Utility.DecimaltoDbnull(objDoituong.DonGia, 0) - BHCT;
+                       objDoituong.BhytChitra = BHCT;
+                       objDoituong.BnhanChitra = BNCT;
+                   }
+
+               }
+               objDoituong.MarkOld();
+               objDoituong.IsNew = false;
+               objDoituong.Save();
+               return true;
+           }
+           catch (Exception ex)
+           {
+               Utility.CatchException(ex);
+               return false;
+           }
+
+       }
        public static void PtramBHYTDacBiet(KcbChidinhclsChitiet objChidinhChitiet, KcbLichsuDoituongKcb objLichsu, int PaymentType_ID, ref bool b_Exist)
        {
            b_Exist = false;
