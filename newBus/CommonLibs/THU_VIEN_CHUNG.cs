@@ -1378,21 +1378,21 @@ namespace VNS.Libs
                         dr["bhyt_chitra"] = 0;//BHYT chi trả 0 do tự túc
                         dr["bnhan_chitra"] = dr["don_gia"];
                     }
-                    dr["TT_BHYT"] = (Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.BhytChitra], 0)) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
-                    dr["TT_BN"] = (Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) + Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
-                    dr["TT"] = (Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.DonGia], 0) + Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
-                    dr["TT_PHUTHU"] = (Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
-                    dr["TT_KHONG_PHUTHU"] = Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.DonGia], 0) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
-                    dr["TT_BN_KHONG_PHUTHU"] = Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    dr["TT_BHYT"] = (Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.BhytChitra], 0)) * Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    dr["TT_BN"] = (Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) + Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    dr["TT"] = (Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.DonGia], 0) + Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    dr["TT_PHUTHU"] = (Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    dr["TT_KHONG_PHUTHU"] = Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.DonGia], 0) * Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                    dr["TT_BN_KHONG_PHUTHU"] = Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) * Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
                     if (Utility.Int32Dbnull(dr["tu_tuc"], 0) == 1)
                     {
-                        dr["TT_TUTUC"] = Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                        dr["TT_TUTUC"] = Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) * Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
                         dr["TT_BN_KHONG_TUTUC"] = 0;
                     }
                     else
                     {
                         dr["TT_TUTUC"] = 0;
-                        dr["TT_BN_KHONG_TUTUC"] = Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) * Utility.Int32Dbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
+                        dr["TT_BN_KHONG_TUTUC"] = Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) * Utility.DecimaltoDbnull(dr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
                     }
 
                 }
