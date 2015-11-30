@@ -106,6 +106,7 @@
     <Compile Include="danhmuc\DMUC_KIEUDMUC_BUSRULE.cs" />
     <Compile Include="CommonLibs\THU_VIEN_CHUNG.cs" />
     <Compile Include="Ngoaitru\BAOCAO_BHYT.cs" />
+    <Compile Include="Ngoaitru\KCB_TIEMCHUNG.cs" />
     <Compile Include="Ngoaitru\DMUC_CHUNG.cs" />
     <Compile Include="Ngoaitru\KCB_HOADONDO.cs" />
     <Compile Include="Ngoaitru\KCB_CHIDINH_CANLAMSANG.cs">
@@ -139,6 +140,7 @@
     <Compile Include="Thuoc\TraLaiKho\PhieuTralaiThuocKhoaVeKho.cs" />
     <Compile Include="Thuoc\Noitru\CapphatThuocKhoa.cs" />
     <Compile Include="Thuoc\XuatThuoc\XuatThuoc.cs" />
+    <Compile Include="Thuoc\XuatThuoc\XuatThuocAo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\newdal\newdal.csproj">

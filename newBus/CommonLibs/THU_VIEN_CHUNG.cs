@@ -651,18 +651,25 @@ namespace VNS.Libs
                     .Where(DmucChung.Columns.Loai)
                     .IsEqualTo(BHYT ? THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_STT_INPHOI", false) : THU_VIEN_CHUNG.Laygiatrithamsohethong("DICHVU_STT_IN", false))
                     .ExecuteAsCollection<DmucChungCollection>().ToList<DmucChung>();
-           
+
             foreach (DataRow dr in dataTable.Rows)
             {
-                var objDmucChung = from p in lst
-                                         where p.Ma == Utility.sDbnull(dr["id_loaithanhtoan"])
-                                         select p;
+                List<DmucChung> objDmucChung = new List<DmucChung>();
+                if (Utility.sDbnull(dr["id_loaithanhtoan"]) != "2")
+                    objDmucChung = (from p in lst
+                                    where p.MotaThem == Utility.sDbnull(dr["id_loaithanhtoan"])
+                                    select p).ToList<DmucChung>();
+                else//Tách theo nhóm in phơi BHYT
+                    objDmucChung = (from p in lst
+                                   where p.MotaThem == Utility.sDbnull(dr["id_loaithanhtoan"])
+                                   && p.Ma == Utility.sDbnull(dr["nhom_inphoiBHYT"])
+                                   select p).ToList<DmucChung>(); ;
                 if (objDmucChung != null && objDmucChung.Any())
                 {
-                    dr["stt_in"] = Utility.Int32Dbnull( objDmucChung.FirstOrDefault().SttHthi);
+                    dr["stt_in"] = Utility.Int32Dbnull(objDmucChung.FirstOrDefault().SttHthi);
                     dr["id_loaithanhtoan"] = Utility.Int32Dbnull(objDmucChung.FirstOrDefault().Ma);
-                    dr["ten_loaithanhtoan"] =Utility.sDbnull(objDmucChung.FirstOrDefault().Ten);
-                    
+                    dr["ten_loaithanhtoan"] = Utility.sDbnull(objDmucChung.FirstOrDefault().Ten);
+
                 }
             }
             int max = dataTable.AsEnumerable().Select(c => c.Field<int>("stt_in")).Max();

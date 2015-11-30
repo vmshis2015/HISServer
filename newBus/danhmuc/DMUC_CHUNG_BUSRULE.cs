@@ -20,7 +20,7 @@ namespace VNS.HIS.NGHIEPVU
         {
             try
             {
-               DataSet   dsData = SPs.DmucLaydulieudanhmuchung(p_strLoai, globalVariables.UserName).GetDataSet();
+               DataSet   dsData = SPs.DmucLaydulieudanhmuchung(p_strLoai,globalVariables.UserName).GetDataSet();
                 //new DmucChungController().FetchByQuery(DmucChung.CreateQuery().AddWhere(DmucChung.Columns.Loai, Comparison.Equals, p_strLoai)).ToDataTable();
                dsData.Tables[0].TableName = DmucChung.Schema.TableName;
                return dsData;

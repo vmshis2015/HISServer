@@ -148,9 +148,8 @@ namespace VNS.HIS.BusRule.Classes
         }
         public static DataTable BaoCaoThongkeTheoMaBenhICD10TongHop(DateTime? FromDate, DateTime? ToDate, string DoiTuong, string KhoaThucHien, string ListICD)
         {
-            return
-                SPs.BaocaoThongkeTheomabenhIcdTonghop(FromDate, ToDate, ListICD,DoiTuong, KhoaThucHien, "").GetDataSet().
-                    Tables[0];
+            return null;
+                //SPs.BaocaoThongkeTheomabenhIcdTonghop(FromDate, ToDate, ListICD, DoiTuong, KhoaThucHien, "").GetDataSet().Tables[0];
         }
         public static DataTable BaocaoThutientiemchungtonghop(DateTime? FromDate, DateTime? ToDate, string maDoituongKCB, string maTNV, short idLoaithanhtoan, string kieukham, string MAKHOATHIEN)
         {
