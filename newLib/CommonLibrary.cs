@@ -38,8 +38,7 @@ using System.ServiceProcess;
 using System.ComponentModel;
 using Leadtools;
 using Leadtools.Barcode;
-using Leadtools.Codecs;
-using Leadtools.Forms;
+
 
 namespace VNS.Libs
 {
