@@ -379,8 +379,8 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 if(ma_luotkham=="") ma_luotkham="NULL";
                 string ten_benhnhan = Utility.DoTrim(txtTenbenhnhan_tk.Text);
                 if (ten_benhnhan == "") ten_benhnhan = "NULL";
-                byte trangthai_xacnhan = 0;
-                if (radChuaXacNhan.Checked) trangthai_xacnhan = (byte)0;
+                byte trangthai_xacnhan = 1;
+                if (radChuaXacNhan.Checked) trangthai_xacnhan = (byte)1;
                 if (radDaXacNhan.Checked) trangthai_xacnhan = (byte)4;
                 if (radChoXacNhan.Checked) trangthai_xacnhan = (byte)3;
                 m_dKcbChidinhclsChitiet =
@@ -621,8 +621,8 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 pic4.Tag = imgBox4.Tag;
                 objKcbChidinhclsChitiet = KcbChidinhclsChitiet.FetchByID(Utility.Int32Dbnull(txtidchidinhchitiet.Text, -1));
                 DmucDichvuclsChitiet objDichvuchitiet = DmucDichvuclsChitiet.FetchByID(Utility.Int32Dbnull(txtIdDichvuChitiet.Text, -1));
-                
                 DataTable dtMauQK = clsHinhanh.HinhanhLaydanhsachMauKQtheoDichvuCLS(objDichvuchitiet.IdChitietdichvu);
+
                 txtMauKQ.Init(dtMauQK, new List<string>() { QheDichvuMauketqua.Columns.MaMauKQ, QheDichvuMauketqua.Columns.MaMauKQ,DmucChung.Columns.Ten });
                 txtMauKQ__OnEnterMe();
                 new KCB_HinhAnh().UpdateXacNhanDaThucHien(v_id_chitietchidinh, 2);
@@ -2086,11 +2086,12 @@ namespace VNS.HIS.UI.Forms.HinhAnh
                 }
                 List<string> fieldNames = new List<string>() {"TEN_SO_YTE", "TEN_BENHVIEN",	"DIACHI_BENHVIEN",
                     "DIENTHOAI_BENHVIEN",		"MA_LUOTKHAM",	"ID_BENHNHAN",	"TEN_BENHNHAN",	"DIA_CHI",	"DOITUONG_KCB",
-                    "NOI_CHIDINH",	"CHANDOAN",	"ID_PHIEU","ten_chitietdichvu",	"NAM_SINH",	"TUOI",	"GIOI_TINH",
+                    "NOI_CHIDINH", "BACSY_CHIDINH",	"CHAN_DOAN",	"ID_PHIEU","ten_chitietdichvu",	"NAM_SINH",	"TUOI",	"GIOI_TINH",
                     "MATHE_BHYT",	"Ket_qua",	"KET_LUAN",	"DE_NGHI",	"NGAYTHANGNAM","imgPath1","imgPath2","imgPath3","imgPath4"};
                 List<string> Values = new List<string>() {  globalVariables.ParentBranch_Name,  globalVariables.Branch_Name,  globalVariables.Branch_Address,
                  globalVariables.Branch_Phone,Utility.sDbnull( drData["MA_LUOTKHAM"],""),Utility.sDbnull( drData["ID_BENHNHAN"],""),Utility.sDbnull( drData["TEN_BENHNHAN"],""),
-                Utility.sDbnull( drData["dia_chi"],""),Utility.sDbnull( drData["ten_doituong_kcb"],""),Utility.sDbnull( drData["ten_phongchidinh"],""),Utility.sDbnull( drData["Chan_doan"],""),
+                Utility.sDbnull( drData["dia_chi"],""),Utility.sDbnull( drData["ten_doituong_kcb"],""),
+                Utility.sDbnull( drData["ten_phongchidinh"],""),Utility.sDbnull(drData["BACSY_CHIDINH"]) ,Utility.sDbnull( drData["CHAN_DOAN"],""),
                 Utility.sDbnull( drData["id_chidinh"],""),Utility.sDbnull( drData["ten_chitietdichvu"],""),Utility.sDbnull( drData["nam_sinh"],""),Utility.sDbnull( drData["Tuoi"],""),Utility.sDbnull( drData["gioi_tinh"],""),
                 Utility.sDbnull( drData["mathe_bhyt"],""),"","",
                 "",Utility.FormatDateTime(globalVariables.SysDate),Utility.sDbnull( drData["Local1"],""),Utility.sDbnull( drData["Local2"],""),

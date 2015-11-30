@@ -31,10 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_quanlycacphongchucnang));
             Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem5 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem6 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem7 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem8 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem4 = new Janus.Windows.EditControls.UIComboBoxItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -249,12 +249,12 @@
             // 
             // grpChiDinhCLS
             // 
+            this.grpChiDinhCLS.Controls.Add(this.pic1);
             this.grpChiDinhCLS.Controls.Add(this.label9);
             this.grpChiDinhCLS.Controls.Add(this.cboLaserPrinters);
             this.grpChiDinhCLS.Controls.Add(this.lnkDelFTPImages);
             this.grpChiDinhCLS.Controls.Add(this.lnkGetImagesFromFTP);
             this.grpChiDinhCLS.Controls.Add(this.lnkAutoCorrect);
-            this.grpChiDinhCLS.Controls.Add(this.txtMauKQ);
             this.grpChiDinhCLS.Controls.Add(this.txtMauchuan);
             this.grpChiDinhCLS.Controls.Add(this.label8);
             this.grpChiDinhCLS.Controls.Add(this.cmdConfig);
@@ -270,7 +270,6 @@
             this.grpChiDinhCLS.Controls.Add(this.pic4);
             this.grpChiDinhCLS.Controls.Add(this.pic3);
             this.grpChiDinhCLS.Controls.Add(this.pic2);
-            this.grpChiDinhCLS.Controls.Add(this.pic1);
             this.grpChiDinhCLS.Controls.Add(this.txtBSChidinh);
             this.grpChiDinhCLS.Controls.Add(this.txtIdKham);
             this.grpChiDinhCLS.Controls.Add(this.txtGhiChu);
@@ -288,6 +287,7 @@
             this.grpChiDinhCLS.Controls.Add(this.label11);
             this.grpChiDinhCLS.Controls.Add(this.dtInputDate);
             this.grpChiDinhCLS.Controls.Add(this.label12);
+            this.grpChiDinhCLS.Controls.Add(this.txtMauKQ);
             this.grpChiDinhCLS.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpChiDinhCLS.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpChiDinhCLS.Location = new System.Drawing.Point(0, 99);
@@ -1510,27 +1510,27 @@
             // 
             // cboPatientSex
             // 
-            uiComboBoxItem5.FormatStyle.Alpha = 0;
-            uiComboBoxItem5.IsSeparator = false;
-            uiComboBoxItem5.Text = "Giới tính";
-            uiComboBoxItem5.Value = -1;
-            uiComboBoxItem6.FormatStyle.Alpha = 0;
-            uiComboBoxItem6.IsSeparator = false;
-            uiComboBoxItem6.Text = "Nam(Male)";
-            uiComboBoxItem6.Value = 0;
-            uiComboBoxItem7.FormatStyle.Alpha = 0;
-            uiComboBoxItem7.IsSeparator = false;
-            uiComboBoxItem7.Text = "Nữ(Female)";
-            uiComboBoxItem7.Value = 1;
-            uiComboBoxItem8.FormatStyle.Alpha = 0;
-            uiComboBoxItem8.IsSeparator = false;
-            uiComboBoxItem8.Text = "Khác";
-            uiComboBoxItem8.Value = 2;
+            uiComboBoxItem1.FormatStyle.Alpha = 0;
+            uiComboBoxItem1.IsSeparator = false;
+            uiComboBoxItem1.Text = "Giới tính";
+            uiComboBoxItem1.Value = -1;
+            uiComboBoxItem2.FormatStyle.Alpha = 0;
+            uiComboBoxItem2.IsSeparator = false;
+            uiComboBoxItem2.Text = "Nam(Male)";
+            uiComboBoxItem2.Value = 0;
+            uiComboBoxItem3.FormatStyle.Alpha = 0;
+            uiComboBoxItem3.IsSeparator = false;
+            uiComboBoxItem3.Text = "Nữ(Female)";
+            uiComboBoxItem3.Value = 1;
+            uiComboBoxItem4.FormatStyle.Alpha = 0;
+            uiComboBoxItem4.IsSeparator = false;
+            uiComboBoxItem4.Text = "Khác";
+            uiComboBoxItem4.Value = 2;
             this.cboPatientSex.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem5,
-            uiComboBoxItem6,
-            uiComboBoxItem7,
-            uiComboBoxItem8});
+            uiComboBoxItem1,
+            uiComboBoxItem2,
+            uiComboBoxItem3,
+            uiComboBoxItem4});
             this.cboPatientSex.Location = new System.Drawing.Point(85, 77);
             this.cboPatientSex.Name = "cboPatientSex";
             this.cboPatientSex.SelectedIndex = 0;
