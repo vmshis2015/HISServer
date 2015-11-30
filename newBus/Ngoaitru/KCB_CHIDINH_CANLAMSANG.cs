@@ -24,9 +24,9 @@ namespace VNS.HIS.BusRule.Classes
          {
              SPs.ChidinhclsXoaChitiet(IdChitietchidinh).Execute();
          }
-         public DataTable DmucTimkiemNhomchidinhCls(int? IdNhom, string Manhom, string TenNhom, string Loainhom, int? IdDichvuChitiet)
+         public DataTable DmucTimkiemNhomchidinhCls(int? IdNhom, string Manhom, string TenNhom, string Loainhom, int? IdDichvuChitiet, string username)
          {
-             return SPs.DmucTimkiemNhomchidinhCls(IdNhom, Manhom, TenNhom, Loainhom, IdDichvuChitiet).GetDataSet().Tables[0];
+             return SPs.DmucTimkiemNhomchidinhCls(IdNhom, Manhom, TenNhom, Loainhom, IdDichvuChitiet,username).GetDataSet().Tables[0];
          }
          public ActionResult Xoanhom(int IdNhom)
          {
