@@ -236,7 +236,91 @@ namespace VNS.HIS.Classes
                
             }
         }
+       public static void InTachToanBoPhieuCLS(int id_benhnhan,string ma_luotkham, int v_AssignId, string v_AssignCode, List<string> listnhomincls,int selectedIndex, bool inTach ,ref string mayin)
+       {
+           try
+           {
 
+               mayin = "";
+               foreach (string nhomcls in listnhomincls.ToList())
+               {
+                   KcbChidinhcl objAssignInfo = KcbChidinhcl.FetchByID(v_AssignId);
+                   DataTable dt = new KCB_THAMKHAM().KcbThamkhamLaydulieuInphieuCls(id_benhnhan, ma_luotkham, v_AssignCode, nhomcls).Tables[0];
+                   if (dt == null || dt.Rows.Count <= 0)
+                   {
+                       Utility.ShowMsg("Không có dữ liệu in. Mời bạn kiểm tra lại");
+                       return;
+                   }
+                   THU_VIEN_CHUNG.CreateXML(dt, "Thamkham_InTachToanBophieuCLS.XML");
+                   Utility.UpdateLogotoDatatable(ref dt);
+                   string v_machidinh = v_AssignCode;
+                   if (THU_VIEN_CHUNG.Laygiatrithamsohethong("CHIDINH_BODAUCHAM_TRENMAVACH", "0", true) == "1")
+                   {
+                       v_machidinh = v_AssignCode.Replace(".", "");
+                   }
+                   Utility.CreateBarcodeData(ref dt, v_machidinh);
+                 
+                   var crpt = new ReportDocument();
+                   string manhomcls = nhomcls;
+                   DataTable dt_nhomcls = dt.Select("nhom_in_cls = '" + manhomcls.ToString().Trim() + "'").CopyToDataTable();
+                   string tieude = "", reportname = "";
+                   crpt = Utility.GetReport(manhomcls, ref tieude, ref manhomcls);
+                   if (crpt == null) return;
+                   try
+                   {
+                       var objForm = new frmPrintPreview("IN PHIẾU CHỈ ĐỊNH", crpt, true, true);
+                       objForm.mv_sReportFileName = Path.GetFileName(manhomcls);
+                       objForm.mv_sReportCode = manhomcls;
+                       
+                   
+                       crpt.SetDataSource(dt);
+                       //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "    Nhân viên        Bác sĩ chỉ định     ".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
+                       Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+                       Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                       Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+                       Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
+                       if (!inTach && selectedIndex == 0)
+                       {
+                           foreach (DataRow dr in dt.Rows)
+                               dr[VKcbChidinhcl.Columns.TenNhominphieucls] = THU_VIEN_CHUNG.Laygiatrithamsohethong("TIEUDE_PHIEUCHIDNHCLS_INCHUNG", "PHIẾU CHỈ ĐỊNH", true);
+                       }
+                       else
+                       {
+                           Utility.SetParameterValue(crpt, "TitleReport", tieude);
+                       }
+                       Utility.SetParameterValue(crpt, "CurrentDate", Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem));
+                       objForm.crptViewer.ReportSource = crpt;
+                       if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai, PropertyLib._MayInProperties.PreviewInCLS))
+                       {
+                           objForm.SetDefaultPrinter(PropertyLib._MayInProperties.TenMayInBienlai, 0);
+                           objForm.ShowDialog();
+                           mayin = PropertyLib._MayInProperties.TenMayInBienlai;
+                       }
+                       else
+                       {
+
+                           objForm.addTrinhKy_OnFormLoad();
+                           crpt.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
+                           mayin = PropertyLib._MayInProperties.TenMayInBienlai;
+                           crpt.PrintToPrinter(1, false, 0, 0);
+                       }
+                   }
+                   catch (Exception ex)
+                   {
+                       // Utility.DefaultNow(this);
+                   }
+
+               }
+           }
+           catch (Exception ex)
+           {
+               //Utility.ShowMsg("Lỗi:" + ex.Message);
+           }
+           finally
+           {
+               GC.Collect();
+           }
+       }
         public static void InphieuChidinhCLS(int id_benhnhan,string ma_luotkham, int v_AssignId, string v_AssignCode,string  nhomincls,int selectedIndex, bool inTach ,ref string mayin)
         {
             try
@@ -247,14 +331,17 @@ namespace VNS.HIS.Classes
                 DataTable dt = new KCB_THAMKHAM().KcbThamkhamLaydulieuInphieuCls(id_benhnhan, ma_luotkham, v_AssignCode, nhomincls).Tables[0];
                 if (dt == null || dt.Rows.Count <= 0)
                 {
-                    Utility.ShowMsg("Không có dữ liệu in. Mời bạn kiểm tra lại");
+                   // Utility.ShowMsg("Không có dữ liệu in. Mời bạn kiểm tra lại");
                     return;
                 }
                 THU_VIEN_CHUNG.CreateXML(dt,"Thamkham_InphieuCLS.XML");
                 Utility.UpdateLogotoDatatable(ref dt);
-                //string v_machidinh = v_AssignCode.Replace("", "");
-                Utility.CreateBarcodeData(ref dt, v_AssignCode);
-
+                string v_machidinh = v_AssignCode;
+                if(THU_VIEN_CHUNG.Laygiatrithamsohethong("CHIDINH_BODAUCHAM_TRENMAVACH","0",true) == "1")
+                {
+                     v_machidinh = v_AssignCode.Replace(".", "");
+                }
+                Utility.CreateBarcodeData(ref dt, v_machidinh);
                 var crpt = new ReportDocument();
                 string _reportCode = "thamkham_InphieuchidinhCLS_RIENG_A5";
                 string KhoGiay = "A5";
@@ -369,6 +456,7 @@ namespace VNS.HIS.Classes
                     Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
                     Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
                     Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+                    Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
                     if (!inTach && selectedIndex == 0)
                     {
                         foreach (DataRow dr in dt.Rows)
@@ -404,6 +492,10 @@ namespace VNS.HIS.Classes
             catch (Exception ex)
             {
                 Utility.ShowMsg("Lỗi:"+ ex.Message);
+            }
+            finally
+            {
+                GC.Collect();
             }
         }
     }
