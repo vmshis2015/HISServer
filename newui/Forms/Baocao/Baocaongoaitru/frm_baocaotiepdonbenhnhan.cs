@@ -258,6 +258,7 @@ namespace VNS.HIS.UI.Baocao
                 objForm.mv_sReportFileName = Path.GetFileName(reportname);
                 objForm.mv_sReportCode = chkChitiet.Checked ? "baocao_tiepdonbenhnhan_chitiet" : "baocao_tiepdonbenhnhan_tonghop";
                 crpt.SetParameterValue("StaffName", StaffName);
+                crpt.SetParameterValue("ParentBranchName", globalVariables.ParentBranch_Name);
                 crpt.SetParameterValue("BranchName", globalVariables.Branch_Name);
                 crpt.SetParameterValue("Address", globalVariables.Branch_Address);
                 crpt.SetParameterValue("Phone", globalVariables.Branch_Phone);

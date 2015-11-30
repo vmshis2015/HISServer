@@ -290,8 +290,8 @@
             // 
             // prgBar
             // 
-            this.prgBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.prgBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.prgBar.Location = new System.Drawing.Point(3, 31);
             this.prgBar.Name = "prgBar";
             this.prgBar.Size = new System.Drawing.Size(563, 14);
@@ -361,12 +361,12 @@
             this.grdExcel.GroupRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
             this.grdExcel.GroupTotalRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far;
             this.grdExcel.GroupTotals = Janus.Windows.GridEX.GroupTotals.Always;
-            this.grdExcel.Location = new System.Drawing.Point(0, 487);
+            this.grdExcel.Location = new System.Drawing.Point(0, 391);
             this.grdExcel.Name = "grdExcel";
             this.grdExcel.RecordNavigator = true;
             this.grdExcel.RowHeaderContent = Janus.Windows.GridEX.RowHeaderContent.RowIndex;
             this.grdExcel.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdExcel.Size = new System.Drawing.Size(1024, 10);
+            this.grdExcel.Size = new System.Drawing.Size(1024, 106);
             this.grdExcel.TabIndex = 273;
             this.grdExcel.TabStop = false;
             this.grdExcel.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
