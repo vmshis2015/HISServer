@@ -30,9 +30,9 @@ namespace VNS.HIS.UI.DANHMUC
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_dichvucls_chitiet));
             Janus.Windows.GridEX.GridEXLayout grdMauKQ_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdDanhsachCamChidinhChungphieu_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_dichvucls_chitiet));
             this.grpControl = new System.Windows.Forms.GroupBox();
             this.uiTab1 = new Janus.Windows.UI.Tab.UITab();
             this.uiTabPage3 = new Janus.Windows.UI.Tab.UITabPage();
@@ -103,6 +103,8 @@ namespace VNS.HIS.UI.DANHMUC
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkThemmoilientuc = new Janus.Windows.EditControls.UICheckBox();
+            this.txtNhominphoiBHYT = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
+            this.label23 = new System.Windows.Forms.Label();
             this.grpControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiTab1)).BeginInit();
             this.uiTab1.SuspendLayout();
@@ -116,6 +118,7 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             // grpControl
             // 
+            this.grpControl.Controls.Add(this.txtNhominphoiBHYT);
             this.grpControl.Controls.Add(this.uiTab1);
             this.grpControl.Controls.Add(this.txtServiceDetailName);
             this.grpControl.Controls.Add(this.lblServiceDetail);
@@ -172,6 +175,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.grpControl.Controls.Add(this.label2);
             this.grpControl.Controls.Add(this.label5);
             this.grpControl.Controls.Add(this.label8);
+            this.grpControl.Controls.Add(this.label23);
             this.grpControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.grpControl.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpControl.Location = new System.Drawing.Point(0, 0);
@@ -936,7 +940,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.cbonhombaocao.FormattingEnabled = true;
             this.cbonhombaocao.Location = new System.Drawing.Point(131, 237);
             this.cbonhombaocao.Name = "cbonhombaocao";
-            this.cbonhombaocao.Size = new System.Drawing.Size(588, 24);
+            this.cbonhombaocao.Size = new System.Drawing.Size(211, 24);
             this.cbonhombaocao.TabIndex = 12;
             // 
             // label4
@@ -1092,6 +1096,56 @@ namespace VNS.HIS.UI.DANHMUC
             this.toolTip1.SetToolTip(this.chkThemmoilientuc, "Chọn mục này nếu muốn đánh dấu chi tiết CLS này luôn coi là tự túc đối với đối tư" +
         "ợng BHYT cho dù có được áp quan hệ giá hay không!");
             // 
+            // txtNhominphoiBHYT
+            // 
+            this.txtNhominphoiBHYT._backcolor = System.Drawing.SystemColors.Control;
+            this.txtNhominphoiBHYT._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNhominphoiBHYT._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtNhominphoiBHYT.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNhominphoiBHYT.AutoCompleteList")));
+            this.txtNhominphoiBHYT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNhominphoiBHYT.CaseSensitive = false;
+            this.txtNhominphoiBHYT.CompareNoID = true;
+            this.txtNhominphoiBHYT.DefaultCode = "-1";
+            this.txtNhominphoiBHYT.DefaultID = "-1";
+            this.txtNhominphoiBHYT.Drug_ID = null;
+            this.txtNhominphoiBHYT.ExtraWidth = 0;
+            this.txtNhominphoiBHYT.FillValueAfterSelect = false;
+            this.txtNhominphoiBHYT.Font = new System.Drawing.Font("Arial", 9F);
+            this.txtNhominphoiBHYT.LOAI_DANHMUC = "NHOMINPHOIBHYT";
+            this.txtNhominphoiBHYT.Location = new System.Drawing.Point(454, 236);
+            this.txtNhominphoiBHYT.MaxHeight = -1;
+            this.txtNhominphoiBHYT.MinTypedCharacters = 2;
+            this.txtNhominphoiBHYT.MyCode = "-1";
+            this.txtNhominphoiBHYT.MyID = "-1";
+            this.txtNhominphoiBHYT.Name = "txtNhominphoiBHYT";
+            this.txtNhominphoiBHYT.RaiseEvent = false;
+            this.txtNhominphoiBHYT.RaiseEventEnter = false;
+            this.txtNhominphoiBHYT.RaiseEventEnterWhenEmpty = false;
+            this.txtNhominphoiBHYT.SelectedIndex = -1;
+            this.txtNhominphoiBHYT.Size = new System.Drawing.Size(265, 21);
+            this.txtNhominphoiBHYT.splitChar = '@';
+            this.txtNhominphoiBHYT.splitCharIDAndCode = '#';
+            this.txtNhominphoiBHYT.TabIndex = 12;
+            this.txtNhominphoiBHYT.TakeCode = false;
+            this.txtNhominphoiBHYT.txtMyCode = null;
+            this.txtNhominphoiBHYT.txtMyCode_Edit = null;
+            this.txtNhominphoiBHYT.txtMyID = null;
+            this.txtNhominphoiBHYT.txtMyID_Edit = null;
+            this.txtNhominphoiBHYT.txtMyName = null;
+            this.txtNhominphoiBHYT.txtMyName_Edit = null;
+            this.txtNhominphoiBHYT.txtNext = null;
+            // 
+            // label23
+            // 
+            this.label23.Font = new System.Drawing.Font("Arial", 9F);
+            this.label23.ForeColor = System.Drawing.Color.Red;
+            this.label23.Location = new System.Drawing.Point(352, 234);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(96, 23);
+            this.label23.TabIndex = 1651;
+            this.label23.Text = "Nhóm in phơi";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // frm_themmoi_dichvucls_chitiet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1201,5 +1255,7 @@ namespace VNS.HIS.UI.DANHMUC
         private System.Windows.Forms.ContextMenuStrip ctxMauKQ;
         private System.Windows.Forms.ToolStripMenuItem mnuMacdinh;
         private UCs.AutoCompleteTextbox_Danhmucchung txtMauKQ;
+        private UCs.AutoCompleteTextbox_Danhmucchung txtNhominphoiBHYT;
+        private System.Windows.Forms.Label label23;
     }
 }

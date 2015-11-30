@@ -53,8 +53,20 @@ namespace VNS.HIS.UI.DANHMUC
             txtMauKQ._OnEnterMe += txtMauKQ__OnEnterMe;
             txtMauKQ._OnShowData += txtMauKQ__OnShowData;
             mnuMacdinh.Click += mnuMacdinh_Click;
+            txtNhominphoiBHYT._OnShowData+=txtNhominphoiBHYT__OnShowData;
         }
-
+        void txtNhominphoiBHYT__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtNhominphoiBHYT.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtNhominphoiBHYT.myCode;
+                txtNhominphoiBHYT.Init();
+                txtNhominphoiBHYT.SetCode(oldCode);
+                txtNhominphoiBHYT.Focus();
+            }
+        }
         void mnuMacdinh_Click(object sender, EventArgs e)
         {
             if (!Utility.isValidGrid(grdMauKQ)) return;
@@ -172,6 +184,12 @@ namespace VNS.HIS.UI.DANHMUC
         private void frmServiceDetail_Load(object sender, EventArgs e)
         {
             BindService();
+            DataTable dtnhominphoi = new Select().From(DmucChung.Schema)
+               .Where(DmucChung.Columns.Loai).IsEqualTo(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_STT_INPHOI", "STT_INPHOIBHYT", true))
+               .And(DmucChung.Columns.MotaThem).IsEqualTo("2")
+               .ExecuteDataSet().Tables[0];
+            txtNhominphoiBHYT.Init(dtnhominphoi, new List<string>() { DmucChung.Columns.Ma, DmucChung.Columns.Ma, DmucChung.Columns.Ten });
+
             txtDonvitinh.Init();
             txtMauKQ.Init();
             txtPhuongphapthu.Init();
@@ -194,7 +212,6 @@ namespace VNS.HIS.UI.DANHMUC
                     arrDr[0]["mac_dinh"] = 1;
                 dtMauQK.AcceptChanges();
             }
-            
             txtMauKQ.Init(dtMauQK, new List<string>() { DmucChung.Columns.Ma, DmucChung.Columns.Ma, DmucChung.Columns.Ten });
             Utility.SetDataSourceForDataGridEx_Basic(grdMauKQ, dtMauQK, true, true, "1=1", "mac_dinh desc," + DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten);
             m_blnLoaded = true;
@@ -348,6 +365,7 @@ namespace VNS.HIS.UI.DANHMUC
                 txtDichvuCha.SetId(Utility.sDbnull(objDichVuChitiet.IdCha, "-1"));
                 txtsoluongchitieu.Text = Utility.sDbnull(objDichVuChitiet.SoluongChitieu, "0");
                 txtPhuongphapthu.SetCode(objDichVuChitiet.MaPhuongphapthu);
+                txtNhominphoiBHYT.SetCode(objDichVuChitiet.NhomInphoiBHYT);
                 txtKihieuDat.Text = objDichVuChitiet.KihieuDinhtinhDat;
                 if (Utility.Int32Dbnull(objDichVuChitiet.IdKhoaThuchien, -1) > 0)
                 {
@@ -600,6 +618,7 @@ namespace VNS.HIS.UI.DANHMUC
                 objDichVuChitiet.IdPhongThuchien = Utility.Int16Dbnull(cboDepartment.SelectedValue, -1);
                 objDichVuChitiet.KihieuDinhtinhDat = Utility.sDbnull(txtKihieuDat.Text);
                 objDichVuChitiet.MaPhuongphapthu = txtPhuongphapthu.myCode;
+                objDichVuChitiet.NhomInphoiBHYT = txtNhominphoiBHYT.myCode;
                 objDichVuChitiet.SoluongChitieu = (int)Utility.DecimaltoDbnull(txtsoluongchitieu.Text, 0);
                 objDichVuChitiet.IsNew = true;
                 dmucDichvuCLS_busrule.Insert(objDichVuChitiet, GetQheCamchidinhChungphieuCollection(), GetQheDichvuMauKQ());
@@ -674,7 +693,7 @@ namespace VNS.HIS.UI.DANHMUC
             dr[DmucDichvuclsChitiet.Columns.BinhthuongNu] = Utility.DoTrim(txtBTNu.Text);
             dr[DmucDichvucl.Columns.IdKhoaThuchien] = Utility.Int16Dbnull(cboDepartment.SelectedValue, -1);
             dr[DmucDichvucl.Columns.IdPhongThuchien] = Utility.Int16Dbnull(cboPhongthuchien.SelectedValue, -1);
-
+            dr[DmucDichvuclsChitiet.Columns.NhomInphoiBHYT] = txtNhominphoiBHYT.myCode;
             dr[DmucDichvuclsChitiet.Columns.KihieuDinhtinhDat] = Utility.sDbnull(txtKihieuDat.Text);
             dr[DmucDichvuclsChitiet.Columns.MaPhuongphapthu] = txtPhuongphapthu.myCode;
             dr[DmucDichvuclsChitiet.Columns.SoluongChitieu] = (int)Utility.DecimaltoDbnull(txtsoluongchitieu.Text, 0);
@@ -748,6 +767,7 @@ namespace VNS.HIS.UI.DANHMUC
                 objDichVuChitiet.IdPhongThuchien = Utility.Int16Dbnull(cboDepartment.SelectedValue, -1);
                 objDichVuChitiet.KihieuDinhtinhDat = Utility.sDbnull(txtKihieuDat.Text);
                 objDichVuChitiet.MaPhuongphapthu = txtPhuongphapthu.myCode;
+                objDichVuChitiet.NhomInphoiBHYT = txtNhominphoiBHYT.myCode;
                 objDichVuChitiet.SoluongChitieu = (int)Utility.DecimaltoDbnull(txtsoluongchitieu.Text, 0);
                 objDichVuChitiet.IsNew = false;
                 objDichVuChitiet.MarkOld();
@@ -805,6 +825,7 @@ namespace VNS.HIS.UI.DANHMUC
                         dr[DmucDichvuclsChitiet.Columns.IdPhongThuchien] = Utility.Int16Dbnull(cboPhongthuchien.SelectedValue, -1);
                         dr[DmucDichvuclsChitiet.Columns.KihieuDinhtinhDat] = Utility.sDbnull(txtKihieuDat.Text);
                         dr[DmucDichvuclsChitiet.Columns.MaPhuongphapthu] = txtPhuongphapthu.myCode;
+                        dr[DmucDichvuclsChitiet.Columns.NhomInphoiBHYT] = txtNhominphoiBHYT.myCode;
                         dr[DmucDichvuclsChitiet.Columns.SoluongChitieu] = (int)Utility.DecimaltoDbnull(txtsoluongchitieu.Text, 0);
 
                         dr[VDmucDichvucl.Columns.MaDichvu] = txtLoaiDichvu.MyCode;

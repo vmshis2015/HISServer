@@ -5,6 +5,7 @@ using VNS.HIS.DAL;
 using SubSonic;
 using VNS.Libs;
 using Janus.Windows.GridEX;
+using System.Collections.Generic;
 namespace VNS.HIS.UI.DANHMUC
 {
     public partial class frm_themmoi_dichvucls : Form
@@ -17,6 +18,7 @@ namespace VNS.HIS.UI.DANHMUC
         public action em_Action = action.Insert;
         bool m_blnLoaded = false;
         #endregion
+
         public frm_themmoi_dichvucls()
         {
             InitializeComponent();
@@ -28,8 +30,22 @@ namespace VNS.HIS.UI.DANHMUC
             cboDepartment.SelectedIndexChanged += new EventHandler(cboDepartment_SelectedIndexChanged);
             txtDonvitinh._OnShowData += txtDonvitinh__OnShowData;
             txtQuychuan._OnShowData += txtQuychuan__OnShowData;
+            txtNhominphoiBHYT._OnShowData += txtNhominphoiBHYT__OnShowData;
             chkKiemnghiem.CheckedChanged += chkKiemnghiem_CheckedChanged;
             txtServiceCode.LostFocus += txtServiceCode_LostFocus;
+        }
+
+        void txtNhominphoiBHYT__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtNhominphoiBHYT.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtNhominphoiBHYT.myCode;
+                txtNhominphoiBHYT.Init();
+                txtNhominphoiBHYT.SetCode(oldCode);
+                txtNhominphoiBHYT.Focus();
+            } 
         }
 
         void txtServiceCode_LostFocus(object sender, EventArgs e)
@@ -99,6 +115,13 @@ namespace VNS.HIS.UI.DANHMUC
         private DataTable m_dtNhomDichVu,m_dtKhoaChucNang=new DataTable();
         void InitData()
         {
+
+
+            DataTable dtnhominphoi = new Select().From(DmucChung.Schema)
+                .Where(DmucChung.Columns.Loai).IsEqualTo(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_STT_INPHOI", "STT_INPHOIBHYT", true))
+                .And(DmucChung.Columns.MotaThem).IsEqualTo("2")
+                .ExecuteDataSet().Tables[0];
+            txtNhominphoiBHYT.Init(dtnhominphoi, new List<string>() { DmucChung.Columns.Ma, DmucChung.Columns.Ma, DmucChung.Columns.Ten });
             txtQuychuan.Init();
             txtDonvitinh.Init();
             m_dtLoaiDichvuCLS = THU_VIEN_CHUNG.LayDulieuDanhmucChung("LOAIDICHVUCLS", true);
@@ -344,6 +367,7 @@ namespace VNS.HIS.UI.DANHMUC
                 }
                 txtDonvitinh.SetCode(objDichVu.MaDonvichitieu);
                 txtQuychuan.SetCode(objDichVu.MaQuychuanSosanh);
+                txtNhominphoiBHYT.SetCode(objDichVu.NhomInphoiBHYT);
                 txtSongaytraKQ.Text =Utility.sDbnull( objDichVu.SongayTraketqua,0);
                 txtThetichtoithieu.Text = Utility.sDbnull(objDichVu.ThetichToithieu, 0);
                 chkTinhthetichtheochitieu.Checked = Utility.Byte2Bool(objDichVu.TinhthetichTheochitieu);
@@ -373,6 +397,7 @@ namespace VNS.HIS.UI.DANHMUC
                 DmucDichvucl objDichVu = new DmucDichvucl();
                 objDichVu.MotaThem = txtDesc.Text;
                 objDichVu.MaDonvichitieu = txtDonvitinh.myCode;
+                objDichVu.NhomInphoiBHYT = txtNhominphoiBHYT.myCode;
                 objDichVu.MaQuychuanSosanh = txtQuychuan.myCode;
                 objDichVu.SongayTraketqua = (byte) Utility.DecimaltoDbnull(txtSongaytraKQ.Text, 0);
                 objDichVu.ThetichToithieu = (int) Utility.DecimaltoDbnull(txtThetichtoithieu.Text, 0);
@@ -438,7 +463,7 @@ namespace VNS.HIS.UI.DANHMUC
             dr[VDmucDichvucl.Columns.TenNhominphieucls] = Utility.sDbnull(cbonhombaocao.Text, "");
             dr[DmucDichvucl.Columns.NhomInCls] = Utility.sDbnull(cboNhomin.SelectedValue, "ALL");// getNhominCLS(cboNhomin.SelectedIndex);
             dr[DmucDichvucl.Columns.DonGia] = nmrDongia.Value;
-
+            dr[DmucDichvucl.Columns.NhomInphoiBHYT] = txtNhominphoiBHYT.myCode;
              dr[DmucDichvucl.Columns.MaDonvichitieu]  = txtDonvitinh.myCode;
              dr[DmucDichvucl.Columns.MaQuychuanSosanh]  = txtQuychuan.myCode;
              dr[DmucDichvucl.Columns.SongayTraketqua] = (byte)Utility.DecimaltoDbnull(txtSongaytraKQ.Text, 0);
@@ -534,6 +559,7 @@ namespace VNS.HIS.UI.DANHMUC
                 .Set(DmucDichvucl.Columns.NhomBaocao).EqualTo(Utility.sDbnull(cbonhombaocao.SelectedValue,"-1"))
                 .Set(DmucDichvucl.Columns.MaDonvichitieu).EqualTo(txtDonvitinh.myCode)
                 .Set(DmucDichvucl.Columns.MaQuychuanSosanh).EqualTo(txtQuychuan.myCode)
+                .Set(DmucDichvucl.Columns.NhomInphoiBHYT).EqualTo(txtNhominphoiBHYT.myCode)
                 .Set(DmucDichvucl.Columns.SongayTraketqua).EqualTo((byte)Utility.DecimaltoDbnull(txtSongaytraKQ.Text, 0))
                 .Set(DmucDichvucl.Columns.ThetichToithieu).EqualTo((int)Utility.DecimaltoDbnull(txtThetichtoithieu.Text, 0))
                 .Set(DmucDichvucl.Columns.TinhthetichTheochitieu).EqualTo(Utility.Bool2byte( chkTinhthetichtheochitieu.Checked))
@@ -584,6 +610,7 @@ namespace VNS.HIS.UI.DANHMUC
                         arrDr[0][VDmucDichvucl.Columns.TenPhongThuchien] = Utility.sDbnull(cboPhongthuchien.Text);
                     else
                         arrDr[0][VDmucDichvucl.Columns.TenPhongThuchien] = "";
+                    arrDr[0][DmucDichvucl.Columns.NhomInphoiBHYT] = txtNhominphoiBHYT.myCode;
                     arrDr[0][DmucDichvucl.Columns.MaDonvichitieu] = txtDonvitinh.myCode;
                     arrDr[0][DmucDichvucl.Columns.MaQuychuanSosanh] = txtQuychuan.myCode;
                     arrDr[0][DmucDichvucl.Columns.SongayTraketqua] = (byte)Utility.DecimaltoDbnull(txtSongaytraKQ.Text, 0);
