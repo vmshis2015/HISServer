@@ -6504,7 +6504,6 @@ namespace VNS.Libs
                 int Width =Utility.Int32Dbnull( Laygiatrithamsohethong("BARCODE_WIDTH","600",false),600);
                 int Height =Utility.Int32Dbnull( Laygiatrithamsohethong("BARCODE_HEIGHT","200",false),200);
                 bool BARCODE_MEMORY = Laygiatrithamsohethong("BARCODE_MEMORY", "0", false) == "1";
-
                 if (!dt.Columns.Contains("BarCode")) dt.Columns.Add("BarCode", typeof(byte[]));
                 byte[] bytBarcode = BarcodeLibs.BarcodeCreator.CreateBarcode(BarcodeSymbology.Code128,  _value, resolution, Width, Height, true,BARCODE_MEMORY, ref ErrMsg);
                 if (bytBarcode == null)
@@ -6517,8 +6516,9 @@ namespace VNS.Libs
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                Utility.CatchException(ex);
             }
         }
         public static void CreateBarcodeDataMarby(ref DataTable dt, string _value)
