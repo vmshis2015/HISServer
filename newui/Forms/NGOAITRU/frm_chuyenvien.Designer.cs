@@ -966,7 +966,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(135, 23);
             this.label12.TabIndex = 6;
-            this.label12.Text = "Dấu hiệu CLS";
+            this.label12.Text = "Dấu hiệu lâm sàng";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label11

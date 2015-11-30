@@ -119,9 +119,11 @@
             this.txtChanDoan = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.txtNhanxet = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.cmdConfirm = new Janus.Windows.EditControls.UIButton();
+            this.txtMaBenhAn = new Janus.Windows.GridEX.EditControls.EditBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.uiGroupBox2 = new Janus.Windows.EditControls.UIGroupBox();
             this.pnlPatientInfor = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.txtSoBHYT = new Janus.Windows.GridEX.EditControls.EditBox();
@@ -1117,6 +1119,21 @@
             this.toolTip1.SetToolTip(this.cmdConfirm, "Xác nhận kết quả sau khi lưu thông tin(Ctrl+A)");
             this.cmdConfirm.Click += new System.EventHandler(this.cmdConfirm_Click);
             // 
+            // txtMaBenhAn
+            // 
+            this.txtMaBenhAn.BackColor = System.Drawing.Color.White;
+            this.txtMaBenhAn.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaBenhAn.Location = new System.Drawing.Point(311, 14);
+            this.txtMaBenhAn.MaxLength = 8;
+            this.txtMaBenhAn.Name = "txtMaBenhAn";
+            this.txtMaBenhAn.ReadOnly = true;
+            this.txtMaBenhAn.Size = new System.Drawing.Size(87, 21);
+            this.txtMaBenhAn.TabIndex = 462;
+            this.txtMaBenhAn.Text = "20004";
+            this.txtMaBenhAn.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center;
+            this.toolTip1.SetToolTip(this.txtMaBenhAn, "Bạn có thể gõ mã lần khám của Bệnh nhân để tìm kiếm nhanh(Phím tắt F6)");
+            this.txtMaBenhAn.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007;
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.uiGroupBox2);
@@ -1142,6 +1159,8 @@
             // 
             // pnlPatientInfor
             // 
+            this.pnlPatientInfor.Controls.Add(this.txtMaBenhAn);
+            this.pnlPatientInfor.Controls.Add(this.label11);
             this.pnlPatientInfor.Controls.Add(this.lblSOkham);
             this.pnlPatientInfor.Controls.Add(this.label41);
             this.pnlPatientInfor.Controls.Add(this.label40);
@@ -1172,6 +1191,16 @@
             this.pnlPatientInfor.Name = "pnlPatientInfor";
             this.pnlPatientInfor.Size = new System.Drawing.Size(402, 217);
             this.pnlPatientInfor.TabIndex = 7;
+            // 
+            // label11
+            // 
+            this.label11.Font = new System.Drawing.Font("Arial", 9F);
+            this.label11.Location = new System.Drawing.Point(246, 14);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(64, 21);
+            this.label11.TabIndex = 461;
+            this.label11.Text = "Số BA: ";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label40
             // 
@@ -1395,7 +1424,7 @@
             this.txtTuoi.Location = new System.Drawing.Point(346, 67);
             this.txtTuoi.Name = "txtTuoi";
             this.txtTuoi.ReadOnly = true;
-            this.txtTuoi.Size = new System.Drawing.Size(50, 21);
+            this.txtTuoi.Size = new System.Drawing.Size(53, 21);
             this.txtTuoi.TabIndex = 13;
             this.txtTuoi.TabStop = false;
             this.txtTuoi.Text = "47 tuổi";
@@ -2025,7 +2054,6 @@
             // 
             this.pnlother.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlother.Controls.Add(this.txtNhanxet);
             this.pnlother.Controls.Add(this.label7);
             this.pnlother.Controls.Add(this.cmdLuuChandoan);
             this.pnlother.Controls.Add(this.txtTrieuChungBD);
@@ -2049,6 +2077,7 @@
             this.pnlother.Controls.Add(this.label10);
             this.pnlother.Controls.Add(this.label31);
             this.pnlother.Controls.Add(this.label46);
+            this.pnlother.Controls.Add(this.txtNhanxet);
             this.pnlother.Location = new System.Drawing.Point(5, 24);
             this.pnlother.Name = "pnlother";
             this.pnlother.Size = new System.Drawing.Size(703, 162);
@@ -3406,5 +3435,7 @@
         private UCs.AutoCompleteTextbox_Danhmucchung txtMauKQ;
         private System.Windows.Forms.Label label8;
         private Janus.Windows.EditControls.UIButton cmdConfirm;
+        private Janus.Windows.GridEX.EditControls.EditBox txtMaBenhAn;
+        private System.Windows.Forms.Label label11;
     }
 }

@@ -1108,6 +1108,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (!m_dtDanhsachbenhnhanthamkham.Columns.Contains("MAUSAC"))
                     m_dtDanhsachbenhnhanthamkham.Columns.Add("MAUSAC", typeof (int));
 
+
                 Utility.SetDataSourceForDataGridEx_Basic(grdList, m_dtDanhsachbenhnhanthamkham, true, true, "",
                                                          KcbDangkyKcb.Columns.SttKham); //"locked=0", "");
 
@@ -1263,15 +1264,15 @@ namespace VNS.HIS.UI.NGOAITRU
         private void HienThiChuyenCan()
         {
             int id_chidinh = Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), -1);
-            if (m_dtAssignDetail.Select("trangthai_chitiet >1 and id_chidinh = '"+id_chidinh+"'").Length > 0)
+            if (m_dtAssignDetail.Select("trangthai_chitiet >2 and id_chidinh = '"+id_chidinh+"'").Length > 0)
             {
                 cmdConfirm.Enabled = false;
                 cmdConfirm.Text = "Đã được thực hiện";
                 cmdConfirm.Tag = 3;
             }
-            if (m_dtAssignDetail.Select("trangthai_chuyencls=1 and id_chidinh = '" + id_chidinh + "'").Length > 0)
+            if (m_dtAssignDetail.Select("trangthai_chuyencls in(1,2) and id_chidinh = '" + id_chidinh + "'").Length > 0)
             {
-                cmdConfirm.Enabled = true;
+                cmdConfirm.Enabled = Utility.Coquyen("coquyenhuyketnoihislis");
                 cmdConfirm.Text = "Hủy chuyển CLS";
                 cmdConfirm.Tag = 2;
             }
@@ -1293,6 +1294,7 @@ namespace VNS.HIS.UI.NGOAITRU
             m_dtVTTH = ds.Tables[2];
             Utility.SetDataSourceForDataGridEx(grdAssignDetail, m_dtAssignDetail, false, true, "",
                                                "stt_hthi_dichvu,stt_hthi_chitiet,ten_chitietdichvu");
+            grdAssignDetail.MoveFirst();
             HienThiChuyenCan();
             m_dtDonthuocChitiet_View = m_dtPresDetail.Clone();
             foreach (DataRow dr in m_dtPresDetail.Rows)
@@ -1860,6 +1862,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                 txtObjectType_Name.Text = Utility.sDbnull(dr[DmucDoituongkcb.Columns.TenDoituongKcb], "");
                                 txtSoBHYT.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.MatheBhyt], "");
                                 txtBHTT.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.PtramBhyt], "0");
+                                txtMaBenhAn.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.SoBenhAn], "");
                                 //txtNgheNghiep.Text = Utility.sDbnull(dr[KcbDanhsachBenhnhan.Columns.NgheNghiep], "");
                                 txtHanTheBHYT.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.NgayketthucBhyt], "");
                                 dtpNgayhethanBHYT.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.NgayketthucBhyt],
@@ -3168,6 +3171,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 Utility.SetParameterValue(crpt, "NGAY_KEDON", NGAY_KEDON);
                 Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
                 objForm.crptViewer.ReportSource = crpt;
+                crpt.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
+               
                 //In ngay
                 if (cboPrintPreviewTomtatdieutringoaitru.SelectedValue.ToString() == "1")
                     objForm.addTrinhKy_OnFormLoad();
@@ -3180,7 +3185,10 @@ namespace VNS.HIS.UI.NGOAITRU
                 else
                 {
                     crpt.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
-                    crpt.PrintToPrinter(2, false, 0, 0);
+                    int soluongin = 1;
+                    string UserPrintNumberFile = Application.StartupPath + @"\UserPrintNumber\" + globalVariables.UserName + "_" + objForm.mv_sReportFileName + ".txt";
+                    soluongin = File.Exists(UserPrintNumberFile) ? Utility.Int32Dbnull(File.ReadAllText(UserPrintNumberFile)) : 1;
+                    crpt.PrintToPrinter(soluongin, false, 0, 0);
                 }
 
                 List<int> lstKho =
@@ -4022,6 +4030,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 int v_AssignId = Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh),-1);
                 string service_Code = "";
                 string v_AssignCode = Utility.sDbnull(grdAssignDetail.GetValue(KcbChidinhcl.Columns.MaChidinh), -1);
+                List<string> nhomcls = new List<string>();
+                foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdAssignDetail.GetDataRows())
+                {
+                    if (!nhomcls.Contains(Utility.sDbnull(gridExRow.Cells["nhom_in_cls"].Value))) 
+                        nhomcls.Add(Utility.sDbnull(gridExRow.Cells["nhom_in_cls"].Value));
+                }
                 string nhomincls = "ALL";
                 if (cboServicePrint.SelectedIndex > 0)
                 {
@@ -4032,12 +4046,20 @@ namespace VNS.HIS.UI.NGOAITRU
                             service_Code = "";
                             break;
                     }
-                       
-                           
                 }
-                KCB_INPHIEU.InphieuChidinhCLS((int) objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, v_AssignId,
-                                              v_AssignCode, nhomincls, cboServicePrint.SelectedIndex, chkIntach.Checked,
-                                              ref mayin);
+                if (THU_VIEN_CHUNG.Laygiatrithamsohethong("THAMKHAM_INTACHTOANBO_CLS", "0", true) == "1" && chkIntach.Checked && cboServicePrint.SelectedIndex <= 0)
+                {
+                    KCB_INPHIEU.InTachToanBoPhieuCLS((int)objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, v_AssignId,
+                                             v_AssignCode, nhomcls, cboServicePrint.SelectedIndex, chkIntach.Checked,
+                                             ref mayin);
+                }
+                else
+                {
+                    KCB_INPHIEU.InphieuChidinhCLS((int)objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, v_AssignId,
+                                             v_AssignCode, nhomincls, cboServicePrint.SelectedIndex, chkIntach.Checked,
+                                             ref mayin);
+                }
+               
                 if (mayin != "") cboLaserPrinters.Text = mayin;
             }
             catch (Exception ex)
@@ -4930,6 +4952,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 return false;
             }
             KcbLuotkham _item = Utility.getKcbLuotkham(Utility.Int64Dbnull(txtPatient_ID.Text, 0), m_strMaLuotkham);
+            
             if (_item == null)
             {
                 Utility.ShowMsg("Bạn phải chọn Bệnh nhân hoặc bệnh nhân không tồn tại!", "Thông báo",
@@ -4999,6 +5022,15 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (!IsValidData())
                 {
                     return;
+                }
+                TimeSpan songaychothuoc = Convert.ToDateTime(objLuotkham.NgayketthucBhyt).Subtract(globalVariables.SysDate);
+                int songay =  Utility.Int32Dbnull(songaychothuoc.TotalDays);
+                if(Utility.Int32Dbnull(songay)<=Utility.Int32Dbnull(txtSongaydieutri.Text))
+                {
+                    if(!Utility.AcceptQuestion(string.Format("Số ngày cho thuốc vượt quá hạn thẻ BHYT của bệnh nhân {0}. \n Có đồng ý tiếp tục kết thúc không?",objBenhnhan.TenBenhnhan),"Cảnh Báo",true))
+                    {
+                        return;
+                    }
                 }
                 objkcbdangky.TrangThai = (byte?) (chkDaThucHien.Checked ? 1 : 0);
                 DataRow[] arrDr = m_dtDanhsachbenhnhanthamkham.Select("id_kham=" + txtReg_ID.Text);
@@ -5584,8 +5616,11 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 Utility.WaitNow(this);
+               
+                List<string> lstIdchidinhchitiet = new List<string>();
                 if (objLuotkham != null)
                 {
+                    // cmdConform = 1 thì là chuyển cận
                     if (cmdConfirm.Tag.ToString() == "1")
                     {
                         int id_chidinh =
@@ -5616,50 +5651,142 @@ namespace VNS.HIS.UI.NGOAITRU
                             Utility.SetMsg(lblMsg,
                                            string.Format("Bạn vừa chuyển CLS thành công {0} dịch vụ", result.ToString()),
                                            false);
+                            if(THU_VIEN_CHUNG.Laygiatrithamsohethong("CHOPHEP_BACSY_CHUYENKETNOI_HISLIS", "0", true)=="1")
+                            {
+                                #region Hàm bác sỹ  thực hiện đẩy kết nối his - lis
+                                DataSet dsData =
+                               SPs.HisLisLaydulieuchuyensangLis(dtInput_Date.Value.ToString("dd/MM/yyyy"),
+                                                                objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham).
+                                   GetDataSet();
+                                DataTable dt2LIS = dsData.Tables[1].Copy();
+                                List<long> lstIchidinh = (from q in grdAssignDetail.GetDataRows()
+                                                          select
+                                                              Utility.Int64Dbnull(
+                                                                  q.Cells[KcbChidinhcl.Columns.IdChidinh].Value, 0)).ToList
+                                    <long>();
+                                List<DataRow> lstData2Send = (from p in dsData.Tables[0].AsEnumerable()
+                                                              where
+                                                                  lstIchidinh.Contains(
+                                                                      Utility.Int64Dbnull(
+                                                                          p[KcbChidinhclsChitiet.Columns.IdChidinh]))
+                                                                  && Utility.Int64Dbnull(p["trang_thai"], 0) == 1
+                                                              select p).ToList<DataRow>();
+                                List<DataRow> lstData2Send_real = (from p in dsData.Tables[1].AsEnumerable()
+                                                                   where lstIchidinh.Contains(Utility.Int64Dbnull(p[KcbChidinhclsChitiet.Columns.IdChidinh]))
+                                                                   && Utility.Int64Dbnull(p["trang_thai"], 0) == 1
+                                                                   select p).ToList<DataRow>();
+                                if (lstData2Send.Any())
+                                {
+                                    dt2LIS = lstData2Send_real.CopyToDataTable();
+                                    lstIdchidinhchitiet = (from p in lstData2Send
+                                                           select
+                                                               Utility.sDbnull(
+                                                                   p[KcbChidinhclsChitiet.Columns.IdChitietchidinh], 0)).
+                                        Distinct().ToList<string>();
+                                    int recoder =
+                                        VMS.HIS.HLC.ASTM.RocheCommunication.WriteOrderMessage(
+                                            THU_VIEN_CHUNG.Laygiatrithamsohethong("ASTM_ORDERS_FOLDER",
+                                                                                  @"\\192.168.1.254\Orders", false), dt2LIS);
+                                    if (recoder == 0) //Thành công
+                                    {
+                                        SPs.HisLisCapnhatdulieuchuyensangLis(
+                                            string.Join(",", lstIdchidinhchitiet.ToArray()), 2, 1).Execute();
+                                        dsData.Tables[0].AsEnumerable()
+                                            .Where(
+                                                c =>
+                                                lstIdchidinhchitiet.Contains(
+                                                    Utility.sDbnull(
+                                                        c.Field<long>(KcbChidinhclsChitiet.Columns.IdChitietchidinh))))
+                                            .ToList<DataRow>()
+                                            .ForEach(c1 =>
+                                            {
+                                                c1["trang_thai"] = 2;
+                                                //   c1["ten_trangthai"] = "Đang thực hiện";
+                                            });
+                                        dsData.Tables[1].AsEnumerable()
+                                            .Where(
+                                                c =>
+                                                lstIdchidinhchitiet.Contains(
+                                                    Utility.sDbnull(
+                                                        c.Field<long>(KcbChidinhclsChitiet.Columns.IdChitietchidinh))))
+                                            .ToList<DataRow>()
+                                            .ForEach(c1 =>
+                                            {
+                                                c1["trang_thai"] = 2;
+                                                // c1["ten_trangthai"] = "Đang thực hiện";
+                                            });
+                                        dsData.AcceptChanges();
+                                        Utility.SetMsg(lblMsg,
+                                                       string.Format(
+                                                           "Các dữ liệu dịch vụ cận lâm sàng của Bệnh nhân đã được gửi thành công sang LIS"),
+                                                       false);
+                                    }
+                                }
+                                #endregion
+                            }
+                           
                         }
+
                     }
                     else
                     {
-                        int id_chidinh =
-                            Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), -1);
-                        bool hasFound = false;
-                        Utility.WaitNow(this);
-                        SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
-                            .Where(KcbChidinhclsChitiet.Columns.IdChidinh).In(
-                                new Select(KcbChidinhcl.Columns.IdChidinh).From(KcbChidinhcl.Schema).Where(
-                                    KcbChidinhcl.Columns.MaLuotkham)
-                                    .IsEqualTo(txtPatient_Code.Text)
-                                    .And(KcbChidinhcl.Columns.IdBenhnhan)
-                                    .IsEqualTo(Utility.Int32Dbnull(txtPatient_ID.Text)))
-                            .And(KcbChidinhclsChitiet.Columns.TrangThai).IsEqualTo(1)
-                            .And(KcbChidinhclsChitiet.Columns.IdChidinh).IsEqualTo(
-                                Utility.Int32Dbnull(id_chidinh));
-                        hasFound = sqlQuery.GetRecordCount() > 0;
-                        if (sqlQuery.GetRecordCount() <= 0)
+                        if(cmdConfirm.Tag.ToString() == "2")
                         {
-                            Utility.SetMsg(lblMsg, string.Format("Không có chỉ định CLS có thể hủy chuyển"), false);
-                            Utility.DefaultNow(this);
-                            return;
-                        }
-                        DataRow[] arrDr = m_dtAssignDetail.Select("trangthai_chuyencls=1 and id_chidinh = '"+id_chidinh+"'");
-                        foreach (DataRow dr in arrDr)
-                        {
-                            dr["trangthai_chuyencls"] = 0;
-                        }
-                        m_dtAssignDetail.AcceptChanges();
-                        int result = new Update(KcbChidinhclsChitiet.Schema)
-                            .Set(KcbChidinhclsChitiet.Columns.NgaySua).EqualTo(globalVariables.SysDate)
-                            .Set(KcbChidinhclsChitiet.Columns.NguoiSua).EqualTo(globalVariables.UserName)
-                            .Set(KcbChidinhclsChitiet.Columns.TrangThai).EqualTo(0)
-                            .Where(KcbChidinhclsChitiet.Columns.TrangThai).IsEqualTo(1)
-                            .And(KcbChidinhclsChitiet.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
-                            .And(KcbChidinhclsChitiet.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
-                            .And(KcbChidinhclsChitiet.Columns.IdChidinh).IsEqualTo(Utility.Int32Dbnull(id_chidinh))
-                            .Execute();
+                            foreach (GridEXRow row in grdAssignDetail.GetCheckedRows())
+                            {
+                                int id_chidinh =
+                                    Utility.Int32Dbnull(row.Cells[KcbChidinhclsChitiet.Columns.IdChidinh], -1);
+                                bool hasFound = false;
+                                Utility.WaitNow(this);
+                                SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
+                                    .Where(KcbChidinhclsChitiet.Columns.IdChidinh).In(
+                                        new Select(KcbChidinhcl.Columns.IdChidinh).From(KcbChidinhcl.Schema).Where(
+                                            KcbChidinhcl.Columns.MaLuotkham)
+                                            .IsEqualTo(txtPatient_Code.Text)
+                                            .And(KcbChidinhcl.Columns.IdBenhnhan)
+                                            .IsEqualTo(Utility.Int32Dbnull(txtPatient_ID.Text)))
+                                    .And(KcbChidinhclsChitiet.Columns.TrangThai).In(1, 2)
+                                    .And(KcbChidinhclsChitiet.Columns.IdChidinh).IsEqualTo(
+                                        Utility.Int32Dbnull(id_chidinh));
+                                hasFound = sqlQuery.GetRecordCount() > 0;
+                                if (sqlQuery.GetRecordCount() <= 0)
+                                {
+                                    Utility.SetMsg(lblMsg, string.Format("Không có chỉ định CLS có thể hủy chuyển"),
+                                                   false);
+                                    Utility.DefaultNow(this);
+                                    return;
+                                }
+                                DataRow[] arrDr =
+                                    m_dtAssignDetail.Select("trangthai_chuyencls in (1,2) and id_chidinh = '" +
+                                                            id_chidinh + "'");
+                                foreach (DataRow dr in arrDr)
+                                {
+                                    dr["trangthai_chuyencls"] = 0;
+                                }
+                                m_dtAssignDetail.AcceptChanges();
+                                int result = new Update(KcbChidinhclsChitiet.Schema)
+                                    .Set(KcbChidinhclsChitiet.Columns.NgaySua).EqualTo(globalVariables.SysDate)
+                                    .Set(KcbChidinhclsChitiet.Columns.NguoiSua).EqualTo(globalVariables.UserName)
+                                    .Set(KcbChidinhclsChitiet.Columns.TrangThai).EqualTo(0)
+                                    .Where(KcbChidinhclsChitiet.Columns.TrangThai).In(1, 2)
+                                    .And(KcbChidinhclsChitiet.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                                    .And(KcbChidinhclsChitiet.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                                    .And(KcbChidinhclsChitiet.Columns.IdChidinh).IsEqualTo(
+                                        Utility.Int32Dbnull(id_chidinh))
+                                    .Execute();
 
-                        Utility.SetMsg(lblMsg,
-                                       string.Format("Bạn vừa hủy chuyển CLS thành công {0} dịch vụ", result.ToString()),
-                                       false);
+                                Utility.SetMsg(lblMsg,
+                                               string.Format("Bạn vừa hủy chuyển CLS thành công {0} dịch vụ",
+                                                             result.ToString()),
+                                               false);
+                            }
+                          
+                        }
+                        if (cmdConfirm.Tag.ToString() == "3")
+                        {
+
+                        }
+
                     }
                 }
                 ModifyCommmands();

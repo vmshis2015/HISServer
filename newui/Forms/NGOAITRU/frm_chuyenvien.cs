@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using VNS.Libs;
 using Janus.Windows.GridEX.EditControls;
 using VNS.HIS.DAL;
-using VNS.HIS.UI.NGOAITRU;
 using VNS.HIS.BusRule.Classes;
 using SubSonic;
 using VNS.HIS.UI.DANHMUC;
@@ -86,7 +82,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 objForm.mv_sReportCode = "thamkham_phieuchuyenvien";
                 Utility.SetParameterValue(crpt, "StaffName", StaffName);
                 Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
-                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
                 Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
                 Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
                 Utility.SetParameterValue(crpt, "sTitleReport", baocaO_TIEUDE1.TIEUDE);
@@ -103,6 +99,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             finally
             {
                 Utility.DefaultNow(this);
+                 GC.Collect();
             }
         }
         void cmdGetBV_Click(object sender, EventArgs e)
@@ -176,24 +173,24 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 txtdauhieucls.Focus();
                 return;
             }
-            if (Utility.DoTrim(txtketquaCls.Text) == "")
-            {
-                Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin kết quả xét nghiệm, cận lâm sàng", true);
-                txtketquaCls.Focus();
-                return;
-            }
+            //if (Utility.DoTrim(txtketquaCls.Text) == "")
+            //{
+            //    Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin kết quả xét nghiệm, cận lâm sàng", true);
+            //    txtketquaCls.Focus();
+            //    return;
+            //}
             if (Utility.DoTrim(txtChandoan.Text) == "")
             {
                 Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin chẩn đoán", true);
                 txtChandoan.Focus();
                 return;
             }
-            if (Utility.DoTrim(txtThuocsudung.Text) == "")
-            {
-                Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin Phương pháp, thủ thuật, kỹ thuật, thuốc đã sử dụng trong điều trị:", true);
-                txtThuocsudung.Focus();
-                return;
-            }
+            //if (Utility.DoTrim(txtThuocsudung.Text) == "")
+            //{
+            //    Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin Phương pháp, thủ thuật, kỹ thuật, thuốc đã sử dụng trong điều trị:", true);
+            //    txtThuocsudung.Focus();
+            //    return;
+            //}
             if (Utility.DoTrim(txtTrangthainguoibenh.Text) == "")
             {
                 Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin trạng thái người bệnh", true);
@@ -206,18 +203,18 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 txtHuongdieutri.Focus();
                 return;
             }
-            if (Utility.DoTrim(txtphuongtienvc.Text) == "")
-            {
-                Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin phương tiện vận chuyển", true);
-                txtphuongtienvc.Focus();
-                return;
-            }
-            if (Utility.DoTrim(txtNguoivanchuyen.Text) == "")
-            {
-                Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin người vận chuyển", true);
-                txtNguoivanchuyen.Focus();
-                return;
-            }
+            //if (Utility.DoTrim(txtphuongtienvc.Text) == "")
+            //{
+            //    Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin phương tiện vận chuyển", true);
+            //    txtphuongtienvc.Focus();
+            //    return;
+            //}
+            //if (Utility.DoTrim(txtNguoivanchuyen.Text) == "")
+            //{
+            //    Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin người vận chuyển", true);
+            //    txtNguoivanchuyen.Focus();
+            //    return;
+            //}
 
             try
             {
@@ -411,6 +408,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 txtHuongdieutri.Init();
                 txtdauhieucls.Init();
                 dtNgaychuyenvien.Value = DateTime.Now;
+                dtpNgayin.Value = DateTime.Now;
             }
             catch (Exception ex)
             {

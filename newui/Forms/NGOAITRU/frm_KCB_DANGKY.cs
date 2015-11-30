@@ -620,12 +620,14 @@ namespace VNS.HIS.UI.NGOAITRU
             lblTuyenBHYT.Text = chkTraiTuyen.Checked ? "TRÁI TUYẾN" : "ĐÚNG TUYẾN";
             TinhPtramBHYT();
             if (chkTraiTuyen.Checked) chkGiayBHYT.Checked = false;
+            
         }
 
         private void txtMaQuyenloi_BHYT_LostFocus(object sender, EventArgs e)
         {
         }
 
+       
         private void txtNoiDKKCBBD_LostFocus(object sender, EventArgs e)
         {
             //if (lblClinicName.Text.Trim() == "")
@@ -2747,12 +2749,12 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-                if (isExceedData())
-                {
-                    Utility.ShowMsg("Phiên bản Demo chỉ cho phép bạn tiếp đón tối đa 5000 lượt khám. Mời bạn liên hệ để được trợ giúp");
-                    return;
-                }
-                cmdSave.Enabled = false;
+                //if (isExceedData())
+                //{
+                //    Utility.ShowMsg("Phiên bản Demo chỉ cho phép bạn tiếp đón tối đa 5000 lượt khám. Mời bạn liên hệ để được trợ giúp");
+                //    return;
+                //}
+                //cmdSave.Enabled = false;
                 if(m_enAction==action.Update)
                 if (txtKieuKham.Text.Trim() != "" && txtPhongkham.Text.Trim() != "" && cboKieuKham.SelectedIndex == -1)
                     AutoLoadKieuKham();
@@ -2800,6 +2802,12 @@ namespace VNS.HIS.UI.NGOAITRU
         private bool IsValidData()
         {
             Utility.SetMsg(uiStatusBar1.Panels["MSG"], "", false);
+            TimeSpan songaychothuoc = Convert.ToDateTime(dtInsToDate.Value).Subtract(globalVariables.SysDate);
+            int songay = Utility.Int32Dbnull(songaychothuoc.TotalDays);
+            if (Utility.Int32Dbnull(songay) <= Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_SONGAYBATHANTHE","30",true)))
+            {
+                Utility.ShowMsg(string.Format("Hạn thẻ BHYT còn {0} ngày",songay), "Cảnh Báo");
+            }
             if (m_enAction==action.Insert && dtCreateDate.Value.ToString("dd/MM/yyyy") != globalVariables.SysDate.ToString("dd/MM/yyyy"))
             {
                 if (!Utility.AcceptQuestion("Ngày tiếp đón khác ngày hiện tại. Bạn có chắc chắn hay không?","Cảnh báo",true))
