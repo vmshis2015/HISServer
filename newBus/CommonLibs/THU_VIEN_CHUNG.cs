@@ -702,7 +702,7 @@ namespace VNS.Libs
             foreach (DataRow dr in dataTable.Rows)
             {
                 dr["ten_loaithanhtoan"] = dr["stt_in"] + ". " + dr["ten_loaithanhtoan"];
-                if (dr["id_loaithanhtoan"].ToString() == "3")
+                if (dr["id_loaithanhtoan"].ToString() == "3" || Utility.sDbnull(dr["id_loaidichvu"]) == "VTTH")
                     dr["ten_loaidichvu"] = dr["stt_in"] + ".1 Trong danh mục BHYT ";
             }
             dataTable.AcceptChanges();
