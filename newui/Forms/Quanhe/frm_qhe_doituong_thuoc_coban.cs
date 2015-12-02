@@ -475,8 +475,8 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                DataTable m_dtLoaithuoc = new Select().From(DmucLoaithuoc.Schema).
-                    Where(DmucLoaithuoc.Columns.KieuThuocvattu).IsEqualTo(Kieuthuoc_vt)
+                DataTable m_dtLoaithuoc = new Select().From(DmucLoaithuoc.Schema)
+                    //.Where(DmucLoaithuoc.Columns.KieuThuocvattu).IsEqualTo(Kieuthuoc_vt)
                     .ExecuteDataSet().Tables[0];
                 DataTable m_dtLoaithuoc_new = m_dtLoaithuoc.Clone();
                 if (globalVariables.gv_dtQuyenNhanvien_Dmuc.Select(QheNhanvienDanhmuc.Columns.Loai + "= 1").Length <= 0)
@@ -505,7 +505,7 @@ namespace VNS.HIS.UI.THUOC
         {
             m_dataThuoc = new Select().From(VDmucThuoc.Schema)
                  .Where(VDmucThuoc.Columns.IdLoaithuoc).IsEqualTo(Utility.Int32Dbnull(cboloaithuoc.SelectedValue, -1))
-                 .And(VDmucThuoc.Columns.KieuThuocvattu).IsEqualTo(Kieuthuoc_vt)
+                 //.And(VDmucThuoc.Columns.KieuThuocvattu).IsEqualTo(Kieuthuoc_vt)
                  .OrderAsc(VDmucThuoc.Columns.SttHthiLoaithuoc, VDmucThuoc.Columns.TenThuoc)
                  .ExecuteDataSet().Tables[0];
             Utility.SetDataSourceForDataGridEx(grdList, m_dataThuoc, true, true, "1=1", VDmucThuoc.Columns.SttHthiLoaithuoc + "," + DmucThuoc.Columns.TenThuoc);

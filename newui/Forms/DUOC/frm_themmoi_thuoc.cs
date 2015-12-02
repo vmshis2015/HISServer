@@ -925,7 +925,7 @@ namespace VNS.HIS.UI.THUOC
 
             DataTable dtLoaithuoc = null;
             dtLoaithuoc = new Select().From(DmucLoaithuoc.Schema)
- .Where(DmucLoaithuoc.KieuThuocvattuColumn).IsEqualTo(txtKieuthuocVT.myCode)
+ //.Where(DmucLoaithuoc.KieuThuocvattuColumn).IsEqualTo(txtKieuthuocVT.myCode)
  .ExecuteDataSet().Tables[0];
             if (dtLoaithuoc == null) return;
             if (!dtLoaithuoc.Columns.Contains("ShortCut"))
