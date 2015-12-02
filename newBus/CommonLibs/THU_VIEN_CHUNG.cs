@@ -656,14 +656,23 @@ namespace VNS.Libs
             {
                 List<DmucChung> objDmucChung = new List<DmucChung>();
                 if (Utility.sDbnull(dr["id_loaithanhtoan"]) != "2")
+                {
+                    if (Utility.sDbnull(dr["id_loaidichvu"]) == "VTTH")
+                        objDmucChung = (from p in lst
+                                        where p.MotaThem =="VTTH"// Utility.sDbnull(dr["id_loaithanhtoan"])
+                                        select p).ToList<DmucChung>();
+                    else
+                        objDmucChung = (from p in lst
+                                        where p.MotaThem == Utility.sDbnull(dr["id_loaithanhtoan"])
+                                        select p).ToList<DmucChung>();
+                }
+                else//Tách theo nhóm in phơi BHYT
+                {
                     objDmucChung = (from p in lst
                                     where p.MotaThem == Utility.sDbnull(dr["id_loaithanhtoan"])
-                                    select p).ToList<DmucChung>();
-                else//Tách theo nhóm in phơi BHYT
-                    objDmucChung = (from p in lst
-                                   where p.MotaThem == Utility.sDbnull(dr["id_loaithanhtoan"])
-                                   && p.Ma == Utility.sDbnull(dr["nhom_inphoiBHYT"])
-                                   select p).ToList<DmucChung>(); ;
+                                    && p.Ma == Utility.sDbnull(dr["nhom_inphoiBHYT"])
+                                    select p).ToList<DmucChung>(); ;
+                }
                 if (objDmucChung != null && objDmucChung.Any())
                 {
                     dr["stt_in"] = Utility.Int32Dbnull(objDmucChung.FirstOrDefault().SttHthi);
