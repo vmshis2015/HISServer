@@ -821,20 +821,23 @@ namespace VNS.HIS.Classes
                        {
                            int Drug_ID = Utility.Int32Dbnull(drv["id_dichvu"], -1);
                            DmucThuoc objDrug = DmucThuoc.FetchByID(Drug_ID);
+                           DmucLoaithuoc objLoaithuoc = DmucLoaithuoc.FetchByID(objDrug.IdLoaithuoc);
                            if (objDrug != null)
                            {
+                               if (objLoaithuoc != null)
+                                   objDrug.KieuThuocvattu = objLoaithuoc.KieuThuocvattu;
                                //LDrugType objLDrugType = LDrugType.FetchByID(objDrug.DrugTypeId);
                                if (objDrug.KieuThuocvattu == "THUOC")
                                {
-                                   drv["id_loaidichvu"] = 1;
+                                   drv["id_loaidichvu"] = "THUOC";
                                    drv["STT"] = 1;
                                    drv["ten_loaidichvu"] = "3.1 Trong danh mục BHYT";
                                }
                                else
                                {
-                                   drv["id_loaidichvu"] = 2;
+                                   drv["id_loaidichvu"] = "VTTH";
                                    drv["STT"] = 2;
-                                   drv["ten_loaidichvu"] = "Vật tư y tế ";
+                                   drv["ten_loaidichvu"] = "Vật tư tiêu hao";
                                }
                            }
                        }
