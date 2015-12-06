@@ -2876,7 +2876,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 if ((Utility.DoTrim(this.txtDrugID.Text) == "") || (Utility.Int32Dbnull(this.txtDrugID.Text, -1) < 0))
                 {
                     this.m_decPrice = 0M;
-                    this.tu_tuc = 0;
+                    //this.tu_tuc = 0;
                     this.txtDrugID.Text = "";
                     this.txtDrug_Name.Text = "";
                     this.txtBietduoc.Clear();
@@ -2905,7 +2905,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     this.dtExpire_Date.Value = Convert .ToDateTime(rowArray[0]["ngay_hethan"]);
                     txtDonvichiaBut.Text =Utility.sDbnull( rowArray[0][DmucThuoc.Columns.DonviBut],"");
                     this.txtPrice.Text = rowArray[0]["GIA_BAN"].ToString();
-                    this.tu_tuc = Utility.Int32Dbnull(rowArray[0]["tu_tuc"], 0);
+                    //this.tu_tuc = Utility.Int32Dbnull(rowArray[0]["tu_tuc"], 0);
                     this.txtSurcharge.Text = rowArray[0]["PHU_THU"].ToString();
                     this.txtdrugtypeCode.Text = rowArray[0][DmucLoaithuoc.Columns.MaLoaithuoc].ToString();
                     if (this.txtTinhchat.Text == "1")
@@ -2919,7 +2919,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     madoituong_gia = "DV";
                     this.m_decPrice = 0M;
-                    this.tu_tuc = 0;
+                    //this.tu_tuc = 0;
                     this.txtDrugID.Text = "";
                     this.txtDrug_Name.Text = "";
                     this.txtDonViDung.Clear();
