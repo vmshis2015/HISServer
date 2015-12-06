@@ -297,7 +297,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         int _soluong=Utility.Int32Dbnull(thuockho[TThuockho.Columns.SoLuong],0);
                         if (_soluong > 0)
                         {
-                            DataRow[] rowArray = this.m_dtDonthuocChitiet.Select(TThuockho.Columns.IdThuockho + "=" +Utility.sDbnull( thuockho[TThuockho.Columns.IdThuockho]));
+                            DataRow[] rowArray = this.m_dtDonthuocChitiet.Select(TThuockho.Columns.IdThuockho + "=" + Utility.sDbnull(thuockho[TThuockho.Columns.IdThuockho]) + " AND tu_tuc=" + (chkTutuc.Checked ? 1 : this.tu_tuc).ToString());
                             if (rowArray.Length > 0)
                             {
                                 rowArray[0][KcbDonthuocChitiet.Columns.SoLuong] = Utility.Int32Dbnull(rowArray[0][KcbDonthuocChitiet.Columns.SoLuong]) + _soluong;
@@ -462,7 +462,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     int _soluong = Utility.Int32Dbnull(thuockho[TThuockho.Columns.SoLuong], 0);
                     if (_soluong > 0)
                     {
-                        DataRow[] rowArray = this.m_dtDonthuocChitiet.Select(TThuockho.Columns.IdThuockho + "=" + Utility.sDbnull( thuockho[TThuockho.Columns.IdThuockho]));
+                        DataRow[] rowArray = this.m_dtDonthuocChitiet.Select(TThuockho.Columns.IdThuockho + "=" + Utility.sDbnull(thuockho[TThuockho.Columns.IdThuockho]) + " AND tu_tuc=" + (chkTutuc.Checked ? 1 : this.tu_tuc).ToString());
                         if (rowArray.Length > 0)
                         {
                             rowArray[0][KcbDonthuocChitiet.Columns.SoLuong] = Utility.Int32Dbnull(rowArray[0][KcbDonthuocChitiet.Columns.SoLuong]) + _soluong;
@@ -597,7 +597,9 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             DataRow[] rowArray = this.m_dtDonthuocChitiet_View.Select(KcbDonthuocChitiet.Columns.IdThuoc + "=" + Utility.sDbnull(newDr[KcbDonthuocChitiet.Columns.IdThuoc], "-1") +
                 "AND " + KcbDonthuocChitiet.Columns.DonGia + "=" + Utility.sDbnull(newDr[KcbDonthuocChitiet.Columns.DonGia], "-1")
-                + " AND PHU_THU="+ Utility.sDbnull(newDr[KcbDonthuocChitiet.Columns.PhuThu], "-1"));
+                + " AND PHU_THU="+ Utility.sDbnull(newDr[KcbDonthuocChitiet.Columns.PhuThu], "-1")
+                + " AND tu_tuc=" + Utility.sDbnull(newDr[KcbDonthuocChitiet.Columns.TuTuc], "-1")
+                );
             if (rowArray.Length <= 0)
             {
                 this.m_dtDonthuocChitiet_View.ImportRow(newDr);
@@ -1263,7 +1265,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 foreach (DataRow row in this.m_dtDonthuocChitiet.Rows)
                 {
                     row["CHON"] = 0;
-                    DataRow[] rowArray = this.m_dtDonthuocChitiet_View.Select(KcbDonthuocChitiet.Columns.IdThuoc + "=" + Utility.sDbnull(row[KcbDonthuocChitiet.Columns.IdThuoc], "-1") + "AND " + KcbDonthuocChitiet.Columns.DonGia + "=" + Utility.sDbnull(row[KcbDonthuocChitiet.Columns.DonGia], "-1"));
+                    DataRow[] rowArray = this.m_dtDonthuocChitiet_View.Select(KcbDonthuocChitiet.Columns.IdThuoc + "=" + Utility.sDbnull(row[KcbDonthuocChitiet.Columns.IdThuoc], "-1") + " AND " + KcbDonthuocChitiet.Columns.DonGia + "=" + Utility.sDbnull(row[KcbDonthuocChitiet.Columns.DonGia], "-1") + " AND " + KcbDonthuocChitiet.Columns.TuTuc + "=" + Utility.sDbnull(row[KcbDonthuocChitiet.Columns.TuTuc], "-1"));
                     if (rowArray.Length <= 0)
                     {
                         row["TT_KHONG_PHUTHU"] = Utility.Int32Dbnull(row[KcbDonthuocChitiet.Columns.SoLuong]) * Utility.DecimaltoDbnull(row[KcbDonthuocChitiet.Columns.DonGia]);

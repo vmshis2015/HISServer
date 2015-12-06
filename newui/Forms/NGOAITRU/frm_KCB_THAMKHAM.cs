@@ -1304,8 +1304,11 @@ namespace VNS.HIS.UI.NGOAITRU
                     = m_dtDonthuocChitiet_View
                         .Select(KcbDonthuocChitiet.Columns.IdThuoc + "=" +
                                 Utility.sDbnull(dr[KcbDonthuocChitiet.Columns.IdThuoc], "-1")
-                                + "AND " + KcbDonthuocChitiet.Columns.DonGia + "=" +
-                                Utility.sDbnull(dr[KcbDonthuocChitiet.Columns.DonGia], "-1"));
+                                + " AND " + KcbDonthuocChitiet.Columns.DonGia + "=" +
+                                Utility.sDbnull(dr[KcbDonthuocChitiet.Columns.DonGia], "-1")
+                                  + " AND " + KcbDonthuocChitiet.Columns.TuTuc + "=" +
+                                Utility.sDbnull(dr[KcbDonthuocChitiet.Columns.TuTuc], "-1")
+                                );
                 if (drview.Length <= 0)
                 {
                     m_dtDonthuocChitiet_View.ImportRow(dr);
