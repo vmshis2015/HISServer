@@ -2559,12 +2559,17 @@ DisplayName("HIS Application Mode")]
             HienthiKetquaCLSTrongluoiChidinh = false;
             ChieucaoluoidanhsachBenhnhan = 0;
             AntimkiemNangcao = true;
+            Chophepchuyencansaukhiinphieu = false;
             ChophepintachCLSKhacPhieu = false;
         }
         [Browsable(true), ReadOnly(false), Category("Cấu hình tính năng in phiếu CLS - Phiếu chỉ định"),
      Description("Cho phép in tách phiếu cận lâm sàng khác phiếu"),
      DisplayName("Cho phép in tách phiếu cận lâm sàng khác phiếu")]
         public bool ChophepintachCLSKhacPhieu { get; set; }
+        [Browsable(true), ReadOnly(false), Category("Cấu hình tính năng in phiếu CLS - Phiếu chỉ định"),
+  Description("Cho phép chuyển cận sau khi in phiếu chỉ định"),
+  DisplayName("Cho phép chuyển cận sau khi in phiếu chỉ định")]
+        public bool Chophepchuyencansaukhiinphieu { get; set; }
         [Browsable(true), ReadOnly(false), Category("Cấu hình tính năng kê thuốc - vật tư tiêu hao"),
    Description("true=Bác sĩ chỉ tìm kiếm theo mã lượt khám. False=Bác sĩ có thể tìm kiếm BN theo ngày đăng ký, tên, số thứ tự khám..."),
    DisplayName("Ẩn tìm kiếm nâng cao")]
