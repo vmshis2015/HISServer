@@ -23,6 +23,7 @@ namespace VNS.Libs
                     {
                         new Update(KcbDangkyKcb.Schema)
                         .Set(KcbDangkyKcb.Columns.IdPhongkham).EqualTo(objDichvuKcb.IdPhongkham)
+                        .Set(KcbDangkyKcb.Columns.IdBacsikham).EqualTo(-1)
                         .Set(KcbDangkyKcb.Columns.IdDichvuKcb).EqualTo(objDichvuKcb.IdDichvukcb)
                         .Set(KcbDangkyKcb.Columns.IdKieukham).EqualTo(objDichvuKcb.IdKieukham)
                         .Set(KcbDangkyKcb.Columns.TenDichvuKcb).EqualTo(objDichvuKcb.TenDichvukcb)
