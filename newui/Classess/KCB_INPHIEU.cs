@@ -4,6 +4,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Transactions;
 using CrystalDecisions.CrystalReports.Engine;
 using VNS.Libs;
 using SubSonic;
@@ -126,6 +127,10 @@ namespace VNS.HIS.Classes
             {
                 Utility.ShowMsg(ex.ToString());
             }
+            finally
+            {
+                GC.Collect();
+            }
         }
         public static void InPhieuKCB_DV(DataTable m_dtReport, string sTitleReport,string KhoGiay)
         {
@@ -174,6 +179,10 @@ namespace VNS.HIS.Classes
             catch (Exception ex)
             {
                 Utility.ShowMsg(ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
             }
         }
       private string SumOfTotal(DataTable dataTable,string FiledName)
@@ -235,94 +244,116 @@ namespace VNS.HIS.Classes
                 Utility.ShowMsg(ex.ToString());
                
             }
+            finally
+            {
+                GC.Collect();
+            }
         }
-       public static void InTachToanBoPhieuCLS(int id_benhnhan,string ma_luotkham, int v_AssignId, string v_AssignCode, List<string> listnhomincls,int selectedIndex, bool inTach ,ref string mayin)
+       public static ActionResult InTachToanBoPhieuCLS(int id_benhnhan,string ma_luotkham, int v_AssignId, string v_AssignCode, List<string> listnhomincls,int selectedIndex, bool inTach ,ref string mayin)
        {
-           try
-           {
+            ActionResult _ActionResult = ActionResult.Success;
+            using (var Scope = new TransactionScope())
+            {
+                using (var dbScope = new SharedDbConnectionScope())
+                
+                {
+                    try
+                    {
 
-               mayin = "";
-               foreach (string nhomcls in listnhomincls.ToList())
-               {
-                   KcbChidinhcl objAssignInfo = KcbChidinhcl.FetchByID(v_AssignId);
-                   DataTable dt = new KCB_THAMKHAM().KcbThamkhamLaydulieuInphieuCls(id_benhnhan, ma_luotkham, v_AssignCode, nhomcls).Tables[0];
-                   if (dt == null || dt.Rows.Count <= 0)
-                   {
-                       Utility.ShowMsg("Không có dữ liệu in. Mời bạn kiểm tra lại");
-                       return;
-                   }
-                   THU_VIEN_CHUNG.CreateXML(dt, "Thamkham_InTachToanBophieuCLS.XML");
-                   Utility.UpdateLogotoDatatable(ref dt);
-                   string v_machidinh = v_AssignCode;
-                   if (THU_VIEN_CHUNG.Laygiatrithamsohethong("CHIDINH_BODAUCHAM_TRENMAVACH", "0", true) == "1")
-                   {
-                       v_machidinh = v_AssignCode.Replace(".", "");
-                   }
-                   Utility.CreateBarcodeData(ref dt, v_machidinh);
-                 
-                   var crpt = new ReportDocument();
-                   string manhomcls = nhomcls;
-                   DataTable dt_nhomcls = dt.Select("nhom_in_cls = '" + manhomcls.ToString().Trim() + "'").CopyToDataTable();
-                   string tieude = "", reportname = "";
-                   crpt = Utility.GetReport(manhomcls, ref tieude, ref manhomcls);
-                   if (crpt == null) return;
-                   try
-                   {
-                       var objForm = new frmPrintPreview("IN PHIẾU CHỈ ĐỊNH", crpt, true, true);
-                       objForm.mv_sReportFileName = Path.GetFileName(manhomcls);
-                       objForm.mv_sReportCode = manhomcls;
-                       
-                   
-                       crpt.SetDataSource(dt);
-                       //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "    Nhân viên        Bác sĩ chỉ định     ".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
-                       Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
-                       Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
-                       Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
-                       Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
-                       if (!inTach && selectedIndex == 0)
-                       {
-                           foreach (DataRow dr in dt.Rows)
-                               dr[VKcbChidinhcl.Columns.TenNhominphieucls] = THU_VIEN_CHUNG.Laygiatrithamsohethong("TIEUDE_PHIEUCHIDNHCLS_INCHUNG", "PHIẾU CHỈ ĐỊNH", true);
-                       }
-                       else
-                       {
-                           Utility.SetParameterValue(crpt, "TitleReport", tieude);
-                       }
-                       Utility.SetParameterValue(crpt, "CurrentDate", Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem));
-                       objForm.crptViewer.ReportSource = crpt;
-                       if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai, PropertyLib._MayInProperties.PreviewInCLS))
-                       {
-                           objForm.SetDefaultPrinter(PropertyLib._MayInProperties.TenMayInBienlai, 0);
-                           objForm.ShowDialog();
-                           mayin = PropertyLib._MayInProperties.TenMayInBienlai;
-                       }
-                       else
-                       {
+                        mayin = "";
+                        foreach (string nhomcls in listnhomincls.ToList())
+                        {
+                            KcbChidinhcl objAssignInfo = KcbChidinhcl.FetchByID(v_AssignId);
+                            DataTable dt = new KCB_THAMKHAM().KcbThamkhamLaydulieuInphieuCls(id_benhnhan, ma_luotkham, v_AssignCode, nhomcls).Tables[0];
+                            if (dt == null || dt.Rows.Count <= 0)
+                            {
+                                //   Utility.ShowMsg("Không có dữ liệu in. Mời bạn kiểm tra lại");
+                                //return;
+                            }
+                            else
+                            {
+                                THU_VIEN_CHUNG.CreateXML(dt, "Thamkham_InTachToanBophieuCLS.XML");
+                                Utility.UpdateLogotoDatatable(ref dt);
+                                string v_machidinh = v_AssignCode;
+                                if (THU_VIEN_CHUNG.Laygiatrithamsohethong("CHIDINH_BODAUCHAM_TRENMAVACH", "0", true) == "1")
+                                {
+                                    v_machidinh = v_AssignCode.Replace(".", "");
+                                }
+                                Utility.CreateBarcodeData(ref dt, v_machidinh);
 
-                           objForm.addTrinhKy_OnFormLoad();
-                           crpt.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
-                           mayin = PropertyLib._MayInProperties.TenMayInBienlai;
-                           crpt.PrintToPrinter(1, false, 0, 0);
-                       }
-                   }
-                   catch (Exception ex)
-                   {
-                       // Utility.DefaultNow(this);
-                   }
+                                var crpt = new ReportDocument();
+                                string manhomcls = nhomcls;
+                                string tieude = "";
+                                crpt = Utility.GetReport(manhomcls, ref tieude, ref manhomcls);
+                                if (crpt == null) return  ActionResult.Error;
+                                try
+                                {
+                                    var objForm = new frmPrintPreview("IN PHIẾU CHỈ ĐỊNH", crpt, true, true);
+                                    objForm.mv_sReportFileName = Path.GetFileName(manhomcls);
+                                    objForm.mv_sReportCode = manhomcls;
 
-               }
-           }
-           catch (Exception ex)
-           {
-               //Utility.ShowMsg("Lỗi:" + ex.Message);
-           }
-           finally
-           {
-               GC.Collect();
-           }
+
+                                    crpt.SetDataSource(dt);
+                                    //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "    Nhân viên        Bác sĩ chỉ định     ".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
+                                    Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+                                    Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                                    Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+                                    Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
+                                    if (!inTach && selectedIndex == 0)
+                                    {
+                                        foreach (DataRow dr in dt.Rows)
+                                            dr[VKcbChidinhcl.Columns.TenNhominphieucls] = THU_VIEN_CHUNG.Laygiatrithamsohethong("TIEUDE_PHIEUCHIDNHCLS_INCHUNG", "PHIẾU CHỈ ĐỊNH", true);
+                                    }
+                                    else
+                                    {
+                                        Utility.SetParameterValue(crpt, "TitleReport", tieude);
+                                    }
+                                    Utility.SetParameterValue(crpt, "CurrentDate", Utility.FormatDateTimeWithLocation(globalVariables.SysDate, globalVariables.gv_strDiadiem));
+                                    objForm.crptViewer.ReportSource = crpt;
+                                    if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai, PropertyLib._MayInProperties.PreviewInCLS))
+                                    {
+                                        objForm.SetDefaultPrinter(PropertyLib._MayInProperties.TenMayInBienlai, 0);
+                                        objForm.ShowDialog();
+                                        mayin = PropertyLib._MayInProperties.TenMayInBienlai;
+                                    }
+                                    else
+                                    {
+
+                                        objForm.addTrinhKy_OnFormLoad();
+                                        crpt.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
+                                        mayin = PropertyLib._MayInProperties.TenMayInBienlai;
+                                        crpt.PrintToPrinter(1, false, 0, 0);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    // Utility.DefaultNow(this);
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        //Utility.ShowMsg("Lỗi:" + ex.Message);
+                    }
+                    finally
+                    {
+                        GC.Collect();
+                    }
+                }
+                Scope.Complete();
+                return ActionResult.Success;
+            }
+           
        }
-        public static void InphieuChidinhCLS(int id_benhnhan,string ma_luotkham, int v_AssignId, string v_AssignCode,string  nhomincls,int selectedIndex, bool inTach ,ref string mayin)
+        public static ActionResult  InphieuChidinhCLS(int id_benhnhan,string ma_luotkham, int v_AssignId, string v_AssignCode,string  nhomincls,int selectedIndex, bool inTach ,ref string mayin)
         {
+             ActionResult _ActionResult = ActionResult.Success;
+            using (var Scope = new TransactionScope())
+            {
+                using (var dbScope = new SharedDbConnectionScope())
+                
+                {
             try
             {
                 mayin = "";
@@ -332,7 +363,7 @@ namespace VNS.HIS.Classes
                 if (dt == null || dt.Rows.Count <= 0)
                 {
                    // Utility.ShowMsg("Không có dữ liệu in. Mời bạn kiểm tra lại");
-                    return;
+                    return  ActionResult.Error;
                 }
                 THU_VIEN_CHUNG.CreateXML(dt,"Thamkham_InphieuCLS.XML");
                 Utility.UpdateLogotoDatatable(ref dt);
@@ -432,7 +463,7 @@ namespace VNS.HIS.Classes
                         _reportCode = "thamkham_InphieuchidinhCLS_A4";
                     }
                 crpt = Utility.GetReport(_reportCode, ref tieude, ref reportname);
-                if (crpt == null) return;
+                if (crpt == null) return ActionResult.Error;
                 if (inchung)
                 {
                     List<string> lstNhominCLS = (from p in dt.AsEnumerable()
@@ -497,6 +528,11 @@ namespace VNS.HIS.Classes
             {
                 GC.Collect();
             }
+                }
+                Scope.Complete();
+                return ActionResult.Success;
+            }
+           
         }
     }
  

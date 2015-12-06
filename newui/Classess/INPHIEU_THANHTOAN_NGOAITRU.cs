@@ -408,6 +408,10 @@ namespace VNS.HIS.Classes
            {
                Utility.CatchException(ex);
            }
+           finally
+           {
+               GC.Collect();
+           }
        }
        private  decimal SumOfTotal(DataTable dataTable, string FiledName)
        {
@@ -769,7 +773,35 @@ namespace VNS.HIS.Classes
 
            }
        }
-      
+
+       private void GetChanDoanPhu( string IDC_Phu, ref string ICD_Name, ref string ICD_Code)
+       {
+           try
+           {
+               List<string> lstICD = IDC_Phu.Split(',').ToList();
+               DmucBenhCollection _list =
+                   new DmucBenhController().FetchByQuery(
+                       DmucBenh.CreateQuery().AddWhere(DmucBenh.MaBenhColumn.ColumnName, Comparison.In, lstICD));
+               foreach (DmucBenh _item in _list)
+               {
+                   ICD_Name += _item.TenBenh + ";";
+                   ICD_Code += _item.MaBenh + ";";
+               }
+               //_list =
+               //    new DmucBenhController().FetchByQuery(
+               //        DmucBenh.CreateQuery().AddWhere(DmucBenh.MaBenhColumn.ColumnName, Comparison.In, lstICD));
+               //foreach (DmucBenh _item in _list)
+               //{
+               //    ICD_Name += _item.TenBenh + ";";
+               //    ICD_Code += _item.MaBenh + ";";
+               //}
+               if (ICD_Name.Trim() != "") ICD_Name = ICD_Name.Substring(0, ICD_Name.Length - 1);
+               if (ICD_Code.Trim() != "") ICD_Code = ICD_Code.Substring(0, ICD_Code.Length - 1);
+           }
+           catch
+           {
+           }
+       }
        public bool InPhoiBHYT(KcbLuotkham objLuotkham, DataTable m_dtPayment,DateTime ngayIn)
        {
            try
@@ -790,9 +822,25 @@ namespace VNS.HIS.Classes
                        Utility.ShowMsg("Không tìm thấy dữ liệu để in phôi BHYT ", "Thông báo");
                        return false;
                    }
+                   string ICD_Name = "";
+                   string ICD_Code = "";
+                   if (m_dtReportPhieuThu != null && m_dtReportPhieuThu.Rows.Count > 0)
+                       GetChanDoanPhu(Utility.sDbnull(m_dtReportPhieuThu.Rows[0]["ma_benhphu"], ""), ref ICD_Name, ref ICD_Code);
+                   //foreach (DataRow dr in m_dtReportPhieuThu.Rows)
+                   //{
+                   //    dr["chuan_doanphu"] = Utility.sDbnull(dr["chuan_doanphu"]).Trim() == ""
+                   //                          ? ICD_Name
+                   //                          : Utility.sDbnull(dr["chuan_doanphu"]) + ";" + ICD_Name;
+                   //    //dr[DmucBenh.Columns.MaBenh] = ICD_Code;
+                   //   // dr["ma_icd"] = ICD_Code;
+                   //}
                    //
                    foreach (DataRow drv in m_dtReportPhieuThu.Rows)
                    {
+
+                       drv["chuan_doanphu"] = Utility.sDbnull(drv["chuan_doanphu"]).Trim() == ""
+                                         ? ICD_Name
+                                         : Utility.sDbnull(drv["chuan_doanphu"]) + ";" + ICD_Name;
                        if (drv[KcbThanhtoanChitiet.Columns.IdLoaithanhtoan].ToString() == "1"//Chi phí KCB
                            || drv[KcbThanhtoanChitiet.Columns.IdLoaithanhtoan].ToString() == "0"//Phí KCB kèm theo
                            || drv[KcbThanhtoanChitiet.Columns.IdLoaithanhtoan].ToString() == "4"//Buồng giường
