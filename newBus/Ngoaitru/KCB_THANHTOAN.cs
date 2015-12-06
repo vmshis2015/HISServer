@@ -2612,13 +2612,35 @@ namespace VNS.HIS.BusRule.Classes
                         new Update(KcbLuotkham.Schema).Set(KcbLuotkham.Columns.MabenhChinh).EqualTo(ICDCode)
                             .Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                             .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham).Execute();
-
-                        new Update(KcbChandoanKetluan.Schema).Set(KcbChandoanKetluan.Columns.MabenhChinh).EqualTo(ICDCode)
-                          .Where(KcbChandoanKetluan.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
-                          .And(KcbChandoanKetluan.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
-                          .And(KcbChandoanKetluan.Columns.Noitru).IsEqualTo(0)
-                          .Execute();
+                        KcbChandoanKetluan objChuandoanKetluan =
+                            new Select().From(KcbChandoanKetluan.Schema).Where(KcbChandoanKetluan.Columns.MaLuotkham).
+                                IsEqualTo(objLuotkham.MaLuotkham).And(KcbChandoanKetluan.Columns.IdBenhnhan).IsEqualTo(
+                                    objLuotkham.IdBenhnhan).ExecuteSingle<KcbChandoanKetluan>();
+                        if(objChuandoanKetluan !=null)
+                        {
+                            new Update(KcbChandoanKetluan.Schema).Set(KcbChandoanKetluan.Columns.MabenhChinh).EqualTo(ICDCode)
+                         .Where(KcbChandoanKetluan.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                         .And(KcbChandoanKetluan.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                         .And(KcbChandoanKetluan.Columns.Noitru).IsEqualTo(0)
+                         .Execute();
                         
+                        }
+                        else
+                        {
+                            objChuandoanKetluan = new KcbChandoanKetluan();
+                            objChuandoanKetluan.IdBenhnhan = Utility.Int64Dbnull(objLuotkham.IdBenhnhan);
+                            objChuandoanKetluan.MaLuotkham = Utility.sDbnull(objLuotkham.MaLuotkham, "");
+                            objChuandoanKetluan.SongayDieutri = 1;
+                            objChuandoanKetluan.MabenhChinh = ICDCode;
+                            objChuandoanKetluan.NgayChandoan = globalVariables.SysDate;
+                            objChuandoanKetluan.NguoiTao = globalVariables.UserName;
+                            objChuandoanKetluan.IdBacsikham = globalVariables.gv_intIDNhanvien;
+                            objChuandoanKetluan.IpMaytao = globalVariables.gv_strIPAddress;
+                            objChuandoanKetluan.Noitru = 0;
+                            objChuandoanKetluan.IsNew = true;
+
+                        }
+                       
                     }
                     scope.Complete();
                     return ActionResult.Success;
