@@ -276,17 +276,13 @@ namespace CIS.CoreApp
                     else
                     {
                         FileVersionInfo _FileVersionInfo = FileVersionInfo.GetVersionInfo(fullfilePath);
-                        string sVersion = _FileVersionInfo.ProductVersion;
-                        if ((sVersion == null))
+                        System.IO.FileInfo fI = new FileInfo(fullfilePath);
+                        long ticks = fI.LastWriteTime.Ticks;
+                        string sVersion = Utility.sDbnull(_FileVersionInfo.ProductVersion, "");
+
+                        if (!sVersion.Equals(dr["sVersion"]) || Utility.Int64Dbnull(dr["tick"], -1) > ticks)
                         {
-                            //InsertNewRow(dr, sv_DSVersion.Tables(0), sv_DSLastestV)
-                        }
-                        else
-                        {
-                            if (!sVersion.Equals(dr["sVersion"]))
-                            {
-                                InsertNewRow(dr, dtData, ref dtLastVersion);
-                            }
+                            InsertNewRow(dr, dtData, ref dtLastVersion);
                         }
 
                     }
