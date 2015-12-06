@@ -338,6 +338,9 @@ namespace VNS.HIS.UI.BENH_AN
                     KcbBenhAn objBenhAnNgoaiTru = CreateBenhAnNgoaiTru();
                     objBenhAnNgoaiTru.IsNew = true;
                     objBenhAnNgoaiTru.Save();
+                    new Update(KcbLuotkham.Schema).Set(KcbLuotkham.Columns.SoBenhAn).EqualTo(string.Format("{0}-{1}",objBenhAnNgoaiTru.LoaiBa,objBenhAnNgoaiTru.SoBenhAn))
+                        .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objBenhAnNgoaiTru.MaLuotkham).And(
+                            KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objBenhAnNgoaiTru.IdBnhan).Execute();
                     MessageBox.Show("Lưu Thành Công Thông Tin Bệnh Án");
 
                     if (chkDongSauKhiLuu.Checked) Close();

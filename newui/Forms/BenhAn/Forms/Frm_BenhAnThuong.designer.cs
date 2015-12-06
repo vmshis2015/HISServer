@@ -240,7 +240,7 @@
             // txtID_BA
             // 
             this.txtID_BA.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtID_BA.Location = new System.Drawing.Point(723, 188);
+            this.txtID_BA.Location = new System.Drawing.Point(723, 187);
             this.txtID_BA.Name = "txtID_BA";
             this.txtID_BA.ReadOnly = true;
             this.txtID_BA.Size = new System.Drawing.Size(44, 20);
