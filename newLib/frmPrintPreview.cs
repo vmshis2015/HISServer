@@ -570,6 +570,7 @@ namespace VNS.Libs
 
                 string UserPrintNumberFile = Application.StartupPath + @"\UserPrintNumber\" + globalVariables.UserName + "_" + mv_sReportFileName + ".txt";
                 string ParentFolder = Path.GetDirectoryName(UserPrintNumberFile);
+                File.Delete(UserPrintNumberFile);
                 if (!Directory.Exists(ParentFolder)) Directory.CreateDirectory(ParentFolder);
                 bool IsAppend = File.Exists(UserPrintNumberFile);
                 using (StreamWriter writer = new StreamWriter(UserPrintNumberFile, IsAppend))
