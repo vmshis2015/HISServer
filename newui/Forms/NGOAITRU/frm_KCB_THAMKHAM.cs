@@ -1214,7 +1214,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     if (objLuotkham.Locked == 1 || objLuotkham.TrangthaiNoitru >= 1)
                     {
-                        cmdInsertAssign.Enabled = cmdUpdate.Enabled = cmdDelteAssign.Enabled =
+                       cmdInsertAssign.Enabled = cmdSave.Enabled = cmdUpdate.Enabled = cmdDelteAssign.Enabled =
                                                                       cmdCreateNewPres.Enabled =
                                                                       cmdUpdatePres.Enabled = cmdDeletePres.Enabled =
                                                                                               cmdThemphieuVT.Enabled =
@@ -1228,7 +1228,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         cmdCreateNewPres.Enabled = true && !string.IsNullOrEmpty(m_strMaLuotkham);
                         cmdThemphieuVT.Enabled = true && !string.IsNullOrEmpty(m_strMaLuotkham);
                     }
-                    ctxDelCLS.Enabled = cmdUpdate.Enabled;
+                    mnuDeleteCLS.Enabled = cmdUpdate.Enabled;
                     ctxDelDrug.Enabled = cmdUpdatePres.Enabled;
                 }
             }
@@ -1264,15 +1264,15 @@ namespace VNS.HIS.UI.NGOAITRU
         private void HienThiChuyenCan()
         {
             int id_chidinh = Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), -1);
-            if (m_dtAssignDetail.Select("trangthai_chitiet >2 and id_chidinh = '"+id_chidinh+"'").Length > 0)
+            if (m_dtAssignDetail.Select("trangthai_chitiet >3 and id_chidinh = '"+id_chidinh+"'").Length > 0)
             {
                 cmdConfirm.Enabled = false;
-                cmdConfirm.Text = "Đã được thực hiện";
+                cmdConfirm.Text = "Đã có kết quả";
                 cmdConfirm.Tag = 3;
             }
-            if (m_dtAssignDetail.Select("trangthai_chuyencls in(1,2) and id_chidinh = '" + id_chidinh + "'").Length > 0)
+            if (m_dtAssignDetail.Select("trangthai_chuyencls in(1,2,3) and id_chidinh = '" + id_chidinh + "'").Length > 0)
             {
-                cmdConfirm.Enabled = Utility.Coquyen("coquyenhuyketnoihislis");
+               // cmdConfirm.Enabled = Utility.Coquyen("coquyenhuyketnoihislis");
                 cmdConfirm.Text = "Hủy chuyển CLS";
                 cmdConfirm.Tag = 2;
             }
@@ -3146,6 +3146,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     //dr[DmucBenh.Columns.MaBenh] = ICD_Code;
                     dr["ma_icd"] = ICD_Code;
                 }
+
                 v_dtData.AcceptChanges();
                 v_dtData.AcceptChanges();
                 Utility.UpdateLogotoDatatable(ref v_dtData);
@@ -4026,6 +4027,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
+                ActionResult _actionResult = ActionResult.Error;
                 string mayin = "";
                 int v_AssignId = Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh),-1);
                 string service_Code = "";
@@ -4033,8 +4035,11 @@ namespace VNS.HIS.UI.NGOAITRU
                 List<string> nhomcls = new List<string>();
                 foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdAssignDetail.GetDataRows())
                 {
-                    if (!nhomcls.Contains(Utility.sDbnull(gridExRow.Cells["nhom_in_cls"].Value))) 
+                    if (!nhomcls.Contains(Utility.sDbnull(gridExRow.Cells["nhom_in_cls"].Value)))
+                    {
                         nhomcls.Add(Utility.sDbnull(gridExRow.Cells["nhom_in_cls"].Value));
+                    }
+                       
                 }
                 string nhomincls = "ALL";
                 if (cboServicePrint.SelectedIndex > 0)
@@ -4049,17 +4054,23 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 if (THU_VIEN_CHUNG.Laygiatrithamsohethong("THAMKHAM_INTACHTOANBO_CLS", "0", true) == "1" && chkIntach.Checked && cboServicePrint.SelectedIndex <= 0)
                 {
-                    KCB_INPHIEU.InTachToanBoPhieuCLS((int)objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, v_AssignId,
+                  _actionResult =   KCB_INPHIEU.InTachToanBoPhieuCLS((int)objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, v_AssignId,
                                              v_AssignCode, nhomcls, cboServicePrint.SelectedIndex, chkIntach.Checked,
                                              ref mayin);
                 }
                 else
                 {
-                    KCB_INPHIEU.InphieuChidinhCLS((int)objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, v_AssignId,
+                    _actionResult = KCB_INPHIEU.InphieuChidinhCLS((int)objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, v_AssignId,
                                              v_AssignCode, nhomincls, cboServicePrint.SelectedIndex, chkIntach.Checked,
                                              ref mayin);
                 }
-               
+               if(_actionResult == ActionResult.Success)
+               {
+                   if (PropertyLib._ThamKhamProperties.Chophepchuyencansaukhiinphieu)
+                   {
+                       if(cmdConfirm.Tag.ToString() == "1") cmdConfirm.PerformClick();
+                   }
+               }
                 if (mayin != "") cboLaserPrinters.Text = mayin;
             }
             catch (Exception ex)
@@ -4899,6 +4910,13 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 string sMaICDPHU = GetDanhsachBenhphu();
                 _KcbChandoanKetluan.MabenhPhu = Utility.sDbnull(sMaICDPHU, "");
+                if(objLuotkham !=null)
+                {
+                    objLuotkham.MabenhPhu = Utility.sDbnull(sMaICDPHU, "");
+                    objLuotkham.MabenhChinh = Utility.sDbnull(txtMaBenhChinh.Text, "");
+                    objLuotkham.ChandoanKemtheo = Utility.sDbnull(txtChanDoanKemTheo,"");
+                }
+                
                 if (objkcbdangky != null)
                 {
                     _KcbChandoanKetluan.IdKhoanoitru = Utility.Int32Dbnull(objkcbdangky.IdKhoakcb, -1);
@@ -5025,7 +5043,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 TimeSpan songaychothuoc = Convert.ToDateTime(objLuotkham.NgayketthucBhyt).Subtract(globalVariables.SysDate);
                 int songay =  Utility.Int32Dbnull(songaychothuoc.TotalDays);
-                if(Utility.Int32Dbnull(songay)<=Utility.Int32Dbnull(txtSongaydieutri.Text))
+                if(Utility.Int32Dbnull(songay)<=Utility.Int32Dbnull(txtSongaydieutri.Text) && objLuotkham.IdDoituongKcb == 2)
                 {
                     if(!Utility.AcceptQuestion(string.Format("Số ngày cho thuốc vượt quá hạn thẻ BHYT của bệnh nhân {0}. \n Có đồng ý tiếp tục kết thúc không?",objBenhnhan.TenBenhnhan),"Cảnh Báo",true))
                     {
@@ -5735,7 +5753,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             foreach (GridEXRow row in grdAssignDetail.GetCheckedRows())
                             {
                                 int id_chidinh =
-                                    Utility.Int32Dbnull(row.Cells[KcbChidinhclsChitiet.Columns.IdChidinh], -1);
+                                    Utility.Int32Dbnull(row.Cells[KcbChidinhclsChitiet.Columns.IdChidinh].Value, -1);
                                 bool hasFound = false;
                                 Utility.WaitNow(this);
                                 SqlQuery sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
@@ -5745,7 +5763,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                             .IsEqualTo(txtPatient_Code.Text)
                                             .And(KcbChidinhcl.Columns.IdBenhnhan)
                                             .IsEqualTo(Utility.Int32Dbnull(txtPatient_ID.Text)))
-                                    .And(KcbChidinhclsChitiet.Columns.TrangThai).In(1, 2)
+                                    .And(KcbChidinhclsChitiet.Columns.TrangThai).In(1,2,3)
                                     .And(KcbChidinhclsChitiet.Columns.IdChidinh).IsEqualTo(
                                         Utility.Int32Dbnull(id_chidinh));
                                 hasFound = sqlQuery.GetRecordCount() > 0;
@@ -5757,7 +5775,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                     return;
                                 }
                                 DataRow[] arrDr =
-                                    m_dtAssignDetail.Select("trangthai_chuyencls in (1,2) and id_chidinh = '" +
+                                    m_dtAssignDetail.Select("trangthai_chuyencls in (1,2,3) and id_chidinh = '" +
                                                             id_chidinh + "'");
                                 foreach (DataRow dr in arrDr)
                                 {
@@ -5768,7 +5786,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                     .Set(KcbChidinhclsChitiet.Columns.NgaySua).EqualTo(globalVariables.SysDate)
                                     .Set(KcbChidinhclsChitiet.Columns.NguoiSua).EqualTo(globalVariables.UserName)
                                     .Set(KcbChidinhclsChitiet.Columns.TrangThai).EqualTo(0)
-                                    .Where(KcbChidinhclsChitiet.Columns.TrangThai).In(1, 2)
+                                    .Where(KcbChidinhclsChitiet.Columns.TrangThai).In(1, 2,3)
                                     .And(KcbChidinhclsChitiet.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                                     .And(KcbChidinhclsChitiet.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
                                     .And(KcbChidinhclsChitiet.Columns.IdChidinh).IsEqualTo(
@@ -5815,6 +5833,11 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 txtNhipTim.Text = txtMach.Text;
             }
+        }
+
+        private void txtChanDoanKemTheo_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

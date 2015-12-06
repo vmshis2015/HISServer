@@ -248,7 +248,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 _phieuchuyenvien.IdKhoanoitru = Utility.Int32Dbnull(txtIdkhoanoitru.Text, -1);
                 _phieuchuyenvien.IdBuong = Utility.Int32Dbnull(txtidBuong.Text, -1);
                 _phieuchuyenvien.IdGiuong = Utility.Int32Dbnull(txtidgiuong.Text, -1);
-                
+                _phieuchuyenvien.SoChuyentuyen = Utility.Int32Dbnull(txtsochuyenvien.Text, -1);
                 using (var scope = new TransactionScope())
                 {
                     using (var dbscope = new SharedDbConnectionScope())
@@ -257,6 +257,8 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                         objLuotkham.TthaiChuyendi = 1;
                         objLuotkham.IdBacsiChuyenvien = _phieuchuyenvien.IdBacsiChuyenvien;
                         objLuotkham.NgayRavien = _phieuchuyenvien.NgayChuyenvien;
+                        objLuotkham.KetLuan = "Chuyển viện";
+                        objLuotkham.HuongDieutri = "Chuyển viện";
                         objLuotkham.IdBenhvienDi = Utility.Int16Dbnull(txtNoichuyenden.MyID,-1);
                         objLuotkham.IsNew = false;
                         objLuotkham.MarkOld();
@@ -446,7 +448,15 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             if (e.Control && e.KeyCode == Keys.S) cmdChuyen.PerformClick();
             if (e.Control && e.KeyCode == Keys.P) cmdPrint.PerformClick();
         }
-
+        public static  int GetmaxSoChuyenVien()
+        {
+            int sochuyenvien = -1;
+            sochuyenvien = new
+        Select(Aggregate.Max(KcbPhieuchuyenvien.SoChuyentuyenColumn))
+        .From(KcbPhieuchuyenvien.Schema)
+        .ExecuteScalar<int>();
+            return sochuyenvien + 1;
+        }
         public void txtMaluotkham_KeyDown(object sender, KeyEventArgs e)
         {
             try
@@ -454,7 +464,6 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 if (e.KeyCode == Keys.Enter && Utility.DoTrim(txtMaluotkham.Text) != "")
                 {
                     var dtPatient = new DataTable();
-                   
                         objLuotkham = null;
                         string _patient_Code = Utility.AutoFullPatientCode(txtMaluotkham.Text);
                         ClearControls();
@@ -484,7 +493,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                         DataTable dt_Patient = new KCB_THAMKHAM().TimkiemThongtinBenhnhansaukhigoMaBN(txtMaluotkham.Text, -1, globalVariables.MA_KHOA_THIEN);
                         if (dt_Patient != null && dt_Patient.Rows.Count > 0)
                         {
-
+                            
                             txtIdBn.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbDanhsachBenhnhan.Columns.IdBenhnhan], "");
                             objLuotkham = new Select().From(KcbLuotkham.Schema).Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(txtIdBn.Text)
                                 .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(txtMaluotkham.Text)
@@ -494,11 +503,9 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                             txtgioitinh.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbDanhsachBenhnhan.Columns.GioiTinh], "");
                             txtDiaChi.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbDanhsachBenhnhan.Columns.DiaChi], "");
                             txtmatheBhyt.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbLuotkham.Columns.MatheBhyt], "");
-
                             txtKhoanoitru.Text = Utility.sDbnull(dt_Patient.Rows[0]["ten_khoaphong_noitru"], "");
                             txtBuong.Text = Utility.sDbnull(dt_Patient.Rows[0][NoitruDmucBuong.Columns.TenBuong], "");
                             txtGiuong.Text = Utility.sDbnull(dt_Patient.Rows[0][NoitruDmucGiuongbenh.Columns.TenGiuong], "");
-
                             txtIdkhoanoitru.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbLuotkham.Columns.IdKhoanoitru], "-1");
                             txtIdravien.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbLuotkham.Columns.IdRavien], "-1");
                             txtidBuong.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbLuotkham.Columns.IdBuong], "-1");
@@ -513,6 +520,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                             if (objPhieuchuyenvien != null)
                             {
                                 txtId.Text = objPhieuchuyenvien.IdPhieu.ToString();
+                                txtsochuyenvien.Text = Utility.sDbnull(objPhieuchuyenvien.SoChuyentuyen);
                                 txtNoichuyenden.SetId(objPhieuchuyenvien.IdBenhvienChuyenden);
                                 txtdauhieucls._Text = objPhieuchuyenvien.DauhieuCls;
                                 txtketquaCls.Text = objPhieuchuyenvien.KetquaXnCls;
@@ -528,6 +536,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                             }
                             else
                             {
+                                txtsochuyenvien.Text = Utility.sDbnull(GetmaxSoChuyenVien());
                                 cmdPrint.Enabled = false;
                                 cmdHuy.Enabled = false;
                             }
@@ -541,9 +550,9 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                    
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Utility.ShowMsg("Có lỗi trong quá trình lấy thông tin bệnh nhân");
+                Utility.ShowMsg("Lỗi: " + ex.Message);
             }
             finally
             {

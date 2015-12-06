@@ -2218,7 +2218,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private void GetNoiDangKy()
         {
             SqlQuery sqlQuery = new Select().From(DmucDiachinh.Schema)
-                .Where(DmucDiachinh.Columns.MaDiachinh).IsEqualTo(txtNoiphattheBHYT.Text);
+                .Where(DmucDiachinh.Columns.MaDiachinh).IsEqualTo(txtNoiDongtrusoKCBBD.Text);
             var objDiachinh = sqlQuery.ExecuteSingle<DmucDiachinh>();
             if (objDiachinh != null)
             {
@@ -2762,8 +2762,10 @@ namespace VNS.HIS.UI.NGOAITRU
                 PerformAction();
                 cmdSave.Enabled = true;
             }
-            catch
+            catch(Exception ex)
             {
+                if(globalVariables.IsAdmin)
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
             finally
             {
@@ -2804,7 +2806,8 @@ namespace VNS.HIS.UI.NGOAITRU
             Utility.SetMsg(uiStatusBar1.Panels["MSG"], "", false);
             TimeSpan songaychothuoc = Convert.ToDateTime(dtInsToDate.Value).Subtract(globalVariables.SysDate);
             int songay = Utility.Int32Dbnull(songaychothuoc.TotalDays);
-            if (Utility.Int32Dbnull(songay) <= Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_SONGAYBATHANTHE","30",true)))
+            if (Utility.Int32Dbnull(songay) <= Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_SONGAYBATHANTHE","30",true)) 
+                && Utility.Int16Dbnull(cboDoituongKCB.SelectedValue) ==2)
             {
                 Utility.ShowMsg(string.Format("Hạn thẻ BHYT còn {0} ngày",songay), "Cảnh Báo");
             }
@@ -3006,7 +3009,6 @@ namespace VNS.HIS.UI.NGOAITRU
             cmdInPhieuKham.Enabled = grdRegExam.RowCount > 0;
             cmdSave.Enabled = Utility.DoTrim(txtTEN_BN.Text).Length > 0;
             ModifyButtonCommandRegExam();
-           
             ModifyQMS();
         }
 
@@ -4416,6 +4418,10 @@ namespace VNS.HIS.UI.NGOAITRU
             catch
             {
             }
+            finally
+            {
+                GC.Collect();
+            }
            
         }
 
@@ -5291,6 +5297,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     LaydanhsachdangkyKCB();
                     setMsg(uiStatusBar1.Panels["MSG"], "Bạn thêm mới lần khám bệnh nhân thành công", false);
                     ThemMoiLanKhamVaoLuoi();
+                    cmdSave.Enabled = false;
                     if (_OnActionSuccess != null) _OnActionSuccess();
                     if (objRegExam != null)
                     {
@@ -5558,6 +5565,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     setMsg(uiStatusBar1.Panels["MSG"], "Bạn thêm mới bệnh nhân thành công", false);
                     Utility.GotoNewRowJanus(grdList, KcbLuotkham.Columns.MaLuotkham, txtMaLankham.Text);
                     Utility.GotoNewRowJanus(grdRegExam, KcbDangkyKcb.Columns.IdKham, v_id_kham.ToString());
+                    cmdSave.Enabled = false;
                     m_blnCancel = false;
                     if (objRegExam != null)
                     {
@@ -5579,6 +5587,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     if (PropertyLib._KCBProperties.Tudongthemmoi) cmdThemMoiBN_Click(cmdThemMoiBN, new EventArgs());
                     txtMaBN.Text = Utility.sDbnull(mavuasinh);
                     LoadThongTinChoKham();
+                    
                     break;
                 case ActionResult.Error:
                     setMsg(uiStatusBar1.Panels["MSG"], "Bạn thực hiện thêm dữ liệu không thành công !", true);
@@ -5716,6 +5725,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     setMsg(uiStatusBar1.Panels["MSG"], "Bạn sửa thông tin Bệnh nhân thành công", false);
                     LaydanhsachdangkyKCB();
                     UpdateBNVaoTrenLuoi();
+                    cmdSave.Enabled = false;
                     if (_OnActionSuccess != null) _OnActionSuccess();
                     if (objRegExam != null)
                     {

@@ -1728,13 +1728,31 @@ namespace VNS.HIS.UI.NGOAITRU
                 string mayin = "";
                 int v_AssignId = Utility.Int32Dbnull(grdAssignDetail.GetValue(KcbChidinhclsChitiet.Columns.IdChidinh), -1);
                 string v_AssignCode = Utility.sDbnull(grdAssignDetail.GetValue(KcbChidinhcl.Columns.MaChidinh), -1);
+                List<string> nhomcls = new List<string>();
+                foreach (Janus.Windows.GridEX.GridEXRow gridExRow in grdAssignDetail.GetDataRows())
+                {
+                    if (!nhomcls.Contains(Utility.sDbnull(gridExRow.Cells["nhom_in_cls"].Value)))
+                        nhomcls.Add(Utility.sDbnull(gridExRow.Cells["nhom_in_cls"].Value));
+                }
                 string nhomincls = "ALL";
                 if (cboServicePrint.SelectedIndex > 0)
                 {
                     nhomincls = Utility.sDbnull(cboServicePrint.SelectedValue, "ALL");
 
                 }
-                KCB_INPHIEU.InphieuChidinhCLS((int)objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, v_AssignId, v_AssignCode, nhomincls, cboServicePrint.SelectedIndex, chkIntach.Checked, ref mayin);
+                if (THU_VIEN_CHUNG.Laygiatrithamsohethong("THAMKHAM_INTACHTOANBO_CLS", "0", true) == "1"
+                    && chkIntach.Checked && cboServicePrint.SelectedIndex <= 0)
+                {
+                    KCB_INPHIEU.InTachToanBoPhieuCLS((int)objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, v_AssignId,
+                                             v_AssignCode, nhomcls, cboServicePrint.SelectedIndex, chkIntach.Checked,
+                                             ref mayin);
+                }
+                else
+                {
+                    KCB_INPHIEU.InphieuChidinhCLS((int) objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, v_AssignId,
+                                                  v_AssignCode, nhomincls, cboServicePrint.SelectedIndex,
+                                                  chkIntach.Checked, ref mayin);
+                }
             }
             catch (Exception ex)
             {

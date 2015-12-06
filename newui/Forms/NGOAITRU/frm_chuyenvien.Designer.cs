@@ -92,6 +92,8 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.label11 = new System.Windows.Forms.Label();
             this.txtId = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.txtsochuyenvien = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.pnlTop.SuspendLayout();
             this.pnlBottom.SuspendLayout();
             this.pnlFill.SuspendLayout();
@@ -99,6 +101,8 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // 
             // pnlTop
             // 
+            this.pnlTop.Controls.Add(this.label23);
+            this.pnlTop.Controls.Add(this.txtsochuyenvien);
             this.pnlTop.Controls.Add(this.txtidgiuong);
             this.pnlTop.Controls.Add(this.txtidBuong);
             this.pnlTop.Controls.Add(this.txtIdkhoanoitru);
@@ -128,7 +132,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(784, 144);
+            this.pnlTop.Size = new System.Drawing.Size(1008, 144);
             this.pnlTop.TabIndex = 0;
             // 
             // txtidgiuong
@@ -136,7 +140,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtidgiuong.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtidgiuong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtidgiuong.Font = new System.Drawing.Font("Arial", 9F);
-            this.txtidgiuong.Location = new System.Drawing.Point(745, 39);
+            this.txtidgiuong.Location = new System.Drawing.Point(951, 11);
             this.txtidgiuong.Name = "txtidgiuong";
             this.txtidgiuong.ReadOnly = true;
             this.txtidgiuong.Size = new System.Drawing.Size(39, 21);
@@ -149,7 +153,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtidBuong.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtidBuong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtidBuong.Font = new System.Drawing.Font("Arial", 9F);
-            this.txtidBuong.Location = new System.Drawing.Point(710, 39);
+            this.txtidBuong.Location = new System.Drawing.Point(916, 11);
             this.txtidBuong.Name = "txtidBuong";
             this.txtidBuong.ReadOnly = true;
             this.txtidBuong.Size = new System.Drawing.Size(39, 21);
@@ -162,7 +166,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtIdkhoanoitru.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtIdkhoanoitru.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtIdkhoanoitru.Font = new System.Drawing.Font("Arial", 9F);
-            this.txtIdkhoanoitru.Location = new System.Drawing.Point(665, 41);
+            this.txtIdkhoanoitru.Location = new System.Drawing.Point(871, 13);
             this.txtIdkhoanoitru.Name = "txtIdkhoanoitru";
             this.txtIdkhoanoitru.ReadOnly = true;
             this.txtIdkhoanoitru.Size = new System.Drawing.Size(39, 21);
@@ -175,7 +179,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtIdravien.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtIdravien.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtIdravien.Font = new System.Drawing.Font("Arial", 9F);
-            this.txtIdravien.Location = new System.Drawing.Point(620, 40);
+            this.txtIdravien.Location = new System.Drawing.Point(826, 12);
             this.txtIdravien.Name = "txtIdravien";
             this.txtIdravien.ReadOnly = true;
             this.txtIdravien.Size = new System.Drawing.Size(39, 21);
@@ -195,7 +199,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.baocaO_TIEUDE1.ShortcutAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.baocaO_TIEUDE1.ShortcutFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.baocaO_TIEUDE1.showHelp = false;
-            this.baocaO_TIEUDE1.Size = new System.Drawing.Size(784, 30);
+            this.baocaO_TIEUDE1.Size = new System.Drawing.Size(1008, 30);
             this.baocaO_TIEUDE1.TabIndex = 24;
             this.baocaO_TIEUDE1.TIEUDE = "PHIẾU CHUYỂN TUYẾN";
             this.baocaO_TIEUDE1.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -205,9 +209,9 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.cmdgetPatient.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdgetPatient.Image = ((System.Drawing.Image)(resources.GetObject("cmdgetPatient.Image")));
             this.cmdgetPatient.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdgetPatient.Location = new System.Drawing.Point(396, 36);
+            this.cmdgetPatient.Location = new System.Drawing.Point(386, 35);
             this.cmdgetPatient.Name = "cmdgetPatient";
-            this.cmdgetPatient.Size = new System.Drawing.Size(28, 25);
+            this.cmdgetPatient.Size = new System.Drawing.Size(38, 25);
             this.cmdgetPatient.TabIndex = 23;
             this.cmdgetPatient.TabStop = false;
             // 
@@ -216,7 +220,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtGiuong.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtGiuong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGiuong.Font = new System.Drawing.Font("Arial", 9F);
-            this.txtGiuong.Location = new System.Drawing.Point(677, 116);
+            this.txtGiuong.Location = new System.Drawing.Point(723, 116);
             this.txtGiuong.Name = "txtGiuong";
             this.txtGiuong.ReadOnly = true;
             this.txtGiuong.Size = new System.Drawing.Size(95, 21);
@@ -226,7 +230,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // label9
             // 
             this.label9.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(617, 116);
+            this.label9.Location = new System.Drawing.Point(663, 116);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(54, 23);
             this.label9.TabIndex = 21;
@@ -263,7 +267,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtmatheBhyt.Location = new System.Drawing.Point(519, 91);
             this.txtmatheBhyt.Name = "txtmatheBhyt";
             this.txtmatheBhyt.ReadOnly = true;
-            this.txtmatheBhyt.Size = new System.Drawing.Size(253, 21);
+            this.txtmatheBhyt.Size = new System.Drawing.Size(299, 21);
             this.txtmatheBhyt.TabIndex = 6;
             this.txtmatheBhyt.TabStop = false;
             // 
@@ -282,7 +286,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtgioitinh.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtgioitinh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtgioitinh.Font = new System.Drawing.Font("Arial", 9F);
-            this.txtgioitinh.Location = new System.Drawing.Point(677, 64);
+            this.txtgioitinh.Location = new System.Drawing.Point(723, 67);
             this.txtgioitinh.Name = "txtgioitinh";
             this.txtgioitinh.ReadOnly = true;
             this.txtgioitinh.Size = new System.Drawing.Size(95, 21);
@@ -292,7 +296,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(617, 64);
+            this.label7.Location = new System.Drawing.Point(663, 65);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(54, 23);
             this.label7.TabIndex = 15;
@@ -304,7 +308,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txttuoi.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txttuoi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txttuoi.Font = new System.Drawing.Font("Arial", 9F);
-            this.txttuoi.Location = new System.Drawing.Point(519, 64);
+            this.txttuoi.Location = new System.Drawing.Point(519, 67);
             this.txttuoi.Name = "txttuoi";
             this.txttuoi.ReadOnly = true;
             this.txttuoi.Size = new System.Drawing.Size(92, 21);
@@ -314,7 +318,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(459, 64);
+            this.label6.Location = new System.Drawing.Point(459, 65);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 23);
             this.label6.TabIndex = 13;
@@ -326,7 +330,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtIdBn.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtIdBn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtIdBn.Font = new System.Drawing.Font("Arial", 9F);
-            this.txtIdBn.Location = new System.Drawing.Point(519, 40);
+            this.txtIdBn.Location = new System.Drawing.Point(519, 42);
             this.txtIdBn.Name = "txtIdBn";
             this.txtIdBn.ReadOnly = true;
             this.txtIdBn.Size = new System.Drawing.Size(92, 21);
@@ -402,7 +406,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtTenBN.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtTenBN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTenBN.Font = new System.Drawing.Font("Arial", 9F);
-            this.txtTenBN.Location = new System.Drawing.Point(153, 64);
+            this.txtTenBN.Location = new System.Drawing.Point(153, 67);
             this.txtTenBN.Name = "txtTenBN";
             this.txtTenBN.ReadOnly = true;
             this.txtTenBN.Size = new System.Drawing.Size(270, 21);
@@ -417,7 +421,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtMaluotkham.ForeColor = System.Drawing.Color.Black;
             this.txtMaluotkham.Location = new System.Drawing.Point(153, 39);
             this.txtMaluotkham.Name = "txtMaluotkham";
-            this.txtMaluotkham.Size = new System.Drawing.Size(236, 21);
+            this.txtMaluotkham.Size = new System.Drawing.Size(208, 21);
             this.txtMaluotkham.TabIndex = 0;
             // 
             // label1
@@ -441,7 +445,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlBottom.Location = new System.Drawing.Point(0, 518);
             this.pnlBottom.Name = "pnlBottom";
-            this.pnlBottom.Size = new System.Drawing.Size(784, 44);
+            this.pnlBottom.Size = new System.Drawing.Size(1008, 44);
             this.pnlBottom.TabIndex = 22;
             this.pnlBottom.TabStop = true;
             // 
@@ -547,7 +551,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.pnlFill.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFill.Location = new System.Drawing.Point(0, 144);
             this.pnlFill.Name = "pnlFill";
-            this.pnlFill.Size = new System.Drawing.Size(784, 374);
+            this.pnlFill.Size = new System.Drawing.Size(1008, 374);
             this.pnlFill.TabIndex = 2;
             // 
             // cboDoctorAssign
@@ -558,7 +562,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.cboDoctorAssign.FormattingEnabled = true;
             this.cboDoctorAssign.Location = new System.Drawing.Point(153, 30);
             this.cboDoctorAssign.Name = "cboDoctorAssign";
-            this.cboDoctorAssign.Size = new System.Drawing.Size(578, 21);
+            this.cboDoctorAssign.Size = new System.Drawing.Size(802, 21);
             this.cboDoctorAssign.TabIndex = 29;
             this.cboDoctorAssign.TabStop = false;
             // 
@@ -580,7 +584,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.lblMsg.ForeColor = System.Drawing.Color.Navy;
             this.lblMsg.Location = new System.Drawing.Point(0, 351);
             this.lblMsg.Name = "lblMsg";
-            this.lblMsg.Size = new System.Drawing.Size(784, 23);
+            this.lblMsg.Size = new System.Drawing.Size(1008, 23);
             this.lblMsg.TabIndex = 27;
             this.lblMsg.Text = "Msg";
             this.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -614,7 +618,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtTrangthainguoibenh.RaiseEventEnter = false;
             this.txtTrangthainguoibenh.RaiseEventEnterWhenEmpty = false;
             this.txtTrangthainguoibenh.SelectedIndex = -1;
-            this.txtTrangthainguoibenh.Size = new System.Drawing.Size(619, 21);
+            this.txtTrangthainguoibenh.Size = new System.Drawing.Size(843, 21);
             this.txtTrangthainguoibenh.splitChar = '@';
             this.txtTrangthainguoibenh.splitCharIDAndCode = '#';
             this.txtTrangthainguoibenh.TabIndex = 18;
@@ -655,7 +659,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtNoichuyenden.RaiseEventEnter = true;
             this.txtNoichuyenden.RaiseEventEnterWhenEmpty = true;
             this.txtNoichuyenden.SelectedIndex = -1;
-            this.txtNoichuyenden.Size = new System.Drawing.Size(579, 21);
+            this.txtNoichuyenden.Size = new System.Drawing.Size(803, 21);
             this.txtNoichuyenden.splitChar = '@';
             this.txtNoichuyenden.splitCharIDAndCode = '#';
             this.txtNoichuyenden.TabIndex = 13;
@@ -674,7 +678,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.cmdGetBV.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdGetBV.Image = ((System.Drawing.Image)(resources.GetObject("cmdGetBV.Image")));
             this.cmdGetBV.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdGetBV.Location = new System.Drawing.Point(732, 54);
+            this.cmdGetBV.Location = new System.Drawing.Point(956, 54);
             this.cmdGetBV.Name = "cmdGetBV";
             this.cmdGetBV.Size = new System.Drawing.Size(28, 25);
             this.cmdGetBV.TabIndex = 13;
@@ -689,7 +693,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtChandoan.Location = new System.Drawing.Point(152, 164);
             this.txtChandoan.MaxLength = 500;
             this.txtChandoan.Name = "txtChandoan";
-            this.txtChandoan.Size = new System.Drawing.Size(619, 21);
+            this.txtChandoan.Size = new System.Drawing.Size(843, 21);
             this.txtChandoan.TabIndex = 16;
             // 
             // dtNgaychuyenvien
@@ -736,7 +740,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtdauhieucls.RaiseEventEnter = false;
             this.txtdauhieucls.RaiseEventEnterWhenEmpty = false;
             this.txtdauhieucls.SelectedIndex = -1;
-            this.txtdauhieucls.Size = new System.Drawing.Size(619, 21);
+            this.txtdauhieucls.Size = new System.Drawing.Size(843, 21);
             this.txtdauhieucls.splitChar = '@';
             this.txtdauhieucls.splitCharIDAndCode = '#';
             this.txtdauhieucls.TabIndex = 14;
@@ -759,7 +763,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtThuocsudung.MaxLength = 500;
             this.txtThuocsudung.Multiline = true;
             this.txtThuocsudung.Name = "txtThuocsudung";
-            this.txtThuocsudung.Size = new System.Drawing.Size(619, 44);
+            this.txtThuocsudung.Size = new System.Drawing.Size(843, 44);
             this.txtThuocsudung.TabIndex = 17;
             // 
             // label21
@@ -801,7 +805,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtphuongtienvc.RaiseEventEnter = false;
             this.txtphuongtienvc.RaiseEventEnterWhenEmpty = false;
             this.txtphuongtienvc.SelectedIndex = -1;
-            this.txtphuongtienvc.Size = new System.Drawing.Size(619, 21);
+            this.txtphuongtienvc.Size = new System.Drawing.Size(843, 21);
             this.txtphuongtienvc.splitChar = '@';
             this.txtphuongtienvc.splitCharIDAndCode = '#';
             this.txtphuongtienvc.TabIndex = 20;
@@ -843,7 +847,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtHuongdieutri.RaiseEventEnter = false;
             this.txtHuongdieutri.RaiseEventEnterWhenEmpty = false;
             this.txtHuongdieutri.SelectedIndex = -1;
-            this.txtHuongdieutri.Size = new System.Drawing.Size(619, 21);
+            this.txtHuongdieutri.Size = new System.Drawing.Size(843, 21);
             this.txtHuongdieutri.splitChar = '@';
             this.txtHuongdieutri.splitCharIDAndCode = '#';
             this.txtHuongdieutri.TabIndex = 19;
@@ -865,7 +869,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtNguoivanchuyen.Location = new System.Drawing.Point(153, 322);
             this.txtNguoivanchuyen.MaxLength = 255;
             this.txtNguoivanchuyen.Name = "txtNguoivanchuyen";
-            this.txtNguoivanchuyen.Size = new System.Drawing.Size(619, 21);
+            this.txtNguoivanchuyen.Size = new System.Drawing.Size(843, 21);
             this.txtNguoivanchuyen.TabIndex = 21;
             // 
             // label19
@@ -944,7 +948,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtketquaCls.MaxLength = 500;
             this.txtketquaCls.Multiline = true;
             this.txtketquaCls.Name = "txtketquaCls";
-            this.txtketquaCls.Size = new System.Drawing.Size(619, 47);
+            this.txtketquaCls.Size = new System.Drawing.Size(843, 47);
             this.txtketquaCls.TabIndex = 15;
             // 
             // label13
@@ -1002,10 +1006,32 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.label3.Text = "Id chuyển viện";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // txtsochuyenvien
+            // 
+            this.txtsochuyenvien.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtsochuyenvien.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtsochuyenvien.Font = new System.Drawing.Font("Arial", 9F);
+            this.txtsochuyenvien.Location = new System.Drawing.Point(723, 42);
+            this.txtsochuyenvien.Name = "txtsochuyenvien";
+            this.txtsochuyenvien.ReadOnly = true;
+            this.txtsochuyenvien.Size = new System.Drawing.Size(95, 21);
+            this.txtsochuyenvien.TabIndex = 29;
+            this.txtsochuyenvien.TabStop = false;
+            // 
+            // label23
+            // 
+            this.label23.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(617, 40);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(103, 23);
+            this.label23.TabIndex = 30;
+            this.label23.Text = "Số chuyển viện: ";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // frm_chuyenvien
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(784, 562);
+            this.ClientSize = new System.Drawing.Size(1008, 562);
             this.Controls.Add(this.pnlFill);
             this.Controls.Add(this.pnlBottom);
             this.Controls.Add(this.pnlTop);
@@ -1090,5 +1116,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
         public System.Windows.Forms.TextBox txtThuocsudung;
         public System.Windows.Forms.TextBox txtChandoan;
         public AutoCompleteTextbox_Danhmucchung txtTrangthainguoibenh;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox txtsochuyenvien;
     }
 }
