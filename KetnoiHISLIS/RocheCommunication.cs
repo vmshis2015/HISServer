@@ -128,7 +128,8 @@ namespace VMS.HIS.HLC.ASTM
             List<string> LstOrderItems = new List<string>();
             string Footer = "L|1|F";
             string ma_luotkham = Utility.sDbnull(dtData.Rows[0][KcbLuotkham.Columns.MaLuotkham], "");
-            string ten_benhnhan = Utility.DoTrim(Utility.UnSignedCharacter(Utility.sDbnull(dtData.Rows[0][KcbDanhsachBenhnhan.Columns.TenBenhnhan], ""))).ToUpper();
+            string ten_benhnhan = Utility.DoTrim(Utility.sDbnull(dtData.Rows[0][KcbDanhsachBenhnhan.Columns.TenBenhnhan], ""));
+           // string ten_benhnhan = Utility.DoTrim(Utility.UnSignedCharacter(Utility.sDbnull(dtData.Rows[0][KcbDanhsachBenhnhan.Columns.TenBenhnhan], ""))).ToUpper();
             string[] arrValues = ten_benhnhan.Split(' ');
             string Ho = arrValues[0];
             string ten = ten_benhnhan.Substring(ten_benhnhan.IndexOf(' ') + 1);
