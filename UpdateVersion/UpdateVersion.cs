@@ -179,17 +179,13 @@ namespace UpdateVersion
                     else
                     {
                         FileVersionInfo _FileVersionInfo = FileVersionInfo.GetVersionInfo(fullfilePath);
-                        string sVersion = _FileVersionInfo.ProductVersion;
-                        if ((sVersion == null))
+                        System.IO.FileInfo fI = new FileInfo(fullfilePath);
+                        long ticks = fI.LastWriteTime.Ticks;
+                        string sVersion = sDbnull(_FileVersionInfo.ProductVersion, "");
+
+                        if (!sVersion.Equals(dr["sVersion"]) || Int64Dbnull(dr["tick"], -1) > ticks)
                         {
-                            //InsertNewRow(dr, sv_DSVersion.Tables(0), sv_DSLastestV)
-                        }
-                        else
-                        {
-                            if (!sVersion.Equals(dr["sVersion"]))
-                            {
-                                InsertNewRow(dr, dtData, ref dtLastVersion);
-                            }
+                            InsertNewRow(dr, dtData, ref dtLastVersion);
                         }
 
                     }
@@ -310,7 +306,7 @@ namespace UpdateVersion
         {
             try
             {
-                HIS.WS.LoginWS _LoginWS = new HIS.WS.LoginWS();
+                UpdateVer.WS.LoginWS _LoginWS = new UpdateVer.WS.LoginWS();
 
                 string _path = Application.StartupPath + @"\Properties";
 
@@ -349,6 +345,17 @@ namespace UpdateVersion
             else
             {
                 return Convert.ToInt32(obj);
+            }
+        }
+        long Int64Dbnull(object obj, object DefaultVal)
+        {
+            if (obj == null || obj == DBNull.Value || !IsNumeric(obj))
+            {
+                return Convert.ToInt64(DefaultVal);
+            }
+            else
+            {
+                return Convert.ToInt64(obj);
             }
         }
         public void SaveOldDLL(string pv_sFileName)
