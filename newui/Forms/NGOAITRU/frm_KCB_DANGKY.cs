@@ -2754,13 +2754,13 @@ namespace VNS.HIS.UI.NGOAITRU
                 //    Utility.ShowMsg("Phiên bản Demo chỉ cho phép bạn tiếp đón tối đa 5000 lượt khám. Mời bạn liên hệ để được trợ giúp");
                 //    return;
                 //}
-                //cmdSave.Enabled = false;
+                cmdSave.Enabled = false;
                 if(m_enAction==action.Update)
                 if (txtKieuKham.Text.Trim() != "" && txtPhongkham.Text.Trim() != "" && cboKieuKham.SelectedIndex == -1)
                     AutoLoadKieuKham();
                 if (!IsValidData()) return;
                 PerformAction();
-                cmdSave.Enabled = true;
+                Thread.Sleep(100);//Nghir 0.1 giay
             }
             catch(Exception ex)
             {
@@ -2769,6 +2769,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             finally
             {
+                cmdSave.Enabled = true;
                 blnManual = false;
                 DiachiBNCu = false;
                 DiachiBHYTCu = false;
