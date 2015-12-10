@@ -95,26 +95,26 @@
             uiStatusBarPanel1.BorderColor = System.Drawing.Color.Empty;
             uiStatusBarPanel1.Key = "";
             uiStatusBarPanel1.ProgressBarValue = 0;
-            uiStatusBarPanel1.Text = "Ctrl+N: Thêm phiếu nhập";
-            uiStatusBarPanel1.Width = 153;
+            uiStatusBarPanel1.Text = "Ctrl+N: Thêm mới";
+            uiStatusBarPanel1.Width = 113;
             uiStatusBarPanel2.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
             uiStatusBarPanel2.BorderColor = System.Drawing.Color.Empty;
             uiStatusBarPanel2.Key = "";
             uiStatusBarPanel2.ProgressBarValue = 0;
-            uiStatusBarPanel2.Text = "Sửa phiếu nhập";
-            uiStatusBarPanel2.Width = 103;
+            uiStatusBarPanel2.Text = "Ctr+U: Sửa phiếu";
+            uiStatusBarPanel2.Width = 110;
             uiStatusBarPanel3.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
             uiStatusBarPanel3.BorderColor = System.Drawing.Color.Empty;
             uiStatusBarPanel3.Key = "";
             uiStatusBarPanel3.ProgressBarValue = 0;
-            uiStatusBarPanel3.Text = "Ctrl+D:Xóa phiếu nhập";
-            uiStatusBarPanel3.Width = 139;
+            uiStatusBarPanel3.Text = "Ctrl+D:Xóa phiếu";
+            uiStatusBarPanel3.Width = 108;
             uiStatusBarPanel4.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
             uiStatusBarPanel4.BorderColor = System.Drawing.Color.Empty;
             uiStatusBarPanel4.Key = "";
             uiStatusBarPanel4.ProgressBarValue = 0;
-            uiStatusBarPanel4.Text = "Esc: Thoát Form hiện tại";
-            uiStatusBarPanel4.Width = 148;
+            uiStatusBarPanel4.Text = "Esc: Thoát";
+            uiStatusBarPanel4.Width = 73;
             uiStatusBarPanel5.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
             uiStatusBarPanel5.BorderColor = System.Drawing.Color.Empty;
             uiStatusBarPanel5.FormatStyle.FontBold = Janus.Windows.UI.TriState.True;
@@ -230,7 +230,7 @@
             this.cmdExit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(99, 36);
-            this.cmdExit.Text = "&Thoát(Esc)";
+            this.cmdExit.Text = "Thoát(Esc)";
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
             // 
             // uiGroupBox1
@@ -365,7 +365,6 @@
             // 
             // dtToDate
             // 
-            this.dtToDate.CustomFormat = "dd/MM/yyyy";
             this.dtToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtToDate.Location = new System.Drawing.Point(279, 85);
             this.dtToDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -387,7 +386,6 @@
             // 
             // dtFromdate
             // 
-            this.dtFromdate.CustomFormat = "dd/MM/yyyy";
             this.dtFromdate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtFromdate.Location = new System.Drawing.Point(94, 85);
             this.dtFromdate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -460,6 +458,7 @@
             this.grdList.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown;
             this.grdList.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.grdList.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdList.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grdList.GroupByBoxVisible = false;
             this.grdList.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
             this.grdList.Location = new System.Drawing.Point(3, 18);

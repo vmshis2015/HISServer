@@ -92,8 +92,8 @@
             uiStatusBarPanel2.BorderColor = System.Drawing.Color.Empty;
             uiStatusBarPanel2.Key = "";
             uiStatusBarPanel2.ProgressBarValue = 0;
-            uiStatusBarPanel2.Text = "Ctrl+E: Sửa phiếu";
-            uiStatusBarPanel2.Width = 112;
+            uiStatusBarPanel2.Text = "Ctrl+U: Sửa phiếu";
+            uiStatusBarPanel2.Width = 113;
             uiStatusBarPanel3.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
             uiStatusBarPanel3.BorderColor = System.Drawing.Color.Empty;
             uiStatusBarPanel3.Key = "";
@@ -104,8 +104,8 @@
             uiStatusBarPanel4.BorderColor = System.Drawing.Color.Empty;
             uiStatusBarPanel4.Key = "";
             uiStatusBarPanel4.ProgressBarValue = 0;
-            uiStatusBarPanel4.Text = "Esc: Thoát chức năng";
-            uiStatusBarPanel4.Width = 134;
+            uiStatusBarPanel4.Text = "Esc: Thoát";
+            uiStatusBarPanel4.Width = 73;
             uiStatusBarPanel5.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
             uiStatusBarPanel5.BorderColor = System.Drawing.Color.Empty;
             uiStatusBarPanel5.FormatStyle.FontBold = Janus.Windows.UI.TriState.True;

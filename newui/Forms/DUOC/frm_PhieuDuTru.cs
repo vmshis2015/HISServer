@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Windows.Shapes;
 using Janus.Windows.GridEX;
 using SubSonic;
 using VNS.HIS.BusRule.Classes;
@@ -35,7 +34,6 @@ namespace VNS.HIS.UI.THUOC
             mnuHuyAll.Click += new EventHandler(mnuHuyAll_Click);
             chkUpdate.CheckedChanged += new EventHandler(chkUpdate_CheckedChanged);
             chkHienthithuoccoDutru.CheckedChanged += new EventHandler(chkHienthithuoccoDutru_CheckedChanged);
-            
         }
 
         void chkHienthithuoccoDutru_CheckedChanged(object sender, EventArgs e)
@@ -77,7 +75,7 @@ namespace VNS.HIS.UI.THUOC
         {
             if (e.KeyCode == Keys.Enter) SendKeys.Send("{TAB}");
             if (e.KeyCode == Keys.Escape) this.Close();
-            if (e.KeyCode == Keys.F5) cboKho_SelectedIndexChanged(cboKho, new EventArgs());
+            if (e.KeyCode == Keys.F5) cboKho_SelectedIndexChanged(cboKhoxuat, new EventArgs());
             if (e.KeyCode == Keys.S && e.Control) cmdSave_Click(cmdSave, new EventArgs());
         }
 
@@ -113,7 +111,7 @@ namespace VNS.HIS.UI.THUOC
                 if (e.KeyCode == Keys.Enter && Utility.Int32Dbnull(txtthuoc.MyID, -1) > 0)
                 {
                     int IDTHUOC = Utility.Int32Dbnull(txtthuoc.MyID, -1);
-                    Int16 IDKHO = Utility.Int16Dbnull(cboKho.SelectedValue);
+                    Int16 IDKHO = Utility.Int16Dbnull(cboKhoxuat.SelectedValue);
                     int SOLUONG = Utility.Int32Dbnull(Utility.DecimaltoDbnull(txtSoluongdutru.Text, 0));
                     var q = from p in grdList.GetDataRows()
                             where Utility.Int32Dbnull(p.Cells[DmucThuoc.Columns.IdThuoc].Value, 0) == IDTHUOC
@@ -202,12 +200,43 @@ namespace VNS.HIS.UI.THUOC
                 txtSoluongdutru.Clear();
             }
         }
-
+        private void LoadKho()
+        {
+            if (KIEU_THUOC_VT == "THUOC")
+            {
+                m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_LE_NOITRU();
+                m_dtKhoLinh = CommonLoadDuoc.LAYTHONGTIN_TUTHUOC();
+            }
+            else
+            {
+                m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_CHAN();
+                m_dtKhoLinh = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_LE(new List<string> { "TATCA", "NOITRU" });
+            }
+            DataBinding.BindDataCombobox(cboKhonhan, m_dtKhoLinh,
+                                          TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
+                                          "---Kho nhận---", true);
+            DataBinding.BindDataCombobox(cboKhoxuat, m_dtKhoXuat,
+                                       TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
+                                       "---Kho xuất---", true);
+            m_KhoaLinh = THU_VIEN_CHUNG.Laydanhmuckhoa("NOI", 0);
+            DataBinding.BindDataCombobox(cboKhoalinh, m_KhoaLinh,
+                                      DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong, "--Khoa lĩnh--", true);
+        }
+        private void Modifyconmand()
+        {
+            if (Utility.Int32Dbnull(grdList.GetValue("SO_LUONG"), 0) > 0)
+            {
+                cboKhoxuat.Enabled = false;
+                cboKhoalinh.Enabled = false;
+                cboKhonhan.Enabled = false;
+            }
+        }
         private void frm_PhieuDuTru_Load(object sender, EventArgs e)
         {
             AutocompleteThuoc();
-            DataBinding.BindDataCombobox(cboKho, this.KIEU_THUOC_VT.TrimStart().TrimEnd() == "THUOC" ? CommonLoadDuoc.LAYTHONGTIN_KHOTHUOCLE_TUTRUC(this.KIEU_THUOC_VT.TrimStart().TrimEnd()) : CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_LE(new List<string> { "TATCA", "NGOAITRU", "NOITRU" }), TDmucKho.Columns.IdKho,
-                                 TDmucKho.Columns.TenKho, "Chọn kho", true);
+            LoadKho();
+            //DataBinding.BindDataCombobox(cboKho, this.KIEU_THUOC_VT.TrimStart().TrimEnd() == "THUOC" ? CommonLoadDuoc.LAYTHONGTIN_KHOTHUOCLE_TUTRUC(this.KIEU_THUOC_VT.TrimStart().TrimEnd()) : CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_LE(new List<string> { "TATCA", "NGOAITRU", "NOITRU" }), TDmucKho.Columns.IdKho,
+            //                     TDmucKho.Columns.TenKho, "Chọn kho", true);
             hasLoaded = true;
             LoadThongTinThuoc();
         }
@@ -231,24 +260,21 @@ namespace VNS.HIS.UI.THUOC
         }
         private void LoadThongTinThuoc()
         {
-            if (!hasLoaded || Utility.Int16Dbnull(cboKho.SelectedValue) <= 0)
+            if (!hasLoaded || Utility.Int16Dbnull(cboKhoxuat.SelectedValue) <= 0)
             {
                 m_Thuoc.Rows.Clear();
                 return;
             }
             else
-                m_Thuoc = SPs.ThuocLaythongtinDutruthuoc(Utility.Int16Dbnull(cboKho.SelectedValue), KIEU_THUOC_VT).GetDataSet().Tables[0];
+                m_Thuoc = SPs.ThuocLaythongtinDutruthuoc(Utility.Int16Dbnull(cboKhoxuat.SelectedValue), KIEU_THUOC_VT,Utility.Int16Dbnull(cboKhonhan.SelectedValue)).GetDataSet().Tables[0];
             Utility.SetDataSourceForDataGridEx_Basic(grdList, m_Thuoc, true, true, "1=1", "COQUANHE desc,ten_thuoc,ten_donvitinh");
         }
 
         private void cmdGetData_Click(object sender, EventArgs e)
         {
-            if (Utility.Int32Dbnull(cboKho.SelectedValue) > 0)
+            if (Utility.Int32Dbnull(cboKhoxuat.SelectedValue) > 0)
             {
                 LoadThongTinThuoc();
-            }
-            else
-            {
             }
         }
 
@@ -261,8 +287,11 @@ namespace VNS.HIS.UI.THUOC
                 if (grdList.CurrentRow != null && grdList.CurrentRow.RowType == RowType.Record)
                 {
                     int IDTHUOC = Utility.Int32Dbnull(grdList.GetValue(DmucThuoc.Columns.IdThuoc), 0);
-                    Int16 IDKHO = Utility.Int16Dbnull(cboKho.SelectedValue);
+                    Int16 idkhoxuat = Utility.Int16Dbnull(cboKhoxuat.SelectedValue);
+
+                    Int16 Idkhonhan = Utility.Int16Dbnull(cboKhonhan.SelectedValue);
                     int SOLUONG = Utility.Int32Dbnull(grdList.GetValue("SO_LUONG"), 0);
+                    int IdThuocKho = Utility.Int32Dbnull(grdList.GetValue("id_thuockho"));
                     int SLUONG_TRONGKHO = Utility.Int32Dbnull(grdList.GetValue("SLUONG_TRONGKHO"), 0);
                     grdList.CurrentRow.BeginEdit();
                     if (SOLUONG <= 0)
@@ -280,20 +309,22 @@ namespace VNS.HIS.UI.THUOC
                     grdList.CurrentRow.EndEdit();
                     TDutruThuocCollection lst =
                         new Select().From(TDutruThuoc.Schema).Where(TDutruThuoc.Columns.IdThuoc).IsEqualTo(IDTHUOC)
-                            .And(TDutruThuoc.Columns.IdKho).IsEqualTo(IDKHO)
+                            .And(TDutruThuoc.Columns.IdKho).IsEqualTo(idkhoxuat)
+                            .And(TDutruThuoc.Columns.IdKhonhan).IsEqualTo(Idkhonhan)
+                            .And(TDutruThuoc.Columns.IdThuockho).IsEqualTo(IdThuocKho)
                             .And(TDutruThuoc.Columns.KieuThuocVt).IsEqualTo(KIEU_THUOC_VT)
                             .ExecuteAsCollection<TDutruThuocCollection>();
                     if (lst.Count > 0)
                     {
                         if (SOLUONG <= 0)
                             new Delete().From(TDutruThuoc.Schema).Where(TDutruThuoc.Columns.IdThuoc).IsEqualTo(IDTHUOC)
-                            .And(TDutruThuoc.Columns.IdKho).IsEqualTo(IDKHO)
+                            .And(TDutruThuoc.Columns.IdKho).IsEqualTo(idkhoxuat)
                             .And(TDutruThuoc.Columns.KieuThuocVt).IsEqualTo(KIEU_THUOC_VT).Execute();
                         else
                             new Update(TDutruThuoc.Schema)
                                 .Set(TDutruThuoc.Columns.SoluongDutru).EqualTo(SOLUONG)
                                 .Where(TDutruThuoc.Columns.IdThuoc).IsEqualTo(IDTHUOC).And(TDutruThuoc.Columns.IdKho).
-                                IsEqualTo(IDKHO)
+                                IsEqualTo(idkhoxuat)
                                 .And(TDutruThuoc.Columns.KieuThuocVt).IsEqualTo(KIEU_THUOC_VT).Execute();
 
                     }
@@ -302,8 +333,10 @@ namespace VNS.HIS.UI.THUOC
                         TDutruThuoc objThongTin = new TDutruThuoc();
                         objThongTin.IdThuoc = IDTHUOC;
                         objThongTin.KieuThuocVt = KIEU_THUOC_VT;
-                        objThongTin.IdKho = IDKHO;
+                        objThongTin.IdKho = idkhoxuat;
                         objThongTin.SoluongDutru = SOLUONG;
+                        objThongTin.IdKhonhan = Idkhonhan;
+                        objThongTin.IdThuockho = IdThuocKho;
                         objThongTin.IsNew = true;
                         objThongTin.Save();
 
@@ -311,11 +344,12 @@ namespace VNS.HIS.UI.THUOC
                     grdList.UpdateData();
                     grdList.Refetch();
                     m_Thuoc.AcceptChanges();
+                    Modifyconmand();
                 }
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-
+                Utility.ShowMsg("Lỗi:", ex.Message);
             }
         }
 
@@ -333,7 +367,7 @@ namespace VNS.HIS.UI.THUOC
                 foreach (GridEXRow _row in grdList.GetDataRows())
                 {
                     int IDTHUOC = Utility.Int32Dbnull(grdList.GetValue(DmucThuoc.Columns.IdThuoc), 0);
-                    Int16 IDKHO = Utility.Int16Dbnull(cboKho.SelectedValue);
+                    Int16 IDKHO = Utility.Int16Dbnull(cboKhoxuat.SelectedValue);
                     int SOLUONG = Utility.Int32Dbnull(grdList.GetValue("SO_LUONG"), 0);
 
                     if (SOLUONG <= 0)
@@ -348,8 +382,9 @@ namespace VNS.HIS.UI.THUOC
                             .And(TDutruThuoc.Columns.KieuThuocVt).IsEqualTo(KIEU_THUOC_VT).Execute();
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:", ex.Message);
             }
         }
 
@@ -367,13 +402,13 @@ namespace VNS.HIS.UI.THUOC
             try
             {
                 int count_checked = grdList.GetCheckedRows().Count();
-                 Int16 IDKHO= Utility.Int16Dbnull(cboKho.SelectedValue);
+                 Int16 IDKHO= Utility.Int16Dbnull(cboKhoxuat.SelectedValue);
                  if (count_checked<=0  )
                 {
                     if (Utility.isValidGrid(grdList))
                     {
                         GridEXRow _currentRow = grdList.CurrentRow;
-                        if (Utility.AcceptQuestion(string.Format("Bạn có chắc chắn muốn hủy dự trù thuốc/vật tư {0} trong kho {1} hay không?", Utility.sDbnull(_currentRow.Cells[DmucThuoc.Columns.TenThuoc].Value, "không xác định"), cboKho.Text), "Cảnh báo", true))
+                        if (Utility.AcceptQuestion(string.Format("Bạn có chắc chắn muốn hủy dự trù thuốc/vật tư {0} trong kho {1} hay không?", Utility.sDbnull(_currentRow.Cells[DmucThuoc.Columns.TenThuoc].Value, "không xác định"), cboKhoxuat.Text), "Cảnh báo", true))
                         {
                            
                             int IDTHUOC = 0;
@@ -391,7 +426,7 @@ namespace VNS.HIS.UI.THUOC
 
                             grdList.UpdateData();
                             m_Thuoc.AcceptChanges();
-                            Utility.ShowMsg(string.Format("Đã hủy dự trù thuốc/vật tư {0} trong kho {1} thành công!", Utility.sDbnull(_currentRow.Cells[DmucThuoc.Columns.TenThuoc].Value, "không xác định"), cboKho.Text));
+                            Utility.ShowMsg(string.Format("Đã hủy dự trù thuốc/vật tư {0} trong kho {1} thành công!", Utility.sDbnull(_currentRow.Cells[DmucThuoc.Columns.TenThuoc].Value, "không xác định"), cboKhoxuat.Text));
                         }
                     }
                     else
@@ -401,7 +436,7 @@ namespace VNS.HIS.UI.THUOC
                 }
                 else//Hủy toàn bộ
                 {
-                    if (Utility.AcceptQuestion(string.Format("Bạn có chắc chắn muốn hủy toàn bộ dự trù thuốc/vật tư trong kho {0} hay không?", cboKho.Text), "Cảnh báo", true))
+                    if (Utility.AcceptQuestion(string.Format("Bạn có chắc chắn muốn hủy toàn bộ dự trù thuốc/vật tư trong kho {0} hay không?", cboKhoxuat.Text), "Cảnh báo", true))
                     {
                           int IDTHUOC = 0;
                         foreach(GridEXRow _row in grdList.GetCheckedRows())
@@ -418,13 +453,13 @@ namespace VNS.HIS.UI.THUOC
                         }
                         grdList.UpdateData();
                         m_Thuoc.AcceptChanges();
-                        Utility.ShowMsg(string.Format("Đã hủy toàn bộ dự trù thuốc/vật tư trong kho {0} thành công!", cboKho.Text));
+                        Utility.ShowMsg(string.Format("Đã hủy toàn bộ dự trù thuốc/vật tư trong kho {0} thành công!", cboKhoxuat.Text));
                     }
                 }
             }
             catch(Exception ex)
             {
-                Utility.CatchException("Lỗi khi hủy dự trù thuốc/vật tư. Liên hệ để được trợ giúp", ex);
+                Utility.ShowMsg("Lỗi:", ex.Message);
             }
         }
 
@@ -434,7 +469,7 @@ namespace VNS.HIS.UI.THUOC
             {
                
                 //Truyền dữ liệu vào datatable
-                DataTable m_dtReport = BAOCAO_THUOC.ThuocLaythongtinInphieuDutruthuoc(Utility.Int16Dbnull(cboKho.SelectedValue, -1), KIEU_THUOC_VT);
+                DataTable m_dtReport = BAOCAO_THUOC.ThuocLaythongtinInphieuDutruthuoc(Utility.Int16Dbnull(cboKhoxuat.SelectedValue, -1), KIEU_THUOC_VT);
                 THU_VIEN_CHUNG.CreateXML(m_dtReport, "thuoc_PhieuDutru.xml");
                 
                 if (m_dtReport.Rows.Count <= 0)
@@ -462,13 +497,48 @@ namespace VNS.HIS.UI.THUOC
                 Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(globalVariables.SysDate));
                 Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
                 Utility.SetParameterValue(crpt, "txtTrinhky", "");
-                Utility.SetParameterValue(crpt, "tenkho", cboKho.Text);
+                Utility.SetParameterValue(crpt, "tenkho", cboKhoxuat.Text);
+
+
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
             }
             catch (Exception exception)
             {
+                Utility.ShowMsg("Lỗi:"+ exception.Message);
             }
+        }
+        private DataTable m_dtKhoXuat, m_dtKhoLinh, m_KhoaLinh = new DataTable();
+        private void cboKhoalinh_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!hasLoaded) return;
+                string IDKhoa = cboKhoalinh.SelectedValue.ToString();
+                DataRow[] arrdr = m_dtKhoLinh.Select("ID_KHOAPHONG=" + IDKhoa);
+                DataTable _newTable = m_dtKhoLinh.Clone();
+                if (arrdr.Length > 0) _newTable = arrdr.CopyToDataTable();
+                DataBinding.BindDataCombobox(cboKhonhan, _newTable,
+                                           TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho, "--Chọn tủ thuốc--", false);
+                if (_newTable.Rows.Count == 2)
+                {
+                    cboKhonhan.SelectedIndex = 1;
+                }
+            }
+            catch (Exception exception)
+            {
+                Utility.ShowMsg("Lỗi:" + exception.Message);
+            }
+        }
+
+        private void cboKhonhan_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(Utility.Int16Dbnull(cboKhonhan.SelectedIndex)>0)
+            {
+                LoadThongTinThuoc();
+                Modifyconmand();
+            }
+            
         }
     }
 }

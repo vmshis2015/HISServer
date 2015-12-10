@@ -18,25 +18,23 @@ using VNS.HIS.NGHIEPVU.THUOC;
 using VNS.HIS.UI.Forms.Cauhinh;
 namespace VNS.HIS.UI.THUOC
 {
-    public partial class frm_PhieuTrathuocKhoaveKho : Form
+    public partial class frm_PhieuXuatthuocBNNoitru : Form
     {
+     
         private bool b_Hasloaded = false;
         private DataTable m_dtDataNhapKho=new DataTable();
         private DataTable m_dtDataPhieuChiTiet = new DataTable();
-        
+       
         public string KIEU_THUOC_VT = "THUOC";
-        public frm_PhieuTrathuocKhoaveKho(string KIEU_THUOC_VT)
+        public frm_PhieuXuatthuocBNNoitru(string KIEU_THUOC_VT)
         {
             InitializeComponent();
             this.KIEU_THUOC_VT = KIEU_THUOC_VT;
-            
             dtFromdate.Value = globalVariables.SysDate.AddMonths(-1);
             dtToDate.Value = globalVariables.SysDate;
             this.KeyDown+=new KeyEventHandler(frm_PhieuCapphatThuocTonghop_KeyDown);
             grdList.ApplyingFilter+=new CancelEventHandler(grdList_ApplyingFilter);
             grdList.SelectionChanged+=new EventHandler(grdList_SelectionChanged);
-           
-          
             CauHinh();
         }
         /// <summary>
@@ -53,7 +51,7 @@ namespace VNS.HIS.UI.THUOC
             if (e.KeyCode == Keys.F3) cmdSearch.PerformClick();
             if (e.KeyCode == Keys.Escape) cmdExit.PerformClick();
         }
-        
+       
        
      
         /// <summary>
@@ -80,9 +78,9 @@ namespace VNS.HIS.UI.THUOC
             m_dtDataNhapKho =
                  new THUOC_NHAPKHO().Laydanhsachphieunhapkho(chkByDate.Checked ? dtFromdate.Value.ToString("dd/MM/yyyy") :"01/01/1900",
                                              chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",-1, Utility.Int32Dbnull(cboKhoaLinh.SelectedValue, -1), 
-                                             Utility.Int32Dbnull(cboKhoTra.SelectedValue, -1),
-                                             Utility.Int32Dbnull(cboKhoNhan.SelectedValue, -1), Utility.Int32Dbnull(cboNhanVien.SelectedValue, -1),
-                                             -1, "ALL", Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI, (int)LoaiPhieu.PhieuNhapTraKhoLe, MaKho, 2, KIEU_THUOC_VT);
+                                             Utility.Int32Dbnull(cboKhonhan.SelectedValue, -1),
+                                             Utility.Int32Dbnull(cboKhoxuat.SelectedValue, -1), Utility.Int32Dbnull(cboNhanVien.SelectedValue, -1),
+                                             -1, "ALL", Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI, (int)LoaiPhieu.PhieuXuatKhoBenhNhan, MaKho,1, KIEU_THUOC_VT);
 
             Utility.SetDataSourceForDataGridEx_Basic(grdList, m_dtDataNhapKho, true, true, "1=1", "");
             if (!Utility.isValidGrid(grdList)) if (m_dtDataPhieuChiTiet != null) m_dtDataPhieuChiTiet.Clear();
@@ -129,7 +127,7 @@ namespace VNS.HIS.UI.THUOC
         {
             dtToDate.Enabled = dtFromdate.Enabled = chkByDate.Checked;
         }
-        private bool InValiUpdateXoa()
+        private bool IsValid4UpdateDelete()
         {
             int IdPhieu = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
             SqlQuery sqlQuery = new Select().From(TPhieuNhapxuatthuoc.Schema)
@@ -137,7 +135,7 @@ namespace VNS.HIS.UI.THUOC
                 .And(TPhieuNhapxuatthuoc.Columns.IdPhieu).IsEqualTo(IdPhieu);
             if (sqlQuery.GetRecordCount() > 0)
             {
-                Utility.ShowMsg("Phiếu trả đã được xác nhận, Bạn không thể sửa hoặc xóa thông tin", "Thông báo", MessageBoxIcon.Warning);
+                Utility.ShowMsg("Phiếu đang chọn đã được xác nhận cấp phát cho khoa, Bạn không thể sửa hoặc xóa thông tin", "Thông báo", MessageBoxIcon.Warning);
                 return false;
             }
             return true;
@@ -149,10 +147,9 @@ namespace VNS.HIS.UI.THUOC
         /// <param name="e"></param>
         private void cmdXoaPhieuNhap_Click(object sender, EventArgs e)
         {
-            Utility.SetMsg(uiStatusBar2.Panels["MSG"], "", false);
             int IdPhieu = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
-            if (!InValiUpdateXoa()) return;
-            if (Utility.AcceptQuestion(string.Format("Bạn có muốn xóa phiếu trả thuốc từ khoa nội trú về kho với mã phiếu {0}\n hay không?", IdPhieu), "Thông báo", true))
+            if (!IsValid4UpdateDelete()) return;
+            if (Utility.AcceptQuestion(string.Format("Bạn có chắc chắn muốn xóa thông tin phiếu cấp phát với mã phiếu {0} hay không?", IdPhieu), "Thông báo", true))
             {
                 ActionResult actionResult = new THUOC_NHAPKHO().XoaPhieuNhapKho(IdPhieu);
                 switch (actionResult)
@@ -161,7 +158,7 @@ namespace VNS.HIS.UI.THUOC
                         grdList.CurrentRow.Delete();
                         grdList.UpdateData();
                         m_dtDataNhapKho.AcceptChanges();
-                        Utility.SetMsg(uiStatusBar2.Panels["MSG"], "Bạn xóa thông tin phiếu trả thuốc từ khoa nội trú về kho thành công", false);
+                        Utility.ShowMsg("Bạn xóa thông tin phiếu cấp phát thành công", "Thông báo", MessageBoxIcon.Information);
                         break;
                     case ActionResult.Error:
                         break;
@@ -178,7 +175,7 @@ namespace VNS.HIS.UI.THUOC
             TIMKIEM_THONGTIN();
             ModifyCommand();
         }
-        private DataTable m_dtKhoNhan,m_dtKhoTra,m_KhoaLinh =new DataTable();
+        private DataTable m_dtKhoXuat,m_dtKhonhan,m_KhoaLinh =new DataTable();
         /// <summary>
         /// hàm thực hiện việc khởi tạo thông tin của Form
         /// </summary>
@@ -187,20 +184,20 @@ namespace VNS.HIS.UI.THUOC
             m_KhoaLinh = THU_VIEN_CHUNG.Laydanhmuckhoa("NOI",0);
             if (KIEU_THUOC_VT == "THUOC")
             {
-                m_dtKhoNhan = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_LE_NOITRU();
-                m_dtKhoTra = CommonLoadDuoc.LAYTHONGTIN_TUTHUOC();
+                m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_LE_NOITRU();
+                m_dtKhonhan = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_AO(true);
             }
             else
             {
-                m_dtKhoNhan = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_CHAN();
-                m_dtKhoTra = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_LE(new List<string> { "TATCA",  "NOITRU" });
+                m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_CHAN();
+                m_dtKhonhan = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_AO(true);
             }
-            DataBinding.BindDataCombobox(cboKhoNhan, m_dtKhoNhan,
+            DataBinding.BindDataCombobox(cboKhoxuat, m_dtKhoXuat,
                                       TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
-                                      "---kho nhận---",true);
+                                      "---Kho xuất---",true);
             DataBinding.BindDataCombobox(cboKhoaLinh, m_KhoaLinh,
                                      DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
-                                     "---Khoa trả---",true);
+                                     "---Khoa lĩnh---",true);
             b_Hasloaded = true;
         }
         int id_PhieuNhap = -1;
@@ -221,9 +218,9 @@ namespace VNS.HIS.UI.THUOC
                 else
                 {
                     if (THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_INPHIEUXUATKHO _2LIEN", "0", false) == "1")
-                        VNS.HIS.UI.Baocao.thuoc_phieuin_nhapxuat.InphieuXuatkho_2lien(IDPhieuNhap, "phiếu trả thuốc THUỐC TỦ TRỰC", globalVariables.SysDate);
+                        VNS.HIS.UI.Baocao.thuoc_phieuin_nhapxuat.InphieuXuatkho_2lien(IDPhieuNhap, "PHIẾU XUẤT THUỐC TỦ TRỰC", globalVariables.SysDate);
                     else
-                        VNS.HIS.UI.Baocao.thuoc_phieuin_nhapxuat.InphieuXuatkho(IDPhieuNhap, "phiếu trả thuốc THUỐC TỦ TRỰC", globalVariables.SysDate);
+                        VNS.HIS.UI.Baocao.thuoc_phieuin_nhapxuat.InphieuXuatkho(IDPhieuNhap, "PHIẾU XUẤT THUỐC TỦ TRỰC", globalVariables.SysDate);
                 }
             }
 
@@ -240,8 +237,7 @@ namespace VNS.HIS.UI.THUOC
             try
             {
                 cmdNhapKho.Enabled = false;
-                Utility.SetMsg(uiStatusBar2.Panels["MSG"], "", false);
-                if (Utility.AcceptQuestion("Bạn có muốn thực hiện trả thuốc từ tủ trực khoa nội trú về kho lẻ hay không?", "Thông báo", true))
+                if (Utility.AcceptQuestion("Bạn có chắc chắn muốn xác nhận phiếu xuất thuốc Bệnh nhân nội trú đang chọn hay không?", "Thông báo", true))
                 {
                     string errMsg = "";
                     int IdPhieu = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
@@ -260,11 +256,11 @@ namespace VNS.HIS.UI.THUOC
                                 _ngayxacnhan = _ChonngayXacnhan.pdt_InputDate;
                         }
                         ActionResult actionResult =
-                            new CapphatThuocKhoa().XacNhanPhieuTrathuocTutrucKhoaveKho(objTPhieuNhapxuatthuoc, _ngayxacnhan, ref errMsg);
+                            new CapphatThuocKhoa().XacNhanPhieuCapphatThuocBenhnhanNoitru(objTPhieuNhapxuatthuoc, _ngayxacnhan, ref errMsg);
                         switch (actionResult)
                         {
                             case ActionResult.Success:
-                                Utility.SetMsg(uiStatusBar2.Panels["MSG"], "Trả thuốc từ tủ thuốc khoa nội trú về kho thành công", false);
+                                Utility.SetMsg(uiStatusBar2.Panels["MSG"], "Đã xác nhận phiếu xuất thuốc Bệnh nhân nội trú thành công", false);
                                 grdList.CurrentRow.BeginEdit();
                                 grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.TrangThai].Value = 1;
                                 grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.NgayXacnhan].Value = _ngayxacnhan;
@@ -273,12 +269,13 @@ namespace VNS.HIS.UI.THUOC
                                 grdList.CurrentRow.EndEdit();
                                 break;
                             case ActionResult.Exceed:
-                                Utility.ShowMsg("Không có thuốc trong tủ trực nên không thể xác nhận phiếu trả thuốc\n" + errMsg, "Thông báo lỗi", MessageBoxIcon.Warning);
+                                Utility.ShowMsg("Không có thuốc trong kho xuất nên không thể xác nhận phiếu xuất\n" + errMsg);
                                 break;
                             case ActionResult.NotEnoughDrugInStock:
-                                Utility.ShowMsg("Thuốc trong tủ trực không còn đủ số lượng nên không thể xác nhận phiếu trả thuốc\n" + errMsg, "Thông báo lỗi", MessageBoxIcon.Warning);
+                                Utility.ShowMsg("Thuốc trong kho xuất không còn đủ số lượng nên không thể xác nhận phiếu xuất\n" + errMsg);
                                 break;
                             case ActionResult.Error:
+
                                 break;
                         }
                     }
@@ -334,7 +331,7 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                frm_themmoi_NhaptraKhoaveKholeNoitru frm = new frm_themmoi_NhaptraKhoaveKholeNoitru(KIEU_THUOC_VT);
+                frm_themmoi_phieuxuatthuoc_Bnnoitru frm = new frm_themmoi_phieuxuatthuoc_Bnnoitru();
                 frm.m_enAction = action.Insert;
                 frm.p_mDataPhieuNhapKho = m_dtDataNhapKho;
                 frm.KIEU_THUOC_VT = KIEU_THUOC_VT;
@@ -360,7 +357,7 @@ namespace VNS.HIS.UI.THUOC
             }
         }
         /// <summary>
-        /// hàm thực hiện việc cho phép thông tin của phiếu trả thuốc từ khoa nội trú về kho
+        /// hàm thực hiện việc cho phép thông tin của phiếu cấp phát
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -368,9 +365,9 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                if (!InValiUpdateXoa()) return;
+                if (!IsValid4UpdateDelete()) return;
                 int IdPhieu = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
-                frm_themmoi_NhaptraKhoaveKholeNoitru frm = new frm_themmoi_NhaptraKhoaveKholeNoitru(KIEU_THUOC_VT);
+                frm_themmoi_phieuxuatthuoc_Bnnoitru frm = new frm_themmoi_phieuxuatthuoc_Bnnoitru();
                 frm.m_enAction = action.Update;
                 frm.KIEU_THUOC_VT = KIEU_THUOC_VT;
                 frm.grdList = grdList;
@@ -397,7 +394,7 @@ namespace VNS.HIS.UI.THUOC
             }
         }
         /// <summary>
-        /// hàm thực hiện việc tì kiếm thông tin sucar phiếu trả thuốc kho
+        /// hàm thực hiện việc tì kiếm thông tin sucar phiếu xuất kho
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -418,7 +415,8 @@ namespace VNS.HIS.UI.THUOC
             try
             {
                 cmdHuychuyenkho.Enabled = false;
-                if (Utility.AcceptQuestion("Bạn có muốn hủy xác nhận phiếu trả thuốc từ khoa nội trú về kho hay không?", "Thông báo", true))
+                Utility.SetMsg(uiStatusBar2.Panels["MSG"], "", false);
+                if (Utility.AcceptQuestion("Bạn có chắc chắn muốn hủy xác nhận phiếu xuất thuốc Bệnh nhân nội trú đang chọn hay không?", "Thông báo", true))
                 {
                     string errMsg = "";
                     int IdPhieu = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
@@ -426,11 +424,11 @@ namespace VNS.HIS.UI.THUOC
                     if (objTPhieuNhapxuatthuoc != null)
                     {
                         ActionResult actionResult =
-                            new CapphatThuocKhoa().HuyXacNhanPhieuTrathuocTutrucKhoaVeKho(objTPhieuNhapxuatthuoc, ref errMsg);
+                            new CapphatThuocKhoa().HuyXacNhanPhieuCapphatkholeBNNoitru(objTPhieuNhapxuatthuoc, ref errMsg);
                         switch (actionResult)
                         {
                             case ActionResult.Success:
-                                Utility.ShowMsg("Bạn thực hiện hủy xác nhận phiếu trả thuốc từ khoa nội trú về kho thành công", "Thông báo");
+                                Utility.SetMsg(uiStatusBar2.Panels["MSG"], "Bạn thực hiện hủy xác nhận phiếu cấp phát thành công", false);
                                 grdList.CurrentRow.BeginEdit();
                                 grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.TrangThai].Value = 0;
                                 grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.NgayXacnhan].Value = DBNull.Value;
@@ -438,17 +436,17 @@ namespace VNS.HIS.UI.THUOC
                                 grdList.CurrentRow.EndEdit();
                                 break;
                             case ActionResult.Exceed:
-                                Utility.ShowMsg("Thuốc trong kho lẻ(nhận) đã được sử dụng hết nên bạn không thể hủy phiếu trả thuốc ", "Thông báo lỗi", MessageBoxIcon.Error);
+                                Utility.ShowMsg("Thuốc trong kho nhập đã được sử dụng hết nên bạn không thể hủy phiếu cấp phát", "Thông báo lỗi", MessageBoxIcon.Error);
                                 break;
                             case ActionResult.NotEnoughDrugInStock:
-                                Utility.ShowMsg("Thuốc trong kho lẻ(nhận) đã sử dụng gần hết nên không còn đủ số lượng để hoàn trả lại tủ thuốc", "Thông báo lỗi", MessageBoxIcon.Error);
+                                Utility.ShowMsg("Thuốc trong kho nhập đã gần hết nên bạn không thể hủy phiếu cấp phát", "Thông báo lỗi", MessageBoxIcon.Error);
                                 break;
                             case ActionResult.Error:
                                 break;
                         }
                     }
                 }
-
+             
             }
             catch (Exception)
             {
@@ -457,7 +455,7 @@ namespace VNS.HIS.UI.THUOC
             {
                 ModifyCommand();
             }
-           
+          
         }
 
         private void cboKhoaLinh_SelectedIndexChanged(object sender, EventArgs e)
@@ -466,14 +464,14 @@ namespace VNS.HIS.UI.THUOC
             {
                 if (!b_Hasloaded) return;
                 string IDKhoa = cboKhoaLinh.SelectedValue.ToString();
-                DataRow[] arrdr = m_dtKhoTra.Select("ID_KHOAPHONG=" + IDKhoa);
-                DataTable _newTable = m_dtKhoTra.Clone();
+                DataRow[] arrdr = m_dtKhonhan.Select("ID_KHOAPHONG=" + IDKhoa);
+                DataTable _newTable = m_dtKhonhan.Clone();
                 if (arrdr.Length > 0) _newTable = arrdr.CopyToDataTable();
-                DataBinding.BindDataCombobox(cboKhoTra, _newTable,
-                                           TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,"--Chọn tủ thuốc--",true);
+                DataBinding.BindDataCombobox(cboKhonhan, _newTable,
+                                           TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,"--Chọn kho Bệnh nhân nội trú--",true);
                 if (_newTable.Rows.Count == 2)
                 {
-                    cboKhoTra.SelectedIndex = 1;
+                    cboKhonhan.SelectedIndex = 1;
                 }
             }
             catch
@@ -498,6 +496,8 @@ namespace VNS.HIS.UI.THUOC
         }
         private void CauHinh()
         {
+
+
             //cmdThemPhieuNhap.Visible = PropertyLib._DuocNoitruProperties.Taophieu;
             //cmdUpdatePhieuNhap.Visible = PropertyLib._DuocNoitruProperties.Suaphieu;
             //cmdXoaPhieuNhap.Visible = PropertyLib._DuocNoitruProperties.Xoaphieu;
@@ -507,5 +507,6 @@ namespace VNS.HIS.UI.THUOC
 
 
         }
+        
     }
 }

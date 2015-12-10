@@ -18,14 +18,14 @@ using VNS.HIS.NGHIEPVU.THUOC;
 using VNS.HIS.UI.Forms.Cauhinh;
 namespace VNS.HIS.UI.THUOC
 {
-    public partial class frm_PhieuTrathuocKhoaveKho : Form
+    public partial class frm_PhieuTrathuocThuatuKhoBNNoitruveKhoLeNoitru : Form
     {
         private bool b_Hasloaded = false;
         private DataTable m_dtDataNhapKho=new DataTable();
         private DataTable m_dtDataPhieuChiTiet = new DataTable();
         
         public string KIEU_THUOC_VT = "THUOC";
-        public frm_PhieuTrathuocKhoaveKho(string KIEU_THUOC_VT)
+        public frm_PhieuTrathuocThuatuKhoBNNoitruveKhoLeNoitru(string KIEU_THUOC_VT)
         {
             InitializeComponent();
             this.KIEU_THUOC_VT = KIEU_THUOC_VT;
@@ -82,7 +82,7 @@ namespace VNS.HIS.UI.THUOC
                                              chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",-1, Utility.Int32Dbnull(cboKhoaLinh.SelectedValue, -1), 
                                              Utility.Int32Dbnull(cboKhoTra.SelectedValue, -1),
                                              Utility.Int32Dbnull(cboKhoNhan.SelectedValue, -1), Utility.Int32Dbnull(cboNhanVien.SelectedValue, -1),
-                                             -1, "ALL", Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI, (int)LoaiPhieu.PhieuNhapTraKhoLe, MaKho, 2, KIEU_THUOC_VT);
+                                             -1, "ALL", Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI, (int)LoaiPhieu.PhieuTrathuocTukhoBNNoitruVeKhoLeNoitru, MaKho, 1, KIEU_THUOC_VT);
 
             Utility.SetDataSourceForDataGridEx_Basic(grdList, m_dtDataNhapKho, true, true, "1=1", "");
             if (!Utility.isValidGrid(grdList)) if (m_dtDataPhieuChiTiet != null) m_dtDataPhieuChiTiet.Clear();
@@ -260,7 +260,7 @@ namespace VNS.HIS.UI.THUOC
                                 _ngayxacnhan = _ChonngayXacnhan.pdt_InputDate;
                         }
                         ActionResult actionResult =
-                            new CapphatThuocKhoa().XacNhanPhieuTrathuocTutrucKhoaveKho(objTPhieuNhapxuatthuoc, _ngayxacnhan, ref errMsg);
+                            new CapphatThuocKhoa().XacNhanPhieuTrathuocKholeBNveKhoLeNoitru(objTPhieuNhapxuatthuoc, _ngayxacnhan, ref errMsg);
                         switch (actionResult)
                         {
                             case ActionResult.Success:
@@ -293,7 +293,7 @@ namespace VNS.HIS.UI.THUOC
             {
                 ModifyCommand();
             }
-           
+            
         }
 
         /// <summary>
@@ -334,7 +334,7 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                frm_themmoi_NhaptraKhoaveKholeNoitru frm = new frm_themmoi_NhaptraKhoaveKholeNoitru(KIEU_THUOC_VT);
+                frm_Themmoi_PhieuTrathuocThuatuKhoBNNoitruveKhoLeNoitru frm = new frm_Themmoi_PhieuTrathuocThuatuKhoBNNoitruveKhoLeNoitru(KIEU_THUOC_VT);
                 frm.m_enAction = action.Insert;
                 frm.p_mDataPhieuNhapKho = m_dtDataNhapKho;
                 frm.KIEU_THUOC_VT = KIEU_THUOC_VT;
@@ -370,7 +370,7 @@ namespace VNS.HIS.UI.THUOC
             {
                 if (!InValiUpdateXoa()) return;
                 int IdPhieu = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
-                frm_themmoi_NhaptraKhoaveKholeNoitru frm = new frm_themmoi_NhaptraKhoaveKholeNoitru(KIEU_THUOC_VT);
+                frm_Themmoi_PhieuTrathuocThuatuKhoBNNoitruveKhoLeNoitru frm = new frm_Themmoi_PhieuTrathuocThuatuKhoBNNoitruveKhoLeNoitru(KIEU_THUOC_VT);
                 frm.m_enAction = action.Update;
                 frm.KIEU_THUOC_VT = KIEU_THUOC_VT;
                 frm.grdList = grdList;
@@ -426,7 +426,7 @@ namespace VNS.HIS.UI.THUOC
                     if (objTPhieuNhapxuatthuoc != null)
                     {
                         ActionResult actionResult =
-                            new CapphatThuocKhoa().HuyXacNhanPhieuTrathuocTutrucKhoaVeKho(objTPhieuNhapxuatthuoc, ref errMsg);
+                            new CapphatThuocKhoa().HuyXacNhanPhieuTrathuocTuKholeBNNoitruVeKhoLeNoitru(objTPhieuNhapxuatthuoc, ref errMsg);
                         switch (actionResult)
                         {
                             case ActionResult.Success:
@@ -457,7 +457,7 @@ namespace VNS.HIS.UI.THUOC
             {
                 ModifyCommand();
             }
-           
+          
         }
 
         private void cboKhoaLinh_SelectedIndexChanged(object sender, EventArgs e)

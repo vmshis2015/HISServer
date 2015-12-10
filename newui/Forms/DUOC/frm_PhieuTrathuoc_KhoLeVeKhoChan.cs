@@ -99,8 +99,8 @@ namespace VNS.HIS.UI.THUOC
                                           chkByDate.Checked
                                               ? dtToDate.Value.ToString("dd/MM/yyyy")
                                               : "01/01/1900", TRANG_THAI,
-                                               Utility.Int32Dbnull(cboKhoTra.SelectedValue, -1),
                                           Utility.Int32Dbnull(cboKhoLinh.SelectedValue, -1),
+                                          Utility.Int32Dbnull(cboKhoTra.SelectedValue, -1),
                                           -1,
                                           Utility.sDbnull(txtMaPhieuTraKho.Text, -1),(int?) LoaiPhieu.PhieuNhapTraLaiKhoLeVeKhoChan
                                           ).GetDataSet().Tables[0];
@@ -333,9 +333,9 @@ namespace VNS.HIS.UI.THUOC
         {
             if(e.KeyCode==Keys.F3)cmdSearch.PerformClick();
             if(e.KeyCode==Keys.F4)cmdInDonThuoc.PerformClick();
-            if(e.KeyCode==Keys.N&&e.Control)cmdThemPhieuNhap.PerformClick();
-            if(e.KeyCode==Keys.U&&e.Control)cmdUpdatePhieuNhap.PerformClick();
-            if(e.KeyCode==Keys.D&&e.Control)cmdXoaPhieuNhap.PerformClick();
+            if(e.KeyCode==Keys.N && e.Control)cmdThemPhieuNhap.PerformClick();
+            if(e.KeyCode==Keys.U && e.Control)cmdUpdatePhieuNhap.PerformClick();
+            if(e.KeyCode==Keys.D && e.Control)cmdXoaPhieuNhap.PerformClick();
             //if(e.KeyCode==Keys.F3)cmdSearch.PerformClick();
         }
         /// <summary>
@@ -346,42 +346,54 @@ namespace VNS.HIS.UI.THUOC
         /// <param name="e"></param>
         private void cmdXacNhan_Click(object sender, EventArgs e)
         {
-            Utility.SetMsg(uiStatusBar2.Panels["MSG"], "", false);
-            if (Utility.AcceptQuestion("Bạn có muốn xác nhận phieus trả thuốc từ kho lẻ về kho chẵn?\nSau khi trả, thuốc sẽ bị trừ khỏi kho lẻ(kho xuất) và cộng vào kho chẵn(kho nhập)", "Thông báo", true))
+            try
             {
-                int IDPhieuNhap = Utility.Int32Dbnull(grdList.GetValue(TPhieutrathuocKholeVekhochan.Columns.IdPhieu), -1);
-                TPhieutrathuocKholeVekhochan objDPhieuNhap = TPhieutrathuocKholeVekhochan.FetchByID(IDPhieuNhap);
-                if (objDPhieuNhap != null)
+                cmdXacNhan.Enabled = false;
+                Utility.SetMsg(uiStatusBar2.Panels["MSG"], "", false);
+                if (Utility.AcceptQuestion("Bạn có muốn xác nhận phieus trả thuốc từ kho lẻ về kho chẵn?\nSau khi trả, thuốc sẽ bị trừ khỏi kho lẻ(kho xuất) và cộng vào kho chẵn(kho nhập)", "Thông báo", true))
                 {
-                    DateTime _ngayxacnhan = globalVariables.SysDate;
-                    if (THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_HIENTHI_NGAYXACNHAN", "0", false) == "1")
+                    int IDPhieuNhap = Utility.Int32Dbnull(grdList.GetValue(TPhieutrathuocKholeVekhochan.Columns.IdPhieu), -1);
+                    TPhieutrathuocKholeVekhochan objDPhieuNhap = TPhieutrathuocKholeVekhochan.FetchByID(IDPhieuNhap);
+                    if (objDPhieuNhap != null)
                     {
-                        frm_ChonngayXacnhan _ChonngayXacnhan = new frm_ChonngayXacnhan();
-                        _ChonngayXacnhan.pdt_InputDate = objDPhieuNhap.NgayTra.Value;
-                        _ChonngayXacnhan.ShowDialog();
-                        if (_ChonngayXacnhan.b_Cancel)
-                            return;
-                        else
-                        _ngayxacnhan = _ChonngayXacnhan.pdt_InputDate;
-                    }
-                    ActionResult actionResult =
-                        new PhieuTraLai().XacNhanTraLaiKhoLeVeKhoChan(objDPhieuNhap, _ngayxacnhan);
-                    switch (actionResult)
-                    {
-                        case ActionResult.Success:
-                            Utility.SetMsg(uiStatusBar2.Panels["MSG"], "Trả thuốc từ kho lẻ về kho chẵn thành công", false);
-                            grdList.CurrentRow.BeginEdit();
-                            grdList.CurrentRow.Cells[TPhieutrathuocKholeVekhochan.Columns.TrangThai].Value = 1;
-                            grdList.CurrentRow.Cells[TPhieutrathuocKholeVekhochan.Columns.NgayXacnhan].Value = _ngayxacnhan;
-                            grdList.CurrentRow.Cells[TPhieutrathuocKholeVekhochan.Columns.NguoiXacnhan].Value = globalVariables.UserName;
-                            grdList.CurrentRow.EndEdit();
-                            break;
-                        case ActionResult.Error:
-                            break;
+                        DateTime _ngayxacnhan = globalVariables.SysDate;
+                        if (THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_HIENTHI_NGAYXACNHAN", "0", false) == "1")
+                        {
+                            frm_ChonngayXacnhan _ChonngayXacnhan = new frm_ChonngayXacnhan();
+                            _ChonngayXacnhan.pdt_InputDate = objDPhieuNhap.NgayTra.Value;
+                            _ChonngayXacnhan.ShowDialog();
+                            if (_ChonngayXacnhan.b_Cancel)
+                                return;
+                            else
+                                _ngayxacnhan = _ChonngayXacnhan.pdt_InputDate;
+                        }
+                        ActionResult actionResult =
+                            new PhieuTraLai().XacNhanTraLaiKhoLeVeKhoChan(objDPhieuNhap, _ngayxacnhan);
+                        switch (actionResult)
+                        {
+                            case ActionResult.Success:
+                                Utility.SetMsg(uiStatusBar2.Panels["MSG"], "Trả thuốc từ kho lẻ về kho chẵn thành công", false);
+                                grdList.CurrentRow.BeginEdit();
+                                grdList.CurrentRow.Cells[TPhieutrathuocKholeVekhochan.Columns.TrangThai].Value = 1;
+                                grdList.CurrentRow.Cells[TPhieutrathuocKholeVekhochan.Columns.NgayXacnhan].Value = _ngayxacnhan;
+                                grdList.CurrentRow.Cells[TPhieutrathuocKholeVekhochan.Columns.NguoiXacnhan].Value = globalVariables.UserName;
+                                grdList.CurrentRow.EndEdit();
+                                break;
+                            case ActionResult.Error:
+                                break;
+                        }
                     }
                 }
+
             }
-            ModifyCommand();
+            catch (Exception)
+            {
+            }
+            finally
+            {
+                ModifyCommand();
+            }
+          
         }
 
         private void cmdCauHinh_Click(object sender, EventArgs e)
@@ -412,38 +424,50 @@ namespace VNS.HIS.UI.THUOC
 
         private void cmdHuyTralai_Click(object sender, EventArgs e)
         {
-            Utility.SetMsg(uiStatusBar2.Panels["MSG"], "", false);
-            if (Utility.AcceptQuestion("Bạn có muốn hủy trả thuốc từ kho lẻ về kho chẵn?\nSau khi hủy, thuốc được cộng lại kho lẻ(kho xuất) và trừ khỏi kho chẵn(kho nhập)?", "Thông báo", true))
+            try
             {
-                int IDPhieuNhaptra = Utility.Int32Dbnull(grdList.GetValue(TPhieutrathuocKholeVekhochan.Columns.IdPhieu), -1);
-                TPhieutrathuocKholeVekhochan objTPhieutrathuocKholeVekhochan = TPhieutrathuocKholeVekhochan.FetchByID(IDPhieuNhaptra);
-                if (objTPhieutrathuocKholeVekhochan != null)
+                cmdHuyTralai.Enabled = false;
+                Utility.SetMsg(uiStatusBar2.Panels["MSG"], "", false);
+                if (Utility.AcceptQuestion("Bạn có muốn hủy trả thuốc từ kho lẻ về kho chẵn?\nSau khi hủy, thuốc được cộng lại kho lẻ(kho xuất) và trừ khỏi kho chẵn(kho nhập)?", "Thông báo", true))
                 {
-                    ActionResult actionResult =
-                        new PhieuTraLai().HuyXacNhanPhieuTralaiKho(objTPhieutrathuocKholeVekhochan);
-                    switch (actionResult)
+                    int IDPhieuNhaptra = Utility.Int32Dbnull(grdList.GetValue(TPhieutrathuocKholeVekhochan.Columns.IdPhieu), -1);
+                    TPhieutrathuocKholeVekhochan objTPhieutrathuocKholeVekhochan = TPhieutrathuocKholeVekhochan.FetchByID(IDPhieuNhaptra);
+                    if (objTPhieutrathuocKholeVekhochan != null)
                     {
-                        case ActionResult.Success:
-                            Utility.SetMsg(uiStatusBar2.Panels["MSG"], "Hủy trả thuốc từ kho lẻ về kho chẵn thành công", false);
-                            grdList.CurrentRow.BeginEdit();
-                            grdList.CurrentRow.Cells[TPhieutrathuocKholeVekhochan.Columns.TrangThai].Value = 0;
-                            grdList.CurrentRow.Cells[TPhieutrathuocKholeVekhochan.Columns.NgayXacnhan].Value = DBNull.Value;
-                            grdList.CurrentRow.Cells[TPhieutrathuocKholeVekhochan.Columns.NguoiXacnhan].Value = DBNull.Value;
-                            grdList.CurrentRow.EndEdit();
-                            break;
-                        case ActionResult.Exceed:
-                            Utility.ShowMsg("Thuốc trong kho nhận đã được sử dụng hết nên bạn không thể hủy phiếu trả", "Thông báo lỗi", MessageBoxIcon.Error);
-                            break;
-                        case ActionResult.NotEnoughDrugInStock:
-                            Utility.ShowMsg("Thuốc trong kho nhận(chẵn) đã được sử dụng nên không đủ số lượng để hoàn trả lại kho xuất(lẻ)", "Thông báo lỗi", MessageBoxIcon.Error);
-                            break;
-                        case ActionResult.Error:
-                            break;
+                        ActionResult actionResult =
+                            new PhieuTraLai().HuyXacNhanPhieuTralaiKho(objTPhieutrathuocKholeVekhochan);
+                        switch (actionResult)
+                        {
+                            case ActionResult.Success:
+                                Utility.SetMsg(uiStatusBar2.Panels["MSG"], "Hủy trả thuốc từ kho lẻ về kho chẵn thành công", false);
+                                grdList.CurrentRow.BeginEdit();
+                                grdList.CurrentRow.Cells[TPhieutrathuocKholeVekhochan.Columns.TrangThai].Value = 0;
+                                grdList.CurrentRow.Cells[TPhieutrathuocKholeVekhochan.Columns.NgayXacnhan].Value = DBNull.Value;
+                                grdList.CurrentRow.Cells[TPhieutrathuocKholeVekhochan.Columns.NguoiXacnhan].Value = DBNull.Value;
+                                grdList.CurrentRow.EndEdit();
+                                break;
+                            case ActionResult.Exceed:
+                                Utility.ShowMsg("Thuốc trong kho nhận đã được sử dụng hết nên bạn không thể hủy phiếu trả", "Thông báo lỗi", MessageBoxIcon.Error);
+                                break;
+                            case ActionResult.NotEnoughDrugInStock:
+                                Utility.ShowMsg("Thuốc trong kho nhận(chẵn) đã được sử dụng nên không đủ số lượng để hoàn trả lại kho xuất(lẻ)", "Thông báo lỗi", MessageBoxIcon.Error);
+                                break;
+                            case ActionResult.Error:
+                                break;
+                        }
                     }
+
                 }
 
             }
-            ModifyCommand();
+            catch (Exception)
+            {
+            }
+            finally
+            {
+                ModifyCommand();
+            }
+           
         }
     }
 }

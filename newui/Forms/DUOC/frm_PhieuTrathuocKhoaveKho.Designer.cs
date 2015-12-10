@@ -99,8 +99,8 @@
             uiStatusBarPanel2.BorderColor = System.Drawing.Color.Empty;
             uiStatusBarPanel2.Key = "";
             uiStatusBarPanel2.ProgressBarValue = 0;
-            uiStatusBarPanel2.Text = "Sửa phiếu";
-            uiStatusBarPanel2.Width = 71;
+            uiStatusBarPanel2.Text = "Ctrl+U: Sửa phiếu";
+            uiStatusBarPanel2.Width = 111;
             uiStatusBarPanel3.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
             uiStatusBarPanel3.BorderColor = System.Drawing.Color.Empty;
             uiStatusBarPanel3.Key = "";
@@ -111,8 +111,8 @@
             uiStatusBarPanel4.BorderColor = System.Drawing.Color.Empty;
             uiStatusBarPanel4.Key = "";
             uiStatusBarPanel4.ProgressBarValue = 0;
-            uiStatusBarPanel4.Text = "Esc: Thoát Form hiện tại";
-            uiStatusBarPanel4.Width = 147;
+            uiStatusBarPanel4.Text = "Esc: Thoát";
+            uiStatusBarPanel4.Width = 72;
             uiStatusBarPanel5.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
             uiStatusBarPanel5.BorderColor = System.Drawing.Color.Empty;
             uiStatusBarPanel5.FormatStyle.FontBold = Janus.Windows.UI.TriState.True;
@@ -392,7 +392,7 @@
             // 
             // txtSoPhieu
             // 
-            this.txtSoPhieu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.txtSoPhieu.BackColor = System.Drawing.Color.White;
             this.txtSoPhieu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSoPhieu.Location = new System.Drawing.Point(80, 19);
             this.txtSoPhieu.Name = "txtSoPhieu";
