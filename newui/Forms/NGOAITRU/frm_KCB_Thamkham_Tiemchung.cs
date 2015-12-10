@@ -398,6 +398,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
                     Utility.SetParameterValue(crpt, "sTitleReport", tieude);
                     Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                    Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
                     objForm.crptViewer.ReportSource = crpt;
                     objForm.ShowDialog();
                 }

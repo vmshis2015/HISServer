@@ -75,7 +75,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 string tieude = "", reportname = "";
                 ReportDocument crpt = Utility.GetReport("thamkham_phieuchuyenvien", ref tieude, ref reportname);
                 if (crpt == null) return;
-                frmPrintPreview objForm = new frmPrintPreview(baocaO_TIEUDE1.TIEUDE, crpt, true, dtData.Rows.Count <= 0 ? false : true);
+                frmPrintPreview objForm = new frmPrintPreview("PHIẾU CHUYỂN TUYẾN", crpt, true, dtData.Rows.Count <= 0 ? false : true);
                 crpt.SetDataSource(dtData);
                
                 objForm.mv_sReportFileName = Path.GetFileName(reportname);
@@ -85,7 +85,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
                 Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
                 Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
-                Utility.SetParameterValue(crpt, "sTitleReport", baocaO_TIEUDE1.TIEUDE);
+                Utility.SetParameterValue(crpt, "sTitleReport", tieude);
                 Utility.SetParameterValue(crpt, "CurrentDate", Utility.FormatDateTimeWithThanhPho(dtpNgayin.Value));
                 Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
                 objForm.crptViewer.ReportSource = crpt;
@@ -169,7 +169,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             }
             if (Utility.DoTrim(txtdauhieucls.Text) == "")
             {
-                Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin dấu hiệu Cận lâm sàng", true);
+                Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin dấu hiệu lâm sàng", true);
                 txtdauhieucls.Focus();
                 return;
             }
@@ -239,6 +239,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 _phieuchuyenvien.ThuocSudung = Utility.DoTrim(txtThuocsudung.Text);
                 _phieuchuyenvien.TrangthaiBenhnhan = Utility.DoTrim(txtTrangthainguoibenh.Text);
                 _phieuchuyenvien.HuongDieutri = Utility.DoTrim(txtHuongdieutri.Text);
+                _phieuchuyenvien.LydoChuyen = Utility.sDbnull(radDuDieukien.Checked ? "1" : "0");
                 _phieuchuyenvien.PhuongtienChuyen = Utility.DoTrim(txtphuongtienvc.Text);
                 _phieuchuyenvien.NgayChuyenvien = dtNgaychuyenvien.Value;
                 _phieuchuyenvien.IdBacsiChuyenvien = Utility.Int16Dbnull(cboDoctorAssign.SelectedValue, -1);
@@ -403,7 +404,6 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             try
             {
                 LaydanhsachBacsi();
-                baocaO_TIEUDE1.Init("thamkham_phieuchuyenvien");
                 AutocompleteBenhvien();
                 txtphuongtienvc.Init();
                 txtTrangthainguoibenh.Init();
@@ -414,6 +414,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             }
             catch (Exception ex)
             {
+                Utility.ShowMsg(ex.Message);
             }
         }
         private void LaydanhsachBacsi()

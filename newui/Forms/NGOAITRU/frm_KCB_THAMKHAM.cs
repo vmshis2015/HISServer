@@ -3197,56 +3197,64 @@ namespace VNS.HIS.UI.NGOAITRU
 
                 List<int> lstKho =
                     dsData.Tables[2].AsEnumerable().Select(c => c.Field<int>("id_kho")).Distinct().ToList();
+                List<byte> listtutuc = dsData.Tables[2].AsEnumerable().Select(c => c.Field<byte>("tu_tuc")).Distinct().ToList();
                 foreach (int s in lstKho)
                 {
-                    DataTable dt = v_dtData.Clone();
-                    dt = dsData.Tables[2].Select("id_kho = " + s, "stt_in").CopyToDataTable();
-                    foreach (DataRow dr in dt.Rows)
+                    foreach (byte i in listtutuc)
                     {
-                        dr["chan_doan"] = Utility.sDbnull(dr["chan_doan"]).Trim() == ""
-                                              ? ICD_Name
-                                              : Utility.sDbnull(dr["chan_doan"]) + ";" + ICD_Name;
-                        //dr[DmucBenh.Columns.MaBenh] = ICD_Code;
-                        dr["ma_icd"] = ICD_Code;
-                    }
-                    dt.AcceptChanges();
-                    Utility.UpdateLogotoDatatable(ref dt);
-                    string reportcode1 = "";
-                    reportcode1 = "thamkham_Inphieulinhthuocngoaitru_A4";
-                    ReportDocument crpt1 = Utility.GetReport("thamkham_Inphieulinhthuocngoaitru_A4", ref tieude,
-                                                             ref reportname);
+                        DataTable dt = v_dtData.Clone();
+                        dt = dsData.Tables[2].Select("id_kho = " + s + " and tu_tuc = "+i+"", "stt_in").CopyToDataTable();
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            dr["chan_doan"] = Utility.sDbnull(dr["chan_doan"]).Trim() == ""
+                                                  ? ICD_Name
+                                                  : Utility.sDbnull(dr["chan_doan"]) + ";" + ICD_Name;
+                            //dr[DmucBenh.Columns.MaBenh] = ICD_Code;
+                            dr["ma_icd"] = ICD_Code;
+                        }
+                        dt.AcceptChanges();
+                        Utility.UpdateLogotoDatatable(ref dt);
+                        string reportcode1 = "";
+                      //  reportcode1 = "thamkham_Inphieulinhthuocngoaitru_A4";
+                        reportcode1 = i == 1 ? "thamkham_InDonthuocA5_tutuc" : "thamkham_Inphieulinhthuocngoaitru_A4";
+                        ReportDocument crpt1 = Utility.GetReport(reportcode1, ref tieude,
+                                                                 ref reportname);
 
-                    if (PropertyLib._MayInProperties.CoGiayInTomtatDieutriNgoaitru == Papersize.A5)
-                    {
-                        crpt1 = Utility.GetReport("thamkham_Inphieulinhthuocngoaitru_A5", ref tieude, ref reportname);
-                        reportcode1 = "thamkham_Inphieulinhthuocngoaitru_A5";
+                        if (PropertyLib._MayInProperties.CoGiayInTomtatDieutriNgoaitru == Papersize.A5)
+                        {
+                           
+                            reportcode1 = i == 1 ? "thamkham_InDonthuocA5_tutuc" : "thamkham_Inphieulinhthuocngoaitru_A5";
+                            crpt1 = Utility.GetReport(reportcode1, ref tieude, ref reportname);
+                        }
+
+                        if (crpt1 == null) return false;
+
+                        var objForm1 = new frmPrintPreview("PHIẾU LĨNH THUỐC NGOẠI TRÚ", crpt1, true, true);
+                        crpt1.SetDataSource(dt);
+                        objForm1.mv_sReportFileName = Path.GetFileName(reportname);
+                        objForm1.mv_sReportCode = reportcode1;
+                        crpt1.SetParameterValue("ParentBranchName", globalVariables.ParentBranch_Name);
+                        crpt1.SetParameterValue("ReportTitle", tieude);
+                        crpt1.SetParameterValue("BranchName", globalVariables.Branch_Name);
+                        crpt1.SetParameterValue("NGAY_KEDON", NGAY_KEDON);
+                        Utility.SetParameterValue(crpt1, "txtTrinhky", Utility.getTrinhky(objForm1.mv_sReportFileName, globalVariables.SysDate));
+                        objForm1.crptViewer.ReportSource = crpt1;
+                        if (cboPrintPreviewTomtatdieutringoaitru.SelectedValue.ToString() == "1")
+                            objForm1.addTrinhKy_OnFormLoad();
+                        if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai,
+                                                   PropertyLib._MayInProperties.PreviewInTomtatDieutriNgoaitru))
+                        {
+                            objForm1.SetDefaultPrinter(PropertyLib._MayInProperties.TenMayInBienlai, 0, 2);
+                            objForm1.ShowDialog();
+                            Utility.DefaultNow(this);
+                        }
+                        else
+                        {
+                            crpt1.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
+                            crpt1.PrintToPrinter(1, false, 0, 0);
+                        }
                     }
-                      
-                    if (crpt1 == null) return false;
                     
-                    var objForm1 = new frmPrintPreview("PHIẾU LĨNH THUỐC NGOẠI TRÚ", crpt1, true, true);
-                    crpt1.SetDataSource(dt);
-                    objForm1.mv_sReportFileName = Path.GetFileName(reportname);
-                    objForm1.mv_sReportCode =reportcode1 ;
-                    crpt1.SetParameterValue("ParentBranchName", globalVariables.ParentBranch_Name);
-                    crpt1.SetParameterValue("BranchName", globalVariables.Branch_Name);
-                    crpt1.SetParameterValue("NGAY_KEDON", NGAY_KEDON);
-                    Utility.SetParameterValue(crpt1, "txtTrinhky", Utility.getTrinhky(objForm1.mv_sReportFileName, globalVariables.SysDate));
-                    objForm1.crptViewer.ReportSource = crpt1;
-                    if (cboPrintPreviewTomtatdieutringoaitru.SelectedValue.ToString() == "1")
-                        objForm1.addTrinhKy_OnFormLoad();
-                    if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai,
-                                               PropertyLib._MayInProperties.PreviewInTomtatDieutriNgoaitru))
-                    {
-                        objForm1.SetDefaultPrinter(PropertyLib._MayInProperties.TenMayInBienlai, 0, 2);
-                        objForm1.ShowDialog();
-                        Utility.DefaultNow(this);
-                    }
-                    else
-                    {
-                        crpt1.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
-                        crpt1.PrintToPrinter(1, false, 0, 0);
-                    }
                 }
                 return true;
             }
@@ -4626,14 +4634,23 @@ namespace VNS.HIS.UI.NGOAITRU
                 Utility.ShowMsg("Chỉ định bạn chọn đã được thanh toán nên bạn không thể xóa. Đề nghị kiểm tra lại");
                 return false;
             }
-
+            int trangthaixoacls = 1;
+            try
+            {
+                trangthaixoacls = Utility.Int16Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THAMKHAM_TRANGTHAICOTHE_XOACLS", "1", true));
+            }
+            catch (Exception)
+            {
+                trangthaixoacls = 1;
+            }
+          
             id_chidinhchitiet =
                 Utility.Int32Dbnull(
                     grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
                     -1);
             sqlQuery = new Select().From(KcbChidinhclsChitiet.Schema)
                 .Where(KcbChidinhclsChitiet.Columns.IdChitietchidinh).IsEqualTo(id_chidinhchitiet)
-                .And(KcbChidinhclsChitiet.Columns.TrangThai).IsGreaterThanOrEqualTo(1);
+                .And(KcbChidinhclsChitiet.Columns.TrangThai).IsGreaterThanOrEqualTo(trangthaixoacls);
             if (sqlQuery.GetRecordCount() > 0)
             {
                 b_Cancel = true;

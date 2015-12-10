@@ -32,11 +32,12 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_chuyenvien));
             this.pnlTop = new System.Windows.Forms.Panel();
+            this.label23 = new System.Windows.Forms.Label();
+            this.txtsochuyenvien = new System.Windows.Forms.TextBox();
             this.txtidgiuong = new System.Windows.Forms.TextBox();
             this.txtidBuong = new System.Windows.Forms.TextBox();
             this.txtIdkhoanoitru = new System.Windows.Forms.TextBox();
             this.txtIdravien = new System.Windows.Forms.TextBox();
-            this.baocaO_TIEUDE1 = new VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
             this.cmdgetPatient = new Janus.Windows.EditControls.UIButton();
             this.txtGiuong = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -92,8 +93,10 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.label11 = new System.Windows.Forms.Label();
             this.txtId = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtsochuyenvien = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.radDuDieukien = new System.Windows.Forms.RadioButton();
+            this.radKhongDuDK = new System.Windows.Forms.RadioButton();
             this.pnlTop.SuspendLayout();
             this.pnlBottom.SuspendLayout();
             this.pnlFill.SuspendLayout();
@@ -101,13 +104,13 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // 
             // pnlTop
             // 
+            this.pnlTop.Controls.Add(this.label24);
             this.pnlTop.Controls.Add(this.label23);
             this.pnlTop.Controls.Add(this.txtsochuyenvien);
             this.pnlTop.Controls.Add(this.txtidgiuong);
             this.pnlTop.Controls.Add(this.txtidBuong);
             this.pnlTop.Controls.Add(this.txtIdkhoanoitru);
             this.pnlTop.Controls.Add(this.txtIdravien);
-            this.pnlTop.Controls.Add(this.baocaO_TIEUDE1);
             this.pnlTop.Controls.Add(this.cmdgetPatient);
             this.pnlTop.Controls.Add(this.txtGiuong);
             this.pnlTop.Controls.Add(this.label9);
@@ -134,6 +137,28 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(1008, 144);
             this.pnlTop.TabIndex = 0;
+            // 
+            // label23
+            // 
+            this.label23.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(617, 40);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(103, 23);
+            this.label23.TabIndex = 30;
+            this.label23.Text = "Số chuyển viện: ";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtsochuyenvien
+            // 
+            this.txtsochuyenvien.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtsochuyenvien.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtsochuyenvien.Font = new System.Drawing.Font("Arial", 9F);
+            this.txtsochuyenvien.Location = new System.Drawing.Point(723, 42);
+            this.txtsochuyenvien.Name = "txtsochuyenvien";
+            this.txtsochuyenvien.ReadOnly = true;
+            this.txtsochuyenvien.Size = new System.Drawing.Size(95, 21);
+            this.txtsochuyenvien.TabIndex = 29;
+            this.txtsochuyenvien.TabStop = false;
             // 
             // txtidgiuong
             // 
@@ -186,23 +211,6 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtIdravien.TabIndex = 25;
             this.txtIdravien.TabStop = false;
             this.txtIdravien.Visible = false;
-            // 
-            // baocaO_TIEUDE1
-            // 
-            this.baocaO_TIEUDE1.BackColor = System.Drawing.SystemColors.Control;
-            this.baocaO_TIEUDE1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.baocaO_TIEUDE1.Location = new System.Drawing.Point(0, 0);
-            this.baocaO_TIEUDE1.MA_BAOCAO = "KCB_PHIEUCHUYENVIEN";
-            this.baocaO_TIEUDE1.Name = "baocaO_TIEUDE1";
-            this.baocaO_TIEUDE1.Phimtat = "Bạn có thể sử dụng phím tắt";
-            this.baocaO_TIEUDE1.PicImg = ((System.Drawing.Image)(resources.GetObject("baocaO_TIEUDE1.PicImg")));
-            this.baocaO_TIEUDE1.ShortcutAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.baocaO_TIEUDE1.ShortcutFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.baocaO_TIEUDE1.showHelp = false;
-            this.baocaO_TIEUDE1.Size = new System.Drawing.Size(1008, 30);
-            this.baocaO_TIEUDE1.TabIndex = 24;
-            this.baocaO_TIEUDE1.TIEUDE = "PHIẾU CHUYỂN TUYẾN";
-            this.baocaO_TIEUDE1.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 
             // cmdgetPatient
             // 
@@ -443,7 +451,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.pnlBottom.Controls.Add(this.cmdHuy);
             this.pnlBottom.Controls.Add(this.cmdChuyen);
             this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlBottom.Location = new System.Drawing.Point(0, 518);
+            this.pnlBottom.Location = new System.Drawing.Point(0, 550);
             this.pnlBottom.Name = "pnlBottom";
             this.pnlBottom.Size = new System.Drawing.Size(1008, 44);
             this.pnlBottom.TabIndex = 22;
@@ -522,6 +530,9 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // 
             // pnlFill
             // 
+            this.pnlFill.Controls.Add(this.radKhongDuDK);
+            this.pnlFill.Controls.Add(this.radDuDieukien);
+            this.pnlFill.Controls.Add(this.label25);
             this.pnlFill.Controls.Add(this.cboDoctorAssign);
             this.pnlFill.Controls.Add(this.label22);
             this.pnlFill.Controls.Add(this.lblMsg);
@@ -551,7 +562,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.pnlFill.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFill.Location = new System.Drawing.Point(0, 144);
             this.pnlFill.Name = "pnlFill";
-            this.pnlFill.Size = new System.Drawing.Size(1008, 374);
+            this.pnlFill.Size = new System.Drawing.Size(1008, 406);
             this.pnlFill.TabIndex = 2;
             // 
             // cboDoctorAssign
@@ -582,7 +593,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.lblMsg.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblMsg.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMsg.ForeColor = System.Drawing.Color.Navy;
-            this.lblMsg.Location = new System.Drawing.Point(0, 351);
+            this.lblMsg.Location = new System.Drawing.Point(0, 383);
             this.lblMsg.Name = "lblMsg";
             this.lblMsg.Size = new System.Drawing.Size(1008, 23);
             this.lblMsg.TabIndex = 27;
@@ -794,7 +805,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtphuongtienvc.FillValueAfterSelect = false;
             this.txtphuongtienvc.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtphuongtienvc.LOAI_DANHMUC = "PHUONGTIENVANCHUYEN";
-            this.txtphuongtienvc.Location = new System.Drawing.Point(153, 295);
+            this.txtphuongtienvc.Location = new System.Drawing.Point(153, 322);
             this.txtphuongtienvc.MaxHeight = -1;
             this.txtphuongtienvc.MaxLength = 255;
             this.txtphuongtienvc.MinTypedCharacters = 2;
@@ -836,7 +847,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.txtHuongdieutri.FillValueAfterSelect = false;
             this.txtHuongdieutri.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHuongdieutri.LOAI_DANHMUC = "HDT";
-            this.txtHuongdieutri.Location = new System.Drawing.Point(153, 268);
+            this.txtHuongdieutri.Location = new System.Drawing.Point(153, 295);
             this.txtHuongdieutri.MaxHeight = -1;
             this.txtHuongdieutri.MaxLength = 255;
             this.txtHuongdieutri.MinTypedCharacters = 2;
@@ -866,7 +877,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNguoivanchuyen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNguoivanchuyen.Font = new System.Drawing.Font("Arial", 9F);
-            this.txtNguoivanchuyen.Location = new System.Drawing.Point(153, 322);
+            this.txtNguoivanchuyen.Location = new System.Drawing.Point(153, 349);
             this.txtNguoivanchuyen.MaxLength = 255;
             this.txtNguoivanchuyen.Name = "txtNguoivanchuyen";
             this.txtNguoivanchuyen.Size = new System.Drawing.Size(843, 21);
@@ -875,8 +886,8 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // label19
             // 
             this.label19.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label19.Location = new System.Drawing.Point(12, 322);
+            this.label19.ForeColor = System.Drawing.Color.Black;
+            this.label19.Location = new System.Drawing.Point(12, 349);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(135, 23);
             this.label19.TabIndex = 20;
@@ -886,8 +897,8 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // label18
             // 
             this.label18.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label18.Location = new System.Drawing.Point(3, 295);
+            this.label18.ForeColor = System.Drawing.Color.Black;
+            this.label18.Location = new System.Drawing.Point(3, 322);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(144, 23);
             this.label18.TabIndex = 18;
@@ -898,7 +909,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // 
             this.label17.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label17.Location = new System.Drawing.Point(12, 268);
+            this.label17.Location = new System.Drawing.Point(12, 295);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(135, 23);
             this.label17.TabIndex = 16;
@@ -919,7 +930,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // label15
             // 
             this.label15.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label15.ForeColor = System.Drawing.Color.Black;
             this.label15.Location = new System.Drawing.Point(12, 192);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(135, 20);
@@ -954,7 +965,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             // label13
             // 
             this.label13.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label13.ForeColor = System.Drawing.Color.Black;
             this.label13.Location = new System.Drawing.Point(12, 111);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(135, 23);
@@ -1006,32 +1017,56 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             this.label3.Text = "Id chuyển viện";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txtsochuyenvien
+            // label24
             // 
-            this.txtsochuyenvien.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txtsochuyenvien.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtsochuyenvien.Font = new System.Drawing.Font("Arial", 9F);
-            this.txtsochuyenvien.Location = new System.Drawing.Point(723, 42);
-            this.txtsochuyenvien.Name = "txtsochuyenvien";
-            this.txtsochuyenvien.ReadOnly = true;
-            this.txtsochuyenvien.Size = new System.Drawing.Size(95, 21);
-            this.txtsochuyenvien.TabIndex = 29;
-            this.txtsochuyenvien.TabStop = false;
+            this.label24.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(25, 5);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(983, 30);
+            this.label24.TabIndex = 31;
+            this.label24.Text = "PHIẾU CHUYỂN TUYẾN";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label23
+            // label25
             // 
-            this.label23.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(617, 40);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(103, 23);
-            this.label23.TabIndex = 30;
-            this.label23.Text = "Số chuyển viện: ";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label25.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label25.Location = new System.Drawing.Point(12, 267);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(135, 23);
+            this.label25.TabIndex = 30;
+            this.label25.Text = "Lý do chuyển tuyến";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // radDuDieukien
+            // 
+            this.radDuDieukien.AutoSize = true;
+            this.radDuDieukien.Checked = true;
+            this.radDuDieukien.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radDuDieukien.Location = new System.Drawing.Point(153, 270);
+            this.radDuDieukien.Name = "radDuDieukien";
+            this.radDuDieukien.Size = new System.Drawing.Size(239, 19);
+            this.radDuDieukien.TabIndex = 31;
+            this.radDuDieukien.TabStop = true;
+            this.radDuDieukien.Text = "Đủ điều kiện chuyển tuyến (đúng tuyến)";
+            this.radDuDieukien.UseVisualStyleBackColor = true;
+            // 
+            // radKhongDuDK
+            // 
+            this.radKhongDuDK.AutoSize = true;
+            this.radKhongDuDK.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radKhongDuDK.Location = new System.Drawing.Point(429, 269);
+            this.radKhongDuDK.Name = "radKhongDuDK";
+            this.radKhongDuDK.Size = new System.Drawing.Size(487, 19);
+            this.radKhongDuDK.TabIndex = 32;
+            this.radKhongDuDK.Text = "Không đủ điều kiện chuyển tuyến/chuyển tuyến theo yêu cầu nhười bệnh (Vượt tuyến)" +
+    "";
+            this.radKhongDuDK.UseVisualStyleBackColor = true;
             // 
             // frm_chuyenvien
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1008, 562);
+            this.ClientSize = new System.Drawing.Size(1008, 594);
             this.Controls.Add(this.pnlFill);
             this.Controls.Add(this.pnlBottom);
             this.Controls.Add(this.pnlTop);
@@ -1096,7 +1131,6 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
         public Janus.Windows.CalendarCombo.CalendarCombo dtNgaychuyenvien;
         private Janus.Windows.EditControls.UIButton cmdExit;
         private Janus.Windows.EditControls.UIButton cmdGetBV;
-        private FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE baocaO_TIEUDE1=new FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
         private AutoCompleteTextbox txtNoichuyenden;
         private System.Windows.Forms.Label lblMsg;
         private System.Windows.Forms.TextBox txtIdravien;
@@ -1118,5 +1152,9 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
         public AutoCompleteTextbox_Danhmucchung txtTrangthainguoibenh;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox txtsochuyenvien;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.RadioButton radKhongDuDK;
+        private System.Windows.Forms.RadioButton radDuDieukien;
     }
 }

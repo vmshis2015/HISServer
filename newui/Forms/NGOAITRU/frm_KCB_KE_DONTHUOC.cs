@@ -973,6 +973,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void cmdPrintPres_Click(object sender, EventArgs e)
         {
+           // if(THU_VIEN_CHUNG.)
             this.PrintPres(Utility.Int32Dbnull(this.txtPres_ID.Text));
         }
 
@@ -2939,7 +2940,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             finally
             {
-                this.chkTutuc.Checked = this.tu_tuc == 1;
+                //this.chkTutuc.Checked = this.tu_tuc == 1;
                 this.AllowTextChanged = true;
             }
             this.ModifyButton();

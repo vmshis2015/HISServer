@@ -1117,7 +1117,12 @@ namespace VNS.HIS.UI.NGOAITRU
                     Utility.ShowMsg("Bạn phải chọn ít nhất 1 bệnh nhân để sửa thông tin");
                     return;
                 }
-
+                SqlQuery sqlkiemtra = new Select().From(KcbThanhtoan.Schema).Where(KcbThanhtoan.Columns.MaLuotkham).IsEqualTo(Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham)));
+                if(sqlkiemtra.GetRecordCount()>0)
+                {
+                    Utility.ShowMsg("Bệnh nhân này đã được thanh toán! Bạn cần thực hiện hủy thanh toán để tiếp tục chức năng");
+                    return;
+                }
                 frm_KCB_DANGKY frm = new frm_KCB_DANGKY(this.Args);
                 frm.txtMaBN.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
                 frm.txtMaLankham.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
@@ -1965,8 +1970,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 ModifyButtonCommandRegExam();
                 ModifyCommand();
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
             finally
             {
