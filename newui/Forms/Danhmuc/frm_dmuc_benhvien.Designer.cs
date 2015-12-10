@@ -67,6 +67,8 @@ namespace VNS.HIS.UI.DANHMUC
             this.cmdUpdate = new Janus.Windows.EditControls.UIButton();
             this.cmdClose = new Janus.Windows.EditControls.UIButton();
             this.sysColor = new VNS.Libs.Utilities.UserControls.Banner();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cboTuyen = new System.Windows.Forms.ComboBox();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.GroupBox1.SuspendLayout();
@@ -114,6 +116,8 @@ namespace VNS.HIS.UI.DANHMUC
             // GroupBox1
             // 
             this.GroupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.GroupBox1.Controls.Add(this.cboTuyen);
+            this.GroupBox1.Controls.Add(this.label3);
             this.GroupBox1.Controls.Add(this.txtThanhpho);
             this.GroupBox1.Controls.Add(this.label4);
             this.GroupBox1.Controls.Add(this.txtObjectCode);
@@ -186,7 +190,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtObjectCode.BackColor = System.Drawing.Color.White;
             this.txtObjectCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtObjectCode.Location = new System.Drawing.Point(232, 30);
-            this.txtObjectCode.MaxLength = 3;
+            this.txtObjectCode.MaxLength = 10;
             this.txtObjectCode.Name = "txtObjectCode";
             this.txtObjectCode.Size = new System.Drawing.Size(128, 22);
             this.txtObjectCode.TabIndex = 1;
@@ -467,6 +471,27 @@ namespace VNS.HIS.UI.DANHMUC
             this.sysColor.Title = "DANH MỤC BỆNH VIỆN";
             this.sysColor.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(569, 32);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 16);
+            this.label3.TabIndex = 27;
+            this.label3.Text = "Tuyến:";
+            // 
+            // cboTuyen
+            // 
+            this.cboTuyen.FormattingEnabled = true;
+            this.cboTuyen.Items.AddRange(new object[] {
+            "A",
+            "B",
+            "C"});
+            this.cboTuyen.Location = new System.Drawing.Point(622, 29);
+            this.cboTuyen.Name = "cboTuyen";
+            this.cboTuyen.Size = new System.Drawing.Size(154, 24);
+            this.cboTuyen.TabIndex = 28;
+            // 
             // frm_dmuc_benhvien
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -542,5 +567,7 @@ namespace VNS.HIS.UI.DANHMUC
         internal System.Windows.Forms.TextBox txtObjectCode;
         internal System.Windows.Forms.Label label4;
         private UCs.AutoCompleteTextbox txtThanhpho;
+        private System.Windows.Forms.ComboBox cboTuyen;
+        internal System.Windows.Forms.Label label3;
     }
 }

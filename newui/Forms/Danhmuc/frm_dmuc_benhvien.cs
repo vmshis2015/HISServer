@@ -283,9 +283,8 @@ namespace VNS.HIS.UI.DANHMUC
                 if (m_enAction == action.Update) objBenhvien = new Select().From(DmucBenhvien.Schema).Where(DmucBenhvien.Columns.IdBenhvien).IsEqualTo(Utility.Int16Dbnull(txtID.Text, -1)).ExecuteSingle<DmucBenhvien>();
                 objBenhvien.MaBenhvien = txtObjectCode.Text;
                 objBenhvien.TenBenhvien = Utility.GetValue(txtName.Text, false);
-                
+                objBenhvien.Tuyen = cboTuyen.Text;
                 objBenhvien.SttHthi = Utility.Int16Dbnull(txtPos.Text);
-                    
                 objBenhvien.MaThanhpho = txtThanhpho.MyCode;
                 if (m_enAction == action.Update)
                 {
@@ -503,13 +502,15 @@ namespace VNS.HIS.UI.DANHMUC
                 {
                     txtID.Text = Utility.sDbnull(grdList.GetValue(DmucBenhvien.Columns.IdBenhvien), "-1");
                     txtName.Text = Utility.sDbnull(grdList.GetValue(DmucBenhvien.Columns.TenBenhvien), "");
-                    txtPos.Text = Utility.sDbnull(grdList.GetValue(DmucBenhvien.Columns.SttHthi));
-                    txtThanhpho.SetCode(Utility.sDbnull(grdList.GetValue(DmucBenhvien.Columns.MaThanhpho)));
+                    txtPos.Text = Utility.sDbnull(grdList.GetValue(DmucBenhvien.Columns.SttHthi),"100");
+                    txtThanhpho.SetCode(Utility.sDbnull(grdList.GetValue(DmucBenhvien.Columns.MaThanhpho),"-1"));
                     txtObjectCode.Text = Utility.sDbnull(grdList.GetValue(DmucBenhvien.Columns.MaBenhvien), "");
+                    cboTuyen.Text = Utility.sDbnull(grdList.GetValue(DmucBenhvien.Columns.Tuyen), "");
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
         }
 
