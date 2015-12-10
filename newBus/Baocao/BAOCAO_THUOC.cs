@@ -20,6 +20,22 @@ namespace VNS.HIS.BusRule.Classes
         {
             log = LogManager.GetCurrentClassLogger();
         }
+
+        public static DataTable ThuocBaocaonhapxuatthuoc(string FromDate, string ToDate, string IDKHO, string NhomThuoc, int? IDThuoc, int? Cobiendong)
+        {
+            return SPs.ThuocBaocaonhapxuatthuoc(FromDate, ToDate, IDKHO, NhomThuoc, IDThuoc, Cobiendong).GetDataSet().Tables[0];
+
+        }
+        public static DataTable ThuocBaocaoXuatthuockhoaNoitru(string FromDate, string ToDate, string IDKHO, string IDKHOA, string NhomThuoc, int? IDThuoc, byte? tonghoptheokhoa)
+        {
+            return SPs.ThuocBaocaoXuatthuockhoaNoitru(FromDate, ToDate, IDKHO, IDKHOA, NhomThuoc, IDThuoc, tonghoptheokhoa).GetDataSet().Tables[0];
+
+        }
+        public static DataTable ThuocBaocaoXuatthuockhoaNoitruTonghop(string FromDate, string ToDate, string IDKHO, string IDKHOA, string NhomThuoc, int? IDThuoc, byte? tonghoptheokhoa)
+        {
+            return SPs.ThuocBaocaoXuatthuockhoaNoitruTonghop(FromDate, ToDate, IDKHO, IDKHOA, NhomThuoc, IDThuoc, tonghoptheokhoa).GetDataSet().Tables[0];
+
+        }
         public static DataTable ThuocBaocaoTinhhinhBenhnhanlinhthuoc(DateTime? FromDate, DateTime? ToDate, int? IDKHOXUAT, int? iddoituong)
         {
             return SPs.ThuocBaocaoTinhhinhBenhnhanlinhthuoc(FromDate, ToDate, IDKHOXUAT, iddoituong).GetDataSet().Tables[0];
@@ -78,7 +94,7 @@ namespace VNS.HIS.BusRule.Classes
 
         }
 
-        public static DataTable ThuocBaocaonhapxuatton(string FromDate, string ToDate, int? IDKHO, string NhomThuoc, int? IDThuoc, int? Cobiendong)
+        public static DataTable ThuocBaocaonhapxuatton(string FromDate, string ToDate, string IDKHO, string NhomThuoc, int? IDThuoc, int? Cobiendong)
         {
             return SPs.ThuocBaocaonhapxuatton(FromDate, ToDate, IDKHO, NhomThuoc, IDThuoc, Cobiendong).GetDataSet().Tables[0];
 
