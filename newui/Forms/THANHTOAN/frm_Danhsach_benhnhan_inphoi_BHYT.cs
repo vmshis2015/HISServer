@@ -87,11 +87,23 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             try
             {
+                int tinhtrang = -1;
+                int trangthai = -1;
+                if (chkAllTinhTrang.Checked) tinhtrang = -1;
+                else
+                {
+                    tinhtrang = radNgoaiTru.Checked ? 0 : 1;
+                }
+                if (chkAllTrangThai.Checked) trangthai = -1;
+                else
+                {
+                    trangthai = radDaduyet.Checked ? 1 : 0;
+                }
                 if (!chkByDate.Checked) dtFromDate.Value = Convert.ToDateTime("1900-01-01");
                 m_dtTimKiem =
                     SPs.ThanhtoanDanhsachInphoiBhyt(dtFromDate.Value, dtToDate.Value,
-                                                    Utility.sDbnull(txtMaLanKham.Text, ""),Utility.Int16Dbnull(radNgoaiTru.Checked ? 0 : 1),
-                                                    Utility.Int32Dbnull(radChuaduyet.Checked ? 1 : 0)
+                                                    Utility.sDbnull(txtMaLanKham.Text, ""),Utility.Int16Dbnull(trangthai),
+                                                    Utility.Int32Dbnull(tinhtrang)
                                                     , "").GetDataSet().
                         Tables[0];
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtTimKiem, true, true, "1=1", "");
@@ -242,6 +254,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                     string maluot_kham = Utility.sDbnull(row.Cells["ma_luotkham"].Value);
                     int id_benhnhan = Utility.Int32Dbnull(row.Cells["id_benhnhan"].Value);
                     ProcessCreateXML(maluot_kham, id_benhnhan);
+                    new Update(KcbPhieuDct.Schema).Set(KcbPhieuDct.Columns.TrangthaiXml).EqualTo(1).Where(
+                        KcbPhieuDct.Columns.IdBenhnhan).IsEqualTo(id_benhnhan).And(KcbPhieuDct.Columns.MaLuotkham).
+                        IsEqualTo(maluot_kham).Execute();
                 }
             }
             catch (Exception ex)
@@ -319,6 +334,36 @@ namespace  VNS.HIS.UI.THANHTOAN
                     xmlWriter.WriteElementString("NGUOILIENHE", Utility.sDbnull(dtXML.Tables[0].Rows[0]["NGUOILIENHE"]));
                     xmlWriter.WriteEndElement();
                 }
+                if(dtXML.Tables[1].Rows.Count>0)
+                {
+                    xmlWriter.WriteStartElement("CHUYENTUYEN");
+                    xmlWriter.WriteElementString("SOHOSO", Utility.sDbnull(dtXML.Tables[1].Rows[0]["SOHOSO"]));
+                    xmlWriter.WriteElementString("SOCHUYENTUYEN", Utility.sDbnull(dtXML.Tables[1].Rows[0]["SOCHUYENTUYEN"]));
+                    xmlWriter.WriteElementString("MA_BV_CHUYENDEN", Utility.sDbnull(dtXML.Tables[1].Rows[0]["MA_BV_CHUYENDEN"]));
+                    xmlWriter.WriteElementString("MA_BV_KHAMBENH", Utility.sDbnull(dtXML.Tables[1].Rows[0]["MA_BV_KHAMBENH"]));
+                    xmlWriter.WriteElementString("TEN_CS_KHAMBENH", Utility.sDbnull(dtXML.Tables[1].Rows[0]["TEN_CS_KHAMBENH"]));
+                    xmlWriter.WriteElementString("NGHENGHIEP", Utility.sDbnull(dtXML.Tables[1].Rows[0]["NGHENGHIEP"]));
+                    xmlWriter.WriteElementString("NOILAMVIEC", Utility.sDbnull(dtXML.Tables[1].Rows[0]["NOILAMVIEC"]));
+                    xmlWriter.WriteElementString("LAMSANG", Utility.sDbnull(dtXML.Tables[1].Rows[0]["LAMSANG"]));
+                    xmlWriter.WriteElementString("KETQUAXETNGHIEM", Utility.sDbnull(dtXML.Tables[1].Rows[0]["KETQUAXETNGHIEM"]));
+                    xmlWriter.WriteElementString("CHANDOAN", Utility.sDbnull(dtXML.Tables[1].Rows[0]["CHANDOAN"]));
+                    xmlWriter.WriteElementString("PHUONGPHAPDIEUTRI", Utility.sDbnull(dtXML.Tables[1].Rows[0]["PHUONGPHAPDIEUTRI"]));
+                    xmlWriter.WriteElementString("LYDO_CHUYENTUYEN", Utility.sDbnull(dtXML.Tables[1].Rows[0]["LYDO_CHUYENTUYEN"]));
+                    xmlWriter.WriteElementString("HUONGDIEUTRI", Utility.sDbnull(dtXML.Tables[1].Rows[0]["HUONGDIEUTRI"]));
+                    xmlWriter.WriteElementString("THOIGIAN_CHUYEN", Utility.sDbnull(dtXML.Tables[1].Rows[0]["THOIGIAN_CHUYEN"]));
+                    xmlWriter.WriteElementString("PHUONGTIEN", Utility.sDbnull(dtXML.Tables[1].Rows[0]["PHUONGTIEN"]));
+                    xmlWriter.WriteElementString("NGUOI_HOTONG", Utility.sDbnull(dtXML.Tables[1].Rows[0]["NGUOI_HOTONG"]));
+                    xmlWriter.WriteElementString("MA_QUOCTICH", Utility.sDbnull(dtXML.Tables[1].Rows[0]["MA_QUOCTICH"]));
+                    xmlWriter.WriteElementString("MA_DANTOC", Utility.sDbnull(dtXML.Tables[1].Rows[0]["MA_DANTOC"]));
+                    xmlWriter.WriteStartElement("DSCHUYENVIEN");
+                    xmlWriter.WriteElementString("MA_LK", Utility.sDbnull(dtXML.Tables[1].Rows[0]["MA_LK"]));
+                    xmlWriter.WriteElementString("MABV", Utility.sDbnull(dtXML.Tables[1].Rows[0]["MABV"]));
+                    xmlWriter.WriteElementString("TUYEN", Utility.sDbnull(dtXML.Tables[1].Rows[0]["TUYEN"]));
+                    xmlWriter.WriteElementString("TUNGAY", Utility.sDbnull(dtXML.Tables[1].Rows[0]["TUNGAY"]));
+                    xmlWriter.WriteElementString("DENNGAY", Utility.sDbnull(dtXML.Tables[1].Rows[0]["DENNGAY"]));
+                    xmlWriter.WriteEndElement();
+                    xmlWriter.WriteEndElement();
+                }
 
                 if(dtXML.Tables[2].Rows.Count>0)
                 {
@@ -387,6 +432,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                             xmlWriter.WriteElementString("MA_BENH", Utility.sDbnull(row["MA_BENH"]));
                             xmlWriter.WriteElementString("NGAY_YL", Utility.sDbnull(row["NGAY_YL"]));
                             xmlWriter.WriteElementString("TEN_KHOABV", Utility.sDbnull(row["TEN_KHOABV"]));
+                           
                             xmlWriter.WriteEndElement();
                         }
                         xmlWriter.WriteEndElement();

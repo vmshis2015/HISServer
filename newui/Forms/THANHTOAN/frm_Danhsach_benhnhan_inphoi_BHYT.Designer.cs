@@ -57,6 +57,8 @@
             this.uiGroupBox4 = new Janus.Windows.EditControls.UIGroupBox();
             this.cmdExportXML = new Janus.Windows.EditControls.UIButton();
             this.cmdXuatExcel = new Janus.Windows.EditControls.UIButton();
+            this.chkAllTinhTrang = new Janus.Windows.EditControls.UIRadioButton();
+            this.chkAllTrangThai = new Janus.Windows.EditControls.UIRadioButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -169,28 +171,27 @@
             // 
             // uiGroupBox3
             // 
+            this.uiGroupBox3.Controls.Add(this.chkAllTrangThai);
             this.uiGroupBox3.Controls.Add(this.radChuaduyet);
             this.uiGroupBox3.Controls.Add(this.radDaduyet);
-            this.uiGroupBox3.Location = new System.Drawing.Point(497, 56);
+            this.uiGroupBox3.Location = new System.Drawing.Point(432, 56);
             this.uiGroupBox3.Name = "uiGroupBox3";
-            this.uiGroupBox3.Size = new System.Drawing.Size(230, 42);
+            this.uiGroupBox3.Size = new System.Drawing.Size(274, 42);
             this.uiGroupBox3.TabIndex = 18;
             this.uiGroupBox3.Text = "Trạng thái";
             // 
             // radChuaduyet
             // 
-            this.radChuaduyet.Checked = true;
-            this.radChuaduyet.Location = new System.Drawing.Point(22, 13);
+            this.radChuaduyet.Location = new System.Drawing.Point(93, 13);
             this.radChuaduyet.Name = "radChuaduyet";
             this.radChuaduyet.Size = new System.Drawing.Size(94, 23);
             this.radChuaduyet.TabIndex = 15;
-            this.radChuaduyet.TabStop = true;
             this.radChuaduyet.Text = "Chưa duyệt";
             this.radChuaduyet.CheckedChanged += new System.EventHandler(this.radChuaduyet_CheckedChanged);
             // 
             // radDaduyet
             // 
-            this.radDaduyet.Location = new System.Drawing.Point(122, 13);
+            this.radDaduyet.Location = new System.Drawing.Point(187, 13);
             this.radDaduyet.Name = "radDaduyet";
             this.radDaduyet.Size = new System.Drawing.Size(72, 23);
             this.radDaduyet.TabIndex = 16;
@@ -199,17 +200,18 @@
             // 
             // uiGroupBox2
             // 
+            this.uiGroupBox2.Controls.Add(this.chkAllTinhTrang);
             this.uiGroupBox2.Controls.Add(this.radNoiTru);
             this.uiGroupBox2.Controls.Add(this.radNgoaiTru);
-            this.uiGroupBox2.Location = new System.Drawing.Point(497, 12);
+            this.uiGroupBox2.Location = new System.Drawing.Point(432, 12);
             this.uiGroupBox2.Name = "uiGroupBox2";
-            this.uiGroupBox2.Size = new System.Drawing.Size(230, 44);
+            this.uiGroupBox2.Size = new System.Drawing.Size(274, 44);
             this.uiGroupBox2.TabIndex = 17;
             this.uiGroupBox2.Text = "Tình trạng";
             // 
             // radNoiTru
             // 
-            this.radNoiTru.Location = new System.Drawing.Point(122, 17);
+            this.radNoiTru.Location = new System.Drawing.Point(187, 17);
             this.radNoiTru.Name = "radNoiTru";
             this.radNoiTru.Size = new System.Drawing.Size(72, 23);
             this.radNoiTru.TabIndex = 11;
@@ -218,12 +220,10 @@
             // 
             // radNgoaiTru
             // 
-            this.radNgoaiTru.Checked = true;
-            this.radNgoaiTru.Location = new System.Drawing.Point(22, 17);
+            this.radNgoaiTru.Location = new System.Drawing.Point(93, 17);
             this.radNgoaiTru.Name = "radNgoaiTru";
             this.radNgoaiTru.Size = new System.Drawing.Size(72, 23);
             this.radNgoaiTru.TabIndex = 10;
-            this.radNgoaiTru.TabStop = true;
             this.radNgoaiTru.Text = "Ngoại trú";
             this.radNgoaiTru.CheckedChanged += new System.EventHandler(this.radNgoaiTru_CheckedChanged);
             // 
@@ -280,7 +280,7 @@
             // chkChuaKetThuc
             // 
             this.chkChuaKetThuc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkChuaKetThuc.Location = new System.Drawing.Point(774, 68);
+            this.chkChuaKetThuc.Location = new System.Drawing.Point(890, 58);
             this.chkChuaKetThuc.Name = "chkChuaKetThuc";
             this.chkChuaKetThuc.Size = new System.Drawing.Size(115, 23);
             this.chkChuaKetThuc.TabIndex = 5;
@@ -290,7 +290,7 @@
             // cmdTimKiem
             // 
             this.cmdTimKiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdTimKiem.Location = new System.Drawing.Point(774, 17);
+            this.cmdTimKiem.Location = new System.Drawing.Point(744, 40);
             this.cmdTimKiem.Name = "cmdTimKiem";
             this.cmdTimKiem.Size = new System.Drawing.Size(131, 35);
             this.cmdTimKiem.TabIndex = 4;
@@ -361,6 +361,26 @@
             this.cmdXuatExcel.Text = "Xuất Excel";
             this.cmdXuatExcel.Click += new System.EventHandler(this.cmdXuatExcel_Click);
             // 
+            // chkAllTinhTrang
+            // 
+            this.chkAllTinhTrang.Checked = true;
+            this.chkAllTinhTrang.Location = new System.Drawing.Point(20, 17);
+            this.chkAllTinhTrang.Name = "chkAllTinhTrang";
+            this.chkAllTinhTrang.Size = new System.Drawing.Size(72, 23);
+            this.chkAllTinhTrang.TabIndex = 12;
+            this.chkAllTinhTrang.TabStop = true;
+            this.chkAllTinhTrang.Text = "Tất cả";
+            // 
+            // chkAllTrangThai
+            // 
+            this.chkAllTrangThai.Checked = true;
+            this.chkAllTrangThai.Location = new System.Drawing.Point(20, 13);
+            this.chkAllTrangThai.Name = "chkAllTrangThai";
+            this.chkAllTrangThai.Size = new System.Drawing.Size(72, 23);
+            this.chkAllTrangThai.TabIndex = 13;
+            this.chkAllTrangThai.TabStop = true;
+            this.chkAllTrangThai.Text = "Tất cả";
+            // 
             // frm_Danhsach_benhnhan_inphoi_BHYT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -425,5 +445,7 @@
         private Janus.Windows.EditControls.UIButton cmdXuatExcel;
         private Janus.Windows.EditControls.UIButton cmdExportXML;
         private Janus.Windows.EditControls.UIButton cmdConfig;
+        private Janus.Windows.EditControls.UIRadioButton chkAllTrangThai;
+        private Janus.Windows.EditControls.UIRadioButton chkAllTinhTrang;
     }
 }
