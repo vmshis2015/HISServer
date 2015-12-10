@@ -107,7 +107,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 DataTable m_dtReport =
               BAOCAO_THUOC.ThuocBaocaoTinhhinhnhapkhothuoc(chkByDate.Checked ? dtFromDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
                                            chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900", trangthai,
-                                           Utility.Int32Dbnull(cboKho.SelectedValue), Utility.Int32Dbnull(txtthuoc.MyID, -1), (byte)LoaiPhieu.PhieuHuy, kieungaytimkiem, Utility.DoTrim(txtLydohuy.Text), txtNhacungcap.myCode, KIEU_THUOC_VT);
+                                           Utility.Int32Dbnull(cboKho.SelectedValue), Utility.Int32Dbnull(txtthuoc.MyID, -1), (byte)LoaiPhieu.PhieuTraNCC, kieungaytimkiem, Utility.DoTrim(txtLydohuy.Text), txtNhacungcap.myCode, KIEU_THUOC_VT);
                 THU_VIEN_CHUNG.CreateXML(m_dtReport, "thuoc_baocaotrathuocnhacungcap.xml");
                 Utility.SetDataSourceForDataGridEx(grdList,m_dtReport,true,true,"1=1","");
                 if (m_dtReport.Rows.Count <= 0)

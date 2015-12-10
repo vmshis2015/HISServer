@@ -185,6 +185,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
                 Utility.SetParameterValue(crpt,"DayOfWarning", nmrSongay.Value);
                 Utility.SetParameterValue(crpt,"ngay_in", dtNgayInPhieu.Value.ToString("dd/MM/yyyy"));
+                Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
             }

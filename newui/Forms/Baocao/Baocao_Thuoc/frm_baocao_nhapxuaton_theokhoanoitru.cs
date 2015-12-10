@@ -211,6 +211,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
             DataTable m_dtNhomThuoc = new Select().From(DmucLoaithuoc.Schema).Where(DmucLoaithuoc.Columns.KieuThuocvattu).IsEqualTo(KIEU_THUOC_VT)
                 .OrderAsc(DmucLoaithuoc.Columns.SttHthi).ExecuteDataSet().Tables[0];
             allowChanged = true;
+            cboThang.SelectedIndex = globalVariables.SysDate.Month - 1;
         }
         
         /// <summary>
@@ -330,7 +331,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 }
 
 
-                thuoc_baocao.BaocaoNhapxuattonTheoKhoanoitru(m_dtReport, KIEU_THUOC_VT, baocaO_TIEUDE1.TIEUDE, _tondau, _toncuoi,
+                thuoc_baocao.BaocaoNhapxuattonTheoKhoanoitru(m_dtReport,KIEU_THUOC_VT, baocaO_TIEUDE1.TIEUDE, _tondau, _toncuoi,
                                                                                       dtNgayIn.Value, FromDateToDate,
                                                                                       txtKhoanoitru.Text, chkTheoNhomThuoc.Checked);
             }
