@@ -127,7 +127,7 @@ namespace VNS.HIS.UI.THUOC
                                              chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",-1, -1,
                                              Utility.Int32Dbnull(cboKhoNhap.SelectedValue, -1), Utility.Int32Dbnull(cboKhoXuat.SelectedValue, -1),
                                              Utility.Int32Dbnull(cboNhanVien.SelectedValue, -1),
-                                             -1, "-1", Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI,(int) LoaiPhieu.PhieuXuatkhoTuyenXaHuyen, MaKho, KIEU_THUOC_VT);
+                                             -1, "-1", Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI,(int) LoaiPhieu.PhieuXuatkhoTuyenXaHuyen, MaKho,(byte)0, KIEU_THUOC_VT);
 
             Utility.SetDataSourceForDataGridEx_Basic(grdList, m_dtDataNhapKho, true, true, "1=1", "");
             if (!Utility.isValidGrid(grdList)) if(m_dtDataPhieuChiTiet!=null) m_dtDataPhieuChiTiet.Clear();
