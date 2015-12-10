@@ -90,10 +90,12 @@ namespace VNS.HIS.UI.DANHMUC
             // grdList
             // 
             this.grdList.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
-                " thông tin nhóm đối tượng bảo hiểm </FilterRowInfoText></LocalizableData>";
+    " thông tin nhóm đối tượng bảo hiểm </FilterRowInfoText></LocalizableData>";
+            this.grdList.DefaultFilterRowComparison = Janus.Windows.GridEX.FilterConditionOperator.Contains;
             grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
             this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
             this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdList.DynamicFiltering = true;
             this.grdList.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
             this.grdList.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown;
             this.grdList.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -135,6 +137,7 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             this.txtThanhpho._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtThanhpho._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtThanhpho._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtThanhpho.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtThanhpho.AutoCompleteList")));
             this.txtThanhpho.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtThanhpho.CaseSensitive = false;
@@ -150,6 +153,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtThanhpho.MinTypedCharacters = 2;
             this.txtThanhpho.MyCode = "-1";
             this.txtThanhpho.MyID = "-1";
+            this.txtThanhpho.MyText = "";
             this.txtThanhpho.Name = "txtThanhpho";
             this.txtThanhpho.RaiseEvent = true;
             this.txtThanhpho.RaiseEventEnter = true;
@@ -246,9 +250,9 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Font = new System.Drawing.Font("Arial", 9.75F);
             this.tabControl1.Location = new System.Drawing.Point(3, 56);
