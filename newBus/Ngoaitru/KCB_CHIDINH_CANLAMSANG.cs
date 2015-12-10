@@ -62,6 +62,10 @@ namespace VNS.HIS.BusRule.Classes
          {
              return SPs.DmucLaychitietNhomchidinhCls(ID).GetDataSet().Tables[0];
          }
+         public DataTable DmucLaychitietCLSTheonhomchidinhCls(int ID)
+         {
+             return SPs.DmucLaychitietCLSTheonhomchidinhCls(ID).GetDataSet().Tables[0];
+         }
          public DataTable LaythongtinCLS_Thuoc(int ID, string KieuMau)
          {
              return SPs.ChidinhclsLaythongtinChidinhclsTheoid(ID, KieuMau).GetDataSet().Tables[0];
