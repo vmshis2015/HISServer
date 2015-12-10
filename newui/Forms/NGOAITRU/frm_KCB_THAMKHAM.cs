@@ -222,13 +222,13 @@ namespace VNS.HIS.UI.NGOAITRU
 
             cmdUnlock.Click += cmdUnlock_Click;
             cmdChuyenPhong.Click += cmdChuyenPhong_Click;
-
+            txtChanDoanKemTheo._OnShowData += txtChanDoanKemTheo__OnShowData;
             txtChanDoan._OnShowData += txtChanDoan__OnShowData;
             txtKet_Luan._OnShowData += txtKet_Luan__OnShowData;
             txtHuongdieutri._OnShowData += txtHuongdieutri__OnShowData;
             txtNhommau._OnShowData += txtNhommau__OnShowData;
             txtNhanxet._OnShowData += txtNhanxet__OnShowData;
-
+            
             txtNhommau._OnSaveAs += txtNhommau__OnSaveAs;
             txtKet_Luan._OnSaveAs += txtKet_Luan__OnSaveAs;
             txtHuongdieutri._OnSaveAs += txtHuongdieutri__OnSaveAs;
@@ -326,7 +326,20 @@ namespace VNS.HIS.UI.NGOAITRU
             else
                 grdAssignDetail_SelectionChanged(grdAssignDetail, e);
         }
-
+        private void txtChanDoanKemTheo__OnSaveAs()
+        {
+            if (Utility.DoTrim(txtChanDoan.Text) == "") return;
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtChanDoanKemTheo.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, txtChanDoanKemTheo.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtChanDoan.myCode;
+                txtChanDoanKemTheo.Init();
+                txtChanDoanKemTheo.SetCode(oldCode);
+                txtChanDoanKemTheo.Focus();
+            }
+        }
         private void txtChanDoan__OnSaveAs()
         {
             if (Utility.DoTrim(txtChanDoan.Text) == "") return;
@@ -451,6 +464,18 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtKet_Luan.Init();
                 txtKet_Luan.SetCode(oldCode);
                 txtKet_Luan.Focus();
+            }
+        }
+        private void txtChanDoanKemTheo__OnShowData()
+        {
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtChanDoanKemTheo.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtChanDoanKemTheo.myCode;
+                txtChanDoanKemTheo.Init();
+                txtChanDoanKemTheo.SetCode(oldCode);
+                txtChanDoanKemTheo.Focus();
             }
         }
 
@@ -5855,9 +5880,5 @@ namespace VNS.HIS.UI.NGOAITRU
             }
         }
 
-        private void txtChanDoanKemTheo_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

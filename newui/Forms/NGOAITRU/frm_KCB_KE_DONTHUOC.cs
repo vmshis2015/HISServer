@@ -1,4 +1,5 @@
 ﻿
+    using System.Threading;
     using CrystalDecisions.CrystalReports.Engine;
     using Janus.Windows.CalendarCombo;
     using Janus.Windows.EditControls;
@@ -868,22 +869,36 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void cmdAddDetail_Click(object sender, EventArgs e)
         {
-            if (Utility.Int32Dbnull(txtBacsi.MyID, -1) <= 0)
+            try
             {
-                Utility.SetMsg(lblMsg, "Bạn cần chọn bác sĩ chỉ định trước khi thực hiện kê đơn thuốc", true);
-                txtBacsi.Focus();
-                return;
-            }
-            if (objPhieudieutriNoitru != null)
-            {
-                if (dtpCreatedDate.Value.Date > objPhieudieutriNoitru.NgayDieutri.Value.Date)
+                cmdAddDetail.Enabled = false;
+                if (Utility.Int32Dbnull(txtBacsi.MyID, -1) <= 0)
                 {
-                    Utility.ShowMsg("Ngày kê đơn phải <= " + objPhieudieutriNoitru.NgayDieutri.Value.ToString("dd/MM/yyyy"));
+                    Utility.SetMsg(lblMsg, "Bạn cần chọn bác sĩ chỉ định trước khi thực hiện kê đơn thuốc", true);
+                    txtBacsi.Focus();
                     return;
                 }
+                if (objPhieudieutriNoitru != null)
+                {
+                    if (dtpCreatedDate.Value.Date > objPhieudieutriNoitru.NgayDieutri.Value.Date)
+                    {
+                        Utility.ShowMsg("Ngày kê đơn phải <= " + objPhieudieutriNoitru.NgayDieutri.Value.ToString("dd/MM/yyyy"));
+                        return;
+                    }
+                }
+                this.AddPreDetail();
+                this.Manual = true;
+                Thread.Sleep(100); // trễ 0.1 giây
             }
-            this.AddPreDetail();
-            this.Manual = true;
+            catch (Exception ex)
+            {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
+            }
+            finally
+            {
+                cmdAddDetail.Enabled = true;
+            }
+
         }
 
         private void cmdCauHinh_Click(object sender, EventArgs e)

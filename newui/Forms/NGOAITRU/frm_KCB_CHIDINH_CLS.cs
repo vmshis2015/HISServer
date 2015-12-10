@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Janus.Windows.GridEX;
 using NLog;
@@ -445,7 +446,21 @@ namespace VNS.HIS.UI.NGOAITRU
         /// <param name="e"></param>
         private void cmdSave_Click(object sender, EventArgs e)
         {
-            SaveData(); 
+            try
+            {
+                cmdSave.Enabled = false;
+                SaveData();
+                Thread.Sleep(100); // Thời gian trễ 0.1  giây
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
+            }
+            finally
+            {
+                cmdSave.Enabled = true;
+            }
+          
         }
         bool SaveData()
         {
@@ -522,9 +537,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
             finally
             {
@@ -660,10 +675,6 @@ namespace VNS.HIS.UI.NGOAITRU
                     objKcbChidinhcls.IdPhongChidinh = (Int16)globalVariables.idKhoatheoMay;
                 }
             }
-            else
-            {
-
-            }
             if (objPhieudieutriNoitru != null)
             {
                 objKcbChidinhcls.IdDieutri = objPhieudieutriNoitru.IdPhieudieutri;
@@ -671,7 +682,6 @@ namespace VNS.HIS.UI.NGOAITRU
                 objKcbChidinhcls.IdBuongGiuong = objPhieudieutriNoitru.IdBuongGiuong;
                 objKcbChidinhcls.IdPhongChidinh = objPhieudieutriNoitru.IdKhoanoitru;
             }
-
             objKcbChidinhcls.Noitru = (byte?)HosStatus;
             if (m_eAction == action.Update)
             {
@@ -867,7 +877,6 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 m_blnAllowSelectionChanged = false;
-                
                 rowFilter = "1=1";
                 if (!string.IsNullOrEmpty(txtFilterName.Text))
                 {

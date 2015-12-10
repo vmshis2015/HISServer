@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using Janus.Windows.GridEX;
+using VNS.HIS.UI.NGOAITRU;
 using VNS.Libs;
 using Janus.Windows.GridEX.EditControls;
 using VNS.HIS.DAL;
@@ -41,7 +43,8 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
 
             txtdauhieucls._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtdauhieucls__OnSaveAs);
             txtdauhieucls._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtdauhieucls__OnShowData);
-
+            txtMaBenhChinh.KeyDown += txtMaBenhChinh_KeyDown;
+            txtMaBenhChinh.TextChanged += txtMaBenhChinh_TextChanged;
             txtHuongdieutri._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtHuongdieutri__OnSaveAs);
             txtHuongdieutri._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtHuongdieutri__OnShowData);
 
@@ -88,6 +91,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 Utility.SetParameterValue(crpt, "sTitleReport", tieude);
                 Utility.SetParameterValue(crpt, "CurrentDate", Utility.FormatDateTimeWithThanhPho(dtpNgayin.Value));
                 Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
 
@@ -223,12 +227,16 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 {
                     _phieuchuyenvien = new KcbPhieuchuyenvien();
                     _phieuchuyenvien.IsNew = true;
+                    _phieuchuyenvien.NgayTao = globalVariables.SysDate;
+                    _phieuchuyenvien.NguoiTao = globalVariables.UserName;
                 }
                 else
                 {
                     _phieuchuyenvien = KcbPhieuchuyenvien.FetchByID(Utility.Int32Dbnull(txtId.Text));
                     _phieuchuyenvien.IsNew = false;
                     _phieuchuyenvien.MarkOld();
+                    _phieuchuyenvien.NguoiSua = globalVariables.UserName;
+                    _phieuchuyenvien.NgaySua = globalVariables.SysDate;
                 }
                 _phieuchuyenvien.IdBenhnhan = objLuotkham.IdBenhnhan;
                 _phieuchuyenvien.MaLuotkham = objLuotkham.MaLuotkham;
@@ -236,6 +244,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 _phieuchuyenvien.DauhieuCls = Utility.DoTrim(txtdauhieucls.Text);
                 _phieuchuyenvien.KetquaXnCls = Utility.DoTrim(txtketquaCls.Text);
                 _phieuchuyenvien.ChanDoan = Utility.DoTrim(txtChandoan.Text);
+                _phieuchuyenvien.Mabenh = Utility.DoTrim(txtMaBenhChinh.Text);
                 _phieuchuyenvien.ThuocSudung = Utility.DoTrim(txtThuocsudung.Text);
                 _phieuchuyenvien.TrangthaiBenhnhan = Utility.DoTrim(txtTrangthainguoibenh.Text);
                 _phieuchuyenvien.HuongDieutri = Utility.DoTrim(txtHuongdieutri.Text);
@@ -398,7 +407,19 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 txtphuongtienvc.Focus();
             }    
         }
-
+        private DataTable dt_ICD = new DataTable();
+        private readonly KCB_THAMKHAM _KCB_THAMKHAM = new KCB_THAMKHAM();
+        private void Load_DSach_ICD()
+        {
+            try
+            {
+                dt_ICD = _KCB_THAMKHAM.LaydanhsachBenh();
+            }
+            catch (Exception)
+            {
+                Utility.ShowMsg("Có lỗi trong quá trình lấy danh sách ICD");
+            }
+        }
         void frm_chuyenvien_Load(object sender, EventArgs e)
         {
             try
@@ -411,10 +432,145 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 txtdauhieucls.Init();
                 dtNgaychuyenvien.Value = DateTime.Now;
                 dtpNgayin.Value = DateTime.Now;
+                Load_DSach_ICD();
             }
             catch (Exception ex)
             {
                 Utility.ShowMsg(ex.Message);
+            }
+        }
+        private bool hasMorethanOne = true;
+        private bool isLike = true;
+        private void txtMaBenhChinh_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                hasMorethanOne = true;
+                DataRow[] arrDr;
+                if (isLike)
+                    arrDr =
+                        globalVariables.gv_dtDmucBenh.Select(DmucBenh.Columns.MaBenh + " like '" +
+                                                             Utility.sDbnull(txtMaBenhChinh.Text, "") +
+                                                             "%'");
+                else
+                    arrDr =
+                        globalVariables.gv_dtDmucBenh.Select(DmucBenh.Columns.MaBenh + " = '" +
+                                                             Utility.sDbnull(txtMaBenhChinh.Text, "") +
+                                                             "'");
+                if (!string.IsNullOrEmpty(txtMaBenhChinh.Text))
+                {
+                    if (arrDr.GetLength(0) == 1)
+                    {
+                        hasMorethanOne = false;
+                        txtMaBenhChinh.Text = arrDr[0][DmucBenh.Columns.MaBenh].ToString();
+                        txtChandoan.Text = Utility.sDbnull(arrDr[0][DmucBenh.Columns.TenBenh], "");
+                        //  txtDisease_ID.Text = Utility.sDbnull(arrDr[0][DmucBenh.Columns.DiseaseId], "-1");
+                    }
+                    else
+                    {
+                        //txtDisease_ID.Text = "-1";
+                        txtChandoan.Text = "";
+                    }
+                }
+                else
+                {
+                    //  txtDisease_ID.Text = "-1";
+
+                    txtChandoan.Text = "";
+                    //cmdSearchBenhChinh.PerformClick();
+                }
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
+            finally
+            {
+                //cboChonBenhAn.Visible = Utility.DoTrim(txtMaBenhChinh.Text) != "" &&
+                //                        THU_VIEN_CHUNG.Laygiatrithamsohethong("BENH_AN", "0", false) == "1" &&
+                //                        (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_ICD_BENH_AN_NGOAI_TRU", "ALL", false) ==
+                //                         "ALL" ||
+                //                         THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_ICD_BENH_AN_NGOAI_TRU", "ALL", false)
+                //                             .Contains(Utility.DoTrim(txtMaBenhChinh.Text)));
+                //lblBenhan.Visible = cboChonBenhAn.Visible;
+                //setChanDoan();
+            }
+        }
+        private void txtMaBenhChinh_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+               DSACH_ICD(txtMaBenhChinh, DmucChung.Columns.Ma, 0);
+               hasMorethanOne = false;
+            }
+        }
+
+        private void DSACH_ICD(EditBox tEditBox, string LOAITIMKIEM, int CP)
+        {
+            try
+            {
+                string sFillter = "";
+                if (LOAITIMKIEM.ToUpper() == DmucChung.Columns.Ten)
+                {
+                    sFillter = " Disease_Name like '%" + tEditBox.Text + "%' OR FirstChar LIKE '%" + tEditBox.Text +
+                               "%'";
+                }
+                else if (LOAITIMKIEM == DmucChung.Columns.Ma)
+                {
+                    sFillter = DmucBenh.Columns.MaBenh + " LIKE '%" + tEditBox.Text + "%'";
+                }
+                DataRow[] dataRows;
+                dataRows = dt_ICD.Select(sFillter);
+                if (dataRows.Length == 1)
+                {
+                    if (CP == 0)
+                    {
+                        txtMaBenhChinh.Text = "";
+                        txtMaBenhChinh.Text = Utility.sDbnull(dataRows[0][DmucBenh.Columns.MaBenh], "");
+                        hasMorethanOne = false;
+                        txtMaBenhChinh_TextChanged(txtMaBenhChinh, new EventArgs());
+                        txtMaBenhChinh.Focus();
+                    }
+                }
+                else if (dataRows.Length > 1)
+                {
+                    var frmDanhSachIcd = new frm_DanhSach_ICD(CP);
+                    frmDanhSachIcd.dt_ICD = dataRows.CopyToDataTable();
+                    frmDanhSachIcd.ShowDialog();
+                    if (!frmDanhSachIcd.has_Cancel)
+                    {
+                        List<GridEXRow> lstSelectedRows = frmDanhSachIcd.lstSelectedRows;
+                        if (CP == 0)
+                        {
+                            isLike = false;
+                            txtMaBenhChinh.Text = "";
+                            txtMaBenhChinh.Text =
+                                Utility.sDbnull(lstSelectedRows[0].Cells[DmucBenh.Columns.MaBenh].Value, "");
+                            hasMorethanOne = false;
+                            txtMaBenhChinh_TextChanged(txtMaBenhChinh, new EventArgs());
+                           // txtMaBenhChinh_KeyDown(txtMaBenhChinh, new KeyEventArgs(Keys.Enter));
+                        }
+                      //  tEditBox.Focus();
+                    }
+                    else
+                    {
+                        hasMorethanOne = true;
+                      //  tEditBox.Focus();
+                    }
+                }
+                else
+                {
+                    hasMorethanOne = true;
+                    //tEditBox.SelectAll();
+                }
+            }
+            catch
+            {
+            }
+            finally
+            {
+                isLike = true;
+                hasMorethanOne = true;
             }
         }
         private void LaydanhsachBacsi()
@@ -512,6 +668,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                             txtidBuong.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbLuotkham.Columns.IdBuong], "-1");
                             txtidgiuong.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbLuotkham.Columns.IdGiuong], "-1");
                             txtThuocsudung.Text = Utility.sDbnull(dt_Patient.Rows[0]["thuoc_sudung"], "");
+                            txtMaBenhChinh.Text = Utility.sDbnull(dt_Patient.Rows[0][KcbLuotkham.Columns.MabenhChinh],"");
                             txtChandoan.Text = Utility.sDbnull(dt_Patient.Rows[0]["chan_doan"],"");
                             txtketquaCls.Text = Utility.sDbnull(dt_Patient.Rows[0]["ketqua_cls"], "");
                             objPhieuchuyenvien = new Select().From(KcbPhieuchuyenvien.Schema)
@@ -525,7 +682,8 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                                 txtNoichuyenden.SetId(objPhieuchuyenvien.IdBenhvienChuyenden);
                                 txtdauhieucls._Text = objPhieuchuyenvien.DauhieuCls;
                                 txtketquaCls.Text = objPhieuchuyenvien.KetquaXnCls;
-                                txtChandoan.Text = objPhieuchuyenvien.ChanDoan;
+                                txtChandoan.Text = Utility.sDbnull(objPhieuchuyenvien.ChanDoan,"");
+                                txtMaBenhChinh.Text = Utility.sDbnull(objPhieuchuyenvien.Mabenh,"");
                                 txtThuocsudung.Text = objPhieuchuyenvien.ThuocSudung;
                                 txtTrangthainguoibenh._Text = objPhieuchuyenvien.TrangthaiBenhnhan;
                                 txtHuongdieutri._Text = objPhieuchuyenvien.HuongDieutri;
@@ -662,6 +820,41 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             catch (Exception)
             {
             }
+        }
+
+        private void cmdSearchBenhChinh_Click(object sender, EventArgs e)
+        {
+            ShowDiseaseList();
+        }
+        /// <summary>
+        /// hàm thực hiện hsow thông tin cua bệnh
+        /// </summary>
+        private void ShowDiseaseList()
+        {
+            try
+            {
+                var frm = new frm_QuickSearchDiseases();
+                frm.DiseaseType_ID = -1;
+                frm.ShowDialog();
+                if (frm.m_blnCancel)
+                {
+                    txtMaBenhChinh.Text = frm.v_DiseasesCode;
+                    txtMaBenhChinh.Focus();
+                    txtMaBenhChinh.SelectAll();
+                }
+            }
+            catch (Exception exception)
+            {
+                if (globalVariables.IsAdmin)
+                {
+                    Utility.ShowMsg(exception.ToString());
+                }
+            }
+        }
+
+        private void cmdPrint_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

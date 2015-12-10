@@ -1815,10 +1815,10 @@
             this.txtSoBATCQG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSoBATCQG.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSoBATCQG.ForeColor = System.Drawing.Color.Black;
-            this.txtSoBATCQG.Location = new System.Drawing.Point(731, 69);
+            this.txtSoBATCQG.Location = new System.Drawing.Point(740, 69);
             this.txtSoBATCQG.MaxLength = 8;
             this.txtSoBATCQG.Name = "txtSoBATCQG";
-            this.txtSoBATCQG.Size = new System.Drawing.Size(74, 21);
+            this.txtSoBATCQG.Size = new System.Drawing.Size(65, 21);
             this.txtSoBATCQG.TabIndex = 604;
             this.txtSoBATCQG.TabStop = false;
             this.txtSoBATCQG.Text = "1";
@@ -1829,7 +1829,7 @@
             // 
             this.lblBATC.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBATC.ForeColor = System.Drawing.Color.Red;
-            this.lblBATC.Location = new System.Drawing.Point(660, 69);
+            this.lblBATC.Location = new System.Drawing.Point(671, 69);
             this.lblBATC.Name = "lblBATC";
             this.lblBATC.Size = new System.Drawing.Size(71, 21);
             this.lblBATC.TabIndex = 605;
@@ -1845,7 +1845,7 @@
             this.txtSoBA.Location = new System.Drawing.Point(582, 69);
             this.txtSoBA.MaxLength = 15;
             this.txtSoBA.Name = "txtSoBA";
-            this.txtSoBA.Size = new System.Drawing.Size(78, 21);
+            this.txtSoBA.Size = new System.Drawing.Size(89, 21);
             this.txtSoBA.TabIndex = 602;
             this.txtSoBA.TabStop = false;
             this.txtSoBA.Text = "1";

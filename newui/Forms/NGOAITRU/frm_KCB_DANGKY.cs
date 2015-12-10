@@ -1395,9 +1395,6 @@ namespace VNS.HIS.UI.NGOAITRU
             this.txtDiachi.AutoCompleteList = globalVariables.LstAutocompleteAddressSource;
             this.txtDiachi.CaseSensitive = false;
             this.txtDiachi.MinTypedCharacters = 1;
-            
-            
-         
         }
         private void AutocompleteDautheBHYT()
         {
@@ -2149,7 +2146,8 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             if (txtNoiDongtrusoKCBBD.Text.Length < 2) return;
             if (!IsValidTheBHYT()) return;
-            LoadClinicCode();
+            GetNoiDangKy();
+           // LoadClinicCode();
             txtNoiDKKCBBD.Focus();
             txtNoiDKKCBBD.SelectAll();
         }

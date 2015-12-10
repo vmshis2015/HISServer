@@ -712,7 +712,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             frm_chuyenvien _chuyenvien = new frm_chuyenvien();
             _chuyenvien.txtMaluotkham.Text = objLuotkham.MaLuotkham;
-            _chuyenvien.txtChandoan.Text = "KHÔNG";
+            _chuyenvien.txtChandoan1.Text = "KHÔNG";
             _chuyenvien.txtdauhieucls._Text = "KHÔNG";
             _chuyenvien.txtHuongdieutri._Text = "KHÔNG";
             _chuyenvien.txtketquaCls.Text = "KHÔNG";

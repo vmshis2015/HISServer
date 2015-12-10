@@ -200,7 +200,6 @@
             this.txtCannang = new Janus.Windows.GridEX.EditControls.MaskedEditBox();
             this.txtChieucao = new Janus.Windows.GridEX.EditControls.MaskedEditBox();
             this.label37 = new System.Windows.Forms.Label();
-            this.txtChanDoanKemTheo = new Janus.Windows.GridEX.EditControls.EditBox();
             this.label39 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
@@ -261,6 +260,7 @@
             this.uiTabPage5 = new Janus.Windows.UI.Tab.UITabPage();
             this.ctxDelVTTH = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuDelVTTH = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtChanDoanKemTheo = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             ((System.ComponentModel.ISupportInitialize)(this.grpSearch)).BeginInit();
             this.grpSearch.SuspendLayout();
             this.ctxDelCLS.SuspendLayout();
@@ -2055,6 +2055,7 @@
             // 
             this.pnlother.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlother.Controls.Add(this.txtChanDoanKemTheo);
             this.pnlother.Controls.Add(this.label24);
             this.pnlother.Controls.Add(this.label7);
             this.pnlother.Controls.Add(this.cmdLuuChandoan);
@@ -2074,7 +2075,6 @@
             this.pnlother.Controls.Add(this.txtCannang);
             this.pnlother.Controls.Add(this.txtChieucao);
             this.pnlother.Controls.Add(this.label37);
-            this.pnlother.Controls.Add(this.txtChanDoanKemTheo);
             this.pnlother.Controls.Add(this.label39);
             this.pnlother.Controls.Add(this.label10);
             this.pnlother.Controls.Add(this.label31);
@@ -2273,19 +2273,6 @@
             this.label37.TabIndex = 1;
             this.label37.Text = "Nhiệt độ:";
             this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtChanDoanKemTheo
-            // 
-            this.txtChanDoanKemTheo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtChanDoanKemTheo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtChanDoanKemTheo.Location = new System.Drawing.Point(101, 156);
-            this.txtChanDoanKemTheo.MaxLength = 200;
-            this.txtChanDoanKemTheo.Name = "txtChanDoanKemTheo";
-            this.txtChanDoanKemTheo.Size = new System.Drawing.Size(417, 21);
-            this.txtChanDoanKemTheo.TabIndex = 1;
-            this.txtChanDoanKemTheo.TabStop = false;
-            this.txtChanDoanKemTheo.TextChanged += new System.EventHandler(this.txtChanDoanKemTheo_TextChanged);
             // 
             // label39
             // 
@@ -3185,6 +3172,48 @@
             this.mnuDelVTTH.Size = new System.Drawing.Size(234, 22);
             this.mnuDelVTTH.Text = "Xóa Vật tư tiêu hao đang chọn";
             // 
+            // txtChanDoanKemTheo
+            // 
+            this.txtChanDoanKemTheo._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtChanDoanKemTheo._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChanDoanKemTheo._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtChanDoanKemTheo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtChanDoanKemTheo.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtChanDoanKemTheo.AutoCompleteList")));
+            this.txtChanDoanKemTheo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtChanDoanKemTheo.CaseSensitive = false;
+            this.txtChanDoanKemTheo.CompareNoID = true;
+            this.txtChanDoanKemTheo.DefaultCode = "-1";
+            this.txtChanDoanKemTheo.DefaultID = "-1";
+            this.txtChanDoanKemTheo.Drug_ID = null;
+            this.txtChanDoanKemTheo.ExtraWidth = 0;
+            this.txtChanDoanKemTheo.FillValueAfterSelect = false;
+            this.txtChanDoanKemTheo.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChanDoanKemTheo.LOAI_DANHMUC = "CHANDOANKEMTHEO";
+            this.txtChanDoanKemTheo.Location = new System.Drawing.Point(101, 157);
+            this.txtChanDoanKemTheo.MaxHeight = 200;
+            this.txtChanDoanKemTheo.MinTypedCharacters = 2;
+            this.txtChanDoanKemTheo.MyCode = "-1";
+            this.txtChanDoanKemTheo.MyID = "-1";
+            this.txtChanDoanKemTheo.Name = "txtChanDoanKemTheo";
+            this.txtChanDoanKemTheo.RaiseEvent = false;
+            this.txtChanDoanKemTheo.RaiseEventEnter = false;
+            this.txtChanDoanKemTheo.RaiseEventEnterWhenEmpty = false;
+            this.txtChanDoanKemTheo.SelectedIndex = -1;
+            this.txtChanDoanKemTheo.Size = new System.Drawing.Size(417, 21);
+            this.txtChanDoanKemTheo.splitChar = '@';
+            this.txtChanDoanKemTheo.splitCharIDAndCode = '#';
+            this.txtChanDoanKemTheo.TabIndex = 452;
+            this.txtChanDoanKemTheo.TakeCode = false;
+            this.toolTip1.SetToolTip(this.txtChanDoanKemTheo, "Nhấn vào đây để xem và bổ sung thêm danh mục chẩn đoán");
+            this.txtChanDoanKemTheo.txtMyCode = null;
+            this.txtChanDoanKemTheo.txtMyCode_Edit = null;
+            this.txtChanDoanKemTheo.txtMyID = null;
+            this.txtChanDoanKemTheo.txtMyID_Edit = null;
+            this.txtChanDoanKemTheo.txtMyName = null;
+            this.txtChanDoanKemTheo.txtMyName_Edit = null;
+            this.txtChanDoanKemTheo.txtNext = null;
+            // 
             // frm_KCB_THAMKHAM
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -3282,7 +3311,6 @@
         private System.Windows.Forms.Panel pnlKetluan;
         private VNS.UCs.VBLine vbLine2;
         private Janus.Windows.EditControls.UIButton cmdHuyNhapVien;
-        private Janus.Windows.GridEX.EditControls.EditBox txtChanDoanKemTheo;
         private Janus.Windows.EditControls.UIButton cmdNhapVien;
         private System.Windows.Forms.Label label32;
         private Janus.Windows.GridEX.EditControls.MaskedEditBox txtChieucao;
@@ -3452,5 +3480,6 @@
         private Janus.Windows.GridEX.EditControls.EditBox txtMaBenhAn;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label24;
+        private UCs.AutoCompleteTextbox_Danhmucchung txtChanDoanKemTheo;
     }
 }
