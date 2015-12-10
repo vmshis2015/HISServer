@@ -259,10 +259,13 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             sp.Execute();
 
                             new Update(KcbDonthuocChitiet.Schema)
-                   .Set(KcbDonthuocChitiet.Columns.TrangThai).EqualTo(1)
-                   .Set(KcbDonthuocChitiet.Columns.NgayXacnhan).EqualTo(ngaythuchien)
-                   .Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).IsEqualTo(objDetail.IdChitietdonthuoc).Execute();
-
+                               .Set(KcbDonthuocChitiet.Columns.TrangThai).EqualTo(1)
+                               .Set(KcbDonthuocChitiet.Columns.NgayXacnhan).EqualTo(ngaythuchien)
+                               .Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).IsEqualTo(objDetail.IdChitietdonthuoc).Execute();
+                            new Update(TblKedonthuocTempt.Schema)
+                                .Set(TblKedonthuocTempt.Columns.TrangThai).EqualTo(1)
+                                .Where(TblKedonthuocTempt.Columns.IdChitietdonthuoc).IsEqualTo(
+                                    objDetail.IdChitietdonthuoc).Execute();
                             //REM lại để tránh trường hợp vi phạm phần nội trú. Đơn thuốc được cấp phát nhiều lần
                             TXuatthuocTheodon objThuocCt = new TXuatthuocTheodon();
                             objThuocCt.IdPhieuXuat = Utility.Int32Dbnull(objXuatBnhan.IdPhieu);
