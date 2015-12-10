@@ -341,7 +341,7 @@ namespace VNS.HIS.Classes
        {
            Utility.UpdateLogotoDatatable(ref m_dtReportPhieuThu);
            THU_VIEN_CHUNG.Sapxepthutuin(ref m_dtReportPhieuThu,true);
-           m_dtReportPhieuThu.DefaultView.Sort = "stt_in ,stt_hthi_dichvu,stt_hthi_chitiet,ten_chitietdichvu";
+           m_dtReportPhieuThu.DefaultView.Sort = "stt_in ,stt_hthi_dichvu,stt_hthi_chitiet,stt_in_thuoc,ten_chitietdichvu";
            m_dtReportPhieuThu.AcceptChanges();
 
             string tieude="", reportname = "";
@@ -643,6 +643,8 @@ namespace VNS.HIS.Classes
            try
            {
                DataTable dtPatientPayment = new KCB_THANHTOAN().Laythongtinhoadondo(payment_ID);
+               THU_VIEN_CHUNG.CreateXML(dtPatientPayment, "thanhtoan_Hoadondo.xml");
+               Utility.UpdateLogotoDatatable(ref dtPatientPayment);
                dtPatientPayment.Rows[0]["sotien_bangchu"] =
                    new MoneyByLetter().sMoneyToLetter(Utility.sDbnull(dtPatientPayment.Rows[0]["TONG_TIEN"]));
                string tieude = "", reportname = "";
