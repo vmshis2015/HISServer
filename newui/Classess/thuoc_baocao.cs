@@ -17,6 +17,191 @@ namespace VNS.HIS.UI.Baocao
 {
   public class thuoc_baocao
     {
+      public static void BaocaoNhapxuatThuoc(DataTable m_dtReport, string kieubaocao, string kieuthuoc_vt, string sTitleReport, string _tondau, string _toncuoi, DateTime NgayIn, string FromDateToDate, string tenkho, bool theonhom)
+      {
+
+          string tieude = "", reportname = "", reportcode = "thuoc_baocao_nhapxuatthuoc_theonhom";
+          ReportDocument crpt = null;
+
+          if (theonhom)
+          {
+              if (kieubaocao == "0")
+                  reportcode = "thuoc_baocao_nhapxuatthuoc_theonhom";
+              else if (kieubaocao == "1")
+                  reportcode = "thuoc_baocao_nhapthuoc_theonhom";
+              else
+                  reportcode = "thuoc_baocao_xuatthuoc_theonhom";
+
+          }
+          else
+          {
+              if (kieubaocao == "0")
+                  reportcode = "thuoc_baocao_nhapxuatthuoc";
+              else if (kieubaocao == "1")
+                  reportcode = "thuoc_baocao_nhapthuoc";
+              else
+                  reportcode = "thuoc_baocao_xuatthuoc";
+          }
+
+          crpt = Utility.GetReport(reportcode, ref tieude, ref reportname);
+          if (crpt == null) return;
+
+          MoneyByLetter _moneyByLetter = new MoneyByLetter();
+          // VNS.HIS.UI.BaoCao.PhieuBaoCao.CRPT_BAOCAO_CHITIET_NHAPKHO crpt = new CRPT_BAOCAO_CHITIET_NHAPKHO();
+          var objForm = new frmPrintPreview(sTitleReport, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+          objForm.mv_sReportFileName = Path.GetFileName(reportname);
+          objForm.mv_sReportCode = reportcode;
+          Utility.UpdateLogotoDatatable(ref m_dtReport);
+          try
+          {
+              if (theonhom)
+                  m_dtReport.DefaultView.Sort = "stt_hthi_nhom,tenbietduoc";
+              else
+                  m_dtReport.DefaultView.Sort = "tenbietduoc";
+              m_dtReport.AcceptChanges();
+              crpt.SetDataSource(m_dtReport.DefaultView);
+
+              //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "  PHÒNG TIẾP ĐÓN   ".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
+              Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+              Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+              Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
+              Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+              Utility.SetParameterValue(crpt, "FromDateToDate", FromDateToDate);
+              Utility.SetParameterValue(crpt, "Department_Name", globalVariables.KhoaDuoc);
+              Utility.SetParameterValue(crpt, "tenkho", tenkho);
+              Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
+              Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+              Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+              Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
+              objForm.crptViewer.ReportSource = crpt;
+              objForm.ShowDialog();
+          }
+          catch (Exception ex)
+          {
+              Utility.CatchException(ex);
+          }
+      }
+        public static void BaocaoNhapxuattonTheoquy(DataTable m_dtReport, string kieubaocao, string kieuthuoc_vt, string sTitleReport, string _tondau, string _toncuoi, DateTime NgayIn, string FromDateToDate, string tenkho, bool theonhom)
+        {
+
+            string tieude = "", reportname = "", reportcode = "thuoc_baocao_nhapxuatton_theoquy_theonhom";
+            ReportDocument crpt = null;
+            if (kieuthuoc_vt.Contains("THUOC"))
+            {
+                if (theonhom)
+                {
+                    if (kieubaocao == "0")
+                        reportcode = "thuoc_baocao_nhapxuatton_theoquy_theonhom";
+                    else if (kieubaocao == "1")
+                        reportcode = "thuoc_baocao_nhap_theoquy_theonhom";
+                    else
+                        reportcode = "thuoc_baocao_xuat_theoquy_theonhom";
+
+                }
+                else
+                {
+                    if (kieubaocao == "0")
+                        reportcode = "thuoc_baocao_nhapxuatton_theoquy";
+                    else if (kieubaocao == "1")
+                        reportcode = "thuoc_baocao_nhap_theoquy";
+                    else
+                        reportcode = "thuoc_baocao_xuat_theoquy";
+                }
+            }
+            else//VTTH
+            {
+                if (theonhom)
+                {
+                    reportcode = "vt_baocao_nhapxuatton_theoquy_theonhom";
+                }
+                else
+                {
+                    reportcode = "vt_baocao_nhapxuatton_theoquy";
+                }
+            }
+            crpt = Utility.GetReport(reportcode, ref tieude, ref reportname);
+            if (crpt == null) return;
+
+            MoneyByLetter _moneyByLetter = new MoneyByLetter();
+            string tinhtong = TinhTong(m_dtReport, "TT_TONCUOI");
+            // VNS.HIS.UI.BaoCao.PhieuBaoCao.CRPT_BAOCAO_CHITIET_NHAPKHO crpt = new CRPT_BAOCAO_CHITIET_NHAPKHO();
+            var objForm = new frmPrintPreview(sTitleReport, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+            objForm.mv_sReportFileName = Path.GetFileName(reportname);
+            objForm.mv_sReportCode = reportcode;
+            Utility.UpdateLogotoDatatable(ref m_dtReport);
+            try
+            {
+                if (theonhom)
+                    m_dtReport.DefaultView.Sort = "stt_hthi_nhom,tenbietduoc";
+                else
+                    m_dtReport.DefaultView.Sort = "tenbietduoc";
+                m_dtReport.AcceptChanges();
+                crpt.SetDataSource(m_dtReport.DefaultView);
+
+                //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "  PHÒNG TIẾP ĐÓN   ".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
+                Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+                Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
+
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+                Utility.SetParameterValue(crpt, "Tondau", _tondau);
+                Utility.SetParameterValue(crpt, "Toncuoi", _toncuoi);
+                Utility.SetParameterValue(crpt, "FromDateToDate", FromDateToDate);
+                Utility.SetParameterValue(crpt, "Department_Name", globalVariables.KhoaDuoc);
+                Utility.SetParameterValue(crpt, "tenkho", tenkho);
+                Utility.SetParameterValue(crpt, "thanhtien_bangchu", _moneyByLetter.sMoneyToLetter(tinhtong.ToString()));
+                Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
+                Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+                Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
+                objForm.crptViewer.ReportSource = crpt;
+                objForm.ShowDialog();
+                // Utility.DefaultNow(this);
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
+        }
+        public static void BaocaoXuatthuoctheoKhoaNoitru(DataTable m_dtReport, string kieubaocao, string kieuthuoc_vt, string sTitleReport, DateTime NgayIn, string FromDateToDate, string tenkho, string tenkhoa, bool theonhom)
+        {
+
+            string tieude = "", reportname = "", reportcode = "thuoc_baocao_xuatthuocnoitru";
+            ReportDocument crpt = null;
+            if (kieubaocao == "0")
+                reportcode = "thuoc_baocao_xuatthuocnoitru_tonghop";
+            crpt = Utility.GetReport(reportcode, ref tieude, ref reportname);
+            if (crpt == null) return;
+
+            MoneyByLetter _moneyByLetter = new MoneyByLetter();
+            // VNS.HIS.UI.BaoCao.PhieuBaoCao.CRPT_BAOCAO_CHITIET_NHAPKHO crpt = new CRPT_BAOCAO_CHITIET_NHAPKHO();
+            var objForm = new frmPrintPreview(sTitleReport, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+            objForm.mv_sReportFileName = Path.GetFileName(reportname);
+            objForm.mv_sReportCode = reportcode;
+            Utility.UpdateLogotoDatatable(ref m_dtReport);
+            try
+            {
+                m_dtReport.AcceptChanges();
+                crpt.SetDataSource(m_dtReport.DefaultView);
+
+                //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "  PHÒNG TIẾP ĐÓN   ".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
+                Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "FromDateToDate", FromDateToDate);
+                Utility.SetParameterValue(crpt, "tenkho", tenkho);
+                Utility.SetParameterValue(crpt, "Khoalinh", tenkhoa);
+                Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
+                Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+                Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
+                objForm.crptViewer.ReportSource = crpt;
+                objForm.ShowDialog();
+                // Utility.DefaultNow(this);
+            }
+            catch (Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
+        }
         /// <summary>
         /// hàm thưc hiện việc in phiếu vật tư và thuốc
         /// </summary>
