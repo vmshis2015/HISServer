@@ -18,16 +18,16 @@ namespace VNS.HIS.NGHIEPVU.THUOC
             log = NLog.LogManager.GetCurrentClassLogger();
 
         }
-        public DataTable Laydanhsachphieunhapkho(string FromDate, string ToDate,int id_thuoc, int IDKHOA_NHAP, int IDKHONHAP, int IDKHOXUAT, int? IDNHANVIEN, 
-            int IDNHANCCAP,string ma_nhacungcap, string SOPHIEU, int TRANGTHAI, int LoaiPhieu, string MaKho, string KIEUTHUOCVT)
+        public DataTable Laydanhsachphieunhapkho(string FromDate, string ToDate, int id_thuoc, int IDKHOA_NHAP, int IDKHONHAP, int IDKHOXUAT, int? IDNHANVIEN,
+            int IDNHANCCAP, string ma_nhacungcap, string SOPHIEU, int TRANGTHAI, int LoaiPhieu, string MaKho, byte noitru, string KIEUTHUOCVT)
         {
             return SPs.ThuocLaydanhsachphieunhapxuat(FromDate,
-                                            ToDate,id_thuoc,
-                                            IDKHONHAP,IDKHOA_NHAP, IDKHOXUAT,
+                                            ToDate, id_thuoc,
+                                            IDKHONHAP, IDKHOA_NHAP, IDKHOXUAT,
                                             IDNHANVIEN,
-                                            IDNHANCCAP, ma_nhacungcap,SOPHIEU, TRANGTHAI, LoaiPhieu, MaKho, KIEUTHUOCVT).GetDataSet().Tables[0];
+                                            IDNHANCCAP, ma_nhacungcap, SOPHIEU, TRANGTHAI, LoaiPhieu, MaKho, noitru, KIEUTHUOCVT).GetDataSet().Tables[0];
 
-           
+
         }
         public static int ThuocTongnhapngoaiTrongNam(int? Nam, int? Idthuoc)
         {
