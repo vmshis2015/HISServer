@@ -40,6 +40,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private DataTable m_dtChitietPhieuCLS = new DataTable();
         private DataTable m_dtReport = new DataTable();
         public DataTable m_dtDanhsachDichvuCLS = new DataTable();
+        public DataTable m_dtDanhsachDichvuCLS_org = new DataTable();
         public action m_eAction = action.Insert;
         private bool neverFound = true;
         public KcbLuotkham objLuotkham;
@@ -58,12 +59,15 @@ namespace VNS.HIS.UI.NGOAITRU
         /// <param name="nhomchidinh">Mô tả thêm của nhóm chỉ định CLS dùng cho việc tách form kê chỉ định CLS và kê gói dịch vụ</param>
         public frm_KCB_CHIDINH_CLS(string nhomchidinh, byte kieu_chidinh)
         {
+            log = LogManager.GetLogger("CHIDINH_CLS_LOGS");
+            log.Trace("Begin......................................................................................");
             InitializeComponent();
+            log.Trace("Initialized.");
             InitEvents();
             this.nhomchidinh = nhomchidinh;
             this.kieu_chidinh = kieu_chidinh;
             
-            log = LogManager.GetCurrentClassLogger();
+            
             dtRegDate.Value = globalVariables.SysDate;
             chkChiDinhNhanh.Visible = globalVariables.IsAdmin;
             if (globalVariables.gv_UserAcceptDeleted) FormatUserNhapChiDinh();
@@ -106,10 +110,12 @@ namespace VNS.HIS.UI.NGOAITRU
             cmdTaonhom.Click += cmdTaonhom_Click;
             cmdAccept.Click += cmdAccept_Click;
             txtNhomDichvuCLS._OnEnterMe += txtNhomDichvuCLS__OnEnterMe;
+            
         }
 
         void txtNhomDichvuCLS__OnEnterMe()
         {
+            txtFilterName.Clear();
             if (PropertyLib._HISCLSProperties.InsertAfterSelectGroup)
                 AddDetailbySelectedGroup();
         }
@@ -117,7 +123,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             if (Utility.Int32Dbnull(txtNhomDichvuCLS.MyID, -1) > 0)
             {
-                DataTable dtChitietnhom = CHIDINH_CANLAMSANG.DmucLaychitietNhomchidinhCls(Utility.Int32Dbnull(txtNhomDichvuCLS.MyID, -1));
+                DataTable dtChitietnhom = CHIDINH_CANLAMSANG.DmucLaychitietCLSTheonhomchidinhCls(Utility.Int32Dbnull(txtNhomDichvuCLS.MyID, -1));
                 uncheckItems();
                 foreach (GridEXRow row in grdServiceDetail.GetDataRows())
                 {
@@ -171,7 +177,6 @@ namespace VNS.HIS.UI.NGOAITRU
         }
         private void frm_KCB_CHIDINH_CLS_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //if (!isSaved) cmdSave_Click(cmdSave, new EventArgs());
             if (grdAssignDetail.RowCount > 0)
             {
                 if (!isSaved)
@@ -189,6 +194,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     }
                 }
             }
+            log.Trace("End......................................................................................");
             SaveCauHinh();
         }
 
@@ -242,7 +248,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-               
+                log.Trace("Loading...");
                 LaydanhsachbacsiChidinh();
                 BHYT_PTRAM_TRAITUYENNOITRU =Utility.DecimaltoDbnull( THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_PTRAM_TRAITUYENNOITRU", "0", false),0m);
                 DataBinding.BindDataCombobox(cboDichVu, THU_VIEN_CHUNG.LayThongTinDichVuCLS(nhomchidinh),
@@ -264,6 +270,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             finally
             {
+                log.Trace("Loaded");
                 v_AssignId = Utility.Int32Dbnull(txtAssign_ID.Text, -1);
             }
         }
@@ -567,7 +574,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     {
                         txtAssign_ID.Text = Utility.sDbnull(objKcbChidinhcls.IdChidinh);
                         txtAssignCode.Text = Utility.sDbnull(objKcbChidinhcls.MaChidinh);
-                        barcode1.Data = txtAssignCode.Text;
+                       
                     }
                     m_eAction = action.Update;
                     m_blnCancel = false;
@@ -876,6 +883,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
+                log.Trace("Filtering...");
                 m_blnAllowSelectionChanged = false;
                 rowFilter = "1=1";
                 if (!string.IsNullOrEmpty(txtFilterName.Text))
@@ -897,19 +905,20 @@ namespace VNS.HIS.UI.NGOAITRU
 
                     }
                 }
-                m_dtDanhsachDichvuCLS.DefaultView.RowFilter = "1=1";
+                //m_dtDanhsachDichvuCLS.DefaultView.RowFilter = "1=1";
                 m_dtDanhsachDichvuCLS.DefaultView.RowFilter = rowFilter;
-                m_dtDanhsachDichvuCLS.AcceptChanges();
                 grdServiceDetail.Refresh();
                 Application.DoEvents();
             }
             catch (Exception exception)
             {
+                log.ErrorException("Filter.exception-->", exception);
                 log.Error("loi trong qua trinh loc thong tin ", exception);
                 rowFilter = "1=2";
             }
             finally
             {
+                log.Trace("Filtered");
                 m_blnAllowSelectionChanged = true;
             }
         }
@@ -1167,16 +1176,17 @@ namespace VNS.HIS.UI.NGOAITRU
         private void uncheckItems()
         {
             if (grdServiceDetail.RowCount <= 0) return;
-            try
-            {
-                foreach (GridEXRow _item in grdServiceDetail.GetCheckedRows())
-                {
-                    _item.IsChecked = false;
-                }
-            }
-            catch
-            {
-            }
+            grdServiceDetail.UnCheckAllRecords();
+            //try
+            //{
+            //    foreach (GridEXRow _item in grdServiceDetail.GetCheckedRows())
+            //    {
+            //        _item.IsChecked = false;
+            //    }
+            //}
+            //catch
+            //{
+            //}
         }
 
         private void grdServiceDetail_KeyDown(object sender, KeyEventArgs e)
@@ -1820,7 +1830,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 else
                     dtRegDate.Value = globalVariables.SysDate;
                 txtAssignCode.Text = THU_VIEN_CHUNG.SinhMaChidinhCLS();
-                barcode1.Data = Utility.sDbnull(txtAssignCode.Text);
+             
             }
             if (objLuotkham != null)
             {
@@ -1911,7 +1921,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 GridEXColumn gridExColumnIntOrder = grdServiceDetail.RootTable.Columns["stt_hthi_chitiet"];
                 Utility.SetGridEXSortKey(grdServiceDetail, gridExColumnGroupIntOrder, SortOrder.Ascending);
                 Utility.SetGridEXSortKey(grdServiceDetail, gridExColumnIntOrder, SortOrder.Ascending);
-                
+                m_dtDanhsachDichvuCLS_org = m_dtDanhsachDichvuCLS.Copy();
                 txtFilterName.Focus();
                 txtFilterName.SelectAll();
 
