@@ -70,6 +70,25 @@ namespace VNS.Libs
 
             return songay + songaythem;
         }
+        public static void Log(string FunctionName, string UserName, string LogInfo, action action = action.doNothing, string SourceName = "UI")
+        {
+            if (string.IsNullOrEmpty(FunctionName) | string.IsNullOrEmpty(FunctionName) | string.IsNullOrEmpty(FunctionName))
+            {
+                Utility.ShowMsg("Thông tin cơ bản của Log không đúng");
+                return;
+            }
+
+            TLog log = new TLog();
+            log.LogSource = SourceName;
+            log.LogFunctionName = FunctionName;
+            log.LogActionId = Utility.Int16Dbnull(action);
+            log.LogUser = UserName;
+            log.LogInfo = LogInfo;
+            log.LogIp = Utility.GetIPAddress();
+            log.LogMacAddress = globalVariables.gv_strMacAddress;
+            log.LogTime = globalVariables.SysDate;
+            log.Save();
+        }
         public static string Canhbaotamung(KcbLuotkham objLuotkham, DataSet dsData, DataTable dtTamung)
         {
             try
