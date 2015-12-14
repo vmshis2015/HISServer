@@ -1357,8 +1357,8 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 int IdKham = -1;
                  string tieude="", reportname = "";
-                 VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET crpt = new VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET();
-            //    ReportDocument crpt = Utility.GetReport("tiepdon_PHIEUKHAM_NHIET",ref tieude,ref reportname);
+                 //VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET crpt = new VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET();
+                ReportDocument crpt = Utility.GetReport("tiepdon_PHIEUKHAM_NHIET",ref tieude,ref reportname);
                 if (crpt == null) return;
                 var objPrint = new frmPrintPreview("IN PHIẾU KHÁM", crpt, true, true);
                 IdKham = GetrealRegID();

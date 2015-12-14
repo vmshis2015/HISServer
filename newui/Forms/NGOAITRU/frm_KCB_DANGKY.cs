@@ -20,6 +20,7 @@ using VNS.HIS.UI.THANHTOAN;
 using VNS.HIS.UI.DANHMUC;
 using VNS.Libs.AppUI;
 using VNS.HIS.UI.Forms.Cauhinh;
+using CrystalDecisions.CrystalReports.Engine;
 namespace VNS.HIS.UI.NGOAITRU
 {
    
@@ -4362,8 +4363,8 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 int reg_id = -1;
                  string tieude="", reportname = "";
-                 VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET crpt = new VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET();
-                //ReportDocument crpt = Utility.GetReport("tiepdon_PHIEUKHAM_NHIET",ref tieude,ref reportname);
+                 //VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET crpt = new VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET();
+                ReportDocument crpt = Utility.GetReport("tiepdon_PHIEUKHAM_NHIET",ref tieude,ref reportname);
                 if (crpt == null) return;
                 var objPrint = new frmPrintPreview("IN PHIẾU KHÁM", crpt, true, true);
                 reg_id = GetrealRegID();
