@@ -668,22 +668,7 @@ namespace VNS.Libs
 
         private void frmPrintPreview_FormClosing(object sender, FormClosingEventArgs e)
         {
-            try
-            {
-                //if (RptDoc != null)
-                //{
-                //    RptDoc.Close();
-                //    RptDoc.Dispose();
-                //    GC.Collect();
-                //}
-            }
-            catch (Exception)
-            {
-            }
-            finally
-            {
-                CleanTemporaryFolders();
-            }
+           Utility.FreeMemory(RptDoc);
 
         }
 

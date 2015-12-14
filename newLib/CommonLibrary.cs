@@ -439,6 +439,25 @@ namespace VNS.Libs
     ///</summary>
     public class Utility
     {
+        public static void FreeMemory(CrystalDecisions.CrystalReports.Engine.ReportDocument RptDoc)
+        {
+            try
+            {
+                if (RptDoc != null)
+                {
+                    RptDoc.Close();
+                    RptDoc.Dispose();
+                    GC.Collect();
+                }
+            }
+            catch (Exception)
+            {
+            }
+            finally
+            {
+                CleanTemporaryFolders();
+            }
+        }
         public static NetworkCredential CreateCredentials(string UID,string PWD)
         {
             NetworkCredential credentials = new NetworkCredential(UID, PWD);
@@ -618,8 +637,8 @@ namespace VNS.Libs
                             drShortcut["ShortCutTP"] = dr["mota_them"].ToString().Trim();
                             //Ghép chuỗi
 
-                            drShortcut["ComparedValue"] = _ComparedValue;
-                            drShortcut["Value"] = _Value;
+                            drShortcut["ComparedValue"] = _ComparedValue.Replace("Không Xác định,","");
+                            drShortcut["Value"] = _Value.Replace("Không Xác định,", "");
                             globalVariables.dtAutocompleteAddress.Rows.Add(drShortcut);
 
                             #endregion
@@ -642,8 +661,8 @@ namespace VNS.Libs
                             _ComparedValue += Utility.Bodau(Utility.sDbnull(dr[DmucDiachinh.Columns.TenDiachinh], "")) + ", ";
                             drShortcut["ShortCutTP"] = dr["mota_them"].ToString().Trim();
 
-                            drShortcut["ComparedValue"] = _ComparedValue;
-                            drShortcut["Value"] = _Value;
+                            drShortcut["ComparedValue"] = _ComparedValue.Replace("Không Xác định,", "");
+                            drShortcut["Value"] = _Value.Replace("Không Xác định,", "");
                             globalVariables.dtAutocompleteAddress.Rows.Add(drShortcut);
 
                             #endregion
@@ -661,8 +680,8 @@ namespace VNS.Libs
                         _Value = dr[DmucDiachinh.Columns.TenDiachinh].ToString();
                         _ComparedValue = dr[DmucDiachinh.Columns.TenDiachinh] + ", ";
 
-                        drShortcut["ComparedValue"] = _ComparedValue;
-                        drShortcut["Value"] = _Value;
+                        drShortcut["ComparedValue"] = _ComparedValue.Replace("Không Xác định,", "");
+                        drShortcut["Value"] = _Value.Replace("Không Xác định,", "");
                         globalVariables.dtAutocompleteAddress.Rows.Add(drShortcut);
 
                         #endregion
@@ -676,7 +695,11 @@ namespace VNS.Libs
             {
                 var source = new List<string>();
                 var query = from p in globalVariables.dtAutocompleteAddress.AsEnumerable()
-                            select p.Field<string>("ShortCutTP").ToString() + "#" + p.Field<string>("ShortCutQH").ToString() + "#" + p.Field<string>("ShortCutXP").ToString() + "@" + p.Field<string>("Value").ToString() + "@" + p.Field<string>("Value").ToString();
+                            select
+                                p.Field<string>("ShortCutTP").ToString() + "#" +
+                                p.Field<string>("ShortCutQH").ToString() + "#" +
+                                p.Field<string>("ShortCutXP").ToString() + "@" + p.Field<string>("Value").ToString() +
+                                "@" + p.Field<string>("Value").ToString();
                 source = query.ToList();
                 globalVariables.LstAutocompleteAddressSource = source;
             }
