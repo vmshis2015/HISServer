@@ -391,7 +391,7 @@ namespace VNS.HIS.UCs
                 dtData = LayDulieuDanhmucChung(new List<string>() { LOAI_DANHMUC });
                 if (dtData == null || dtData.Columns.Count <= 0) return;
                 if (!dtData.Columns.Contains("ShortCut")) dtData.Columns.Add(new DataColumn("ShortCut", typeof(string)));
-             dtData.DefaultView.Sort = DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten;
+                dtData.DefaultView.Sort = DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten;
                 if(dtData.DefaultView.Count==1)
                     defaultItem = dtData.DefaultView[0]["MA"].ToString().Trim();
              foreach (DataRowView dr in dtData.DefaultView)
@@ -652,12 +652,25 @@ namespace VNS.HIS.UCs
         public static DataTable LayDulieuDanhmucChung(List<string> lstLoai)
         {
             DataTable m_NN = new DataTable();
-
-            m_NN =
+            if(globalVariables.IsAdmin)
+            {
+                m_NN =
                 new Select().From(DmucChung.Schema)
                     .Where(DmucChung.Columns.Loai).In(lstLoai)
                     .OrderAsc(DmucChung.Columns.SttHthi)
                     .ExecuteDataSet().Tables[0];
+            }
+            else
+            {
+                m_NN =
+               new Select().From(DmucChung.Schema)
+                   .Where(DmucChung.Columns.Loai).In(lstLoai)
+                   .And(DmucChung.Columns.NguoiTao).IsEqualTo(globalVariables.UserName)
+                   .Or(DmucChung.Columns.Loai).In(lstLoai)
+                   .And(DmucChung.Columns.NguoiTao).IsEqualTo("ADMIN")
+                   .OrderAsc(DmucChung.Columns.SttHthi)
+                   .ExecuteDataSet().Tables[0];
+            }
             return m_NN;
         }
         // hides the listbox
