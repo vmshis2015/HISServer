@@ -120,6 +120,7 @@
             this.txtNhanxet = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.cmdConfirm = new Janus.Windows.EditControls.UIButton();
             this.txtMaBenhAn = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.txtChanDoanKemTheo = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.panel3 = new System.Windows.Forms.Panel();
             this.uiGroupBox2 = new Janus.Windows.EditControls.UIGroupBox();
             this.pnlPatientInfor = new System.Windows.Forms.Panel();
@@ -158,6 +159,8 @@
             this.tabDiagInfo = new Janus.Windows.UI.Tab.UITab();
             this.tabPageChanDoan = new Janus.Windows.UI.Tab.UITabPage();
             this.pnlKetluan = new System.Windows.Forms.Panel();
+            this.txtSoNgayHen = new MaskedTextBox.MaskedTextBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.lblBANgoaitru = new System.Windows.Forms.Label();
             this.lblBANoitru = new System.Windows.Forms.Label();
             this.txtSongaydieutri = new MaskedTextBox.MaskedTextBox();
@@ -260,7 +263,6 @@
             this.uiTabPage5 = new Janus.Windows.UI.Tab.UITabPage();
             this.ctxDelVTTH = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuDelVTTH = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtChanDoanKemTheo = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             ((System.ComponentModel.ISupportInitialize)(this.grpSearch)).BeginInit();
             this.grpSearch.SuspendLayout();
             this.ctxDelCLS.SuspendLayout();
@@ -1135,6 +1137,48 @@
             this.toolTip1.SetToolTip(this.txtMaBenhAn, "Bạn có thể gõ mã lần khám của Bệnh nhân để tìm kiếm nhanh(Phím tắt F6)");
             this.txtMaBenhAn.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007;
             // 
+            // txtChanDoanKemTheo
+            // 
+            this.txtChanDoanKemTheo._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtChanDoanKemTheo._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChanDoanKemTheo._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtChanDoanKemTheo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtChanDoanKemTheo.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtChanDoanKemTheo.AutoCompleteList")));
+            this.txtChanDoanKemTheo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtChanDoanKemTheo.CaseSensitive = false;
+            this.txtChanDoanKemTheo.CompareNoID = true;
+            this.txtChanDoanKemTheo.DefaultCode = "-1";
+            this.txtChanDoanKemTheo.DefaultID = "-1";
+            this.txtChanDoanKemTheo.Drug_ID = null;
+            this.txtChanDoanKemTheo.ExtraWidth = 0;
+            this.txtChanDoanKemTheo.FillValueAfterSelect = false;
+            this.txtChanDoanKemTheo.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChanDoanKemTheo.LOAI_DANHMUC = "CHANDOANKEMTHEO";
+            this.txtChanDoanKemTheo.Location = new System.Drawing.Point(101, 157);
+            this.txtChanDoanKemTheo.MaxHeight = 200;
+            this.txtChanDoanKemTheo.MinTypedCharacters = 2;
+            this.txtChanDoanKemTheo.MyCode = "-1";
+            this.txtChanDoanKemTheo.MyID = "-1";
+            this.txtChanDoanKemTheo.Name = "txtChanDoanKemTheo";
+            this.txtChanDoanKemTheo.RaiseEvent = false;
+            this.txtChanDoanKemTheo.RaiseEventEnter = false;
+            this.txtChanDoanKemTheo.RaiseEventEnterWhenEmpty = false;
+            this.txtChanDoanKemTheo.SelectedIndex = -1;
+            this.txtChanDoanKemTheo.Size = new System.Drawing.Size(417, 21);
+            this.txtChanDoanKemTheo.splitChar = '@';
+            this.txtChanDoanKemTheo.splitCharIDAndCode = '#';
+            this.txtChanDoanKemTheo.TabIndex = 452;
+            this.txtChanDoanKemTheo.TakeCode = false;
+            this.toolTip1.SetToolTip(this.txtChanDoanKemTheo, "Nhấn vào đây để xem và bổ sung thêm danh mục chẩn đoán");
+            this.txtChanDoanKemTheo.txtMyCode = null;
+            this.txtChanDoanKemTheo.txtMyCode_Edit = null;
+            this.txtChanDoanKemTheo.txtMyID = null;
+            this.txtChanDoanKemTheo.txtMyID_Edit = null;
+            this.txtChanDoanKemTheo.txtMyName = null;
+            this.txtChanDoanKemTheo.txtMyName_Edit = null;
+            this.txtChanDoanKemTheo.txtNext = null;
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.uiGroupBox2);
@@ -1641,6 +1685,8 @@
             // 
             // pnlKetluan
             // 
+            this.pnlKetluan.Controls.Add(this.txtSoNgayHen);
+            this.pnlKetluan.Controls.Add(this.label27);
             this.pnlKetluan.Controls.Add(this.lblBANgoaitru);
             this.pnlKetluan.Controls.Add(this.lblBANoitru);
             this.pnlKetluan.Controls.Add(this.txtSongaydieutri);
@@ -1675,6 +1721,27 @@
             this.pnlKetluan.Size = new System.Drawing.Size(710, 543);
             this.pnlKetluan.TabIndex = 19;
             // 
+            // txtSoNgayHen
+            // 
+            this.txtSoNgayHen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSoNgayHen.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSoNgayHen.Location = new System.Drawing.Point(217, 341);
+            this.txtSoNgayHen.Masked = MaskedTextBox.Mask.Digit;
+            this.txtSoNgayHen.Name = "txtSoNgayHen";
+            this.txtSoNgayHen.Size = new System.Drawing.Size(47, 21);
+            this.txtSoNgayHen.TabIndex = 549;
+            this.txtSoNgayHen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label27
+            // 
+            this.label27.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(157, 341);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(62, 21);
+            this.label27.TabIndex = 548;
+            this.label27.Text = "Ngày hẹn:";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblBANgoaitru
             // 
             this.lblBANgoaitru.AutoSize = true;
@@ -1702,10 +1769,10 @@
             // 
             this.txtSongaydieutri.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSongaydieutri.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSongaydieutri.Location = new System.Drawing.Point(104, 339);
+            this.txtSongaydieutri.Location = new System.Drawing.Point(104, 341);
             this.txtSongaydieutri.Masked = MaskedTextBox.Mask.Digit;
             this.txtSongaydieutri.Name = "txtSongaydieutri";
-            this.txtSongaydieutri.Size = new System.Drawing.Size(69, 21);
+            this.txtSongaydieutri.Size = new System.Drawing.Size(47, 21);
             this.txtSongaydieutri.TabIndex = 30;
             this.txtSongaydieutri.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1808,9 +1875,9 @@
             // 
             this.lblBenhan.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBenhan.ForeColor = System.Drawing.Color.Navy;
-            this.lblBenhan.Location = new System.Drawing.Point(361, 341);
+            this.lblBenhan.Location = new System.Drawing.Point(363, 341);
             this.lblBenhan.Name = "lblBenhan";
-            this.lblBenhan.Size = new System.Drawing.Size(101, 21);
+            this.lblBenhan.Size = new System.Drawing.Size(99, 21);
             this.lblBenhan.TabIndex = 545;
             this.lblBenhan.Text = "Chọn bệnh án:";
             this.lblBenhan.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1907,7 +1974,7 @@
             // lblSongaydieutri
             // 
             this.lblSongaydieutri.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSongaydieutri.Location = new System.Drawing.Point(3, 340);
+            this.lblSongaydieutri.Location = new System.Drawing.Point(3, 341);
             this.lblSongaydieutri.Name = "lblSongaydieutri";
             this.lblSongaydieutri.Size = new System.Drawing.Size(97, 21);
             this.lblSongaydieutri.TabIndex = 434;
@@ -1917,9 +1984,9 @@
             // chkDaThucHien
             // 
             this.chkDaThucHien.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkDaThucHien.Location = new System.Drawing.Point(196, 340);
+            this.chkDaThucHien.Location = new System.Drawing.Point(273, 338);
             this.chkDaThucHien.Name = "chkDaThucHien";
-            this.chkDaThucHien.Size = new System.Drawing.Size(158, 26);
+            this.chkDaThucHien.Size = new System.Drawing.Size(103, 26);
             this.chkDaThucHien.TabIndex = 5;
             this.chkDaThucHien.TabStop = false;
             this.chkDaThucHien.Text = "Đã khám xong";
@@ -3172,48 +3239,6 @@
             this.mnuDelVTTH.Size = new System.Drawing.Size(234, 22);
             this.mnuDelVTTH.Text = "Xóa Vật tư tiêu hao đang chọn";
             // 
-            // txtChanDoanKemTheo
-            // 
-            this.txtChanDoanKemTheo._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.txtChanDoanKemTheo._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtChanDoanKemTheo._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtChanDoanKemTheo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtChanDoanKemTheo.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtChanDoanKemTheo.AutoCompleteList")));
-            this.txtChanDoanKemTheo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtChanDoanKemTheo.CaseSensitive = false;
-            this.txtChanDoanKemTheo.CompareNoID = true;
-            this.txtChanDoanKemTheo.DefaultCode = "-1";
-            this.txtChanDoanKemTheo.DefaultID = "-1";
-            this.txtChanDoanKemTheo.Drug_ID = null;
-            this.txtChanDoanKemTheo.ExtraWidth = 0;
-            this.txtChanDoanKemTheo.FillValueAfterSelect = false;
-            this.txtChanDoanKemTheo.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtChanDoanKemTheo.LOAI_DANHMUC = "CHANDOANKEMTHEO";
-            this.txtChanDoanKemTheo.Location = new System.Drawing.Point(101, 157);
-            this.txtChanDoanKemTheo.MaxHeight = 200;
-            this.txtChanDoanKemTheo.MinTypedCharacters = 2;
-            this.txtChanDoanKemTheo.MyCode = "-1";
-            this.txtChanDoanKemTheo.MyID = "-1";
-            this.txtChanDoanKemTheo.Name = "txtChanDoanKemTheo";
-            this.txtChanDoanKemTheo.RaiseEvent = false;
-            this.txtChanDoanKemTheo.RaiseEventEnter = false;
-            this.txtChanDoanKemTheo.RaiseEventEnterWhenEmpty = false;
-            this.txtChanDoanKemTheo.SelectedIndex = -1;
-            this.txtChanDoanKemTheo.Size = new System.Drawing.Size(417, 21);
-            this.txtChanDoanKemTheo.splitChar = '@';
-            this.txtChanDoanKemTheo.splitCharIDAndCode = '#';
-            this.txtChanDoanKemTheo.TabIndex = 452;
-            this.txtChanDoanKemTheo.TakeCode = false;
-            this.toolTip1.SetToolTip(this.txtChanDoanKemTheo, "Nhấn vào đây để xem và bổ sung thêm danh mục chẩn đoán");
-            this.txtChanDoanKemTheo.txtMyCode = null;
-            this.txtChanDoanKemTheo.txtMyCode_Edit = null;
-            this.txtChanDoanKemTheo.txtMyID = null;
-            this.txtChanDoanKemTheo.txtMyID_Edit = null;
-            this.txtChanDoanKemTheo.txtMyName = null;
-            this.txtChanDoanKemTheo.txtMyName_Edit = null;
-            this.txtChanDoanKemTheo.txtNext = null;
-            // 
             // frm_KCB_THAMKHAM
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -3481,5 +3506,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label24;
         private UCs.AutoCompleteTextbox_Danhmucchung txtChanDoanKemTheo;
+        private MaskedTextBox.MaskedTextBox txtSoNgayHen;
+        private System.Windows.Forms.Label label27;
     }
 }

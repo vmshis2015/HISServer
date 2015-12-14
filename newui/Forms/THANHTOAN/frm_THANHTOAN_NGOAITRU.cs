@@ -2353,6 +2353,8 @@ namespace  VNS.HIS.UI.THANHTOAN
                         {
                             case ActionResult.Success:
                                 getData();
+                                THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                string.Format("Hủy thanh toán của bệnh nhân có mã lần khám {0} và mã bệnh nhân là: {1} bởi {2}", objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, globalVariables.UserName), action.Delete);
                                 break;
                             case ActionResult.ExistedRecord:
                                 break;
@@ -3719,6 +3721,8 @@ namespace  VNS.HIS.UI.THANHTOAN
                     {
                         case ActionResult.Success:
                             KiemTraDaInPhoiBHYT();
+                            THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                               string.Format("Hủy in phôi của bệnh nhân có mã lần khám {0} và mã bệnh nhân là: {1} bởi {2}", objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, globalVariables.UserName), action.Delete);
                             break;
                         case ActionResult.Error:
                             Utility.ShowMsg("Lỗi trong quá trình hủy in phôi bảo hiểm", "Thông báo",

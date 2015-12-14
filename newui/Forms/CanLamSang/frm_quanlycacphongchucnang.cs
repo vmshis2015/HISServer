@@ -631,6 +631,7 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             }
             catch (Exception exception)
             {
+                Utility.ShowMsg("Lỗi:"+ exception.Message);
             }
             finally
             {

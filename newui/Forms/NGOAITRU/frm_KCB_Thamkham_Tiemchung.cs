@@ -2714,7 +2714,10 @@ namespace VNS.HIS.UI.NGOAITRU
                     Laythongtinchidinhngoaitru();
                     Utility.GotoNewRowJanus(grdPresDetail, KcbDonthuoc.Columns.IdDonthuoc,
                                             Utility.sDbnull(frm.txtPres_ID.Text));
-                    
+                    THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                            string.Format(
+                                                "Thêm mới vắc xin của bệnh nhân có mã lượt khám là: {0}, và mã bệnh nhân là {1}",
+                                                objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan), action.Insert);
                 }
             }
             catch (Exception exception)
@@ -2813,7 +2816,10 @@ namespace VNS.HIS.UI.NGOAITRU
                                 Laythongtinchidinhngoaitru();
                                 Utility.GotoNewRowJanus(grdPresDetail, KcbDonthuocChitiet.Columns.IdDonthuoc,
                                                         Utility.sDbnull(frm.txtPres_ID.Text));
-
+                                THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                            string.Format(
+                                                "Sửa vắc xin của có mã lượt khám là: {0}, và mã bệnh nhân là {1}",
+                                                objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan), action.Delete);
                             }
                         }
                     }
@@ -2860,23 +2866,35 @@ namespace VNS.HIS.UI.NGOAITRU
         }
         private void PerformActionDeletePres()
         {
-            string s = "";
-            List<int> lstIdchitiet = new List<int>();
-            foreach (GridEXRow gridExRow in grdPresDetail.GetCheckedRows())
+            try
             {
-                string stempt = "";
-                int id_thuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, 0m);
-                int IdDonthuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdDonthuoc].Value, 0m);
-                decimal dongia = Utility.DecimaltoDbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.DonGia].Value, 0m);
-                List<int> _temp = GetIdChitiet(IdDonthuoc, id_thuoc, dongia, ref stempt);
-                s += "," + stempt;
-                lstIdchitiet.AddRange(_temp);
-                gridExRow.Delete();
-                grdPresDetail.UpdateData();
+                string s = "";
+                List<int> lstIdchitiet = new List<int>();
+                foreach (GridEXRow gridExRow in grdPresDetail.GetCheckedRows())
+                {
+                    string stempt = "";
+                    int id_thuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, 0m);
+                    int IdDonthuoc = Utility.Int32Dbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.IdDonthuoc].Value, 0m);
+                    decimal dongia = Utility.DecimaltoDbnull(gridExRow.Cells[KcbDonthuocChitiet.Columns.DonGia].Value, 0m);
+                    List<int> _temp = GetIdChitiet(IdDonthuoc, id_thuoc, dongia, ref stempt);
+                    s += "," + stempt;
+                    lstIdchitiet.AddRange(_temp);
+                    gridExRow.Delete();
+                    grdPresDetail.UpdateData();
+
+                }
+                _KCB_KEDONTHUOC.XoaChitietDonthuoc(s);
+                deletefromDatatable(lstIdchitiet);
+                m_dtChitietDonthuoc.AcceptChanges();
+                THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                             string.Format(
+                                                 "Xóa vắc xin của có mã lượt khám là: {0}, và mã bệnh nhân là {1}",
+                                                 objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan), action.Delete);
             }
-            _KCB_KEDONTHUOC.XoaChitietDonthuoc(s);
-            deletefromDatatable(lstIdchitiet);
-            m_dtChitietDonthuoc.AcceptChanges();
+            catch (Exception ex)
+            {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
+            }
         }
         private void PerformActionDeletePres_old()
         {

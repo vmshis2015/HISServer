@@ -1,30 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.OleDb;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Transactions;
 using System.Windows.Forms;
-using Janus.Windows.CalendarCombo;
-using Janus.Windows.EditControls;
 using Janus.Windows.GridEX;
-using Janus.Windows.GridEX.EditControls;
 using Janus.Windows.UI.StatusBar;
 using SubSonic;
-using SubSonic.Sugar;
 using VNS.Libs;
-using VNS.HIS.NGHIEPVU;
 using VNS.HIS.DAL;
 using VNS.UI.QMS;
-using TextAlignment = Janus.Windows.GridEX.TextAlignment;
-using TriState = Janus.Windows.GridEX.TriState;
 using VNS.Properties;
-using CrystalDecisions.CrystalReports.Engine;
 using VNS.HIS.BusRule.Classes;
 using VNS.HIS.Classes;
 using VNS.HIS.UI.Forms.NGOAITRU;
@@ -1187,15 +1175,18 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 int patient_ID = Utility.Int32Dbnull(txtMaBN.Text, -1);
                 if (patient_ID <= 0) return;
-                DmucCanhbaoCollection lst = new Select().From(DmucCanhbao.Schema).Where(DmucCanhbao.MaBnColumn).IsEqualTo(patient_ID).ExecuteAsCollection<DmucCanhbaoCollection>();
+                DmucCanhbaoCollection lst =
+                    new Select().From(DmucCanhbao.Schema).Where(DmucCanhbao.MaBnColumn).IsEqualTo(patient_ID).
+                        ExecuteAsCollection<DmucCanhbaoCollection>();
                 if (lst.Count > 0)//Delete
                 {
                     if (lst[0].CanhBao.TrimStart().TrimEnd() != "")
                         Utility.ShowMsg(lst[0].CanhBao,"Thông tin cảnh báo dành cho Bệnh nhân");
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                Utility.ShowMsg("Lỗi:"+ex.Message);
             }
         }
         private bool Nhieuhon2Manhinh()
@@ -4335,7 +4326,7 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 if (!Utility.isValidGrid(grdRegExam)) return;
-                if (grdRegExam.GetDataRows().Count() <= 0 || grdRegExam.CurrentRow.RowType != RowType.Record)
+                if (!grdRegExam.GetDataRows().Any() || grdRegExam.CurrentRow.RowType != RowType.Record)
                     return;
                 if (PropertyLib._MayInProperties.KieuInPhieuKCB == KieuIn.Innhiet)
                     InPhieuKCB();
@@ -4371,7 +4362,8 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 int reg_id = -1;
                  string tieude="", reportname = "";
-                ReportDocument crpt = Utility.GetReport("tiepdon_PHIEUKHAM_NHIET",ref tieude,ref reportname);
+                 VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET crpt = new VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET();
+                //ReportDocument crpt = Utility.GetReport("tiepdon_PHIEUKHAM_NHIET",ref tieude,ref reportname);
                 if (crpt == null) return;
                 var objPrint = new frmPrintPreview("IN PHIẾU KHÁM", crpt, true, true);
                 reg_id = GetrealRegID();
@@ -5378,7 +5370,6 @@ namespace VNS.HIS.UI.NGOAITRU
                     {
                         objRegExam.IdKhoakcb = objdepartment.IdKhoaphong;
                         objRegExam.MaPhongStt = objdepartment.MaPhongStt;
-
                     }
                     if (objDoituongKCB != null)
                     {

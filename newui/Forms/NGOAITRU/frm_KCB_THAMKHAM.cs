@@ -169,6 +169,8 @@ namespace VNS.HIS.UI.NGOAITRU
             txtMaBenhChinh.KeyDown += txtMaBenhChinh_KeyDown;
             txtMaBenhChinh.TextChanged += txtMaBenhChinh_TextChanged;
             txtMach.LostFocus += txtMach_LostFocus;
+            txtSongaydieutri.LostFocus += txtSongaydieutri_LostFocus;
+           // txtSoNgayHen.LostFocus += txtSoNgayHen_LostFocus;
             txtNhipTim.LostFocus += txtNhipTim_LostFocus;
             txtMaBenhphu.GotFocus += txtMaBenhphu_GotFocus;
             txtMaBenhphu.KeyDown += txtMaBenhphu_KeyDown;
@@ -1736,6 +1738,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     }
                 }
                 txtSongaydieutri.Text = "0";
+                txtSoNgayHen.Text = "0";
             }
             catch (Exception)
             {
@@ -1831,8 +1834,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     txt_idchidinhphongkham.Text = Utility.sDbnull(grdList.GetValue(KcbDangkyKcb.Columns.IdKham));
 
                     objkcbdangky = KcbDangkyKcb.FetchByID(Utility.Int32Dbnull(txt_idchidinhphongkham.Text));
-                    var objStaff =
-                        new Select().From(DmucNhanvien.Schema).Where(DmucNhanvien.UserNameColumn).IsEqualTo(
+                    var objStaff = new Select().From(DmucNhanvien.Schema).Where(DmucNhanvien.UserNameColumn).IsEqualTo(
                             Utility.sDbnull(objLuotkham.NguoiKetthuc, "")).ExecuteSingle<DmucNhanvien>();
                     string TenNhanvien = objLuotkham.NguoiKetthuc;
                     if (objStaff != null)
@@ -1935,6 +1937,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                     // txtHuongdieutri.SetCode(_KcbChandoanKetluan.HuongDieutri);
                                     txtHuongdieutri._Text = _KcbChandoanKetluan.HuongDieutri;
                                     txtSongaydieutri.Text = Utility.sDbnull(_KcbChandoanKetluan.SongayDieutri, "0");
+                                    txtSoNgayHen.Text = Utility.sDbnull(_KcbChandoanKetluan.SoNgayhen, "0");
                                     txtHa.Text = Utility.sDbnull(_KcbChandoanKetluan.Huyetap);
                                     txtTrieuChungBD._Text = Utility.sDbnull(_KcbChandoanKetluan.TrieuchungBandau);
                                     txtMach.Text = Utility.sDbnull(_KcbChandoanKetluan.Mach);
@@ -3783,9 +3786,22 @@ namespace VNS.HIS.UI.NGOAITRU
         /// <param name="e"></param>
         private void cmdDelteAssign_Click(object sender, EventArgs e)
         {
-            if (!IsValidCheckedAssignDetails()) return;
-            PerforActionDeleteAssign();
-            ModifyCommmands();
+            try
+            {
+                if (!IsValidCheckedAssignDetails()) return;
+                string ma_chidinh = Utility.sDbnull(grdAssignDetail.GetValue(KcbChidinhcl.Columns.MaChidinh));
+                PerforActionDeleteAssign();
+                THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                 string.Format(
+                                     "Xóa phiếu chỉ định  {0} của bệnh nhân có mã lần khám: {1} và mã bệnh nhân là: {2}",ma_chidinh
+                                     , objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan), action.Delete);
+                ModifyCommmands();
+            }
+            catch (Exception ex)
+            {
+                 Utility.ShowMsg("Lỗi:"+ex.Message);   
+            }
+           
         }
 
         private bool IsValidCheckedAssignDetails()
@@ -3899,10 +3915,18 @@ namespace VNS.HIS.UI.NGOAITRU
                     Utility.Int32Dbnull(
                         grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
                         -1);
+                int id_chitiet_dichvu =
+                   Utility.Int32Dbnull(
+                       grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietdichvu].Value,
+                       -1);
                 int id_chidinh =
                     Utility.Int32Dbnull(grdAssignDetail.CurrentRow.Cells[KcbChidinhclsChitiet.Columns.IdChidinh].Value,
                                         -1);
                 _KCB_CHIDINH_CANLAMSANG.XoaChiDinhCLSChitiet(id_chidinhchitiet);
+                THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                   string.Format(
+                                       "Xóa chỉ định {0} của bệnh nhân có mã lần khám: {1} và mã bệnh nhân là: {2}",
+                                       id_chitiet_dichvu, objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan), action.Delete);
                 grdAssignDetail.CurrentRow.Delete();
                 m_dtAssignDetail.AcceptChanges();
             }
@@ -4536,6 +4560,11 @@ namespace VNS.HIS.UI.NGOAITRU
                     Utility.Int32Dbnull(grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value,
                                         -1);
                 _KCB_KEDONTHUOC.XoaChitietDonthuoc(v_IdChitietdonthuoc);
+                THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                  string.Format(
+                                      "Xóa thuốc có mã là: {0} - đơn thuôc: {3} của bệnh nhân có mã lần khám: {1} và mã bệnh nhân là: {2}",
+                                      Utility.Int32Dbnull(this.grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1), objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, Utility.Int32Dbnull(
+                            this.grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdDonthuoc].Value, -1)), action.Delete);
                 grdPresDetail.CurrentRow.Delete();
                 grdPresDetail.UpdateData();
                 m_dtPresDetail.AcceptChanges();
@@ -4945,6 +4974,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 _KcbChandoanKetluan.Cannang = Utility.sDbnull(txtCannang.Text);
                 _KcbChandoanKetluan.HuongDieutri = txtHuongdieutri.Text; //.myCode.Trim();
                 _KcbChandoanKetluan.SongayDieutri = (Int16) Utility.DecimaltoDbnull(txtSongaydieutri.Text, 0);
+                _KcbChandoanKetluan.SoNgayhen = (Int16) Utility.DecimaltoDbnull(txtSoNgayHen.Text, 0);
                 _KcbChandoanKetluan.Ketluan = Utility.sDbnull(txtKet_Luan.Text, "");
                 _KcbChandoanKetluan.NhanXet = Utility.sDbnull(txtNhanxet.Text, "");
                 if (Utility.Int16Dbnull(txtBacsi.MyID, -1) > 0)
@@ -5182,8 +5212,9 @@ namespace VNS.HIS.UI.NGOAITRU
                             THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_MAHUONGDIEUTRI_NOITRU", false).ToUpper())
                         {
                             cmdNhapVien_Click(cmdNhapVien, new EventArgs());
-                            ;
                         }
+                        THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                 string.Format("Bệnh nhân có mã lần khám {0} và mã bệnh nhân {1} được kết thúc bởi {3}  ", objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan,globalVariables.UserName), action.Delete);
                         cmdUnlock.Visible = objLuotkham.TrangthaiNoitru == 0 && objLuotkham.Locked.ToString() == "1";
                         cmdUnlock.Enabled = cmdUnlock.Visible &&
                                             (Utility.Coquyen("quyen_mokhoa_tatca") ||
@@ -5197,6 +5228,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             toolTip1.SetToolTip(cmdUnlock,
                                                 "Nhấn vào đây để mở khóa cho bệnh nhân đang chọn(Phím tắt Ctrl+U). Điều kiện là chỉ mở khóa đối với đối tượng Dịch vụ. Muốn mở khóa đối tượng BHYT thì cần liên lạc với bộ phận thanh toán hủy in phôi BHYT");
                         break;
+
                     case ActionResult.Error:
                         Utility.ShowMsg("Lỗi trong quá lưu thông tin ", "Thông báo lỗi", MessageBoxIcon.Error);
                         break;
@@ -5879,6 +5911,16 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtNhipTim.Text = txtMach.Text;
             }
         }
-
+        private void txtSongaydieutri_LostFocus(object sender, EventArgs e)
+        {
+             txtSoNgayHen.Text = txtSongaydieutri.Text;
+        }
+        private void txtSoNgayHen_LostFocus(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtSoNgayHen.Text))
+            {
+                txtSongaydieutri.Text = txtSoNgayHen.Text;
+            }
+        }
     }
 }

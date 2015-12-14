@@ -1093,6 +1093,10 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     UpdateGroup();
                     grdList_SelectionChanged(grdList, new EventArgs());
+                    THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                            string.Format(
+                                                "Thêm lần khám của bệnh nhân có mã lượt khám là: {0}, và mã bệnh nhân là {1}",
+                                                objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan), action.Insert);
                 }
                 ModifyCommand();
                 ModifycommandAssignDetail();
@@ -1142,6 +1146,10 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     UpdateGroup();
                     grdList_SelectionChanged(grdList, new EventArgs());
+                    THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                              string.Format(
+                                                  "Sửa bệnh nhân có mã lượt khám là: {0}, và mã bệnh nhân là {1}",
+                                                  Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham)), Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan))), action.Update);
                 }
                 ModifyCommand();
                 ModifycommandAssignDetail();
@@ -1349,7 +1357,8 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 int IdKham = -1;
                  string tieude="", reportname = "";
-                ReportDocument crpt = Utility.GetReport("tiepdon_PHIEUKHAM_NHIET",ref tieude,ref reportname);
+                 VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET crpt = new VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET();
+            //    ReportDocument crpt = Utility.GetReport("tiepdon_PHIEUKHAM_NHIET",ref tieude,ref reportname);
                 if (crpt == null) return;
                 var objPrint = new frmPrintPreview("IN PHIẾU KHÁM", crpt, true, true);
                 IdKham = GetrealRegID();
@@ -1939,21 +1948,17 @@ namespace VNS.HIS.UI.NGOAITRU
                     switch (actionResult)
                     {
                         case ActionResult.Success:
-                            try
-                            {
                                 grdList.CurrentRow.BeginEdit();
                                 grdList.CurrentRow.Delete();
                                 grdList.CurrentRow.EndEdit();
                                 grdList.UpdateData();
                                 grdList_SelectionChanged(grdList, e);
-
-                            }
-                            catch
-                            {
-
-                            }
                             m_dtPatient.AcceptChanges();
                             UpdateGroup();
+                            THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                               string.Format(
+                                                   "Xóa bệnh nhân có mã lượt khám là: {0}, và mã bệnh nhân là {1}",
+                                                   v_MaLuotkham, v_Patient_ID), action.Delete);
                             //Utility.ShowMsg("Xóa lần khám thành công", "Thành công");
                             break;
                         case ActionResult.Exception:

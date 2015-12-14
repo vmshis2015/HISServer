@@ -66,8 +66,7 @@ namespace VNS.HIS.UI.NGOAITRU
             InitEvents();
             this.nhomchidinh = nhomchidinh;
             this.kieu_chidinh = kieu_chidinh;
-            
-            
+            txtFilterName.Focus();
             dtRegDate.Value = globalVariables.SysDate;
             chkChiDinhNhanh.Visible = globalVariables.IsAdmin;
             if (globalVariables.gv_UserAcceptDeleted) FormatUserNhapChiDinh();
@@ -127,7 +126,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 uncheckItems();
                 foreach (GridEXRow row in grdServiceDetail.GetDataRows())
                 {
-                    if (dtChitietnhom.Select(DmucNhomcanlamsangChitiet.Columns.IdChitietdichvu + "=" + Utility.sDbnull(row.Cells[DmucNhomcanlamsangChitiet.Columns.IdChitietdichvu].Value,"-1")).Length > 0)
+                    if (dtChitietnhom.Select(DmucNhomcanlamsangChitiet.Columns.IdChitietdichvu + "="
+                        + Utility.sDbnull(row.Cells[DmucNhomcanlamsangChitiet.Columns.IdChitietdichvu].Value, "-1")).Length > 0)
                         row.IsChecked = true;
                 }
                 cmdAddDetail_Click(cmdAddDetail, new EventArgs());
@@ -254,8 +254,13 @@ namespace VNS.HIS.UI.NGOAITRU
                 DataBinding.BindDataCombobox(cboDichVu, THU_VIEN_CHUNG.LayThongTinDichVuCLS(nhomchidinh),
                                            DmucDichvucl.Columns.IdDichvu, DmucDichvucl.Columns.TenDichvu,
                                            "Lọc thông tin theo loại dịch vụ", false);
-
-                txtNhomDichvuCLS.Init(new Select().From(DmucNhomcanlamsang.Schema).ExecuteDataSet().Tables[0], new List<string>() { DmucNhomcanlamsang.Columns.Id, DmucNhomcanlamsang.Columns.MaNhom, DmucNhomcanlamsang.Columns.TenNhom });
+                txtNhomDichvuCLS.Init(new Select().From(DmucNhomcanlamsang.Schema).ExecuteDataSet().Tables[0],
+                                      new List<string>()
+                                          {
+                                              DmucNhomcanlamsang.Columns.Id,
+                                              DmucNhomcanlamsang.Columns.MaNhom,
+                                              DmucNhomcanlamsang.Columns.TenNhom
+                                          });
                 InitData();
                 GetData();
                 if (m_eAction == action.Update)
@@ -1069,7 +1074,6 @@ namespace VNS.HIS.UI.NGOAITRU
                         newDr[KcbChidinhclsChitiet.Columns.MadoituongGia] = Utility.sDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.MadoituongGia].Value, "");
                         newDr[KcbChidinhclsChitiet.Columns.PhuThu] =
                             Utility.DecimaltoDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.PhuThu].Value, 0);
-
                         //Không tự túc thì tính theo giá BHYT nếu là BN BHYT
                         if (Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.TuTuc].Value, 0) == 0)
                         {
@@ -1652,8 +1656,9 @@ namespace VNS.HIS.UI.NGOAITRU
                         Utility.ShowMsg("Các cặp dịch vụ sau đã được thiết lập chống chỉ định chung phiếu. Đề nghị bạn kiểm tra lại:\n" + errMsg);
                 }
             }
-            catch
+            catch (Exception ex)
             {
+
             }
             finally
             {
@@ -1838,10 +1843,10 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     this.Text = "Chỉ định dịch vụ Cận lâm sàng cho Bệnh nhân:" + objBenhnhan.TenBenhnhan
                         + ", " + (Utility.Int32Dbnull(objBenhnhan.GioiTinh) == 0 ? "Nam" : "Nữ") + ", " + (globalVariables.SysDate.Year + 1 - objBenhnhan.NamSinh.Value) + " tuổi";
-
+                    LayThongTin_Chitiet_CLS();
                 }
             }
-            LayThongTin_Chitiet_CLS();
+            
         }
 
         /// <summary>

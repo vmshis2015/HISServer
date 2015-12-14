@@ -872,6 +872,7 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 cmdAddDetail.Enabled = false;
+                Thread.Sleep(300); // trễ 1.2 giây
                 if (Utility.Int32Dbnull(txtBacsi.MyID, -1) <= 0)
                 {
                     Utility.SetMsg(lblMsg, "Bạn cần chọn bác sĩ chỉ định trước khi thực hiện kê đơn thuốc", true);
@@ -888,7 +889,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 this.AddPreDetail();
                 this.Manual = true;
-                Thread.Sleep(100); // trễ 0.1 giây
+               
             }
             catch (Exception ex)
             {
@@ -896,6 +897,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             finally
             {
+                Thread.Sleep(300); // trễ 1.2 giây
                 cmdAddDetail.Enabled = true;
             }
 
@@ -997,6 +999,7 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 this.cmdSavePres.Enabled = false;
+                Thread.Sleep(200); // Trễ 0,2 giây
                 this.isSaved = true;
                 if (Utility.Int32Dbnull(txtBacsi.MyID, -1) <= 0)
                 {
@@ -1026,11 +1029,13 @@ namespace VNS.HIS.UI.NGOAITRU
                     this.PerformAction((changedData == null) ? new List<KcbDonthuocChitiet>().ToArray() : changedData.ToArray());
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
             finally
             {
+                Thread.Sleep(200); // Trễ 0,2 giây
                 this.cmdSavePres.Enabled = true;
                 this.Manual = false;
                 this.hasChanged = false;
@@ -2300,6 +2305,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 objChidan.SoLuong = Utility.Int32Dbnull(Utility.DecimaltoDbnull(this.txtSoluong.Text, 0));
                 objChidan.ChidanThem = Utility.DoTrim(txtChiDanThem.Text);
                 objChidan.CachDung = Utility.DoTrim(txtCachDung.Text);
+             //   objChidan.DonviDung = Utility.DoTrim(txtDonViDung.Text);
                 objChidan.Save();
             }
             catch (Exception ex)
@@ -2549,6 +2555,11 @@ namespace VNS.HIS.UI.NGOAITRU
                     else if (!PropertyLib._ThamKhamProperties.Hoitruockhixoathuoc || Utility.AcceptQuestion("Bạn Có muốn xóa các "+(KIEU_THUOC_VT == "THUOC" ?"thuốc":"vật tư") +" đang chọn hay không?", "thông báo xóa", true))
                     {
                         this._KEDONTHUOC.XoaChitietDonthuoc(s);
+                        THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                  string.Format(
+                                      "Xóa thuốc có mã là: {0} - đơn thuôc: {3} của bệnh nhân có mã lần khám: {1} và mã bệnh nhân là: {2}",
+                                      Utility.Int32Dbnull(this.grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1), objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, Utility.Int32Dbnull(
+                            this.grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdDonthuoc].Value, -1)), action.Delete);
                         this.grdPresDetail.CurrentRow.Delete();
                         this.grdPresDetail.UpdateData();
                         this.deletefromDatatable(vals);
@@ -2911,7 +2922,17 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (rowArray.Length > 0)
                 {
                     madoituong_gia = rowArray[0]["madoituong_gia"].ToString();
-                    this.txtTonKho.Text = CommonLoadDuoc.SoLuongTonTrongKho(-1L, Utility.Int32Dbnull(this.cboStock.SelectedValue), Utility.Int32Dbnull(this.txtDrugID.Text, -1), txtdrug.GridView ? this.id_thuockho : (long)this.txtdrug.id_thuockho, new int?(Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KIEMTRATHUOC_CHOXACNHAN", "1", false), 1)), Utility.ByteDbnull(objLuotkham.Noitru, 0)).ToString();
+                    this.txtTonKho.Text =
+                        CommonLoadDuoc.SoLuongTonTrongKho(-1L, Utility.Int32Dbnull(this.cboStock.SelectedValue),
+                                                          Utility.Int32Dbnull(this.txtDrugID.Text, -1),
+                                                          txtdrug.GridView
+                                                              ? this.id_thuockho
+                                                              : (long) this.txtdrug.id_thuockho,
+                                                          new int?(
+                                                              Utility.Int32Dbnull(
+                                                                  THU_VIEN_CHUNG.Laygiatrithamsohethong(
+                                                                      "KIEMTRATHUOC_CHOXACNHAN", "1", false), 1)),
+                                                          Utility.ByteDbnull(objLuotkham.Noitru, 0)).ToString();
                     this.txtDonViDung.Text = rowArray[0]["ten_donvitinh"].ToString();
                     this.txtDrug_Name.Text = rowArray[0][DmucThuoc.Columns.TenThuoc].ToString();
                     this.txtBietduoc.Text = rowArray[0][DmucThuoc.Columns.HoatChat].ToString();
