@@ -17,7 +17,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
         private NLog.Logger log;
         public XuatThuoc()
         {
-            log = NLog.LogManager.GetCurrentClassLogger();
+            log = NLog.LogManager.GetLogger("KCB_KEDONTHUOC");
         }
         /// <summary>
         /// HÀM THỰC HIỆN VIECJ CHO PHÉP CẬP NHẬP ĐƠN THUỐC
@@ -814,12 +814,13 @@ namespace VNS.HIS.NGHIEPVU.THUOC
         {
             //Lấy thuốc trong kho
 
-
+            log.Trace("2-->Bat dau lay thong tin thuoc ke don");
             DataTable dtData = SPs.ThuocLaythuocTrongkhoKedon(id_kho, id_thuoc, id_thuockho, id_loaidoituong_kcb, Dungtuyen, Noitru).GetDataSet().Tables[0];
-            
+            log.Trace("2.1. Da lay xong thong tin thuoc trong kho ke don");
             DataTable dtReturnData = dtData.Clone();
             //Lấy số lượng ảo của các đơn thuốc có thuốc chưa được xác nhận
             DataTable dtPresDetail = SPs.ThuocLaythuocKedontrongngayChuaxacnhan(id_kho, id_thuoc, so_luong).GetDataSet().Tables[0];
+            log.Trace("2.2. Da lay thong tin thuoc trong ngay chua xac nhan");
             List<TThuockho> lstItems = new List<TThuockho>();
             int iSoLuongConLai = 0;
             int iSoLuongDonThuoc = so_luong;
@@ -853,7 +854,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                 }
             }
             return dtReturnData;
-
+            log.Trace("2-->Da lay xong thong tin thuoc dung de ke don");
         }
        
        
