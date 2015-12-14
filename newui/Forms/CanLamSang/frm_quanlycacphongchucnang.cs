@@ -126,10 +126,10 @@ namespace VNS.HIS.UI.Forms.HinhAnh
             mnuView.Click += mnuView_Click;
             lnkMore.Click += lnkMore_Click;
             lnkSize.Click += lnkSize_Click;
+            
             chkPreview.CheckedChanged += chkPreview_CheckedChanged;
             chkInsaukhiluu.CheckedChanged += chkInsaukhiluu_CheckedChanged;
             cmdConfig.Click += cmdConfig_Click;
-
             txtMauKQ._OnEnterMe += txtMauKQ__OnEnterMe;
             
             lnkAutoCorrect.Click += lnkAutoCorrect_Click;
@@ -2504,6 +2504,16 @@ namespace VNS.HIS.UI.Forms.HinhAnh
         private void label8_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtMaluotkham_tk_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string _patient_Code = Utility.AutoFullPatientCode(txtMaluotkham_tk.Text);
+                txtMaluotkham_tk.Text = _patient_Code;
+                cmdSearch.PerformClick();
+            }
         }
     }
 }

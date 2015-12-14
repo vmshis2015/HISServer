@@ -43,12 +43,13 @@
             this.TabInfo = new Janus.Windows.UI.Tab.UITab();
             this.tabCapNhap = new Janus.Windows.UI.Tab.UITabPage();
             this.grpChiDinhCLS = new Janus.Windows.EditControls.UIGroupBox();
+            this.pic1 = new System.Windows.Forms.Integration.ElementHost();
+            this.imgBox1 = new WPF.UCs.ImgBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cboLaserPrinters = new System.Windows.Forms.ComboBox();
             this.lnkDelFTPImages = new System.Windows.Forms.LinkLabel();
             this.lnkGetImagesFromFTP = new System.Windows.Forms.LinkLabel();
             this.lnkAutoCorrect = new System.Windows.Forms.LinkLabel();
-            this.txtMauKQ = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.txtMauchuan = new Janus.Windows.GridEX.EditControls.EditBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cmdConfig = new Janus.Windows.EditControls.UIButton();
@@ -67,8 +68,6 @@
             this.imgBox3 = new WPF.UCs.ImgBox();
             this.pic2 = new System.Windows.Forms.Integration.ElementHost();
             this.imgBox2 = new WPF.UCs.ImgBox();
-            this.pic1 = new System.Windows.Forms.Integration.ElementHost();
-            this.imgBox1 = new WPF.UCs.ImgBox();
             this.txtBSChidinh = new Janus.Windows.GridEX.EditControls.EditBox();
             this.txtIdKham = new Janus.Windows.GridEX.EditControls.EditBox();
             this.txtGhiChu = new Janus.Windows.GridEX.EditControls.EditBox();
@@ -86,6 +85,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.dtInputDate = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.label12 = new System.Windows.Forms.Label();
+            this.txtMauKQ = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.grb1 = new System.Windows.Forms.GroupBox();
             this.uiButton1 = new Janus.Windows.EditControls.UIButton();
             this.label6 = new System.Windows.Forms.Label();
@@ -297,6 +297,17 @@
             this.grpChiDinhCLS.Text = "Thông tin kết quả";
             this.grpChiDinhCLS.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2003;
             // 
+            // pic1
+            // 
+            this.pic1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pic1.Location = new System.Drawing.Point(835, 18);
+            this.pic1.Name = "pic1";
+            this.pic1.Size = new System.Drawing.Size(80, 80);
+            this.pic1.TabIndex = 477;
+            this.pic1.TabStop = false;
+            this.pic1.Text = "elementHost1";
+            this.pic1.Child = this.imgBox1;
+            // 
             // label9
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -356,45 +367,6 @@
             this.lnkAutoCorrect.TabIndex = 507;
             this.lnkAutoCorrect.TabStop = true;
             this.lnkAutoCorrect.Text = "AutoCorrect";
-            // 
-            // txtMauKQ
-            // 
-            this.txtMauKQ._backcolor = System.Drawing.Color.WhiteSmoke;
-            this.txtMauKQ._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMauKQ._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtMauKQ.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMauKQ.AutoCompleteList")));
-            this.txtMauKQ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMauKQ.CaseSensitive = false;
-            this.txtMauKQ.CompareNoID = true;
-            this.txtMauKQ.DefaultCode = "-1";
-            this.txtMauKQ.DefaultID = "-1";
-            this.txtMauKQ.Drug_ID = null;
-            this.txtMauKQ.ExtraWidth = 0;
-            this.txtMauKQ.FillValueAfterSelect = false;
-            this.txtMauKQ.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMauKQ.Location = new System.Drawing.Point(108, 43);
-            this.txtMauKQ.MaxHeight = 289;
-            this.txtMauKQ.MinTypedCharacters = 2;
-            this.txtMauKQ.MyCode = "-1";
-            this.txtMauKQ.MyID = "-1";
-            this.txtMauKQ.MyText = "";
-            this.txtMauKQ.Name = "txtMauKQ";
-            this.txtMauKQ.RaiseEvent = true;
-            this.txtMauKQ.RaiseEventEnter = true;
-            this.txtMauKQ.RaiseEventEnterWhenEmpty = false;
-            this.txtMauKQ.SelectedIndex = -1;
-            this.txtMauKQ.Size = new System.Drawing.Size(721, 21);
-            this.txtMauKQ.splitChar = '@';
-            this.txtMauKQ.splitCharIDAndCode = '#';
-            this.txtMauKQ.TabIndex = 18;
-            this.txtMauKQ.TakeCode = false;
-            this.txtMauKQ.txtMyCode = null;
-            this.txtMauKQ.txtMyCode_Edit = null;
-            this.txtMauKQ.txtMyID = null;
-            this.txtMauKQ.txtMyID_Edit = null;
-            this.txtMauKQ.txtMyName = null;
-            this.txtMauKQ.txtMyName_Edit = null;
-            this.txtMauKQ.txtNext = null;
             // 
             // txtMauchuan
             // 
@@ -575,17 +547,6 @@
             this.pic2.TabStop = false;
             this.pic2.Text = "elementHost2";
             this.pic2.Child = this.imgBox2;
-            // 
-            // pic1
-            // 
-            this.pic1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pic1.Location = new System.Drawing.Point(835, 18);
-            this.pic1.Name = "pic1";
-            this.pic1.Size = new System.Drawing.Size(80, 80);
-            this.pic1.TabIndex = 477;
-            this.pic1.TabStop = false;
-            this.pic1.Text = "elementHost1";
-            this.pic1.Child = this.imgBox1;
             // 
             // txtBSChidinh
             // 
@@ -784,6 +745,45 @@
             this.label12.Text = "Ngày thực hiện";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label12.Visible = false;
+            // 
+            // txtMauKQ
+            // 
+            this.txtMauKQ._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtMauKQ._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMauKQ._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtMauKQ.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtMauKQ.AutoCompleteList")));
+            this.txtMauKQ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMauKQ.CaseSensitive = false;
+            this.txtMauKQ.CompareNoID = true;
+            this.txtMauKQ.DefaultCode = "-1";
+            this.txtMauKQ.DefaultID = "-1";
+            this.txtMauKQ.Drug_ID = null;
+            this.txtMauKQ.ExtraWidth = 0;
+            this.txtMauKQ.FillValueAfterSelect = false;
+            this.txtMauKQ.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMauKQ.Location = new System.Drawing.Point(108, 43);
+            this.txtMauKQ.MaxHeight = 289;
+            this.txtMauKQ.MinTypedCharacters = 2;
+            this.txtMauKQ.MyCode = "-1";
+            this.txtMauKQ.MyID = "-1";
+            this.txtMauKQ.MyText = "";
+            this.txtMauKQ.Name = "txtMauKQ";
+            this.txtMauKQ.RaiseEvent = true;
+            this.txtMauKQ.RaiseEventEnter = true;
+            this.txtMauKQ.RaiseEventEnterWhenEmpty = false;
+            this.txtMauKQ.SelectedIndex = -1;
+            this.txtMauKQ.Size = new System.Drawing.Size(721, 21);
+            this.txtMauKQ.splitChar = '@';
+            this.txtMauKQ.splitCharIDAndCode = '#';
+            this.txtMauKQ.TabIndex = 18;
+            this.txtMauKQ.TakeCode = false;
+            this.txtMauKQ.txtMyCode = null;
+            this.txtMauKQ.txtMyCode_Edit = null;
+            this.txtMauKQ.txtMyID = null;
+            this.txtMauKQ.txtMyID_Edit = null;
+            this.txtMauKQ.txtMyName = null;
+            this.txtMauKQ.txtMyName_Edit = null;
+            this.txtMauKQ.txtNext = null;
             // 
             // grb1
             // 
@@ -1330,6 +1330,7 @@
             this.txtMaluotkham_tk.Size = new System.Drawing.Size(138, 21);
             this.txtMaluotkham_tk.TabIndex = 4;
             this.txtMaluotkham_tk.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center;
+            this.txtMaluotkham_tk.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMaluotkham_tk_KeyDown);
             // 
             // label2
             // 

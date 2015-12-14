@@ -2950,6 +2950,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             Utility.SetMsg(lblMsg, THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NOIDUNGCANHBAO_THUOCDOCHAI", Utility.DoTrim(txtMotathem.Text) == "" ? "Chú ý: THUỐC CÓ TÍNH CHẤT ĐỘC HẠI" : Utility.DoTrim(txtMotathem.Text), false), true);
                         else
                             Utility.SetMsg(lblMsg, "", false);
+                    if(Utility.Int32Dbnull(txtSoluong.Text) >0)
                     this.cmdAddDetail.Enabled = true;
                 }
                 else
