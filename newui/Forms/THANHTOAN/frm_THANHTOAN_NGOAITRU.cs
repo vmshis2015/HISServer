@@ -1270,8 +1270,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                 }
                 
             }
-            catch
-            {
+            catch (Exception ex)
+            { 
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
             finally
             {
