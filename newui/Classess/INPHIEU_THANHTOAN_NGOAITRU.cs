@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using CrystalDecisions.CrystalReports.Engine;
 using SubSonic;
 using Microsoft.VisualBasic;
+using VMS.HISLink.Report.Report;
 using VNS.HIS.DAL;
 using VNS.Libs;
 using VNS.Properties;
@@ -345,7 +346,10 @@ namespace VNS.HIS.Classes
            m_dtReportPhieuThu.AcceptChanges();
 
             string tieude="", reportname = "";
-           var crpt = Utility.GetReport("BHYT_InPhoi" ,ref tieude,ref reportname);
+           //svar crpt = Utility.GetReport("BHYT_InPhoi" ,ref tieude,ref reportname);
+           VMS.HISLink.Report.Report.BHYT_InPhoi crpt = new VMS.HISLink.Report.Report.BHYT_InPhoi();
+           tieude = "BẢNG KÊ CHI PHÍ KHÁM BỆNH, CHỮA BỆNH NGOẠI TRÚ";
+           reportname = "BHYT_InPhoi.RPT".ToUpper();
            if (crpt == null) return;
            frmPrintPreview objForm = new frmPrintPreview(tieude, crpt, true, true);
            objForm.NGAY = NGAYINPHIEU;
