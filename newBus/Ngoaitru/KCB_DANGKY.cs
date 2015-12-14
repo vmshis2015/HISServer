@@ -1799,7 +1799,6 @@ namespace VNS.HIS.BusRule.Classes
                     {
                         objKcbDanhsachBenhnhan.IsNew = true;
                         objKcbDanhsachBenhnhan.Save();
-
                         KcbLichsuDoituongKcb objLichsuKcb = new KcbLichsuDoituongKcb();
                         objLichsuKcb.IdBenhnhan = objKcbDanhsachBenhnhan.IdBenhnhan;
                         objLichsuKcb.MaLuotkham = objLuotkham.MaLuotkham;
@@ -1817,7 +1816,6 @@ namespace VNS.HIS.BusRule.Classes
                         objLichsuKcb.MaDoituongBhyt = objLuotkham.MaDoituongBhyt;
                         objLichsuKcb.MaQuyenloi = objLuotkham.MaQuyenloi;
                         objLichsuKcb.NoiDongtrusoKcbbd = objLuotkham.NoiDongtrusoKcbbd;
-
                         objLichsuKcb.MaKcbbd = objLuotkham.MaKcbbd;
                         objLichsuKcb.TrangthaiNoitru = 0;
                         objLichsuKcb.DungTuyen = objLuotkham.DungTuyen;
@@ -1855,11 +1853,9 @@ namespace VNS.HIS.BusRule.Classes
                                 .Set(KcbLuotkham.Columns.MaLuotkham).EqualTo(patientCode)
                                 .Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                                 .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham).Execute();
-
                             new Update(KcbLichsuDoituongKcb.Schema)
                                 .Set(KcbLichsuDoituongKcb.Columns.MaLuotkham).EqualTo(patientCode)
                                 .Where(KcbLichsuDoituongKcb.Columns.IdLichsuDoituongKcb).IsEqualTo(objLichsuKcb.IdLichsuDoituongKcb).Execute();
-
                             objLuotkham.MaLuotkham = patientCode;
                         }
                         new Update(KcbDmucLuotkham.Schema)

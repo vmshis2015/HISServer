@@ -242,7 +242,6 @@ namespace VNS.HIS.BusRule.Classes
                                                                                         Utility.Int32Dbnull(
                                                                                             objLuotkham.IdBenhnhan,
                                                                                             -1));
-
                              objDonthuoc.Save();
 
                              KcbDangkyKcb objKCB = KcbDangkyKcb.FetchByID(objDonthuoc.IdKham);

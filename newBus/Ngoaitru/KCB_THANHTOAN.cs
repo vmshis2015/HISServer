@@ -2609,7 +2609,9 @@ namespace VNS.HIS.BusRule.Classes
                     using (var dbscope = new SharedDbConnectionScope())
                     {
 
-                        new Update(KcbLuotkham.Schema).Set(KcbLuotkham.Columns.MabenhChinh).EqualTo(ICDCode)
+                        new Update(KcbLuotkham.Schema)
+                            .Set(KcbLuotkham.Columns.MabenhChinh).EqualTo(ICDCode)
+                            .Set(KcbLuotkham.Columns.Locked).EqualTo(1)
                             .Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                             .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham).Execute();
                         KcbChandoanKetluan objChuandoanKetluan =
@@ -2618,7 +2620,8 @@ namespace VNS.HIS.BusRule.Classes
                                     objLuotkham.IdBenhnhan).ExecuteSingle<KcbChandoanKetluan>();
                         if(objChuandoanKetluan !=null)
                         {
-                            new Update(KcbChandoanKetluan.Schema).Set(KcbChandoanKetluan.Columns.MabenhChinh).EqualTo(ICDCode)
+                            new Update(KcbChandoanKetluan.Schema)
+                                .Set(KcbChandoanKetluan.Columns.MabenhChinh).EqualTo(ICDCode)
                          .Where(KcbChandoanKetluan.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                          .And(KcbChandoanKetluan.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
                          .And(KcbChandoanKetluan.Columns.Noitru).IsEqualTo(0)
@@ -2638,7 +2641,6 @@ namespace VNS.HIS.BusRule.Classes
                             objChuandoanKetluan.IpMaytao = globalVariables.gv_strIPAddress;
                             objChuandoanKetluan.Noitru = 0;
                             objChuandoanKetluan.IsNew = true;
-
                         }
                        
                     }
