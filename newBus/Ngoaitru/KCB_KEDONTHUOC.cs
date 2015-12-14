@@ -18,7 +18,7 @@ namespace VNS.HIS.BusRule.Classes
          private NLog.Logger log;
          public KCB_KEDONTHUOC()
         {
-            log = LogManager.GetCurrentClassLogger();
+            log = LogManager.GetLogger("KCB_KEDONTHUOC");
         }
          public void XoaChitietDonthuoc(int IdChitietdonthuoc)
          {
@@ -116,53 +116,61 @@ namespace VNS.HIS.BusRule.Classes
                      {
                          if (objKcbChandoanKetluan.IsNew )
                          {
-                             objKcbChandoanKetluan.Save();
+                            var sp= SPs.SpKcbThemmoiChandoanKetluan(objKcbChandoanKetluan.IdChandoan, objKcbChandoanKetluan.IdKham, objKcbChandoanKetluan.IdBenhnhan, objKcbChandoanKetluan.MaLuotkham
+                                 , objKcbChandoanKetluan.IdBacsikham, objKcbChandoanKetluan.NgayChandoan, objKcbChandoanKetluan.NguoiTao, objKcbChandoanKetluan.NgayTao, objKcbChandoanKetluan.IdKhoanoitru
+                                 , objKcbChandoanKetluan.IdBuonggiuong, objKcbChandoanKetluan.IdBuong, objKcbChandoanKetluan.IdGiuong, objKcbChandoanKetluan.IdPhieudieutri
+                                 , objKcbChandoanKetluan.Noitru, objKcbChandoanKetluan.IdPhongkham, objKcbChandoanKetluan.TenPhongkham, objKcbChandoanKetluan.Mach
+                                 , objKcbChandoanKetluan.Nhietdo, objKcbChandoanKetluan.Huyetap, objKcbChandoanKetluan.Nhiptim, objKcbChandoanKetluan.Nhiptho, objKcbChandoanKetluan.Cannang
+                                 , objKcbChandoanKetluan.Chieucao, objKcbChandoanKetluan.Nhommau, objKcbChandoanKetluan.Ketluan, objKcbChandoanKetluan.HuongDieutri, objKcbChandoanKetluan.SongayDieutri
+                                 , objKcbChandoanKetluan.TrieuchungBandau, objKcbChandoanKetluan.Chandoan, objKcbChandoanKetluan.ChandoanKemtheo, objKcbChandoanKetluan.MabenhChinh, objKcbChandoanKetluan.MabenhPhu
+                                 , objKcbChandoanKetluan.IpMaytao, objKcbChandoanKetluan.TenMaytao, objKcbChandoanKetluan.PhanungSautiemchung, objKcbChandoanKetluan.KPL1
+                                 , objKcbChandoanKetluan.KPL2, objKcbChandoanKetluan.KPL3, objKcbChandoanKetluan.KPL4, objKcbChandoanKetluan.KPL5, objKcbChandoanKetluan.KPL6
+                                 , objKcbChandoanKetluan.KPL7, objKcbChandoanKetluan.KPL8, objKcbChandoanKetluan.KL1, objKcbChandoanKetluan.KL2, objKcbChandoanKetluan.KL3
+                                 , objKcbChandoanKetluan.KetluanNguyennhan, objKcbChandoanKetluan.NhanXet, objKcbChandoanKetluan.ChongchidinhKhac, objKcbChandoanKetluan.SoNgayhen);
+
+                            sp.Execute();
+                            objKcbChandoanKetluan.IdChandoan = Utility.Int64Dbnull(sp.OutputValues[0]);
                          }
                          else
                          {
-                             objKcbChandoanKetluan.MarkOld();
-                             objKcbChandoanKetluan.Save();
+                             SPs.SpKcbCapnhatChandoanKetluan(objKcbChandoanKetluan.IdChandoan
+                                  , objKcbChandoanKetluan.IdBacsikham,objKcbChandoanKetluan.NgayChandoan, objKcbChandoanKetluan.NguoiSua, objKcbChandoanKetluan.NgaySua, objKcbChandoanKetluan.IdPhieudieutri
+                                  , objKcbChandoanKetluan.Noitru, objKcbChandoanKetluan.IdPhongkham, objKcbChandoanKetluan.TenPhongkham, objKcbChandoanKetluan.Mach
+                                  , objKcbChandoanKetluan.Nhietdo, objKcbChandoanKetluan.Huyetap, objKcbChandoanKetluan.Nhiptim, objKcbChandoanKetluan.Nhiptho, objKcbChandoanKetluan.Cannang
+                                  , objKcbChandoanKetluan.Chieucao, objKcbChandoanKetluan.Nhommau, objKcbChandoanKetluan.Ketluan, objKcbChandoanKetluan.HuongDieutri, objKcbChandoanKetluan.SongayDieutri
+                                  , objKcbChandoanKetluan.TrieuchungBandau, objKcbChandoanKetluan.Chandoan, objKcbChandoanKetluan.ChandoanKemtheo, objKcbChandoanKetluan.MabenhChinh, objKcbChandoanKetluan.MabenhPhu
+                                  , objKcbChandoanKetluan.IpMaytao, objKcbChandoanKetluan.TenMaytao, objKcbChandoanKetluan.PhanungSautiemchung, objKcbChandoanKetluan.KPL1
+                                  , objKcbChandoanKetluan.KPL2, objKcbChandoanKetluan.KPL3, objKcbChandoanKetluan.KPL4, objKcbChandoanKetluan.KPL5, objKcbChandoanKetluan.KPL6
+                                  , objKcbChandoanKetluan.KPL7, objKcbChandoanKetluan.KPL8, objKcbChandoanKetluan.KL1, objKcbChandoanKetluan.KL2, objKcbChandoanKetluan.KL3
+                                  , objKcbChandoanKetluan.KetluanNguyennhan, objKcbChandoanKetluan.NhanXet, objKcbChandoanKetluan.ChongchidinhKhac, objKcbChandoanKetluan.SoNgayhen).Execute();
                          }
-
-                         SqlQuery sqlQuery = new Select().From( KcbChandoanKetluan.Schema)
-                                .Where(KcbChandoanKetluan.Columns.MaLuotkham).IsEqualTo(objKcbChandoanKetluan.MaLuotkham)
-                                .And(KcbChandoanKetluan.Columns.IdBenhnhan).IsEqualTo(objKcbChandoanKetluan.IdBenhnhan).OrderAsc(
-                                    KcbChandoanKetluan.Columns.NgayChandoan);
-                         KcbChandoanKetluanCollection objInfoCollection = sqlQuery.ExecuteAsCollection<KcbChandoanKetluanCollection>();
-                         var query = (from chandoan in objInfoCollection.AsEnumerable()
-                                      let y = Utility.sDbnull(chandoan.Chandoan)
+                         DataTable dtData = SPs.SpKcbLaydulieuChandoanKetluanTheoluotkham(objKcbChandoanKetluan.IdBenhnhan, objKcbChandoanKetluan.MaLuotkham).GetDataSet().Tables[0];
+                         var query = (from chandoan in dtData.AsEnumerable()
+                                      let y = Utility.sDbnull(chandoan["Chandoan"])
                                       where (y != "")
                                       select y).ToArray();
                          string cdchinh = string.Join(";", query);
-                         var querychandoanphu = (from chandoan in objInfoCollection.AsEnumerable()
-                                                 let y = Utility.sDbnull(chandoan.ChandoanKemtheo)
+                         var querychandoanphu = (from chandoan in dtData.AsEnumerable()
+                                                 let y = Utility.sDbnull(chandoan["chandoan_kemtheo"])
                                                  where (y != "")
                                                  select y).ToArray();
                          string cdphu = string.Join(";", querychandoanphu);
-                         var querybenhchinh = (from benhchinh in objInfoCollection.AsEnumerable()
-                                               let y = Utility.sDbnull(benhchinh.MabenhChinh)
+                         var querybenhchinh = (from benhchinh in dtData.AsEnumerable()
+                                               let y = Utility.sDbnull(benhchinh["mabenh_chinh"])
                                                where (y != "")
                                                select y).ToArray();
                          string mabenhchinh = string.Join(";", querybenhchinh);
 
-                         var querybenhphu = (from benhphu in objInfoCollection.AsEnumerable()
-                                             let y = Utility.sDbnull(benhphu.MabenhPhu)
+                         var querybenhphu = (from benhphu in dtData.AsEnumerable()
+                                             let y = Utility.sDbnull(benhphu["mabenh_phu"])
                                              where (y != "")
                                              select y).ToArray();
                          string mabenhphu = string.Join(";", querybenhphu);
-                         new Update(KcbLuotkham.Schema)
-                             .Set(KcbLuotkham.Columns.MabenhChinh).EqualTo(mabenhchinh)
-                             .Set(KcbLuotkham.Columns.MabenhPhu).EqualTo(mabenhphu)
-                             .Set(KcbLuotkham.Columns.ChanDoan).EqualTo(cdchinh)
-                             .Set(KcbLuotkham.Columns.NguoiSua).EqualTo(globalVariables.UserName)
-                             .Set(KcbLuotkham.Columns.NgaySua).EqualTo(globalVariables.SysDate)
-                             .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objKcbChandoanKetluan.MaLuotkham)
-                             .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objKcbChandoanKetluan.IdBenhnhan).Execute();
-
+                         SPs.SpKcbCapnhatMabenhChoLuotkham(objKcbChandoanKetluan.IdBenhnhan, objKcbChandoanKetluan.MaLuotkham,
+                             mabenhchinh, mabenhphu, cdchinh, globalVariables.SysDate, globalVariables.UserName).Execute();
                      }
 
                      scope.Complete();
-                     //  Reg_ID = Utility.Int32Dbnull(objRegExam.IdKham, -1);
                      return ActionResult.Success;
                  }
              }
@@ -218,7 +226,7 @@ namespace VNS.HIS.BusRule.Classes
              catch (Exception exception)
              {
                  Utility.CatchException(exception);
-                 log.Error("Loi trong qua trinh luu don thuoc {0}", exception);
+                 log.Error(string.Format("Loi khi them moi don thuoc {0}", exception.Message));
                  return ActionResult.Error;
              }
 
@@ -234,6 +242,7 @@ namespace VNS.HIS.BusRule.Classes
                      {
                          if (objLuotkham != null)
                          {
+                             log.Trace("4. Bat dau luu thuoc vao CSDL");
                              if (objDonthuoc.NgayKedon <= Convert.ToDateTime("01/01/1900"))
                                  objDonthuoc.NgayKedon = globalVariables.SysDate;
 
@@ -242,19 +251,30 @@ namespace VNS.HIS.BusRule.Classes
                                                                                         Utility.Int32Dbnull(
                                                                                             objLuotkham.IdBenhnhan,
                                                                                             -1));
-                             objDonthuoc.Save();
-
+                             var sp = SPs.SpKcbThemmoiDonthuoc(objDonthuoc.IdDonthuoc, objDonthuoc.IdPhieudieutri, objDonthuoc.IdKhoadieutri, objDonthuoc.IdDonthuocthaythe, objDonthuoc.IdKham
+                                 , objDonthuoc.IdBenhnhan, objDonthuoc.MaLuotkham, objDonthuoc.NgayKedon, objDonthuoc.IdBacsiChidinh, objDonthuoc.TrangThai, objDonthuoc.TthaiTonghop
+                                 , objDonthuoc.TrangthaiThanhtoan, objDonthuoc.NgayThanhtoan, objDonthuoc.IdGoi, objDonthuoc.TrongGoi, objDonthuoc.NguoiTao, objDonthuoc.NgayTao
+                                 , objDonthuoc.MotaThem, objDonthuoc.TenDonthuoc, objDonthuoc.MaDoituongKcb, objDonthuoc.Noitru, objDonthuoc.KieuDonthuoc, objDonthuoc.IdPhongkham
+                                 , objDonthuoc.IdBuongGiuong, objDonthuoc.IdBuongNoitru, objDonthuoc.IdGiuongNoitru, objDonthuoc.LoidanBacsi, objDonthuoc.NgayTaikham
+                                 , objDonthuoc.TaiKham, objDonthuoc.MaKhoaThuchien, objDonthuoc.NgayCapphat, objDonthuoc.KieuThuocvattu, objDonthuoc.NgayChot
+                                 , objDonthuoc.IdChot, objDonthuoc.NgayHuychot, objDonthuoc.NguoiHuychot, objDonthuoc.LydoHuychot, objDonthuoc.NgayHuyxacnhan, objDonthuoc.NguoiHuyxacnhan
+                                 , objDonthuoc.LydoHuyxacnhan, objDonthuoc.NgayXacnhan, objDonthuoc.NguoiXacnhan, objDonthuoc.IdLichsuDoituongKcb, objDonthuoc.MatheBhyt
+                                 , objDonthuoc.IpMaytao, objDonthuoc.TenMaytao, objDonthuoc.LastActionName);
+                             sp.Execute();
+                             objDonthuoc.IdDonthuoc = Utility.Int64Dbnull(sp.OutputValues[0]);
+                             log.Trace("4.1 Da luu don thuoc CSDL");
                              KcbDangkyKcb objKCB = KcbDangkyKcb.FetchByID(objDonthuoc.IdKham);
                              if (objKCB != null)
                              {
                                  objKCB.DakeDonthuoc = 1;
                                  objKCB.IdBacsikham = objDonthuoc.IdBacsiChidinh;
-                                 objKCB.IsNew = false;
-                                 objKCB.Save();
+                                 SPs.SpKcbCapnhatBacsiKham(objKCB.IdKham, objKCB.IdBacsikham).Execute();
+                                 log.Trace("4.2 Cap nhat bac si kham = BS ke don");
                              }
 
                              if (!Utility.Byte2Bool(objDonthuoc.Noitru))
                                  CapnhatChandoan(_KcbChandoanKetluan);
+                             log.Trace("4.3 Da luu chan doan ket luan");
                              p_intIdDonthuoc = objDonthuoc.IdDonthuoc;
                              decimal PtramBH = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0);
                              bool TUDONGDANHDAU_TRANGTHAISUDUNG = THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEMCHUNG_TUDONGDANHDAU_TRANGTHAISUDUNG", "0", false) == "1";
@@ -267,21 +287,10 @@ namespace VNS.HIS.BusRule.Classes
                                  objDonthuocChitiet.NgaySudung = objDonthuoc.NgayKedon;
                                  objDonthuocChitiet.DaDung=Utility.Bool2byte(TUDONGDANHDAU_TRANGTHAISUDUNG);
                                  ThemChitiet(objDonthuoc, objDonthuocChitiet, PtramBH, objLuotkham);
-                                 //Tạo mới dòng dữ liệu tempt để kiểm tra tồn kho theo ngày
-                                 TblKedonthuocTempt newItem = new TblKedonthuocTempt();
-                                 newItem.IdChitietdonthuoc = objDonthuocChitiet.IdChitietdonthuoc;
-                                 newItem.IdDonthuoc = objDonthuocChitiet.IdDonthuoc;
-                                 newItem.IdKho =Utility.Int32Dbnull( objDonthuocChitiet.IdKho,-1);
-                                 newItem.IdThuoc = objDonthuocChitiet.IdThuoc;
-                                 newItem.IdThuockho =Utility.Int64Dbnull( objDonthuocChitiet.IdThuockho,-1);
-                                 newItem.NgayKedon = objDonthuoc.NgayKedon;
-                                 newItem.SoLuong = objDonthuocChitiet.SoLuong;
-                                 newItem.TrangThai = Utility.ByteDbnull(objDonthuocChitiet.TrangThai, 0);
-                                 newItem.IsNew = true;
-                                 newItem.Save();
                                  if (!lstChitietDonthuoc.ContainsKey(objDonthuocChitiet.IdThuockho.Value))
                                      lstChitietDonthuoc.Add(objDonthuocChitiet.IdThuockho.Value, objDonthuocChitiet.IdChitietdonthuoc);
                              }
+                             log.Trace("4.4 Da luu xong chi tiet don thuoc");
 
                          }
 
@@ -318,8 +327,23 @@ namespace VNS.HIS.BusRule.Classes
                  //TinhGiaThuoc.GB_TinhPhtramBHYT(objDonthuocChitiet, PtramBHYT);
                  objDonthuocChitiet.TrangthaiBhyt = TrangthaiBhyt;// Utility.isTrue(objDonthuocChitiet.TuTuc.Value, 0, 1);
                  objDonthuocChitiet.IdDonthuoc = objDonthuoc.IdDonthuoc;
-                 objDonthuocChitiet.IsNew = true;
-                 objDonthuocChitiet.Save();
+                 var sp = SPs.SpKcbThemmoiChitietDonthuoc(objDonthuocChitiet.IdChitietdonthuoc, objDonthuocChitiet.IdDonthuoc, objDonthuocChitiet.IdDonthuocChuyengoi
+                     , objDonthuocChitiet.IdBenhnhan, objDonthuocChitiet.MaLuotkham, objDonthuocChitiet.IdKham, objDonthuocChitiet.IdKho, objDonthuocChitiet.IdThuoc, objDonthuocChitiet.NgayHethan
+                     , objDonthuocChitiet.SoLuong, objDonthuocChitiet.SluongSua, objDonthuocChitiet.SluongLinh, objDonthuocChitiet.DonGia, objDonthuocChitiet.IdThuockho
+                     , objDonthuocChitiet.NgayNhap, objDonthuocChitiet.GiaNhap, objDonthuocChitiet.GiaBan, objDonthuocChitiet.GiaBhyt, objDonthuocChitiet.SoLo, objDonthuocChitiet.Vat
+                     , objDonthuocChitiet.MaNhacungcap, objDonthuocChitiet.PhuThu, objDonthuocChitiet.PhuthuDungtuyen, objDonthuocChitiet.PhuthuTraituyen, objDonthuocChitiet.MotaThem
+                     , objDonthuocChitiet.SoluongHuy, objDonthuocChitiet.TrangthaiHuy, objDonthuocChitiet.NguoiHuy, objDonthuocChitiet.NgayHuy, objDonthuocChitiet.TuTuc, objDonthuocChitiet.TrangThai
+                     , objDonthuocChitiet.TrangthaiTonghop, objDonthuocChitiet.NgayXacnhan, objDonthuocChitiet.TrangthaiBhyt, objDonthuocChitiet.SttIn, objDonthuocChitiet.MadoituongGia
+                     , objDonthuocChitiet.PtramBhytGoc, objDonthuocChitiet.PtramBhyt, objDonthuocChitiet.BhytChitra, objDonthuocChitiet.BnhanChitra, objDonthuocChitiet.MaDoituongKcb
+                     , objDonthuocChitiet.IdThanhtoan, objDonthuocChitiet.TrangthaiThanhtoan, objDonthuocChitiet.NgayThanhtoan, objDonthuocChitiet.CachDung
+                     , objDonthuocChitiet.ChidanThem, objDonthuocChitiet.DonviTinh, objDonthuocChitiet.SolanDung, objDonthuocChitiet.SoluongDung, objDonthuocChitiet.TrangthaiChuyen
+                     , objDonthuocChitiet.NgayTao, objDonthuocChitiet.NguoiTao, objDonthuocChitiet.TileChietkhau, objDonthuocChitiet.TienChietkhau, objDonthuocChitiet.KieuChietkhau
+                     , objDonthuocChitiet.IdGoi, objDonthuocChitiet.TrongGoi, objDonthuocChitiet.KieuBiendong, objDonthuocChitiet.NguonThanhtoan, objDonthuocChitiet.IpMaytao
+                     , objDonthuocChitiet.TenMaytao, objDonthuocChitiet.DaDung, objDonthuocChitiet.LydoTiemchung, objDonthuocChitiet.NguoiTiem, objDonthuocChitiet.VitriTiem
+                     , objDonthuocChitiet.MuiThu, objDonthuocChitiet.NgayhenMuiketiep, objDonthuocChitiet.PhanungSautiem, objDonthuocChitiet.Xutri, objDonthuocChitiet.KetluanNguyennhan
+                     , objDonthuocChitiet.KetQua, objDonthuocChitiet.NgaySudung, objDonthuocChitiet.SoDky, objDonthuocChitiet.SoQdinhthau, objDonthuoc.NgayKedon);
+                 sp.Execute();
+                 objDonthuocChitiet.IdChitietdonthuoc = Utility.Int64Dbnull(sp.OutputValues[0]);
                  scope.Complete();
              }
 
@@ -395,22 +419,15 @@ namespace VNS.HIS.BusRule.Classes
                  {
                      using (SharedDbConnectionScope sh = new SharedDbConnectionScope())
                      {
-                         //KcbDonthuoc objDonthuoc = KcbDonthuoc.FetchByID(objDonthuoc.IdDonthuoc);
+                         log.Trace("4. Bat dau cap nhat don thuoc");
                          p_intIdDonthuoc = objDonthuoc.IdDonthuoc;
-                         new Update(KcbDonthuoc.Schema)
-                             .Set(KcbDonthuoc.Columns.TaiKham).EqualTo(objDonthuoc.TaiKham)
-                             .Set(KcbDonthuoc.Columns.NgayTaikham).EqualTo(objDonthuoc.NgayTaikham)
-                             .Set(KcbDonthuoc.Columns.LoidanBacsi).EqualTo(objDonthuoc.LoidanBacsi)
-                             .Set(KcbDonthuoc.Columns.NgaySua).EqualTo(globalVariables.SysDate)
-                             .Set(KcbDonthuoc.Columns.NguoiSua).EqualTo(globalVariables.UserName)
-                             .Set(KcbDonthuoc.Columns.IpMaysua).EqualTo(objDonthuoc.IpMaysua)
-                             .Set(KcbDonthuoc.Columns.TenMaysua).EqualTo(objDonthuoc.TenMaysua)
-                             .Where(KcbDonthuoc.Columns.IdDonthuoc).IsEqualTo(objDonthuoc.IdDonthuoc).Execute();
+                         SPs.SpKcbCapnhatDonthuoc(objDonthuoc.IdDonthuoc, globalVariables.UserName, globalVariables.SysDate, objDonthuoc.LoidanBacsi,
+                             objDonthuoc.NgayTaikham, objDonthuoc.TaiKham, objDonthuoc.IpMaysua, objDonthuoc.TenMaysua).Execute();
+                         log.Trace("4.1 Da cap nhat don thuoc");
                          if (Utility.Int32Dbnull(objDonthuoc.IdKham) > 0)
                          {
-                             new Update(KcbDangkyKcb.Schema)
-                          .Set(KcbDangkyKcb.Columns.IdBacsikham).EqualTo(objDonthuoc.IdBacsiChidinh)
-                          .Where(KcbDangkyKcb.Columns.IdKham).IsEqualTo(objDonthuoc.IdKham).Execute();
+                             SPs.SpKcbCapnhatBacsiKham(objDonthuoc.IdKham, objDonthuoc.IdBacsiChidinh).Execute();
+                             log.Trace("4.2 Da cap nhat BS kham=BS ke don");
                          }
                          decimal PtramBH = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0);
 
@@ -419,6 +436,7 @@ namespace VNS.HIS.BusRule.Classes
                              objDonthuocChitiet.IdDonthuoc = objDonthuoc.IdDonthuoc;
                          }
                          if (objLuotkham.TrangthaiNoitru <= 0) CapnhatChandoan(_KcbChandoanKetluan);
+                         log.Trace("4.3 Da cap nhat thong tin chan doan ket luan");
                          foreach (KcbDonthuocChitiet objDonthuocChitiet in arrDonthuocChitiet)
                          {
                              
@@ -436,19 +454,6 @@ namespace VNS.HIS.BusRule.Classes
                                  objDonthuocChitiet.IdDonthuoc = objDonthuoc.IdDonthuoc;
                                  objDonthuocChitiet.CachDung = objDonthuocChitiet.MotaThem;
                                  ThemChitiet(objDonthuoc, objDonthuocChitiet, PtramBH, objLuotkham);
-                                 //Thêm dòng mới
-                                 TblKedonthuocTempt newItem = new TblKedonthuocTempt();
-                                 newItem.IdChitietdonthuoc = objDonthuocChitiet.IdChitietdonthuoc;
-                                 newItem.IdDonthuoc = objDonthuocChitiet.IdDonthuoc;
-                                 newItem.IdKho = Utility.Int32Dbnull(objDonthuocChitiet.IdKho, -1);
-                                 newItem.IdThuoc = objDonthuocChitiet.IdThuoc;
-                                 newItem.IdThuockho = Utility.Int64Dbnull(objDonthuocChitiet.IdThuockho, -1);
-                                 newItem.NgayKedon = objDonthuoc.NgayKedon;
-                                 newItem.SoLuong = objDonthuocChitiet.SoLuong;
-                                 newItem.TrangThai = Utility.ByteDbnull(objDonthuocChitiet.TrangThai, 0);
-                                 newItem.IsNew = true;
-                                 newItem.Save();
-
                                  if (!lstChitietDonthuoc.ContainsKey(objDonthuocChitiet.IdThuockho.Value))
                                      lstChitietDonthuoc.Add(objDonthuocChitiet.IdThuockho.Value, objDonthuocChitiet.IdChitietdonthuoc);
                              }
@@ -456,19 +461,11 @@ namespace VNS.HIS.BusRule.Classes
                              {
                                  if (!lstChitietDonthuoc.ContainsKey(objDonthuocChitiet.IdThuockho.Value))
                                      lstChitietDonthuoc.Add(objDonthuocChitiet.IdThuockho.Value, objDonthuocChitiet.IdChitietdonthuoc);
-                                 new Update(KcbDonthuocChitiet.Schema)
-                                     .Set(KcbDonthuocChitiet.SoLuongColumn).EqualTo(objDonthuocChitiet.SoLuong)
-                                     .Set(KcbDonthuocChitiet.NgaySuaColumn).EqualTo(objDonthuocChitiet.NgaySua)
-                                     .Set(KcbDonthuocChitiet.NguoiSuaColumn).EqualTo(objDonthuocChitiet.NguoiSua)
-                                     .Set(KcbDonthuocChitiet.Columns.IpMaysua).EqualTo(objDonthuocChitiet.IpMaysua)
-                                     .Set(KcbDonthuocChitiet.Columns.TenMaysua).EqualTo(objDonthuocChitiet.TenMaysua)
-                                     .Where(KcbDonthuocChitiet.IdChitietdonthuocColumn).IsEqualTo(objDonthuocChitiet.IdChitietdonthuoc).Execute();
-                                 new Update(TblKedonthuocTempt.Schema)
-                                    .Set(TblKedonthuocTempt.SoLuongColumn).EqualTo(objDonthuocChitiet.SoLuong)
-                                    .Where(TblKedonthuocTempt.IdChitietdonthuocColumn).IsEqualTo(objDonthuocChitiet.IdChitietdonthuoc).Execute();
-
+                                 SPs.SpKcbCapnhatChitietDonthuoc(objDonthuocChitiet.IdChitietdonthuoc, objDonthuocChitiet.SoLuong, objDonthuocChitiet.NgaySua
+                                     , objDonthuocChitiet.NguoiSua, objDonthuocChitiet.IpMaysua, objDonthuocChitiet.TenMaysua).Execute();
                              }
                          }
+                         log.Trace("4.4 Da cap nhat xong chi tiet don thuoc");
                      }
                      scope.Complete();
                      return ActionResult.Success;
@@ -476,7 +473,7 @@ namespace VNS.HIS.BusRule.Classes
              }
              catch (Exception exception)
              {
-                 log.Error("Loi trong qua trinh luu don thuoc", exception);
+                 log.Error(string.Format("Loi khi cap nhat don thuoc {0}", exception.Message));
                  return ActionResult.Error;
              }
          }
