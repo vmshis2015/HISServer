@@ -405,6 +405,7 @@ namespace VNS.HIS.Classes
                    objForm.addTrinhKy_OnFormLoad();
                    crpt.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
                    crpt.PrintToPrinter(1, false, 0, 0);
+                   
                }
                
            }
@@ -414,7 +415,7 @@ namespace VNS.HIS.Classes
            }
            finally
            {
-               GC.Collect();
+               Utility.FreeMemory(crpt);
            }
        }
        private  decimal SumOfTotal(DataTable dataTable, string FiledName)
