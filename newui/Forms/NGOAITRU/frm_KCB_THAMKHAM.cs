@@ -3532,7 +3532,7 @@ namespace VNS.HIS.UI.NGOAITRU
             PerforActionDeleteSelectedCLS();
             ModifyCommmands();
         }
-
+        
         private void cboLaserPrinters_SelectedIndexChanged(object sender, EventArgs e)
         {
             SaveDefaultPrinter();
@@ -3894,6 +3894,7 @@ namespace VNS.HIS.UI.NGOAITRU
         /// </summary>
         private void PerforActionDeleteAssign()
         {
+            string lstvalues="";
             foreach (GridEXRow gridExRow in grdAssignDetail.GetCheckedRows())
             {
                 int id_chidinhchitiet =
@@ -3902,9 +3903,14 @@ namespace VNS.HIS.UI.NGOAITRU
                 int id_chidinh = Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.IdChidinh].Value,
                                                      -1);
                 _KCB_CHIDINH_CANLAMSANG.XoaChiDinhCLSChitiet(id_chidinhchitiet);
-                gridExRow.Delete();
-                m_dtAssignDetail.AcceptChanges();
+                lstvalues+=id_chidinhchitiet.ToString()+",";
             }
+            DataRow[] rows;
+            if(lstvalues.Length>0)lstvalues=lstvalues.Substring(0,lstvalues.Length-1);
+            rows = m_dtAssignDetail.Select(KcbChidinhclsChitiet.Columns.IdChitietchidinh + " IN (" + lstvalues+")"); // UserName is Column Name
+            foreach (DataRow r in rows)
+                r.Delete();
+            m_dtAssignDetail.AcceptChanges();
         }
 
         private void PerforActionDeleteSelectedCLS()
@@ -3927,7 +3933,9 @@ namespace VNS.HIS.UI.NGOAITRU
                                    string.Format(
                                        "Xóa chỉ định {0} của bệnh nhân có mã lần khám: {1} và mã bệnh nhân là: {2}",
                                        id_chitiet_dichvu, objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan), action.Delete);
-                grdAssignDetail.CurrentRow.Delete();
+                m_dtAssignDetail.AsEnumerable()
+                    .Where(r => r.Field<Int64>( KcbChidinhclsChitiet.Columns.IdChitietchidinh) == id_chidinhchitiet).ToList()
+                    .ForEach(row => row.Delete());
                 m_dtAssignDetail.AcceptChanges();
             }
             catch (Exception ex)

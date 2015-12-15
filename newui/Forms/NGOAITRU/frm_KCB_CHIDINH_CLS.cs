@@ -310,16 +310,23 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 if (!IsValidDataXoaCLS()) return;
+                string lstvalues = "";
                 foreach (GridEXRow gridExRow in grdAssignDetail.GetCheckedRows())
                 {
-                    long AssignDetail = Utility.Int64Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value, -1);
-                    CHIDINH_CANLAMSANG.XoaChiDinhCLSChitiet(AssignDetail);
-                    gridExRow.Delete();
-                    grdAssignDetail.UpdateData();
-                    grdAssignDetail.Refresh();
-                    m_dtChitietPhieuCLS.AcceptChanges();
+                    int id_chidinhchitiet =
+                        Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.IdChitietchidinh].Value,
+                                            -1);
+                    int id_chidinh = Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.IdChidinh].Value,
+                                                         -1);
+                    CHIDINH_CANLAMSANG.XoaChiDinhCLSChitiet(id_chidinhchitiet);
+                    lstvalues += id_chidinhchitiet.ToString() + ",";
                 }
-                
+                DataRow[] rows;
+                if (lstvalues.Length > 0) lstvalues = lstvalues.Substring(0, lstvalues.Length - 1);
+                rows = m_dtChitietPhieuCLS.Select(KcbChidinhclsChitiet.Columns.IdChitietchidinh + " IN (" + lstvalues + ")"); // UserName is Column Name
+                foreach (DataRow r in rows)
+                    r.Delete();
+                m_dtChitietPhieuCLS.AcceptChanges();
                 if (grdAssignDetail.GetDataRows().Length <= 0)
                 {
                     m_eAction = action.Insert;
