@@ -35,6 +35,8 @@ namespace VNS.HIS.UI.DANHMUC
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.grdList = new Janus.Windows.GridEX.GridEX();
             this.GroupBox1 = new System.Windows.Forms.GroupBox();
+            this.cboTuyen = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtThanhpho = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtObjectCode = new System.Windows.Forms.TextBox();
@@ -67,8 +69,6 @@ namespace VNS.HIS.UI.DANHMUC
             this.cmdUpdate = new Janus.Windows.EditControls.UIButton();
             this.cmdClose = new Janus.Windows.EditControls.UIButton();
             this.sysColor = new VNS.Libs.Utilities.UserControls.Banner();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cboTuyen = new System.Windows.Forms.ComboBox();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.GroupBox1.SuspendLayout();
@@ -84,7 +84,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(813, 471);
+            this.tabPage1.Size = new System.Drawing.Size(950, 471);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Danh mục bệnh viện";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -109,7 +109,8 @@ namespace VNS.HIS.UI.DANHMUC
             this.grdList.Name = "grdList";
             this.grdList.RecordNavigator = true;
             this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdList.Size = new System.Drawing.Size(807, 347);
+            this.grdList.SelectionMode = Janus.Windows.GridEX.SelectionMode.MultipleSelection;
+            this.grdList.Size = new System.Drawing.Size(944, 347);
             this.grdList.TabIndex = 20;
             this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
@@ -131,11 +132,32 @@ namespace VNS.HIS.UI.DANHMUC
             this.GroupBox1.Font = new System.Drawing.Font("Arial", 9.75F);
             this.GroupBox1.Location = new System.Drawing.Point(3, 350);
             this.GroupBox1.Name = "GroupBox1";
-            this.GroupBox1.Size = new System.Drawing.Size(807, 118);
+            this.GroupBox1.Size = new System.Drawing.Size(944, 118);
             this.GroupBox1.TabIndex = 18;
             this.GroupBox1.TabStop = false;
             this.GroupBox1.Text = "Thông tin chi tiết";
             this.GroupBox1.Enter += new System.EventHandler(this.GroupBox1_Enter);
+            // 
+            // cboTuyen
+            // 
+            this.cboTuyen.FormattingEnabled = true;
+            this.cboTuyen.Items.AddRange(new object[] {
+            "A",
+            "B",
+            "C"});
+            this.cboTuyen.Location = new System.Drawing.Point(622, 29);
+            this.cboTuyen.Name = "cboTuyen";
+            this.cboTuyen.Size = new System.Drawing.Size(154, 24);
+            this.cboTuyen.TabIndex = 28;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(569, 32);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 16);
+            this.label3.TabIndex = 27;
+            this.label3.Text = "Tuyến:";
             // 
             // txtThanhpho
             // 
@@ -262,7 +284,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.tabControl1.Location = new System.Drawing.Point(3, 56);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(821, 500);
+            this.tabControl1.Size = new System.Drawing.Size(958, 500);
             this.tabControl1.TabIndex = 35;
             // 
             // errorProvider1
@@ -281,7 +303,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.toolStripStatusLabel11});
             this.statusStrip1.Location = new System.Drawing.Point(0, 599);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(827, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(964, 22);
             this.statusStrip1.TabIndex = 36;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -408,7 +430,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.cmdPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdPrint.Image = ((System.Drawing.Image)(resources.GetObject("cmdPrint.Image")));
             this.cmdPrint.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdPrint.Location = new System.Drawing.Point(632, 562);
+            this.cmdPrint.Location = new System.Drawing.Point(769, 562);
             this.cmdPrint.Name = "cmdPrint";
             this.cmdPrint.Size = new System.Drawing.Size(91, 28);
             this.cmdPrint.TabIndex = 9;
@@ -447,7 +469,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdClose.Image = ((System.Drawing.Image)(resources.GetObject("cmdClose.Image")));
-            this.cmdClose.Location = new System.Drawing.Point(729, 562);
+            this.cmdClose.Location = new System.Drawing.Point(866, 562);
             this.cmdClose.Name = "cmdClose";
             this.cmdClose.Size = new System.Drawing.Size(91, 28);
             this.cmdClose.TabIndex = 10;
@@ -466,36 +488,15 @@ namespace VNS.HIS.UI.DANHMUC
             this.sysColor.ShortcutAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.sysColor.ShortcutFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sysColor.ShortcutGuide = "";
-            this.sysColor.Size = new System.Drawing.Size(827, 50);
+            this.sysColor.Size = new System.Drawing.Size(964, 50);
             this.sysColor.TabIndex = 37;
             this.sysColor.Title = "DANH MỤC BỆNH VIỆN";
             this.sysColor.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(569, 32);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 16);
-            this.label3.TabIndex = 27;
-            this.label3.Text = "Tuyến:";
-            // 
-            // cboTuyen
-            // 
-            this.cboTuyen.FormattingEnabled = true;
-            this.cboTuyen.Items.AddRange(new object[] {
-            "A",
-            "B",
-            "C"});
-            this.cboTuyen.Location = new System.Drawing.Point(622, 29);
-            this.cboTuyen.Name = "cboTuyen";
-            this.cboTuyen.Size = new System.Drawing.Size(154, 24);
-            this.cboTuyen.TabIndex = 28;
-            // 
             // frm_dmuc_benhvien
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(827, 621);
+            this.ClientSize = new System.Drawing.Size(964, 621);
             this.Controls.Add(this.cmdClose);
             this.Controls.Add(this.cmdUpdate);
             this.Controls.Add(this.cmdDelete);
