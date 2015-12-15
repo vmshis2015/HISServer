@@ -240,9 +240,9 @@ namespace VNS.HIS.UI.THUOC
                 }
               
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                Utility.ShowMsg("Lỗi:"+ex.Message);
                 
             }
             ModifyCommand();
@@ -282,8 +282,10 @@ namespace VNS.HIS.UI.THUOC
                 dr["CHON"] = 0;
             }
             m_dtDataPresDetail.AcceptChanges();
+            Utility.SetDataSourceForDataGridEx(grdPresDetail, m_dtDataPresDetail, false, true, "1=1",
+                                                 KcbDonthuocChitiet.Columns.SttIn);
             //Add2View
-            Add2View();
+          //  Add2View();
             ModifyCommand();
         }
         void Add2View()
@@ -294,7 +296,7 @@ namespace VNS.HIS.UI.THUOC
                 foreach (DataRow dr in m_dtDataPresDetail.Rows)
                 {
                     int id_thuoc = Utility.Int32Dbnull(dr["id_thuoc"], -1);
-                    DataRow[] arrDr = dtView.Select("id_thuoc=" + id_thuoc.ToString());
+                    DataRow[] arrDr = dtView.Select("id_thuoc=" + id_thuoc.ToString()+" ");
                     if (arrDr.Length <= 0)
                         dtView.ImportRow(dr);
                     else
