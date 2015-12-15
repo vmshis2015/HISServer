@@ -263,14 +263,8 @@ namespace VNS.HIS.BusRule.Classes
                              sp.Execute();
                              objDonthuoc.IdDonthuoc = Utility.Int64Dbnull(sp.OutputValues[0]);
                              log.Trace("4.1 Da luu don thuoc CSDL");
-                             KcbDangkyKcb objKCB = KcbDangkyKcb.FetchByID(objDonthuoc.IdKham);
-                             if (objKCB != null)
-                             {
-                                 objKCB.DakeDonthuoc = 1;
-                                 objKCB.IdBacsikham = objDonthuoc.IdBacsiChidinh;
-                                 SPs.SpKcbCapnhatBacsiKham(objKCB.IdKham, objKCB.IdBacsikham).Execute();
+                                 SPs.SpKcbCapnhatBacsiKham(objDonthuoc.IdKham, objDonthuoc.IdBacsiChidinh, 0).Execute();
                                  log.Trace("4.2 Cap nhat bac si kham = BS ke don");
-                             }
 
                              if (!Utility.Byte2Bool(objDonthuoc.Noitru))
                                  CapnhatChandoan(_KcbChandoanKetluan);
@@ -426,7 +420,7 @@ namespace VNS.HIS.BusRule.Classes
                          log.Trace("4.1 Da cap nhat don thuoc");
                          if (Utility.Int32Dbnull(objDonthuoc.IdKham) > 0)
                          {
-                             SPs.SpKcbCapnhatBacsiKham(objDonthuoc.IdKham, objDonthuoc.IdBacsiChidinh).Execute();
+                             SPs.SpKcbCapnhatBacsiKham(objDonthuoc.IdKham, objDonthuoc.IdBacsiChidinh,0).Execute();
                              log.Trace("4.2 Da cap nhat BS kham=BS ke don");
                          }
                          decimal PtramBH = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0);

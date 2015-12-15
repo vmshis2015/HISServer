@@ -18,7 +18,7 @@ namespace VNS.HIS.BusRule.Classes
          private NLog.Logger log;
          public KCB_CHIDINH_CANLAMSANG()
         {
-            log = LogManager.GetCurrentClassLogger();
+            log = LogManager.GetLogger("KCB_CHIDINHCLS");
         }
          public void XoaChiDinhCLSChitiet(long IdChitietchidinh)
          {
@@ -76,10 +76,10 @@ namespace VNS.HIS.BusRule.Classes
                                                               PatientID).GetDataSet().
                      Tables[0];
          }
-         public DataTable LaythongtininphieuchidinhCLS(KcbChidinhcl objKcbChidinhcls)
+         public DataTable LaythongtininphieuchidinhCLS(KcbChidinhcl objChidinh)
          {
-             return SPs.KcbThamkhamLaythongtinclsInphieuTach(objKcbChidinhcls.MaChidinh, objKcbChidinhcls.MaLuotkham,
-                                                              Utility.Int32Dbnull(objKcbChidinhcls.IdBenhnhan)).GetDataSet().
+             return SPs.KcbThamkhamLaythongtinclsInphieuTach(objChidinh.MaChidinh, objChidinh.MaLuotkham,
+                                                              Utility.Int32Dbnull(objChidinh.IdBenhnhan)).GetDataSet().
                      Tables[0];
          }
          public ActionResult ThemnhomChidinhCLS(DmucNhomcanlamsang objNhom, List< DmucNhomcanlamsangChitiet> lstChitiet)
@@ -121,7 +121,7 @@ namespace VNS.HIS.BusRule.Classes
                  return ActionResult.Error;
              }
          }
-         public ActionResult InsertDataChiDinhCLS(KcbChidinhcl objKcbChidinhcls, KcbLuotkham objLuotkham, KcbChidinhclsChitiet[] arrAssignDetails)
+         public ActionResult InsertDataChiDinhCLS(KcbChidinhcl objChidinh, KcbLuotkham objLuotkham, KcbChidinhclsChitiet[] arrAssignDetails)
          {
              try
              {
@@ -129,34 +129,37 @@ namespace VNS.HIS.BusRule.Classes
                  {
                      using (var sh = new SharedDbConnectionScope())
                      {
-                         if (objKcbChidinhcls != null)
+                         if (objChidinh != null)
                          {
+                             log.Trace("BEGIN INSERTING..........................................................");
                              if (objLuotkham == null)
                              {
                                  objLuotkham = new Select().From(KcbLuotkham.Schema)
-                                     .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objKcbChidinhcls.MaLuotkham)
+                                     .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objChidinh.MaLuotkham)
                                      .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(
-                                         Utility.Int32Dbnull(objKcbChidinhcls.IdBenhnhan)).ExecuteSingle<KcbLuotkham>();
+                                         Utility.Int32Dbnull(objChidinh.IdBenhnhan)).ExecuteSingle<KcbLuotkham>();
                              }
                              if (objLuotkham != null)
                              {
-                                 objKcbChidinhcls.MaChidinh = THU_VIEN_CHUNG.SinhMaChidinhCLS();
-                                 objKcbChidinhcls.MaDoituongKcb = objLuotkham.MaDoituongKcb;
-                                 objKcbChidinhcls.IdLoaidoituongKcb = objLuotkham.IdLoaidoituongKcb;
-                                 objKcbChidinhcls.IdDoituongKcb = objLuotkham.IdDoituongKcb;
-                                 objKcbChidinhcls.MaKhoaChidinh = globalVariables.MA_KHOA_THIEN;
-                                 objKcbChidinhcls.IsNew = true;
-                                 objKcbChidinhcls.Save();
+                                 objChidinh.MaChidinh = THU_VIEN_CHUNG.SinhMaChidinhCLS();
+                                 objChidinh.MaDoituongKcb = objLuotkham.MaDoituongKcb;
+                                 objChidinh.IdLoaidoituongKcb = objLuotkham.IdLoaidoituongKcb;
+                                 objChidinh.IdDoituongKcb = objLuotkham.IdDoituongKcb;
+                                 objChidinh.MaKhoaChidinh = globalVariables.MA_KHOA_THIEN;
 
-                                 KcbDangkyKcb objKCB = KcbDangkyKcb.FetchByID(objKcbChidinhcls.IdKham);
-                                 if (objKCB != null)
-                                 {
-                                     objKCB.DachidinhCls = 1;
-                                     objKCB.IdBacsikham = objKcbChidinhcls.IdBacsiChidinh;
-                                     objKCB.IsNew = false;
-                                     objKCB.Save();
-                                 }
-                                 InsertAssignDetail(objKcbChidinhcls, objLuotkham, arrAssignDetails);
+                                 var sp = SPs.SpKcbThemmoiChidinh(objChidinh.IdChidinh, objChidinh.IdKham, objChidinh.IdBuongGiuong, objChidinh.IdDieutri, objChidinh.IdKhoadieutri
+                                     , objChidinh.MaLuotkham, objChidinh.IdBenhnhan, objChidinh.NgayChidinh, objChidinh.IdBacsiChidinh, objChidinh.IdPhongChidinh, objChidinh.NgayThanhtoan
+                                     , objChidinh.TrangthaiThanhtoan, objChidinh.TrangThai, objChidinh.NguoiTao, objChidinh.NgayTao, objChidinh.TinhtrangIn, objChidinh.Barcode, objChidinh.Noitru
+                                     , objChidinh.IdKhoaChidinh, objChidinh.MaKhoaChidinh, objChidinh.MaChidinh, objChidinh.MaBenhpham, objChidinh.IdDoituongKcb, objChidinh.IdLoaidoituongKcb
+                                     , objChidinh.MaDoituongKcb, objChidinh.KieuChidinh, objChidinh.IdLichsuDoituongKcb, objChidinh.MatheBhyt, objChidinh.IpMaytao, objChidinh.TenMaytao
+                                     , objChidinh.NguoigiaoMau, objChidinh.NguoinhanMau, objChidinh.MotaThem, objChidinh.DaBangiaomau, objChidinh.LuongmauHoaly, objChidinh.LuongmauVisinh, objChidinh.LuongmauGui
+                                     , objChidinh.LuuMau, objChidinh.DieukienLuumau, objChidinh.ThanhlyMau, objChidinh.NgayThanhly, objChidinh.NguoiThanhly, objChidinh.LastActionName);
+                                 sp.Execute();
+                                 objChidinh.IdChidinh = Utility.Int64Dbnull(sp.OutputValues[0]);
+                                 log.Trace("1. Da them moi chi dinh CLS");
+                                 SPs.SpKcbCapnhatBacsiKham(objChidinh.IdKham, objChidinh.IdBacsiChidinh, 1).Execute();
+                                 InsertAssignDetail(objChidinh, objLuotkham, arrAssignDetails);
+                                 log.Trace("2. Da them moi chi tiet chi dinh CLS");
                              }
                              else
                              {
@@ -165,51 +168,60 @@ namespace VNS.HIS.BusRule.Classes
                          }
                      }
                      scope.Complete();
+                     log.Trace("FINISH INSERTING..........................................................");
                      return ActionResult.Success;
                  }
              }
              catch (Exception exception)
              {
-                 log.InfoException("Loi thong tin {0}", exception);
+                 log.Error(string.Format( "Loi khi them moi chi dinh dich vu CLS {0}", exception.Message));
                  return ActionResult.Error;
              }
          }
-         public void InsertAssignDetail(KcbChidinhcl objKcbChidinhcls, KcbLuotkham objLuotkham, KcbChidinhclsChitiet[] assignDetail)
+         public void InsertAssignDetail(KcbChidinhcl objChidinh, KcbLuotkham objLuotkham, KcbChidinhclsChitiet[] assignDetail)
          {
              using (var scope = new TransactionScope())
              {
                  if (objLuotkham == null) return;
-                 foreach (KcbChidinhclsChitiet objAssignDetail in assignDetail)
+                 foreach (KcbChidinhclsChitiet objChidinhCtiet in assignDetail)
                  {
-                     log.Info("Them moi thong tin cua phieu chi dinh chi tiet voi ma phieu Assign_ID=" +
-                              objKcbChidinhcls.IdChidinh);
-                     //TinhCLS.TinhGiaChiDinhCLS(objLuotkham, objAssignDetail);
-                     objAssignDetail.IdDoituongKcb = Utility.Int16Dbnull(objLuotkham.IdDoituongKcb);
-                     objAssignDetail.IdChidinh = Utility.Int32Dbnull(objKcbChidinhcls.IdChidinh);
-                     objAssignDetail.IdKham = Utility.Int32Dbnull(objKcbChidinhcls.IdKham, -1);
+                     log.Info("Them moi thong tin cua phieu chi dinh chi tiet voi ma phieu Id_chidinh=" +
+                              objChidinh.IdChidinh);
+                     objChidinhCtiet.IdDoituongKcb = Utility.Int16Dbnull(objLuotkham.IdDoituongKcb);
+                     objChidinhCtiet.IdChidinh = Utility.Int32Dbnull(objChidinh.IdChidinh);
+                     objChidinhCtiet.IdKham = Utility.Int32Dbnull(objChidinh.IdKham, -1);
                      decimal PtramBHYT = Utility.DecimaltoDbnull(objLuotkham.PtramBhyt, 0);
-                     TinhCLS.GB_TinhPhtramBHYT(objAssignDetail, objLuotkham, Utility.Byte2Bool(objKcbChidinhcls.Noitru), PtramBHYT);
-                     objAssignDetail.MaLuotkham = objKcbChidinhcls.MaLuotkham;
-                     objAssignDetail.IdBenhnhan = objKcbChidinhcls.IdBenhnhan;
-                     if (Utility.Int32Dbnull(objAssignDetail.SoLuong) <= 0) objAssignDetail.SoLuong = 1;
-                     if (objAssignDetail.IdChitietchidinh <= 0)
+                     TinhCLS.GB_TinhPhtramBHYT(objChidinhCtiet, objLuotkham, Utility.Byte2Bool(objChidinh.Noitru), PtramBHYT);
+                     objChidinhCtiet.MaLuotkham = objChidinh.MaLuotkham;
+                     objChidinhCtiet.IdBenhnhan = objChidinh.IdBenhnhan;
+                     if (Utility.Int32Dbnull(objChidinhCtiet.SoLuong) <= 0) objChidinhCtiet.SoLuong = 1;
+                     if (objChidinhCtiet.IdChitietchidinh <= 0)
                      {
-
-                         objAssignDetail.IsNew = true;
-                         objAssignDetail.Save();
+                         var sp = SPs.SpKcbThemmoiChitietChidinh(objChidinhCtiet.IdChitietchidinh, objChidinhCtiet.IdKham, objChidinhCtiet.IdChidinh, objChidinhCtiet.IdChidinhChuyengoi
+                             , objChidinhCtiet.IdDichvu, objChidinhCtiet.IdChitietdichvu, objChidinhCtiet.PtramBhytGoc, objChidinhCtiet.PtramBhyt, objChidinhCtiet.GiaDanhmuc, objChidinhCtiet.MadoituongGia
+                             , objChidinhCtiet.DonGia, objChidinhCtiet.PhuThu, objChidinhCtiet.NguoiTao, objChidinhCtiet.IdLoaichidinh, objChidinhCtiet.NgayTao, objChidinhCtiet.TrangthaiThanhtoan
+                             , objChidinhCtiet.NgayThanhtoan, objChidinhCtiet.TrangthaiHuy, objChidinhCtiet.TuTuc, objChidinhCtiet.LoaiChietkhau, objChidinhCtiet.IdDoituongKcb
+                             , objChidinhCtiet.IdBenhnhan, objChidinhCtiet.MaLuotkham, objChidinhCtiet.SoLuong, objChidinhCtiet.TrangThai, objChidinhCtiet.TrangthaiBhyt, objChidinhCtiet.HienthiBaocao
+                             , objChidinhCtiet.BhytChitra, objChidinhCtiet.BnhanChitra, objChidinhCtiet.IdThanhtoan, objChidinhCtiet.IdKhoaThuchien, objChidinhCtiet.IdPhongThuchien
+                             , objChidinhCtiet.TileChietkhau, objChidinhCtiet.TienChietkhau, objChidinhCtiet.KieuChietkhau, objChidinhCtiet.IdGoi, objChidinhCtiet.TrongGoi
+                             , objChidinhCtiet.IdBacsiThuchien, objChidinhCtiet.NguoiThuchien, objChidinhCtiet.NgayThuchien, objChidinhCtiet.ImgPath1, objChidinhCtiet.ImgPath2, objChidinhCtiet.ImgPath3, objChidinhCtiet.ImgPath4
+                             , objChidinhCtiet.FTPImage, objChidinhCtiet.KetQua, objChidinhCtiet.ChidinhGoidichvu, objChidinhCtiet.NguonThanhtoan, objChidinhCtiet.IpMaytao, objChidinhCtiet.TenMaytao
+                             , objChidinhCtiet.ChitieuPhantich, objChidinhCtiet.MahoaMau, objChidinhCtiet.MauUutien, objChidinhCtiet.NgayhenTrakq, objChidinhCtiet.ThetichkhoiluongMau, objChidinhCtiet.TinhtrangMau
+                             );
+                         sp.Execute();
+                         objChidinhCtiet.IdChitietchidinh = Utility.Int64Dbnull(sp.OutputValues[0]);
                      }
                      else
                      {
-                         objAssignDetail.MarkOld();
-                         objAssignDetail.IsNew = false;
-                         objAssignDetail.Save();
+                         SPs.SpKcbCapnhatChitietChidinh(objChidinhCtiet.IdChitietchidinh, objChidinhCtiet.SoLuong, objChidinhCtiet.NgaySua, objChidinhCtiet.NguoiSua
+                             , objChidinhCtiet.IpMaysua, objChidinhCtiet.TenMaysua).Execute();
                      }
                  }
                  scope.Complete();
              }
          }
         
-         public ActionResult UpdateDataChiDinhCLS(KcbChidinhcl objKcbChidinhcls, KcbLuotkham objLuotkham, KcbChidinhclsChitiet[] arrAssignDetails)
+         public ActionResult UpdateDataChiDinhCLS(KcbChidinhcl objChidinh, KcbLuotkham objLuotkham, KcbChidinhclsChitiet[] arrAssignDetails)
          {
              try
              {
@@ -217,24 +229,28 @@ namespace VNS.HIS.BusRule.Classes
                  {
                      using (var sh = new SharedDbConnectionScope())
                      {
+                         log.Trace("BEGIN UPDATE.................................................................");
                          if (objLuotkham == null)
                          {
                              objLuotkham = new Select().From(KcbLuotkham.Schema)
-                                 .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objKcbChidinhcls.MaLuotkham)
+                                 .Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objChidinh.MaLuotkham)
                                  .And(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(
-                                     Utility.Int32Dbnull(objKcbChidinhcls.IdBenhnhan)).ExecuteSingle<KcbLuotkham>();
+                                     Utility.Int32Dbnull(objChidinh.IdBenhnhan)).ExecuteSingle<KcbLuotkham>();
                          }
-                         objKcbChidinhcls.Save();
-                         if (Utility.Int32Dbnull(objKcbChidinhcls.IdKham) > 0)
+                         SPs.SpKcbCapnhatChidinh(objChidinh.IdChidinh, objChidinh.NgayChidinh, objChidinh.IdBacsiChidinh, objChidinh.IdPhongChidinh, objChidinh.NguoiSua
+                             , objChidinh.NgaySua, objChidinh.MaChidinh, objChidinh.IpMaysua, objChidinh.TenMaysua, objChidinh.NguoigiaoMau
+                             , objChidinh.NguoinhanMau, objChidinh.MotaThem, objChidinh.LastActionName).Execute();
+                         log.Trace("1. Da cap nhat chi dinh dich vu CLS");
+                         if (Utility.Int32Dbnull(objChidinh.IdKham) > 0)
                          {
-                             new Update(KcbDangkyKcb.Schema)
-                                 .Set(KcbDangkyKcb.Columns.IdBacsikham).EqualTo(objKcbChidinhcls.IdBacsiChidinh)
-                                 .Where(KcbDangkyKcb.IdKhamColumn).IsEqualTo(objKcbChidinhcls.IdKham).Execute();
+                             SPs.SpKcbCapnhatBacsiKham(objChidinh.IdKham,objChidinh.IdBacsiChidinh,1).Execute();
                          }
-                         log.Info("Cap nhap lai thong tin cua phieu chi dinh voi Assign_ID=" + objKcbChidinhcls.IdChidinh);
-                         InsertAssignDetail(objKcbChidinhcls, objLuotkham, arrAssignDetails);
+                         log.Info("Cap nhap lai thong tin cua phieu chi dinh voi Id_chidinh=" + objChidinh.IdChidinh);
+                         InsertAssignDetail(objChidinh, objLuotkham, arrAssignDetails);
+                         log.Trace("1. Da cap nhat chi tiet chi dinh dich vu CLS");
                      }
                      scope.Complete();
+                     log.Trace("END UPDATE.................................................................");
                      return ActionResult.Success;
                  }
              }
