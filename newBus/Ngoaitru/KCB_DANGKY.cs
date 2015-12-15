@@ -1864,7 +1864,7 @@ namespace VNS.HIS.BusRule.Classes
                         objLichsuKcb.NguoiTao = globalVariables.UserName;
                         objLichsuKcb.NgayTao = globalVariables.SysDate;
 
-                        sp = SPs.SpKcbThemmoiLichsuDoituongKCB(objLichsuKcb.IdLichsuDoituongKcb, objLichsuKcb.IdBenhnhan, objLichsuKcb.MaLuotkham, objLichsuKcb.NgayHieuluc
+                        sp = SPs.SpKCBThemmoiLichsuDoituongKCB(objLichsuKcb.IdLichsuDoituongKcb, objLichsuKcb.IdBenhnhan, objLichsuKcb.MaLuotkham, objLichsuKcb.NgayHieuluc
                             , objLichsuKcb.NgayHethieuluc, objLichsuKcb.IdDoituongKcb, objLichsuKcb.MaDoituongKcb, objLichsuKcb.IdLoaidoituongKcb, objLichsuKcb.MatheBhyt
                             , objLichsuKcb.PtramBhyt, objLichsuKcb.PtramBhytGoc, objLichsuKcb.NgaybatdauBhyt, objLichsuKcb.NgayketthucBhyt, objLichsuKcb.NoicapBhyt
                             , objLichsuKcb.MaNoicapBhyt, objLichsuKcb.MaDoituongBhyt, objLichsuKcb.MaQuyenloi, objLichsuKcb.NoiDongtrusoKcbbd, objLichsuKcb.MaKcbbd
@@ -1902,7 +1902,7 @@ namespace VNS.HIS.BusRule.Classes
                         {
                             log.Trace("3.1 Đã phát hiện trùng mã Bệnh nhân-->Lấy lại mã mới");
                             string patientCode = THU_VIEN_CHUNG.KCB_SINH_MALANKHAM((byte)(objKcbDanhsachBenhnhan.KieuBenhnhan == 0 ? 0 : 1));
-                            SPs.SpKcbCapnhatMaluotkhamLuotkham(patientCode, objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan).Execute();
+                            SPs.SpKcbCapnhatLuotkhamMaluotkham(patientCode, objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan).Execute();
                             SPs.SpKcbCapnhatMaluotkhamLichsudoituongKcb(patientCode, objLichsuKcb.IdLichsuDoituongKcb).Execute();
                             log.Trace("3.2 Đã Cập nhật lại mã lượt khám mới");
                             objLuotkham.MaLuotkham = patientCode;
