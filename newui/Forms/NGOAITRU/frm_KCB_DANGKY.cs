@@ -4359,13 +4359,14 @@ namespace VNS.HIS.UI.NGOAITRU
         }
         private void InPhieuKCB()
         {
-            try
-            {
+          
                 int reg_id = -1;
                  string tieude="", reportname = "";
                  //VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET crpt = new VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET();
                 ReportDocument crpt = Utility.GetReport("tiepdon_PHIEUKHAM_NHIET",ref tieude,ref reportname);
                 if (crpt == null) return;
+                try
+                {
                 var objPrint = new frmPrintPreview("IN PHIẾU KHÁM", crpt, true, true);
                 reg_id = GetrealRegID();
                 new Update(KcbDangkyKcb.Schema)
@@ -4393,12 +4394,18 @@ namespace VNS.HIS.UI.NGOAITRU
                 Utility.SetParameterValue(crpt,"STT", Utility.sDbnull(objRegExam.SttKham, ""));
                 Utility.SetParameterValue(crpt,"BENHAN", txtMaLankham.Text);
                 Utility.SetParameterValue(crpt,"TENBN", txtTEN_BN.Text);
-                Utility.SetParameterValue(crpt,"GT_TUOI", cboPatientSex.Text + ", " + txtTuoi.Text + " tuổi");
+                Utility.SetParameterValue(crpt,"GT_TUOI", cboPatientSex.Text + " - " + txtTuoi.Text + " tuổi");
                 string SOTHE = "Không có thẻ";
+                string HANTHE = "Không có hạn";
                 LaySoTheBHYT();
                 if (pnlBHYT.Enabled)
+                {
                     SOTHE = SoBHYT;
+                    HANTHE = dtInsToDate.Value.ToString("dd/MM/yyyy");
+                }
+                   
                 Utility.SetParameterValue(crpt,"SOTHE", SOTHE);
+                Utility.SetParameterValue(crpt,"HANTHE",HANTHE);
                 if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInPhieuKCB, PropertyLib._MayInProperties.PreviewPhieuKCB))
                     objPrint.ShowDialog();
                 else
@@ -4412,6 +4419,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             finally
             {
+                Utility.FreeMemory(crpt);
                 GC.Collect();
             }
            

@@ -1150,10 +1150,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             catch (Exception ex)
             {
-            }
-            finally
-            {
-                //AutoWarning();
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
         }
         void AutoWarning()
@@ -1941,7 +1938,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             catch (Exception exception)
             {
-                Utility.ShowMsg("Lỗi trong quá trình load thông tin :" + exception);
+                Utility.ShowMsg("Lỗi trong quá trình load thông tin :" + exception.Message);
             }
         }
         #endregion

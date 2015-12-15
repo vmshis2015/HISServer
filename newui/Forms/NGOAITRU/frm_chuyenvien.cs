@@ -183,10 +183,10 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             //    txtketquaCls.Focus();
             //    return;
             //}
-            if (Utility.DoTrim(txtChandoan.Text) == "")
+            if (Utility.DoTrim(txtChandoan.Text) == "" && Utility.DoTrim(txtMaBenhChinh.Text) =="")
             {
                 Utility.SetMsg(lblMsg, "Bạn phải nhập thông tin chẩn đoán", true);
-                txtChandoan.Focus();
+                txtMaBenhChinh.Focus();
                 return;
             }
             //if (Utility.DoTrim(txtThuocsudung.Text) == "")
@@ -721,7 +721,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
         }
         private void AutocompleteBenhvien()
         {
-            DataTable m_dtBenhvien = new Select().From(DmucBenhvien.Schema).ExecuteDataSet().Tables[0];
+            DataTable m_dtBenhvien = new Select().From(DmucBenhvien.Schema).OrderAsc(DmucBenhvien.Columns.SttHthi).ExecuteDataSet().Tables[0];
             try
             {
                 if (m_dtBenhvien == null) return;

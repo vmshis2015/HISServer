@@ -818,6 +818,17 @@ namespace VNS.HIS.UI.NGOAITRU
 
 
         }
+        private KcbDanhsachBenhnhan CreatePatientInfo()
+        {
+            int Patient_ID = Utility.Int32Dbnull(grdList.GetValue(KcbDanhsachBenhnhan.Columns.IdBenhnhan));
+            KcbDanhsachBenhnhan objBenhnhan = new KcbDanhsachBenhnhan();
+
+            SqlQuery sqlQuery = new Select().From(KcbDanhsachBenhnhan.Schema)
+                .Where(KcbDanhsachBenhnhan.Columns.IdBenhnhan).IsEqualTo(Patient_ID);
+                
+            objBenhnhan = sqlQuery.ExecuteSingle<KcbDanhsachBenhnhan>();
+            return objBenhnhan;
+        }
         private void ModifycommandAssignDetail()
         {
             try
@@ -838,12 +849,14 @@ namespace VNS.HIS.UI.NGOAITRU
         private void cmdThemChiDinh_Click(object sender, EventArgs e)
         {
             KcbLuotkham objLuotkham = CreatePatientExam();
+            KcbDanhsachBenhnhan objbenhnhan = CreatePatientInfo();
             if(objLuotkham!=null)
             {
                 frm_KCB_CHIDINH_CLS frm = new frm_KCB_CHIDINH_CLS("-GOI,-TIEN,-CHIPHITHEM", 0);
                 frm.Exam_ID = Utility.Int32Dbnull(-1, -1);
                 frm.txtAssign_ID.Text = "-100";
                 frm.objLuotkham = objLuotkham;
+                frm.objBenhnhan = objbenhnhan;
                 frm.m_eAction = action.Insert;
                 frm.HosStatus = 0;
                 frm.ShowDialog();
@@ -1353,8 +1366,7 @@ namespace VNS.HIS.UI.NGOAITRU
         }
         private void InPhieuKCB()
         {
-            try
-            {
+            
                 int IdKham = -1;
                  string tieude="", reportname = "";
                  //VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET crpt = new VMS.HISLink.Report.Report.tiepdon_PHIEUKHAM_NHIET();
@@ -1362,17 +1374,24 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (crpt == null) return;
                 var objPrint = new frmPrintPreview("IN PHIẾU KHÁM", crpt, true, true);
                 IdKham = GetrealRegID();
+                try
+                {
                 KcbDangkyKcb objRegExam = KcbDangkyKcb.FetchByID(IdKham);
                 DmucKhoaphong lDepartment = DmucKhoaphong.FetchByID(objRegExam.IdPhongkham);
                 Utility.SetParameterValue(crpt,"PHONGKHAM", Utility.sDbnull(lDepartment.MaKhoaphong));
                 Utility.SetParameterValue(crpt,"STT", Utility.sDbnull(objRegExam.SttKham, ""));
                 Utility.SetParameterValue(crpt,"BENHAN", Utility.sDbnull(grdList.CurrentRow.Cells[KcbLuotkham.Columns.MaLuotkham].Value, ""));
                 Utility.SetParameterValue(crpt,"TENBN", Utility.sDbnull(grdList.CurrentRow.Cells[KcbDanhsachBenhnhan.Columns.TenBenhnhan].Value, ""));
-                Utility.SetParameterValue(crpt,"GT_TUOI", Utility.sDbnull(grdList.CurrentRow.Cells[KcbDanhsachBenhnhan.Columns.GioiTinh].Value, "") + ", " + Utility.sDbnull(grdList.CurrentRow.Cells["Tuoi"].Value, "") + " tuổi");
+                Utility.SetParameterValue(crpt,"GT_TUOI", Utility.sDbnull(grdList.CurrentRow.Cells[KcbDanhsachBenhnhan.Columns.GioiTinh].Value, "") + " - " + Utility.sDbnull(grdList.CurrentRow.Cells["Tuoi"].Value, "") + " tuổi");
                 string SOTHE = "Không có thẻ";
-
-                SOTHE = Utility.sDbnull(grdList.CurrentRow.Cells[KcbLuotkham.Columns.MatheBhyt].Value, "Không có thẻ"); 
+                string HANTHE = "Không có hạn";
+                if (Utility.sDbnull(grdList.CurrentRow.Cells[KcbLuotkham.Columns.MaDoituongKcb].Value) =="BHYT")
+                {
+                    SOTHE = Utility.sDbnull(grdList.CurrentRow.Cells[KcbLuotkham.Columns.MatheBhyt].Value, "Không có thẻ");
+                    HANTHE = Utility.sDbnull(grdList.CurrentRow.Cells[KcbLuotkham.Columns.NgayketthucBhyt].Value);
+                }
                 Utility.SetParameterValue(crpt,"SOTHE", SOTHE);
+                Utility.SetParameterValue(crpt,"HANTHE",HANTHE);
                 if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInPhieuKCB, PropertyLib._MayInProperties.PreviewPhieuKCB))
                     objPrint.ShowDialog();
                 else
@@ -1384,6 +1403,10 @@ namespace VNS.HIS.UI.NGOAITRU
             catch (Exception ex)
             {
                 Utility.ShowMsg("Có lỗi trong quá trình in phiếu khám-->\n" + ex.Message);
+            }
+            finally
+            {
+                Utility.FreeMemory(crpt);
             }
         }
        

@@ -415,7 +415,11 @@ namespace VNS.HIS.UI.NGOAITRU
                                     this.AddtoView(row, _soluong);
                                     list2.Add(this.getNewItem(row));
                                 }
+                               
                             }
+                            this.ClearControl();
+                            this.txtdrug.Focus();
+                            this.txtdrug.SelectAll();
                         }
                     }
                     if (errMsg != string.Empty)
@@ -434,16 +438,17 @@ namespace VNS.HIS.UI.NGOAITRU
                         this.UpdateDataWhenChanged();
 
                     }
-                    this.ClearControl();
-                    this.txtdrug.Focus();
-                    this.txtdrug.SelectAll();
+                    //this.ClearControl();
+                    //this.txtdrug.Focus();
+                    //this.txtdrug.SelectAll();
                     this.m_dtDanhmucthuoc.DefaultView.RowFilter = "1=2";
                     this.m_dtDanhmucthuoc.AcceptChanges();
                 }
             }
             catch (Exception ex)
             {
-                Utility.CatchException(ex);
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
+                //Utility.CatchException(ex);
             }
             finally
             {
@@ -876,6 +881,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtDrugID.Clear();
                 this.txtChiDanDungThuoc.Clear();
             }
+            txtDrugID.Clear();
             this.ModifyButton();
         }
 
@@ -898,6 +904,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         return;
                     }
                 }
+                if (Utility.Int32Dbnull(txtDrugID.Text, -1) <= 0) return;
                 this.AddPreDetail();
                 this.Manual = true;
                
@@ -908,6 +915,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             finally
             {
+                Thread.Sleep(100);
                 cmdAddDetail.Enabled = true;
             }
 
