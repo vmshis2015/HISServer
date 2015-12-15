@@ -64,7 +64,9 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
                                                           Utility.sDbnull(cboKhoa.SelectedValue, "KKB"), Args, trangthai)
                     .GetDataSet().Tables[0];
             Utility.SetDataSourceForDataGridEx(grdResult,dtDanhsach,false,false,"","");
+          
             THU_VIEN_CHUNG.CreateXML(dtDanhsach, "baocao_thongkedanhsach_chucnang.XML");
+            Utility.UpdateLogotoDatatable(ref dtDanhsach);
             string reportCode = "";
             switch (Args)
             {
@@ -107,12 +109,17 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
                 crpt.SetParameterValue("sTitleReport", tieude);
                 crpt.SetParameterValue("sCurrentDate", Utility.FormatDateTimeWithThanhPho(dtNgayInPhieu.Value));
                 crpt.SetParameterValue("BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
             }
             catch (Exception exception)
             {
                 Utility.ShowMsg("Lỗi:" + exception.Message);
+            }
+            finally
+            {
+                Utility.FreeMemory(crpt);
             }
         }
 
