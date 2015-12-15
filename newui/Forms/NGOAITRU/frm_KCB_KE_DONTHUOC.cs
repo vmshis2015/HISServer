@@ -1520,15 +1520,15 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             if (e.KeyCode == Keys.F4 || (e.Control && e.KeyCode==Keys.P))
             {
-                this.cmdPrintPres.PerformClick();
+                this.cmdPrintPres_Click(cmdPrintPres, new EventArgs());
             }
             if ((e.KeyCode == Keys.A) && e.Control)
             {
-                this.cmdAddDetail.PerformClick();
+                cmdAddDetail_Click(cmdAddDetail, new EventArgs());
             }
             if (e.KeyCode == Keys.S && e.Control)
             {
-                this.cmdSavePres.PerformClick();
+                this.cmdSavePres_Click(cmdSavePres, new EventArgs());
             }
             if (e.KeyCode == Keys.F3)
             {
@@ -2110,6 +2110,14 @@ namespace VNS.HIS.UI.NGOAITRU
                     this.hasChanged = true;
                     int num2 = Utility.Int32Dbnull(e.InitialValue, 0);
                     int num3 = Utility.Int32Dbnull(e.Value, 0);
+                    if (num3 <= 0)
+                    {
+                        Utility.ShowMsg("Nhập số lượng =0 hoặc để trống tương đương với việc xóa chi tiết thuốc. Bạn nên nháy chuột phải và chọn Xóa để thực hiện điều này");
+                        e.Value = num2;
+                        e.Cancel = true;
+                        grdPresDetail.Invalidate();
+                        return;
+                    }
                     int num4 = num3 - num2;
                     if (num3 != num2)
                     {
@@ -2638,7 +2646,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private void PerformAction(KcbDonthuocChitiet[] arrPresDetail)
         {
             this.isSaved = true;
-            
+           
             this.Create_ChandoanKetluan();
 
             switch (this.em_Action)
