@@ -5,6 +5,7 @@ using System.Text;
 using SubSonic;
 using VNS.Libs;
 using VNS.HIS.DAL;
+using System.Data;
 
 namespace VNS.Libs
 {
@@ -92,11 +93,10 @@ namespace VNS.Libs
            else
                TrangthaiBhyt = (byte)(globalVariables.gv_blnApdungChedoDuyetBHYT ? 0 : 1);
            if (Utility.Int32Dbnull(objChidinhChitiet.TrangthaiHuy, -1) == -1) objChidinhChitiet.TrangthaiHuy = 0;
-           DmucDichvuclsChitiet obServiceDetail =
-               DmucDichvuclsChitiet.FetchByID(Utility.Int32Dbnull(objChidinhChitiet.IdChitietdichvu));
-           if (obServiceDetail != null)
+           DataTable dtDichvu = SPs.SpDmucLaydoituongDichvuChitiet(objChidinhChitiet.IdChitietdichvu).GetDataSet().Tables[0];
+           if (dtDichvu != null && dtDichvu.Rows.Count>0)
            {
-               objChidinhChitiet.GiaDanhmuc = Utility.DecimaltoDbnull(obServiceDetail.DonGia);
+               objChidinhChitiet.GiaDanhmuc = Utility.DecimaltoDbnull(dtDichvu.Rows[0]["Don_Gia"]);
            }
            objChidinhChitiet.PtramBhyt = PTramBHYT;
            objChidinhChitiet.PtramBhytGoc = objLuotkham.PtramBhytGoc;
