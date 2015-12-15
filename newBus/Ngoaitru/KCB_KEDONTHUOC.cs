@@ -109,7 +109,7 @@ namespace VNS.HIS.BusRule.Classes
          {
              try
              {
-                 if (objKcbChandoanKetluan == null) return ActionResult.Cancel;
+                 if (objKcbChandoanKetluan == null || objKcbChandoanKetluan.IdBenhnhan <= 0 || objKcbChandoanKetluan.IdKham<=0) return ActionResult.Cancel;
                  using (TransactionScope scope = new TransactionScope())
                  {
                      using (SharedDbConnectionScope sh = new SharedDbConnectionScope())
