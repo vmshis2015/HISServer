@@ -52,6 +52,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private int v_AssignId = -1;
         string nhomchidinh = "";
         byte kieu_chidinh = 0;
+        
         #region "khai báo khởi tạo ban đầu"
         /// <summary>
         /// 
@@ -462,7 +463,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 cmdSave.Enabled = false;
                 SaveData();
-                Thread.Sleep(100); // Thời gian trễ 0.1  giây
+                
             }
             catch (Exception ex)
             {
@@ -498,7 +499,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 if (dtRegDate.Value.Date > objPhieudieutriNoitru.NgayDieutri.Value.Date)
                 {
-                    Utility.ShowMsg("Ngày kê đơn phải <= " + objPhieudieutriNoitru.NgayDieutri.Value.ToString("dd/MM/yyyy"));
+                    Utility.ShowMsg("Ngày chỉ định phải <= " + objPhieudieutriNoitru.NgayDieutri.Value.ToString("dd/MM/yyyy"));
                     dtRegDate.Focus();
                     return false;
                 }
@@ -1825,7 +1826,7 @@ namespace VNS.HIS.UI.NGOAITRU
             if (objKcbChidinhcls != null)
             {
                 txtAssignCode.Text = objKcbChidinhcls.MaChidinh;
-                dtRegDate.Value = objKcbChidinhcls.NgayTao.Value;
+                dtRegDate.Value = objKcbChidinhcls.NgayChidinh;
                 txtBacsi.SetId(Utility.sDbnull(objKcbChidinhcls.IdBacsiChidinh, ""));
             }
             else

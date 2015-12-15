@@ -254,6 +254,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
+                if (Utility.Int32Dbnull(txtDrugID.Text, -1) <= 0) return;
                 string errMsg = string.Empty;
                 string errMsg_temp = string.Empty;
                 this.setMsg(this.lblMsg, "", false);
@@ -872,6 +873,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     ((TextBox)control).Clear();
                 }
                 this.txtSoluong.Text = "1";
+                txtDrugID.Clear();
                 this.txtChiDanDungThuoc.Clear();
             }
             this.ModifyButton();
@@ -2553,9 +2555,10 @@ namespace VNS.HIS.UI.NGOAITRU
                             this.grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdChitietdonthuoc].Value, -1);
                     string s = "";
                     List<int> vals = this.GetIdChitiet(Utility.Int32Dbnull(this.grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.IdThuoc].Value, -1), Utility.DecimaltoDbnull(this.grdPresDetail.CurrentRow.Cells[KcbDonthuocChitiet.Columns.DonGia].Value, -1), ref s);
-                    if (new SubSonic.Select().From(KcbDonthuocChitiet.Schema).Where(KcbDonthuocChitiet.Columns.IdChitietdonthuoc).In(vals).And(KcbDonthuocChitiet.Columns.TrangthaiThanhtoan).IsEqualTo(1).GetRecordCount() > 0)
+                    DataTable dtTempt = SPs.SpKcbKiemtraThanhtoanChitietDonthuoc(String.Join(",", vals.ToArray())).GetDataSet().Tables[0];
+                    if (dtTempt != null && dtTempt.Rows.Count>0)
                     {
-                        this.setMsg(this.lblMsg, "Bản ghi đã thanh toán, bạn không thể xóa", true);
+                        this.setMsg(this.lblMsg, "Hệ thống phát hiện một số chi tiết đơn thuốc bạn chọn xóa đã được thanh toán nên bạn không thể xóa. Đề nghị kiểm tra lại", true);
                         this.grdPresDetail.Focus();
                     }
                     else if (!PropertyLib._ThamKhamProperties.Hoitruockhixoathuoc || Utility.AcceptQuestion("Bạn Có muốn xóa các "+(KIEU_THUOC_VT == "THUOC" ?"thuốc":"vật tư") +" đang chọn hay không?", "thông báo xóa", true))
