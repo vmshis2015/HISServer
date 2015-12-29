@@ -257,7 +257,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                     new Update(KcbPhieuDct.Schema).Set(KcbPhieuDct.Columns.TrangthaiXml).EqualTo(1).Where(
                         KcbPhieuDct.Columns.IdBenhnhan).IsEqualTo(id_benhnhan).And(KcbPhieuDct.Columns.MaLuotkham).
                         IsEqualTo(maluot_kham).Execute();
+                   // row.Cells["trangthai_xml"].Value = 1;
                 }
+                Utility.SetMsg(lblmsg,string.Format("Tổng số File XML là {0} file",grdList.GetCheckedRows()),false);
             }
             catch (Exception ex)
             {
@@ -274,6 +276,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             }
         }
         private string sLocalFilePath;
+        private string sFileNgay;
         private string sFileName;
         private DataSet dtXML = new DataSet();
         private XmlWriter xmlWriter = null;
@@ -281,6 +284,14 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             try
             {
+                if (dtFromDate.Value == dtToDate.Value)
+                {
+                    sFileNgay = dtFromDate.Value.ToString("ddMMyyyy");
+                }
+                else
+                {
+                    sFileNgay = string.Format("{0}-{1}", dtFromDate.Value.ToString("ddMMyyyy"), dtToDate.Value.ToString("ddMMyyyy"));
+                }
                  dtXML = SPs.ViettelLaythongtinDuyetbaohiem(Utility.sDbnull(maluotKham, ""),
                                                                    Utility.Int32Dbnull(idBenhnhan, -1)).GetDataSet();
                 if(dtXML.Tables[0].Rows.Count <=0) return false;
@@ -294,7 +305,10 @@ namespace  VNS.HIS.UI.THANHTOAN
                 };
                 sFileName = Utility.sDbnull(dtXML.Tables[2].Rows[0]["NGAY_VAO"]) + "_" +
                             Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_THE"]) + "_CheckOut.xml";
-                sLocalFilePath = _sLocalPath + "\\" + sFileName;
+                string sDirectory = _sLocalPath + "\\" + sFileNgay;
+                if (!Directory.Exists(sDirectory)) Directory.CreateDirectory(sDirectory);
+                sLocalFilePath = _sLocalPath + "\\" + sFileNgay + "\\" + sFileName;
+              
                 xmlWriter = XmlWriter.Create(sLocalFilePath, xmlWriterSettings);
                 ProcessXMLWrite();
                 grdList.UnCheckAllRecords();

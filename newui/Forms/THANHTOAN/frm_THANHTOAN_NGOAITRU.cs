@@ -184,10 +184,10 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             ChangeMenu(grdThongTinChuaThanhToan.CurrentRow);
         }
+
         bool UpdateTutuc(long Id, int id_loaithanhtoan,byte tu_tuc,ref decimal BNCT,ref decimal BHCT)
         {
             bool reval = false;
-           
             try
             {
                 switch (id_loaithanhtoan)
@@ -1189,7 +1189,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 objBenhnhan = KcbDanhsachBenhnhan.FetchByID(txtPatient_ID.Text);
                 objLuotkham = CreatePatientExam();
                 mnuUpdatePrice.Enabled = objLuotkham != null;
-              DataTable  m_dtThongTin = _THANHTOAN.LaythongtinBenhnhan(txtPatient_Code.Text,
+                DataTable  m_dtThongTin = _THANHTOAN.LaythongtinBenhnhan(txtPatient_Code.Text,
                     Utility.Int32Dbnull(txtPatient_ID.Text, -1));
                 gridExRow = grdList.GetRow();
                 if (!Utility.isValidGrid(grdList) )
@@ -1374,8 +1374,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                
                 SetSumTotalProperties();
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:"+ex.Message);
             }
         }
 
@@ -1414,9 +1415,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                     grd.EndEdit();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Utility.ShowMsg("Có lỗi trong quá trình lấy danh sách chi phí thanh toán");
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
         }
 
@@ -1429,8 +1430,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                     _THANHTOAN.LayThongtinDaThanhtoan(txtPatient_Code.Text, Utility.Int32Dbnull(txtPatient_ID.Text), 0);
                 Utility.SetDataSourceForDataGridEx(grdThongTinDaThanhToan, m_dtChiPhiDaThanhToan, false, true, "1=1", "");
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
         }
 
@@ -1448,8 +1450,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                 }
                 grdThongTinChuaThanhToan.UpdateData();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
         }
         decimal Chuathanhtoan = 0m;
@@ -1585,8 +1588,10 @@ namespace  VNS.HIS.UI.THANHTOAN
                
                 ModifyCommand();
             }
-            catch
-            { }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
+            }
         }
 
         private void TinhToanSoTienPhaithu()
@@ -1609,10 +1614,10 @@ namespace  VNS.HIS.UI.THANHTOAN
                 txtTienChietkhau.Text = Utility.sDbnull( Chietkhauchitiet);
                 ModifyCommand();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
-            //decimal thanhtien =
         }
 
         private GridEXColumn getGridExColumn(GridEX gridEx, string colName)
@@ -1738,9 +1743,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Utility.ShowMsg("Có lỗi trong quá trình lấy thông tin mẫu hóa đơn trên lưới.");
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
         }
 
@@ -2845,8 +2850,9 @@ namespace  VNS.HIS.UI.THANHTOAN
             {
                 getData();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
                 //throw;
             }
             //grdList_ColumnButtonClick(grdList,col);
