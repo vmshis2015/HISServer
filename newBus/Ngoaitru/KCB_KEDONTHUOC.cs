@@ -114,7 +114,8 @@ namespace VNS.HIS.BusRule.Classes
                  {
                      using (SharedDbConnectionScope sh = new SharedDbConnectionScope())
                      {
-                         if (objKcbChandoanKetluan.IsNew )
+                         SqlQuery sqlkt = new Select().From(KcbChandoanKetluan.Schema).Where(KcbChandoanKetluan.Columns.IdKham).IsEqualTo(objKcbChandoanKetluan.IdKham);
+                         if (objKcbChandoanKetluan.IsNew && sqlkt.GetRecordCount()<=0)
                          {
                             var sp= SPs.SpKcbThemmoiChandoanKetluan(objKcbChandoanKetluan.IdChandoan, objKcbChandoanKetluan.IdKham, objKcbChandoanKetluan.IdBenhnhan, objKcbChandoanKetluan.MaLuotkham
                                  , objKcbChandoanKetluan.IdBacsikham, objKcbChandoanKetluan.NgayChandoan, objKcbChandoanKetluan.NguoiTao, objKcbChandoanKetluan.NgayTao, objKcbChandoanKetluan.IdKhoanoitru
@@ -501,12 +502,7 @@ namespace VNS.HIS.BusRule.Classes
                              objChitietDonthuoc.IsNew = false;
                              objChitietDonthuoc.MarkOld();
                              objChitietDonthuoc.Save();
-                         }
-                         
-
-                        
-
-                     }
+                         }          }
                      scope.Complete();
                      return ActionResult.Success;
                  }

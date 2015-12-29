@@ -367,7 +367,7 @@ namespace VNS.HIS.BusRule.Classes
                             new Delete().From(KcbDonthuocChitiet.Schema).Where(KcbDonthuocChitiet.Columns.IdKham).IsEqualTo(
                                objKcbDangkyKcb.IdKham).Execute();
 
-                            KcbDangkyKcbCollection lstKham=new Select().From(KcbDangkyKcb.Schema).Where(KcbDangkyKcb.Columns.IdBenhnhan).IsEqualTo(objKcbDangkyKcb.IdBenhnhan)
+                            KcbDangkyKcbCollection lstKham =new Select().From(KcbDangkyKcb.Schema).Where(KcbDangkyKcb.Columns.IdBenhnhan).IsEqualTo(objKcbDangkyKcb.IdBenhnhan)
                                 .And(KcbDangkyKcb.Columns.MaLuotkham).IsEqualTo(objKcbDangkyKcb.MaLuotkham).ExecuteAsCollection<KcbDangkyKcbCollection>();
                             if (lstKham.Count <= 0)
                             {

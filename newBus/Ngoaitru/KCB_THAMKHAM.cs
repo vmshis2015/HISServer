@@ -5,10 +5,6 @@ using System.Linq;
 using SubSonic;
 using VNS.Libs;
 using VNS.HIS.DAL;
-
-using System.Text;
-
-using SubSonic;
 using NLog;
 
 namespace VNS.HIS.BusRule.Classes
@@ -146,7 +142,8 @@ namespace VNS.HIS.BusRule.Classes
                         SqlQuery sqlQuery = new Select().From(
                                                      KcbChandoanKetluan.Schema)
                                .Where(KcbChandoanKetluan.Columns.MaLuotkham).IsEqualTo(objPatientExam.MaLuotkham)
-                               .And(KcbChandoanKetluan.Columns.IdBenhnhan).IsEqualTo(objPatientExam.IdBenhnhan).OrderAsc(
+                               .And(KcbChandoanKetluan.Columns.IdBenhnhan).IsEqualTo(objPatientExam.IdBenhnhan)
+                               .And(KcbChandoanKetluan.Columns.IdKham).IsEqualTo(objRegExam.IdKham).OrderAsc(
                                    KcbChandoanKetluan.Columns.NgayChandoan);
                         KcbChandoanKetluanCollection objInfoCollection = sqlQuery.ExecuteAsCollection<KcbChandoanKetluanCollection>();
                         var query = (from chandoan in objInfoCollection.AsEnumerable()
@@ -171,6 +168,7 @@ namespace VNS.HIS.BusRule.Classes
                                             where (y != "")
                                             select y).ToArray();
                         string mabenhphu = string.Join(";", querybenhphu);
+
                         new Update(KcbLuotkham.Schema)
                             .Set(KcbLuotkham.Columns.MabenhChinh).EqualTo(mabenhchinh)
                             .Set(KcbLuotkham.Columns.MabenhPhu).EqualTo(mabenhphu)
