@@ -105,8 +105,8 @@ namespace VNS.HIS.UI.Baocao
                     BAOCAO_NGOAITRU.BaoCaoThongkeChuyenVienDi(chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
                     chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate, Utility.Int32Dbnull(cboNoichuyenden.SelectedValue, -1),Utility.Int32Dbnull(cboNTNT.SelectedValue,-1),
                     Utility.Int32Dbnull(cboDoituongKCB.SelectedValue,-1));
-                    //THU_VIEN_CHUNG
-                    //    .CreateXML(_reportTable, "baocao_thongke_chuyendi.XML");
+                    THU_VIEN_CHUNG
+                        .CreateXML(_reportTable, "baocao_thongke_chuyendi.XML");
                     Utility.SetDataSourceForDataGridEx(grdChuyendi, _reportTable, false, true, "1=1", "");
                 }
                 else
@@ -115,8 +115,8 @@ namespace VNS.HIS.UI.Baocao
                     BAOCAO_NGOAITRU.BaoCaoThongkeChuyenVienDen(chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
                     chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate, Utility.Int32Dbnull(cboNoichuyenden.SelectedValue,-1),Utility.Int32Dbnull(cboNTNT.SelectedValue,-1),
                     Utility.Int32Dbnull(cboDoituongKCB.SelectedValue,-1));
-                       //THU_VIEN_CHUNG
-                       //   .CreateXML(_reportTable, "baocao_thongke_chuyenden.XML");
+                       THU_VIEN_CHUNG
+                          .CreateXML(_reportTable, "baocao_thongke_chuyenden.XML");
                     Utility.SetDataSourceForDataGridEx(grdChuyenDen, _reportTable, false, true, "1=1", "");
                 }
                     
@@ -150,7 +150,7 @@ namespace VNS.HIS.UI.Baocao
                 Utility.SetParameterValue(crpt, "sTitleReport", tieude);
                 Utility.SetParameterValue(crpt, "CurrentDate", Utility.FormatDateTimeWithThanhPho(dtNgayInPhieu.Value));
                 Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
-
+                Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
             }

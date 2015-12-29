@@ -9,16 +9,16 @@ using VNS.Libs;
 
 namespace VNS.HIS.UI.Forms.Baocao.ThongKe
 {
-    public partial class frm_thongke_danhsachbenhnhanh_phongchucnang : Form
+    public partial class frm_BHYT_baocao_dongchitra : Form
     {
         private string Args = "ALL";
 
         private string reportname = "";
         private string tieude = "";
 
-        public frm_thongke_danhsachbenhnhanh_phongchucnang(string sthamso)
+        public frm_BHYT_baocao_dongchitra()
         {
-            Args = sthamso;
+         //   Args = sthamso;
             InitializeComponent();
         }
 
@@ -26,10 +26,6 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
         {
             try
             {
-                DataBinding.BindDataCombobox(cboDoituongKCB, THU_VIEN_CHUNG.LaydanhsachDoituongKcb(),
-                                             DmucDoituongkcb.Columns.IdDoituongKcb,
-                                             DmucDoituongkcb.Columns.TenDoituongKcb,
-                                             "Chọn đối tượng KCB", true);
                 DataTable m_dtKhoathucHien = THU_VIEN_CHUNG.Laydanhmuckhoa("NGOAI", 0);
                 DataBinding.BindDataCombobox(cboKhoa, m_dtKhoathucHien,
                                              DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
@@ -45,28 +41,6 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
                     cboKhoa.SelectedValue = globalVariables.MA_KHOA_THIEN;
                 }
                 dtFromDate.Value = dtToDate.Value = dtNgayInPhieu.Value = DateTime.Now;
-                string reportcode = "";
-                baocaO_TIEUDE1.TIEUDE = "";
-                switch (Args.Substring(0, 2))
-                {
-                    case "SA":
-                        reportcode = "baocao_thongkedanhsach_sieuam";
-                        break;
-                    case "XQ":
-                        reportcode = "baocao_thongkedanhsach_xquang";
-                        break;
-                    case "DT":
-                        reportcode = "baocao_thongkedanhsach_dientim";
-                        break;
-                    case "NS":
-                        reportcode = "baocao_thongkedanhsach_noisoi";
-                        break;
-                    default:
-                         reportcode = "baocao_thongkedanhsach_noisoi";
-                        break;
-                }
-                Utility.GetReport(reportcode, ref tieude, ref reportname);
-                baocaO_TIEUDE1.TIEUDE = tieude;
             }
             catch (Exception ex)
             {
@@ -77,43 +51,20 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
         private void cmdInPhieu_Click(object sender, EventArgs e)
         {
             int trangthai = -1;
-            if (radTatca.Checked) trangthai = -1;
-            if (radDathuchien.Checked) trangthai = 1;
-            if (radChuathuchien.Checked) trangthai = 0;
+        
             DataTable dtDanhsach =
-                SPs.BaocaoThongkedanhsachThuchienchucnang(dtFromDate.Value, dtToDate.Value,
-                                                          Utility.Int16Dbnull(cboDoituongKCB.SelectedValue, -1),
-                                                          Utility.sDbnull(cboKhoa.SelectedValue, "KKB"), Args, trangthai)
+                SPs.BhytBaocaoDongchitra(dtFromDate.Value, dtToDate.Value,
+                                                          Utility.sDbnull(cboKhoa.SelectedValue, "KKB"),globalVariables.gv_intIDNhanvien,trangthai)
                     .GetDataSet().Tables[0];
             Utility.SetDataSourceForDataGridEx(grdResult,dtDanhsach,false,false,"","");
           
-            THU_VIEN_CHUNG.CreateXML(dtDanhsach, "baocao_thongkedanhsach_chucnang.XML");
+            THU_VIEN_CHUNG.CreateXML(dtDanhsach, "BHYT_baocao_dongchitra.XML");
             Utility.UpdateLogotoDatatable(ref dtDanhsach);
-            string reportCode = "";
-            switch (Args.Substring(0,2))
-            {
-                case "SA":
-                    reportCode = "baocao_thongkedanhsach_sieuam";
-                    break;
-                case "XQ":
-                    reportCode = "baocao_thongkedanhsach_xquang";
-                    break;
-                case "DT":
-                    reportCode = "baocao_thongkedanhsach_dientim";
-                    break;
-                case "NS":
-                    reportCode = "baocao_thongkedanhsach_noisoi";
-                    break;
-            }
+            string reportCode = "BHYT_baocao_dongchitra";
+           
             string Condition =
-                string.Format("Từ ngày {0} đến {1} - Đối tượng : {2} - Khoa KCB :{3}",
-                              dtFromDate.Text, dtToDate.Text,
-                              cboDoituongKCB.SelectedIndex >= 0
-                                  ? Utility.sDbnull(cboDoituongKCB.Text)
-                                  : "Tất cả",
-                              cboKhoa.SelectedIndex > 0
-                                  ? Utility.sDbnull(cboKhoa.Text)
-                                  : "Tất cả");
+                string.Format("Từ ngày {0} đến {1} - Khoa KCB :{2}",
+                              dtFromDate.Text, dtToDate.Text,globalVariables.MA_KHOA_THIEN);
             ReportDocument crpt = Utility.GetReport(reportCode, ref tieude, ref reportname);
             if (crpt == null) return;
 

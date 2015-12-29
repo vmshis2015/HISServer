@@ -145,6 +145,9 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
                         Utility.SetParameterValue(crpt,"sTitleReport", baocaO_TIEUDE1.txtTieuDe.Text);
                         Utility.SetParameterValue(crpt,"NTN", Utility.FormatDateTimeWithThanhPho(dtCreateDate.Value));
                         Utility.SetParameterValue(crpt,"TongTien", ChuyenDoiSoThanhChu());
+                        Utility.SetParameterValue(crpt, "txtTrinhky",
+                                                           Utility.getTrinhky(objForm.mv_sReportFileName,
+                                                                              globalVariables.SysDate));
                         objForm.crptViewer.ReportSource = crpt;
                         if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai, view))
                         {
@@ -156,6 +159,7 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
                             crpt.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
                             crpt.PrintToPrinter(1, false, 0, 0);
                         }
+                        Utility.FreeMemory(crpt);
 
                     }
                     //Báo cáo tổng hợp
@@ -180,6 +184,9 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
                         Utility.SetParameterValue(crpt,"sTitleReport", baocaO_TIEUDE1.txtTieuDe.Text);
                         Utility.SetParameterValue(crpt,"NTN", Utility.FormatDateTimeWithThanhPho(dtCreateDate.Value));
                         Utility.SetParameterValue(crpt,"TongTien", ChuyenDoiSoThanhChu());
+                        Utility.SetParameterValue(crpt, "txtTrinhky",
+                                                           Utility.getTrinhky(objForm.mv_sReportFileName,
+                                                                              globalVariables.SysDate));
                         objForm.crptViewer.ReportSource = crpt;
                         if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai, view))
                         {
@@ -191,6 +198,7 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
                             crpt.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
                             crpt.PrintToPrinter(1, false, 0, 0);
                         }
+                        Utility.FreeMemory(crpt);
                     }
                     else
                     {
