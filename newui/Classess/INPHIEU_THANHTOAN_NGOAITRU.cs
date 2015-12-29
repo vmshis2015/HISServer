@@ -342,14 +342,14 @@ namespace VNS.HIS.Classes
        {
            Utility.UpdateLogotoDatatable(ref m_dtReportPhieuThu);
            THU_VIEN_CHUNG.Sapxepthutuin(ref m_dtReportPhieuThu,true);
-           m_dtReportPhieuThu.DefaultView.Sort = "stt_in ,stt_hthi_dichvu,stt_hthi_chitiet,stt_in_thuoc,ten_chitietdichvu";
+           m_dtReportPhieuThu.DefaultView.Sort = "stt_in,stt_hthi_dichvu,stt_hthi_chitiet,stt_in_thuoc,ten_chitietdichvu";
            m_dtReportPhieuThu.AcceptChanges();
 
             string tieude="", reportname = "";
-           //svar crpt = Utility.GetReport("BHYT_InPhoi" ,ref tieude,ref reportname);
-           VMS.HISLink.Report.Report.BHYT_InPhoi crpt = new VMS.HISLink.Report.Report.BHYT_InPhoi();
-           tieude = "BẢNG KÊ CHI PHÍ KHÁM BỆNH, CHỮA BỆNH NGOẠI TRÚ";
-           reportname = "BHYT_InPhoi.RPT".ToUpper();
+           var crpt = Utility.GetReport("BHYT_InPhoi" ,ref tieude,ref reportname);
+          // VMS.HISLink.Report.Report.BHYT_InPhoi crpt = new VMS.HISLink.Report.Report.BHYT_InPhoi();
+          // tieude = "BẢNG KÊ CHI PHÍ KHÁM BỆNH, CHỮA BỆNH NGOẠI TRÚ";
+           //reportname = "BHYT_InPhoi.RPT".ToUpper();
            if (crpt == null) return;
            frmPrintPreview objForm = new frmPrintPreview(tieude, crpt, true, true);
            objForm.NGAY = NGAYINPHIEU;

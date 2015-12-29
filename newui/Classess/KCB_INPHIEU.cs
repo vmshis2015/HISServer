@@ -52,6 +52,7 @@ namespace VNS.HIS.Classes
                 crpt.SetDataSource(m_dtReport);
                 Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone + globalVariables.SOMAYLE);
                 Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
                 Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
                 Utility.SetParameterValue(crpt, "CurrentDate", Utility.FormatDateTime(globalVariables.SysDate));
                 Utility.SetParameterValue(crpt, "sTitleReport", tieude);
@@ -76,6 +77,10 @@ namespace VNS.HIS.Classes
             catch (Exception ex)
             {
                 Utility.ShowMsg(ex.ToString());
+            }
+            finally
+            {
+                Utility.FreeMemory(crpt);
             }
         }
 
