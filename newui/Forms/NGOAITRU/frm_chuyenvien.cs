@@ -59,9 +59,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
 
         void cmdPrint_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Utility.WaitNow(this);
+              Utility.WaitNow(this);
                 DataTable dtData =
                                  SPs.KcbThamkhamPhieuchuyenvien(Utility.DoTrim(txtMaluotkham.Text)).GetDataSet().Tables[0];
 
@@ -78,6 +76,9 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 string tieude = "", reportname = "";
                 ReportDocument crpt = Utility.GetReport("thamkham_phieuchuyenvien", ref tieude, ref reportname);
                 if (crpt == null) return;
+                try
+                {
+             
                 frmPrintPreview objForm = new frmPrintPreview("PHIẾU CHUYỂN TUYẾN", crpt, true, dtData.Rows.Count <= 0 ? false : true);
                 crpt.SetDataSource(dtData);
                
@@ -104,6 +105,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             {
                 Utility.DefaultNow(this);
                  GC.Collect();
+                 Utility.FreeMemory(crpt);
             }
         }
         void cmdGetBV_Click(object sender, EventArgs e)
@@ -229,6 +231,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                     _phieuchuyenvien.IsNew = true;
                     _phieuchuyenvien.NgayTao = globalVariables.SysDate;
                     _phieuchuyenvien.NguoiTao = globalVariables.UserName;
+                    _phieuchuyenvien.SoChuyentuyen = Utility.Int32Dbnull(GetmaxSoChuyenVien());
                 }
                 else
                 {
@@ -237,6 +240,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                     _phieuchuyenvien.MarkOld();
                     _phieuchuyenvien.NguoiSua = globalVariables.UserName;
                     _phieuchuyenvien.NgaySua = globalVariables.SysDate;
+                    _phieuchuyenvien.SoChuyentuyen = Utility.Int32Dbnull(txtsochuyenvien.Text, -1);
                 }
                 _phieuchuyenvien.IdBenhnhan = objLuotkham.IdBenhnhan;
                 _phieuchuyenvien.MaLuotkham = objLuotkham.MaLuotkham;
@@ -258,7 +262,6 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 _phieuchuyenvien.IdKhoanoitru = Utility.Int32Dbnull(txtIdkhoanoitru.Text, -1);
                 _phieuchuyenvien.IdBuong = Utility.Int32Dbnull(txtidBuong.Text, -1);
                 _phieuchuyenvien.IdGiuong = Utility.Int32Dbnull(txtidgiuong.Text, -1);
-                _phieuchuyenvien.SoChuyentuyen = Utility.Int32Dbnull(txtsochuyenvien.Text, -1);
                 using (var scope = new TransactionScope())
                 {
                     using (var dbscope = new SharedDbConnectionScope())
@@ -266,6 +269,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                         _phieuchuyenvien.Save();
                         objLuotkham.TthaiChuyendi = 1;
                         objLuotkham.IdBacsiChuyenvien = _phieuchuyenvien.IdBacsiChuyenvien;
+                     
                         objLuotkham.NgayRavien = _phieuchuyenvien.NgayChuyenvien;
                         objLuotkham.KetLuan = "Chuyển viện";
                         objLuotkham.HuongDieutri = "Chuyển viện";

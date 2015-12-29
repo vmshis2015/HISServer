@@ -1155,7 +1155,7 @@
             this.txtChanDoanKemTheo.FillValueAfterSelect = false;
             this.txtChanDoanKemTheo.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtChanDoanKemTheo.LOAI_DANHMUC = "CHANDOANKEMTHEO";
-            this.txtChanDoanKemTheo.Location = new System.Drawing.Point(101, 157);
+            this.txtChanDoanKemTheo.Location = new System.Drawing.Point(101, 156);
             this.txtChanDoanKemTheo.MaxHeight = 200;
             this.txtChanDoanKemTheo.MinTypedCharacters = 2;
             this.txtChanDoanKemTheo.MyCode = "-1";
@@ -3505,8 +3505,8 @@
         private Janus.Windows.GridEX.EditControls.EditBox txtMaBenhAn;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label24;
-        private UCs.AutoCompleteTextbox_Danhmucchung txtChanDoanKemTheo;
         private MaskedTextBox.MaskedTextBox txtSoNgayHen;
         private System.Windows.Forms.Label label27;
+        private UCs.AutoCompleteTextbox_Danhmucchung txtChanDoanKemTheo;
     }
 }

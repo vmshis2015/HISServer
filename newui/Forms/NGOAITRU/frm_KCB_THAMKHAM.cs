@@ -235,6 +235,7 @@ namespace VNS.HIS.UI.NGOAITRU
             txtKet_Luan._OnSaveAs += txtKet_Luan__OnSaveAs;
             txtHuongdieutri._OnSaveAs += txtHuongdieutri__OnSaveAs;
             txtChanDoan._OnSaveAs += txtChanDoan__OnSaveAs;
+            txtChanDoanKemTheo._OnSaveAs += txtChanDoanKemTheo__OnSaveAs;
             txtNhanxet._OnSaveAs += txtNhanxet__OnSaveAs;
 
             cmdThemphieuVT.Click += cmdThemphieuVT_Click;
@@ -330,13 +331,13 @@ namespace VNS.HIS.UI.NGOAITRU
         }
         private void txtChanDoanKemTheo__OnSaveAs()
         {
-            if (Utility.DoTrim(txtChanDoan.Text) == "") return;
+            if (Utility.DoTrim(txtChanDoanKemTheo.Text) == "") return;
             var _DMUC_DCHUNG = new DMUC_DCHUNG(txtChanDoanKemTheo.LOAI_DANHMUC);
             _DMUC_DCHUNG.SetStatus(true, txtChanDoanKemTheo.Text);
             _DMUC_DCHUNG.ShowDialog();
             if (!_DMUC_DCHUNG.m_blnCancel)
             {
-                string oldCode = txtChanDoan.myCode;
+                string oldCode = txtChanDoanKemTheo.myCode;
                 txtChanDoanKemTheo.Init();
                 txtChanDoanKemTheo.SetCode(oldCode);
                 txtChanDoanKemTheo.Focus();
@@ -1425,6 +1426,7 @@ namespace VNS.HIS.UI.NGOAITRU
             txtKet_Luan.Init();
             txtNhommau.Init();
             txtNhanxet.Init();
+            txtChanDoanKemTheo.Init();
         }
 
         private void frm_KCB_THAMKHAM_Load(object sender, EventArgs e)
@@ -1950,8 +1952,6 @@ namespace VNS.HIS.UI.NGOAITRU
                                     if (!string.IsNullOrEmpty(Utility.sDbnull(_KcbChandoanKetluan.Nhommau)) &&
                                         Utility.sDbnull(_KcbChandoanKetluan.Nhommau) != "-1")
                                         txtNhommau._Text = Utility.sDbnull(_KcbChandoanKetluan.Nhommau);
-
-
                                     isLike = false;
                                     txtChanDoan._Text = Utility.sDbnull(_KcbChandoanKetluan.Chandoan);
                                     txtChanDoanKemTheo.Text = Utility.sDbnull(_KcbChandoanKetluan.ChandoanKemtheo);
@@ -3222,7 +3222,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     soluongin = File.Exists(UserPrintNumberFile) ? Utility.Int32Dbnull(File.ReadAllText(UserPrintNumberFile)) : 1;
                     crpt.PrintToPrinter(soluongin, false, 0, 0);
                 }
-
+                Utility.FreeMemory(crpt);
                 List<int> lstKho =
                     dsData.Tables[2].AsEnumerable().Select(c => c.Field<int>("id_kho")).Distinct().ToList();
                 List<byte> listtutuc = dsData.Tables[2].AsEnumerable().Select(c => c.Field<byte>("tu_tuc")).Distinct().ToList();
@@ -3282,7 +3282,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             crpt1.PrintToPrinter(1, false, 0, 0);
                         }
                     }
-                    
+                    Utility.FreeMemory(crpt);
                 }
                 return true;
             }
@@ -4316,9 +4316,9 @@ namespace VNS.HIS.UI.NGOAITRU
                     txtMaBenhChinh.Text = frm._MabenhChinh;
                     txtChanDoan._Text = frm._Chandoan;
                     dt_ICD_PHU = frm.dt_ICD_PHU;
-                    if (frm._KcbChandoanKetluan != null) _KcbChandoanKetluan = frm._KcbChandoanKetluan;
+                    if (frm._KcbChandoanKetluan != null) 
+                        _KcbChandoanKetluan = frm._KcbChandoanKetluan;
                     Laythongtinchidinhngoaitru();
-
                     Utility.GotoNewRowJanus(grdPresDetail, KcbDonthuoc.Columns.IdDonthuoc,
                                             Utility.sDbnull(frm.txtPres_ID.Text));
                 }

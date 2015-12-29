@@ -1066,7 +1066,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void Create_ChandoanKetluan()
         {
-            if (((Utility.DoTrim(this.txtTenBenhChinh.Text) != "") || (this.grd_ICD.GetDataRows().Length > 0)) || (Utility.DoTrim(this.txtChanDoan.Text) != ""))
+            if (((Utility.DoTrim(this.txtTenBenhChinh.Text) != "") || (this.grd_ICD.GetDataRows().Length > 0)) || (Utility.DoTrim(this.txtChanDoan.Text) != "") )
             {
                 if (this._KcbChandoanKetluan == null) this._KcbChandoanKetluan = new KcbChandoanKetluan();
                 this._KcbChandoanKetluan.IdKham = this.id_kham;

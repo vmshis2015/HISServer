@@ -1083,7 +1083,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         newDr[KcbChidinhclsChitiet.Columns.PhuThu] =
                             Utility.DecimaltoDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.PhuThu].Value, 0);
                         //Không tự túc thì tính theo giá BHYT nếu là BN BHYT
-                        if (Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.TuTuc].Value, 0) == 0)
+                        if (Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.TuTuc].Value, 0) == 0 && chkTutuc.Checked == false)
                         {
                             decimal BHCT = 0m;
                             if (objLuotkham.DungTuyen == 1)
@@ -1102,12 +1102,15 @@ namespace VNS.HIS.UI.NGOAITRU
                                 BHCT;
                             newDr[KcbChidinhclsChitiet.Columns.BhytChitra] = BHCT;
                             newDr[KcbChidinhclsChitiet.Columns.BnhanChitra] = BNCT;
+                            //newDr[KcbChidinhclsChitiet.Columns.TuTuc] = Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.TuTuc].Value);
+                            newDr[KcbChidinhclsChitiet.Columns.TuTuc] = Utility.Int32Dbnull(chkTutuc.Checked);
                         }
                         else//Tự túc
                         {
                             newDr[KcbChidinhclsChitiet.Columns.BhytChitra] = 0;
                             newDr[KcbChidinhclsChitiet.Columns.BnhanChitra] =
                                 Utility.DecimaltoDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.DonGia].Value, 0);
+                            newDr[KcbChidinhclsChitiet.Columns.TuTuc] = Utility.Int32Dbnull(chkTutuc.Checked);
                         }
                         newDr["TT_BHYT"] = (Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.BhytChitra], 0)) * Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
                         newDr["TT_BN"] = (Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) + Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
@@ -1606,7 +1609,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     newDr[KcbChidinhclsChitiet.Columns.PhuThu] =
                         Utility.DecimaltoDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.PhuThu].Value, 0);
                     //Không tự túc thì tính theo giá BHYT nếu là BN BHYT
-                    if (Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.TuTuc].Value, 0) == 0)
+                    if (Utility.Int32Dbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.TuTuc].Value, 0) == 0 && chkTutuc.Checked == false)
                     {
                         decimal BHCT = 0m;
                         if (objLuotkham.DungTuyen == 1)
@@ -1625,12 +1628,14 @@ namespace VNS.HIS.UI.NGOAITRU
                             BHCT;
                         newDr[KcbChidinhclsChitiet.Columns.BhytChitra] = BHCT;
                         newDr[KcbChidinhclsChitiet.Columns.BnhanChitra] = BNCT;
+                        newDr[KcbChidinhclsChitiet.Columns.TuTuc] = chkTutuc.Checked;
                     }
                     else//Tự túc
                     {
                         newDr[KcbChidinhclsChitiet.Columns.BhytChitra] = 0;
                         newDr[KcbChidinhclsChitiet.Columns.BnhanChitra] =
                             Utility.DecimaltoDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.DonGia].Value, 0);
+                        newDr[KcbChidinhclsChitiet.Columns.TuTuc] = chkTutuc.Checked;
                     }
                     newDr["TT_BHYT"] = (Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.BhytChitra], 0)) * Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
                     newDr["TT_BN"] = (Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) + Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
