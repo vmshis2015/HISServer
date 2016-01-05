@@ -93,7 +93,7 @@ namespace VNS.Libs
            else
                TrangthaiBhyt = (byte)(globalVariables.gv_blnApdungChedoDuyetBHYT ? 0 : 1);
            if (Utility.Int32Dbnull(objChidinhChitiet.TrangthaiHuy, -1) == -1) objChidinhChitiet.TrangthaiHuy = 0;
-           DataTable dtDichvu = SPs.SpDmucLaydoituongDichvuChitiet(objChidinhChitiet.IdChitietdichvu).GetDataSet().Tables[0];
+           DataTable dtDichvu =  SPs.SpKcbLaydoituongDichvuChitiet(objChidinhChitiet.IdChitietdichvu).GetDataSet().Tables[0];
            if (dtDichvu != null && dtDichvu.Rows.Count>0)
            {
                objChidinhChitiet.GiaDanhmuc = Utility.DecimaltoDbnull(dtDichvu.Rows[0]["Don_Gia"]);

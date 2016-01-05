@@ -2611,6 +2611,8 @@ namespace VNS.HIS.BusRule.Classes
 
                         new Update(KcbLuotkham.Schema)
                             .Set(KcbLuotkham.Columns.MabenhChinh).EqualTo(ICDCode)
+                            .Set(KcbLuotkham.Columns.NguoiKetthuc).EqualTo(globalVariables.UserName)
+                            .Set(KcbLuotkham.Columns.NgayKetthuc).EqualTo(globalVariables.SysDate)
                             .Set(KcbLuotkham.Columns.Locked).EqualTo(1)
                             .Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                             .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham).Execute();
@@ -2641,6 +2643,7 @@ namespace VNS.HIS.BusRule.Classes
                             objChuandoanKetluan.IpMaytao = globalVariables.gv_strIPAddress;
                             objChuandoanKetluan.Noitru = 0;
                             objChuandoanKetluan.IsNew = true;
+                            objChuandoanKetluan.Save();
                         }
                        
                     }
