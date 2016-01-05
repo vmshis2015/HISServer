@@ -1878,7 +1878,7 @@ namespace VNS.HIS.BusRule.Classes
 
                         objLuotkham.MaLuotkham = THU_VIEN_CHUNG.KCB_SINH_MALANKHAM((byte)(objKcbDanhsachBenhnhan.KieuBenhnhan == 0 ? 0 : 1));
                         objLuotkham.IdBenhnhan = objKcbDanhsachBenhnhan.IdBenhnhan;
-                        objLuotkham.SoBenhAn = string.Empty;
+                       // objLuotkham.SoBenhAn = string.Empty;
                         objLuotkham.IdLichsuDoituongKcb = objLichsuKcb.IdLichsuDoituongKcb;
                         objLuotkham.SttKham = THU_VIEN_CHUNG.LaySTTKhamTheoDoituong(objLuotkham.IdDoituongKcb);
                         objLuotkham.NgayTao = globalVariables.SysDate;
@@ -1893,7 +1893,7 @@ namespace VNS.HIS.BusRule.Classes
                             , objLuotkham.TrangthaiNoitru, objLuotkham.Locked, objLuotkham.TthaiThopNoitru, objLuotkham.TthaiThanhtoannoitru, objLuotkham.NoiGioithieu
                             , objLuotkham.Email, objLuotkham.NhomBenhnhan, objLuotkham.GiayBhyt, objLuotkham.MadtuongSinhsong, objLuotkham.IpMaytao, objLuotkham.TenMaytao
                             , objLuotkham.IdLichsuDoituongKcb, objLuotkham.CachTao, objLuotkham.KieuKham, objLuotkham.TraKQPhongchuyenmon, objLuotkham.TraKQFax
-                            , objLuotkham.TraKQMail, objLuotkham.TraKQEmail, objLuotkham.SosanhQcvn, objLuotkham.MotaThem, objLuotkham.NgayTao, objLuotkham.NguoiTao, objLuotkham.LastActionName);
+                            , objLuotkham.TraKQMail, objLuotkham.TraKQEmail, objLuotkham.SosanhQcvn, objLuotkham.MotaThem, objLuotkham.NgayTao, objLuotkham.NguoiTao, objLuotkham.LastActionName,objLuotkham.SoBenhAn);
 
                         sp.Execute();
                         log.Trace("3. Đã thêm mới Lượt khám Bệnh nhân");
@@ -2212,7 +2212,7 @@ namespace VNS.HIS.BusRule.Classes
                             , objLuotkham.DiaChi, objLuotkham.DiachiBhyt, objLuotkham.IdBenhvienDen, objLuotkham.TthaiChuyenden, objLuotkham.NoiGioithieu
                             , objLuotkham.Email, objLuotkham.NhomBenhnhan, objLuotkham.GiayBhyt, objLuotkham.MadtuongSinhsong, objLuotkham.IpMaysua, objLuotkham.TenMaysua
                             , objLuotkham.IdLichsuDoituongKcb, objLuotkham.KieuKham, objLuotkham.TraKQPhongchuyenmon, objLuotkham.TraKQFax, objLuotkham.TraKQMail, objLuotkham.TraKQEmail
-                            , objLuotkham.SosanhQcvn, objLuotkham.MotaThem, objLuotkham.NgaySua, objLuotkham.NguoiSua).Execute();
+                            , objLuotkham.SosanhQcvn, objLuotkham.MotaThem, objLuotkham.NgaySua, objLuotkham.NguoiSua,objLuotkham.SoBenhAn).Execute();
                         log.Trace("3. Đã cập nhật thông tin Lượt khám của Bệnh nhân");
                         DataTable dtCheck = new DataTable();
                         if (objSoKCB != null)
