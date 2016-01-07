@@ -162,7 +162,7 @@
             this.uiGroupBox2.Font = new System.Drawing.Font("Arial", 9F);
             this.uiGroupBox2.Location = new System.Drawing.Point(3, 56);
             this.uiGroupBox2.Name = "uiGroupBox2";
-            this.uiGroupBox2.Size = new System.Drawing.Size(762, 488);
+            this.uiGroupBox2.Size = new System.Drawing.Size(1058, 488);
             this.uiGroupBox2.TabIndex = 115;
             this.uiGroupBox2.Text = "Thông tin tìm kiếm";
             // 
@@ -186,22 +186,24 @@
             uiComboBoxItem2,
             uiComboBoxItem3});
             this.cboGT.ItemsFormatStyle.FontBold = Janus.Windows.UI.TriState.True;
-            this.cboGT.Location = new System.Drawing.Point(541, 77);
+            this.cboGT.Location = new System.Drawing.Point(541, 51);
             this.cboGT.Name = "cboGT";
             this.cboGT.SelectedIndex = 0;
             this.cboGT.SelectInDataSource = true;
             this.cboGT.Size = new System.Drawing.Size(92, 21);
             this.cboGT.TabIndex = 128;
             this.cboGT.Text = "Giới tính";
+            this.cboGT.Visible = false;
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(459, 76);
+            this.label6.Location = new System.Drawing.Point(459, 50);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 22);
             this.label6.TabIndex = 127;
             this.label6.Text = "Giới tính: ";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label6.Visible = false;
             // 
             // txtNhanvien
             // 
@@ -254,17 +256,18 @@
             this.chkLoaitimkiem.Checked = true;
             this.chkLoaitimkiem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLoaitimkiem.ForeColor = System.Drawing.Color.Navy;
-            this.chkLoaitimkiem.Location = new System.Drawing.Point(477, 100);
+            this.chkLoaitimkiem.Location = new System.Drawing.Point(541, 100);
             this.chkLoaitimkiem.Name = "chkLoaitimkiem";
             this.chkLoaitimkiem.Size = new System.Drawing.Size(183, 23);
             this.chkLoaitimkiem.TabIndex = 8;
             this.chkLoaitimkiem.Text = "Dịch vụ chưa thanh toán";
             this.toolTip1.SetToolTip(this.chkLoaitimkiem, "Bỏ check sẽ tìm theo ngày chốt viện phí");
+            this.chkLoaitimkiem.Visible = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(270, 108);
+            this.label2.Location = new System.Drawing.Point(284, 108);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(28, 15);
             this.label2.TabIndex = 58;
@@ -277,7 +280,7 @@
             this.panel1.Controls.Add(this.grdChitiet);
             this.panel1.Location = new System.Drawing.Point(6, 147);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(758, 335);
+            this.panel1.Size = new System.Drawing.Size(1046, 283);
             this.panel1.TabIndex = 56;
             // 
             // grdChitiet
@@ -286,6 +289,9 @@
             grdChitiet_DesignTimeLayout.LayoutString = resources.GetString("grdChitiet_DesignTimeLayout.LayoutString");
             this.grdChitiet.DesignTimeLayout = grdChitiet_DesignTimeLayout;
             this.grdChitiet.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdChitiet.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdChitiet.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown;
+            this.grdChitiet.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
             this.grdChitiet.Font = new System.Drawing.Font("Arial", 9F);
             this.grdChitiet.GroupByBoxVisible = false;
             this.grdChitiet.GroupRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
@@ -295,14 +301,14 @@
             this.grdChitiet.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
             this.grdChitiet.Location = new System.Drawing.Point(0, 0);
             this.grdChitiet.Name = "grdChitiet";
+            this.grdChitiet.RecordNavigator = true;
             this.grdChitiet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdChitiet.Size = new System.Drawing.Size(758, 335);
+            this.grdChitiet.Size = new System.Drawing.Size(1046, 283);
             this.grdChitiet.TabIndex = 21;
             this.grdChitiet.TabStop = false;
-            this.grdChitiet.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdChitiet.TotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
-            this.grdChitiet.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
             this.grdChitiet.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            this.grdChitiet.FormattingRow += new Janus.Windows.GridEX.RowLoadEventHandler(this.grdChitiet_FormattingRow);
             // 
             // cboDoituongKCB
             // 
@@ -352,10 +358,10 @@
             // 
             // 
             this.dtToDate.DropDownCalendar.Name = "";
-            this.dtToDate.Location = new System.Drawing.Point(304, 106);
+            this.dtToDate.Location = new System.Drawing.Point(326, 106);
             this.dtToDate.Name = "dtToDate";
             this.dtToDate.ShowUpDown = true;
-            this.dtToDate.Size = new System.Drawing.Size(113, 21);
+            this.dtToDate.Size = new System.Drawing.Size(127, 21);
             this.dtToDate.TabIndex = 7;
             this.dtToDate.Value = new System.DateTime(2014, 9, 27, 0, 0, 0, 0);
             // 
@@ -370,7 +376,7 @@
             this.dtFromDate.Location = new System.Drawing.Point(138, 106);
             this.dtFromDate.Name = "dtFromDate";
             this.dtFromDate.ShowUpDown = true;
-            this.dtFromDate.Size = new System.Drawing.Size(126, 21);
+            this.dtFromDate.Size = new System.Drawing.Size(140, 21);
             this.dtFromDate.TabIndex = 6;
             this.dtFromDate.Value = new System.DateTime(2014, 9, 27, 0, 0, 0, 0);
             // 
@@ -397,7 +403,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(776, 573);
+            this.tabControl1.Size = new System.Drawing.Size(1072, 573);
             this.tabControl1.TabIndex = 116;
             // 
             // tabPage1
@@ -409,7 +415,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(768, 547);
+            this.tabPage1.Size = new System.Drawing.Size(1064, 547);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Báo cáo thu viện phí";
             // 
@@ -423,7 +429,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(3, 492);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(762, 52);
+            this.panel2.Size = new System.Drawing.Size(1058, 52);
             this.panel2.TabIndex = 115;
             // 
             // baocaO_TIEUDE1
@@ -438,7 +444,7 @@
             this.baocaO_TIEUDE1.ShortcutAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.baocaO_TIEUDE1.ShortcutFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.baocaO_TIEUDE1.showHelp = false;
-            this.baocaO_TIEUDE1.Size = new System.Drawing.Size(762, 53);
+            this.baocaO_TIEUDE1.Size = new System.Drawing.Size(1058, 53);
             this.baocaO_TIEUDE1.TabIndex = 114;
             this.baocaO_TIEUDE1.TIEUDE = "BÁO CÁO THỐNG KÊ KHÁM CHỮA BỆNH";
             this.baocaO_TIEUDE1.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -447,7 +453,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(776, 573);
+            this.ClientSize = new System.Drawing.Size(1072, 573);
             this.Controls.Add(this.tabControl1);
             this.KeyPreview = true;
             this.MaximizeBox = false;

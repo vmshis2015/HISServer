@@ -17,12 +17,13 @@ namespace VNS.HIS.UI.Baocao
         private DataTable m_dtKhoathucHien = new DataTable();
         private string reportname = "";
         private string tieude = "";
-
-        public frm_tonghopkhamchuabenh()
+        private string sThamSo = "";
+        public frm_tonghopkhamchuabenh(string Arg)
         {
             InitializeComponent();
             //Utility.loadIconToForm(this);
             Initevents();
+            sThamSo = Arg;
             cmdExit.Click += cmdExit_Click;
             dtNgayInPhieu.Value = globalVariables.SysDate;
             dtToDate.Value = dtNgayInPhieu.Value = dtFromDate.Value = globalVariables.SysDate;
@@ -128,14 +129,13 @@ namespace VNS.HIS.UI.Baocao
         /// <param name="e"></param>
         private void cmdPrint_Click(object sender, EventArgs e)
         {
-            try
-            {
+            
                 _reportTable = BAOCAO_NGOAITRU.BaoCaoThongkeKhamChuaBenh(dtFromDate.Value, dtToDate.Value,
                                                                      Utility.Int32Dbnull(cboDoituongKCB.SelectedValue,-1),
                                                                      Utility.Int32Dbnull(chkLoaitimkiem.Checked,0),
                                                                      Utility.Int32Dbnull(cboGT.SelectedValue, -1),
-                                                                    Utility.Int32Dbnull(txtNhanvien.txtMyID,-100));
-               // THU_VIEN_CHUNG.CreateXML(_reportTable,"");
+                                                                    Utility.Int32Dbnull(txtNhanvien.txtMyID, -100), sThamSo);
+                THU_VIEN_CHUNG.CreateXML(_reportTable,"baocao_thongke_thutienchitiet.XML");
                 if (_reportTable.Rows.Count <= 0)
                 {
                     Utility.ShowMsg("Không tìm thấy dữ liệu cho báo cáo", "Thông báo", MessageBoxIcon.Warning);
@@ -155,10 +155,12 @@ namespace VNS.HIS.UI.Baocao
                                                      : "Tất cả",
                                                  cboGT.SelectedIndex > 0 ? Utility.sDbnull(cboGT.Text) : "Tất cả");
                 Utility.UpdateLogotoDatatable(ref _reportTable);
-                string reportCode = "TONGHOP_KCB";
+                string reportCode = "baocao_thongke_thutienchitiet";
+               
                 ReportDocument crpt = Utility.GetReport(reportCode, ref tieude, ref reportname);
                 if (crpt == null) return;
-
+                try
+                {
 
                 var objForm = new frmPrintPreview(tieude, crpt, true,
                                                   _reportTable.Rows.Count <= 0 ? false : true);
@@ -174,7 +176,7 @@ namespace VNS.HIS.UI.Baocao
                 Utility.SetParameterValue(crpt, "sTitleReport", tieude);
                 Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(dtNgayInPhieu.Value));
                 Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
-
+                Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
             }
@@ -182,6 +184,10 @@ namespace VNS.HIS.UI.Baocao
             {
                 Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
+            finally
+                {
+                    Utility.FreeMemory(crpt);
+                }
             
         }
 
@@ -219,6 +225,11 @@ namespace VNS.HIS.UI.Baocao
             if (e.KeyCode == Keys.Escape) cmdExit.PerformClick();
             if (e.KeyCode == Keys.F4) cmdPrint.PerformClick();
             if (e.KeyCode == Keys.F5) cmdExportToExcel.PerformClick();
+        }
+
+        private void grdChitiet_FormattingRow(object sender, Janus.Windows.GridEX.RowLoadEventArgs e)
+        {
+
         }
     }
 }

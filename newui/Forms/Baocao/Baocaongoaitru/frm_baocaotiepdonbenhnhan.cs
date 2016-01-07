@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using SubSonic;
 using Microsoft.VisualBasic;
+using VNS.HIS.UI.DANHMUC;
 using VNS.Libs;
 using VNS.HIS.DAL;
 using VNS.HIS.BusRule.Classes;
@@ -22,16 +23,13 @@ namespace VNS.HIS.UI.Baocao
         bool m_blnhasLoaded = false;
         string tieude = "", reportname = "";
         decimal tong_tien = 0m;
-        public frm_baocaotiepdonbenhnhan()
+        private string sthamso = "";
+        public frm_baocaotiepdonbenhnhan(string Arg)
         {
             InitializeComponent();
             Initevents();
-           
-         
-          
-            
+            sthamso = Arg;
             dtNgayInPhieu.Value = globalVariables.SysDate;
-        
             dtToDate.Value = dtNgayInPhieu.Value = dtFromDate.Value = globalVariables.SysDate;
         }
         void Initevents()
@@ -41,6 +39,8 @@ namespace VNS.HIS.UI.Baocao
             chkByDate.CheckedChanged += new EventHandler(chkByDate_CheckedChanged);
             this.Load += new EventHandler(frm_BAOCAO_TONGHOP_TAI_KKB_DTUONG_THUPHI_Load);
             chkChitiet.CheckedChanged+=new EventHandler(chkChitiet_CheckedChanged);
+            txtLoaikham._OnShowData += new UCs.AutoCompleteTextbox_Danhmucchung.OnShowData(txtLoaiBN__OnShowData);
+            txtLoaikham._OnSaveAs += new UCs.AutoCompleteTextbox_Danhmucchung.OnSaveAs(txtLoaiBN__OnSaveAs);
             ShowGrid();
         }
         void chkChitiet_CheckedChanged(object sender, EventArgs e)
@@ -79,6 +79,7 @@ namespace VNS.HIS.UI.Baocao
                 {
                     cboKhoa.SelectedValue = globalVariables.MA_KHOA_THIEN;
                 }
+                txtLoaikham.Init();
             }
             catch (Exception ex)
             {
@@ -135,6 +136,33 @@ namespace VNS.HIS.UI.Baocao
                 this.txtNhanvientiepdon.CaseSensitive = false;
                 this.txtNhanvientiepdon.MinTypedCharacters = 1;
 
+            }
+        }
+        void txtLoaiBN__OnSaveAs()
+        {
+            if (Utility.DoTrim(txtLoaikham.Text) == "") return;
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtLoaikham.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, txtLoaikham.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtLoaikham.myCode;
+                txtLoaikham.Init();
+                txtLoaikham.SetCode(oldCode);
+                txtLoaikham.Focus();
+            }
+        }
+
+        void txtLoaiBN__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtLoaikham.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtLoaikham.myCode;
+                txtLoaikham.Init();
+                txtLoaikham.SetCode(oldCode);
+                txtLoaikham.Focus();
             }
         }
         /// <summary>
@@ -210,9 +238,16 @@ namespace VNS.HIS.UI.Baocao
             if (chkChitiet.Checked)
             {
                 _dtData =
-                   BAOCAO_NGOAITRU.BaocaoTiepdonbenhnhanChitiet(Utility.Int32Dbnull(cboDoituongKCB.SelectedValue, -1),
-                    chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
-                    chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,txtNhanvientiepdon.MyCode, Utility.sDbnull(cboKhoa.SelectedValue, -1),txtLoaikham.myCode=="-1"?"ALL":txtLoaikham.myCode);
+                    BAOCAO_NGOAITRU.BaocaoTiepdonbenhnhanChitiet(Utility.Int32Dbnull(cboDoituongKCB.SelectedValue, -1),
+                                                                 chkByDate.Checked
+                                                                     ? dtFromDate.Value
+                                                                     : Convert.ToDateTime("01/01/1900"),
+                                                                 chkByDate.Checked
+                                                                     ? dtToDate.Value
+                                                                     : globalVariables.SysDate,
+                                                                 txtNhanvientiepdon.MyCode,
+                                                                 Utility.sDbnull(cboKhoa.SelectedValue, -1),
+                                                                 txtLoaikham.myCode == "-1" ? "ALL" : txtLoaikham.myCode);
 
                 Utility.SetDataSourceForDataGridEx(grdChitiet, _dtData, false, true, "1=1", "");
                
@@ -220,10 +255,12 @@ namespace VNS.HIS.UI.Baocao
             else
             {
                 _dtData =
-                  BAOCAO_NGOAITRU.BaocaoTiepdonbenhnhanTonghop(
-                    chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
-                    chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
-                    Utility.Int32Dbnull(cboDoituongKCB.SelectedValue, -1), txtNhanvientiepdon.MyCode, Utility.sDbnull(cboKhoa.SelectedValue, -1), txtLoaikham.myCode == "-1" ? "ALL" : txtLoaikham.myCode);
+                    BAOCAO_NGOAITRU.BaocaoTiepdonbenhnhanTonghop(
+                        chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
+                        chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
+                        Utility.Int32Dbnull(cboDoituongKCB.SelectedValue, -1), txtNhanvientiepdon.MyCode,
+                        Utility.sDbnull(cboKhoa.SelectedValue, -1),
+                        txtLoaikham.myCode == "-1" ? "ALL" : txtLoaikham.myCode);
 
                 Utility.SetDataSourceForDataGridEx(grdList, _dtData, false, true, "1=1", "");
               
