@@ -25,6 +25,8 @@ namespace VNS.HIS.UI.THUOC
         action m_enAction = action.Insert;
         string arg = "QHEGIATHUOC-THUOC";
         string Kieuthuoc_vt = "THUOC";
+        public bool m_blnCancel = true;
+        public bool AutoNew = false;
         public frm_qhe_doituong_thuoc_coban(string arg)
         {
             InitializeComponent();
@@ -103,7 +105,14 @@ namespace VNS.HIS.UI.THUOC
             optTatcachia.CheckedChanged += _CheckedChanged;
             optCochia.CheckedChanged += _CheckedChanged;
             optKhongchia.CheckedChanged += _CheckedChanged;
+            this.Shown += frm_qhe_doituong_thuoc_coban_Shown;
 
+        }
+
+        void frm_qhe_doituong_thuoc_coban_Shown(object sender, EventArgs e)
+        {
+            if (AutoNew)
+                cmdThemMoi_Click(cmdThemMoi, e);
         }
 
         void cboloaithuoc_KeyDown(object sender, KeyEventArgs e)
@@ -195,6 +204,7 @@ namespace VNS.HIS.UI.THUOC
                     int v_intAffectedRecords = new Delete().From(DmucThuoc.Schema).Where(DmucThuoc.Columns.IdThuoc).IsEqualTo(idthuoc).Execute();
                     if (v_intAffectedRecords > 0)
                     {
+                        m_blnCancel = false;
                         grdList.CurrentRow.Delete();
                         grdList.UpdateData();
                         grdList.Refetch();
@@ -523,6 +533,7 @@ namespace VNS.HIS.UI.THUOC
             m_blnLoaded = true;
             cboloaithuoc_SelectedIndexChanged(cboloaithuoc, e);
             if (grdList.GetDataRows().Length > 0) grdList.MoveFirst();
+          
         }
         private DataTable m_dtServiceList=new DataTable();
         private DataTable m_dtServiceTypeList = new DataTable();
@@ -1034,7 +1045,7 @@ namespace VNS.HIS.UI.THUOC
             return dataTable;
         }
 
-        private void cmdThemMoi_Click(object sender, EventArgs e)
+        public void cmdThemMoi_Click(object sender, EventArgs e)
         {
 
             frm_themmoi_thuoc frmNewDrug = new frm_themmoi_thuoc("DRUGONLY");
@@ -1046,7 +1057,7 @@ namespace VNS.HIS.UI.THUOC
             frmNewDrug.objThuoc = GetObjectForUpdateOrDelete();
             if (frmNewDrug.objThuoc == null && frmNewDrug.m_enAction == action.Update) return;
             frmNewDrug.ShowDialog();
-
+            m_blnCancel = frmNewDrug.m_blnCancel;
             ModifyCommand();
             ModifyCommand_Quanhe();
         }
@@ -1080,6 +1091,7 @@ namespace VNS.HIS.UI.THUOC
             frmNewDrug.objThuoc = GetObjectForUpdateOrDelete();
             if (frmNewDrug.objThuoc == null && m_enAction == action.Update) return;
             frmNewDrug.ShowDialog();
+            m_blnCancel = frmNewDrug.m_blnCancel;
         }
         private void cboKhoaTH_SelectedIndexChanged(object sender, EventArgs e)
         {

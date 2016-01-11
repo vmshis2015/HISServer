@@ -108,7 +108,7 @@
             // 
             this.sysColor.BackColor = System.Drawing.SystemColors.Control;
             this.sysColor.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sysColor.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.sysColor.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.sysColor.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmdThemMoi,
             this.cmdCapNhap,
@@ -122,7 +122,7 @@
             this.cmdClose});
             this.sysColor.Location = new System.Drawing.Point(0, 0);
             this.sysColor.Name = "sysColor";
-            this.sysColor.Size = new System.Drawing.Size(1008, 39);
+            this.sysColor.Size = new System.Drawing.Size(1008, 31);
             this.sysColor.TabIndex = 3;
             this.sysColor.Text = "toolStrip1";
             // 
@@ -132,7 +132,7 @@
             this.cmdThemMoi.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdThemMoi.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdThemMoi.Name = "cmdThemMoi";
-            this.cmdThemMoi.Size = new System.Drawing.Size(125, 36);
+            this.cmdThemMoi.Size = new System.Drawing.Size(125, 28);
             this.cmdThemMoi.Text = "Thêm mới thuốc";
             this.cmdThemMoi.ToolTipText = "Nhấn vào đây để thêm nhanh thuốc mới(Ctrl+N)";
             // 
@@ -142,7 +142,7 @@
             this.cmdCapNhap.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdCapNhap.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdCapNhap.Name = "cmdCapNhap";
-            this.cmdCapNhap.Size = new System.Drawing.Size(118, 36);
+            this.cmdCapNhap.Size = new System.Drawing.Size(118, 28);
             this.cmdCapNhap.Text = "Cập nhật thuốc";
             this.cmdCapNhap.ToolTipText = "Nhấn vào đây để cập nhật thông tin thuốc đang chọn(Ctrl+E)";
             // 
@@ -151,20 +151,20 @@
             this.cmdXoathuoc.Image = ((System.Drawing.Image)(resources.GetObject("cmdXoathuoc.Image")));
             this.cmdXoathuoc.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdXoathuoc.Name = "cmdXoathuoc";
-            this.cmdXoathuoc.Size = new System.Drawing.Size(97, 36);
+            this.cmdXoathuoc.Size = new System.Drawing.Size(89, 28);
             this.cmdXoathuoc.Text = "Xóa thuốc";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // cmdCauhinh
             // 
             this.cmdCauhinh.Image = ((System.Drawing.Image)(resources.GetObject("cmdCauhinh.Image")));
             this.cmdCauhinh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdCauhinh.Name = "cmdCauhinh";
-            this.cmdCauhinh.Size = new System.Drawing.Size(93, 36);
+            this.cmdCauhinh.Size = new System.Drawing.Size(85, 28);
             this.cmdCauhinh.Text = "Cấu hình";
             // 
             // cmdCauhinhgia
@@ -172,7 +172,7 @@
             this.cmdCauhinhgia.Image = ((System.Drawing.Image)(resources.GetObject("cmdCauhinhgia.Image")));
             this.cmdCauhinhgia.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdCauhinhgia.Name = "cmdCauhinhgia";
-            this.cmdCauhinhgia.Size = new System.Drawing.Size(113, 36);
+            this.cmdCauhinhgia.Size = new System.Drawing.Size(105, 28);
             this.cmdCauhinhgia.Text = "Cấu hình giá";
             // 
             // cmdIndanhsachthuoc
@@ -180,7 +180,7 @@
             this.cmdIndanhsachthuoc.Image = ((System.Drawing.Image)(resources.GetObject("cmdIndanhsachthuoc.Image")));
             this.cmdIndanhsachthuoc.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdIndanhsachthuoc.Name = "cmdIndanhsachthuoc";
-            this.cmdIndanhsachthuoc.Size = new System.Drawing.Size(114, 36);
+            this.cmdIndanhsachthuoc.Size = new System.Drawing.Size(106, 28);
             this.cmdIndanhsachthuoc.Text = "In danh sách";
             this.cmdIndanhsachthuoc.ToolTipText = "In danh sách thuốc(Ctrl+P)";
             // 
@@ -189,7 +189,7 @@
             this.cmdInGiathuoc.Image = ((System.Drawing.Image)(resources.GetObject("cmdInGiathuoc.Image")));
             this.cmdInGiathuoc.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdInGiathuoc.Name = "cmdInGiathuoc";
-            this.cmdInGiathuoc.Size = new System.Drawing.Size(106, 36);
+            this.cmdInGiathuoc.Size = new System.Drawing.Size(98, 28);
             this.cmdInGiathuoc.Text = "In giá thuốc";
             this.cmdInGiathuoc.ToolTipText = "In danh sách giá thuốc (Alt+P)";
             // 
@@ -199,7 +199,7 @@
             this.cmdExportExcel.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cmdExportExcel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdExportExcel.Name = "cmdExportExcel";
-            this.cmdExportExcel.Size = new System.Drawing.Size(109, 36);
+            this.cmdExportExcel.Size = new System.Drawing.Size(101, 28);
             this.cmdExportExcel.Text = "Export Excel";
             // 
             // cmdClose
@@ -207,7 +207,7 @@
             this.cmdClose.Image = ((System.Drawing.Image)(resources.GetObject("cmdClose.Image")));
             this.cmdClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdClose.Name = "cmdClose";
-            this.cmdClose.Size = new System.Drawing.Size(103, 36);
+            this.cmdClose.Size = new System.Drawing.Size(95, 28);
             this.cmdClose.Text = "Thoát(Esc)";
             this.cmdClose.ToolTipText = "Thoát";
             // 
@@ -226,11 +226,11 @@
             this.grdList.GroupByBoxVisible = false;
             this.grdList.GroupRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
             this.grdList.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdList.Location = new System.Drawing.Point(0, 157);
+            this.grdList.Location = new System.Drawing.Point(0, 149);
             this.grdList.Name = "grdList";
             this.grdList.RecordNavigator = true;
             this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdList.Size = new System.Drawing.Size(563, 573);
+            this.grdList.Size = new System.Drawing.Size(563, 581);
             this.grdList.TabIndex = 15;
             this.toolTip1.SetToolTip(this.grdList, "Nhấn phím F5 để nạp lại dữ liệu");
             this.grdList.UseGroupRowSelector = true;
@@ -267,9 +267,9 @@
             // tabObjectType
             // 
             this.tabObjectType.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tabObjectType.Location = new System.Drawing.Point(563, 157);
+            this.tabObjectType.Location = new System.Drawing.Point(563, 149);
             this.tabObjectType.Name = "tabObjectType";
-            this.tabObjectType.Size = new System.Drawing.Size(445, 573);
+            this.tabObjectType.Size = new System.Drawing.Size(445, 581);
             this.tabObjectType.TabIndex = 14;
             this.tabObjectType.TabPages.AddRange(new Janus.Windows.UI.Tab.UITabPage[] {
             this.uiTabPage2});
@@ -280,7 +280,7 @@
             this.uiTabPage2.Image = ((System.Drawing.Image)(resources.GetObject("uiTabPage2.Image")));
             this.uiTabPage2.Location = new System.Drawing.Point(1, 23);
             this.uiTabPage2.Name = "uiTabPage2";
-            this.uiTabPage2.Size = new System.Drawing.Size(441, 547);
+            this.uiTabPage2.Size = new System.Drawing.Size(441, 555);
             this.uiTabPage2.TabStop = true;
             this.uiTabPage2.Text = "Chi tiết Giá thuốc theo đối tượng KCB";
             // 
@@ -292,7 +292,7 @@
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Location = new System.Drawing.Point(0, 0);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(441, 547);
+            this.groupBox5.Size = new System.Drawing.Size(441, 555);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
             // 
@@ -307,7 +307,7 @@
             this.grdQhe.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
             this.grdQhe.Location = new System.Drawing.Point(3, 16);
             this.grdQhe.Name = "grdQhe";
-            this.grdQhe.Size = new System.Drawing.Size(435, 452);
+            this.grdQhe.Size = new System.Drawing.Size(435, 460);
             this.grdQhe.TabIndex = 30;
             this.grdQhe.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
@@ -318,7 +318,7 @@
             this.panel1.Controls.Add(this.cmdDelete);
             this.panel1.Controls.Add(this.cmdAdd);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 468);
+            this.panel1.Location = new System.Drawing.Point(3, 476);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(435, 76);
             this.panel1.TabIndex = 28;
@@ -408,7 +408,7 @@
             this.groupBox1.Controls.Add(this.chkExpand);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 39);
+            this.groupBox1.Location = new System.Drawing.Point(0, 31);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1008, 118);
             this.groupBox1.TabIndex = 1;
@@ -709,7 +709,6 @@
         private Janus.Windows.EditControls.UICheckBox chkExpand;
         private System.Windows.Forms.ToolStripMenuItem mnuDelete;
         private System.Windows.Forms.ToolStripButton cmdInGiathuoc;
-        private System.Windows.Forms.ToolStripButton cmdThemMoi;
         private System.Windows.Forms.ToolStripButton cmdCapNhap;
         private System.Windows.Forms.Label lblKhoaThien;
         private Janus.Windows.EditControls.UIComboBox cboKhoaTH;
@@ -748,5 +747,6 @@
         private Janus.Windows.EditControls.UIRadioButton optCochia;
         private Janus.Windows.EditControls.UIRadioButton optKhongchia;
         private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.ToolStripButton cmdThemMoi;
     }
 }
