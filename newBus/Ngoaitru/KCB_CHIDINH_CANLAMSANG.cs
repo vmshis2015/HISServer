@@ -149,7 +149,7 @@ namespace VNS.HIS.BusRule.Classes
 
                                  var sp = SPs.SpKcbThemmoiChidinh(objChidinh.IdChidinh, objChidinh.IdKham, objChidinh.IdBuongGiuong, objChidinh.IdDieutri, objChidinh.IdKhoadieutri
                                      , objChidinh.MaLuotkham, objChidinh.IdBenhnhan, objChidinh.NgayChidinh, objChidinh.IdBacsiChidinh, objChidinh.IdPhongChidinh, objChidinh.NgayThanhtoan
-                                     , objChidinh.TrangthaiThanhtoan, objChidinh.TrangThai, objChidinh.NguoiTao, objChidinh.NgayTao, objChidinh.TinhtrangIn, objChidinh.Barcode, objChidinh.Noitru
+                                     , objChidinh.TrangthaiThanhtoan, Utility.ByteDbnull(objChidinh.TrangThai,0), objChidinh.NguoiTao, objChidinh.NgayTao, objChidinh.TinhtrangIn, objChidinh.Barcode, objChidinh.Noitru
                                      , objChidinh.IdKhoaChidinh, objChidinh.MaKhoaChidinh, objChidinh.MaChidinh, objChidinh.MaBenhpham, objChidinh.IdDoituongKcb, objChidinh.IdLoaidoituongKcb
                                      , objChidinh.MaDoituongKcb, objChidinh.KieuChidinh, objChidinh.IdLichsuDoituongKcb, objChidinh.MatheBhyt, objChidinh.IpMaytao, objChidinh.TenMaytao
                                      , objChidinh.NguoigiaoMau, objChidinh.NguoinhanMau, objChidinh.MotaThem, objChidinh.DaBangiaomau, objChidinh.LuongmauHoaly, objChidinh.LuongmauVisinh, objChidinh.LuongmauGui
