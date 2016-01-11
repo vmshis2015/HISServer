@@ -68,13 +68,13 @@ namespace VNS.HIS.BusRule.Classes
         }
 
 
-        public static DataTable BaocaoChidinhclsChitiet(DateTime? FromDate, DateTime? ToDate, string MaDoiTuong, string nhomdichvu, string CreateBy, string MAKHOATHIEN, int? NoExam)
+        public static DataTable BaocaoChidinhclsChitiet(DateTime? FromDate, DateTime? ToDate, string MaDoiTuong, string nhomdichvu, string CreateBy, string MAKHOATHIEN, int? NoExam, string KieuBenhNhan)
         {
-            return SPs.BaocaoChidinhclsChitiet(FromDate, ToDate, MaDoiTuong, nhomdichvu, CreateBy, MAKHOATHIEN, NoExam).GetDataSet().Tables[0];
+            return SPs.BaocaoChidinhclsChitiet(FromDate, ToDate, MaDoiTuong, nhomdichvu, CreateBy, MAKHOATHIEN, NoExam, KieuBenhNhan).GetDataSet().Tables[0];
         }
-        public static DataTable BaocaoChidinhclsTonghop(DateTime? FromDate, DateTime? ToDate, string MaDoiTuong, string nhomdichvu, string CreateBy, string MAKHOATHIEN, int? NoExam)
+        public static DataTable BaocaoChidinhclsTonghop(DateTime? FromDate, DateTime? ToDate, string MaDoiTuong, string nhomdichvu, string CreateBy, string MAKHOATHIEN, int? NoExam, string KieuBenhNhan)
         {
-            return SPs.BaocaoChidinhclsTonghop(FromDate, ToDate, MaDoiTuong, CreateBy, nhomdichvu, MAKHOATHIEN, NoExam).GetDataSet().Tables[0];
+            return SPs.BaocaoChidinhclsTonghop(FromDate, ToDate, MaDoiTuong, CreateBy, nhomdichvu, MAKHOATHIEN, NoExam, KieuBenhNhan).GetDataSet().Tables[0];
         }
 
 
@@ -110,10 +110,10 @@ namespace VNS.HIS.BusRule.Classes
         {
             return SPs.BaocaoThuvienphiChitiet(makhoaKCB, FromDate, ToDate, NGUOITHU, DOITUONG, NTNT, Cohoadon, TTCHOT).GetDataSet().Tables[0];
         }
-        public static DataTable BaoCaoThongkeKhamChuaBenh(DateTime? FromDate, DateTime? ToDate, int DoiTuong, int TrangThai, int GioiTinh, int NhanVien)
+        public static DataTable BaoCaoThongkeKhamChuaBenh(DateTime? FromDate, DateTime? ToDate, int DoiTuong, int TrangThai, int GioiTinh, int NhanVien, string sThamso)
         {
             return
-                SPs.BaocaoThongkeKhamchuabenh(FromDate, ToDate, DoiTuong, GioiTinh, NhanVien, TrangThai).GetDataSet().
+                SPs.BaocaoThongkeKhamchuabenh(FromDate, ToDate, DoiTuong, GioiTinh, NhanVien, TrangThai,sThamso).GetDataSet().
                     Tables[0];
         }
         public static DataTable BaoCaoThongkeChuyenVienDi(DateTime? FromDate, DateTime? ToDate, int DoiTuong, int TrangThai, int NoiChuyenDi)
