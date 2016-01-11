@@ -231,7 +231,6 @@ namespace VNS.HIS.UI.DANHMUC
                 txtMaBHYT.Focus();
                 return false;
             }
-            
             if (string.IsNullOrEmpty(txtServiceName.Text))
             {
                 Utility.SetMsg(lblMsg, "Bạn phải nhập tên dịch vụ", true);
@@ -250,7 +249,6 @@ namespace VNS.HIS.UI.DANHMUC
                 cboServiceType.Focus();
                 return false;
             }
-           
             if(em_Action==action.Insert)
             {
                 q = new Select().From(DmucDichvucl.Schema)
@@ -372,10 +370,10 @@ namespace VNS.HIS.UI.DANHMUC
                 txtThetichtoithieu.Text = Utility.sDbnull(objDichVu.ThetichToithieu, 0);
                 chkTinhthetichtheochitieu.Checked = Utility.Byte2Bool(objDichVu.TinhthetichTheochitieu);
                 chkCososanh.Checked = Utility.Byte2Bool(objDichVu.CoSosanh);
-
-                chkKiemnghiem.Checked = txtDonvitinh.myCode != "-1" || txtQuychuan.myCode != "-1" || Utility.sDbnull( txtSongaytraKQ.Text) != ""
-                    || Utility.sDbnull(txtThetichtoithieu.Text) != ""
-                    || chkTinhthetichtheochitieu.Checked || chkCososanh.Checked;
+                chkKiemnghiem.Checked = Utility.Byte2Bool(objDichVu.LaDvuKiemnghiem);
+                //chkKiemnghiem.Checked = txtDonvitinh.myCode != "-1" || txtQuychuan.myCode != "-1" || Utility.sDbnull( txtSongaytraKQ.Text) != ""
+                //    || Utility.sDbnull(txtThetichtoithieu.Text) != ""
+                //    || chkTinhthetichtheochitieu.Checked || chkCososanh.Checked;
                 txtDesc.Text = Utility.sDbnull(objDichVu.MotaThem, "");
                 txtchidan.Text = objDichVu.ChiDan;
                 txtServiceOrder.Value = Utility.DecimaltoDbnull(objDichVu.SttHthi, "1");
@@ -403,7 +401,7 @@ namespace VNS.HIS.UI.DANHMUC
                 objDichVu.ThetichToithieu = (int) Utility.DecimaltoDbnull(txtThetichtoithieu.Text, 0);
                 objDichVu.TinhthetichTheochitieu = Utility.Bool2byte(chkTinhthetichtheochitieu.Checked);
                 objDichVu.CoSosanh=Utility.Bool2byte(chkCososanh.Checked );
-
+                objDichVu.LaDvuKiemnghiem = Utility.Bool2byte(chkKiemnghiem.Checked);
                 objDichVu.IdKhoaThuchien = Utility.Int16Dbnull(cboDepartment.SelectedValue, -1);
                 objDichVu.IdPhongThuchien = Utility.Int16Dbnull(cboDepartment.SelectedValue, -1);
                 objDichVu.MaDichvu = Utility.sDbnull(txtServiceCode.Text, "");
@@ -432,13 +430,13 @@ namespace VNS.HIS.UI.DANHMUC
 
         private void ProcessData(int id)
         {
-            
+
             DataRow dr = dsService.NewRow();
             dr[VDmucDichvucl.Columns.IdDichvu] = id;
             dr[VDmucDichvucl.Columns.TenLoaidichvu] = Utility.sDbnull(cboServiceType.Text, "");
-            dr[DmucDichvucl.Columns.NguoiTao] =globalVariables.UserName;
+            dr[DmucDichvucl.Columns.NguoiTao] = globalVariables.UserName;
             dr[DmucDichvucl.Columns.NgayTao] = globalVariables.SysDate;
-            dr[DmucDichvucl.Columns.IdDichvu] =Utility.Int32Dbnull(query.GetMax(DmucDichvucl.Columns.IdDichvu),-1);
+            dr[DmucDichvucl.Columns.IdDichvu] = Utility.Int32Dbnull(query.GetMax(DmucDichvucl.Columns.IdDichvu), -1);
             dr[DmucDichvucl.Columns.TenDichvu] = Utility.sDbnull(txtServiceName.Text, "");
             dr[DmucDichvucl.Columns.MaDichvu] = Utility.sDbnull(txtServiceCode.Text, "");
             dr[DmucDichvucl.Columns.TenBhyt] = Utility.sDbnull(txtTenBHYT.Text, "");
@@ -446,8 +444,8 @@ namespace VNS.HIS.UI.DANHMUC
             dr[DmucDichvucl.Columns.HienthiChitiet] = chkHaveDetail.Checked ? Convert.ToByte(1) : Convert.ToByte(0);
             dr[DmucDichvucl.Columns.DichvuKtc] = chkHighTech.Checked ? Convert.ToInt16(1) : Convert.ToInt16(0);
             dr[DmucDichvucl.Columns.IdLoaidichvu] = Utility.sDbnull(cboServiceType.SelectedValue, "-1");
-            dr[DmucDichvucl.Columns.SttHthi] = Utility.Int32Dbnull(txtServiceOrder.Text,1);
-            dr[DmucDichvucl.Columns.IdKhoaThuchien] = Utility.Int16Dbnull(cboDepartment.SelectedValue,-1);
+            dr[DmucDichvucl.Columns.SttHthi] = Utility.Int32Dbnull(txtServiceOrder.Text, 1);
+            dr[DmucDichvucl.Columns.IdKhoaThuchien] = Utility.Int16Dbnull(cboDepartment.SelectedValue, -1);
             dr[DmucDichvucl.Columns.IdPhongThuchien] = Utility.Int16Dbnull(cboPhongthuchien.SelectedValue, -1);
             if (cboDepartment.SelectedIndex > 0)
                 dr[VDmucDichvucl.Columns.TenKhoaThuchien] = Utility.sDbnull(cboDepartment.Text);
@@ -458,19 +456,19 @@ namespace VNS.HIS.UI.DANHMUC
             else
                 dr[VDmucDichvucl.Columns.TenPhongThuchien] = "";
             dr[DmucDichvucl.Columns.TrangThai] = chkTrangthai.Checked ? 1 : 0;
-            dr[DmucDichvucl.Columns.NhomBaocao] = Utility.sDbnull(cbonhombaocao.SelectedValue,"-1");
+            dr[DmucDichvucl.Columns.NhomBaocao] = Utility.sDbnull(cbonhombaocao.SelectedValue, "-1");
             dr[VDmucDichvucl.Columns.TenNhombaocaoDichvu] = Utility.sDbnull(cbonhombaocao.Text, "");
             dr[VDmucDichvucl.Columns.TenNhominphieucls] = Utility.sDbnull(cbonhombaocao.Text, "");
             dr[DmucDichvucl.Columns.NhomInCls] = Utility.sDbnull(cboNhomin.SelectedValue, "ALL");// getNhominCLS(cboNhomin.SelectedIndex);
             dr[DmucDichvucl.Columns.DonGia] = nmrDongia.Value;
             dr[DmucDichvucl.Columns.NhomInphoiBHYT] = txtNhominphoiBHYT.myCode;
-             dr[DmucDichvucl.Columns.MaDonvichitieu]  = txtDonvitinh.myCode;
-             dr[DmucDichvucl.Columns.MaQuychuanSosanh]  = txtQuychuan.myCode;
-             dr[DmucDichvucl.Columns.SongayTraketqua] = (byte)Utility.DecimaltoDbnull(txtSongaytraKQ.Text, 0);
-             dr[DmucDichvucl.Columns.ThetichToithieu] = (int)Utility.DecimaltoDbnull(txtThetichtoithieu.Text, 0);
-             dr[DmucDichvucl.Columns.TinhthetichTheochitieu]  = Utility.Bool2byte(chkTinhthetichtheochitieu.Checked);
-             dr[DmucDichvucl.Columns.CoSosanh] = Utility.Bool2byte(chkCososanh.Checked);
-
+            dr[DmucDichvucl.Columns.MaDonvichitieu] = txtDonvitinh.myCode;
+            dr[DmucDichvucl.Columns.MaQuychuanSosanh] = txtQuychuan.myCode;
+            dr[DmucDichvucl.Columns.SongayTraketqua] = (byte)Utility.DecimaltoDbnull(txtSongaytraKQ.Text, 0);
+            dr[DmucDichvucl.Columns.ThetichToithieu] = (int)Utility.DecimaltoDbnull(txtThetichtoithieu.Text, 0);
+            dr[DmucDichvucl.Columns.TinhthetichTheochitieu] = Utility.Bool2byte(chkTinhthetichtheochitieu.Checked);
+            dr[DmucDichvucl.Columns.CoSosanh] = Utility.Bool2byte(chkCososanh.Checked);
+            dr[DmucDichvucl.Columns.LaDvuKiemnghiem] = Utility.Bool2byte(chkKiemnghiem.Checked);
             dsService.Rows.Add(dr);
             dsService.AcceptChanges();
             Utility.GotoNewRowJanus(grdService, DmucDichvucl.Columns.IdDichvu, id.ToString());
@@ -564,6 +562,7 @@ namespace VNS.HIS.UI.DANHMUC
                 .Set(DmucDichvucl.Columns.ThetichToithieu).EqualTo((int)Utility.DecimaltoDbnull(txtThetichtoithieu.Text, 0))
                 .Set(DmucDichvucl.Columns.TinhthetichTheochitieu).EqualTo(Utility.Bool2byte( chkTinhthetichtheochitieu.Checked))
                 .Set(DmucDichvucl.Columns.CoSosanh).EqualTo(Utility.Bool2byte( chkCososanh.Checked))
+                .Set(DmucDichvucl.Columns.LaDvuKiemnghiem).EqualTo(Utility.Bool2byte(chkKiemnghiem.Checked))
                 //.Set(DmucDichvucl.Columns.NhomInCls).EqualTo(getNhominCLS(cboNhomin.SelectedIndex))
                 .Set(DmucDichvucl.Columns.NhomInCls).EqualTo(Utility.sDbnull(cboNhomin.SelectedValue,"ALL"))
                 .Where(DmucDichvucl.Columns.IdDichvu).IsEqualTo(Utility.Int32Dbnull(txtID.Text,-1))
@@ -616,6 +615,7 @@ namespace VNS.HIS.UI.DANHMUC
                     arrDr[0][DmucDichvucl.Columns.SongayTraketqua] = (byte)Utility.DecimaltoDbnull(txtSongaytraKQ.Text, 0);
                     arrDr[0][DmucDichvucl.Columns.ThetichToithieu] = (int)Utility.DecimaltoDbnull(txtThetichtoithieu.Text, 0);
                     arrDr[0][DmucDichvucl.Columns.TinhthetichTheochitieu] = Utility.Bool2byte(chkTinhthetichtheochitieu.Checked);
+                    arrDr[0][DmucDichvucl.Columns.LaDvuKiemnghiem] = Utility.Bool2byte(chkKiemnghiem.Checked);
                     arrDr[0][DmucDichvucl.Columns.CoSosanh] = Utility.Bool2byte(chkCososanh.Checked);
                 }
             }

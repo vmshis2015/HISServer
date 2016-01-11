@@ -609,6 +609,7 @@ namespace VNS.HIS.UI.DANHMUC
                 objDichVuChitiet.ChiDan = Utility.DoTrim(txtchidan.Text);
                 objDichVuChitiet.TrangThai = (byte)(chkTrangthai.Checked ? 1 : 0);
                 objDichVuChitiet.TuTuc = Utility.Bool2byte(chkTutuc.Checked);
+                objDichVuChitiet.LaDvuKiemnghiem = Utility.Bool2byte(chkKiemnghiem.Checked);
                 objDichVuChitiet.LaChiphithem = Utility.Bool2byte(chkLachiphithem.Checked);
                 objDichVuChitiet.IdCha = Utility.Int32Dbnull(txtDichvuCha.MyID, -1);
                 objDichVuChitiet.CoChitiet = Utility.Bool2byte(chkCochitiet.Checked);
@@ -697,7 +698,7 @@ namespace VNS.HIS.UI.DANHMUC
             dr[DmucDichvuclsChitiet.Columns.KihieuDinhtinhDat] = Utility.sDbnull(txtKihieuDat.Text);
             dr[DmucDichvuclsChitiet.Columns.MaPhuongphapthu] = txtPhuongphapthu.myCode;
             dr[DmucDichvuclsChitiet.Columns.SoluongChitieu] = (int)Utility.DecimaltoDbnull(txtsoluongchitieu.Text, 0);
-
+            dr[DmucDichvuclsChitiet.Columns.LaDvuKiemnghiem] = Utility.Bool2byte(chkKiemnghiem.Checked);
           
             if (cboDepartment.SelectedIndex > 0)
                 dr[VDmucDichvucl.Columns.TenKhoaThuchien] = Utility.sDbnull(cboDepartment.Text);
@@ -741,7 +742,7 @@ namespace VNS.HIS.UI.DANHMUC
                 objDichVuChitiet.GiaBhyt = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
                 objDichVuChitiet.PhuthuDungtuyen = Utility.DecimaltoDbnull(txtPTDT.Text, 0);
                 objDichVuChitiet.PhuthuTraituyen = Utility.DecimaltoDbnull(txtPTTT.Text, 0);
-
+                objDichVuChitiet.LaDvuKiemnghiem = Utility.Bool2byte(chkKiemnghiem.Checked); 
                 objDichVuChitiet.IdChitietdichvu = Utility.Int32Dbnull(txtID.Text, -1);
                 objDichVuChitiet.IdDichvu = Utility.Int16Dbnull(txtLoaiDichvu.MyID, -1);
                 objDichVuChitiet.TenChitietdichvu = Utility.DoTrim(txtServiceDetailName.Text);
@@ -827,7 +828,7 @@ namespace VNS.HIS.UI.DANHMUC
                         dr[DmucDichvuclsChitiet.Columns.MaPhuongphapthu] = txtPhuongphapthu.myCode;
                         dr[DmucDichvuclsChitiet.Columns.NhomInphoiBHYT] = txtNhominphoiBHYT.myCode;
                         dr[DmucDichvuclsChitiet.Columns.SoluongChitieu] = (int)Utility.DecimaltoDbnull(txtsoluongchitieu.Text, 0);
-
+                        dr[DmucDichvuclsChitiet.Columns.LaDvuKiemnghiem] = Utility.Bool2byte(chkKiemnghiem.Checked);
                         dr[VDmucDichvucl.Columns.MaDichvu] = txtLoaiDichvu.MyCode;
                         if (cboDepartment.SelectedIndex > 0)
                             dr[VDmucDichvuclsChitiet.Columns.TenKhoaThuchien] = Utility.sDbnull(cboDepartment.Text);

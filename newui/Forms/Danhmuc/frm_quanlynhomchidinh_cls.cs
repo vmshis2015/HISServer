@@ -36,17 +36,19 @@ namespace VNS.HIS.UI.NGOAITRU
         private string FileName = string.Format("{0}/{1}", Application.StartupPath,string.Format("SplitterDistanceTiepDonf.txt"));
         private bool m_blnHasloaded = false;
         DataTable m_dtChitiet = null;
+        byte loainhom=0;//0= nhóm chỉ định cls,1=nhóm kiểm nghiệm
         private int SplitterDistance
         {
             get { return Distance; }
             set { Distance = value; }
         }
-        
-        public frm_quanlynhomchidinh_cls()
+        string nhomchidinh = "";
+        public frm_quanlynhomchidinh_cls(string nhomchidinh, byte loainhom)
         {
             InitializeComponent();
             this.KeyPreview = true;
-            
+            this.nhomchidinh = nhomchidinh;
+            this.loainhom = loainhom;
             InitEvents();
         }
         void InitEvents()
@@ -143,9 +145,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (manhom == "") manhom = "-1";
                 string tennhom = Utility.DoTrim(txtTennhom.Text);
                 if (tennhom == "") tennhom = "-1";
-                string Loainhom = Utility.DoTrim(txtLoainhom.myCode);
-                if (Loainhom == "") Loainhom = "-1";
-                m_dtData = _KCB_CHIDINH_CANLAMSANG.DmucTimkiemNhomchidinhCls(IdNhom, tennhom, manhom, Loainhom, Utility.Int32Dbnull(txtDmucDichvuCLS.MyID, -1),globalVariables.UserName);
+                string MaLoainhom = Utility.DoTrim(txtLoainhom.myCode);
+                if (MaLoainhom == "") MaLoainhom = "-1";
+                m_dtData = _KCB_CHIDINH_CANLAMSANG.DmucTimkiemNhomchidinhCls(IdNhom, tennhom, manhom, MaLoainhom, loainhom, Utility.Int32Dbnull(txtDmucDichvuCLS.MyID, -1), globalVariables.UserName);
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtData, true, true, "1=1", DmucNhomcanlamsang.Columns.TenNhom );
                 if (grdList.GetDataRows().Length <= 0)
                     m_dataDataRegExam.Rows.Clear();
@@ -263,7 +265,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-                frm_themmoi_nhomcls frm = new frm_themmoi_nhomcls("-GOI,-TIEN,-CHIPHITHEM");
+                frm_themmoi_nhomcls frm = new frm_themmoi_nhomcls(nhomchidinh);
                 frm.m_eAction = action.Insert;
                 frm.m_dtNhom = m_dtData;
                 frm.grdList = grdList;
@@ -310,7 +312,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     return;
                 }
 
-                frm_themmoi_nhomcls frm = new frm_themmoi_nhomcls("-GOI,-TIEN,-CHIPHITHEM");
+                frm_themmoi_nhomcls frm = new frm_themmoi_nhomcls(nhomchidinh);
                 frm.txtId.Text =Utility.Int32Dbnull( Utility.GetValueFromGridColumn(grdList, DmucNhomcanlamsang.Columns.Id),-1).ToString();
                 frm.m_eAction = action.Update;
                 frm.m_dtNhom = m_dtData;
