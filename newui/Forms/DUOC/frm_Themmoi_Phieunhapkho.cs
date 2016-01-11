@@ -114,6 +114,30 @@ namespace VNS.HIS.UI.THUOC
             txtKhonhap._OnEnterMe += txtKhonhap__OnEnterMe;
             txtsoDK._OnShowData += txtsoDK__OnShowData;
             txtsoQDthau._OnShowData += txtsoQDthau__OnShowData;
+            cmdNewDrug.Click += cmdNewDrug_Click;
+            cmdNewStock.Click += cmdNewStock_Click;
+        }
+
+        void cmdNewStock_Click(object sender, EventArgs e)
+        {
+            frm_DanhmucKhothuoc dmuc_kho = new frm_DanhmucKhothuoc(KIEU_THUOC_VT);
+            dmuc_kho.AutoNew = true;
+            dmuc_kho.ShowDialog();
+            if (!dmuc_kho.m_blnCancel)
+            {
+                InitStocks();
+            }
+        }
+
+        void cmdNewDrug_Click(object sender, EventArgs e)
+        {
+            frm_qhe_doituong_thuoc_coban dmuc_thuoc = new frm_qhe_doituong_thuoc_coban(KIEU_THUOC_VT);
+            dmuc_thuoc.AutoNew = true;
+            dmuc_thuoc.ShowDialog();
+            if (!dmuc_thuoc.m_blnCancel)
+            {
+                LoadAuCompleteThuoc();
+            }
         }
 
         void txtsoQDthau__OnShowData()
@@ -260,6 +284,18 @@ namespace VNS.HIS.UI.THUOC
 
             LoadData();  
         }
+        void InitStocks()
+        {
+            if (KIEU_THUOC_VT == "THUOC")
+            {
+                m_dtDataKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_CHAN();
+            }
+            else
+            {
+                m_dtDataKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_CHAN();
+            }
+            txtKhonhap.Init(m_dtDataKhoNhap, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
+        }
         void LoadData()
         {
             try
@@ -284,22 +320,24 @@ namespace VNS.HIS.UI.THUOC
                 lblSTTThau.Enabled = lblQDthau.Enabled = txtsoDK.Enabled = txtsoQDthau.Enabled = THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_NHAPKHO_BATNHAPTHONGTIN_QDTHAU", "0", false) == "1";
                 if (!txtsoDK.Enabled)
                     lblSTTThau.ForeColor = lblQDthau.ForeColor = lblThangdu.ForeColor;
-                if (KIEU_THUOC_VT == "THUOC")
+
+                InitStocks();
+               
+                txtNhanvien.Init(CommonLoadDuoc.LAYTHONGTIN_NHANVIEN(),
+                             new List<string>
+                                  {
+                                      DmucNhanvien.Columns.IdNhanvien,
+                                      DmucNhanvien.Columns.MaNhanvien,
+                                      DmucNhanvien.Columns.TenNhanvien
+                                  });
+                if (globalVariables.gv_intIDNhanvien <= 0)
                 {
-                    m_dtDataKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_CHAN();
+                    txtNhanvien.SetId(-1);
                 }
                 else
                 {
-                    m_dtDataKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_CHAN();
+                    txtNhanvien.SetId(globalVariables.gv_intIDNhanvien);
                 }
-
-                txtKhonhap.Init(m_dtDataKhoNhap, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
-                DataBinding.BindDataCombobox(cboNhanVien, CommonLoadDuoc.LAYTHONGTIN_NHANVIEN(),
-                                       DmucNhanvien.Columns.IdNhanvien, DmucNhanvien.Columns.TenNhanvien, "---Nhân viên---", false);
-                cboNhanVien.Enabled = false;
-
-                cboNhanVien.SelectedIndex = Utility.GetSelectedIndex(cboNhanVien, globalVariables.gv_intIDNhanvien.ToString());
-
                 LoadAuCompleteThuoc();
                 getData();
                 SetStatusControl();
@@ -371,15 +409,8 @@ namespace VNS.HIS.UI.THUOC
                 {
                     ((Janus.Windows.GridEX.EditControls.EditBox)(control)).Clear();
                 }
-                if (control is Janus.Windows.EditControls.UIComboBox)
-                {
-                    if (((Janus.Windows.EditControls.UIComboBox)(control)).Name!=cboNhanVien.Name)
-                    {
-                        ((Janus.Windows.EditControls.UIComboBox)(control)).SelectedIndex = 0;
-                    }
-                   
-                }
             }
+            txtNhanvien.SetCode("-1");
             txtNhacungcap.SetCode("-1");
             txtTongHoaDon.Clear();
             dtNgayNhap.Value =globalVariables.SysDate;
@@ -390,7 +421,7 @@ namespace VNS.HIS.UI.THUOC
             if(em_Action==action.Update)
             {
                 TPhieuNhapxuatthuoc objPhieuNhap = TPhieuNhapxuatthuoc.FetchByID(Utility.Int32Dbnull(txtIDPhieuNhapKho.Text));
-                if(objPhieuNhap!=null)
+                if (objPhieuNhap != null)
                 {
                     txtSoHoaDon.Text = Utility.sDbnull(objPhieuNhap.SoHoadon);
                     dtNgayNhap.Value = objPhieuNhap.NgayHoadon;
@@ -405,15 +436,11 @@ namespace VNS.HIS.UI.THUOC
                     txtCo.Text = objPhieuNhap.TkCo;
                     txtSoCTkemtheo.Text = objPhieuNhap.SoChungtuKemtheo;
                     chkPhieuvay.Checked = Utility.Byte2Bool(objPhieuNhap.PhieuVay);
-                    //if (Utility.Int32Dbnull(objPhieuNhap.IdKhonhap) > 0)
-                        txtNhacungcap.SetCode(objPhieuNhap.MaNhacungcap);
-                    //cboNhaCungCap.SelectedValue = Utility.sDbnull(objPhieuNhap.IdNhaCcap);
-                    if(Utility.Int32Dbnull(objPhieuNhap.IdNhanvien)>0)
-                    cboNhanVien.SelectedValue = Utility.sDbnull(objPhieuNhap.IdNhanvien);
-
+                    txtNhacungcap.SetCode(objPhieuNhap.MaNhacungcap);
+                    txtNhanvien.SetId(objPhieuNhap.IdNhanvien);
                     m_dtDataPhieuChiTiet =
                          new THUOC_NHAPKHO().LaythongtinChitietPhieunhapKho(Utility.Int32Dbnull(txtIDPhieuNhapKho.Text));
-                    Utility.SetDataSourceForDataGridEx(grdPhieuNhapChiTiet,m_dtDataPhieuChiTiet,false,true,"1=1","");
+                    Utility.SetDataSourceForDataGridEx(grdPhieuNhapChiTiet, m_dtDataPhieuChiTiet, false, true, "1=1", "");
                 }
             }
             if(em_Action==action.Insert)
@@ -960,9 +987,8 @@ namespace VNS.HIS.UI.THUOC
                 objTPhieuNhapxuatthuoc.MotaThem = Utility.DoTrim(txtLyDoNhap.Text);
                 objTPhieuNhapxuatthuoc.TrangThai = 0;
                 objTPhieuNhapxuatthuoc.PhieuVay = Utility.Bool2byte(chkPhieuvay.Checked);
-                objTPhieuNhapxuatthuoc.IdNhanvien = Utility.Int16Dbnull(cboNhanVien.SelectedValue, -1);
-                if (Utility.Int32Dbnull(objTPhieuNhapxuatthuoc.IdNhanvien, -1) <= 0)
-                    objTPhieuNhapxuatthuoc.IdNhanvien = globalVariables.gv_intIDNhanvien;
+                objTPhieuNhapxuatthuoc.IdNhanvien = Utility.Int16Dbnull(txtNhanvien.MyID, -1);
+                    objTPhieuNhapxuatthuoc.IdNhanvien = Utility.Int16Dbnull(txtNhanvien.MyID,globalVariables.gv_intIDNhanvien);
                 objTPhieuNhapxuatthuoc.NgayHoadon = dtNgayNhap.Value;
                 objTPhieuNhapxuatthuoc.NgayTao = globalVariables.SysDate;
                 objTPhieuNhapxuatthuoc.NguoiTao = globalVariables.UserName;

@@ -1205,9 +1205,9 @@
             this.pnlGia.Controls.Add(this.label13);
             this.pnlGia.Controls.Add(this.txtGiaBHYT);
             this.pnlGia.Controls.Add(this.txtDongia);
-            this.pnlGia.Location = new System.Drawing.Point(11, 205);
+            this.pnlGia.Location = new System.Drawing.Point(12, 205);
             this.pnlGia.Name = "pnlGia";
-            this.pnlGia.Size = new System.Drawing.Size(708, 54);
+            this.pnlGia.Size = new System.Drawing.Size(707, 54);
             this.pnlGia.TabIndex = 13;
             this.pnlGia.TabStop = true;
             // 
@@ -1216,7 +1216,7 @@
             this.txtGiaDV.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtGiaDV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGiaDV.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGiaDV.Location = new System.Drawing.Point(388, 4);
+            this.txtGiaDV.Location = new System.Drawing.Point(387, 4);
             this.txtGiaDV.Masked = MaskedTextBox.Mask.Decimal;
             this.txtGiaDV.Name = "txtGiaDV";
             this.txtGiaDV.Size = new System.Drawing.Size(125, 21);
@@ -1238,7 +1238,7 @@
             // 
             this.label25.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label25.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(297, 7);
+            this.label25.Location = new System.Drawing.Point(296, 7);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(86, 15);
             this.label25.TabIndex = 1744;
@@ -1259,7 +1259,7 @@
             // 
             this.label11.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label11.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(293, 32);
+            this.label11.Location = new System.Drawing.Point(292, 32);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(90, 15);
             this.label11.TabIndex = 437;
@@ -1271,7 +1271,7 @@
             this.txtPTTT.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtPTTT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPTTT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPTTT.Location = new System.Drawing.Point(388, 29);
+            this.txtPTTT.Location = new System.Drawing.Point(387, 29);
             this.txtPTTT.Masked = MaskedTextBox.Mask.Decimal;
             this.txtPTTT.Name = "txtPTTT";
             this.txtPTTT.Size = new System.Drawing.Size(305, 21);
@@ -1293,7 +1293,7 @@
             // 
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label13.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(521, 7);
+            this.label13.Location = new System.Drawing.Point(520, 7);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(71, 15);
             this.label13.TabIndex = 1620;
@@ -1305,7 +1305,7 @@
             this.txtGiaBHYT.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtGiaBHYT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGiaBHYT.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGiaBHYT.Location = new System.Drawing.Point(597, 4);
+            this.txtGiaBHYT.Location = new System.Drawing.Point(596, 4);
             this.txtGiaBHYT.Masked = MaskedTextBox.Mask.Decimal;
             this.txtGiaBHYT.Name = "txtGiaBHYT";
             this.txtGiaBHYT.Size = new System.Drawing.Size(96, 21);
@@ -1377,7 +1377,7 @@
             this.cmdNew.Name = "cmdNew";
             this.cmdNew.Size = new System.Drawing.Size(138, 38);
             this.cmdNew.TabIndex = 31;
-            this.cmdNew.Text = "&Thêm mới";
+            this.cmdNew.Text = "Thêm mới";
             this.cmdNew.ToolTipText = "Nhấn vào đây để thêm mới Bệnh nhân";
             // 
             // frm_themmoi_thuoc

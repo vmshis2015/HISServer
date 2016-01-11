@@ -720,6 +720,7 @@ namespace VNS.HIS.UI.THUOC
                 m_dtDrugDataSource.Rows.Add(dr);
                 txtName.AddNewItems(dr);
                 m_dtDrugDataSource.AcceptChanges();
+                m_blnCancel = false;
                 m_enAction = action.Insert;
                 //Nhảy đến bản ghi vừa thêm mới trên lưới. Do txtID chưa bị reset nên dùng luôn
                 try

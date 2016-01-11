@@ -52,6 +52,7 @@ namespace VNS.HIS.UI.THUOC
             txtthuoc._OnSelectionChanged += new UCs.AutoCompleteTextbox_Thuoc.OnSelectionChanged(txtthuoc__OnSelectionChanged);
             cmdAddDetail.Click += new EventHandler(cmdAddDetail_Click);
             cboKhoaTra.SelectedIndexChanged += new EventHandler(cboKhoaTra_SelectedIndexChanged);
+            
         }
 
         void cboKhoaTra_SelectedIndexChanged(object sender, EventArgs e)

@@ -27,6 +27,7 @@ namespace VNS.HIS.UI.THUOC
         private DataTable m_Doituong = new DataTable();
         private string strFromThemKho = Application.StartupPath + @"\CAUHINH\FromThemKho.txt";
         private bool AllowTextChanged = false;
+        public bool m_blnCancel = true;
         #endregion
 
         public frm_themmoi_kho()
@@ -83,6 +84,7 @@ namespace VNS.HIS.UI.THUOC
                 TDmucKho objDmuckho = CreateKhoThuoc();
                 objDmuckho.IsNew = true;
                 objDmuckho.Save();
+                m_blnCancel = false;
                 txtIDKHO.Text = Utility.sDbnull(objDmuckho.IdKho);
                 objDmuckho = TDmucKho.FetchByID(Utility.Int32Dbnull(txtIDKHO.Text, -1));
                 if (objDmuckho != null)
@@ -120,7 +122,7 @@ namespace VNS.HIS.UI.THUOC
             {
                 TDmucKho objDmuckho = CreateKhoThuoc();
                 objDmuckho.Save();
-
+                m_blnCancel = false;
                 objDmuckho = TDmucKho.FetchByID(Utility.Int32Dbnull(txtIDKHO.Text, -1));
                 DataRow[] arrDr =
                     p_dtDataChung.Select(string.Format("{0}={1}", TDmucKho.Columns.IdKho, Utility.Int32Dbnull(txtIDKHO.Text)));

@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Themmoi_Phieunhapkho));
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel1 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel2 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel3 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel4 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             Janus.Windows.GridEX.GridEXLayout grdPhieuNhapChiTiet_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Themmoi_Phieunhapkho));
             this.grpControl = new Janus.Windows.EditControls.UIGroupBox();
+            this.dtNgayNhap = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.maskedEditBox1 = new Janus.Windows.GridEX.EditControls.MaskedEditBox();
             this.txtKhonhap = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.chkPhieuvay = new Janus.Windows.EditControls.UICheckBox();
@@ -57,8 +58,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtTongTien = new Janus.Windows.GridEX.EditControls.EditBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cboNhanVien = new Janus.Windows.EditControls.UIComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtVAT = new Janus.Windows.GridEX.EditControls.MaskedEditBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -121,7 +120,9 @@
             this.txtDrugName = new VNS.HIS.UCs.AutoCompleteTextbox_Thuoc();
             this.txtsoDK = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.txtsoQDthau = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
-            this.dtNgayNhap = new Janus.Windows.CalendarCombo.CalendarCombo();
+            this.txtNhanvien = new VNS.HIS.UCs.AutoCompleteTextbox();
+            this.cmdNewDrug = new Janus.Windows.EditControls.UIButton();
+            this.cmdNewStock = new Janus.Windows.EditControls.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.grpControl)).BeginInit();
             this.grpControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
@@ -138,7 +139,9 @@
             // 
             // grpControl
             // 
-            this.grpControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.grpControl.BackColor = System.Drawing.SystemColors.Control;
+            this.grpControl.Controls.Add(this.cmdNewStock);
+            this.grpControl.Controls.Add(this.txtNhanvien);
             this.grpControl.Controls.Add(this.dtNgayNhap);
             this.grpControl.Controls.Add(this.maskedEditBox1);
             this.grpControl.Controls.Add(this.txtKhonhap);
@@ -161,8 +164,6 @@
             this.grpControl.Controls.Add(this.label10);
             this.grpControl.Controls.Add(this.txtTongTien);
             this.grpControl.Controls.Add(this.label9);
-            this.grpControl.Controls.Add(this.label8);
-            this.grpControl.Controls.Add(this.cboNhanVien);
             this.grpControl.Controls.Add(this.label7);
             this.grpControl.Controls.Add(this.txtVAT);
             this.grpControl.Controls.Add(this.label6);
@@ -181,12 +182,28 @@
             this.grpControl.TabIndex = 0;
             this.grpControl.Text = "Thông tin phiếu nhập kho";
             // 
+            // dtNgayNhap
+            // 
+            // 
+            // 
+            // 
+            this.dtNgayNhap.DropDownCalendar.Name = "";
+            this.dtNgayNhap.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtNgayNhap.Location = new System.Drawing.Point(109, 50);
+            this.dtNgayNhap.Name = "dtNgayNhap";
+            this.dtNgayNhap.ShowUpDown = true;
+            this.dtNgayNhap.Size = new System.Drawing.Size(272, 21);
+            this.dtNgayNhap.TabIndex = 0;
+            this.dtNgayNhap.Value = new System.DateTime(2014, 9, 12, 0, 0, 0, 0);
+            // 
             // maskedEditBox1
             // 
             this.maskedEditBox1.Location = new System.Drawing.Point(824, 51);
             this.maskedEditBox1.Name = "maskedEditBox1";
             this.maskedEditBox1.Size = new System.Drawing.Size(100, 21);
-            this.maskedEditBox1.TabIndex = 482;
+            this.maskedEditBox1.TabIndex = 11;
+            this.maskedEditBox1.TabStop = false;
+            this.maskedEditBox1.Visible = false;
             // 
             // txtKhonhap
             // 
@@ -233,7 +250,7 @@
             this.chkPhieuvay.Location = new System.Drawing.Point(812, 128);
             this.chkPhieuvay.Name = "chkPhieuvay";
             this.chkPhieuvay.Size = new System.Drawing.Size(85, 23);
-            this.chkPhieuvay.TabIndex = 481;
+            this.chkPhieuvay.TabIndex = 12;
             this.chkPhieuvay.Text = "Phiếu vay?";
             // 
             // txtNguoinhan
@@ -479,8 +496,7 @@
             this.cmdCauHinh.Location = new System.Drawing.Point(873, 21);
             this.cmdCauHinh.Name = "cmdCauHinh";
             this.cmdCauHinh.Size = new System.Drawing.Size(43, 27);
-            this.cmdCauHinh.TabIndex = 464;
-            this.cmdCauHinh.TabStop = false;
+            this.cmdCauHinh.TabIndex = 13;
             // 
             // lblTongtien
             // 
@@ -504,20 +520,20 @@
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(812, 81);
+            this.label10.Location = new System.Drawing.Point(855, 81);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(104, 20);
+            this.label10.Size = new System.Drawing.Size(61, 20);
             this.label10.TabIndex = 19;
-            this.label10.Text = "&Tổng tiền";
+            this.label10.Text = "Tổng tiền";
             this.label10.Visible = false;
             // 
             // txtTongTien
             // 
             this.txtTongTien.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTongTien.Location = new System.Drawing.Point(814, 104);
+            this.txtTongTien.Location = new System.Drawing.Point(858, 104);
             this.txtTongTien.Name = "txtTongTien";
-            this.txtTongTien.Size = new System.Drawing.Size(101, 23);
-            this.txtTongTien.TabIndex = 8;
+            this.txtTongTien.Size = new System.Drawing.Size(57, 23);
+            this.txtTongTien.TabIndex = 11;
             this.txtTongTien.TabStop = false;
             this.txtTongTien.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far;
             this.txtTongTien.Visible = false;
@@ -531,25 +547,6 @@
             this.label9.TabIndex = 17;
             this.label9.Text = "Kho nhập";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(637, 9);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(10, 20);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "Nhân viên";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label8.Visible = false;
-            // 
-            // cboNhanVien
-            // 
-            this.cboNhanVien.Location = new System.Drawing.Point(653, 8);
-            this.cboNhanVien.Name = "cboNhanVien";
-            this.cboNhanVien.Size = new System.Drawing.Size(10, 21);
-            this.cboNhanVien.TabIndex = 10;
-            this.cboNhanVien.Text = "Nhân viên";
-            this.cboNhanVien.Visible = false;
             // 
             // label7
             // 
@@ -981,15 +978,13 @@
             // 
             this.cmdHuyThongTin.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdHuyThongTin.Image = ((System.Drawing.Image)(resources.GetObject("cmdHuyThongTin.Image")));
-            this.cmdHuyThongTin.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdHuyThongTin.ImageVerticalAlignment = Janus.Windows.EditControls.ImageVerticalAlignment.Far;
+            this.cmdHuyThongTin.ImageSize = new System.Drawing.Size(20, 20);
             this.cmdHuyThongTin.Location = new System.Drawing.Point(814, 236);
             this.cmdHuyThongTin.Name = "cmdHuyThongTin";
             this.cmdHuyThongTin.Size = new System.Drawing.Size(110, 30);
             this.cmdHuyThongTin.TabIndex = 24;
             this.cmdHuyThongTin.TabStop = false;
-            this.cmdHuyThongTin.Text = "Nhập lại";
-            this.cmdHuyThongTin.TextHorizontalAlignment = Janus.Windows.EditControls.TextAlignment.Far;
+            this.cmdHuyThongTin.Text = "    Nhập lại";
             this.toolTip1.SetToolTip(this.cmdHuyThongTin, "Nhấn vào đây để nhập thuốc mới");
             // 
             // errorProvider1
@@ -1249,6 +1244,7 @@
             this.txtDrugName.MinTypedCharacters = 2;
             this.txtDrugName.MyCode = "-1";
             this.txtDrugName.MyID = "-1";
+            this.txtDrugName.MyText = "";
             this.txtDrugName.Name = "txtDrugName";
             this.txtDrugName.RaiseEvent = false;
             this.txtDrugName.RaiseEventEnter = true;
@@ -1258,6 +1254,7 @@
             this.txtDrugName.splitChar = '@';
             this.txtDrugName.splitCharIDAndCode = '#';
             this.txtDrugName.TabIndex = 14;
+            this.txtDrugName.TakeCode = false;
             this.txtDrugName.txtMyCode = null;
             this.txtDrugName.txtMyCode_Edit = null;
             this.txtDrugName.txtMyID = null;
@@ -1344,24 +1341,76 @@
             this.txtsoQDthau.txtMyName_Edit = null;
             this.txtsoQDthau.txtNext = null;
             // 
-            // dtNgayNhap
+            // txtNhanvien
             // 
+            this.txtNhanvien._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtNhanvien._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNhanvien._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtNhanvien.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNhanvien.AutoCompleteList")));
+            this.txtNhanvien.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNhanvien.CaseSensitive = false;
+            this.txtNhanvien.CompareNoID = true;
+            this.txtNhanvien.DefaultCode = "-1";
+            this.txtNhanvien.DefaultID = "-1";
+            this.txtNhanvien.Drug_ID = null;
+            this.txtNhanvien.ExtraWidth = 0;
+            this.txtNhanvien.FillValueAfterSelect = false;
+            this.txtNhanvien.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNhanvien.Location = new System.Drawing.Point(812, 26);
+            this.txtNhanvien.MaxHeight = 289;
+            this.txtNhanvien.MinTypedCharacters = 2;
+            this.txtNhanvien.MyCode = "-1";
+            this.txtNhanvien.MyID = "-1";
+            this.txtNhanvien.MyText = "";
+            this.txtNhanvien.Name = "txtNhanvien";
+            this.txtNhanvien.RaiseEvent = true;
+            this.txtNhanvien.RaiseEventEnter = true;
+            this.txtNhanvien.RaiseEventEnterWhenEmpty = true;
+            this.txtNhanvien.SelectedIndex = -1;
+            this.txtNhanvien.Size = new System.Drawing.Size(55, 21);
+            this.txtNhanvien.splitChar = '@';
+            this.txtNhanvien.splitCharIDAndCode = '#';
+            this.txtNhanvien.TabIndex = 11;
+            this.txtNhanvien.TabStop = false;
+            this.txtNhanvien.TakeCode = false;
+            this.txtNhanvien.txtMyCode = null;
+            this.txtNhanvien.txtMyCode_Edit = null;
+            this.txtNhanvien.txtMyID = null;
+            this.txtNhanvien.txtMyID_Edit = null;
+            this.txtNhanvien.txtMyName = null;
+            this.txtNhanvien.txtMyName_Edit = null;
+            this.txtNhanvien.txtNext = null;
+            this.txtNhanvien.Visible = false;
             // 
+            // cmdNewDrug
             // 
+            this.cmdNewDrug.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdNewDrug.Image = ((System.Drawing.Image)(resources.GetObject("cmdNewDrug.Image")));
+            this.cmdNewDrug.ImageSize = new System.Drawing.Size(20, 20);
+            this.cmdNewDrug.Location = new System.Drawing.Point(396, 191);
+            this.cmdNewDrug.Name = "cmdNewDrug";
+            this.cmdNewDrug.Size = new System.Drawing.Size(25, 25);
+            this.cmdNewDrug.TabIndex = 11;
+            this.cmdNewDrug.TabStop = false;
+            this.toolTip1.SetToolTip(this.cmdNewDrug, "Thêm mới địa chính");
             // 
-            this.dtNgayNhap.DropDownCalendar.Name = "";
-            this.dtNgayNhap.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtNgayNhap.Location = new System.Drawing.Point(109, 50);
-            this.dtNgayNhap.Name = "dtNgayNhap";
-            this.dtNgayNhap.ShowUpDown = true;
-            this.dtNgayNhap.Size = new System.Drawing.Size(272, 21);
-            this.dtNgayNhap.TabIndex = 483;
-            this.dtNgayNhap.Value = new System.DateTime(2014, 9, 12, 0, 0, 0, 0);
+            // cmdNewStock
+            // 
+            this.cmdNewStock.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdNewStock.Image = ((System.Drawing.Image)(resources.GetObject("cmdNewStock.Image")));
+            this.cmdNewStock.ImageSize = new System.Drawing.Size(20, 20);
+            this.cmdNewStock.Location = new System.Drawing.Point(809, 100);
+            this.cmdNewStock.Name = "cmdNewStock";
+            this.cmdNewStock.Size = new System.Drawing.Size(25, 25);
+            this.cmdNewStock.TabIndex = 11;
+            this.cmdNewStock.TabStop = false;
+            this.toolTip1.SetToolTip(this.cmdNewStock, "Thêm mới địa chính");
             // 
             // frm_Themmoi_Phieunhapkho
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(928, 682);
+            this.Controls.Add(this.cmdNewDrug);
             this.Controls.Add(this.txtsoQDthau);
             this.Controls.Add(this.txtsoDK);
             this.Controls.Add(this.lblQDthau);
@@ -1441,8 +1490,6 @@
         private System.Windows.Forms.Label label1;
         private Janus.Windows.GridEX.EditControls.EditBox txtMaPhieu;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label8;
-        private Janus.Windows.EditControls.UIComboBox cboNhanVien;
         private System.Windows.Forms.Label label9;
         private Janus.Windows.EditControls.UIGroupBox uiGroupBox3;
         private Janus.Windows.GridEX.EditControls.EditBox txtDrug_ID;
@@ -1519,5 +1566,8 @@
         private UCs.AutoCompleteTextbox txtKhonhap;
         private Janus.Windows.GridEX.EditControls.MaskedEditBox maskedEditBox1;
         private Janus.Windows.CalendarCombo.CalendarCombo dtNgayNhap;
+        private UCs.AutoCompleteTextbox txtNhanvien;
+        private Janus.Windows.EditControls.UIButton cmdNewDrug;
+        private Janus.Windows.EditControls.UIButton cmdNewStock;
     }
 }

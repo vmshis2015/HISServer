@@ -264,6 +264,10 @@ namespace VNS.HIS.UI.THUOC
                 TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc = TPhieuNhapxuatthuoc.FetchByID(IdPhieu);
                 if (objTPhieuNhapxuatthuoc != null)
                 {
+                    if (Utility.ByteDbnull(objTPhieuNhapxuatthuoc.TrangThai, 0) == 1)
+                    {
+                        return;
+                    }
                     string errMsg = "";
                     DateTime _ngayxacnhan = globalVariables.SysDate;
                     if (THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_HIENTHI_NGAYXACNHAN", "0", false) == "1")
@@ -470,6 +474,10 @@ namespace VNS.HIS.UI.THUOC
                     TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc = TPhieuNhapxuatthuoc.FetchByID(IdPhieu);
                     if (objTPhieuNhapxuatthuoc != null)
                     {
+                        if (Utility.ByteDbnull(objTPhieuNhapxuatthuoc.TrangThai, 0) == 0)
+                        {
+                            return;
+                        }
                         string errMsg = "";
                         ActionResult actionResult =
                             new XuatThuoc().HuyXacNhanPhieuHuy_thanhly_Thuoc(objTPhieuNhapxuatthuoc, ref errMsg);

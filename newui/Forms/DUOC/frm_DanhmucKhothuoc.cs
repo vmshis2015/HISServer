@@ -17,11 +17,20 @@ namespace VNS.HIS.UI.THUOC
     {
         private DataTable m_dtKhoThuoc=new DataTable();
         public string KIEU_THUOC_VT = "THUOC";
+        public bool AutoNew = false;
+        public bool m_blnCancel = true;
         public frm_DanhmucKhothuoc(string KIEU_THUOC_VT)
         {
             InitializeComponent();
+            this.Shown += frm_DanhmucKhothuoc_Shown;
             this.KIEU_THUOC_VT = KIEU_THUOC_VT;
             
+        }
+
+        void frm_DanhmucKhothuoc_Shown(object sender, EventArgs e)
+        {
+            if (AutoNew)
+                cmdThemMoi_Click(cmdThemMoi, e);
         }
 
         private void cmdThoat_Click(object sender, EventArgs e)
@@ -63,6 +72,7 @@ namespace VNS.HIS.UI.THUOC
                             .Execute();
                         if (new Delete().From(TDmucKho.Schema).Where(TDmucKho.Columns.IdKho).IsEqualTo(Utility.Int32Dbnull(gridExRow.Cells[TDmucKho.Columns.IdKho].Value, -1)).Execute() > 0)
                         {
+                            m_blnCancel = false;
                             gridExRow.Delete();
                         }
                         
@@ -108,6 +118,7 @@ namespace VNS.HIS.UI.THUOC
             frm.p_dtDataChung = m_dtKhoThuoc;
             frm.grdList = grdKhoThuoc;
             frm.ShowDialog();
+            m_blnCancel = frm.m_blnCancel;
         }
         /// <summary>
         /// hàm thực hiện load thông tin kho thuốc
@@ -121,6 +132,7 @@ namespace VNS.HIS.UI.THUOC
             m_dtKhoThuoc = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOCVaTuThuoc();
             Utility.SetDataSourceForDataGridEx(grdKhoThuoc,m_dtKhoThuoc,true,true,"1=1","");
             ModifyCommand();
+           
         }
         /// <summary>
         /// hàm thực hiện việc thêm mới kho thuốc
@@ -135,7 +147,7 @@ namespace VNS.HIS.UI.THUOC
             frm.p_dtDataChung = m_dtKhoThuoc;
             frm.grdList = grdKhoThuoc;
             frm.ShowDialog();
-            
+            m_blnCancel = frm.m_blnCancel;
         }
         /// <summary>
         /// phím tắt
