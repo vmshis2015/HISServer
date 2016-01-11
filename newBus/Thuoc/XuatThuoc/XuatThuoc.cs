@@ -895,7 +895,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                 objXuatBnhanCt.GiaBan = Utility.DecimaltoDbnull(objDetail.GiaBan);//giá bán
                 objXuatBnhanCt.GiaNhap = Utility.DecimaltoDbnull(objDetail.GiaNhap);//giá nhập
                 objXuatBnhanCt.GiaBhyt = Utility.DecimaltoDbnull(objDetail.GiaBhyt);//giá BHYT
-
+                objXuatBnhanCt.IdDonthuoc = objDetail.IdDonthuoc;
                 objXuatBnhanCt.PhuthuTraituyen = objDetail.PhuthuTraituyen;
                 objXuatBnhanCt.PhuthuDungtuyen = objDetail.PhuthuDungtuyen;
 
@@ -1771,6 +1771,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                                 //Xóa trong bảng biến động
                                 new Delete().From(TBiendongThuoc.Schema)
                                     .Where(TBiendongThuoc.Columns.IdPhieuChitiet).IsEqualTo(Utility.Int32Dbnull(PhieuXuatBnhanCt.IdPhieuChitiet))
+                                     .And(TBiendongThuoc.Columns.IdPhieu).IsEqualTo(Utility.Int32Dbnull(PhieuXuatBnhanCt.IdPhieu))
                                     .And(TBiendongThuoc.Columns.MaLoaiphieu).IsEqualTo(LoaiPhieu.PhieuXuatKhoBenhNhan).Execute();
                                 //Cập nhật laijiTThuockho mới cho chi tiết đơn thuốc
                                 if (id_Thuockho_new != -1) //Gặp trường hợp khi xuất hết thuốc thì xóa kho-->Khi hủy thì tạo ra dòng thuốc kho mới

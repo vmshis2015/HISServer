@@ -99,10 +99,10 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                 {
                     using (var dbScope = new SharedDbConnectionScope())
                     {
-                        new Delete().From(TPhieutrathuocKholeVekhochanChitiet.Schema)
-                            .Where(TPhieutrathuocKholeVekhochanChitiet.Columns.IdPhieu).IsEqualTo(IDPhieu).Execute();
-                        new Delete().From(TPhieutrathuocKholeVekhochan.Schema)
-                           .Where(TPhieutrathuocKholeVekhochan.Columns.IdPhieu).IsEqualTo(IDPhieu).Execute();
+                        new Delete().From(TPhieuNhapxuatthuocChitiet.Schema)
+                            .Where(TPhieuNhapxuatthuocChitiet.Columns.IdPhieu).IsEqualTo(IDPhieu).Execute();
+                        new Delete().From(TPhieuNhapxuatthuoc.Schema)
+                           .Where(TPhieuNhapxuatthuoc.Columns.IdPhieu).IsEqualTo(IDPhieu).Execute();
                     }
                     Scope.Complete();
                     return ActionResult.Success;
