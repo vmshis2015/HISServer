@@ -71,6 +71,7 @@ namespace VNS.HIS.UCs
             splitChar = '@';
             splitCharIDAndCode = '#';
             MaxHeight = -1;
+            MyText = "";
             RaiseEvent = false;
             CompareNoID = true;
             FillValueAfterSelect = false;
@@ -223,6 +224,11 @@ namespace VNS.HIS.UCs
         #endregion Constructors
 
         #region Properties
+        public bool TakeCode
+        {
+            get;
+            set;
+        }
         public Color _backcolor
         {
             get { return listBox.BackColor; }
@@ -308,6 +314,7 @@ namespace VNS.HIS.UCs
                 AllowTextChanged = true;
             }
         }
+        public string MyText { get; set; }
         public void ClearText()
         {
             AllowTextChanged = false;
@@ -485,7 +492,81 @@ namespace VNS.HIS.UCs
             }
         }
 
-      
+        public void SetId(object _Id)
+        {
+            try
+            {
+                MyID = _Id;
+                var p = (from q in this.AutoCompleteList
+                         where q.Contains(Utility.sDbnull(_Id) + "#")
+                         select q).ToList();
+                if (p.Count > 0)
+                    try2getName(p.First());
+                else
+                {
+                    setDefaultValue();
+                    _Text = "";
+                }
+            }
+            catch
+            {
+            }
+        }
+        public void SetCode(object code)
+        {
+            try
+            {
+                MyCode = code.ToString();
+                var p = (from q in this.AutoCompleteList
+                         where q.Contains("#" + Utility.DoTrim(code.ToString()) + "@")
+                         select q).ToList();
+                if (p.Count > 0)
+                    try2getName(p.First());
+                else
+                {
+                    setDefaultValue();
+                    _Text = "";
+                }
+            }
+            catch
+            {
+            }
+        }
+        void try2getName(string value)
+        {
+            try
+            {
+                string[] lst1 = value.Split('#');
+                string[] lst2 = lst1[1].Split('@');
+                if (lst1.Count() == 2)
+                {
+                    if (txtMyID != null)
+                        txtMyID.Text = lst1[0];
+                    if (txtMyID_Edit != null)
+                        txtMyID_Edit.Text = lst1[0];
+                    MyID = lst1[0];
+                }
+                if (lst2.Count() >= 2)
+                {
+                    if (txtMyCode != null)
+                        txtMyCode.Text = lst2[0];
+                    if (txtMyCode_Edit != null)
+                        txtMyCode_Edit.Text = lst2[0];
+                    if (txtMyName_Edit != null)
+                        txtMyName_Edit.Text = lst2[1];
+                    MyCode = lst2[0];
+                    MyText = lst2[1];
+                    if (TakeCode)
+                        _Text = MyCode;
+                    else
+                        _Text = lst2[1];
+                }
+
+            }
+            catch
+            {
+            }
+        }
         private void txtDrug_Code_KeyDown(object sender, KeyEventArgs e)
         {
 
@@ -731,6 +812,7 @@ namespace VNS.HIS.UCs
                         txtMyCode_Edit.Text = arrValues[1];
                     MyID = arrValues[0];
                     MyCode = arrValues[1];
+                    MyText = listBox.SelectedItem.ToString(); 
                     //find id_thuockho
                     //DataRow[] arrDr = dtData.Select("id_thuoc=" + MyID);
                     //if (arrDr.Length > 0)
@@ -765,6 +847,7 @@ namespace VNS.HIS.UCs
 
             MyID = DefaultID;
             MyCode = DefaultCode;
+            MyText = "";
         }
         // event for MouseClick in the ListBox
         private void listBox_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -881,6 +964,7 @@ namespace VNS.HIS.UCs
                                 txtMyCode_Edit.Text = arrValues[1];
                             MyID = arrValues[0];
                             MyCode = arrValues[1];
+                            MyText = listBox.SelectedItem.ToString(); 
                             //find id_thuockho
                             //DataRow[] arrDr = dtData.Select("id_thuoc=" + MyID);
                             //if (arrDr.Length > 0)
