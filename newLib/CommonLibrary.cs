@@ -3214,7 +3214,7 @@ namespace VNS.Libs
         {
             System.Windows.Forms.MessageBox.Show(Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
+        
         ///<summary>
         ///<para>Hiển thị hộp thoại thông báo</para>
         ///</summary>   
@@ -12302,7 +12302,6 @@ namespace VNS.Libs
                     {
                         Prg.Value += _Value;
                         Prg.Refresh();
-                        Thread.Sleep(10);
                     }
                 }
                 catch
