@@ -24,9 +24,9 @@ namespace VNS.HIS.BusRule.Classes
          {
              SPs.ChidinhclsXoaChitiet(IdChitietchidinh).Execute();
          }
-         public DataTable DmucTimkiemNhomchidinhCls(int? IdNhom, string Manhom, string TenNhom, string Loainhom, int? IdDichvuChitiet, string username)
+         public DataTable DmucTimkiemNhomchidinhCls(int? IdNhom, string Manhom, string TenNhom, string MaLoainhom,byte Loainhom, int? IdDichvuChitiet, string username)
          {
-             return SPs.DmucTimkiemNhomchidinhCls(IdNhom, Manhom, TenNhom, Loainhom, IdDichvuChitiet,username).GetDataSet().Tables[0];
+             return SPs.DmucTimkiemNhomchidinhCls(IdNhom, Manhom, TenNhom, MaLoainhom,Loainhom, IdDichvuChitiet,username).GetDataSet().Tables[0];
          }
          public ActionResult Xoanhom(int IdNhom)
          {
@@ -320,6 +320,20 @@ namespace VNS.HIS.BusRule.Classes
              }
              return dataTable;
          }
+         public DataTable MaukiemnghiemLaydanhsachdvukiemnghiem()
+         {
+             DataTable dataTable = new DataTable();
+             try
+             {
+                 dataTable = SPs.SpMaukiemnghiemLaydanhsachdvukiemnghiem().GetDataSet().Tables[0];
+             }
+             catch (Exception)
+             {
+                 return null;
+             }
+             return dataTable;
+         }
+
          public DataTable LaydanhsachCLS_chidinh(string MaDoiTuong, byte Noitru, byte cogiayBHYT, int ID_GoiDV, int dungtuyen, string MA_KHOA_THIEN, string nhomchidinh)
          {
              DataTable dataTable = new DataTable();

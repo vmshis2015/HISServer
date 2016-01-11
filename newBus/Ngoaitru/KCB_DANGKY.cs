@@ -1067,10 +1067,13 @@ namespace VNS.HIS.BusRule.Classes
                             new Delete().From(KcbDanhsachBenhnhan.Schema).Where(KcbDanhsachBenhnhan.Columns.IdBenhnhan).IsEqualTo(
                                v_Patient_ID).Execute();
                         }
-                        mytrace.Desc = string.Format("Xóa Bệnh nhân ID={0}, Code={1}, Name={2}", v_Patient_ID.ToString(), v_MaLuotkham, v_MaLuotkham);
-                        mytrace.Lot = 0;
-                        mytrace.IsNew = true;
-                        mytrace.Save();
+                        if (mytrace != null)
+                        {
+                            mytrace.Desc = string.Format("Xóa Bệnh nhân ID={0}, Code={1}, Name={2}", v_Patient_ID.ToString(), v_MaLuotkham, v_MaLuotkham);
+                            mytrace.Lot = 0;
+                            mytrace.IsNew = true;
+                            mytrace.Save();
+                        }
                     }
                     scope.Complete();
                     return ActionResult.Success;
@@ -1604,7 +1607,7 @@ namespace VNS.HIS.BusRule.Classes
                 return ActionResult.Error;
             }
         }
-        public ActionResult ThemmoiKhachhangDangkyKiemnghiem(SysTrace mytrace, KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham,   ref string Msg)
+        public ActionResult ThemmoiKhachhangDangkyKiemnghiem( KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham,   ref string Msg)
         {
             int v_IdBenhnhan = -1;
             try
@@ -1615,43 +1618,9 @@ namespace VNS.HIS.BusRule.Classes
                     {
                         objKcbDanhsachBenhnhan.IsNew = true;
                         objKcbDanhsachBenhnhan.Save();
-
-                        KcbLichsuDoituongKcb objLichsuKcb = new KcbLichsuDoituongKcb();
-                        objLichsuKcb.IdBenhnhan = objKcbDanhsachBenhnhan.IdBenhnhan;
-                        objLichsuKcb.MaLuotkham = objLuotkham.MaLuotkham;
-                        objLichsuKcb.NgayHieuluc = objLuotkham.NgayTiepdon;
-                        objLichsuKcb.IdDoituongKcb = objLuotkham.IdDoituongKcb;
-                        objLichsuKcb.MaDoituongKcb = objLuotkham.MaDoituongKcb;
-                        objLichsuKcb.IdLoaidoituongKcb = objLuotkham.IdLoaidoituongKcb;
-                        objLichsuKcb.MatheBhyt = objLuotkham.MatheBhyt;
-                        objLichsuKcb.PtramBhyt = objLuotkham.PtramBhyt;
-                        objLichsuKcb.PtramBhytGoc = objLuotkham.PtramBhytGoc;
-                        objLichsuKcb.NgaybatdauBhyt = objLuotkham.NgaybatdauBhyt;
-                        objLichsuKcb.NgayketthucBhyt = objLuotkham.NgayketthucBhyt;
-                        objLichsuKcb.NoicapBhyt = objLuotkham.NoicapBhyt;
-                        objLichsuKcb.MaNoicapBhyt = objLuotkham.MaNoicapBhyt;
-                        objLichsuKcb.MaDoituongBhyt = objLuotkham.MaDoituongBhyt;
-                        objLichsuKcb.MaQuyenloi = objLuotkham.MaQuyenloi;
-                        objLichsuKcb.NoiDongtrusoKcbbd = objLuotkham.NoiDongtrusoKcbbd;
-
-                        objLichsuKcb.MaKcbbd = objLuotkham.MaKcbbd;
-                        objLichsuKcb.TrangthaiNoitru = 0;
-                        objLichsuKcb.DungTuyen = objLuotkham.DungTuyen;
-                        objLichsuKcb.Cmt = objLuotkham.Cmt;
-                        objLichsuKcb.IdRavien = -1;
-                        objLichsuKcb.IdBuong = -1;
-                        objLichsuKcb.IdGiuong = -1;
-                        objLichsuKcb.IdKhoanoitru = -1;
-                        objLichsuKcb.NguoiTao = globalVariables.UserName;
-                        objLichsuKcb.NgayTao = globalVariables.SysDate;
-
-                        objLichsuKcb.IsNew = true;
-                        objLichsuKcb.Save();
-
                         //Thêm lần khám
                         objLuotkham.IdBenhnhan = objKcbDanhsachBenhnhan.IdBenhnhan;
                         objLuotkham.SoBenhAn = string.Empty;
-                        objLuotkham.IdLichsuDoituongKcb = objLichsuKcb.IdLichsuDoituongKcb;
                         objLuotkham.SttKham = THU_VIEN_CHUNG.LaySTTKhamTheoDoituong(objLuotkham.IdDoituongKcb);
                         objLuotkham.NgayTao = globalVariables.SysDate;
                         objLuotkham.NguoiTao = globalVariables.UserName;
@@ -1669,11 +1638,6 @@ namespace VNS.HIS.BusRule.Classes
                                 .Set(KcbLuotkham.Columns.MaLuotkham).EqualTo(patientCode)
                                 .Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
                                 .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham).Execute();
-
-                            new Update(KcbLichsuDoituongKcb.Schema)
-                                .Set(KcbLichsuDoituongKcb.Columns.MaLuotkham).EqualTo(patientCode)
-                                .Where(KcbLichsuDoituongKcb.Columns.IdLichsuDoituongKcb).IsEqualTo(objLichsuKcb.IdLichsuDoituongKcb).Execute();
-
                             objLuotkham.MaLuotkham = patientCode;
                         }
                         new Update(KcbDmucLuotkham.Schema)
@@ -1685,11 +1649,6 @@ namespace VNS.HIS.BusRule.Classes
                         .And(KcbDmucLuotkham.Columns.UsedBy).IsLessThanOrEqualTo(globalVariables.UserName)
                         .Execute();
                         ;
-                       
-                        mytrace.Desc = string.Format("Thêm mới Bệnh nhân ID={0}, Code={1}, Name={2}", objKcbDanhsachBenhnhan.IdBenhnhan.ToString(), objLuotkham.MaLuotkham, objKcbDanhsachBenhnhan.TenBenhnhan);
-                        mytrace.Lot = 0;
-                        mytrace.IsNew = true;
-                        mytrace.Save();
                         scope.Complete();
                         return ActionResult.Success;
                     }
@@ -1701,7 +1660,7 @@ namespace VNS.HIS.BusRule.Classes
                 return ActionResult.Error;
             }
         }
-        public ActionResult CapnhatDangkymauKiemnghiem(SysTrace mytrace, KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham,  ref string Msg)
+        public ActionResult CapnhatDangkymauKiemnghiem( KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham,  ref string Msg)
         {
             ActionResult _ActionResult = ActionResult.Success;
             try
@@ -1715,10 +1674,7 @@ namespace VNS.HIS.BusRule.Classes
                         objLuotkham.MarkOld();
                         objLuotkham.IsNew = false;
                         objLuotkham.Save();
-                        mytrace.Desc = string.Format("Cập nhật  Bệnh nhân ID={0}, Code={1}, Name={2}", objKcbDanhsachBenhnhan.IdBenhnhan.ToString(), objLuotkham.MaLuotkham, objKcbDanhsachBenhnhan.TenBenhnhan);
-                        mytrace.Lot = 0;
-                        mytrace.IsNew = true;
-                        mytrace.Save();
+                        
                         scope.Complete();
                         return ActionResult.Success;
                     }
@@ -1730,7 +1686,7 @@ namespace VNS.HIS.BusRule.Classes
                 return ActionResult.Error;
             }
         }
-        public ActionResult ThemLuotDangkyKiemnghiem(SysTrace mytrace, KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham,ref string Msg)
+        public ActionResult ThemLuotDangkyKiemnghiem( KcbDanhsachBenhnhan objKcbDanhsachBenhnhan, KcbLuotkham objLuotkham,ref string Msg)
         {
             try
             {
@@ -1740,38 +1696,7 @@ namespace VNS.HIS.BusRule.Classes
                     {
                         objKcbDanhsachBenhnhan.Save();
 
-                        KcbLichsuDoituongKcb objLichsuKcb = new KcbLichsuDoituongKcb();
-                        objLichsuKcb.IdBenhnhan = objLuotkham.IdBenhnhan;
-                        objLichsuKcb.MaLuotkham = objLuotkham.MaLuotkham;
-                        objLichsuKcb.NgayHieuluc = objLuotkham.NgayTiepdon;
-                        objLichsuKcb.IdDoituongKcb = objLuotkham.IdDoituongKcb;
-                        objLichsuKcb.MaDoituongKcb = objLuotkham.MaDoituongKcb;
-                        objLichsuKcb.IdLoaidoituongKcb = objLuotkham.IdLoaidoituongKcb;
-                        objLichsuKcb.MatheBhyt = objLuotkham.MatheBhyt;
-                        objLichsuKcb.PtramBhyt = objLuotkham.PtramBhyt;
-                        objLichsuKcb.PtramBhytGoc = objLuotkham.PtramBhytGoc;
-                        objLichsuKcb.NgaybatdauBhyt = objLuotkham.NgaybatdauBhyt;
-                        objLichsuKcb.NgayketthucBhyt = objLuotkham.NgayketthucBhyt;
-                        objLichsuKcb.NoicapBhyt = objLuotkham.NoicapBhyt;
-                        objLichsuKcb.MaNoicapBhyt = objLuotkham.MaNoicapBhyt;
-                        objLichsuKcb.MaDoituongBhyt = objLuotkham.MaDoituongBhyt;
-                        objLichsuKcb.MaQuyenloi = objLuotkham.MaQuyenloi;
-                        objLichsuKcb.NoiDongtrusoKcbbd = objLuotkham.NoiDongtrusoKcbbd;
-
-                        objLichsuKcb.MaKcbbd = objLuotkham.MaKcbbd;
-                        objLichsuKcb.TrangthaiNoitru = 0;
-                        objLichsuKcb.DungTuyen = objLuotkham.DungTuyen;
-                        objLichsuKcb.Cmt = objLuotkham.Cmt;
-                        objLichsuKcb.IdRavien = -1;
-                        objLichsuKcb.IdBuong = -1;
-                        objLichsuKcb.IdGiuong = -1;
-                        objLichsuKcb.IdKhoanoitru = -1;
-                        objLichsuKcb.NguoiTao = globalVariables.UserName;
-                        objLichsuKcb.NgayTao = globalVariables.SysDate;
-
-                        objLichsuKcb.IsNew = true;
-                        objLichsuKcb.Save();
-
+                      
                         SqlQuery sqlQueryPatientExam = new Select().From(KcbLuotkham.Schema)
                            .Where(KcbLuotkham.Columns.IdBenhnhan).IsNotEqualTo(objLuotkham.IdBenhnhan)
                            .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham);
@@ -1779,12 +1704,8 @@ namespace VNS.HIS.BusRule.Classes
                         {
 
                             objLuotkham.MaLuotkham = THU_VIEN_CHUNG.KCB_SINH_MALANKHAM((byte)(objKcbDanhsachBenhnhan.KieuBenhnhan == 0 ? 0 : 1));
-                            new Update(KcbLichsuDoituongKcb.Schema)
-                               .Set(KcbLichsuDoituongKcb.Columns.MaLuotkham).EqualTo(objLuotkham.MaLuotkham)
-                               .Where(KcbLichsuDoituongKcb.Columns.IdLichsuDoituongKcb).IsEqualTo(objLichsuKcb.IdLichsuDoituongKcb).Execute();
 
                         }
-                        objLuotkham.IdLichsuDoituongKcb = objLichsuKcb.IdLichsuDoituongKcb;
                         objLuotkham.IsNew = true;
                         objLuotkham.Save();
 
@@ -1798,10 +1719,7 @@ namespace VNS.HIS.BusRule.Classes
                        .And(KcbDmucLuotkham.Columns.UsedBy).IsLessThanOrEqualTo(globalVariables.UserName)
                        .Execute();
                         
-                        mytrace.Desc = string.Format("Thêm mới lượt khám ID={0}, Code={1}, Name={2}", objKcbDanhsachBenhnhan.IdBenhnhan.ToString(), objLuotkham.MaLuotkham, objKcbDanhsachBenhnhan.TenBenhnhan);
-                        mytrace.Lot = 0;
-                        mytrace.IsNew = true;
-                        mytrace.Save();
+                      
                         scope.Complete();
                         return ActionResult.Success;
                     }
