@@ -23,7 +23,7 @@ using VNS.HIS.UI.Forms.NGOAITRU;
 using VNS.HIS.UI.Forms.Cauhinh;
 namespace VNS.HIS.UI.NGOAITRU
 {
-    public partial class frm_Quanly_Maukiemnghiem : BaseForm
+    public partial class frm_Quanly_Maukiemnghiem : Form
     {
         KCB_CHIDINH_CANLAMSANG _KCB_CHIDINH_CANLAMSANG = new KCB_CHIDINH_CANLAMSANG();
         private DataTable m_dtDanhsachDichvuKCB = new DataTable();
@@ -33,11 +33,12 @@ namespace VNS.HIS.UI.NGOAITRU
         private DataTable m_dtChiDinhCLS = new DataTable();
         private bool m_blnHasloaded = false;
         string Args = "ALL";
+       
         public frm_Quanly_Maukiemnghiem(string Args)
         {
             InitializeComponent();
             this.Args = Args;
-            this.InitTrace();
+            //this.InitTrace();
             this.KeyPreview = true;
             dtmFrom.Value = globalVariables.SysDate;
             dtmTo.Value = globalVariables.SysDate;
@@ -529,9 +530,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm._OnAssign += frm__OnAssign;
                 frm.m_enAction = action.Insert;
                 frm.m_dtPatient = m_dtPatient;
-                this.myTrace.FunctionID = globalVariables.FunctionID;
-                this.myTrace.FunctionName = globalVariables.FunctionName;
-                frm.myTrace = this.myTrace;
+              
                 frm._OnActionSuccess += frm__OnActionSuccess;
                 frm.grdList = grdList;
                 frm.ShowDialog();
@@ -589,9 +588,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm._OnAssign += frm__OnAssign;
                 frm.txtMaBN.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
                 frm.txtMaLankham.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
-                this.myTrace.FunctionID = globalVariables.FunctionID;
-                this.myTrace.FunctionName = globalVariables.FunctionName;
-                frm.myTrace = this.myTrace;
+                
                 frm.m_enAction = action.Add;
                 frm._OnActionSuccess+=frm__OnActionSuccess;
                 frm.m_dtPatient = m_dtPatient;
@@ -632,9 +629,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm_Dangky_Kiemnghiem frm = new frm_Dangky_Kiemnghiem(this.Args);
                 frm.txtMaBN.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
                 frm.txtMaLankham.Text = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
-                this.myTrace.FunctionID = globalVariables.FunctionID;
-                this.myTrace.FunctionName = globalVariables.FunctionName;
-                frm.myTrace = this.myTrace;
+                
                 frm._OnActionSuccess+=frm__OnActionSuccess;
                 frm.m_enAction = action.Update;
                 frm.m_dtPatient = m_dtPatient;
@@ -746,9 +741,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (!IsValidDeleteData()) return;
                 if (Utility.AcceptQuestion("Bạn có muốn xóa thông tin lần khám này không", "Thông báo", true))
                 {
-                    myTrace.FunctionID = globalVariables.FunctionID;
-                    myTrace.FunctionName = globalVariables.FunctionName;
-                    ActionResult actionResult = _KCB_DANGKY.PerformActionDeletePatientExam(myTrace,v_MaLuotkham,
+                  
+                    ActionResult actionResult = _KCB_DANGKY.PerformActionDeletePatientExam(null,v_MaLuotkham,
                                                                                                        v_Patient_ID, ref ErrMgs);
                     switch (actionResult)
                     {

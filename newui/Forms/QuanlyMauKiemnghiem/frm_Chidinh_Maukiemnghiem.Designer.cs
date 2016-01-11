@@ -200,7 +200,7 @@
             this.uiGroupBox3.Name = "uiGroupBox3";
             this.uiGroupBox3.Size = new System.Drawing.Size(514, 489);
             this.uiGroupBox3.TabIndex = 3;
-            this.uiGroupBox3.Text = "Chi tiết chỉ định Cận lâm sàng";
+            this.uiGroupBox3.Text = "Chi tiết chỉ định mẫu kiểm nghiệm";
             // 
             // grdAssignDetail
             // 
@@ -268,7 +268,7 @@
             this.pnlLeft.Name = "pnlLeft";
             this.pnlLeft.Size = new System.Drawing.Size(498, 489);
             this.pnlLeft.TabIndex = 2;
-            this.pnlLeft.Text = "Danh sách dịch vụ CLS có trong hệ thống";
+            this.pnlLeft.Text = "Danh sách dịch vụ kiểm nghiệm có trong hệ thống";
             // 
             // grdServiceDetail
             // 
@@ -319,7 +319,7 @@
             this.pnlQuickSearch.Name = "pnlQuickSearch";
             this.pnlQuickSearch.Size = new System.Drawing.Size(1012, 87);
             this.pnlQuickSearch.TabIndex = 1;
-            this.pnlQuickSearch.Text = "Chi tiết chỉ định CLS";
+            this.pnlQuickSearch.Text = "Chi tiết chỉ định mẫu kiểm nghiệm";
             // 
             // cmdAccept
             // 
@@ -385,7 +385,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(119, 17);
             this.label7.TabIndex = 510;
-            this.label7.Text = "Chọn nhóm CĐ(F3):";
+            this.label7.Text = "Chọn nhóm KN(F3):";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cboDichVu
@@ -537,7 +537,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(95, 21);
             this.label5.TabIndex = 509;
-            this.label5.Text = "Bs chỉ định :";
+            this.label5.Text = "Người chỉ định :";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblMessage

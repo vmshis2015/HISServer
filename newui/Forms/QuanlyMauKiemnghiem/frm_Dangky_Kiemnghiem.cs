@@ -55,7 +55,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private bool b_HasLoaded;
         private bool b_HasSecondScreen;
         private bool b_NhapNamSinh;
-        public SysTrace myTrace;
+       
         public GridEX grdList;
         private bool hasjustpressBACKKey;
         private bool isAutoFinding;
@@ -74,10 +74,6 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             InitializeComponent();
             this.Args = Args;
-            txtTEN_BN.CharacterCasing = globalVariables.CHARACTERCASING == 0
-                                            ? CharacterCasing.Normal
-                                            : CharacterCasing.Upper;
-           
             dtCreateDate.Value = globalVariables.SysDate;
 
             InitEvents();
@@ -93,8 +89,8 @@ namespace VNS.HIS.UI.NGOAITRU
             txtMaBN.KeyDown += new KeyEventHandler(txtMaBN_KeyDown);
             txtMaLankham.KeyDown += new KeyEventHandler(txtMaLankham_KeyDown);
 
-            txtTEN_BN.TextChanged+=new EventHandler(txtTEN_BN_TextChanged);
-            txtTEN_BN.LostFocus += txtTEN_BN_LostFocus;
+            txtTenKH.TextChanged += new EventHandler(txtTEN_BN_TextChanged);
+            
             
             cmdConfig.Click += new EventHandler(cmdConfig_Click);
             
@@ -110,7 +106,21 @@ namespace VNS.HIS.UI.NGOAITRU
            
             txtLoaikham._OnShowData += txtLoaikham__OnShowData;
             txtMaLankham.LostFocus += txtMaLankham_LostFocus;
+            txtTenKH._OnShowData += txtTenKH__OnShowData;
           
+        }
+
+        void txtTenKH__OnShowData()
+        {
+            DMUC_DCHUNG _DMUC_DCHUNG = new DMUC_DCHUNG(txtTenKH.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtTenKH.myCode;
+                txtTenKH.Init();
+                txtTenKH.SetCode(oldCode);
+                txtTenKH.Focus();
+            } 
         }
 
         void txtMaLankham_LostFocus(object sender, EventArgs e)
@@ -196,12 +206,6 @@ namespace VNS.HIS.UI.NGOAITRU
         }
 
       
-
-        private void txtTEN_BN_LostFocus(object sender, EventArgs e)
-        {
-            txtTEN_BN.Text =Utility.CapitalizeWords(txtTEN_BN.Text.Trim());
-        }
-
        
         private void txtMaLankham_KeyDown(object sender, KeyEventArgs e)
         {
@@ -430,7 +434,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                     Utility.ShowMsg(
                                        "Khách hàng vừa được đăng ký ngày hôm nay nên hệ thống sẽ chuyển về chế độ Sửa thông tin. Nhấn OK để bắt đầu sửa");
                                     //LaydanhsachdangkyKCB();
-                                    txtTEN_BN.Select();
+                                    txtTenKH.Select();
                                 }
                                 else//Thêm lần đăng ký cho ngày mới
                                 {
@@ -445,7 +449,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                 Utility.ShowMsg(
                                    "Khách hàng vừa được đăng ký ngày hôm nay nên hệ thống sẽ chuyển về chế độ Sửa thông tin. Nhấn OK để bắt đầu sửa");
                                 //LaydanhsachdangkyKCB();
-                                txtTEN_BN.Select();
+                                txtTenKH.Select();
                             }
                         }
                         else //Không cho phép thêm lần đăng ký khác nếu chưa thanh toán lần đăng ký của ngày hôm trước
@@ -499,12 +503,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     objLuotkham = null;
                     SinhMaLanKham();
-                    txtTEN_BN.Select();
+                    txtTenKH.Select();
                 }
                 else if (m_enAction == action.Update)//Cập nhật thông tin Khách hàng
                 {
                     LoadThongtinBenhnhan();
-                    txtTEN_BN.Select();
+                    txtTenKH.Select();
                 }
                 else if (m_enAction == action.Add) //Thêm mới lần đăng ký
                 {
@@ -531,7 +535,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
                                     Utility.ShowMsg(
                                        "Khách hàng vừa được đăng ký ngày hôm nay nên hệ thống sẽ chuyển về chế độ Sửa thông tin. Nhấn OK để bắt đầu sửa");
-                                    txtTEN_BN.Select();
+                                    txtTenKH.Select();
                                 }
                                 else//Thêm lần đăng ký cho ngày mới
                                 {
@@ -546,7 +550,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
                                 Utility.ShowMsg(
                                    "Khách hàng vừa được đăng ký ngày hôm nay nên hệ thống sẽ chuyển về chế độ Sửa thông tin. Nhấn OK để bắt đầu sửa");
-                                txtTEN_BN.Select();
+                                txtTenKH.Select();
                             }
                         }
                         else //Không cho phép thêm lần đăng ký khác nếu chưa thanh toán lần đăng ký của ngày hôm trước
@@ -592,7 +596,7 @@ namespace VNS.HIS.UI.NGOAITRU
             KcbDanhsachBenhnhan objBenhnhan = KcbDanhsachBenhnhan.FetchByID(txtMaBN.Text);
             if (objBenhnhan != null)
             {
-                txtTEN_BN.Text = Utility.sDbnull(objBenhnhan.TenBenhnhan);
+                txtTenKH._Text = Utility.sDbnull(objBenhnhan.TenBenhnhan);
                 txtSoDT.Text = Utility.sDbnull(objBenhnhan.DienThoai);
                 txtDiachi._Text = Utility.sDbnull(objBenhnhan.DiaChi);
                 
@@ -712,7 +716,7 @@ namespace VNS.HIS.UI.NGOAITRU
             setMsg(uiStatusBar1.Panels["MSG"], "", false);
             m_blnHasJustInsert = false;
             txtSolankham.Text = "1";
-            txtTEN_BN.Clear();
+            txtTenKH.ResetText();
 
             txtDiachi.Clear();
 
@@ -843,12 +847,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtLoaikham.SelectAll();
                 return false;
             }
-           
-            
-            if (string.IsNullOrEmpty(txtTEN_BN.Text))
+
+
+            if (string.IsNullOrEmpty(txtTenKH.Text))
             {
                 Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn phải nhập tên Khách hàng", true);
-                txtTEN_BN.Focus();
+                txtTenKH.Focus();
                 return false;
             }
             
@@ -872,8 +876,8 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void  ModifyCommand()
         {
-           
-            cmdSave.Enabled = Utility.DoTrim(txtTEN_BN.Text).Length > 0;
+
+            cmdSave.Enabled = Utility.DoTrim(txtTenKH.Text).Length > 0;
            
            
             
@@ -960,8 +964,8 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             else//Đối tượng khác BHYT
             {
-                
-                txtTEN_BN.Focus();
+
+                txtTenKH.Focus();
             }
         }
         DmucDoituongkcb objDoituongKCB = null;
@@ -974,11 +978,11 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             if (e.KeyCode == Keys.F3)
             {
-                if (this.ActiveControl != null && this.ActiveControl.Name == txtTEN_BN.Name && Utility.DoTrim(txtTEN_BN.Text)!="")
+                if (this.ActiveControl != null && this.ActiveControl.Name == txtTenKH.Name && Utility.DoTrim(txtTenKH.Text) != "")
                 {
                     frm_DSACH_BN_TKIEM Timkiem_Benhnhan = new frm_DSACH_BN_TKIEM();
                     Timkiem_Benhnhan.AutoSearch = true;
-                    Timkiem_Benhnhan.FillAndSearchData(false, "", "", Utility.DoTrim(txtTEN_BN.Text), "", "", "-1");
+                    Timkiem_Benhnhan.FillAndSearchData(false, "", "", Utility.DoTrim(txtTenKH.Text), "", "", "-1");
                     if (Timkiem_Benhnhan.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         
@@ -1035,7 +1039,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         m_enAction = action.Update;
                         AllowTextChanged = false;
                         LoadThongtinBenhnhan();
-                        txtTEN_BN.Focus();
+                        txtTenKH.Focus();
                     }
                     else //Không cho phép thêm lần đăng ký khác nếu chưa thanh toán lần đăng ký của ngày hôm trước
                     {
@@ -1071,7 +1075,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-                cmdSave.Enabled = Utility.DoTrim(txtTEN_BN.Text).Length > 0;
+                cmdSave.Enabled = Utility.DoTrim(txtTenKH.Text).Length > 0;
             }
             catch (Exception exception)
             {
@@ -1169,7 +1173,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             DataRow dr = m_dtPatient.NewRow();
             dr[KcbDanhsachBenhnhan.Columns.IdBenhnhan] = Utility.sDbnull(txtMaBN.Text, "-1");
-            dr[KcbDanhsachBenhnhan.Columns.TenBenhnhan] = Utility.sDbnull(txtTEN_BN.Text, "");
+            dr[KcbDanhsachBenhnhan.Columns.TenBenhnhan] = Utility.sDbnull(txtTenKH.Text, "");
 
 
             
@@ -1211,7 +1215,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 DataRow dr = query.FirstOrDefault();
                 dr[KcbDanhsachBenhnhan.Columns.IdBenhnhan] = Utility.sDbnull(txtMaBN.Text, "-1");
-                dr[KcbDanhsachBenhnhan.Columns.TenBenhnhan] = Utility.sDbnull(txtTEN_BN.Text, "");
+                dr[KcbDanhsachBenhnhan.Columns.TenBenhnhan] = Utility.sDbnull(txtTenKH.Text, "");
 
                
                 dr[KcbDanhsachBenhnhan.Columns.Email] = Utility.sDbnull(txtEmail.Text, "");
@@ -1251,7 +1255,7 @@ namespace VNS.HIS.UI.NGOAITRU
             long v_id_kham = -1;
             string msg = "";
             errorProvider1.Clear();
-            ActionResult actionResult = _KCB_DANGKY.ThemLuotDangkyKiemnghiem(this.myTrace, objBenhnhan, objLuotkham, ref msg);
+            ActionResult actionResult = _KCB_DANGKY.ThemLuotDangkyKiemnghiem(objBenhnhan, objLuotkham, ref msg);
 
             
             switch (actionResult)
@@ -1288,7 +1292,7 @@ namespace VNS.HIS.UI.NGOAITRU
             long v_id_kham = -1;
             string msg = "";
             errorProvider1.Clear();
-            ActionResult actionResult = _KCB_DANGKY.ThemmoiKhachhangDangkyKiemnghiem(this.myTrace, objBenhnhan, objLuotkham, ref msg);
+            ActionResult actionResult = _KCB_DANGKY.ThemmoiKhachhangDangkyKiemnghiem( objBenhnhan, objLuotkham, ref msg);
 
             
             switch (actionResult)
@@ -1330,7 +1334,7 @@ namespace VNS.HIS.UI.NGOAITRU
           
             string msg = "";
             errorProvider1.Clear();
-            ActionResult actionResult = _KCB_DANGKY.CapnhatDangkymauKiemnghiem(this.myTrace, objBenhnhan, objLuotkham, ref msg);
+            ActionResult actionResult = _KCB_DANGKY.CapnhatDangkymauKiemnghiem( objBenhnhan, objLuotkham, ref msg);
             
             switch (actionResult)
             {
@@ -1373,7 +1377,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 objBenhnhan.IsNew = false;
                 objBenhnhan.MarkOld();
             }
-            objBenhnhan.TenBenhnhan = txtTEN_BN.Text;
+            objBenhnhan.TenBenhnhan = txtTenKH.Text;
             objBenhnhan.DiaChi = txtDiachi.Text;
             objBenhnhan.DienthoaiLienhe = txtSoDT.Text;
             objBenhnhan.DiachiBhyt = "";

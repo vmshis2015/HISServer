@@ -54,7 +54,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmdThemmoiDiachinh = new Janus.Windows.EditControls.UIButton();
             this.lblDiachiBN = new System.Windows.Forms.Label();
-            this.txtTEN_BN = new System.Windows.Forms.TextBox();
             this.ctxBOD = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuBOD = new System.Windows.Forms.ToolStripMenuItem();
             this.txtEmail = new System.Windows.Forms.TextBox();
@@ -89,6 +88,7 @@
             this.txtDiachi = new VNS.HIS.UCs.AutoCompleteTextbox_Diachi();
             this.pnlBottom = new System.Windows.Forms.Panel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtTenKH = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
             this.uiGroupBox2.SuspendLayout();
             this.ctxBOD.SuspendLayout();
@@ -180,8 +180,8 @@
             this.cmdThemMoiBN.Name = "cmdThemMoiBN";
             this.cmdThemMoiBN.Size = new System.Drawing.Size(136, 34);
             this.cmdThemMoiBN.TabIndex = 20;
-            this.cmdThemMoiBN.Text = "&Thêm mới";
-            this.cmdThemMoiBN.ToolTipText = "Nhấn vào đây để thêm mới Bệnh nhân";
+            this.cmdThemMoiBN.Text = "Thêm mới";
+            this.cmdThemMoiBN.ToolTipText = "Nhấn vào đây để thêm mới Khách hàng";
             // 
             // cmdSave
             // 
@@ -193,7 +193,7 @@
             this.cmdSave.Size = new System.Drawing.Size(145, 34);
             this.cmdSave.TabIndex = 19;
             this.cmdSave.Text = "Ghi (Ctrl+S)";
-            this.cmdSave.ToolTipText = "Nhấn vào đây để lưu thông tin bệnh nhân";
+            this.cmdSave.ToolTipText = "Nhấn vào đây để lưu thông tin";
             // 
             // chkTudongthemmoi
             // 
@@ -246,7 +246,7 @@
             this.lblHoten.Name = "lblHoten";
             this.lblHoten.Size = new System.Drawing.Size(108, 21);
             this.lblHoten.TabIndex = 387;
-            this.lblHoten.Text = "Tên BN :";
+            this.lblHoten.Text = "Tên Khách hàng :";
             this.lblHoten.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label3
@@ -296,7 +296,7 @@
             this.lblMaKH.Name = "lblMaKH";
             this.lblMaKH.Size = new System.Drawing.Size(107, 21);
             this.lblMaKH.TabIndex = 0;
-            this.lblMaKH.Text = "Mã Khách hàng :";
+            this.lblMaKH.Text = "ID Khách hàng :";
             this.lblMaKH.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // toolTip1
@@ -326,15 +326,6 @@
             this.lblDiachiBN.TabIndex = 583;
             this.lblDiachiBN.Text = "Địa chỉ:";
             this.lblDiachiBN.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtTEN_BN
-            // 
-            this.txtTEN_BN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTEN_BN.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTEN_BN.Location = new System.Drawing.Point(164, 154);
-            this.txtTEN_BN.Name = "txtTEN_BN";
-            this.txtTEN_BN.Size = new System.Drawing.Size(575, 21);
-            this.txtTEN_BN.TabIndex = 7;
             // 
             // ctxBOD
             // 
@@ -414,6 +405,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.txtTenKH);
             this.panel2.Controls.Add(this.txtMotathem);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.chkSosanh);
@@ -442,7 +434,6 @@
             this.panel2.Controls.Add(this.lblDoituongKCB);
             this.panel2.Controls.Add(this.lblDiachiBN);
             this.panel2.Controls.Add(this.txtMaLankham);
-            this.panel2.Controls.Add(this.txtTEN_BN);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.txtMaBN);
             this.panel2.Controls.Add(this.txtDiachi);
@@ -590,6 +581,7 @@
             // 
             this.txtLoaikham._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtLoaikham._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoaikham._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLoaikham.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLoaikham.AutoCompleteList")));
             this.txtLoaikham.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLoaikham.CaseSensitive = false;
@@ -791,6 +783,46 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // txtTenKH
+            // 
+            this.txtTenKH._backcolor = System.Drawing.Color.WhiteSmoke;
+            this.txtTenKH._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTenKH._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtTenKH.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtTenKH.AutoCompleteList")));
+            this.txtTenKH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTenKH.CaseSensitive = false;
+            this.txtTenKH.CompareNoID = true;
+            this.txtTenKH.DefaultCode = "-1";
+            this.txtTenKH.DefaultID = "-1";
+            this.txtTenKH.Drug_ID = null;
+            this.txtTenKH.ExtraWidth = 0;
+            this.txtTenKH.FillValueAfterSelect = false;
+            this.txtTenKH.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTenKH.LOAI_DANHMUC = "KHKIEMNGHIEM";
+            this.txtTenKH.Location = new System.Drawing.Point(164, 154);
+            this.txtTenKH.MaxHeight = -1;
+            this.txtTenKH.MinTypedCharacters = 2;
+            this.txtTenKH.MyCode = "-1";
+            this.txtTenKH.MyID = "-1";
+            this.txtTenKH.Name = "txtTenKH";
+            this.txtTenKH.RaiseEvent = false;
+            this.txtTenKH.RaiseEventEnter = false;
+            this.txtTenKH.RaiseEventEnterWhenEmpty = false;
+            this.txtTenKH.SelectedIndex = -1;
+            this.txtTenKH.Size = new System.Drawing.Size(575, 21);
+            this.txtTenKH.splitChar = '@';
+            this.txtTenKH.splitCharIDAndCode = '#';
+            this.txtTenKH.TabIndex = 7;
+            this.txtTenKH.TabStop = false;
+            this.txtTenKH.TakeCode = false;
+            this.txtTenKH.txtMyCode = null;
+            this.txtTenKH.txtMyCode_Edit = null;
+            this.txtTenKH.txtMyID = null;
+            this.txtTenKH.txtMyID_Edit = null;
+            this.txtTenKH.txtMyName = null;
+            this.txtTenKH.txtMyName_Edit = null;
+            this.txtTenKH.txtNext = null;
+            // 
             // frm_Dangky_Kiemnghiem
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -838,7 +870,6 @@
         private System.Windows.Forms.Label lblDiachiBN;
         private System.Windows.Forms.TextBox txtSolankham;
         private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.TextBox txtTEN_BN;
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Panel pnlBottom;
         public System.Windows.Forms.TextBox txtMaLankham;
@@ -873,5 +904,6 @@
         private Janus.Windows.EditControls.UICheckBox chkFax;
         private Janus.Windows.EditControls.UICheckBox chkPhongchuyenmon;
         private VNS.UCs.VBLine vbLine2;
+        private UCs.AutoCompleteTextbox_Danhmucchung txtTenKH;
     }
 }

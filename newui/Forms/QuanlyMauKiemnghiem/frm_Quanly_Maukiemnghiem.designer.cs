@@ -42,6 +42,8 @@
             this.cmdSuaThongTinBN = new System.Windows.Forms.ToolStripButton();
             this.cmdThemLanKham = new System.Windows.Forms.ToolStripButton();
             this.cmdXoaBenhNhan = new System.Windows.Forms.ToolStripButton();
+            this.cmdBangiao = new System.Windows.Forms.ToolStripButton();
+            this.cmdInKQ = new System.Windows.Forms.ToolStripButton();
             this.cmdExit = new System.Windows.Forms.ToolStripButton();
             this.grdAssignDetail = new Janus.Windows.GridEX.GridEX();
             this.uiGroupBox3 = new Janus.Windows.EditControls.UIGroupBox();
@@ -73,8 +75,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.grdList = new Janus.Windows.GridEX.GridEX();
-            this.cmdBangiao = new System.Windows.Forms.ToolStripButton();
-            this.cmdInKQ = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdAssignDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox3)).BeginInit();
@@ -151,6 +151,22 @@
             this.cmdXoaBenhNhan.Size = new System.Drawing.Size(101, 28);
             this.cmdXoaBenhNhan.Text = "Xóa đăng ký";
             this.cmdXoaBenhNhan.ToolTipText = "Nhấn nút này để xóa lần khám của Bệnh nhân đang chọn trên lưới";
+            // 
+            // cmdBangiao
+            // 
+            this.cmdBangiao.Image = ((System.Drawing.Image)(resources.GetObject("cmdBangiao.Image")));
+            this.cmdBangiao.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cmdBangiao.Name = "cmdBangiao";
+            this.cmdBangiao.Size = new System.Drawing.Size(104, 28);
+            this.cmdBangiao.Text = "Bàn giao mẫu";
+            // 
+            // cmdInKQ
+            // 
+            this.cmdInKQ.Image = ((System.Drawing.Image)(resources.GetObject("cmdInKQ.Image")));
+            this.cmdInKQ.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cmdInKQ.Name = "cmdInKQ";
+            this.cmdInKQ.Size = new System.Drawing.Size(80, 28);
+            this.cmdInKQ.Text = "In kết quả";
             // 
             // cmdExit
             // 
@@ -562,22 +578,6 @@
             this.grdList.TabIndex = 0;
             this.grdList.TabStop = false;
             this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
-            // 
-            // cmdBangiao
-            // 
-            this.cmdBangiao.Image = ((System.Drawing.Image)(resources.GetObject("cmdBangiao.Image")));
-            this.cmdBangiao.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cmdBangiao.Name = "cmdBangiao";
-            this.cmdBangiao.Size = new System.Drawing.Size(104, 28);
-            this.cmdBangiao.Text = "Bàn giao mẫu";
-            // 
-            // cmdInKQ
-            // 
-            this.cmdInKQ.Image = ((System.Drawing.Image)(resources.GetObject("cmdInKQ.Image")));
-            this.cmdInKQ.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cmdInKQ.Name = "cmdInKQ";
-            this.cmdInKQ.Size = new System.Drawing.Size(80, 28);
-            this.cmdInKQ.Text = "In kết quả";
             // 
             // frm_Quanly_Maukiemnghiem
             // 

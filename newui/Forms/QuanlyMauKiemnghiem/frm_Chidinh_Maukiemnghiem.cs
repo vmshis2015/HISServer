@@ -135,7 +135,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         void cmdTaonhom_Click(object sender, EventArgs e)
         {
-            frm_quanlynhomchidinh_cls _quanlynhomchidinh_cls = new frm_quanlynhomchidinh_cls();
+            frm_quanlynhomchidinh_cls _quanlynhomchidinh_cls = new frm_quanlynhomchidinh_cls(nhomchidinh,1);
             _quanlynhomchidinh_cls.ShowDialog();
             txtNhomDichvuCLS.Init(new Select().From(DmucNhomcanlamsang.Schema).ExecuteDataSet().Tables[0], new List<string>() { DmucNhomcanlamsang.Columns.Id, DmucNhomcanlamsang.Columns.MaNhom, DmucNhomcanlamsang.Columns.TenNhom });
         }
@@ -239,7 +239,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                            DmucDichvucl.Columns.IdDichvu, DmucDichvucl.Columns.TenDichvu,
                                            "Lọc thông tin theo loại dịch vụ", false);
 
-                txtNhomDichvuCLS.Init(new Select().From(DmucNhomcanlamsang.Schema).ExecuteDataSet().Tables[0], new List<string>() { DmucNhomcanlamsang.Columns.Id, DmucNhomcanlamsang.Columns.MaNhom, DmucNhomcanlamsang.Columns.TenNhom });
+                txtNhomDichvuCLS.Init(new Select().From(DmucNhomcanlamsang.Schema).Where(DmucNhomcanlamsang.Columns.LoaiNhom).IsEqualTo(1).ExecuteDataSet().Tables[0], new List<string>() { DmucNhomcanlamsang.Columns.Id, DmucNhomcanlamsang.Columns.MaNhom, DmucNhomcanlamsang.Columns.TenNhom });
                 InitData();
                 GetData();
                 if (m_eAction == action.Update)
@@ -1775,21 +1775,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 Utility.ShowMsg("Lỗi khi lấy dữ liệu CLS chi tiết\n" + ex.Message);
             }
         }
-        /// <summary>
-        /// Đã được xử lý phía Client
-        /// </summary>
-        private void ProcessData()
-        {
-            //Utility.AddColumToDataTable(ref m_dtDanhsachDichvuCLS, KcbChidinhclsChitiet.Columns.TuTuc, typeof(int));
-            //foreach (DataRow dr in m_dtDanhsachDichvuCLS.Rows)
-            //{
-            //    if (objLuotkham.MaDoituongKcb == "BHYT" && objLuotkham.DungTuyen == 0)
-            //    {
-            //        dr[KcbChidinhclsChitiet.Columns.PhuThu] = dr["Phuthu_traituyen"];
-            //    }
-            //}
-            //m_dtDanhsachDichvuCLS.AcceptChanges();
-        }
+        
         DataTable m_dtqheCamchidinhCLSChungphieu = new DataTable();
         /// <summary>
         /// khởi tạo thông tin của dữ liệu
@@ -1798,32 +1784,8 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-                string MA_KHOA_THIEN = globalVariables.MA_KHOA_THIEN;
-                if (Utility.Int32Dbnull(objLuotkham.Noitru, 0) <= 0)
-                {
-                    if (ObjRegExam != null)
-                    {
-                        if (ObjRegExam.KhamNgoaigio == 1)
-                            MA_KHOA_THIEN = "KYC";
-                    }
-                    else
-                    {
-                        if (THU_VIEN_CHUNG.IsNgoaiGio())
-                        {
-                            MA_KHOA_THIEN = "KYC";
-                        }
-                    }
-                }
-                else
-                {
-                    MA_KHOA_THIEN = THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_GIACLS", false) ?? MA_KHOA_THIEN;
-                }
                 m_dtqheCamchidinhCLSChungphieu = new Select().From(QheCamchidinhChungphieu.Schema).Where(QheCamchidinhChungphieu.Columns.Loai).IsEqualTo(0).ExecuteDataSet().Tables[0];
-                m_dtDanhsachDichvuCLS = CHIDINH_CANLAMSANG.LaydanhsachCLS_chidinh(objLuotkham.MaDoituongKcb, objLuotkham.TrangthaiNoitru,Utility.ByteDbnull( objLuotkham.GiayBhyt,0), - 1, Utility.Int32Dbnull(objLuotkham.DungTuyen.Value, 0), MA_KHOA_THIEN, nhomchidinh);
-                //Xử lý phụ thu đúng tuyến-trái tuyến
-                ProcessData();
-
-
+                m_dtDanhsachDichvuCLS = CHIDINH_CANLAMSANG.MaukiemnghiemLaydanhsachdvukiemnghiem();
                 if (!m_dtDanhsachDichvuCLS.Columns.Contains(KcbChidinhclsChitiet.Columns.SoLuong))
                     m_dtDanhsachDichvuCLS.Columns.Add(KcbChidinhclsChitiet.Columns.SoLuong, typeof(int));
                 if (!m_dtDanhsachDichvuCLS.Columns.Contains("ten_donvitinh"))
