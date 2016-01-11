@@ -143,7 +143,7 @@ namespace VNS.HIS.UI.NGOAITRU
 
         void cmdTaonhom_Click(object sender, EventArgs e)
         {
-            frm_quanlynhomchidinh_cls _quanlynhomchidinh_cls = new frm_quanlynhomchidinh_cls();
+            frm_quanlynhomchidinh_cls _quanlynhomchidinh_cls = new frm_quanlynhomchidinh_cls(nhomchidinh,0);
             _quanlynhomchidinh_cls.ShowDialog();
             txtNhomDichvuCLS.Init(
                 new Select().From(DmucNhomcanlamsang.Schema).Where(DmucNhomcanlamsang.Columns.NguoiTao).IsEqualTo(
