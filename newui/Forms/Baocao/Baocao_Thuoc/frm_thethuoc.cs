@@ -31,7 +31,6 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
             dtNgayIn.Value = dtFromDate.Value = dtToDate.Value = globalVariables.SysDate;
             cmdExit.Click += cmdExit_Click;
             Load += frm_thethuoc_Load;
-            chkByDate.CheckedChanged += chkByDate_CheckedChanged;
             cmdBaoCao.Click += cmdBaoCao_Click;
             KeyDown += frm_thethuoc_KeyDown;
             cboKho.SelectedIndexChanged += cboKho_SelectedIndexChanged;
@@ -269,17 +268,10 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 .OrderAsc(DmucLoaithuoc.Columns.SttHthi).ExecuteDataSet().Tables[0];
             allowChanged = true;
             cboKho_SelectedIndexChanged(cboKho, e);
+            cboThang.SelectedIndex = globalVariables.SysDate.Month - 1;
         }
 
-        /// <summary>
-        /// hamfm thực hiện việc 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void chkByDate_CheckedChanged(object sender, EventArgs e)
-        {
-            dtFromDate.Enabled = dtToDate.Enabled = chkByDate.Checked;
-        }
+        
 
         /// <summary>
         /// hàm thực hiện in phiếu báo cáo 
@@ -306,33 +298,100 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 }
                 nhomthuoc = txtLoaithuoc.MyID.ToString();
                 DataTable m_dtReport = null;
+                string fromdate = "01/01/1900";
+                string todate = "01/01/1900";
+                string _value = "1";
+                if (optThang.Checked)
+                {
+                    if (cboThang.SelectedIndex < 0)
+                    {
+                        Utility.ShowMsg("Bạn phải chọn Tháng báo cáo");
+                        cboThang.Focus();
+                        return;
+                    }
+                    _value = cboThang.SelectedValue.ToString();
+                    switch (_value)
+                    {
+                        case "2":
+                            fromdate = new DateTime(dtpNam.Value.Year, Utility.Int32Dbnull(_value, 2), 1).ToString("dd/MM/yyyy");
+                            todate = new DateTime(dtpNam.Value.Year, Utility.Int32Dbnull(_value, 2), 29).ToString("dd/MM/yyyy");
+                            break;
+                        case "4":
+                        case "6":
+                        case "9":
+                        case "11":
+                            fromdate = new DateTime(dtpNam.Value.Year, Utility.Int32Dbnull(_value, 2), 1).ToString("dd/MM/yyyy");
+                            todate = new DateTime(dtpNam.Value.Year, Utility.Int32Dbnull(_value, 2), 30).ToString("dd/MM/yyyy");
+                            break;
+                        default:
+                            fromdate = new DateTime(dtpNam.Value.Year, Utility.Int32Dbnull(_value, 2), 1).ToString("dd/MM/yyyy");
+                            todate = new DateTime(dtpNam.Value.Year, Utility.Int32Dbnull(_value, 2), 31).ToString("dd/MM/yyyy");
+                            break;
+                    }
+                }
+                else if (optQuy.Checked)
+                {
+                    if (cboQuy.SelectedIndex < 0)
+                    {
+                        Utility.ShowMsg("Bạn phải chọn Quý báo cáo");
+                        cboQuy.Focus();
+                        return;
+                    }
+                    _value = cboQuy.SelectedValue.ToString();
+                    switch (_value)
+                    {
+                        case "1":
+                            fromdate = new DateTime(dtpNam.Value.Year, 1, 1).ToString("dd/MM/yyyy");
+                            todate = new DateTime(dtpNam.Value.Year, 3, 31).ToString("dd/MM/yyyy");
+                            break;
+                        case "2":
+                            fromdate = new DateTime(dtpNam.Value.Year, 4, 1).ToString("dd/MM/yyyy");
+                            todate = new DateTime(dtpNam.Value.Year, 6, 30).ToString("dd/MM/yyyy");
+                            break;
+                        case "3":
+                            fromdate = new DateTime(dtpNam.Value.Year, 7, 1).ToString("dd/MM/yyyy");
+                            todate = new DateTime(dtpNam.Value.Year, 9, 30).ToString("dd/MM/yyyy");
+                            break;
+                        case "4":
+                            fromdate = new DateTime(dtpNam.Value.Year, 10, 1).ToString("dd/MM/yyyy");
+                            todate = new DateTime(dtpNam.Value.Year, 12, 31).ToString("dd/MM/yyyy");
+                            break;
+                        default:
+                            fromdate = new DateTime(dtpNam.Value.Year, 1, 1).ToString("dd/MM/yyyy");
+                            todate = new DateTime(dtpNam.Value.Year, 12, 31).ToString("dd/MM/yyyy");
+                            break;
+                    }
+                }
+                else if (optNam.Checked)
+                {
+                    fromdate = new DateTime(dtpNam.Value.Year, 1, 1).ToString("dd/MM/yyyy");
+                    todate = new DateTime(dtpNam.Value.Year, 12, 31).ToString("dd/MM/yyyy");
+                }
+                else
+                {
+                    fromdate = dtFromDate.Value.ToString("dd/MM/yyyy");
+                    todate = dtToDate.Value.ToString("dd/MM/yyyy");
+                }
                 if (chkSimple.Checked)
                 {
                     m_dtReport =
-                        BAOCAO_THUOC.ThuocThethuoc(chkByDate.Checked ? dtFromDate.Text : Utility.sDbnull("01/01/1900"),
-                                                   chkByDate.Checked
-                                                       ? dtToDate.Text
-                                                       : globalVariables.SysDate.ToString(),
+                        BAOCAO_THUOC.ThuocThethuoc(fromdate, todate,
                                                    Utility.Int32Dbnull(cboKho.SelectedValue),
                                                    Utility.Int32Dbnull(txtthuoc.MyID, -1), nhomthuoc,
                                                    chkBiendong.Checked ? 1 : 0);
                 }
                 else
                 {
-                    if (chkThekhochitiet.Checked)
+                    if (chkThekhochitiet.Checked )
                     {
                         if (_item != null && Utility.Byte2Bool(_item.LaTuthuoc))
                             m_dtReport =
-                                BAOCAO_THUOC.ThuocThethuocTutrucChitiet(
-                                    chkByDate.Checked ? dtFromDate.Text : Utility.sDbnull("01/01/1900"),
-                                    chkByDate.Checked ? dtToDate.Text : globalVariables.SysDate.ToString(),
+                                BAOCAO_THUOC.ThuocThethuocTutrucChitiet(fromdate, todate,
                                     Utility.Int32Dbnull(cboKho.SelectedValue), Utility.Int32Dbnull(txtthuoc.MyID, -1),
                                     nhomthuoc, chkBiendong.Checked ? 1 : 0);
                         else
                             m_dtReport =
-                                BAOCAO_THUOC.ThuocThethuocChitiet(
-                                    chkByDate.Checked ? dtFromDate.Text : Utility.sDbnull("01/01/1900"),
-                                    chkByDate.Checked ? dtToDate.Text : globalVariables.SysDate.ToString(),
+                                BAOCAO_THUOC.ThuocThethuocChitiet(fromdate, todate,
                                     Utility.Int32Dbnull(cboKho.SelectedValue), Utility.Int32Dbnull(txtthuoc.MyID, -1),
                                     nhomthuoc, chkBiendong.Checked ? 1 : 0);
                     }
@@ -340,9 +399,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                     {
                         if (_item != null && Utility.Byte2Bool(_item.LaTuthuoc))
                             m_dtReport =
-                                BAOCAO_THUOC.ThuocThethuocTutruc(
-                                    chkByDate.Checked ? dtFromDate.Text : Utility.sDbnull("01/01/1900"),
-                                    chkByDate.Checked ? dtToDate.Text : globalVariables.SysDate.ToString(),
+                                BAOCAO_THUOC.ThuocThethuocTutruc(fromdate, todate,
                                     Utility.Int32Dbnull(cboKho.SelectedValue), Utility.Int32Dbnull(txtthuoc.MyID, -1),
                                     nhomthuoc, chkBiendong.Checked ? 1 : 0);
                         else
@@ -350,16 +407,12 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                         {
                             if (_item.KieuKho == "CHAN" || (chkChanle.Enabled && chkChanle.Checked))
                                 m_dtReport =
-                                    BAOCAO_THUOC.ThuocThethuocKhochan(
-                                        chkByDate.Checked ? dtFromDate.Text : Utility.sDbnull("01/01/1900"),
-                                        chkByDate.Checked ? dtToDate.Text : globalVariables.SysDate.ToString(),
+                                    BAOCAO_THUOC.ThuocThethuocKhochan(fromdate, todate,
                                         Utility.Int32Dbnull(cboKho.SelectedValue),
                                         Utility.Int32Dbnull(txtthuoc.MyID, -1), nhomthuoc, chkBiendong.Checked ? 1 : 0);
                             else
                                 m_dtReport =
-                                    BAOCAO_THUOC.ThuocThethuocKhole(
-                                        chkByDate.Checked ? dtFromDate.Text : Utility.sDbnull("01/01/1900"),
-                                        chkByDate.Checked ? dtToDate.Text : globalVariables.SysDate.ToString(),
+                                    BAOCAO_THUOC.ThuocThethuocKhole(fromdate, todate,
                                         Utility.Int32Dbnull(cboKho.SelectedValue),
                                         Utility.Int32Dbnull(txtthuoc.MyID, -1), nhomthuoc, chkBiendong.Checked ? 1 : 0);
                         }
