@@ -129,13 +129,21 @@ namespace VMS.HIS.HLC.ASTM
             string Footer = "L|1|F";
             string ma_luotkham = Utility.sDbnull(dtData.Rows[0][KcbLuotkham.Columns.MaLuotkham], "");
             string ten_benhnhan = Utility.DoTrim(Utility.sDbnull(dtData.Rows[0][KcbDanhsachBenhnhan.Columns.TenBenhnhan], ""));
+            string dia_chi = Utility.DoTrim(Utility.sDbnull(dtData.Rows[0][KcbDanhsachBenhnhan.Columns.DiaChi], ""));
+            string sodienthoai = Utility.DoTrim(Utility.sDbnull(dtData.Rows[0][KcbDanhsachBenhnhan.Columns.DienThoai], ""));
+            string sobhyt = Utility.DoTrim(Utility.sDbnull(dtData.Rows[0][KcbLuotkham.Columns.MatheBhyt], ""));
            // string ten_benhnhan = Utility.DoTrim(Utility.UnSignedCharacter(Utility.sDbnull(dtData.Rows[0][KcbDanhsachBenhnhan.Columns.TenBenhnhan], ""))).ToUpper();
             string[] arrValues = ten_benhnhan.Split(' ');
             string Ho = arrValues[0];
             string ten = ten_benhnhan.Substring(ten_benhnhan.IndexOf(' ') + 1);
             ten_benhnhan = Ho + "^" + ten;
-
-            patientInfor = "P|1||" + ma_luotkham + "||" + ten_benhnhan + "||" + Utility.sDbnull(dtData.Rows[0]["sngay_sinh"]) + "|" + Utility.sDbnull(dtData.Rows[0]["sgioi_tinh"]);
+            string[] arrValuesDiaChi = dia_chi.Split(',');
+            string xaphuong = arrValuesDiaChi[0];
+            string huyentinh = dia_chi.Substring(dia_chi.IndexOf(',') + 1);
+            dia_chi = xaphuong + "^" + huyentinh;
+            patientInfor = "P|1||" + ma_luotkham + "||" + ten_benhnhan + "||" +
+                           Utility.sDbnull(dtData.Rows[0]["sngay_sinh"]) + "|" +
+                           Utility.sDbnull(dtData.Rows[0]["sgioi_tinh"]) + "|" + dia_chi + "|" + sodienthoai + "|" + sobhyt +"|";
             List<string> q = (from p in dtData.AsEnumerable()
                               select Utility.sDbnull(p["ma_chidinh"])).Distinct().ToList<string>();
             int i = 1;
@@ -146,6 +154,8 @@ namespace VMS.HIS.HLC.ASTM
                 string orderItems = "O|" + i.ToString() + "|" + ma_chidinh + "||";
                 string ngay_chidinh="";
                 string ma_khoa_chidinh="";
+                string ten_bacsychidinh = "";
+                string ten_khoaphong = "";
                 foreach (DataRow drchitiet in arrChitiet)
                 {
                     if (ngay_chidinh == "")
@@ -155,12 +165,14 @@ namespace VMS.HIS.HLC.ASTM
                     }
                     if (ma_khoa_chidinh == "")
                         ma_khoa_chidinh = Utility.sDbnull(drchitiet["ma_khoa_chidinh"], "KKB");
+                    if (ten_bacsychidinh == "") ten_bacsychidinh = Utility.sDbnull(drchitiet["ten_nhanvien"], "");
+                    if (ten_khoaphong == "") ten_khoaphong = Utility.sDbnull(drchitiet["id_phong_chidinh"], "");
                     string ma_xetnghiem = "^^^" + Utility.sDbnull(drchitiet["ma_xetnghiem"]) + @"\";
                     orderItems = orderItems + ma_xetnghiem;
                 }
                 //Loại bỏ dấu \ cuối cùng
                 orderItems = orderItems.Substring(0, orderItems.Length - 1);
-                orderItems += "|R|" + ngay_chidinh + "|||||A|||||" + ma_khoa_chidinh + "|||||||||O";
+                orderItems += "|R|" + ngay_chidinh + "|||||A|||||" + ten_bacsychidinh + "||"+ten_khoaphong+"||||||||O";
                 LstOrderItems.Add(orderItems);
             }
             if (!orderFolderPath.EndsWith(@"\")) orderFolderPath += @"\";
