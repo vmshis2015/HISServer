@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Janus.Windows.GridEX.Export;
 using Microsoft.Office.Interop.Excel;
 using NLog.LogReceiverService;
 using NPOI.HPSF;
@@ -439,6 +440,39 @@ namespace VNS.Libs
             SummaryInformation si = PropertySetFactory.CreateSummaryInformation();
             si.Subject = "bhyt";
             hssfworkbook.SummaryInformation = si;
+        }
+        public static void ExportGridEx(Janus.Windows.GridEX.GridEX gridEx)
+        {
+            Stream sw = null;
+            try
+            {
+                var sd = new SaveFileDialog { Filter = "Excel File (*.xml)|*.xml" };
+                if (sd.ShowDialog() == DialogResult.OK)
+                {
+                    //sw = new FileStream(sd.FileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                    sw = new FileStream(sd.FileName, FileMode.Create);
+                    GridEXExporter grdListExporter = new GridEXExporter();
+                    grdListExporter.IncludeExcelProcessingInstruction = true;
+                    grdListExporter.IncludeFormatStyle = true;
+                    grdListExporter.IncludeHeaders = true;
+                    grdListExporter.GridEX = gridEx;
+                    grdListExporter.Export(sw);
+                    Utility.ShowMsg("Xuất dữ liệu thành công");
+                }
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg(ex.Message);
+            }
+            finally
+            {
+                if (sw != null)
+                {
+                    sw.Flush();
+                    sw.Close();
+                    sw.Dispose();
+                }
+            }
         }
         public static void ExportToExcel_HSS(DataTable m_dtExportExcel, string filesave)
         {

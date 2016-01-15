@@ -197,18 +197,33 @@ namespace VNS.Libs
         {
             try
             {
-
-                SysReport objReport = new Select().From(SysReport.Schema).Where(SysReport.Columns.MaBaocao).IsEqualTo(mv_sReportCode).ExecuteSingle<SysReport>();
-                if (objReport != null)
-                    txtCopyPage.Text = Utility.Int16Dbnull(objReport.PrintNumber, 1).ToString();
+                if(Utility.Laygiatrithamsohethong("PRINTSOLUONGTHEOMAY_NGUOISUDUNG","1",true) == "1")
+                {
+                    string UserPrintNumberFile = Application.StartupPath + @"\UserPrintNumber\" + globalVariables.UserName + "_" + mv_sReportFileName + ".txt";
+                    if (File.Exists(UserPrintNumberFile))
+                    {
+                        txtCopyPage.Text = File.ReadAllText(UserPrintNumberFile);
+                    }
+                    else
+                    {
+                        txtCopyPage.Text = "1";
+                    }
+                }
                 else
                 {
-                    DataTable dtReports = SPs.SysGetReport(mv_sReportFileName).GetDataSet().Tables[0];
-                    if (dtReports != null && dtReports.Rows.Count > 0)
-                        txtCopyPage.Text = Utility.Int16Dbnull(dtReports.Rows[0][SysReport.Columns.PrintNumber], 1).ToString();
+                    SysReport objReport = new Select().From(SysReport.Schema).Where(SysReport.Columns.MaBaocao).IsEqualTo(mv_sReportCode).ExecuteSingle<SysReport>();
+                    if (objReport != null)
+                        txtCopyPage.Text = Utility.Int16Dbnull(objReport.PrintNumber, 1).ToString();
                     else
-                        txtCopyPage.Text = "1";
+                    {
+                        DataTable dtReports = SPs.SysGetReport(mv_sReportFileName).GetDataSet().Tables[0];
+                        if (dtReports != null && dtReports.Rows.Count > 0)
+                            txtCopyPage.Text = Utility.Int16Dbnull(dtReports.Rows[0][SysReport.Columns.PrintNumber], 1).ToString();
+                        else
+                            txtCopyPage.Text = "1";
+                    }
                 }
+                
             }
             catch (Exception ex)
             {
