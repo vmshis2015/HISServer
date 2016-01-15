@@ -8,6 +8,7 @@ using Janus.Windows.EditControls;
 using Janus.Windows.GridEX.EditControls;
 using SubSonic;
 using VNS.HIS.DAL;
+using VNS.HIS.UI.DANHMUC;
 using VNS.Libs;
 
 namespace VNS.HIS.UI.BENH_AN
@@ -25,10 +26,348 @@ namespace VNS.HIS.UI.BENH_AN
         public Frm_BenhAnThuong()
         {
             InitializeComponent();
+            InitEvents();
             txtMaBN.KeyDown += txtMaBN_KeyDown;
             txtMaLanKham.KeyDown += txtMaLanKham_KeyDown;
         }
 
+        private void InitEvents()
+        {
+            txtChanDoanBanDau._OnSaveAs += txtChanDoanKemTheo__OnSaveAs;
+            txtChanDoanBanDau._OnShowData += txtChanDoanBanDau__OnShowData;
+
+            txtBAT_LDVV._OnSaveAs += txtBAT_LDVV__OnSaveAs;
+            txtBAT_LDVV._OnShowData += txtBAT_LDVV__OnShowData;
+
+            txtBAT_QTBL._OnSaveAs += txtBAT_QTBL__OnSaveAs;
+            txtBAT_QTBL._OnShowData += txtBAT_QTBL__OnShowData;
+
+            txtBAT_BT._OnSaveAs += txtBAT_BT__OnSaveAs;
+            txtBAT_BT._OnShowData += txtBAT_BT__OnShowData;
+
+            txtBAT_GD._OnSaveAs += txtBAT_GD__OnSaveAs;
+            txtBAT_GD._OnShowData += txtBAT_GD__OnShowData;
+
+            txtBAT_TT._OnSaveAs += txtBAT_TT__OnSaveAs;
+            txtBAT_TT._OnShowData += txtBAT_TT__OnShowData;
+
+            txtBAT_CBP._OnSaveAs += txtBAT_CBP__OnSaveAs;
+            txtBAT_CBP._OnShowData += txtBAT_CBP__OnShowData;
+
+            txtBAT_TTLQCLSC._OnSaveAs += txtBAT_TTLQCLSC__OnSaveAs;
+            txtBAT_TTLQCLSC._OnShowData += txtBAT_TTLQCLSC__OnShowData;
+
+            TXTKBChanDoanBD._OnSaveAs += TXTKBChanDoanBD__OnSaveAs;
+            TXTKBChanDoanBD._OnShowData += TXTKBChanDoanBD__OnShowData;
+
+
+            TXTKBDaXuLy._OnSaveAs += TXTKBDaXuLy__OnSaveAs;
+            TXTKBDaXuLy._OnShowData += TXTKBDaXuLy__OnShowData;
+
+        }
+        private void GetDanhMucChung()
+        {
+            txtChanDoanBanDau.Init();
+            txtBAT_LDVV.Init();
+            txtBAT_QTBL.Init();
+            txtBAT_BT.Init();
+            txtBAT_GD.Init();
+            txtBAT_TT.Init();
+            txtBAT_CBP.Init();
+            txtBAT_TTLQCLSC.Init();
+            TXTKBChanDoanBD.Init();
+            TXTKBDaXuLy.Init();
+        }
+        private void txtChanDoanBanDau__OnShowData()
+        {
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtChanDoanBanDau.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtChanDoanBanDau.myCode;
+                txtChanDoanBanDau.Init();
+                txtChanDoanBanDau.SetCode(oldCode);
+                txtChanDoanBanDau.Focus();
+            }
+        }
+        private void txtChanDoanKemTheo__OnSaveAs()
+        {
+            if (Utility.DoTrim(txtChanDoanBanDau.Text) == "") return;
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtChanDoanBanDau.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, txtChanDoanBanDau.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtChanDoanBanDau.myCode;
+                txtChanDoanBanDau.Init();
+                txtChanDoanBanDau.SetCode(oldCode);
+                txtChanDoanBanDau.Focus();
+            }
+        }
+        private void txtBAT_LDVV__OnShowData()
+        {
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_LDVV.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_LDVV.myCode;
+                txtBAT_LDVV.Init();
+                txtBAT_LDVV.SetCode(oldCode);
+                txtBAT_LDVV.Focus();
+            }
+        }
+        private void txtBAT_LDVV__OnSaveAs()
+        {
+            if (Utility.DoTrim(txtBAT_LDVV.Text) == "") return;
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_LDVV.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, txtBAT_LDVV.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_LDVV.myCode;
+                txtBAT_LDVV.Init();
+                txtBAT_LDVV.SetCode(oldCode);
+                txtBAT_LDVV.Focus();
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtBAT_QTBL__OnShowData()
+        {
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_QTBL.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_QTBL.myCode;
+                txtBAT_QTBL.Init();
+                txtBAT_QTBL.SetCode(oldCode);
+                txtBAT_QTBL.Focus();
+            }
+        }
+        private void txtBAT_QTBL__OnSaveAs()
+        {
+            if (Utility.DoTrim(txtBAT_QTBL.Text) == "") return;
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_QTBL.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, txtBAT_QTBL.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_QTBL.myCode;
+                txtBAT_QTBL.Init();
+                txtBAT_QTBL.SetCode(oldCode);
+                txtBAT_QTBL.Focus();
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtBAT_BT__OnShowData()
+        {
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_BT.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_BT.myCode;
+                txtBAT_BT.Init();
+                txtBAT_BT.SetCode(oldCode);
+                txtBAT_BT.Focus();
+            }
+        }
+        private void txtBAT_BT__OnSaveAs()
+        {
+            if (Utility.DoTrim(txtBAT_BT.Text) == "") return;
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_BT.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, txtBAT_BT.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_BT.myCode;
+                txtBAT_BT.Init();
+                txtBAT_BT.SetCode(oldCode);
+                txtBAT_BT.Focus();
+            }
+        }
+        private void txtBAT_GD__OnShowData()
+        {
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_GD.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_GD.myCode;
+                txtBAT_GD.Init();
+                txtBAT_GD.SetCode(oldCode);
+                txtBAT_GD.Focus();
+            }
+        }
+        private void txtBAT_GD__OnSaveAs()
+        {
+            if (Utility.DoTrim(txtBAT_GD.Text) == "") return;
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_GD.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, txtBAT_GD.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_GD.myCode;
+                txtBAT_GD.Init();
+                txtBAT_GD.SetCode(oldCode);
+                txtBAT_GD.Focus();
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtBAT_TT__OnShowData()
+        {
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_TT.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_TT.myCode;
+                txtBAT_TT.Init();
+                txtBAT_TT.SetCode(oldCode);
+                txtBAT_TT.Focus();
+            }
+        }
+        private void txtBAT_TT__OnSaveAs()
+        {
+            if (Utility.DoTrim(txtBAT_TT.Text) == "") return;
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_TT.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, txtBAT_TT.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_TT.myCode;
+                txtBAT_TT.Init();
+                txtBAT_TT.SetCode(oldCode);
+                txtBAT_TT.Focus();
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtBAT_CBP__OnShowData()
+        {
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_CBP.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_CBP.myCode;
+                txtBAT_CBP.Init();
+                txtBAT_CBP.SetCode(oldCode);
+                txtBAT_CBP.Focus();
+            }
+        }
+        private void txtBAT_CBP__OnSaveAs()
+        {
+            if (Utility.DoTrim(txtBAT_CBP.Text) == "") return;
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_CBP.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, txtBAT_CBP.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_CBP.myCode;
+                txtBAT_CBP.Init();
+                txtBAT_CBP.SetCode(oldCode);
+                txtBAT_CBP.Focus();
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtBAT_TTLQCLSC__OnShowData()
+        {
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_TTLQCLSC.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_TTLQCLSC.myCode;
+                txtBAT_TTLQCLSC.Init();
+                txtBAT_TTLQCLSC.SetCode(oldCode);
+                txtBAT_TTLQCLSC.Focus();
+            }
+        }
+        private void txtBAT_TTLQCLSC__OnSaveAs()
+        {
+            if (Utility.DoTrim(txtBAT_TTLQCLSC.Text) == "") return;
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(txtBAT_TTLQCLSC.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, txtBAT_TTLQCLSC.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = txtBAT_TTLQCLSC.myCode;
+                txtBAT_TTLQCLSC.Init();
+                txtBAT_TTLQCLSC.SetCode(oldCode);
+                txtBAT_TTLQCLSC.Focus();
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TXTKBChanDoanBD__OnShowData()
+        {
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(TXTKBChanDoanBD.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = TXTKBChanDoanBD.myCode;
+                TXTKBChanDoanBD.Init();
+                TXTKBChanDoanBD.SetCode(oldCode);
+                TXTKBChanDoanBD.Focus();
+            }
+        }
+        private void TXTKBChanDoanBD__OnSaveAs()
+        {
+            if (Utility.DoTrim(TXTKBChanDoanBD.Text) == "") return;
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(TXTKBChanDoanBD.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, TXTKBChanDoanBD.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = TXTKBChanDoanBD.myCode;
+                TXTKBChanDoanBD.Init();
+                TXTKBChanDoanBD.SetCode(oldCode);
+                TXTKBChanDoanBD.Focus();
+            }
+        }
+        private void TXTKBDaXuLy__OnShowData()
+        {
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(TXTKBDaXuLy.LOAI_DANHMUC);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = TXTKBDaXuLy.myCode;
+                TXTKBDaXuLy.Init();
+                TXTKBDaXuLy.SetCode(oldCode);
+                TXTKBDaXuLy.Focus();
+            }
+        }
+        private void TXTKBDaXuLy__OnSaveAs()
+        {
+            if (Utility.DoTrim(TXTKBDaXuLy.Text) == "") return;
+            var _DMUC_DCHUNG = new DMUC_DCHUNG(TXTKBDaXuLy.LOAI_DANHMUC);
+            _DMUC_DCHUNG.SetStatus(true, TXTKBDaXuLy.Text);
+            _DMUC_DCHUNG.ShowDialog();
+            if (!_DMUC_DCHUNG.m_blnCancel)
+            {
+                string oldCode = TXTKBDaXuLy.myCode;
+                TXTKBDaXuLy.Init();
+                TXTKBDaXuLy.SetCode(oldCode);
+                TXTKBDaXuLy.Focus();
+            }
+        }
         private void txtMaBN_KeyDown(object sender, KeyEventArgs e)
         {
             ClearControl();
@@ -38,11 +377,11 @@ namespace VNS.HIS.UI.BENH_AN
                 SuaBenhAn = false;
             }
         }
-
+        
         // LẤY THÔNG TIN BỆNH ÁN CỦA BỆNH NHÂN
         private void LayThongTinBenhNhan(string id_benhnhan)
         {
-            var objThongTinBenhNhan = new Select("*")
+            var objThongTinBenhNhan = new Select()
                 .From(KcbDanhsachBenhnhan.Schema)
                 .Where(KcbDanhsachBenhnhan.Columns.IdBenhnhan).IsEqualTo(Utility.Int32Dbnull(id_benhnhan)).ExecuteSingle
                 <KcbDanhsachBenhnhan>();
@@ -77,6 +416,7 @@ namespace VNS.HIS.UI.BENH_AN
                     txtDoiTuong.Text = Utility.sDbnull(temdt1.Rows[0]["ma_doituong_kcb"].ToString());
                     dtInsToDate.Text = temdt1.Rows[0]["ngayketthuc_bhyt"].ToString();
                     txtSoBaoHiemYte.Text = Utility.sDbnull(temdt1.Rows[0]["mathe_bhyt"].ToString());
+
                 }
                 else
                 {
@@ -135,7 +475,20 @@ namespace VNS.HIS.UI.BENH_AN
         {
             if (em_Action == action.Insert)
             {
-                txtMaBenhAn.Text = THU_VIEN_CHUNG.SinhMaBenhAn(loaibenhan);
+
+                QueryCommand cmd1 = KcbLuotkham.CreateQuery().BuildCommand();
+                cmd1.CommandType = CommandType.Text;
+                cmd1.CommandSql = "Select *  from Kcb_Luotkham where ma_luotkham ='" +
+                                  txtMaLanKham.Text + "'";
+                DataTable temdt1 = DataService.GetDataSet(cmd1).Tables[0];
+                if (Utility.sDbnull(temdt1.Rows[0]["so_benh_an"].ToString().Trim(), "-1") == "-1" || Utility.sDbnull(temdt1.Rows[0]["so_benh_an"].ToString().Trim(), "-1") == "")
+                {
+                    txtMaBenhAn.Text = THU_VIEN_CHUNG.SinhMaBenhAn(loaibenhan);
+                }
+                else
+                {
+                    txtMaBenhAn.Text = Utility.sDbnull(temdt1.Rows[0]["so_benh_an"].ToString());
+                }
             }
         }
 
@@ -159,7 +512,7 @@ namespace VNS.HIS.UI.BENH_AN
                         case "BAS":
                             this.Text = "Bệnh án Basedow";
                             break;
-                        case "RHM   ":
+                        case "RHM":
                             this.Text = "Bệnh án Răng Hàm Mặt";
                             break;
                         case "TMH":
@@ -190,15 +543,15 @@ namespace VNS.HIS.UI.BENH_AN
                     chkTuDen.Checked = Utility.Int16Dbnull(objBenhAnNgoaiTru.YTe) == 2;
                     dtThoiDiemDkKham.Value = Convert.ToDateTime(objBenhAnNgoaiTru.NgayKham);
 
-                    txtBAT_LDVV.Text = Utility.sDbnull(objBenhAnNgoaiTru.BatLdvv);
-                    txtBAT_QTBL.Text = Utility.sDbnull(objBenhAnNgoaiTru.BatBhQtbl);
-                    txtBAT_BT.Text = Utility.sDbnull(objBenhAnNgoaiTru.BatHbBt);
-                    txtBAT_GD.Text = Utility.sDbnull(objBenhAnNgoaiTru.BatHbGd);
-                    txtBAT_TT.Text = Utility.sDbnull(objBenhAnNgoaiTru.BatKbTt);
-                    txtBAT_CBP.Text = Utility.sDbnull(objBenhAnNgoaiTru.BatKbCbp);
-                    txtBAT_TTLQCLSC.Text = Utility.sDbnull(objBenhAnNgoaiTru.BatKbKqcls);
-                    TXTKBChanDoanBD.Text = Utility.sDbnull(objBenhAnNgoaiTru.BatKbCdbd);
-                    TXTKBDaXuLy.Text = Utility.sDbnull(objBenhAnNgoaiTru.BatKbDxl);
+                    txtBAT_LDVV._Text = Utility.sDbnull(objBenhAnNgoaiTru.BatLdvv);
+                    txtBAT_QTBL._Text = Utility.sDbnull(objBenhAnNgoaiTru.BatBhQtbl);
+                    txtBAT_BT._Text = Utility.sDbnull(objBenhAnNgoaiTru.BatHbBt);
+                    txtBAT_GD._Text = Utility.sDbnull(objBenhAnNgoaiTru.BatHbGd);
+                    txtBAT_TT._Text = Utility.sDbnull(objBenhAnNgoaiTru.BatKbTt);
+                    txtBAT_CBP._Text = Utility.sDbnull(objBenhAnNgoaiTru.BatKbCbp);
+                    txtBAT_TTLQCLSC._Text = Utility.sDbnull(objBenhAnNgoaiTru.BatKbKqcls);
+                    TXTKBChanDoanBD._Text = Utility.sDbnull(objBenhAnNgoaiTru.BatKbCdbd);
+                    TXTKBDaXuLy._Text = Utility.sDbnull(objBenhAnNgoaiTru.BatKbDxl);
                     txtkbChanDoanRaVien.Text = Utility.sDbnull(objBenhAnNgoaiTru.BatKbCdrv);
 
 
@@ -376,7 +729,7 @@ namespace VNS.HIS.UI.BENH_AN
                 }
                 objBenhAnNgoaiTru.LoaiBa = loaibenhan;
                 objBenhAnNgoaiTru.MaLuotkham = txtMaLanKham.Text;
-                objBenhAnNgoaiTru.SoBenhAn = Utility.sDbnull(txtMaBenhAn.Text, -1);
+                objBenhAnNgoaiTru.SoBenhAn = Utility.sDbnull(txtMaBenhAn.Text);
                 objBenhAnNgoaiTru.IdBnhan = Utility.Int32Dbnull(txtMaBN.Text);
                 objBenhAnNgoaiTru.NgaySinh = Utility.sDbnull(txtNgaySinh.Text);
                 objBenhAnNgoaiTru.ThangSinh = Utility.sDbnull(txtThangSinh.Text);
@@ -535,26 +888,39 @@ namespace VNS.HIS.UI.BENH_AN
             string tieude = "", reportname = "";
             crpt = Utility.GetReport(reportcode, ref tieude, ref reportname);
             if (crpt == null) return;
-            var objForm = new frmPrintPreview("bệnh án", crpt, true, true);
-            crpt.SetDataSource(dsTable);
-            objForm.mv_sReportFileName = Path.GetFileName(reportname);
-            objForm.mv_sReportCode = reportcode;
-            Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
-            Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
-            Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
-            Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
-            Utility.SetParameterValue(crpt, "sTitleReport", tieude);
-            Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
-            objForm.crptViewer.ReportSource = crpt;
-            objForm.ShowDialog();
-            var objBenhAnNgoaiTru = new KcbBenhAn();
-            objBenhAnNgoaiTru.IsLoaded = true;
-            objBenhAnNgoaiTru.MarkOld();
-            objBenhAnNgoaiTru.Id = Utility.Int32Dbnull(txtID_BA.Text, -1);
-            // objBenhAnNgoaiTru.InPhieuLog = Utility.Int16Dbnull(1);
-            objBenhAnNgoaiTru.NgayIn = globalVariables.SysDate;
-            objBenhAnNgoaiTru.NguoiIn = globalVariables.UserName;
-            objBenhAnNgoaiTru.Save();
+            try
+            {
+                var objForm = new frmPrintPreview("bệnh án", crpt, true, true);
+                crpt.SetDataSource(dsTable);
+                objForm.mv_sReportFileName = Path.GetFileName(reportname);
+                objForm.mv_sReportCode = reportcode;
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+                Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+                Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
+                Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+                Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
+                objForm.crptViewer.ReportSource = crpt;
+                objForm.ShowDialog();
+                var objBenhAnNgoaiTru = new KcbBenhAn();
+                objBenhAnNgoaiTru.IsLoaded = true;
+                objBenhAnNgoaiTru.MarkOld();
+                objBenhAnNgoaiTru.Id = Utility.Int32Dbnull(txtID_BA.Text, -1);
+                // objBenhAnNgoaiTru.InPhieuLog = Utility.Int16Dbnull(1);
+                objBenhAnNgoaiTru.NgayIn = globalVariables.SysDate;
+                objBenhAnNgoaiTru.NguoiIn = globalVariables.UserName;
+                objBenhAnNgoaiTru.Save();
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
+            }
+            finally
+            {
+                Utility.FreeMemory(crpt);
+            }
+          
         }
 
         private void txtMaBenhAn_KeyPress(object sender, KeyPressEventArgs e)
@@ -873,6 +1239,7 @@ namespace VNS.HIS.UI.BENH_AN
         {
             try
             {
+                GetDanhMucChung();
                 if (txtMaBN.Text.Trim() == "")
                 {
                     txtMaBN.SelectAll();
@@ -919,6 +1286,8 @@ namespace VNS.HIS.UI.BENH_AN
                 txtMaBN.Focus();
             }
         }
+
+    
 
     }
 }
