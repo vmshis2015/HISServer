@@ -576,7 +576,7 @@ namespace VNS.HIS.Classes
                if (IsTongHop) objPayment.IdThanhtoan = -1;
                ///lấy thông tin vào phiếu thu
               DataTable m_dtReportPhieuThu = new KCB_THANHTOAN().LaythongtininbienlaiDichvu(objPayment);
-               THU_VIEN_CHUNG.Sapxepthutuin(ref m_dtReportPhieuThu, false);
+              // THU_VIEN_CHUNG.Sapxepthutuin(ref m_dtReportPhieuThu, false);
                m_dtReportPhieuThu.DefaultView.Sort = "stt_in ,stt_hthi_dichvu,stt_hthi_chitiet,ten_chitietdichvu";
 
                THU_VIEN_CHUNG.CreateXML(m_dtReportPhieuThu, Application.StartupPath + @"\Xml4Reports\Thanhtoan_InBienLai_DV.XML");
@@ -664,10 +664,11 @@ namespace VNS.HIS.Classes
 
                Utility.SetParameterValue(report,"ParentBranchName", globalVariables.ParentBranch_Name);
                Utility.SetParameterValue(report,"BranchName", globalVariables.Branch_Name);
-               Utility.SetParameterValue(report,"DateTime", Utility.FormatDateTime(globalVariables.SysDate));
-               Utility.SetParameterValue(report,"CurrentDate", Utility.FormatDateTimeWithLocation(globalVariables.SysDate,globalVariables.gv_strDiadiem));
+               Utility.SetParameterValue(report, "DateTime", Utility.FormatDateTime(Convert.ToDateTime(dtPatientPayment.Rows[0]["ngay_thanhtoan"])));
+               Utility.SetParameterValue(report, "CurrentDate", Utility.FormatDateTimeWithLocation(Convert.ToDateTime(dtPatientPayment.Rows[0]["ngay_thanhtoan"]), globalVariables.gv_strDiadiem));
                Utility.SetParameterValue(report, "sTitleReport", tieude);
-               Utility.SetParameterValue(report, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName,globalVariables.SysDate));
+              // Utility.SetParameterValue(report, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName,globalVariables.SysDate));
+               Utility.SetParameterValue(report, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, Convert.ToDateTime(dtPatientPayment.Rows[0]["ngay_thanhtoan"])));
                objForm.crptViewer.ReportSource = report;
               
                if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInHoadon, PropertyLib._MayInProperties.PreviewInHoadon))
