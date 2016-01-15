@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_baocaodoanhthutiencls));
-            Janus.Windows.GridEX.GridEXLayout grdChitiet_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.GridEX.GridEXLayout grdChitiet_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.cmdExportToExcel = new Janus.Windows.EditControls.UIButton();
             this.dtNgayInPhieu = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,6 +45,8 @@
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.baocaO_TIEUDE1 = new VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
             this.uiGroupBox2 = new Janus.Windows.EditControls.UIGroupBox();
+            this.cboLoaidichvu = new Janus.Windows.EditControls.UIComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.chkChitiet = new Janus.Windows.EditControls.UICheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.grdChitiet = new Janus.Windows.GridEX.GridEX();
@@ -58,8 +60,6 @@
             this.dtToDate = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.dtFromDate = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.chkByDate = new Janus.Windows.EditControls.UICheckBox();
-            this.cboLoaidichvu = new Janus.Windows.EditControls.UIComboBox();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
             this.uiGroupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -181,6 +181,42 @@
             this.uiGroupBox2.Size = new System.Drawing.Size(784, 465);
             this.uiGroupBox2.TabIndex = 116;
             this.uiGroupBox2.Text = "Thông tin tìm kiếm";
+            // 
+            // cboLoaidichvu
+            // 
+            this.cboLoaidichvu.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            uiComboBoxItem1.FormatStyle.Alpha = 0;
+            uiComboBoxItem1.IsSeparator = false;
+            uiComboBoxItem1.Text = "Tất cả";
+            uiComboBoxItem1.Value = ((short)(-1));
+            uiComboBoxItem2.FormatStyle.Alpha = 0;
+            uiComboBoxItem2.IsSeparator = false;
+            uiComboBoxItem2.Text = "Phí khám chữa bệnh";
+            uiComboBoxItem2.Value = ((short)(1));
+            uiComboBoxItem3.FormatStyle.Alpha = 0;
+            uiComboBoxItem3.IsSeparator = false;
+            uiComboBoxItem3.Text = "Chi phí dịch vụ Cận lâm sàng(XN,CĐHA...)";
+            uiComboBoxItem3.Value = ((short)(2));
+            this.cboLoaidichvu.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
+            uiComboBoxItem1,
+            uiComboBoxItem2,
+            uiComboBoxItem3});
+            this.cboLoaidichvu.ItemsFormatStyle.FontBold = Janus.Windows.UI.TriState.True;
+            this.cboLoaidichvu.Location = new System.Drawing.Point(419, 55);
+            this.cboLoaidichvu.Name = "cboLoaidichvu";
+            this.cboLoaidichvu.SelectInDataSource = true;
+            this.cboLoaidichvu.Size = new System.Drawing.Size(336, 21);
+            this.cboLoaidichvu.TabIndex = 60;
+            this.cboLoaidichvu.Text = "Chọn loại chi phí";
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(329, 57);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(84, 15);
+            this.label2.TabIndex = 61;
+            this.label2.Text = "Loại chi phí:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // chkChitiet
             // 
@@ -339,42 +375,6 @@
             this.chkByDate.Size = new System.Drawing.Size(69, 23);
             this.chkByDate.TabIndex = 13;
             this.chkByDate.Text = "Từ ngày";
-            // 
-            // cboLoaidichvu
-            // 
-            this.cboLoaidichvu.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            uiComboBoxItem1.FormatStyle.Alpha = 0;
-            uiComboBoxItem1.IsSeparator = false;
-            uiComboBoxItem1.Text = "Tất cả";
-            uiComboBoxItem1.Value = ((short)(-1));
-            uiComboBoxItem2.FormatStyle.Alpha = 0;
-            uiComboBoxItem2.IsSeparator = false;
-            uiComboBoxItem2.Text = "Phí khám chữa bệnh";
-            uiComboBoxItem2.Value = ((short)(1));
-            uiComboBoxItem3.FormatStyle.Alpha = 0;
-            uiComboBoxItem3.IsSeparator = false;
-            uiComboBoxItem3.Text = "Chi phí dịch vụ Cận lâm sàng(XN,CĐHA...)";
-            uiComboBoxItem3.Value = ((short)(2));
-            this.cboLoaidichvu.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem1,
-            uiComboBoxItem2,
-            uiComboBoxItem3});
-            this.cboLoaidichvu.ItemsFormatStyle.FontBold = Janus.Windows.UI.TriState.True;
-            this.cboLoaidichvu.Location = new System.Drawing.Point(419, 55);
-            this.cboLoaidichvu.Name = "cboLoaidichvu";
-            this.cboLoaidichvu.SelectInDataSource = true;
-            this.cboLoaidichvu.Size = new System.Drawing.Size(336, 21);
-            this.cboLoaidichvu.TabIndex = 60;
-            this.cboLoaidichvu.Text = "Chọn loại chi phí";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(329, 57);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 15);
-            this.label2.TabIndex = 61;
-            this.label2.Text = "Loại chi phí:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frm_baocaodoanhthutiencls
             // 

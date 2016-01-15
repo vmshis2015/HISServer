@@ -91,8 +91,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
 
 
             decimal tonghuy = Utility.DecimaltoDbnull(grdList.GetTotal(gridExColumn, Janus.Windows.GridEX.AggregateFunction.Sum));
-
-          
+            THU_VIEN_CHUNG.CreateXML(m_dtReport, "thuoc_baocao_danhsachBenhnhan_linhthuoc");
             if (m_dtReport.Rows.Count <= 0)
             {
                 Utility.ShowMsg("Không tìm thấy dữ liệu cho báo cáo", "Thông báo", MessageBoxIcon.Warning);
@@ -109,10 +108,10 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
             Utility.UpdateLogotoDatatable(ref m_dtReport);
             string Condition = string.Format("Từ ngày {0} đến {1}- Đối tượng {2} - Thuộc kho :{3}", dtFromDate.Text, dtToDate.Text,
                                              cboDoiTuong.SelectedIndex > 0
-                                                 ? Utility.sDbnull(cboDoiTuong.SelectedValue)
+                                                 ? Utility.sDbnull(cboDoiTuong.Text)
                                                  : "Tất cả",
                                              cboStock.SelectedIndex > 0
-                                                 ? Utility.sDbnull(cboStock.SelectedValue)
+                                                 ? Utility.sDbnull(cboStock.Text)
                                                  : "Tất cả");
 
             //  Utility.AddColumToDataTable(ref m_dtReport, "SO_PHIEU_BARCODE", typeof(byte[]));
@@ -143,6 +142,9 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 Utility.SetParameterValue(crpt,"sCurrentDate", Utility.FormatDateTimeWithThanhPho(dtNgayInPhieu.Value));
                 Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
                 Utility.SetParameterValue(crpt,"Deparment_Name", globalVariables.KhoaDuoc);
+                Utility.SetParameterValue(crpt, "txtTrinhky",
+                                                            Utility.getTrinhky(objForm.mv_sReportFileName,
+                                                                               globalVariables.SysDate));
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
             }

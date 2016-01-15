@@ -294,9 +294,20 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
         private string GetReportCondition()
         {
             string reval = "";
-            reval += "Từ ngày " + dtpFromDate.Value.ToString("dd/MM/yyyy") + " đến ngày " + dtpToDate.Value.ToString("dd/MM/yyyy");
-            reval += "Nhóm BHYT: "+txtNhomBHYT.myCode == "-1" ? "Tất cả" : txtNhomBHYT.Text +"; Tuyến: " +cboTuyen.Text + " ;";
+            if(chkDate.Checked)
+            {
+              
+                reval += "Từ ngày " + dtpFromDate.Value.ToString("dd/MM/yyyy") + " đến ngày " + dtpToDate.Value.ToString("dd/MM/yyyy");
+                reval += "Nhóm BHYT: " + txtNhomBHYT.myCode == "-1" ? "Tất cả" : txtNhomBHYT.Text + "; Tuyến: " + cboTuyen.Text + " ;";
+               
+            }
+            else
+            {
+                reval += "Từ ngày " + "01/01/1900 " + "đến ngày " + globalVariables.SysDate.ToString("dd/MM/yyyy");
+                reval += "Nhóm BHYT: " + txtNhomBHYT.myCode == "-1" ? "Tất cả" : txtNhomBHYT.Text + "; Tuyến: " + cboTuyen.Text + " ;";
+            }
             return reval;
+          
         }
         private string SumOfTotal(DataTable dataTable)
         {

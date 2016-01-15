@@ -1,62 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-
-using Microsoft.VisualBasic;
+using CrystalDecisions.CrystalReports.Engine;
+using Janus.Windows.GridEX;
 using SubSonic;
-using VNS.Libs;
-using VNS.HIS.DAL;
-//using reports.Baocao;
 using VNS.HIS.BusRule.Classes;
+using VNS.HIS.DAL;
+using VNS.Libs;
+using AggregateFunction = Janus.Windows.GridEX.AggregateFunction;
+//using reports.Baocao;
 
 
 namespace VNS.HIS.UI.Baocao
 {
     public partial class frm_baocaochidinhCLS : Form
     {
+        private readonly string args = "";
+        private MoneyByLetter _moneyByLetter = new MoneyByLetter();
         public DataTable _reportTable = new DataTable();
-        bool m_blnhasLoaded = false;
-        string tieude = "", reportname = "";
-        decimal tong_tien = 0m;
-        string args = "";
+        private bool m_blnhasLoaded;
+        private DataTable m_dtKhoathucHien = new DataTable();
+        private string reportname = "";
+        private string tieude = "";
+        private decimal tong_tien;
+
         public frm_baocaochidinhCLS(string args)
         {
             InitializeComponent();
             this.args = args;
-            
             Initevents();
-            this.cmdExit.Click += new EventHandler(cmdExit_Click);
+            cmdExit.Click += cmdExit_Click;
             dtNgayInPhieu.Value = globalVariables.SysDate;
             dtToDate.Value = dtNgayInPhieu.Value = dtFromDate.Value = globalVariables.SysDate;
         }
-        void Initevents()
+
+        private void Initevents()
         {
-            this.cmdExportToExcel.Click += new System.EventHandler(this.cmdExportToExcel_Click);
-            this.cmdPrint.Click += new System.EventHandler(this.cmdPrint_Click);
-            this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
-            this.Load += new System.EventHandler(this.frm_baocaochidinhCLS_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frm_baocaochidinhCLS_KeyDown);
-            chkChitiet.CheckedChanged += new EventHandler(chkChitiet_CheckedChanged);
-            cbokhoa.SelectedIndexChanged += new EventHandler(cbokhoa_SelectedIndexChanged);
+            cmdExportToExcel.Click += cmdExportToExcel_Click;
+            cmdPrint.Click += cmdPrint_Click;
+            cmdExit.Click += cmdExit_Click;
+            Load += frm_baocaochidinhCLS_Load;
+            KeyDown += frm_baocaochidinhCLS_KeyDown;
+            chkChitiet.CheckedChanged += chkChitiet_CheckedChanged;
+            cbokhoa.SelectedIndexChanged += cbokhoa_SelectedIndexChanged;
             ShowGrid();
         }
 
-        void cbokhoa_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbokhoa_SelectedIndexChanged(object sender, EventArgs e)
         {
-           // DataBinding.BindDataCombobox(cboPhong, THU_VIEN_CHUNG.Laydanhsachphongthuockhoa(Utility.sDbnull( cbokhoa.SelectedValue,"-1"),-1), DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong, "----Chọn phòng thực hiện ----",true);
+            // DataBinding.BindDataCombobox(cboPhong, THU_VIEN_CHUNG.Laydanhsachphongthuockhoa(Utility.sDbnull( cbokhoa.SelectedValue,"-1"),-1), DmucKhoaphong.Columns.IdKhoaphong, DmucKhoaphong.Columns.TenKhoaphong, "----Chọn phòng thực hiện ----",true);
         }
 
-        void chkChitiet_CheckedChanged(object sender, EventArgs e)
+        private void chkChitiet_CheckedChanged(object sender, EventArgs e)
         {
-            ShowGrid(); 
+            ShowGrid();
         }
-        void ShowGrid()
+
+        private void ShowGrid()
         {
             if (chkChitiet.Checked)
             {
@@ -69,32 +71,36 @@ namespace VNS.HIS.UI.Baocao
                 baocaO_TIEUDE1.Init("baocao_chidinhcls_tonghop");
             }
         }
+
         private void cmdExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
-        DataTable m_dtKhoathucHien = new DataTable();
 
         private void frm_baocaochidinhCLS_Load(object sender, EventArgs e)
         {
             try
             {
-               DataTable dtNhomdichvu =  new Select().From(VDmucDichvucl.Schema).ExecuteDataSet().Tables[0];
-               cboNhomdichvuCLS.DropDownDataSource = dtNhomdichvu;
-               cboNhomdichvuCLS.DropDownDataMember = VDmucDichvucl.Columns.IdDichvu;
-               cboNhomdichvuCLS.DropDownDisplayMember = VDmucDichvucl.Columns.TenDichvu;
-               cboNhomdichvuCLS.DropDownValueMember = VDmucDichvucl.Columns.IdDichvu;
+                DataTable dtNhomdichvu = new Select().From(VDmucDichvucl.Schema).ExecuteDataSet().Tables[0];
+                cboNhomdichvuCLS.DropDownDataSource = dtNhomdichvu;
+                cboNhomdichvuCLS.DropDownDataMember = VDmucDichvucl.Columns.IdDichvu;
+                cboNhomdichvuCLS.DropDownDisplayMember = VDmucDichvucl.Columns.TenDichvu;
+                cboNhomdichvuCLS.DropDownValueMember = VDmucDichvucl.Columns.IdDichvu;
 
                 DataBinding.BindDataCombobox(cboDoituongKCB, THU_VIEN_CHUNG.LaydanhsachDoituongKcb(),
-                                           DmucDoituongkcb.Columns.MaDoituongKcb, DmucDoituongkcb.Columns.TenDoituongKcb, "Chọn đối tượng KCB", true);
-                
-                txtNhanvien.Init(this.args);
+                                             DmucDoituongkcb.Columns.MaDoituongKcb,
+                                             DmucDoituongkcb.Columns.TenDoituongKcb, "Chọn đối tượng KCB", true);
+
+                txtNhanvien.Init(args);
                 m_dtKhoathucHien = THU_VIEN_CHUNG.Laydanhmuckhoa("NGOAI", 0);
                 DataBinding.BindDataCombobox(cbokhoa, m_dtKhoathucHien,
-                                     DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong, "Chọn khoa KCB", true);
-                var query = from khoa in m_dtKhoathucHien.AsEnumerable()
-                            where Utility.sDbnull(khoa[DmucKhoaphong.Columns.MaKhoaphong]) == globalVariables.MA_KHOA_THIEN
-                            select khoa;
+                                             DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
+                                             "Chọn khoa KCB", true);
+                EnumerableRowCollection<DataRow> query = from khoa in m_dtKhoathucHien.AsEnumerable()
+                                                         where
+                                                             Utility.sDbnull(khoa[DmucKhoaphong.Columns.MaKhoaphong]) ==
+                                                             globalVariables.MA_KHOA_THIEN
+                                                         select khoa;
                 if (query.Count() > 0)
                 {
                     cbokhoa.SelectedValue = globalVariables.MA_KHOA_THIEN;
@@ -103,12 +109,10 @@ namespace VNS.HIS.UI.Baocao
             }
             catch (Exception ex)
             {
-                Utility.CatchException("Lỗi khi load chức năng!",ex);
+                Utility.CatchException("Lỗi khi load chức năng!", ex);
             }
-
         }
 
-        MoneyByLetter _moneyByLetter = new MoneyByLetter();
         /// <summary>
         /// hàm thực hiện việc in phiếu xét nghiêm
         /// 
@@ -120,11 +124,11 @@ namespace VNS.HIS.UI.Baocao
             try
             {
                 string nhomdichvu = "-1";
-                if (!string.IsNullOrEmpty(cboNhomdichvuCLS.Text) && cboNhomdichvuCLS.CheckedValues!=null)
+                if (!string.IsNullOrEmpty(cboNhomdichvuCLS.Text) && cboNhomdichvuCLS.CheckedValues != null)
                 {
-                    var query = (from chk in cboNhomdichvuCLS.CheckedValues.AsEnumerable()
-                                 let x = Utility.sDbnull(chk)
-                                 select x).ToArray();
+                    string[] query = (from chk in cboNhomdichvuCLS.CheckedValues.AsEnumerable()
+                                      let x = Utility.sDbnull(chk)
+                                      select x).ToArray();
                     if (query.Count() > 0)
                     {
                         nhomdichvu = string.Join(",", query);
@@ -134,25 +138,29 @@ namespace VNS.HIS.UI.Baocao
                 {
                     _reportTable =
                         BAOCAO_NGOAITRU.BaocaoChidinhclsChitiet(
-                                                         chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
-                                                         chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate, Utility.sDbnull(cboDoituongKCB.SelectedValue, -1), nhomdichvu,
-                                                         txtNhanvien.myCode, Utility.sDbnull(cbokhoa.SelectedValue, -1),Utility.Int32Dbnull( chkKieuchidinh.SelectedValue,-1));
-
+                            chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
+                            chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
+                            Utility.sDbnull(cboDoituongKCB.SelectedValue, -1), nhomdichvu,
+                            txtNhanvien.myCode, Utility.sDbnull(cbokhoa.SelectedValue, -1),
+                            Utility.Int32Dbnull(chkKieuchidinh.SelectedValue, -1), args);
+                    THU_VIEN_CHUNG.CreateXML(_reportTable, "baocao_chidinhcls_chitiet");
                     Utility.SetDataSourceForDataGridEx(grdChitiet, _reportTable, false, true, "1=1", "");
-                    Janus.Windows.GridEX.GridEXColumn gridExColumnTientong = grdChitiet.RootTable.Columns["Thanh_Tien"];
-                    tong_tien = Utility.Int32Dbnull(grdChitiet.GetTotal(gridExColumnTientong, Janus.Windows.GridEX.AggregateFunction.Sum));
+                    GridEXColumn gridExColumnTientong = grdChitiet.RootTable.Columns["Thanh_Tien"];
+                    tong_tien = Utility.Int32Dbnull(grdChitiet.GetTotal(gridExColumnTientong, AggregateFunction.Sum));
                 }
                 else
                 {
                     _reportTable =
-                      BAOCAO_NGOAITRU.BaocaoChidinhclsTonghop(
-                                                       chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
-                                                       chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate, Utility.sDbnull(cboDoituongKCB.SelectedValue, -1), nhomdichvu,
-                                                       txtNhanvien.myCode, Utility.sDbnull(cbokhoa.SelectedValue, -1),Utility.Int32Dbnull( chkKieuchidinh.SelectedValue,-1));
-
+                        BAOCAO_NGOAITRU.BaocaoChidinhclsTonghop(
+                            chkByDate.Checked ? dtFromDate.Value : Convert.ToDateTime("01/01/1900"),
+                            chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
+                            Utility.sDbnull(cboDoituongKCB.SelectedValue, -1), nhomdichvu,
+                            txtNhanvien.myCode, Utility.sDbnull(cbokhoa.SelectedValue, -1),
+                            Utility.Int32Dbnull(chkKieuchidinh.SelectedValue, -1), args);
+                    THU_VIEN_CHUNG.CreateXML(_reportTable, "baocao_chidinhcls_tonghop");
                     Utility.SetDataSourceForDataGridEx(grdList, _reportTable, false, true, "1=1", "");
-                    Janus.Windows.GridEX.GridEXColumn gridExColumnTientong = grdList.RootTable.Columns["Thanh_Tien"];
-                    tong_tien = Utility.Int32Dbnull(grdList.GetTotal(gridExColumnTientong, Janus.Windows.GridEX.AggregateFunction.Sum));
+                    GridEXColumn gridExColumnTientong = grdList.RootTable.Columns["Thanh_Tien"];
+                    tong_tien = Utility.Int32Dbnull(grdList.GetTotal(gridExColumnTientong, AggregateFunction.Sum));
                 }
 
                 if (_reportTable.Rows.Count <= 0)
@@ -162,21 +170,24 @@ namespace VNS.HIS.UI.Baocao
                 }
                 string StaffName = globalVariables.gv_strTenNhanvien;
                 if (string.IsNullOrEmpty(globalVariables.gv_strTenNhanvien)) StaffName = globalVariables.UserName;
-                string Condition = string.Format("Từ ngày {0} đến {1} - Đối tượng : {2} - Nhân viên :{3} - Khoa chỉ định :{4}  - Loại dịch vụ: {5}", dtFromDate.Text, dtToDate.Text,
-                                        cboDoituongKCB.SelectedIndex > 0
-                                            ? Utility.sDbnull(cboDoituongKCB.Text)
-                                            : "Tất cả",
-                                        txtNhanvien.myCode !="-1"
-                                            ? txtNhanvien.Text
-                                            : "Tất cả", cbokhoa.SelectedIndex > 0 ? Utility.sDbnull(cbokhoa.Text) : "Tất cả",
-                                             cboNhomdichvuCLS.CheckedValues!=null ? Utility.sDbnull(cboNhomdichvuCLS.Text) : "Tất cả");
+                string Condition =
+                    string.Format(
+                        "Từ ngày {0} đến {1} - Đối tượng : {2} - Nhân viên :{3} - Khoa chỉ định :{4}  - Loại dịch vụ: {5}",
+                        dtFromDate.Text, dtToDate.Text,
+                        cboDoituongKCB.SelectedIndex > 0
+                            ? Utility.sDbnull(cboDoituongKCB.Text)
+                            : "Tất cả",
+                        txtNhanvien.myCode != "-1"
+                            ? txtNhanvien.Text
+                            : "Tất cả", cbokhoa.SelectedIndex > 0 ? Utility.sDbnull(cbokhoa.Text) : "Tất cả",
+                        cboNhomdichvuCLS.CheckedValues != null ? Utility.sDbnull(cboNhomdichvuCLS.Text) : "Tất cả");
                 Utility.UpdateLogotoDatatable(ref _reportTable);
-                string reportCode=chkChitiet.Checked ? "baocao_chidinhcls_chitiet" : "baocao_chidinhcls_tonghop";
-                var crpt = Utility.GetReport(reportCode, ref tieude, ref reportname);
+                string reportCode = chkChitiet.Checked ? "baocao_chidinhcls_chitiet" : "baocao_chidinhcls_tonghop";
+                ReportDocument crpt = Utility.GetReport(reportCode, ref tieude, ref reportname);
                 if (crpt == null) return;
 
 
-                frmPrintPreview objForm = new frmPrintPreview(tieude, crpt, true, _reportTable.Rows.Count <= 0 ? false : true);
+                var objForm = new frmPrintPreview(tieude, crpt, true, _reportTable.Rows.Count <= 0 ? false : true);
                 crpt.SetDataSource(_reportTable);
                 objForm.mv_sReportFileName = Path.GetFileName(reportname);
                 objForm.mv_sReportCode = reportCode;
@@ -189,17 +200,18 @@ namespace VNS.HIS.UI.Baocao
                 Utility.SetParameterValue(crpt, "Tongtien_chu", new MoneyByLetter().sMoneyToLetter(tong_tien.ToString()));
                 Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(dtNgayInPhieu.Value));
                 Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
-
+                Utility.SetParameterValue(crpt, "txtTrinhky",
+                                                            Utility.getTrinhky(objForm.mv_sReportFileName,
+                                                                               globalVariables.SysDate));
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Utility.CatchException("Lỗi khi in báo cáo",ex);
+                Utility.CatchException("Lỗi khi in báo cáo", ex);
             }
         }
 
-       
 
         private void cmdExportToExcel_Click(object sender, EventArgs e)
         {
@@ -218,7 +230,7 @@ namespace VNS.HIS.UI.Baocao
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     string sPath = saveFileDialog1.FileName;
-                    FileStream fs = new FileStream(sPath, FileMode.Create);
+                    var fs = new FileStream(sPath, FileMode.Create);
                     fs.CanWrite.CompareTo(true);
                     fs.CanRead.CompareTo(true);
                     gridEXExporter1.Export(fs);
@@ -226,15 +238,12 @@ namespace VNS.HIS.UI.Baocao
                 }
                 saveFileDialog1.Dispose();
                 saveFileDialog1.Reset();
-
             }
             catch (Exception exception)
             {
-
             }
         }
 
-       
 
         private void frm_baocaochidinhCLS_KeyDown(object sender, KeyEventArgs e)
         {
@@ -242,7 +251,5 @@ namespace VNS.HIS.UI.Baocao
             if (e.KeyCode == Keys.F4) cmdPrint.PerformClick();
             if (e.KeyCode == Keys.F5) cmdExportToExcel.PerformClick();
         }
-
-      
     }
 }
