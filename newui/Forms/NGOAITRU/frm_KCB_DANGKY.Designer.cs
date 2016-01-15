@@ -1821,7 +1821,6 @@
             this.txtSoBATCQG.Size = new System.Drawing.Size(65, 21);
             this.txtSoBATCQG.TabIndex = 604;
             this.txtSoBATCQG.TabStop = false;
-            this.txtSoBATCQG.Text = "1";
             this.txtSoBATCQG.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtSoBATCQG.Visible = false;
             // 
@@ -1848,7 +1847,6 @@
             this.txtSoBA.Size = new System.Drawing.Size(89, 21);
             this.txtSoBA.TabIndex = 602;
             this.txtSoBA.TabStop = false;
-            this.txtSoBA.Text = "1";
             this.txtSoBA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label26

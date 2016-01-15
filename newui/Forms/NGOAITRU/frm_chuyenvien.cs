@@ -225,7 +225,8 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             try
             {
                 KcbPhieuchuyenvien _phieuchuyenvien = null;
-                if (m_enAct == action.Insert)
+                SqlQuery sqlkt = new Select().From(KcbPhieuchuyenvien.Schema).Where(KcbPhieuchuyenvien.Columns.MaLuotkham).IsEqualTo(Utility.sDbnull(txtMaluotkham.Text));
+                if (m_enAct == action.Insert && sqlkt.GetRecordCount()<=0)
                 {
                     _phieuchuyenvien = new KcbPhieuchuyenvien();
                     _phieuchuyenvien.IsNew = true;
@@ -269,7 +270,9 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                         _phieuchuyenvien.Save();
                         objLuotkham.TthaiChuyendi = 1;
                         objLuotkham.IdBacsiChuyenvien = _phieuchuyenvien.IdBacsiChuyenvien;
-                     
+                        objLuotkham.MabenhChinh = _phieuchuyenvien.Mabenh;
+                        objLuotkham.NgayKetthuc = _phieuchuyenvien.NgayChuyenvien;
+                        objLuotkham.NguoiKetthuc = _phieuchuyenvien.NguoiTao;
                         objLuotkham.NgayRavien = _phieuchuyenvien.NgayChuyenvien;
                         objLuotkham.KetLuan = "Chuyển viện";
                         objLuotkham.HuongDieutri = "Chuyển viện";
@@ -277,6 +280,38 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                         objLuotkham.IsNew = false;
                         objLuotkham.MarkOld();
                         objLuotkham.Save();
+                        KcbChandoanKetluan objChuandoanKetluan =
+                          new Select().From(KcbChandoanKetluan.Schema).Where(KcbChandoanKetluan.Columns.MaLuotkham).
+                              IsEqualTo(objLuotkham.MaLuotkham).And(KcbChandoanKetluan.Columns.IdBenhnhan).IsEqualTo(
+                                  objLuotkham.IdBenhnhan).ExecuteSingle<KcbChandoanKetluan>();
+                        if (objChuandoanKetluan != null)
+                        {
+                            new Update(KcbChandoanKetluan.Schema)
+                                .Set(KcbChandoanKetluan.Columns.MabenhChinh).EqualTo(objLuotkham.MabenhChinh)
+                         .Where(KcbChandoanKetluan.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan)
+                         .And(KcbChandoanKetluan.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham)
+                         .And(KcbChandoanKetluan.Columns.Noitru).IsEqualTo(0)
+                         .Execute();
+
+                        }
+                        else
+                        {
+                            objChuandoanKetluan = new KcbChandoanKetluan();
+                            objChuandoanKetluan.IdBenhnhan = Utility.Int64Dbnull(objLuotkham.IdBenhnhan);
+                            objChuandoanKetluan.MaLuotkham = Utility.sDbnull(objLuotkham.MaLuotkham, "");
+                            objChuandoanKetluan.SongayDieutri = 1;
+                            objChuandoanKetluan.MabenhChinh = objLuotkham.MabenhChinh;
+                            objChuandoanKetluan.NgayChandoan = globalVariables.SysDate;
+                            objChuandoanKetluan.NguoiTao = globalVariables.UserName;
+                            objChuandoanKetluan.IdBacsikham = globalVariables.gv_intIDNhanvien;
+                            objChuandoanKetluan.IpMaytao = globalVariables.gv_strIPAddress;
+                            objChuandoanKetluan.Noitru = 0;
+                            objChuandoanKetluan.IsNew = true;
+                            objChuandoanKetluan.Save();
+                        }
+                        new Update(KcbDangkyKcb.Schema).Set(KcbDangkyKcb.Columns.TrangThai).EqualTo(1).Where(
+                            KcbDangkyKcb.Columns.MaLuotkham).IsEqualTo(objLuotkham.MaLuotkham).And(
+                                KcbDangkyKcb.Columns.IdBenhnhan).IsEqualTo(objLuotkham.IdBenhnhan).Execute();
                     }
                     scope.Complete();
                 }

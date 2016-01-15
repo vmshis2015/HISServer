@@ -2122,7 +2122,6 @@
             // 
             this.pnlother.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlother.Controls.Add(this.txtChanDoanKemTheo);
             this.pnlother.Controls.Add(this.label24);
             this.pnlother.Controls.Add(this.label7);
             this.pnlother.Controls.Add(this.cmdLuuChandoan);
@@ -2147,6 +2146,7 @@
             this.pnlother.Controls.Add(this.label31);
             this.pnlother.Controls.Add(this.label46);
             this.pnlother.Controls.Add(this.txtNhanxet);
+            this.pnlother.Controls.Add(this.txtChanDoanKemTheo);
             this.pnlother.Location = new System.Drawing.Point(5, 24);
             this.pnlother.Name = "pnlother";
             this.pnlother.Size = new System.Drawing.Size(703, 188);

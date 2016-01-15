@@ -2609,7 +2609,7 @@ namespace VNS.HIS.UI.NGOAITRU
             txtNoichuyenden.SetCode("-1");
             txtKieuKham.ClearMe();
             txtPhongkham.ClearMe();
-
+            txtSoBA.Clear();
             txtLoaiBN.SetCode("-1");
             txtNoigioithieu.Clear();
             txtEmail.Clear();
@@ -2985,7 +2985,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 dtInsToDate.Focus();
                 return false;
             }
-            if (dtInsToDate.Value < globalVariables.SysDate)
+            if (Convert.ToDateTime(dtInsToDate.Value.ToString("dd/MM/yyyy")) < Convert.ToDateTime(globalVariables.SysDate.ToString("dd/MM/yyyy")))
             {
                 Utility.ShowMsg("Ngày hết hạn thẻ BHYT phải lớn hơn hoặc bằng ngày hiện tại", "Thông báo");
                 dtInsToDate.Focus();

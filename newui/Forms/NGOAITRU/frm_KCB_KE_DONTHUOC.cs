@@ -1068,7 +1068,11 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             if (((Utility.DoTrim(this.txtTenBenhChinh.Text) != "") || (this.grd_ICD.GetDataRows().Length > 0)) || (Utility.DoTrim(this.txtChanDoan.Text) != "") )
             {
-                if (this._KcbChandoanKetluan == null) this._KcbChandoanKetluan = new KcbChandoanKetluan();
+                SqlQuery sqlkt = new Select().From(KcbChandoanKetluan.Schema).Where(KcbChandoanKetluan.Columns.IdKham).IsEqualTo(Utility.Int64Dbnull(id_kham));
+                if (this._KcbChandoanKetluan == null || sqlkt.GetRecordCount()<=0)
+                {
+                    this._KcbChandoanKetluan = new KcbChandoanKetluan();
+                }
                 this._KcbChandoanKetluan.IdKham = this.id_kham;
                 this._KcbChandoanKetluan.MaLuotkham = this.objLuotkham.MaLuotkham;
                 this._KcbChandoanKetluan.IdBenhnhan = this.objLuotkham.IdBenhnhan;
@@ -1612,7 +1616,8 @@ namespace VNS.HIS.UI.NGOAITRU
                 chkTutuc.Visible = THU_VIEN_CHUNG.IsBaoHiem(objLuotkham.IdLoaidoituongKcb);
                 if (!chkTutuc.Visible) chkTutuc.Checked = false;
                 this.MaDoiTuong = objLuotkham.MaDoituongKcb;
-                if (this._KcbChandoanKetluan == null)
+                SqlQuery sqlkt = new Select().From(KcbChandoanKetluan.Schema).Where(KcbChandoanKetluan.Columns.IdKham).IsEqualTo(objRegExam.IdKham);
+                if (this._KcbChandoanKetluan == null || sqlkt.GetRecordCount()<=0)
                 {
                     this._KcbChandoanKetluan = new KcbChandoanKetluan();
                     this._KcbChandoanKetluan.IsNew = true;

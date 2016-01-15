@@ -570,10 +570,10 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void cboChonBenhAn_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!cmdInTTDieuTri.Visible)
-            {
-                return;
-            }
+            //if (!cmdInTTDieuTri.Visible)
+            //{
+            //    return;
+            //}
             if (cboChonBenhAn.SelectedIndex == 6)
             {
                 BenhAnThuong();
@@ -1948,13 +1948,13 @@ namespace VNS.HIS.UI.NGOAITRU
                                     txtNhietDo.Text = Utility.sDbnull(_KcbChandoanKetluan.Nhietdo);
                                     txtCannang.Text = Utility.sDbnull(_KcbChandoanKetluan.Cannang);
                                     txtChieucao.Text = Utility.sDbnull(_KcbChandoanKetluan.Chieucao);
-                                    txtNhanxet.Text = Utility.sDbnull(_KcbChandoanKetluan.NhanXet);
+                                    txtNhanxet._Text = Utility.sDbnull(_KcbChandoanKetluan.NhanXet);
                                     if (!string.IsNullOrEmpty(Utility.sDbnull(_KcbChandoanKetluan.Nhommau)) &&
                                         Utility.sDbnull(_KcbChandoanKetluan.Nhommau) != "-1")
                                         txtNhommau._Text = Utility.sDbnull(_KcbChandoanKetluan.Nhommau);
                                     isLike = false;
                                     txtChanDoan._Text = Utility.sDbnull(_KcbChandoanKetluan.Chandoan);
-                                    txtChanDoanKemTheo.Text = Utility.sDbnull(_KcbChandoanKetluan.ChandoanKemtheo);
+                                    txtChanDoanKemTheo._Text = Utility.sDbnull(_KcbChandoanKetluan.ChandoanKemtheo);
                                     txtMaBenhChinh.Text = Utility.sDbnull(_KcbChandoanKetluan.MabenhChinh);
                                     string dataString = Utility.sDbnull(_KcbChandoanKetluan.MabenhPhu, "");
                                     isLike = true;
@@ -4294,6 +4294,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
+                cmdLuuChandoan.PerformClick();
                 // KeDonThuocTheoDoiTuong();
                 var frm = new frm_KCB_KE_DONTHUOC("THUOC");
                 frm.em_Action = action.Insert;
@@ -4311,6 +4312,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm.noitru = 0;
                 frm.CallActionKeDon = CallActionKieuKeDon.TheoDoiTuong;
                 frm.ShowDialog();
+               
                 if (!frm.m_blnCancel)
                 {
                     txtMaBenhChinh.Text = frm._MabenhChinh;
@@ -4957,7 +4959,8 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             try
             {
-                if (_KcbChandoanKetluan == null)
+                SqlQuery sqlkt = new Select().From(KcbChandoanKetluan.Schema).Where(KcbChandoanKetluan.Columns.IdKham).IsEqualTo(objkcbdangky.IdKham);
+                if (_KcbChandoanKetluan == null || sqlkt.GetRecordCount()<=0)
                 {
                     _KcbChandoanKetluan = new KcbChandoanKetluan();
                     _KcbChandoanKetluan.IsNew = true;
