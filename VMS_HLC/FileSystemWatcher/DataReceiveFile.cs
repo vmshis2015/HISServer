@@ -26,7 +26,6 @@ namespace VMS.FSW
             FileName = Path.GetFileName(FullFilePath);
             LogPath = logPath;
         }
-
         #endregion
     }
 }
