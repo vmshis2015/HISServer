@@ -130,6 +130,7 @@
             // 
             this.txtLydothanhly._backcolor = System.Drawing.SystemColors.Control;
             this.txtLydothanhly._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLydothanhly._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLydothanhly.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLydothanhly.AutoCompleteList")));
             this.txtLydothanhly.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLydothanhly.CaseSensitive = false;
@@ -189,6 +190,7 @@
             // 
             this.txtthuoc._backcolor = System.Drawing.SystemColors.Control;
             this.txtthuoc._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtthuoc.AllowedSelectPrice = false;
             this.txtthuoc.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtthuoc.AutoCompleteList")));
             this.txtthuoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtthuoc.CaseSensitive = false;
@@ -197,6 +199,7 @@
             this.txtthuoc.DefaultID = "-1";
             this.txtthuoc.Drug_ID = null;
             this.txtthuoc.ExtraWidth = 0;
+            this.txtthuoc.ExtraWidth_Pre = 0;
             this.txtthuoc.FillValueAfterSelect = true;
             this.txtthuoc.Font = new System.Drawing.Font("Arial", 9F);
             this.txtthuoc.GridView = false;
@@ -205,6 +208,7 @@
             this.txtthuoc.MinTypedCharacters = 2;
             this.txtthuoc.MyCode = "-1";
             this.txtthuoc.MyID = "-1";
+            this.txtthuoc.MyText = "";
             this.txtthuoc.Name = "txtthuoc";
             this.txtthuoc.RaiseEvent = false;
             this.txtthuoc.RaiseEventEnter = false;
@@ -214,6 +218,7 @@
             this.txtthuoc.splitChar = '@';
             this.txtthuoc.splitCharIDAndCode = '#';
             this.txtthuoc.TabIndex = 2;
+            this.txtthuoc.TakeCode = false;
             this.txtthuoc.txtMyCode = null;
             this.txtthuoc.txtMyCode_Edit = null;
             this.txtthuoc.txtMyID = null;
@@ -443,7 +448,7 @@
             this.Controls.Add(this.cmdExit);
             this.Controls.Add(this.uiGroupBox1);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

@@ -208,14 +208,8 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 string nhomthuoc = "-1";
                 if (cboKho.SelectedIndex < 0)
                 {
-                    Utility.ShowMsg("Bạn phải chọn Kho thuốc để xem thẻ thuốc");
+                    Utility.ShowMsg("Bạn phải chọn Kho thuốc");
                     cboKho.Focus();
-                    return;
-                }
-                if (txtthuoc.MyCode == "-1")
-                {
-                    Utility.ShowMsg("Bạn phải chọn thuốc để xem thẻ thuốc");
-                    txtthuoc.Focus();
                     return;
                 }
                 nhomthuoc = txtLoaithuoc.MyID.ToString();
