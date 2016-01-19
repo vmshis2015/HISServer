@@ -1111,6 +1111,78 @@ namespace VNS.HIS.UI.Baocao
               Utility.CatchException(ex);
           }
       }
+      public static void ThuocSovatlieuchitiet(DataTable m_dtReport, string kieuthuoc_vt, string sTitleReport, DateTime NgayIn, string FromDateToDate, string tenkho)
+      {
+
+          string tieude = "", reportname = "";
+          var crpt = Utility.GetReport(kieuthuoc_vt == "THUOC" ? "thuoc_sovatlieu_chitiet" : "thuoc_sovatlieu_chitiet", ref tieude, ref reportname);
+          if (crpt == null) return;
+
+          var objForm = new frmPrintPreview(sTitleReport, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+          Utility.UpdateLogotoDatatable(ref m_dtReport);
+          try
+          {
+
+              m_dtReport.AcceptChanges();
+              crpt.SetDataSource(m_dtReport);
+
+              objForm.mv_sReportFileName = Path.GetFileName(reportname);
+              objForm.mv_sReportCode = kieuthuoc_vt == "THUOC" ? "thuoc_sovatlieu_chitiet" : "thuoc_sovatlieu_chitiet";
+              Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+              Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+              Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+              Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
+
+              Utility.SetParameterValue(crpt, "FromDateToDate", FromDateToDate);
+              Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
+              Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+              Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+              objForm.crptViewer.ReportSource = crpt;
+              objForm.ShowDialog();
+          }
+          catch (Exception ex)
+          {
+              Utility.CatchException(ex);
+          }
+      }
+
+
+      public static void ThuocBaocaophatsinh(DataTable m_dtReport, string ma_baocao, string sTitleReport, DateTime NgayIn, string FromDateToDate, string tenkho)
+      {
+
+          string tieude = "", reportname = "";
+          var crpt = Utility.GetReport(ma_baocao, ref tieude, ref reportname);
+          if (crpt == null) return;
+
+          var objForm = new frmPrintPreview(sTitleReport, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+          Utility.UpdateLogotoDatatable(ref m_dtReport);
+          try
+          {
+
+              m_dtReport.AcceptChanges();
+              crpt.SetDataSource(m_dtReport);
+
+              objForm.mv_sReportFileName = Path.GetFileName(reportname);
+              objForm.mv_sReportCode = ma_baocao;
+              Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+              Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+              Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
+              Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
+
+              Utility.SetParameterValue(crpt, "FromDateToDate", FromDateToDate);
+              Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
+              Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+              Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+              objForm.crptViewer.ReportSource = crpt;
+              objForm.ShowDialog();
+          }
+          catch (Exception ex)
+          {
+              Utility.CatchException(ex);
+          }
+      }
+
+
       public static void ThethuocChitiet(DataTable m_dtReport,string kieuthuoc_vt, string sTitleReport, DateTime NgayIn, string FromDateToDate, string tenkho)
       {
 
@@ -1118,7 +1190,6 @@ namespace VNS.HIS.UI.Baocao
           var crpt = Utility.GetReport(kieuthuoc_vt == "THUOC" ? "thuoc_thethuoc_chitiet" : "vt_thevt_chitiet", ref tieude, ref reportname);
           if (crpt == null) return;
 
-          MoneyByLetter _moneyByLetter = new MoneyByLetter();
           var objForm = new frmPrintPreview(sTitleReport, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
           Utility.UpdateLogotoDatatable(ref m_dtReport);
           try
@@ -1129,7 +1200,6 @@ namespace VNS.HIS.UI.Baocao
              
               objForm.mv_sReportFileName = Path.GetFileName(reportname);
               objForm.mv_sReportCode = kieuthuoc_vt == "THUOC" ? "thuoc_thethuoc_chitiet" : "vt_thevt_chitiet";
-              //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "  PHÒNG DƯỢC   ".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
               Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
               Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
               Utility.SetParameterValue(crpt,"Address", globalVariables.Branch_Address);
