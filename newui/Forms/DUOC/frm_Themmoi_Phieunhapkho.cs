@@ -1216,7 +1216,11 @@ namespace VNS.HIS.UI.THUOC
         private void cmdInPhieuNhap_Click(object sender, EventArgs e)
         {
             int IdPhieunhap = Utility.Int32Dbnull(txtIDPhieuNhapKho.Text, -1);
-            VNS.HIS.UI.Baocao.thuoc_phieuin_nhapxuat.InphieuNhapkho(IdPhieunhap, "PHIẾU NHẬP", globalVariables.SysDate);
+            VNS.HIS.UI.Baocao.thuoc_phieuin_nhapxuat.InphieuNhapkho(IdPhieunhap, "PHIẾU NHẬP KHO", globalVariables.SysDate);
+            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_INBIENBAN_GIAONHANHANG", "0", false) == "1")
+            {
+                VNS.HIS.UI.Baocao.thuoc_phieuin_nhapxuat.InBienBanGiaoHang(IdPhieunhap, "BIÊN BẢN GIAO NHẬN HÀNG HÓA", globalVariables.SysDate);
+            }
         }
         /// <summary>
         /// hàm thực hiện việc cho phép nhập số
