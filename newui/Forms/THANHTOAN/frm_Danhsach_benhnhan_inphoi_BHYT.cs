@@ -249,6 +249,8 @@ namespace  VNS.HIS.UI.THANHTOAN
                // xmlWriter.WriteElementString("d", "ddd");
                // xmlWriter.WriteEndElement();
                // xmlWriter.Flush();
+                this.UseWaitCursor = true;
+                int i = 0;
                 foreach (Janus.Windows.GridEX.GridEXRow row in grdList.GetCheckedRows())
                 {
                     string maluot_kham = Utility.sDbnull(row.Cells["ma_luotkham"].Value);
@@ -257,9 +259,10 @@ namespace  VNS.HIS.UI.THANHTOAN
                     new Update(KcbPhieuDct.Schema).Set(KcbPhieuDct.Columns.TrangthaiXml).EqualTo(1).Where(
                         KcbPhieuDct.Columns.IdBenhnhan).IsEqualTo(id_benhnhan).And(KcbPhieuDct.Columns.MaLuotkham).
                         IsEqualTo(maluot_kham).Execute();
-                   // row.Cells["trangthai_xml"].Value = 1;
+                    i = i + 1;
+                    // row.Cells["trangthai_xml"].Value = 1;
                 }
-                Utility.SetMsg(lblmsg,string.Format("Tổng số File XML là {0} file",grdList.GetCheckedRows()),false);
+                Utility.SetMsg(lblmsg, string.Format("Tổng số File XML là {0} file", i.ToString()), false);
             }
             catch (Exception ex)
             {
@@ -273,6 +276,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                     //xmlWriter.WriteEndDocument();
                     xmlWriter.Close();
                 }
+                this.UseWaitCursor = false;
             }
         }
         private string sLocalFilePath;
