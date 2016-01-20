@@ -10,17 +10,17 @@ using VNS.Libs;
 
 namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT
 {
-    public partial class frm_BHYT_20A : Form
+    public partial class frm_BHYT_19A : Form
     {
         
-        public frm_BHYT_20A()
+        public frm_BHYT_19A()
         {
             InitializeComponent();
-            this.KeyDown += new KeyEventHandler(frm_BHYT_20A_KeyDown);
-            bhyT_20A1.Init();
+            this.KeyDown += new KeyEventHandler(frm_BHYT_19A_KeyDown);
+             bhyT_19A.Init();
         }
 
-        void frm_BHYT_20A_KeyDown(object sender, KeyEventArgs e)
+        void frm_BHYT_19A_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) SendKeys.Send("{TAB}");
             if (e.KeyCode == Keys.Escape) this.Close();
