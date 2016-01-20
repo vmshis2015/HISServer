@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using CrystalDecisions.CrystalReports.Engine;
 using SubSonic;
 using Microsoft.VisualBasic;
-using VMS.HISLink.Report.Report;
 using VNS.HIS.DAL;
 using VNS.Libs;
 using VNS.Properties;
