@@ -124,7 +124,18 @@ namespace VNS.HIS.BusRule.Classes
         {
             return SPs.ThuocThethuoc(FromDate, ToDate, IDKHO, NhomThuoc, IDTHUOC, Cobiendong).GetDataSet().Tables[0];
         }
-        
+        public static DataTable ThuocSovatlieuchitiet(string FromDate, string ToDate, int? IDKHO, int? IDTHUOC, string NhomThuoc, int? Cobiendong)
+        {
+            return SPs.ThuocSovatlieuchitiet(FromDate, ToDate, IDKHO, NhomThuoc, IDTHUOC, Cobiendong).GetDataSet().Tables[0];
+        }
+        public static DataTable ThuocBaocaophatsinhTonghop(string FromDate, string ToDate, int? IDKHO, int? IDTHUOC,byte kieubiendong, string NhomThuoc, int? Cobiendong)
+        {
+            return SPs.ThuocBaocaophatsinhTonghop(FromDate, ToDate, IDKHO, NhomThuoc,kieubiendong, IDTHUOC, Cobiendong).GetDataSet().Tables[0];
+        }
+        public static DataTable ThuocBaocaophatsinhChitiet(string FromDate, string ToDate, int? IDKHO, int? IDTHUOC, byte kieubiendong, string NhomThuoc, int? Cobiendong)
+        {
+            return SPs.ThuocBaocaophatsinhChitiet(FromDate, ToDate, IDKHO, NhomThuoc, kieubiendong, IDTHUOC, Cobiendong).GetDataSet().Tables[0];
+        }
         public static DataTable ThuocThethuocChitiet(string FromDate, string ToDate, int? IDKHO, int? IDTHUOC, string NhomThuoc, int? Cobiendong)
         {
             return SPs.ThuocThethuocChitiet(FromDate, ToDate, IDKHO, NhomThuoc, IDTHUOC, Cobiendong).GetDataSet().Tables[0];
