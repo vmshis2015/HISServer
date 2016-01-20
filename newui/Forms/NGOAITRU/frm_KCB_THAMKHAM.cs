@@ -622,7 +622,11 @@ namespace VNS.HIS.UI.NGOAITRU
                 frm.txtNhietDo.Text = Utility.sDbnull(txtNhietDo.Text);
                 frm.txtNhipTho.Text = Utility.sDbnull(txtNhipTho.Text);
                 frm.txtMach.Text = Utility.sDbnull(txtNhipTim.Text);
-                string ICD_Name = "";
+                frm.txtCanNang.Text = Utility.sDbnull(txtCannang.Text,0);
+                frm.txtChieuCao.Text = Utility.sDbnull(txtChieucao.Text,0);
+                frm.txtBMI.Text = String.Format("{0:0.00}", (Convert.ToDouble(Utility.DoubletoDbnull(txtCannang.Text, 0)) /
+                                    ((Convert.ToDouble(Utility.DoubletoDbnull(txtChieucao.Text, 100)) / 100) * (Convert.ToDouble(Utility.DoubletoDbnull(txtChieucao.Text, 100)) / 100))));
+                 string ICD_Name = "";
                 string ICD_Code = "";
                 string ICD_chinh_Name = "";
                 string ICD_chinh_Code = "";
@@ -1092,6 +1096,10 @@ namespace VNS.HIS.UI.NGOAITRU
             try
             {
                 m_dtKhoaNoiTru = THU_VIEN_CHUNG.Laydanhmuckhoa("NOI", 0);
+                if (File.Exists(Application.StartupPath + "\\CAUHINH\\chkintachphieu.txt"))
+                {
+                    chkIntach.Checked = Convert.ToInt16(File.ReadAllText(Application.StartupPath + "\\CAUHINH\\chkintachphieu.txt")) == 1?true:false;
+                }
             }
             catch (Exception ex)
             {
@@ -5931,6 +5939,18 @@ namespace VNS.HIS.UI.NGOAITRU
             if (string.IsNullOrEmpty(txtSoNgayHen.Text))
             {
                 txtSongaydieutri.Text = txtSoNgayHen.Text;
+            }
+        }
+
+        private void chkIntach_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkIntach.Checked)
+            {
+                File.WriteAllText(Application.StartupPath + "\\CAUHINH\\chkintachphieu.txt", "1");
+            }
+            else
+            {
+                File.WriteAllText(Application.StartupPath + "\\CAUHINH\\chkintachphieu.txt", "0");
             }
         }
     }

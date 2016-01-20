@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Janus.Windows.GridEX;
 using SubSonic;
 using VNS.HIS.DAL;
+using VNS.HIS.UI.Forms.Dungchung;
 using AggregateFunction = Janus.Windows.GridEX.AggregateFunction;
 using System.IO;
 using VNS.Libs;
@@ -2205,5 +2206,14 @@ namespace VNS.HIS.UI.NGOAITRU
             frm.ShowDialog();
             CauHinh();
         }
+
+        private void mnuUpdateMalankham_Click(object sender, EventArgs e)
+        {
+            VNS.HIS.UI.Forms.Dungchung.frmUpdateMaLanKham frm = new frmUpdateMaLanKham();
+            frm.txtmalankhamcu.Text = Utility.sDbnull(grdList.CurrentRow.Cells[KcbLuotkham.Columns.MaLuotkham].Value);
+            frm.ShowDialog();
+        }
+
+       
  }
 }

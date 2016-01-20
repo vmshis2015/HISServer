@@ -103,8 +103,10 @@
             this.cmdXoaChiDinh = new Janus.Windows.EditControls.UIButton();
             this.cmdSuaChiDinh = new Janus.Windows.EditControls.UIButton();
             this.cmdThemChiDinh = new Janus.Windows.EditControls.UIButton();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuMaDVu = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuUpdateMalankham = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuUpdateMaBenhNhan = new System.Windows.Forms.ToolStripMenuItem();
             this.uiStatusBar1 = new Janus.Windows.UI.StatusBar.UIStatusBar();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
             this.cboObjectType = new Janus.Windows.EditControls.UIComboBox();
@@ -146,7 +148,7 @@
             this.uiGroupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox3)).BeginInit();
             this.uiGroupBox3.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
+            this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -992,12 +994,14 @@
             this.cmdThemChiDinh.TabStop = false;
             this.cmdThemChiDinh.Text = "Thêm";
             // 
-            // contextMenuStrip1
+            // contextMenuStrip
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuMaDVu});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(280, 26);
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuMaDVu,
+            this.mnuUpdateMalankham,
+            this.mnuUpdateMaBenhNhan});
+            this.contextMenuStrip.Name = "contextMenuStrip1";
+            this.contextMenuStrip.Size = new System.Drawing.Size(280, 70);
             // 
             // mnuMaDVu
             // 
@@ -1005,6 +1009,19 @@
             this.mnuMaDVu.Name = "mnuMaDVu";
             this.mnuMaDVu.Size = new System.Drawing.Size(279, 22);
             this.mnuMaDVu.Text = "Đăng ký dịch vụ KCB bằng cách gõ mã";
+            // 
+            // mnuUpdateMalankham
+            // 
+            this.mnuUpdateMalankham.Name = "mnuUpdateMalankham";
+            this.mnuUpdateMalankham.Size = new System.Drawing.Size(279, 22);
+            this.mnuUpdateMalankham.Text = "Update mã lần khám ";
+            this.mnuUpdateMalankham.Click += new System.EventHandler(this.mnuUpdateMalankham_Click);
+            // 
+            // mnuUpdateMaBenhNhan
+            // 
+            this.mnuUpdateMaBenhNhan.Name = "mnuUpdateMaBenhNhan";
+            this.mnuUpdateMaBenhNhan.Size = new System.Drawing.Size(279, 22);
+            this.mnuUpdateMaBenhNhan.Text = "Update mã bệnh nhân";
             // 
             // uiStatusBar1
             // 
@@ -1246,6 +1263,7 @@
             this.grdList.BackColor = System.Drawing.Color.Silver;
             this.grdList.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
     " thông tin bệnh nhân</FilterRowInfoText></LocalizableData>";
+            this.grdList.ContextMenuStrip = this.contextMenuStrip;
             grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
             this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
             this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1329,7 +1347,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox3)).EndInit();
             this.uiGroupBox3.ResumeLayout(false);
             this.uiGroupBox3.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.contextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).EndInit();
             this.uiGroupBox1.ResumeLayout(false);
             this.uiGroupBox1.PerformLayout();
@@ -1384,7 +1402,7 @@
         internal System.Windows.Forms.Label label6;
         internal System.Windows.Forms.Label label5;
         private Janus.Windows.GridEX.EditControls.EditBox txtTongChiPhi;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem mnuMaDVu;
         private System.Windows.Forms.ToolTip toolTip1;
         private Janus.Windows.UI.Tab.UITabPage Tabpagedangky;
@@ -1426,5 +1444,7 @@
         private System.Windows.Forms.CheckBox chkIntach;
         private System.Windows.Forms.ComboBox cboServicePrint;
         private Janus.Windows.EditControls.UIButton cmdPrintAssign;
+        private System.Windows.Forms.ToolStripMenuItem mnuUpdateMalankham;
+        private System.Windows.Forms.ToolStripMenuItem mnuUpdateMaBenhNhan;
     }
 }

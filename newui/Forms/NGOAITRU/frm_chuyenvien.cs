@@ -664,28 +664,29 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                         string _patient_Code = Utility.AutoFullPatientCode(txtMaluotkham.Text);
                         ClearControls();
 
-                        dtPatient = new KCB_THAMKHAM().TimkiemBenhnhan(txtMaluotkham.Text,
-                                                       -1,0, 0);
+                        //dtPatient = new KCB_THAMKHAM().TimkiemBenhnhan(txtMaluotkham.Text,
+                        //                               -1,0, 0);
 
-                        DataRow[] arrPatients = dtPatient.Select(KcbLuotkham.Columns.MaLuotkham + "='" + _patient_Code + "'");
-                        if (arrPatients.GetLength(0) <= 0)
-                        {
-                            if (dtPatient.Rows.Count > 1)
-                            {
-                                var frm = new frm_DSACH_BN_TKIEM();
-                                frm.MaLuotkham = txtMaluotkham.Text;
-                                frm.dtPatient = dtPatient;
-                                frm.ShowDialog();
-                                if (!frm.has_Cancel)
-                                {
-                                    txtMaluotkham.Text = frm.MaLuotkham;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            txtMaluotkham.Text = _patient_Code;
-                        }
+                        //DataRow[] arrPatients = dtPatient.Select(KcbLuotkham.Columns.MaLuotkham + "='" + _patient_Code + "'");
+                        //if (arrPatients.GetLength(0) <= 0)
+                        //{
+                        //    if (dtPatient.Rows.Count > 1)
+                        //    {
+                        //        var frm = new frm_DSACH_BN_TKIEM();
+                        //        frm.MaLuotkham = txtMaluotkham.Text;
+                        //        frm.dtPatient = dtPatient;
+                        //        frm.ShowDialog();
+                        //        if (!frm.has_Cancel)
+                        //        {
+                        //            txtMaluotkham.Text = frm.MaLuotkham;
+                        //        }
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    txtMaluotkham.Text = _patient_Code;
+                        //}
+                        txtMaluotkham.Text = _patient_Code;
                         DataTable dt_Patient = new KCB_THAMKHAM().TimkiemThongtinBenhnhansaukhigoMaBN(txtMaluotkham.Text, -1, globalVariables.MA_KHOA_THIEN);
                         if (dt_Patient != null && dt_Patient.Rows.Count > 0)
                         {
