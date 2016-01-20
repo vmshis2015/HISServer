@@ -79,6 +79,14 @@ namespace VNS.HIS.BusRule.Classes
                                           MaDKKCB, TRANGTHAI, BacSyCD).
                     GetDataSet().Tables[0];
         }
+        public DataTable BHYT_19A(string fromDate, string toDate, string ObjectTypeCode, int? NTNT, int? DrugID,
+          short? DrugTypeID, string Nhom, int? Tuyen, string InsClinicCode, string InsObjectCodeTP, string MaDKKCB, string TRANGTHAI, int? BacSyCD)
+        {
+            return SPs.Bhyt19a(fromDate, toDate, ObjectTypeCode,
+                                          NTNT, DrugID, DrugTypeID, Nhom, Tuyen, InsClinicCode, InsObjectCodeTP,
+                                          MaDKKCB, TRANGTHAI, BacSyCD).
+                    GetDataSet().Tables[0];
+        }
         public DataTable BHYT_21A(DateTime? fromDate, DateTime? toDate, string ObjectTypeCode, int? NTNT, string Nhom, int? Tuyen, 
             string InsClinicCode, string InsObjectCodeTP, string MaDKKCB, string TRANGTHAI)
         {
