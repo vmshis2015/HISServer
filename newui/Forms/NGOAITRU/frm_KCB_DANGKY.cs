@@ -214,23 +214,32 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             if (Utility.DoTrim(txtMaLankham.Text).Length >= 8 && Utility.DoTrim(txtMaLankham.Text)!=m_strMaluotkham)//Đã bị thay đổi do nhập tay
             {
-                int reval=0;
-                StoredProcedure spitem = SPs.KcbKiemtraMalankhamNhaptay(globalVariables.UserName, 0, m_strMaluotkham, Utility.DoTrim(txtMaLankham.Text), reval);
-                spitem.Execute();
-                reval = Utility.Int32Dbnull(spitem.OutputValues[0], -1);
-                if (reval != 0)
+                //Kiểm tra nếu mã đã được sử dụng thì tự động đặt về chế độ tìm kiếm Bệnh nhân
+                KcbLuotkham objTemp = KcbLuotkham.FetchByID(Utility.DoTrim(txtMaLankham.Text));
+                if (objTemp != null)
                 {
-                    Utility.ShowMsg(
-                        string.Format(
-                            "Mã lượt khám bạn vừa nhập {0} không có trong danh mục hoặc đang được sử dụng bởi người dùng khác. Hãy nhấn OK để hệ thống tự động sinh mã lần khám mới nhất",
-                            Utility.DoTrim(txtMaLankham.Text)));
-                    SinhMaLanKham();
-                    txtMaLankham.SelectAll();
-                    txtMaLankham.Focus();
+                    txtMaLankham_KeyDown(sender, new KeyEventArgs(Keys.Enter));
                 }
                 else
                 {
-                    m_strMaluotkham = Utility.DoTrim(txtMaLankham.Text);
+                    int reval = 0;
+                    StoredProcedure spitem = SPs.KcbKiemtraMalankhamNhaptay(globalVariables.UserName, 0, m_strMaluotkham, Utility.DoTrim(txtMaLankham.Text), reval);
+                    spitem.Execute();
+                    reval = Utility.Int32Dbnull(spitem.OutputValues[0], -1);
+                    if (reval != 0)
+                    {
+                        Utility.ShowMsg(
+                            string.Format(
+                                "Mã lượt khám bạn vừa nhập {0} không có trong danh mục hoặc đang được sử dụng bởi người dùng khác. Hãy nhấn OK để hệ thống tự động sinh mã lần khám mới nhất",
+                                Utility.DoTrim(txtMaLankham.Text)));
+                        SinhMaLanKham();
+                        txtMaLankham.SelectAll();
+                        txtMaLankham.Focus();
+                    }
+                    else
+                    {
+                        m_strMaluotkham = Utility.DoTrim(txtMaLankham.Text);
+                    }
                 }
             }
         }
@@ -636,7 +645,8 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void txtMaLankham_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && Utility.DoTrim( txtMaLankham.Text) != "")
+            //Chỉ reset lại mã lượt khám cũ nếu mã cũ và mã mới khác nhau. Tránh việc bỏ mã khi người dùng thao tác: Thêm mới-->Enter trên ô Mã lượt khám
+            if (e.KeyCode == Keys.Enter && Utility.DoTrim(txtMaLankham.Text) != "" && Utility.DoTrim(txtMaLankham.Text) != m_strMaluotkham)
             {
                 txtNoiDKKCBBD.Clear();
                 txtNoiphattheBHYT.Clear();
@@ -721,11 +731,27 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             if (e.KeyCode == Keys.Enter && txtMaBN.Text.Trim() != "")
             {
-                txtNoiDKKCBBD.Clear();
-                txtNoiphattheBHYT.Clear();
-                isAutoFinding = true;
-                FindPatient(txtMaBN.Text.Trim());
-                isAutoFinding = false;
+
+                if (Utility.IsNumeric(txtMaBN.Text))
+                {
+                    txtNoiDKKCBBD.Clear();
+                    txtNoiphattheBHYT.Clear();
+                    isAutoFinding = true;
+                    FindPatient(txtMaBN.Text.Trim());
+                    isAutoFinding = false;
+                }
+                else
+                {
+                    if (Utility.DoTrim(txtMaBN.Text).ToUpper() == "TỰ SINH")
+                    {
+                    }
+                    else
+                    {
+                        Utility.ShowMsg("Muốn tìm kiếm theo ID Bệnh nhân thì bạn phải nhập toàn bộ là chữ số. Mời bạn nhập lại");
+                        txtMaBN.Focus();
+                        txtMaBN.SelectAll();
+                    }
+                }
             }
         }
 
@@ -808,7 +834,11 @@ namespace VNS.HIS.UI.NGOAITRU
                     "Select id_benhnhan,ten_benhnhan,gioi_tinh from kcb_danhsach_benhnhan p where exists(select 1 from kcb_luotkham where id_benhnhan=P.id_benhnhan and ma_luotkham like '%" +
                     malankham + "%')";
                 DataTable temdt = DataService.GetDataSet(cmd).Tables[0];
-                if (temdt.Rows.Count <= 0) return;
+                if (temdt.Rows.Count <= 0)
+                {
+                    ClearControl();
+                    return;
+                }
                 if (temdt.Rows.Count == 1)
                 {
                     AutoFindLastExamandFetchIntoControls(temdt.Rows[0][KcbDanhsachBenhnhan.Columns.IdBenhnhan].ToString(), string.Empty);
@@ -922,6 +952,8 @@ namespace VNS.HIS.UI.NGOAITRU
                                 else if (dialogResult == DialogResult.No)
                                 {
                                     ClearControl();
+                                    SinhMaLanKham();
+
                                     return;
                                 }
                             }
@@ -2670,7 +2702,7 @@ namespace VNS.HIS.UI.NGOAITRU
             m_enAction = action.Insert;
             if (PropertyLib._KCBProperties.SexInput) cboPatientSex.SelectedIndex = -1;
             lnkThem.Visible = false;
-            SinhMaLanKham();
+           
             m_dataDataRegExam.Clear();
             if (pnlBHYT.Enabled)
             {
@@ -2716,8 +2748,8 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             //Cập nhật lại mã lượt khám chưa dùng tới trong trường hợp nhấn New liên tục
             ResetLuotkham();
-
             ClearControl();
+            SinhMaLanKham();
         }
 
         /// <summary>
@@ -2750,7 +2782,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     AutoLoadKieuKham();
                 if (!IsValidData()) return;
                 PerformAction();
-                Thread.Sleep(100);//Nghir 0.1 giay
+                Thread.Sleep(10);//Nghir 0.1 giay
             }
             catch(Exception ex)
             {
