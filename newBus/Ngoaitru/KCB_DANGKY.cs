@@ -1792,11 +1792,7 @@ namespace VNS.HIS.BusRule.Classes
                         sp.Execute();
                         log.Trace("2. Đã thêm mới Lịch sử đối tượng KCB của Bệnh nhân");
                         objLichsuKcb.IdLichsuDoituongKcb = Utility.Int64Dbnull(sp.OutputValues[0]);
-                        //Thêm lần khám
-
-                        objLuotkham.MaLuotkham = THU_VIEN_CHUNG.KCB_SINH_MALANKHAM((byte)(objKcbDanhsachBenhnhan.KieuBenhnhan == 0 ? 0 : 1));
                         objLuotkham.IdBenhnhan = objKcbDanhsachBenhnhan.IdBenhnhan;
-                       // objLuotkham.SoBenhAn = string.Empty;
                         objLuotkham.IdLichsuDoituongKcb = objLichsuKcb.IdLichsuDoituongKcb;
                         objLuotkham.SttKham = THU_VIEN_CHUNG.LaySTTKhamTheoDoituong(objLuotkham.IdDoituongKcb);
                         objLuotkham.NgayTao = globalVariables.SysDate;
