@@ -635,13 +635,13 @@ namespace VNS.HIS.UI.THUOC
                 txtSoluong.Focus();
                 return false;
             }
-            if (Utility.DecimaltoDbnull(txtDongia.Text) <= 0)
+            if (Utility.DecimaltoDbnull(txtDongia.Text) < 0)
             {
                 Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Đơn giá phải >0", true);
                 txtDongia.Focus();
                 return false;
             }
-            if (Utility.DecimaltoDbnull(txtGiaban.Text) <= 0)
+            if (Utility.DecimaltoDbnull(txtGiaban.Text) < 0)
             {
                 Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Giá bán phải >0", true);
                 txtGiaban.Focus();
@@ -700,7 +700,7 @@ namespace VNS.HIS.UI.THUOC
                     .Select
                     (
                     TPhieuNhapxuatthuocChitiet.Columns.IdThuoc + "=" + txtDrug_ID.Text + " AND "
-                    + TPhieuNhapxuatthuocChitiet.Columns.GiaNhap + "=" + Utility.DecimaltoDbnull(txtDongia.Text) + " AND "
+                    + TPhieuNhapxuatthuocChitiet.Columns.GiaNhap + "=" + Utility.DecimaltoDbnull(txtDongia.Text,0) + " AND "
                     + TPhieuNhapxuatthuocChitiet.Columns.SoLo + "='" + Utility.DoTrim(txtSoLo.Text) + "' AND "
                     + TPhieuNhapxuatthuocChitiet.Columns.Vat + "=" + Utility.Int32Dbnull(txtVAT.Text, 0) + " AND "
                     + TPhieuNhapxuatthuocChitiet.Columns.NgayHethan + "='" + dtNgayHetHan.Text + "' AND "
@@ -738,7 +738,7 @@ namespace VNS.HIS.UI.THUOC
                     drv[TPhieuNhapxuatthuocChitiet.Columns.SoLo] = Utility.DoTrim(txtSoLo.Text);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.SoQdinhthau] = Utility.DoTrim(txtsoQDthau.Text);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.SoDky] = Utility.DoTrim(txtsoDK.Text);
-                    drv[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap] = Utility.DecimaltoDbnull(txtDongia.Text);
+                    drv[TPhieuNhapxuatthuocChitiet.Columns.GiaNhap] = Utility.DecimaltoDbnull(txtDongia.Text,0);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.SoLuong] = Utility.DecimaltoDbnull(txtSoluong.Text);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.ThanhTien] = Utility.DecimaltoDbnull(txtThanhTien.Text);
                     drv[TPhieuNhapxuatthuocChitiet.Columns.ChietKhau] = Utility.Int32Dbnull(Utility.DecimaltoDbnull(txtChietkhau.Text));
@@ -903,7 +903,7 @@ namespace VNS.HIS.UI.THUOC
         }
         private void ThanhTien()
         {
-            decimal thanhtien = Utility.DecimaltoDbnull(txtDongia.Text)*Utility.DecimaltoDbnull(txtSoluong.Text);
+            decimal thanhtien = Utility.DecimaltoDbnull(txtDongia.Text,0)*Utility.DecimaltoDbnull(txtSoluong.Text);
             thanhtien = thanhtien + thanhtien * Utility.DecimaltoDbnull(txtVAT.Text) / 100;
                decimal ChietKhau= Utility.DecimaltoDbnull(txtChietkhau.Text);
             if (thanhtien < ChietKhau)

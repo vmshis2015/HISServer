@@ -877,7 +877,10 @@ namespace VNS.HIS.UI.THUOC
                     NgayNhap = Convert.ToDateTime(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.NgayNhap].Value).Date;
                     solo = Utility.sDbnull(gridExRow.Cells[TPhieuNhapxuatthuocChitiet.Columns.SoLo].Value);
                     id_thuoc = Utility.Int32Dbnull(gridExRow.Cells[TThuockho.Columns.IdThuoc].Value, -1);
-                    dongia = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.GiaNhap].Value, 0);
+                    dongia =
+                        Utility.DecimaltoDbnull(
+                            Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.GiaNhap].Value, 0)*(1m +
+                            Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.Vat].Value, 0)/100), 0);
                     dongia = Utility.DecimaltoDbnull(dongia*(1m + Utility.DecimaltoDbnull(txtVAT.Text)/100));
                     Giaban = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.GiaBan].Value, 0);
                     gianhap = Utility.DecimaltoDbnull(gridExRow.Cells[TThuockho.Columns.GiaNhap].Value, 0);
