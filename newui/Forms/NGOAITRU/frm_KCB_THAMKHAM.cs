@@ -1901,6 +1901,10 @@ namespace VNS.HIS.UI.NGOAITRU
                                 txtTrieuChungBD._Text = Utility.sDbnull(dr[KcbLuotkham.Columns.TrieuChung], "");
                                 txtObjectType_Name.Text = Utility.sDbnull(dr[DmucDoituongkcb.Columns.TenDoituongKcb], "");
                                 txtSoBHYT.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.MatheBhyt], "");
+                                txtNoiDKKCB.Text = string.Format("{0}-{1}",
+                                                                 Utility.sDbnull(
+                                                                     dr[KcbLuotkham.Columns.MaNoicapBhyt],""),
+                                                                 Utility.sDbnull(dr[KcbLuotkham.Columns.MaKcbbd],""));
                                 txtBHTT.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.PtramBhyt], "0");
                                 txtMaBenhAn.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.SoBenhAn], "");
                                 //txtNgheNghiep.Text = Utility.sDbnull(dr[KcbDanhsachBenhnhan.Columns.NgheNghiep], "");
@@ -2969,13 +2973,17 @@ namespace VNS.HIS.UI.NGOAITRU
 
         private void cmdInTTDieuTri_Click(object sender, EventArgs e)
         {
-            if (grdPresDetail.GetDataRows().Length <= 0)
+            if(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THAMKHAM_CHOPHEPINTOMTAT_KHONGTHUOC","0",false)=="0")
             {
-                Utility.ShowMsg("Bạn cần kê đơn thuốc cho bệnh nhân trước khi thực hiện in tóm tắt điều trị ngoại trú",
-                                "Thông báo");
-                tabDiagInfo.SelectedTab = tabPageChidinhThuoc;
-                return;
+                if (grdPresDetail.GetDataRows().Length <= 0)
+                {
+                    Utility.ShowMsg("Bạn cần kê đơn thuốc cho bệnh nhân trước khi thực hiện in tóm tắt điều trị ngoại trú",
+                                    "Thông báo");
+                    tabDiagInfo.SelectedTab = tabPageChidinhThuoc;
+                    return;
+                }
             }
+           
             if (IN_TTAT_DTRI_NGOAITRU())
             {
                 try
@@ -3171,6 +3179,10 @@ namespace VNS.HIS.UI.NGOAITRU
                         globalVariables.SysDate.ToString("dd/MM/yyyy")).Split('/');
                 NGAY_KEDON = "Ngày " + arrDate[0] + " tháng " + arrDate[1] + " năm " + arrDate[2];
                 DataTable v_dtData = dsData.Tables[0];
+                if(v_dtData.Rows.Count <=0)
+                {
+                    v_dtData = SPs.KcbThamkhamLaythongtinInphieutomtat(objkcbdangky.IdKham).GetDataSet().Tables[0];
+                }
                 DataTable sub_dtData = getChitietCLS();
                 THU_VIEN_CHUNG.CreateXML(sub_dtData, "sub_report.xml");
                 // new DataTable("Temp");
@@ -5953,5 +5965,12 @@ namespace VNS.HIS.UI.NGOAITRU
                 File.WriteAllText(Application.StartupPath + "\\CAUHINH\\chkintachphieu.txt", "0");
             }
         }
+
+        private void editBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

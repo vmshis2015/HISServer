@@ -665,7 +665,7 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
             {
                 if (!string.IsNullOrEmpty(txtMaQuyenloi_BHYT.Text))
                 {
-                    if (Utility.Int32Dbnull(txtMaQuyenloi_BHYT.Text, 0) < 1 || Utility.Int32Dbnull(txtMaQuyenloi_BHYT.Text, 0) > 9)
+                    if (Utility.Int32Dbnull(txtMaQuyenloi_BHYT.Text, 0) < 0 || Utility.Int32Dbnull(txtMaQuyenloi_BHYT.Text, 0) > 9)
                     {
                         Utility.ShowMsg("Số thứ tự 2 của mã bảo hiểm nằm trong khoảng từ 1->9", "Thông báo",
                                         MessageBoxIcon.Information);
@@ -706,42 +706,42 @@ namespace VNS.HIS.UI.Forms.NGOAITRU
                 }
                 if (!string.IsNullOrEmpty(txtNoiphattheBHYT.Text))
                 {
-                    if (txtNoiphattheBHYT.Text.Length <= 1)
-                    {
-                        Utility.ShowMsg("Mã nơi phát thẻ BHYT phải nằm trong khoảng từ 00->99", "Thông báo",
-                                        MessageBoxIcon.Information);
-                        txtNoiphattheBHYT.Focus();
-                        txtNoiphattheBHYT.SelectAll();
-                        return false;
-                    }
-                    if (Utility.Int32Dbnull(txtNoiphattheBHYT.Text, 0) <= 0)
-                    {
-                        Utility.ShowMsg("Mã nơi phát thẻ BHYT không được phép có chữ cái và phải nằm trong khoảng từ 00->99", "Thông báo",
-                                        MessageBoxIcon.Information);
-                        txtNoiphattheBHYT.Focus();
-                        txtNoiphattheBHYT.SelectAll();
-                        return false;
-                    }
+                    //if (txtNoiphattheBHYT.Text.Length <= 0)
+                    //{
+                    //    Utility.ShowMsg("Mã nơi phát thẻ BHYT phải nằm trong khoảng từ 00->99", "Thông báo",
+                    //                    MessageBoxIcon.Information);
+                    //    txtNoiphattheBHYT.Focus();
+                    //    txtNoiphattheBHYT.SelectAll();
+                    //    return false;
+                    //}
+                    //if (Utility.Int32Dbnull(txtNoiphattheBHYT.Text, 0) <= 0)
+                    //{
+                    //    Utility.ShowMsg("Mã nơi phát thẻ BHYT không được phép có chữ cái và phải nằm trong khoảng từ 00->99", "Thông báo",
+                    //                    MessageBoxIcon.Information);
+                    //    txtNoiphattheBHYT.Focus();
+                    //    txtNoiphattheBHYT.SelectAll();
+                    //    return false;
+                    //}
                 }
                 if (!string.IsNullOrEmpty(txtOthu4.Text))
                 {
-                    if (txtOthu4.Text.Length <= 1)
-                    {
-                        Utility.ShowMsg("Hai kí tự ô số 4 của mã bảo hiểm nằm trong khoảng từ 01->99", "Thông báo",
-                                        MessageBoxIcon.Information);
-                        txtOthu4.Focus();
-                        txtOthu4.SelectAll();
-                        return false;
-                    }
+                    //if (txtOthu4.Text.Length <= 1)
+                    //{
+                    //    Utility.ShowMsg("Hai kí tự ô số 4 của mã bảo hiểm nằm trong khoảng từ 01->99", "Thông báo",
+                    //                    MessageBoxIcon.Information);
+                    //    txtOthu4.Focus();
+                    //    txtOthu4.SelectAll();
+                    //    return false;
+                    //}
 
-                    if (Utility.Int32Dbnull(txtOthu4.Text, 0) <= 0)
-                    {
-                        Utility.ShowMsg("Hai kí tự ô số 4 của mã bảo hiểm không được phép có chữ cái và phải nằm trong khoảng từ 01->99", "Thông báo",
-                                        MessageBoxIcon.Information);
-                        txtOthu4.Focus();
-                        txtOthu4.SelectAll();
-                        return false;
-                    }
+                    //if (Utility.Int32Dbnull(txtOthu4.Text, 0) <= 0)
+                    //{
+                    //    Utility.ShowMsg("Hai kí tự ô số 4 của mã bảo hiểm không được phép có chữ cái và phải nằm trong khoảng từ 01->99", "Thông báo",
+                    //                    MessageBoxIcon.Information);
+                    //    txtOthu4.Focus();
+                    //    txtOthu4.SelectAll();
+                    //    return false;
+                    //}
                 }
                 if (!string.IsNullOrEmpty(txtOthu5.Text))
                 {
