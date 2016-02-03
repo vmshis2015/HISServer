@@ -197,21 +197,21 @@ namespace VNS.HIS.UI.Baocao
             try
             {
                 //Janus.Windows.GridEX.GridEXRow[] gridExRows = grdList.GetCheckedRows();
-
-                saveFileDialog1.Filter = "Excel File(*.xls)|*.xls";
-                saveFileDialog1.FileName = string.Format("{0}.xls", tieude);
-                //saveFileDialog1.ShowDialog();
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    string sPath = saveFileDialog1.FileName;
-                    var fs = new FileStream(sPath, FileMode.Create);
-                    fs.CanWrite.CompareTo(true);
-                    fs.CanRead.CompareTo(true);
-                    gridEXExporter1.Export(fs);
-                    fs.Dispose();
-                }
-                saveFileDialog1.Dispose();
-                saveFileDialog1.Reset();
+                ExcelUtlity.ExportGridEx(grdChitiet);
+                //saveFileDialog1.Filter = "Excel File(*.xls)|*.xls";
+                //saveFileDialog1.FileName = string.Format("{0}.xls", tieude);
+                ////saveFileDialog1.ShowDialog();
+                //if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                //{
+                //    string sPath = saveFileDialog1.FileName;
+                //    var fs = new FileStream(sPath, FileMode.Create);
+                //    fs.CanWrite.CompareTo(true);
+                //    fs.CanRead.CompareTo(true);
+                //    gridEXExporter1.Export(fs);
+                //    fs.Dispose();
+                //}
+                //saveFileDialog1.Dispose();
+                //saveFileDialog1.Reset();
             }
             catch (Exception exception)
             {

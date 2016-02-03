@@ -108,20 +108,21 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
         {
             try
             {
-                saveFileDialog1.Filter = "Excel File(*.xls)|*.xls";
-                saveFileDialog1.FileName = string.Format("{0}.xls", tieude);
-                //saveFileDialog1.ShowDialog();
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    string sPath = saveFileDialog1.FileName;
-                    var fs = new FileStream(sPath, FileMode.Create);
-                    fs.CanWrite.CompareTo(true);
-                    fs.CanRead.CompareTo(true);
-                    gridEXExporter1.Export(fs);
-                    fs.Dispose();
-                }
-                saveFileDialog1.Dispose();
-                saveFileDialog1.Reset();
+                ExcelUtlity.ExportGridEx(grdResult);
+                //saveFileDialog1.Filter = "Excel File(*.xls)|*.xls";
+                //saveFileDialog1.FileName = string.Format("{0}.xls", tieude);
+                ////saveFileDialog1.ShowDialog();
+                //if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                //{
+                //    string sPath = saveFileDialog1.FileName;
+                //    var fs = new FileStream(sPath, FileMode.Create);
+                //    fs.CanWrite.CompareTo(true);
+                //    fs.CanRead.CompareTo(true);
+                //    gridEXExporter1.Export(fs);
+                //    fs.Dispose();
+                //}
+                //saveFileDialog1.Dispose();
+                //saveFileDialog1.Reset();
             }
             catch (Exception exception)
             {

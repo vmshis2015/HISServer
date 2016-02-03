@@ -137,7 +137,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 Utility.SetParameterValue(crpt,"Address", globalVariables.Branch_Address);
                 Utility.SetParameterValue(crpt,"Phone", globalVariables.Branch_Phone);
                 Utility.SetParameterValue(crpt,"FromDateToDate", Condition);
-                Utility.SetParameterValue(crpt,"sTitleReport", baocaO_TIEUDE1.txtTieuDe.Text);
+                Utility.SetParameterValue(crpt,"sTitleReport", tieude);
                 Utility.SetParameterValue(crpt,"sCurrentDate", Utility.FormatDateTimeWithThanhPho(dtNgayInPhieu.Value));
                 Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
                 Utility.SetParameterValue(crpt,"Deparment_Name", globalVariables.KhoaDuoc);
@@ -146,10 +146,41 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                                                                                globalVariables.SysDate));
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
+                //Utility.DecimaltoDbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_INGIAYXINNOP_TIENTHUOC", "0", false), 0m)
+                if (THU_VIEN_CHUNG.Laygiatrithamsohethong("THUOC_INGIAYXINNOP_TIENTHUOC", "0", false)=="1")
+                {
+                    string tieude2 = "", reportname2 = "";
+                    string reportCode2 = kieuthuoc_vt == "THUOC" ? "thuoc_baocao_giayxinnop_tienthuoc" : "vt_baocao_chitiet_vtcapphat_benhnhan";
+                    ReportDocument crpt2 = Utility.GetReport(reportCode2, ref tieude2, ref reportname2);
+                    if (crpt2 == null) return;
+                    frmPrintPreview objForm2 = new frmPrintPreview(baocaO_TIEUDE1.txtTieuDe.Text, crpt2, true, m_dtReport.Rows.Count <= 0 ? false : true);
+                    //try
+                    //{
+                    crpt2.SetDataSource(m_dtReport);
+
+                    objForm2.mv_sReportFileName = Path.GetFileName(reportname2);
+                    objForm2.mv_sReportCode = reportCode2;
+                    //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
+                    // Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
+                    Utility.SetParameterValue(crpt2, "StaffName", StaffName);
+                    Utility.SetParameterValue(crpt2, "BranchName", globalVariables.Branch_Name);
+                    Utility.SetParameterValue(crpt2, "Address", globalVariables.Branch_Address);
+                    Utility.SetParameterValue(crpt2, "Phone", globalVariables.Branch_Phone);
+                    Utility.SetParameterValue(crpt2, "FromDateToDate", Condition);
+                    Utility.SetParameterValue(crpt2, "sTitleReport", tieude2);
+                    Utility.SetParameterValue(crpt2, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(dtNgayInPhieu.Value));
+                    Utility.SetParameterValue(crpt2, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                    Utility.SetParameterValue(crpt2, "Deparment_Name", globalVariables.KhoaDuoc);
+                    Utility.SetParameterValue(crpt2, "txtTrinhky",
+                                                                Utility.getTrinhky(objForm2.mv_sReportFileName,
+                                                                                   globalVariables.SysDate));
+                    objForm2.crptViewer.ReportSource = crpt2;
+                    objForm2.ShowDialog();
+                }
             }
             catch (Exception exception)
             {
-
+                Utility.ShowMsg("Lỗi:"+ exception.Message);
 
             }
         }

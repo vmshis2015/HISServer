@@ -162,9 +162,9 @@
             // grdList
             // 
             this.grdList.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
-            this.grdList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.grdList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
             this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
             this.grdList.Font = new System.Drawing.Font("Arial", 9F);
@@ -243,6 +243,7 @@
             this.cmdExportToExcel.Size = new System.Drawing.Size(133, 30);
             this.cmdExportToExcel.TabIndex = 118;
             this.cmdExportToExcel.Text = "Xuất Excel";
+            this.cmdExportToExcel.Click += new System.EventHandler(this.cmdExportToExcel_Click_1);
             // 
             // dtNgayInPhieu
             // 

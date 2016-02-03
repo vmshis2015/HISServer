@@ -225,6 +225,11 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
 
         }
         string strSaveandprintPath = Application.StartupPath + @"\CAUHINH\ThongkethuoccapphatBN.txt";
+
+        private void cmdExportToExcel_Click_1(object sender, EventArgs e)
+        {
+
+        }
         
 
 
