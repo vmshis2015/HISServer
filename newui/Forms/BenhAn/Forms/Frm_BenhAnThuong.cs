@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using CrystalDecisions.CrystalReports.Engine;
 using Janus.Windows.CalendarCombo;
@@ -562,6 +563,7 @@ namespace VNS.HIS.UI.BENH_AN
                     txtNhipTho.Text = Utility.sDbnull(objBenhAnNgoaiTru.KcbNhiptho);
                     txtCanNang.Text = Utility.sDbnull(objBenhAnNgoaiTru.KcbCannang);
                     txtChieuCao.Text = Utility.sDbnull(objBenhAnNgoaiTru.KcbChieucao);
+                    if(Utility.DoubletoDbnull(objBenhAnNgoaiTru.KcbBmi) >0)
                     txtBMI.Text = Utility.sDbnull(objBenhAnNgoaiTru.KcbBmi);
 
                     dtDieuTriNgoaiTruTu.Value = Convert.ToDateTime(objBenhAnNgoaiTru.KcbDtriTungay);
@@ -836,7 +838,7 @@ namespace VNS.HIS.UI.BENH_AN
                     }
                     else
                     {
-                        if (Utility.Int32Dbnull(txtMaBenhAn.Text) > globalVariables.SO_BENH_AN)
+                        if (Utility.Int32Dbnull(txtMaBenhAn.Text) < globalVariables.SO_BENH_AN)
                         {
                             Utility.ShowMsg("Số Bệnh án phải nhỏ hơn " + globalVariables.SO_BENH_AN.ToString(),
                                             "Thông báo",
@@ -845,6 +847,17 @@ namespace VNS.HIS.UI.BENH_AN
                             txtMaBenhAn.Focus();
                             txtMaBenhAn.SelectAll();
                             return false;
+                        }
+                        else
+                        {
+                            SqlQuery sqlkt = new Select().From(KcbBenhAn.Schema).Where(KcbBenhAn.Columns.SoBenhAn).IsEqualTo(txtMaBenhAn.Text).And(KcbBenhAn.Columns.LoaiBa).IsEqualTo(loaibenhan);
+                            if(sqlkt.GetRecordCount()>0)
+                            {
+                                Utility.ShowMsg("Số Bệnh án đã được dùng cho bệnh nhân khác ",
+                                          "Thông báo",
+                                          MessageBoxIcon.Warning);
+                                return false;
+                            }
                         }
                     }
                 }
@@ -1284,6 +1297,51 @@ namespace VNS.HIS.UI.BENH_AN
             {
                 txtMaBN.SelectAll();
                 txtMaBN.Focus();
+            }
+        }
+
+        private void txtCanNang_TextChanged(object sender, EventArgs e)
+        {
+            //Regex regex = new Regex(@"[^0-9^]");
+            //MatchCollection matches = regex.Matches(txtCanNang.Text);
+            //if (matches.Count > 0)
+            //{
+                txtBMI.Text = String.Format("{0:0.00}", (Convert.ToDouble(Utility.DoubletoDbnull(txtCanNang.Text, 0)) /
+                                   ((Convert.ToDouble(Utility.DoubletoDbnull(txtChieuCao.Text, 100)) / 100)
+                                   * (Convert.ToDouble(Utility.DoubletoDbnull(txtChieuCao.Text, 100)) / 100))));
+           // }
+                 
+        }
+
+        private void txtChieuCao_TextChanged(object sender, EventArgs e)
+        {
+            // Regex regex = new Regex(@"[^0-9^]");
+            //MatchCollection matches = regex.Matches(txtChieuCao.Text);
+            //if (matches.Count > 0)
+            //{
+                txtBMI.Text = String.Format("{0:0.00}", (Convert.ToDouble(Utility.DoubletoDbnull(txtCanNang.Text, 0))/
+                                                         ((Convert.ToDouble(Utility.DoubletoDbnull(txtChieuCao.Text, 100))/
+                                                           100)*
+                                                          (Convert.ToDouble(Utility.DoubletoDbnull(txtChieuCao.Text, 100))/
+                                                           100))));
+           // }
+        }
+
+        private void txtCanNang_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(e.KeyChar.ToString(), @"[^0-9^+^\-^\/^\*^\(^\)]"))
+            {
+                // Stop the character from being entered into the control since it is illegal.
+                e.Handled = true;
+            }
+        }
+
+        private void txtChieuCao_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(e.KeyChar.ToString(), @"[^0-9^+^\-^\/^\*^\(^\)]"))
+            {
+                // Stop the character from being entered into the control since it is illegal.
+                e.Handled = true;
             }
         }
 

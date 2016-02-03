@@ -1156,6 +1156,8 @@
             this.txtChieuCao.Size = new System.Drawing.Size(80, 20);
             this.txtChieuCao.TabIndex = 24;
             this.txtChieuCao.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center;
+            this.txtChieuCao.TextChanged += new System.EventHandler(this.txtChieuCao_TextChanged);
+            this.txtChieuCao.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtChieuCao_KeyPress);
             // 
             // txtCanNang
             // 
@@ -1167,6 +1169,8 @@
             this.txtCanNang.TabIndex = 23;
             this.txtCanNang.TabStop = false;
             this.txtCanNang.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center;
+            this.txtCanNang.TextChanged += new System.EventHandler(this.txtCanNang_TextChanged);
+            this.txtCanNang.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCanNang_KeyPress);
             // 
             // txtNhipTho
             // 
