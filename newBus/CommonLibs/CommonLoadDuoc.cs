@@ -117,7 +117,7 @@ namespace VNS.Libs
 
               sqlQuery.Where(TDmucKho.Columns.IdKho).In(
                   new Select(QheNhanvienKho.Columns.IdKho).From(QheNhanvienKho.Schema).Where(QheNhanvienKho.Columns.IdNhanvien)
-                      .IsEqualTo(globalVariables.gv_intIDNhanvien));
+                      .IsEqualTo(globalVariables.gv_intIDNhanvien)).Or(TDmucKho.Columns.NguoiTao).IsEqualTo(globalVariables.UserName);
 
           }
           sqlQuery.And(TDmucKho.Columns.KhoThuocVt).In(lstKhoThuocVT);
@@ -252,7 +252,8 @@ namespace VNS.Libs
 
               sqlQuery.Where(TDmucKho.Columns.IdKho).In(new Select(QheNhanvienKho.Columns.IdKho)
                                                         .From(QheNhanvienKho.Schema).Where(QheNhanvienKho.Columns.IdNhanvien)
-                                                        .IsEqualTo(globalVariables.gv_intIDNhanvien));
+                                                        .IsEqualTo(globalVariables.gv_intIDNhanvien))
+                                                        .Or(TDmucKho.Columns.NguoiTao).IsEqualTo(globalVariables.UserName);
 
 
 
@@ -282,7 +283,7 @@ namespace VNS.Libs
           {
               sqlQuery.Where(TDmucKho.Columns.IdKho).In(new Select(QheNhanvienKho.Columns.IdKho)
                                                         .From(QheNhanvienKho.Schema).Where(QheNhanvienKho.Columns.IdNhanvien)
-                                                        .IsEqualTo(globalVariables.gv_intIDNhanvien));
+                                                        .IsEqualTo(globalVariables.gv_intIDNhanvien)).Or(TDmucKho.Columns.NguoiTao).IsEqualTo(globalVariables.UserName);
 
           }
           if(sqlQuery.HasWhere)
