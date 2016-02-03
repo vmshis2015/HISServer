@@ -412,6 +412,8 @@ namespace  VNS.HIS.UI.THANHTOAN
                     xmlWriter.WriteElementString("TINH_TRANG_RV", Utility.sDbnull(dtXML.Tables[2].Rows[0]["TINH_TRANG_RV"]));
                     xmlWriter.WriteElementString("NGAY_TTOAN", Utility.sDbnull(dtXML.Tables[2].Rows[0]["NGAY_TTOAN"]));
                     xmlWriter.WriteElementString("MUC_HUONG", Utility.sDbnull(dtXML.Tables[2].Rows[0]["MUC_HUONG"]));
+                    xmlWriter.WriteElementString("T_THUOC", Utility.sDbnull(dtXML.Tables[2].Rows[0]["T_THUOC"]));
+                    xmlWriter.WriteElementString("T_VTYT", Utility.sDbnull(dtXML.Tables[2].Rows[0]["T_VTYT"]));
                     xmlWriter.WriteElementString("T_TONGCHI", Utility.sDbnull(dtXML.Tables[2].Rows[0]["T_TONGCHI"]));
                     xmlWriter.WriteElementString("T_BNTT", Utility.sDbnull(dtXML.Tables[2].Rows[0]["T_BNTT"]));
                     xmlWriter.WriteElementString("T_BHTT", Utility.sDbnull(dtXML.Tables[2].Rows[0]["T_BHTT"]));
