@@ -973,8 +973,9 @@ namespace VNS.HIS.UI.THUOC
              string tieude="", reportname = "";
              var crpt = Utility.GetReport("thuoc_giathuoc_doituong", ref tieude, ref reportname);
             if (crpt == null) return;
-            var objFromPre =
-                new frmPrintPreview(PropertyLib._ThuocProperties.TieudeBaocaoGiathuoc, crpt, false, true);
+            var objFromPre = new frmPrintPreview(tieude, crpt, true, dtData.Rows.Count > 0);
+            //var objFromPre =
+            //    new frmPrintPreview(PropertyLib._ThuocProperties.TieudeBaocaoGiathuoc, crpt, false, true);
             Utility.WaitNow(this);
             if (!PropertyLib._ThuocProperties.NhomthuocIngia)
                 dtData.DefaultView.Sort = "ten_thuoc asc";
@@ -985,6 +986,8 @@ namespace VNS.HIS.UI.THUOC
             Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
             Utility.SetParameterValue(crpt,"Nhomthuoc", PropertyLib._ThuocProperties.NhomthuocIngia ? 1 : 0);
             Utility.SetParameterValue(crpt,"sTitleReport", PropertyLib._ThuocProperties.TieudeBaocaoGiathuoc);
+            Utility.SetParameterValue(crpt, "txtTrinhky",
+                                      Utility.getTrinhky(objFromPre.mv_sReportFileName, globalVariables.SysDate));
             objFromPre.crptViewer.ReportSource = crpt;
             objFromPre.ShowDialog();
             Utility.DefaultNow(this);

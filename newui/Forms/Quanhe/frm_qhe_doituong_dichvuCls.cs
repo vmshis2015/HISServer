@@ -826,6 +826,7 @@ namespace VNS.HIS.UI.DANHMUC
         {
 
             v_DataPrint = SPs.DmucLaydulieuQhedichvuclsIn(Utility.Int32Dbnull(cboKieuIn.SelectedValue, 0)).GetDataSet().Tables[0];
+            THU_VIEN_CHUNG.CreateXML(v_DataPrint, "qhe_PhieuinGiaCLStheodoituong.XML");
             PrintReport(PropertyLib._QheGiaCLSProperties.TieudeBaocaoGiaCls);
         }
        
@@ -868,14 +869,17 @@ namespace VNS.HIS.UI.DANHMUC
              string tieude="", reportname = "";
             var crpt = Utility.GetReport("qhe_PhieuinGiaCLStheodoituong" ,ref tieude,ref reportname);
             if (crpt == null) return;
-            var objFromPre =
-                new frmPrintPreview(sTitleReport, crpt,false, true);
+            var objFromPre = new frmPrintPreview(tieude, crpt, true, v_DataPrint.Rows.Count > 0);
+            //var objFromPre =
+            //    new frmPrintPreview(sTitleReport, crpt,false, true);
             Utility.WaitNow(this);
             crpt.SetDataSource(v_DataPrint);
             Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
             Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
             Utility.SetParameterValue(crpt,"sTitleReport", sTitleReport);
             Utility.SetParameterValue(crpt,"sDateTime", Utility.FormatDateTime(globalVariables.SysDate));
+            Utility.SetParameterValue(crpt, "txtTrinhky",
+                                        Utility.getTrinhky(objFromPre.mv_sReportFileName, globalVariables.SysDate));
             objFromPre.crptViewer.ReportSource = crpt;
             objFromPre.ShowDialog();
             Utility.DefaultNow(this);
