@@ -127,6 +127,7 @@
             this.grdList = new Janus.Windows.GridEX.GridEX();
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.mnuUpdateMaBenhAn = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabChiDinh)).BeginInit();
             this.tabChiDinh.SuspendLayout();
@@ -999,9 +1000,10 @@
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuMaDVu,
             this.mnuUpdateMalankham,
-            this.mnuUpdateMaBenhNhan});
+            this.mnuUpdateMaBenhNhan,
+            this.mnuUpdateMaBenhAn});
             this.contextMenuStrip.Name = "contextMenuStrip1";
-            this.contextMenuStrip.Size = new System.Drawing.Size(280, 70);
+            this.contextMenuStrip.Size = new System.Drawing.Size(280, 114);
             // 
             // mnuMaDVu
             // 
@@ -1022,6 +1024,7 @@
             this.mnuUpdateMaBenhNhan.Name = "mnuUpdateMaBenhNhan";
             this.mnuUpdateMaBenhNhan.Size = new System.Drawing.Size(279, 22);
             this.mnuUpdateMaBenhNhan.Text = "Update mã bệnh nhân";
+            this.mnuUpdateMaBenhNhan.Click += new System.EventHandler(this.mnuUpdateMaBenhNhan_Click);
             // 
             // uiStatusBar1
             // 
@@ -1301,6 +1304,13 @@
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp nhanh:";
             // 
+            // mnuUpdateMaBenhAn
+            // 
+            this.mnuUpdateMaBenhAn.Name = "mnuUpdateMaBenhAn";
+            this.mnuUpdateMaBenhAn.Size = new System.Drawing.Size(279, 22);
+            this.mnuUpdateMaBenhAn.Text = "Update mã  bệnh án";
+            this.mnuUpdateMaBenhAn.Click += new System.EventHandler(this.mnuUpdateMaBenhAn_Click);
+            // 
             // frm_KCB_DSACH_BNHAN
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1446,5 +1456,6 @@
         private Janus.Windows.EditControls.UIButton cmdPrintAssign;
         private System.Windows.Forms.ToolStripMenuItem mnuUpdateMalankham;
         private System.Windows.Forms.ToolStripMenuItem mnuUpdateMaBenhNhan;
+        private System.Windows.Forms.ToolStripMenuItem mnuUpdateMaBenhAn;
     }
 }

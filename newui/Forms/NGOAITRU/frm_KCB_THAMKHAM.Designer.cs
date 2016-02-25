@@ -124,6 +124,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.uiGroupBox2 = new Janus.Windows.EditControls.UIGroupBox();
             this.pnlPatientInfor = new System.Windows.Forms.Panel();
+            this.txtNoiDKKCB = new Janus.Windows.GridEX.EditControls.EditBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
@@ -263,8 +265,6 @@
             this.uiTabPage5 = new Janus.Windows.UI.Tab.UITabPage();
             this.ctxDelVTTH = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuDelVTTH = new System.Windows.Forms.ToolStripMenuItem();
-            this.label28 = new System.Windows.Forms.Label();
-            this.txtNoiDKKCB = new Janus.Windows.GridEX.EditControls.EditBox();
             ((System.ComponentModel.ISupportInitialize)(this.grpSearch)).BeginInit();
             this.grpSearch.SuspendLayout();
             this.ctxDelCLS.SuspendLayout();
@@ -1241,6 +1241,33 @@
             this.pnlPatientInfor.Size = new System.Drawing.Size(402, 217);
             this.pnlPatientInfor.TabIndex = 7;
             // 
+            // txtNoiDKKCB
+            // 
+            this.txtNoiDKKCB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNoiDKKCB.BackColor = System.Drawing.Color.White;
+            this.txtNoiDKKCB.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNoiDKKCB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.txtNoiDKKCB.Location = new System.Drawing.Point(311, 168);
+            this.txtNoiDKKCB.Name = "txtNoiDKKCB";
+            this.txtNoiDKKCB.ReadOnly = true;
+            this.txtNoiDKKCB.Size = new System.Drawing.Size(86, 22);
+            this.txtNoiDKKCB.TabIndex = 464;
+            this.txtNoiDKKCB.TabStop = false;
+            this.txtNoiDKKCB.Text = "27-025";
+            this.txtNoiDKKCB.TextChanged += new System.EventHandler(this.editBox1_TextChanged);
+            // 
+            // label28
+            // 
+            this.label28.Font = new System.Drawing.Font("Arial", 9F);
+            this.label28.ForeColor = System.Drawing.Color.Navy;
+            this.label28.Location = new System.Drawing.Point(236, 169);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(78, 21);
+            this.label28.TabIndex = 463;
+            this.label28.Text = "Nơi ĐKKCB :";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // label11
             // 
             this.label11.Font = new System.Drawing.Font("Arial", 9F);
@@ -1304,7 +1331,6 @@
             this.dtpNgayhethanBHYT.TabIndex = 13;
             this.dtpNgayhethanBHYT.TabStop = false;
             this.dtpNgayhethanBHYT.Value = new System.DateTime(2013, 8, 10, 0, 0, 0, 0);
-           // this.dtpNgayhethanBHYT.ValueChanged += new System.EventHandler(this.dtpNgayhethanBHYT_ValueChanged);
             // 
             // label30
             // 
@@ -3244,33 +3270,6 @@
             this.mnuDelVTTH.Name = "mnuDelVTTH";
             this.mnuDelVTTH.Size = new System.Drawing.Size(234, 22);
             this.mnuDelVTTH.Text = "Xóa Vật tư tiêu hao đang chọn";
-            // 
-            // label28
-            // 
-            this.label28.Font = new System.Drawing.Font("Arial", 9F);
-            this.label28.ForeColor = System.Drawing.Color.Navy;
-            this.label28.Location = new System.Drawing.Point(236, 169);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(78, 21);
-            this.label28.TabIndex = 463;
-            this.label28.Text = "Nơi ĐKKCB :";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtNoiDKKCB
-            // 
-            this.txtNoiDKKCB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNoiDKKCB.BackColor = System.Drawing.Color.White;
-            this.txtNoiDKKCB.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoiDKKCB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.txtNoiDKKCB.Location = new System.Drawing.Point(311, 168);
-            this.txtNoiDKKCB.Name = "txtNoiDKKCB";
-            this.txtNoiDKKCB.ReadOnly = true;
-            this.txtNoiDKKCB.Size = new System.Drawing.Size(86, 22);
-            this.txtNoiDKKCB.TabIndex = 464;
-            this.txtNoiDKKCB.TabStop = false;
-            this.txtNoiDKKCB.Text = "27-025";
-            this.txtNoiDKKCB.TextChanged += new System.EventHandler(this.editBox1_TextChanged);
             // 
             // frm_KCB_THAMKHAM
             // 

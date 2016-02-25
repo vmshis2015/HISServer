@@ -1920,12 +1920,18 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     MA_KHOA_THIEN = THU_VIEN_CHUNG.Laygiatrithamsohethong("NOITRU_GIACLS", false) ?? MA_KHOA_THIEN;
                 }
-                m_dtqheCamchidinhCLSChungphieu = new Select().From(QheCamchidinhChungphieu.Schema).Where(QheCamchidinhChungphieu.Columns.Loai).IsEqualTo(0).ExecuteDataSet().Tables[0];
-                m_dtDanhsachDichvuCLS = CHIDINH_CANLAMSANG.LaydanhsachCLS_chidinh(objLuotkham.MaDoituongKcb, objLuotkham.TrangthaiNoitru,Utility.ByteDbnull( objLuotkham.GiayBhyt,0), - 1, Utility.Int32Dbnull(objLuotkham.DungTuyen.Value, 0), MA_KHOA_THIEN, nhomchidinh);
+                m_dtqheCamchidinhCLSChungphieu = 
+                    new Select().From(QheCamchidinhChungphieu.Schema).Where(QheCamchidinhChungphieu.Columns.Loai).
+                        IsEqualTo(0).ExecuteDataSet().Tables[0];
+                m_dtDanhsachDichvuCLS = CHIDINH_CANLAMSANG.LaydanhsachCLS_chidinh(objLuotkham.MaDoituongKcb,
+                                                                                  objLuotkham.TrangthaiNoitru,
+                                                                                  Utility.ByteDbnull(
+                                                                                      objLuotkham.GiayBhyt, 0), -1,
+                                                                                  Utility.Int32Dbnull(
+                                                                                      objLuotkham.DungTuyen.Value, 0),
+                                                                                  MA_KHOA_THIEN, nhomchidinh);
                 //Xử lý phụ thu đúng tuyến-trái tuyến
                 ProcessData();
-
-
                 if (!m_dtDanhsachDichvuCLS.Columns.Contains(KcbChidinhclsChitiet.Columns.SoLuong))
                     m_dtDanhsachDichvuCLS.Columns.Add(KcbChidinhclsChitiet.Columns.SoLuong, typeof(int));
                 if (!m_dtDanhsachDichvuCLS.Columns.Contains("ten_donvitinh"))

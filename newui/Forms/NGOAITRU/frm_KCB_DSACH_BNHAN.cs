@@ -2210,7 +2210,21 @@ namespace VNS.HIS.UI.NGOAITRU
         private void mnuUpdateMalankham_Click(object sender, EventArgs e)
         {
             VNS.HIS.UI.Forms.Dungchung.frmUpdateMaLanKham frm = new frmUpdateMaLanKham();
-            frm.txtmalankhamcu.Text = Utility.sDbnull(grdList.CurrentRow.Cells[KcbLuotkham.Columns.MaLuotkham].Value);
+            frm.txtmabenhnhancu.Text = Utility.sDbnull(grdList.CurrentRow.Cells[KcbLuotkham.Columns.MaLuotkham].Value);
+            frm.ShowDialog();
+        }
+
+        private void mnuUpdateMaBenhAn_Click(object sender, EventArgs e)
+        {
+            VNS.HIS.UI.Forms.Dungchung.frmUpdateMaBenhAn frm = new frmUpdateMaBenhAn();
+            frm.txtmalankham.Text = Utility.sDbnull(grdList.CurrentRow.Cells[KcbLuotkham.Columns.MaLuotkham].Value);
+            frm.ShowDialog();
+        }
+
+        private void mnuUpdateMaBenhNhan_Click(object sender, EventArgs e)
+        {
+            VNS.HIS.UI.Forms.Dungchung.frmUpdateMaBenhNhan frm = new frmUpdateMaBenhNhan();
+            frm.txtmabenhnhancu.Text = Utility.sDbnull(grdList.CurrentRow.Cells[KcbLuotkham.Columns.IdBenhnhan].Value);
             frm.ShowDialog();
         }
 
