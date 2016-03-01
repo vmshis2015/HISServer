@@ -487,22 +487,22 @@ namespace VNS.HIS.UI.DANHMUC
                 //    return false;
                 //}
 
-                q = new Select().From(DmucDichvuclsChitiet.Schema)
-                    .Where(DmucDichvuclsChitiet.Columns.TenChitietdichvu).IsEqualTo(Utility.DoTrim(txtServiceDetailName.Text));
-                if (q.GetRecordCount() > 0)
-                {
-                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có tên như vậy. Mời bạn kiểm tra lại", true);
-                    txtServiceDetailName.Focus();
-                    return false;
-                }
-                q = new Select().From(DmucDichvuclsChitiet.Schema)
-                    .Where(DmucDichvuclsChitiet.Columns.TenChitietdichvuBhyt).IsEqualTo(Utility.DoTrim(txtTenBHYT.Text));
-                if (q.GetRecordCount() > 0)
-                {
-                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Tên QĐ 29 như vậy. Mời bạn kiểm tra lại", true);
-                    txtTenBHYT.Focus();
-                    return false;
-                }
+                //q = new Select().From(DmucDichvuclsChitiet.Schema)
+                //    .Where(DmucDichvuclsChitiet.Columns.TenChitietdichvu).IsEqualTo(Utility.DoTrim(txtServiceDetailName.Text));
+                //if (q.GetRecordCount() > 0)
+                //{
+                //    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có tên như vậy. Mời bạn kiểm tra lại", true);
+                //    txtServiceDetailName.Focus();
+                //    return false;
+                //}
+                //q = new Select().From(DmucDichvuclsChitiet.Schema)
+                //    .Where(DmucDichvuclsChitiet.Columns.TenChitietdichvuBhyt).IsEqualTo(Utility.DoTrim(txtTenBHYT.Text));
+                //if (q.GetRecordCount() > 0)
+                //{
+                //    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Tên QĐ 29 như vậy. Mời bạn kiểm tra lại", true);
+                //    txtTenBHYT.Focus();
+                //    return false;
+                //}
             }
             if (m_enAction == action.Update)
             {
@@ -528,26 +528,26 @@ namespace VNS.HIS.UI.DANHMUC
                 //    return false;
                 //}
 
-                q = new Select().From(DmucDichvuclsChitiet.Schema)
-                    .Where(DmucDichvuclsChitiet.Columns.TenChitietdichvu).IsEqualTo(Utility.DoTrim(txtServiceDetailName.Text)).And(DmucDichvuclsChitiet.Columns.IdChitietdichvu).
-                    IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
+                //q = new Select().From(DmucDichvuclsChitiet.Schema)
+                //    .Where(DmucDichvuclsChitiet.Columns.TenChitietdichvu).IsEqualTo(Utility.DoTrim(txtServiceDetailName.Text)).And(DmucDichvuclsChitiet.Columns.IdChitietdichvu).
+                //    IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
 
-                if (q.GetRecordCount() > 0)
-                {
-                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có tên như vậy. Mời bạn kiểm tra lại", true);
-                    txtServiceDetailName.Focus();
-                    return false;
-                }
-                q = new Select().From(DmucDichvuclsChitiet.Schema)
-                   .Where(DmucDichvuclsChitiet.Columns.TenChitietdichvuBhyt).IsEqualTo(Utility.DoTrim(txtTenBHYT.Text)).And(DmucDichvuclsChitiet.Columns.IdChitietdichvu).
-                   IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
+                //if (q.GetRecordCount() > 0)
+                //{
+                //    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có tên như vậy. Mời bạn kiểm tra lại", true);
+                //    txtServiceDetailName.Focus();
+                //    return false;
+                //}
+                //q = new Select().From(DmucDichvuclsChitiet.Schema)
+                //   .Where(DmucDichvuclsChitiet.Columns.TenChitietdichvuBhyt).IsEqualTo(Utility.DoTrim(txtTenBHYT.Text)).And(DmucDichvuclsChitiet.Columns.IdChitietdichvu).
+                //   IsNotEqualTo(Utility.Int32Dbnull(txtID.Text, -1));
 
-                if (q.GetRecordCount() > 0)
-                {
-                    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Tên QĐ 29 như vậy. Mời bạn kiểm tra lại", true);
-                    txtTenBHYT.Focus();
-                    return false;
-                }
+                //if (q.GetRecordCount() > 0)
+                //{
+                //    Utility.SetMsg(lblMsg, "Đã tồn tại dịch vụ có Tên QĐ 29 như vậy. Mời bạn kiểm tra lại", true);
+                //    txtTenBHYT.Focus();
+                //    return false;
+                //}
             }
 
             if (Utility.Int32Dbnull( txtLoaiDichvu.MyID,"-1") <= 0)
