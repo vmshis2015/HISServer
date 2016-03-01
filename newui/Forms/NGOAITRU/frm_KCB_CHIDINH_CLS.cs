@@ -147,7 +147,7 @@ namespace VNS.HIS.UI.NGOAITRU
             _quanlynhomchidinh_cls.ShowDialog();
             txtNhomDichvuCLS.Init(
                 new Select().From(DmucNhomcanlamsang.Schema).Where(DmucNhomcanlamsang.Columns.NguoiTao).IsEqualTo(
-                    globalVariables.UserName).Or(globalVariables.UserName).IsEqualTo("ADMIN").ExecuteDataSet().Tables[0],
+                    globalVariables.UserName).Or(DmucNhomcanlamsang.Columns.NguoiTao).IsEqualTo("ADMIN").ExecuteDataSet().Tables[0],
                 new List<string>()
                     {
                         DmucNhomcanlamsang.Columns.Id,

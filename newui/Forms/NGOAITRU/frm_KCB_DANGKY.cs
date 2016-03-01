@@ -5361,9 +5361,6 @@ namespace VNS.HIS.UI.NGOAITRU
                     break;
             }
         }
-
-
-
         private KcbDangkyKcb TaoDangkyKCB()
         {
             bool b_HasKham = false;
