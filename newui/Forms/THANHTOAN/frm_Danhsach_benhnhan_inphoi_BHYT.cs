@@ -11,6 +11,7 @@ using System.Xml;
 using SubSonic;
 using VNS.Libs;
 using VNS.HIS.DAL;
+using VNS.Libs.AppUI;
 using VNS.Properties;
 
 namespace  VNS.HIS.UI.THANHTOAN
@@ -89,6 +90,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             {
                 int tinhtrang = -1;
                 int trangthai = -1;
+                int chuaketthuc = 0;
                 if (chkAllTinhTrang.Checked) tinhtrang = -1;
                 else
                 {
@@ -99,12 +101,17 @@ namespace  VNS.HIS.UI.THANHTOAN
                 {
                     trangthai = radDaduyet.Checked ? 1 : 0;
                 }
+                if (chkChuaKetThuc.Checked) chuaketthuc = 1;
+                else
+                {
+                    chuaketthuc = 0;
+                }
                 if (!chkByDate.Checked) dtFromDate.Value = Convert.ToDateTime("1900-01-01");
                 m_dtTimKiem =
                     SPs.ThanhtoanDanhsachInphoiBhyt(dtFromDate.Value, dtToDate.Value,
                                                     Utility.sDbnull(txtMaLanKham.Text, ""),Utility.Int16Dbnull(trangthai),
                                                     Utility.Int32Dbnull(tinhtrang)
-                                                    , "").GetDataSet().
+                                                    , Utility.sDbnull(chuaketthuc,0)).GetDataSet().
                         Tables[0];
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtTimKiem, true, true, "1=1", "");
                 Utility.SetGridEXSortKey(grdList, KcbPhieuDct.Columns.IdPhieuDct, Janus.Windows.GridEX.SortOrder.Ascending);
@@ -146,20 +153,21 @@ namespace  VNS.HIS.UI.THANHTOAN
                     grdList.Focus();
                     return;
                 }
-                saveFileDialog1.Filter = "Excel File(*.xls)|*.xls";
-                saveFileDialog1.FileName = string.Format("{0}.xls", "DanhSachInPhoiBHYT");
-                //saveFileDialog1.ShowDialog();
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    string sPath = saveFileDialog1.FileName;
-                    var fs = new FileStream(sPath, FileMode.Create);
-                    fs.CanWrite.CompareTo(true);
-                    fs.CanRead.CompareTo(true);
-                    gridEXExporter1.Export(fs);
-                    fs.Dispose();
-                }
-                saveFileDialog1.Dispose();
-                saveFileDialog1.Reset();
+                ExcelUtlity.ExportGridEx(grdList);
+                //saveFileDialog1.Filter = "Excel File(*.xls)|*.xls";
+                //saveFileDialog1.FileName = string.Format("{0}.xls", "DanhSachInPhoiBHYT");
+                ////saveFileDialog1.ShowDialog();
+                //if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                //{
+                //    string sPath = saveFileDialog1.FileName;
+                //    var fs = new FileStream(sPath, FileMode.Create);
+                //    fs.CanWrite.CompareTo(true);
+                //    fs.CanRead.CompareTo(true);
+                //    gridEXExporter1.Export(fs);
+                //    fs.Dispose();
+                //}
+                //saveFileDialog1.Dispose();
+                //saveFileDialog1.Reset();
             }
             catch (Exception exception)
             {
@@ -249,8 +257,9 @@ namespace  VNS.HIS.UI.THANHTOAN
                // xmlWriter.WriteElementString("d", "ddd");
                // xmlWriter.WriteEndElement();
                // xmlWriter.Flush();
-                this.UseWaitCursor = true;
+               // this.UseWaitCursor = true;
                 int i = 0;
+                Utility.ResetProgressBar(prgBar, grdList.RowCount, true);
                 foreach (Janus.Windows.GridEX.GridEXRow row in grdList.GetCheckedRows())
                 {
                     string maluot_kham = Utility.sDbnull(row.Cells["ma_luotkham"].Value);
@@ -260,6 +269,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         KcbPhieuDct.Columns.IdBenhnhan).IsEqualTo(id_benhnhan).And(KcbPhieuDct.Columns.MaLuotkham).
                         IsEqualTo(maluot_kham).Execute();
                     i = i + 1;
+                    UIAction.SetValue4Prg(prgBar, 1);
                     // row.Cells["trangthai_xml"].Value = 1;
                 }
                 Utility.SetMsg(lblmsg, string.Format("Tổng số File XML là {0} file", i.ToString()), false);
@@ -276,7 +286,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                     //xmlWriter.WriteEndDocument();
                     xmlWriter.Close();
                 }
-                this.UseWaitCursor = false;
+              //  this.UseWaitCursor = false;
             }
         }
         private string sLocalFilePath;
@@ -288,6 +298,7 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             try
             {
+              
                 if (dtFromDate.Value == dtToDate.Value)
                 {
                     sFileNgay = dtFromDate.Value.ToString("ddMMyyyy");
@@ -296,9 +307,11 @@ namespace  VNS.HIS.UI.THANHTOAN
                 {
                     sFileNgay = string.Format("{0}-{1}", dtFromDate.Value.ToString("ddMMyyyy"), dtToDate.Value.ToString("ddMMyyyy"));
                 }
+               
                  dtXML = SPs.ViettelLaythongtinDuyetbaohiem(Utility.sDbnull(maluotKham, ""),
                                                                    Utility.Int32Dbnull(idBenhnhan, -1)).GetDataSet();
                 if(dtXML.Tables[0].Rows.Count <=0) return false;
+              
                 _sLocalPath = Utility.sDbnull(PropertyLib._xmlproperties.Chonduongdan);
                 if (!Directory.Exists(_sLocalPath)) Directory.CreateDirectory(_sLocalPath);
                 var xmlWriterSettings = new XmlWriterSettings()
@@ -309,13 +322,14 @@ namespace  VNS.HIS.UI.THANHTOAN
                 };
                 sFileName = Utility.sDbnull(dtXML.Tables[2].Rows[0]["NGAY_VAO"]) + "_" +
                             Utility.sDbnull(dtXML.Tables[2].Rows[0]["MA_THE"]) + "_CheckOut.xml";
-                string sDirectory = _sLocalPath + "\\" + sFileNgay;
+                string sDirectory = _sLocalPath;
                 if (!Directory.Exists(sDirectory)) Directory.CreateDirectory(sDirectory);
-                sLocalFilePath = _sLocalPath + "\\" + sFileNgay + "\\" + sFileName;
+                sLocalFilePath = _sLocalPath + "\\" + sFileName;
               
                 xmlWriter = XmlWriter.Create(sLocalFilePath, xmlWriterSettings);
                 ProcessXMLWrite();
                 grdList.UnCheckAllRecords();
+              
                 return true;
             }
             catch (Exception ex)
