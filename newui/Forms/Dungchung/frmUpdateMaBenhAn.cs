@@ -12,9 +12,9 @@ using SubSonic;
 
 namespace VNS.HIS.UI.Forms.Dungchung
 {
-    public partial class frmUpdateMaLanKham : Form
+    public partial class frmUpdateMaBenhAn : Form
     {
-        public frmUpdateMaLanKham()
+        public frmUpdateMaBenhAn()
         {
             InitializeComponent();
         }
@@ -23,16 +23,22 @@ namespace VNS.HIS.UI.Forms.Dungchung
         {
             try
             {
-                SqlQuery sqlkt = new Select().From(KcbLuotkham.Schema).Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(txtmabenhnhanmoi.Text);
+                if(cboloaibenhan.SelectedIndex <= 0)
+                {
+                    Utility.ShowMsg("Bạn phải chọn loại bệnh án");
+                    cboloaibenhan.Focus();
+                    return;
+                }
+                SqlQuery sqlkt = new Select().From(KcbBenhAn.Schema).Where(KcbBenhAn.Columns.SoBenhAn).IsEqualTo(txtmabenhanmoi.Text).And(KcbBenhAn.Columns.LoaiBa).IsEqualTo(cboloaibenhan.SelectedValue);
                 if(sqlkt.GetRecordCount()>0)
                 {
                     Utility.ShowMsg("Mã lần khám này đang được sử dụng cho bệnh nhân khác! Bạn cần check lại mã lượt khám khác");
-                    txtmabenhnhanmoi.Focus();
+                    txtmabenhanmoi.Focus();
                     return;
                 }
-                var sp = SPs.SpUpdateMaLuotKham(Utility.sDbnull(txtmabenhnhanmoi.Text), Utility.sDbnull(txtmabenhnhancu.Text));
+                var sp = SPs.SpUpdateMaBenhAn(Utility.sDbnull(txtmalankham.Text), Utility.sDbnull(txtmabenhanmoi.Text));
                 sp.Execute();
-                Utility.ShowMsg("Bạn đã update lần khám thành công!");
+                Utility.ShowMsg("Bạn update số bệnh án thành công!");
             }
             catch (Exception ex)
             {
@@ -41,19 +47,16 @@ namespace VNS.HIS.UI.Forms.Dungchung
            
         }
 
-        private void txtmalankhammoi_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter && Utility.DoTrim(txtmabenhnhanmoi.Text) != "")
-            {
-                string _maluotkham  = Utility.AutoFullPatientCode(txtmabenhnhanmoi.Text);
-                txtmabenhnhanmoi.Text = _maluotkham;
-            }
-        }
 
         private void cmdThoat_Click(object sender, EventArgs e)
         {
             this.Close();
             this.Dispose();
+        }
+
+        private void frmUpdateMaBenhAn_Load(object sender, EventArgs e)
+        {
+            cboloaibenhan.SelectedIndex = 0;
         }
     }
 }
