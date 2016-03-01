@@ -135,6 +135,7 @@
             // 
             this.txtNhomBHYT._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtNhomBHYT._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNhomBHYT._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtNhomBHYT.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNhomBHYT.AutoCompleteList")));
             this.txtNhomBHYT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNhomBHYT.CaseSensitive = false;
@@ -311,6 +312,7 @@
             // 
             this.txtTinhthanh._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtTinhthanh._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTinhthanh._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtTinhthanh.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtTinhthanh.AutoCompleteList")));
             this.txtTinhthanh.CaseSensitive = false;
             this.txtTinhthanh.CompareNoID = true;
@@ -325,6 +327,7 @@
             this.txtTinhthanh.MinTypedCharacters = 2;
             this.txtTinhthanh.MyCode = "-1";
             this.txtTinhthanh.MyID = "-1";
+            this.txtTinhthanh.MyText = "";
             this.txtTinhthanh.Name = "txtTinhthanh";
             this.txtTinhthanh.RaiseEvent = true;
             this.txtTinhthanh.RaiseEventEnter = false;
@@ -358,8 +361,9 @@
             // 
             this.txtKCBBD._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtKCBBD._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKCBBD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtKCBBD._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtKCBBD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtKCBBD.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKCBBD.AutoCompleteList")));
             this.txtKCBBD.CaseSensitive = false;
             this.txtKCBBD.CompareNoID = true;
@@ -374,6 +378,7 @@
             this.txtKCBBD.MinTypedCharacters = 2;
             this.txtKCBBD.MyCode = "-1";
             this.txtKCBBD.MyID = "-1";
+            this.txtKCBBD.MyText = "";
             this.txtKCBBD.Name = "txtKCBBD";
             this.txtKCBBD.RaiseEvent = false;
             this.txtKCBBD.RaiseEventEnter = false;
@@ -417,6 +422,7 @@
             // 
             this.txtLoaithuoc._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtLoaithuoc._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoaithuoc._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLoaithuoc.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLoaithuoc.AutoCompleteList")));
             this.txtLoaithuoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLoaithuoc.CaseSensitive = false;
@@ -431,6 +437,7 @@
             this.txtLoaithuoc.MinTypedCharacters = 2;
             this.txtLoaithuoc.MyCode = "-1";
             this.txtLoaithuoc.MyID = "-1";
+            this.txtLoaithuoc.MyText = "";
             this.txtLoaithuoc.Name = "txtLoaithuoc";
             this.txtLoaithuoc.RaiseEvent = true;
             this.txtLoaithuoc.RaiseEventEnter = true;
@@ -454,8 +461,8 @@
             this.txtthuoc._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtthuoc._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtthuoc.AllowedSelectPrice = false;
-            this.txtthuoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtthuoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtthuoc.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtthuoc.AutoCompleteList")));
             this.txtthuoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtthuoc.CaseSensitive = false;
@@ -473,6 +480,7 @@
             this.txtthuoc.MinTypedCharacters = 2;
             this.txtthuoc.MyCode = "-1";
             this.txtthuoc.MyID = "-1";
+            this.txtthuoc.MyText = "";
             this.txtthuoc.Name = "txtthuoc";
             this.txtthuoc.RaiseEvent = false;
             this.txtthuoc.RaiseEventEnter = false;
@@ -482,6 +490,7 @@
             this.txtthuoc.splitChar = '@';
             this.txtthuoc.splitCharIDAndCode = '#';
             this.txtthuoc.TabIndex = 4;
+            this.txtthuoc.TakeCode = false;
             this.txtthuoc.txtMyCode = this.txtDrugCode;
             this.txtthuoc.txtMyCode_Edit = null;
             this.txtthuoc.txtMyID = this.txtDrugID;
@@ -620,8 +629,8 @@
             // 
             // prgBar
             // 
-            this.prgBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.prgBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.prgBar.Location = new System.Drawing.Point(9, 30);
             this.prgBar.Name = "prgBar";
             this.prgBar.Size = new System.Drawing.Size(466, 20);

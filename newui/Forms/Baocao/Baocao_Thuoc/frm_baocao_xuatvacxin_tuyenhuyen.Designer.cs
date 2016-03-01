@@ -57,6 +57,7 @@
             this.gridEXExporter1 = new Janus.Windows.GridEX.Export.GridEXExporter(this.components);
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtKho = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
@@ -91,6 +92,7 @@
             // 
             // uiGroupBox1
             // 
+            this.uiGroupBox1.Controls.Add(this.txtKho);
             this.uiGroupBox1.Controls.Add(this.chkKieungaytimkiem);
             this.uiGroupBox1.Controls.Add(this.label4);
             this.uiGroupBox1.Controls.Add(this.txtthuoc);
@@ -155,6 +157,7 @@
             this.txtthuoc.MinTypedCharacters = 2;
             this.txtthuoc.MyCode = "-1";
             this.txtthuoc.MyID = "-1";
+            this.txtthuoc.MyText = "";
             this.txtthuoc.Name = "txtthuoc";
             this.txtthuoc.RaiseEvent = false;
             this.txtthuoc.RaiseEventEnter = false;
@@ -164,6 +167,7 @@
             this.txtthuoc.splitChar = '@';
             this.txtthuoc.splitCharIDAndCode = '#';
             this.txtthuoc.TabIndex = 1;
+            this.txtthuoc.TakeCode = false;
             this.txtthuoc.txtMyCode = null;
             this.txtthuoc.txtMyCode_Edit = null;
             this.txtthuoc.txtMyID = null;
@@ -256,11 +260,12 @@
             // 
             // cboKho
             // 
-            this.cboKho.Location = new System.Drawing.Point(133, 30);
+            this.cboKho.Location = new System.Drawing.Point(723, 33);
             this.cboKho.Name = "cboKho";
-            this.cboKho.Size = new System.Drawing.Size(546, 21);
+            this.cboKho.Size = new System.Drawing.Size(10, 21);
             this.cboKho.TabIndex = 0;
             this.cboKho.Text = "Kho";
+            this.cboKho.Visible = false;
             // 
             // dtToDate
             // 
@@ -384,6 +389,43 @@
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp";
             // 
+            // txtKho
+            // 
+            this.txtKho._backcolor = System.Drawing.SystemColors.Control;
+            this.txtKho._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKho._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtKho.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKho.AutoCompleteList")));
+            this.txtKho.CaseSensitive = false;
+            this.txtKho.CompareNoID = true;
+            this.txtKho.DefaultCode = "-1";
+            this.txtKho.DefaultID = "-1";
+            this.txtKho.Drug_ID = null;
+            this.txtKho.ExtraWidth = 0;
+            this.txtKho.FillValueAfterSelect = false;
+            this.txtKho.Location = new System.Drawing.Point(133, 30);
+            this.txtKho.MaxHeight = 250;
+            this.txtKho.MinTypedCharacters = 2;
+            this.txtKho.MyCode = "-1";
+            this.txtKho.MyID = "-1";
+            this.txtKho.MyText = "";
+            this.txtKho.Name = "txtKho";
+            this.txtKho.RaiseEvent = false;
+            this.txtKho.RaiseEventEnter = false;
+            this.txtKho.RaiseEventEnterWhenEmpty = false;
+            this.txtKho.SelectedIndex = -1;
+            this.txtKho.Size = new System.Drawing.Size(546, 21);
+            this.txtKho.splitChar = '@';
+            this.txtKho.splitCharIDAndCode = '#';
+            this.txtKho.TabIndex = 124;
+            this.txtKho.TakeCode = false;
+            this.txtKho.txtMyCode = null;
+            this.txtKho.txtMyCode_Edit = null;
+            this.txtKho.txtMyID = null;
+            this.txtKho.txtMyID_Edit = null;
+            this.txtKho.txtMyName = null;
+            this.txtKho.txtMyName_Edit = null;
+            this.txtKho.txtNext = null;
+            // 
             // frm_baocao_xuatvacxin_tuyenhuyen
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -443,5 +485,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolTip toolTip1;
         private Janus.Windows.EditControls.UICheckBox chkKieungaytimkiem;
+        private UCs.AutoCompleteTextbox txtKho;
     }
 }

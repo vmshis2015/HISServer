@@ -159,6 +159,48 @@ namespace VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls
                             crpt.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
                             crpt.PrintToPrinter(1, false, 0, 0);
                         }
+
+                        if(THU_VIEN_CHUNG.Laygiatrithamsohethong("BHYT_79A_CT_THEMCOT_MALANKHAM",false)=="1")
+                        {
+                            ReportDocument crpt1 = Utility.GetReport("BHYT_79A_CT_THEMCOT_MALANKHAM", ref tieude, ref reportname);
+                            if (crpt1 == null) return;
+
+                            frmPrintPreview objForm1 =
+                                new frmPrintPreview(
+                                   baocaO_TIEUDE1.txtTieuDe.Text, crpt1,
+                                    true, mdtReport.Rows.Count <= 0 ? false : true);
+                            Utility.UpdateLogotoDatatable(ref mdtReport);
+                            crpt1.SetDataSource(mdtReport);
+
+                            objForm1.mv_sReportFileName = Path.GetFileName(reportname);
+                            objForm1.mv_sReportCode = "BHYT_79A_CT";
+                            Utility.SetParameterValue(crpt1, "ParentBranchName", globalVariables.ParentBranch_Name);
+                            Utility.SetParameterValue(crpt1, "Address", globalVariables.Branch_Address);
+                            Utility.SetParameterValue(crpt1, "Telephone", globalVariables.Branch_Phone);
+                            Utility.SetParameterValue(crpt1, "BranchName", globalVariables.Branch_Name);
+                            Utility.SetParameterValue(crpt1, "FromDateToDate", dtpFromDate.Value.ToString("dd/MM/yyyy") + " ĐẾN NGÀY " +
+                                                   dtpToDate.Value.ToString("dd/MM/yyyy"));
+                            Utility.SetParameterValue(crpt1, "sTitleReport", baocaO_TIEUDE1.txtTieuDe.Text);
+                            Utility.SetParameterValue(crpt1, "NTN", Utility.FormatDateTimeWithThanhPho(dtCreateDate.Value));
+                            Utility.SetParameterValue(crpt1, "TongTien", ChuyenDoiSoThanhChu());
+                            Utility.SetParameterValue(crpt1, "txtTrinhky",
+                                                               Utility.getTrinhky(objForm1.mv_sReportFileName,
+                                                                                  globalVariables.SysDate));
+                            objForm1.crptViewer.ReportSource = crpt1;
+                            if (Utility.isPrintPreview(PropertyLib._MayInProperties.TenMayInBienlai, view))
+                            {
+                                objForm1.SetDefaultPrinter(PropertyLib._MayInProperties.TenMayInBienlai, 1);
+                                objForm1.ShowDialog();
+                            }
+                            else
+                            {
+                                crpt1.PrintOptions.PrinterName = PropertyLib._MayInProperties.TenMayInBienlai;
+                                crpt1.PrintToPrinter(1, false, 0, 0);
+                            }
+                            Utility.FreeMemory(crpt1);
+                        }
+
+
                         Utility.FreeMemory(crpt);
 
                     }

@@ -52,6 +52,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
+            this.txtdichvu = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -139,7 +140,7 @@
             this.uiGroupBox2.Controls.Add(this.cmdInPhieu);
             this.uiGroupBox2.Controls.Add(this.cmdExit);
             this.uiGroupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.uiGroupBox2.Location = new System.Drawing.Point(0, 269);
+            this.uiGroupBox2.Location = new System.Drawing.Point(0, 264);
             this.uiGroupBox2.Name = "uiGroupBox2";
             this.uiGroupBox2.Size = new System.Drawing.Size(912, 65);
             this.uiGroupBox2.TabIndex = 0;
@@ -164,15 +165,15 @@
             this.uiGroupBox4.Controls.Add(this.radDathuchien);
             this.uiGroupBox4.Controls.Add(this.radChuathuchien);
             this.uiGroupBox4.Controls.Add(this.radTatca);
-            this.uiGroupBox4.Location = new System.Drawing.Point(127, 74);
+            this.uiGroupBox4.Location = new System.Drawing.Point(557, 44);
             this.uiGroupBox4.Name = "uiGroupBox4";
-            this.uiGroupBox4.Size = new System.Drawing.Size(408, 47);
+            this.uiGroupBox4.Size = new System.Drawing.Size(344, 34);
             this.uiGroupBox4.TabIndex = 52;
             // 
             // radDathuchien
             // 
             this.radDathuchien.AutoSize = true;
-            this.radDathuchien.Location = new System.Drawing.Point(296, 18);
+            this.radDathuchien.Location = new System.Drawing.Point(250, 12);
             this.radDathuchien.Name = "radDathuchien";
             this.radDathuchien.Size = new System.Drawing.Size(86, 17);
             this.radDathuchien.TabIndex = 2;
@@ -182,7 +183,7 @@
             // radChuathuchien
             // 
             this.radChuathuchien.AutoSize = true;
-            this.radChuathuchien.Location = new System.Drawing.Point(127, 18);
+            this.radChuathuchien.Location = new System.Drawing.Point(124, 12);
             this.radChuathuchien.Name = "radChuathuchien";
             this.radChuathuchien.Size = new System.Drawing.Size(97, 17);
             this.radChuathuchien.TabIndex = 1;
@@ -193,7 +194,7 @@
             // 
             this.radTatca.AutoSize = true;
             this.radTatca.Checked = true;
-            this.radTatca.Location = new System.Drawing.Point(10, 18);
+            this.radTatca.Location = new System.Drawing.Point(31, 12);
             this.radTatca.Name = "radTatca";
             this.radTatca.Size = new System.Drawing.Size(56, 17);
             this.radTatca.TabIndex = 0;
@@ -213,11 +214,11 @@
             this.grdResult.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
             this.grdResult.Location = new System.Drawing.Point(3, 16);
             this.grdResult.Name = "grdResult";
+            this.grdResult.RecordNavigator = true;
             this.grdResult.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdResult.Size = new System.Drawing.Size(906, 250);
+            this.grdResult.Size = new System.Drawing.Size(906, 245);
             this.grdResult.TabIndex = 22;
             this.grdResult.TabStop = false;
-            this.grdResult.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdResult.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
             this.grdResult.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
@@ -227,7 +228,7 @@
             this.uiGroupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiGroupBox3.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox3.Name = "uiGroupBox3";
-            this.uiGroupBox3.Size = new System.Drawing.Size(912, 269);
+            this.uiGroupBox3.Size = new System.Drawing.Size(912, 264);
             this.uiGroupBox3.TabIndex = 1;
             this.uiGroupBox3.Text = "Kết quả tìm kiếm";
             // 
@@ -334,6 +335,7 @@
             // 
             // uiGroupBox1
             // 
+            this.uiGroupBox1.Controls.Add(this.txtdichvu);
             this.uiGroupBox1.Controls.Add(this.uiGroupBox4);
             this.uiGroupBox1.Controls.Add(this.dtToDate);
             this.uiGroupBox1.Controls.Add(this.dtFromDate);
@@ -345,15 +347,51 @@
             this.uiGroupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiGroupBox1.Location = new System.Drawing.Point(0, 47);
             this.uiGroupBox1.Name = "uiGroupBox1";
-            this.uiGroupBox1.Size = new System.Drawing.Size(912, 131);
+            this.uiGroupBox1.Size = new System.Drawing.Size(912, 136);
             this.uiGroupBox1.TabIndex = 124;
             this.uiGroupBox1.Text = "Điều kiện tìm kiếm";
+            // 
+            // txtdichvu
+            // 
+            this.txtdichvu._backcolor = System.Drawing.SystemColors.Control;
+            this.txtdichvu._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtdichvu._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtdichvu.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtdichvu.AutoCompleteList")));
+            this.txtdichvu.CaseSensitive = false;
+            this.txtdichvu.CompareNoID = true;
+            this.txtdichvu.DefaultCode = "-1";
+            this.txtdichvu.DefaultID = "-1";
+            this.txtdichvu.Drug_ID = null;
+            this.txtdichvu.ExtraWidth = 0;
+            this.txtdichvu.FillValueAfterSelect = false;
+            this.txtdichvu.Location = new System.Drawing.Point(127, 85);
+            this.txtdichvu.MaxHeight = 150;
+            this.txtdichvu.MinTypedCharacters = 2;
+            this.txtdichvu.MyCode = "-1";
+            this.txtdichvu.MyID = "-1";
+            this.txtdichvu.MyText = "";
+            this.txtdichvu.Name = "txtdichvu";
+            this.txtdichvu.RaiseEvent = false;
+            this.txtdichvu.RaiseEventEnter = false;
+            this.txtdichvu.RaiseEventEnterWhenEmpty = false;
+            this.txtdichvu.SelectedIndex = -1;
+            this.txtdichvu.Size = new System.Drawing.Size(774, 20);
+            this.txtdichvu.splitChar = '@';
+            this.txtdichvu.splitCharIDAndCode = '#';
+            this.txtdichvu.TabIndex = 0;
+            this.txtdichvu.TakeCode = false;
+            this.txtdichvu.txtMyCode = null;
+            this.txtdichvu.txtMyCode_Edit = null;
+            this.txtdichvu.txtMyID = null;
+            this.txtdichvu.txtMyID_Edit = null;
+            this.txtdichvu.txtMyName = null;
+            this.txtdichvu.txtMyName_Edit = null;
+            this.txtdichvu.txtNext = null;
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -368,7 +406,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.uiGroupBox3);
             this.splitContainer1.Panel2.Controls.Add(this.uiGroupBox2);
             this.splitContainer1.Size = new System.Drawing.Size(912, 516);
-            this.splitContainer1.SplitterDistance = 178;
+            this.splitContainer1.SplitterDistance = 183;
             this.splitContainer1.TabIndex = 0;
             // 
             // panel1
@@ -400,14 +438,14 @@
             // 
             this.printDialog1.UseEXDialog = true;
             // 
-            // frm_thongke_danhsachbenhnhanh_sieuam
+            // frm_thongke_danhsachbenhnhanh_phongchucnang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(912, 538);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
-            this.Name = "frm_thongke_danhsachbenhnhanh_sieuam";
+            this.Name = "frm_thongke_danhsachbenhnhanh_phongchucnang";
             this.Text = "DANH SÁCH BỆNH NHÂN THỰC HIỆN SIÊU ÂM";
             this.Load += new System.EventHandler(this.frm_thongke_danhsachbenhnhanh_sieuam_Load);
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).EndInit();
@@ -464,5 +502,6 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.PrintDialog printDialog1;
         private Janus.Windows.GridEX.Export.GridEXExporter gridEXExporter1;
+        private UCs.AutoCompleteTextbox txtdichvu;
     }
 }

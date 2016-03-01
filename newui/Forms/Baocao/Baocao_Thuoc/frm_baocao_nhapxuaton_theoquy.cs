@@ -100,6 +100,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
            
 
         }
+
         void modifyTieude()
         {
             if (KIEU_THUOC_VT == "THUOC")
@@ -118,6 +119,11 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                     grdList.BringToFront();
 
                 }
+                if(chkBangCanDoi.Checked)
+                {
+                    baocaO_TIEUDE1.Init("thuoc_baocao_bangcandoi");
+                    grdbangcandoi.BringToFront();
+                }
             }
             else
             {
@@ -133,6 +139,11 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                     baocaO_TIEUDE1.Init("vt_baocao_nhapxuatton_theoquy");
                     grdList.BringToFront();
 
+                }
+                if (chkBangCanDoi.Checked)
+                {
+                    baocaO_TIEUDE1.Init("thuoc_baocao_bangcandoi");
+                    grdbangcandoi.BringToFront();
                 }
             }
         }
@@ -338,24 +349,43 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                     todate = dtToDate.Value.ToString("dd/MM/yyyy");
                 }
                 DataTable m_dtReport = null;
-              
-                m_dtReport = BAOCAO_THUOC.ThuocBaocaonhapxuatton(fromdate,
-                                        todate,
-                                       lstStockID, nhomthuoc, Utility.Int32Dbnull(txtthuoc.MyID, -1), chkBiendong.Checked ? 1 : 0);
-
-
-                Utility.SetDataSourceForDataGridEx(grdList, m_dtReport, true, true, "1=1", "");
-                THU_VIEN_CHUNG.CreateXML(m_dtReport, "baocao_xuatnhapton_theoquy.xml");
-                if (m_dtReport.Rows.Count <= 0)
-                {
-                    Utility.ShowMsg("Không tìm thấy dữ liệu", "Thông báo", MessageBoxIcon.Warning);
-                    return;
-                }
-               
-               
-                thuoc_baocao.BaocaoNhapxuattonTheoquy(m_dtReport,cboReportType.SelectedValue.ToString(), KIEU_THUOC_VT, baocaO_TIEUDE1.TIEUDE,_tondau,_toncuoi,
+              if(chkBangCanDoi.Checked)
+              {
+                  m_dtReport = BAOCAO_THUOC.ThuocBaocaonhapxuattontheokho(fromdate,
+                                   todate,
+                                  lstStockID, nhomthuoc, Utility.Int32Dbnull(txtthuoc.MyID, -1), chkBiendong.Checked ? 1 : 0);
+                  Utility.SetDataSourceForDataGridEx(grdbangcandoi, m_dtReport, true, true, "1=1", "");
+                  THU_VIEN_CHUNG.CreateXML(m_dtReport, "thuoc_baocao_bangcandoi.xml");
+                  if (m_dtReport.Rows.Count <= 0)
+                  {
+                      Utility.ShowMsg("Không tìm thấy dữ liệu", "Thông báo", MessageBoxIcon.Warning);
+                      return;
+                  }
+                  thuoc_baocao.Baocao_thuoc_bangcandoi(m_dtReport, cboReportType.SelectedValue.ToString(), KIEU_THUOC_VT, baocaO_TIEUDE1.TIEUDE, _tondau, _toncuoi,
                                                                                       dtNgayIn.Value, FromDateToDate,
                                                                                       Utility.sDbnull(cboKho.Text), chkTheoNhomThuoc.Checked);
+              }
+              else
+              {
+                  m_dtReport = BAOCAO_THUOC.ThuocBaocaonhapxuatton(fromdate,
+                                    todate,
+                                   lstStockID, nhomthuoc, Utility.Int32Dbnull(txtthuoc.MyID, -1), chkBiendong.Checked ? 1 : 0);
+
+
+                  Utility.SetDataSourceForDataGridEx(grdList, m_dtReport, true, true, "1=1", "");
+                  THU_VIEN_CHUNG.CreateXML(m_dtReport, "baocao_xuatnhapton_theoquy.xml");
+                  if (m_dtReport.Rows.Count <= 0)
+                  {
+                      Utility.ShowMsg("Không tìm thấy dữ liệu", "Thông báo", MessageBoxIcon.Warning);
+                      return;
+                  }
+
+
+                  thuoc_baocao.BaocaoNhapxuattonTheoquy(m_dtReport, cboReportType.SelectedValue.ToString(), KIEU_THUOC_VT, baocaO_TIEUDE1.TIEUDE, _tondau, _toncuoi,
+                                                                                        dtNgayIn.Value, FromDateToDate,
+                                                                                        Utility.sDbnull(cboKho.Text), chkTheoNhomThuoc.Checked);
+              }
+              
             }
             catch (Exception)
             {
@@ -430,6 +460,87 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
         private void cmdGetDataDrug_Click(object sender, EventArgs e)
         {
            
+        }
+
+        private void cboThang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (optThang.Checked)
+            {
+                var myDate = cboThang.SelectedValue;
+                //  fromdate = new DateTime(dtpNam.Value.Year, 1, 1).ToString("dd/MM/yyyy");
+                // todate = new DateTime(dtpNam.Value.Year, 3, 31).ToString("dd/MM/yyyy");
+                var startOfMonth = new DateTime(dtpNam.Value.Year, Utility.Int32Dbnull(myDate), 1);
+                dtFromDate.Value = startOfMonth;
+                var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
+                dtToDate.Value = endOfMonth;
+            }
+        }
+
+        private void cboQuy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (optQuy.Checked)
+            {
+                var fromdate = new DateTime();
+                var todate = new DateTime();
+                switch (Utility.sDbnull(cboQuy.SelectedValue))
+                {
+                    case "1":
+                         fromdate = new DateTime(dtpNam.Value.Year, 1, 1);
+                        dtFromDate.Value = fromdate;
+
+                        todate = new DateTime(dtpNam.Value.Year, 3, 31);
+                        dtToDate.Value = todate;
+                        break;
+                    case "2":
+                         fromdate = new DateTime(dtpNam.Value.Year, 4, 1);
+                        dtFromDate.Value = fromdate;
+
+                        todate = new DateTime(dtpNam.Value.Year, 6, 30);
+                        dtToDate.Value = todate;
+                        break;
+                    case "3":
+                          fromdate = new DateTime(dtpNam.Value.Year, 7, 1);
+                        dtFromDate.Value = fromdate;
+
+                        todate = new DateTime(dtpNam.Value.Year, 9, 30);
+                        dtToDate.Value = todate;
+                        break;
+                    case "4":
+                           fromdate = new DateTime(dtpNam.Value.Year, 10, 1);
+                        dtFromDate.Value = fromdate;
+
+                        todate = new DateTime(dtpNam.Value.Year, 12, 31);
+                        dtToDate.Value = todate;
+                        break;
+                    default:
+                         fromdate = new DateTime(dtpNam.Value.Year, 1, 1);
+                        dtFromDate.Value = fromdate;
+
+                        todate = new DateTime(dtpNam.Value.Year, 12, 31);
+                        dtToDate.Value = todate;
+                        break;
+                }
+            }
+        }
+
+        private void optNam_CheckedChanged(object sender, EventArgs e)
+        {
+            if(optNam.Checked)
+            {
+                var myDate = dtpNam.Value;
+                //  fromdate = new DateTime(dtpNam.Value.Year, 1, 1).ToString("dd/MM/yyyy");
+                // todate = new DateTime(dtpNam.Value.Year, 3, 31).ToString("dd/MM/yyyy");
+                var startOfMonth = new DateTime(dtpNam.Value.Year, 1, 1);
+                dtFromDate.Value = startOfMonth;
+                var endOfMonth = new DateTime(dtpNam.Value.Year, 12, 31);
+                dtToDate.Value = endOfMonth;
+            }
+        }
+
+        private void chkBangCanDoi_CheckedChanged(object sender, EventArgs e)
+        {
+            modifyTieude();
         }
     }
 }

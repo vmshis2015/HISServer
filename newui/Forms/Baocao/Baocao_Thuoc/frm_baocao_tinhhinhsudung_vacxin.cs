@@ -417,5 +417,80 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
         {
            
         }
+
+        private void cboThang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (optThang.Checked)
+            {
+                var myDate = cboThang.SelectedValue;
+                //  fromdate = new DateTime(dtpNam.Value.Year, 1, 1).ToString("dd/MM/yyyy");
+                // todate = new DateTime(dtpNam.Value.Year, 3, 31).ToString("dd/MM/yyyy");
+                var startOfMonth = new DateTime(dtpNam.Value.Year, Utility.Int32Dbnull(myDate), 1);
+                dtFromDate.Value = startOfMonth;
+                var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
+                dtToDate.Value = endOfMonth;
+            }
+        }
+
+        private void cboQuy_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (optQuy.Checked)
+            {
+                var fromdate = new DateTime();
+                var todate = new DateTime();
+                switch (Utility.sDbnull(cboQuy.SelectedValue))
+                {
+                    case "1":
+                        fromdate = new DateTime(dtpNam.Value.Year, 1, 1);
+                        dtFromDate.Value = fromdate;
+
+                        todate = new DateTime(dtpNam.Value.Year, 3, 31);
+                        dtToDate.Value = todate;
+                        break;
+                    case "2":
+                        fromdate = new DateTime(dtpNam.Value.Year, 4, 1);
+                        dtFromDate.Value = fromdate;
+
+                        todate = new DateTime(dtpNam.Value.Year, 6, 30);
+                        dtToDate.Value = todate;
+                        break;
+                    case "3":
+                        fromdate = new DateTime(dtpNam.Value.Year, 7, 1);
+                        dtFromDate.Value = fromdate;
+
+                        todate = new DateTime(dtpNam.Value.Year, 9, 30);
+                        dtToDate.Value = todate;
+                        break;
+                    case "4":
+                        fromdate = new DateTime(dtpNam.Value.Year, 10, 1);
+                        dtFromDate.Value = fromdate;
+
+                        todate = new DateTime(dtpNam.Value.Year, 12, 31);
+                        dtToDate.Value = todate;
+                        break;
+                    default:
+                        fromdate = new DateTime(dtpNam.Value.Year, 1, 1);
+                        dtFromDate.Value = fromdate;
+
+                        todate = new DateTime(dtpNam.Value.Year, 12, 31);
+                        dtToDate.Value = todate;
+                        break;
+                }
+            }
+        }
+
+        private void dtpNam_ValueChanged(object sender, EventArgs e)
+        {
+            if (optNam.Checked)
+            {
+                var myDate = dtpNam.Value;
+                //  fromdate = new DateTime(dtpNam.Value.Year, 1, 1).ToString("dd/MM/yyyy");
+                // todate = new DateTime(dtpNam.Value.Year, 3, 31).ToString("dd/MM/yyyy");
+                var startOfMonth = new DateTime(dtpNam.Value.Year, 1, 1);
+                dtFromDate.Value = startOfMonth;
+                var endOfMonth = new DateTime(dtpNam.Value.Year, 12, 31);
+                dtToDate.Value = endOfMonth;
+            }
+        }
     }
 }

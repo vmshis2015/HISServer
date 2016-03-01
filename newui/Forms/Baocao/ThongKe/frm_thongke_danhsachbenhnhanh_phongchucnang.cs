@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CrystalDecisions.CrystalReports.Engine;
+using SubSonic;
 using VNS.HIS.DAL;
 using VNS.Libs;
 
@@ -11,7 +13,7 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
 {
     public partial class frm_thongke_danhsachbenhnhanh_phongchucnang : Form
     {
-        private string Args = "ALL";
+        private readonly string Args = "ALL";
 
         private string reportname = "";
         private string tieude = "";
@@ -20,6 +22,20 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
         {
             Args = sthamso;
             InitializeComponent();
+            txtdichvu._OnEnterMe += txtdichvu__OnEnterMe;
+        }
+
+        private void txtdichvu__OnEnterMe()
+        {
+            //   AddServiceDetail();
+        }
+
+        private void AddServiceDetail()
+        {
+            // if (Utility.Int32Dbnull(txtdichvu.MyID, -1) > 0)
+            // {
+            //  txtdichvu.Text = txtdichvu.MyText;
+            //  }
         }
 
         private void frm_thongke_danhsachbenhnhanh_sieuam_Load(object sender, EventArgs e)
@@ -62,11 +78,21 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
                         reportcode = "baocao_thongkedanhsach_noisoi";
                         break;
                     default:
-                         reportcode = "baocao_thongkedanhsach_noisoi";
+                        reportcode = "baocao_thongkedanhsach_noisoi";
                         break;
                 }
                 Utility.GetReport(reportcode, ref tieude, ref reportname);
                 baocaO_TIEUDE1.TIEUDE = tieude;
+                txtdichvu.Init(
+                    new Select().From(DmucDichvuclsChitiet.Schema).Where(DmucDichvuclsChitiet.Columns.TrangThai).
+                        IsEqualTo(1).ExecuteDataSet().Tables[0],
+                    new List<string>
+                        {
+                            DmucDichvuclsChitiet.Columns.IdChitietdichvu,
+                            DmucDichvuclsChitiet.Columns.MaChitietdichvu,
+                            DmucDichvuclsChitiet.Columns.TenChitietdichvu
+                        });
+                // txtdichvu.dtData = 
             }
             catch (Exception ex)
             {
@@ -83,14 +109,19 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
             DataTable dtDanhsach =
                 SPs.BaocaoThongkedanhsachThuchienchucnang(dtFromDate.Value, dtToDate.Value,
                                                           Utility.Int16Dbnull(cboDoituongKCB.SelectedValue, -1),
-                                                          Utility.sDbnull(cboKhoa.SelectedValue, "KKB"), Args, trangthai)
+                                                          Utility.sDbnull(cboKhoa.SelectedValue, "KKB"), Args,
+                                                          Utility.Int32Dbnull(txtdichvu.MyID, -1), trangthai)
                     .GetDataSet().Tables[0];
-            Utility.SetDataSourceForDataGridEx(grdResult,dtDanhsach,false,false,"","");
-          
+            Utility.SetDataSourceForDataGridEx(grdResult, dtDanhsach, false, false, "", "");
             THU_VIEN_CHUNG.CreateXML(dtDanhsach, "baocao_thongkedanhsach_chucnang.XML");
+            if (dtDanhsach.Rows.Count <= 0)
+            {
+                Utility.ShowMsg("Không có dữ liệu để báo cáo!");
+                return;
+            }
             Utility.UpdateLogotoDatatable(ref dtDanhsach);
             string reportCode = "";
-            switch (Args.Substring(0,2))
+            switch (Args.Substring(0, 2))
             {
                 case "SA":
                     reportCode = "baocao_thongkedanhsach_sieuam";
@@ -102,6 +133,9 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
                     reportCode = "baocao_thongkedanhsach_dientim";
                     break;
                 case "NS":
+                    reportCode = "baocao_thongkedanhsach_noisoi";
+                    break;
+                default:
                     reportCode = "baocao_thongkedanhsach_noisoi";
                     break;
             }
@@ -134,7 +168,8 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
                 crpt.SetParameterValue("sTitleReport", tieude);
                 crpt.SetParameterValue("sCurrentDate", Utility.FormatDateTimeWithThanhPho(dtNgayInPhieu.Value));
                 crpt.SetParameterValue("BottomCondition", THU_VIEN_CHUNG.BottomCondition());
-                Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
+                Utility.SetParameterValue(crpt, "txtTrinhky",
+                                          Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
             }
@@ -175,7 +210,7 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
             }
             catch (Exception exception)
             {
-                Utility.ShowMsg("Lỗi:"+ exception.Message);
+                Utility.ShowMsg("Lỗi:" + exception.Message);
             }
         }
     }

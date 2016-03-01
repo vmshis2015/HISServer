@@ -33,7 +33,8 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
             cmdBaoCao.Click += cmdBaoCao_Click;
             cboKieutonghop.SelectedIndexChanged += cboKieutonghop_SelectedIndexChanged;
             KeyDown += frm_tonghopphatsinh_nhapxuat_KeyDown;
-            cboKho.SelectedIndexChanged += cboKho_SelectedIndexChanged;
+            txtKho._OnEnterMe += txtKho__OnEnterMe;
+           // cboKho.SelectedIndexChanged += cboKho_SelectedIndexChanged;
             cboKieubangke.SelectedIndexChanged += cboKieubangke_SelectedIndexChanged;
         }
 
@@ -46,23 +47,28 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
         {
             modifyTieude();
         }
-
-        private void cboKho_SelectedIndexChanged(object sender, EventArgs e)
+        private void txtKho__OnEnterMe()
         {
             if (!allowChanged) return;
             SelectStock();
             modifyTieude();
         }
+        //private void txtkho_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (!allowChanged) return;
+        //    SelectStock();
+        //    modifyTieude();
+        //}
 
         private void SelectStock()
         {
-            if (Utility.Int32Dbnull(cboKho.SelectedValue, -1) < 0)
+            if (Utility.Int32Dbnull(txtKho.MyID, -1) < 0)
                 _item = null;
             else
             {
                 _item =
                     new Select().From(TDmucKho.Schema).Where(TDmucKho.IdKhoColumn).IsEqualTo(
-                        Utility.Int32Dbnull(cboKho.SelectedValue)).ExecuteSingle<TDmucKho>();
+                        Utility.Int32Dbnull(txtKho.MyID)).ExecuteSingle<TDmucKho>();
                 GetKieuThuocVT();
                 BindThuocVT();
             }
@@ -77,7 +83,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
         private void AutocompleteLoaithuoc()
         {
             DataTable dtLoaithuoc =
-                SPs.ThuocLayDanhmucLoaiThuocTheokho(Utility.Int32Dbnull(cboKho.SelectedValue, -1)).GetDataSet().Tables[0
+                SPs.ThuocLayDanhmucLoaiThuocTheokho(Utility.Int32Dbnull(txtKho.MyID, -1)).GetDataSet().Tables[0
                     ];
             txtLoaithuoc.Init(dtLoaithuoc,
                               new List<string>
@@ -93,7 +99,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
             try
             {
                 DataTable _dataThuoc =
-                    SPs.ThuocLayDanhmucThuocTheokho(Utility.Int32Dbnull(cboKho.SelectedValue, -1)).GetDataSet().Tables[0
+                    SPs.ThuocLayDanhmucThuocTheokho(Utility.Int32Dbnull(txtKho.MyID, -1)).GetDataSet().Tables[0
                         ];
                 if (_dataThuoc == null)
                 {
@@ -112,21 +118,21 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
             if (cboKieutonghop.SelectedIndex == 0)
             {
                 if(cboKieubangke.SelectedIndex==0)
-                    baocaO_TIEUDE1.Init("thuoc_baocaophatsinhnhap_tonghop");
-                else
                     baocaO_TIEUDE1.Init("thuoc_baocaophatsinhnhap_chitiet");
+                else
+                    baocaO_TIEUDE1.Init("thuoc_baocaophatsinhnhap_tonghop");
             }
             else
             {
                 if (cboKieubangke.SelectedIndex == 0)
-                    baocaO_TIEUDE1.Init("thuoc_baocaophatsinhxuat_tonghop");
-                else
                     baocaO_TIEUDE1.Init("thuoc_baocaophatsinhxuat_chitiet");
+                else
+                    baocaO_TIEUDE1.Init("thuoc_baocaophatsinhxuat_tonghop");
             }
             if (cboKieubangke.SelectedIndex == 0)
-                grdTonghop.BringToFront();
+                  grdChitiet.BringToFront();
             else
-                grdChitiet.BringToFront();
+                grdTonghop.BringToFront();
         }
 
         private void GetKieuThuocVT()
@@ -173,18 +179,23 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
         private void frm_tonghopphatsinh_nhapxuat_Load(object sender, EventArgs e)
         {
             modifyTieude();
-
-            DataBinding.BindData(cboKho,
-                                 KieuKho == "ALL"
+            txtKho.Init(KieuKho == "ALL"
                                      ? CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_TATCA()
                                      : (KieuKho == "CHAN"
                                             ? CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_CHAN()
-                                            : CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_LE()), TDmucKho.Columns.IdKho,
-                                 TDmucKho.Columns.TenKho);
+                                            : CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_LE()), new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
+
+            //DataBinding.BindData(cboKho,
+            //                     KieuKho == "ALL"
+            //                         ? CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_TATCA()
+            //                         : (KieuKho == "CHAN"
+            //                                ? CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_CHAN()
+            //                                : CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_LE()), TDmucKho.Columns.IdKho,
+            //                     TDmucKho.Columns.TenKho);
             DataTable m_dtNhomThuoc = new Select().From(DmucLoaithuoc.Schema)
                 .OrderAsc(DmucLoaithuoc.Columns.SttHthi).ExecuteDataSet().Tables[0];
             allowChanged = true;
-            cboKho_SelectedIndexChanged(cboKho, e);
+          //  cboKho_SelectedIndexChanged(cboKho, e);
             cboThang.SelectedIndex = globalVariables.SysDate.Month - 1;
             cboKieubangke.SelectedIndex = 0;
             cboKieutonghop.SelectedIndex = 0;
@@ -203,10 +214,10 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
             try
             {
                 string nhomthuoc = "-1";
-                if (cboKho.SelectedIndex < 0)
+                if (Utility.Int32Dbnull(txtKho.MyID,-1) < 0)
                 {
                     Utility.ShowMsg("Bạn phải chọn Kho thuốc");
-                    cboKho.Focus();
+                    txtKho.Focus();
                     return;
                 }
                 nhomthuoc = txtLoaithuoc.MyID.ToString();
@@ -289,17 +300,18 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 string xmlFile = "ThuocBaocaophatsinhTonghop.xml";
                 if (cboKieubangke.SelectedIndex == 0)
                 {
-                    xmlFile = "ThuocBaocaophatsinhTonghop.xml";
-                    m_dtReport = BAOCAO_THUOC.ThuocBaocaophatsinhTonghop(fromdate, todate,
-                    Utility.Int32Dbnull(cboKho.SelectedValue), Utility.Int32Dbnull(txtthuoc.MyID, -1), kieubiendong,
-                    nhomthuoc, 1);
+                    xmlFile = "ThuocBaocaophatsinhChitiet.xml";
+                    m_dtReport = BAOCAO_THUOC.ThuocBaocaophatsinhChitiet(fromdate, todate,
+                   Utility.Int32Dbnull(txtKho.MyID), Utility.Int32Dbnull(txtthuoc.MyID, -1), kieubiendong,
+                   nhomthuoc, 1);
                 }
                 else
                 {
-                    xmlFile = "ThuocBaocaophatsinhChitiet.xml";
-                    m_dtReport = BAOCAO_THUOC.ThuocBaocaophatsinhChitiet(fromdate, todate,
-                   Utility.Int32Dbnull(cboKho.SelectedValue), Utility.Int32Dbnull(txtthuoc.MyID, -1), kieubiendong,
-                   nhomthuoc, 1);
+                    
+                    xmlFile = "ThuocBaocaophatsinhTonghop.xml";
+                    m_dtReport = BAOCAO_THUOC.ThuocBaocaophatsinhTonghop(fromdate, todate,
+                    Utility.Int32Dbnull(txtKho.MyID), Utility.Int32Dbnull(txtthuoc.MyID, -1), kieubiendong,
+                    nhomthuoc, 1);
                 }
                 THU_VIEN_CHUNG.CreateXML(m_dtReport, xmlFile);
                 Utility.SetDataSourceForDataGridEx(cboKieutonghop.SelectedIndex==0?grdTonghop: grdChitiet, m_dtReport, true, true, "1=1", "");
@@ -311,7 +323,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 string FromDateToDate = Utility.FromToDateTime(dtFromDate.Text, dtToDate.Text);
                 thuoc_baocao.ThuocBaocaophatsinh(m_dtReport, baocaO_TIEUDE1.MA_BAOCAO, baocaO_TIEUDE1.TIEUDE,
                                              dtNgayIn.Value, FromDateToDate,
-                                             Utility.sDbnull(cboKho.Text));
+                                             Utility.sDbnull(txtKho.Text));
             }
             catch (Exception ex)
             {
@@ -386,6 +398,13 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtKho_TextChanged(object sender, EventArgs e)
+        {
+            if (!allowChanged) return;
+            SelectStock();
+            modifyTieude();
         }
     }
 }

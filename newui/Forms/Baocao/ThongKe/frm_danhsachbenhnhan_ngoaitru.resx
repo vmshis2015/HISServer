@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -177,6 +177,22 @@
         YVqy1767zEwAAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="cmdInPhieuXN.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAANkE3LLaAgAAAndJREFUWEe9
+        lr+KGlEUxrfMI6TMO4gglsEijS8QQRc0REFBtFDxT2EhiCAirrAIFhYjIpIijyBsFBEFFSsRRBsb/zUi
+        yMl8wx0zeHez486MFz7m4Hh+33evXjgPD2+vr+KroE4C6+YVPJ1OdD6fNQkMtonbA+x2O9rv93Q4HD4k
+        9IJxawD56J/W6zWtVitNAkMM8MRCqPopgsfjEU2/lsslzWYzTQIDLMbEf+rdFdxut1ITzMfjsSaBARZj
+        qguwWCykpslkQr1eT5PAAIsx1QWYTqdS02AwoHa7rUlggMWY6gL0+32pqdvtkh4CizHfDPBd/NIz02/x
+        +SLqD3ui1iqZBbbsA8/LesZRI+VwODRU8IAXC/IvQKvVonq9Ts1m01DBA15cgEajQaVS6S6CFxdAEAQq
+        FAp3Eby4ALVajXK53F0ELy5AtVqlTCZzF8GLC1CpVCidTt9F8OIClMtlSiaTlEgkDBU84MUFKBaLFI1G
+        KRKJGCp4wIsLkM/nKRwOUygUMlTwgBcXIJvNUiAQIL/fT6iNENjwAJsLgBvg8/nI6/VKN8Fut5PVatVF
+        YIEJNjxQcwFwAzweD7ndbukmWCwW0msoBQtMsOGBmguQSqXI5XKR0+kk1GazmTabjTRUYrj8iNALBlhg
+        gg0P1FyAeDxODodDEq6iyWSShtH5fK5JYIAFpsyHFxcgFouRUjabTRpG9ZgJwbrmXwf4qRgU5IHhZTQa
+        UafT0SQw2EAjc+UnPC/rs1h9E/WokKB1IJX7RaZwxYYXPC/rE/vgi/iU9UOs0zoJLCUb5vD873rtVJQn
+        pLbmdvuesfz+tVNR7kJtrWq3akPp/r2/RlbR+gLUFA0AAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="cmdExit.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAANkE3LLaAgAAB9hJREFUWEfV
@@ -216,25 +232,15 @@
         IUdngj3JGk9RdPpmfjHVwf+n/f4FR30JMpyKcewAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="cmdInPhieu.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAANkE3LLaAgAAAndJREFUWEe9
-        lr+KGlEUxrfMI6TMO4gglsEijS8QQRc0REFBtFDxT2EhiCAirrAIFhYjIpIijyBsFBEFFSsRRBsb/zUi
-        yMl8wx0zeHez486MFz7m4Hh+33evXjgPD2+vr+KroE4C6+YVPJ1OdD6fNQkMtonbA+x2O9rv93Q4HD4k
-        9IJxawD56J/W6zWtVitNAkMM8MRCqPopgsfjEU2/lsslzWYzTQIDLMbEf+rdFdxut1ITzMfjsSaBARZj
-        qguwWCykpslkQr1eT5PAAIsx1QWYTqdS02AwoHa7rUlggMWY6gL0+32pqdvtkh4CizHfDPBd/NIz02/x
-        +SLqD3ui1iqZBbbsA8/LesZRI+VwODRU8IAXC/IvQKvVonq9Ts1m01DBA15cgEajQaVS6S6CFxdAEAQq
-        FAp3Eby4ALVajXK53F0ELy5AtVqlTCZzF8GLC1CpVCidTt9F8OIClMtlSiaTlEgkDBU84MUFKBaLFI1G
-        KRKJGCp4wIsLkM/nKRwOUygUMlTwgBcXIJvNUiAQIL/fT6iNENjwAJsLgBvg8/nI6/VKN8Fut5PVatVF
-        YIEJNjxQcwFwAzweD7ndbukmWCwW0msoBQtMsOGBmguQSqXI5XKR0+kk1GazmTabjTRUYrj8iNALBlhg
-        gg0P1FyAeDxODodDEq6iyWSShtH5fK5JYIAFpsyHFxcgFouRUjabTRpG9ZgJwbrmXwf4qRgU5IHhZTQa
-        UafT0SQw2EAjc+UnPC/rs1h9E/WokKB1IJX7RaZwxYYXPC/rE/vgi/iU9UOs0zoJLCUb5vD873rtVJQn
-        pLbmdvuesfz+tVNR7kJtrWq3akPp/r2/RlbR+gLUFA0AAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="grdResult_DesignTimeLayout.LayoutString" xml:space="preserve">
-    <value>&lt;GridEXLayoutData&gt;&lt;RootTable&gt;&lt;Columns Collection="true" ElementName="Column"&gt;&lt;Column0 ID="id_benhnhan"&gt;&lt;Caption&gt;ID BN&lt;/Caption&gt;&lt;DataMember&gt;id_benhnhan&lt;/DataMember&gt;&lt;Key&gt;id_benhnhan&lt;/Key&gt;&lt;Position&gt;0&lt;/Position&gt;&lt;Width&gt;57&lt;/Width&gt;&lt;/Column0&gt;&lt;Column1 ID="ma_luotkham"&gt;&lt;Caption&gt;Mã lượt khám&lt;/Caption&gt;&lt;DataMember&gt;ma_luotkham&lt;/DataMember&gt;&lt;EditType&gt;NoEdit&lt;/EditType&gt;&lt;Key&gt;ma_luotkham&lt;/Key&gt;&lt;Position&gt;1&lt;/Position&gt;&lt;Width&gt;89&lt;/Width&gt;&lt;/Column1&gt;&lt;Column2 ID="ten_benhnhan"&gt;&lt;Caption&gt;Họ tên Bệnh nhân&lt;/Caption&gt;&lt;DataMember&gt;ten_benhnhan&lt;/DataMember&gt;&lt;Key&gt;ten_benhnhan&lt;/Key&gt;&lt;Position&gt;2&lt;/Position&gt;&lt;Width&gt;193&lt;/Width&gt;&lt;/Column2&gt;&lt;Column3 ID="tuoi"&gt;&lt;Caption&gt;Tuổi&lt;/Caption&gt;&lt;DataMember&gt;tuoi&lt;/DataMember&gt;&lt;EditType&gt;NoEdit&lt;/EditType&gt;&lt;Key&gt;tuoi&lt;/Key&gt;&lt;Position&gt;3&lt;/Position&gt;&lt;Width&gt;46&lt;/Width&gt;&lt;/Column3&gt;&lt;Column4 ID="gioi_tinh"&gt;&lt;Caption&gt;giới tính&lt;/Caption&gt;&lt;DataMember&gt;gioi_tinh&lt;/DataMember&gt;&lt;EditType&gt;NoEdit&lt;/EditType&gt;&lt;Key&gt;gioi_tinh&lt;/Key&gt;&lt;Position&gt;4&lt;/Position&gt;&lt;Width&gt;59&lt;/Width&gt;&lt;/Column4&gt;&lt;Column5 ID="dia_chi"&gt;&lt;Caption&gt;Địa chỉ&lt;/Caption&gt;&lt;DataMember&gt;dia_chi&lt;/DataMember&gt;&lt;EditType&gt;NoEdit&lt;/EditType&gt;&lt;Key&gt;dia_chi&lt;/Key&gt;&lt;Position&gt;5&lt;/Position&gt;&lt;Width&gt;190&lt;/Width&gt;&lt;/Column5&gt;&lt;Column6 ID="mathe_bhyt"&gt;&lt;Caption&gt;Mã thẻ BHYT&lt;/Caption&gt;&lt;DataMember&gt;mathe_bhyt&lt;/DataMember&gt;&lt;EditType&gt;NoEdit&lt;/EditType&gt;&lt;Key&gt;mathe_bhyt&lt;/Key&gt;&lt;Position&gt;6&lt;/Position&gt;&lt;/Column6&gt;&lt;Column7 ID="chandoan"&gt;&lt;Caption&gt;Chẩn đoán&lt;/Caption&gt;&lt;DataMember&gt;chandoan&lt;/DataMember&gt;&lt;Key&gt;chandoan&lt;/Key&gt;&lt;Position&gt;7&lt;/Position&gt;&lt;/Column7&gt;&lt;Column8 ID="ten_khoaphong"&gt;&lt;Caption&gt;Nơi gửi&lt;/Caption&gt;&lt;DataMember&gt;ten_khoaphong&lt;/DataMember&gt;&lt;Key&gt;ten_khoaphong&lt;/Key&gt;&lt;Position&gt;8&lt;/Position&gt;&lt;/Column8&gt;&lt;Column9 ID="ket_qua"&gt;&lt;Caption&gt;Kết quả &lt;/Caption&gt;&lt;DataMember&gt;ket_qua&lt;/DataMember&gt;&lt;Key&gt;ket_qua&lt;/Key&gt;&lt;Position&gt;9&lt;/Position&gt;&lt;/Column9&gt;&lt;Column10 ID="ten_nhanvien"&gt;&lt;Caption&gt;Bác sỹ thực hiện&lt;/Caption&gt;&lt;DataMember&gt;ten_nhanvien&lt;/DataMember&gt;&lt;Key&gt;ten_nhanvien&lt;/Key&gt;&lt;Position&gt;10&lt;/Position&gt;&lt;/Column10&gt;&lt;/Columns&gt;&lt;SortKeys Collection="true" ElementName="SortKey"&gt;&lt;SortKey0 ID="SortKey0"&gt;&lt;ColIndex&gt;6&lt;/ColIndex&gt;&lt;/SortKey0&gt;&lt;/SortKeys&gt;&lt;GroupCondition /&gt;&lt;/RootTable&gt;&lt;/GridEXLayoutData&gt;</value>
-  </data>
+  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>797, 17</value>
+  </metadata>
+  <metadata name="gridEXExporter1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>933, 17</value>
+  </metadata>
+  <metadata name="printDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1072, 17</value>
+  </metadata>
   <data name="baocaO_TIEUDE1.PicImg" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAANkE3LLaAgAAEz9JREFUeF7t
@@ -323,25 +329,34 @@
         34o70CBz3moAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="txtdichvu.AutoCompleteList" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="grdList_DesignTimeLayout.LayoutString" xml:space="preserve">
+    <value>&lt;GridEXLayoutData&gt;&lt;RootTable&gt;&lt;Columns Collection="true" ElementName="Column"&gt;&lt;Column0 ID="id_benhnhan"&gt;&lt;Caption&gt;Id bệnh nhân&lt;/Caption&gt;&lt;DataMember&gt;id_benhnhan&lt;/DataMember&gt;&lt;Key&gt;id_benhnhan&lt;/Key&gt;&lt;Position&gt;0&lt;/Position&gt;&lt;/Column0&gt;&lt;Column1 ID="ten_benhnhan"&gt;&lt;Caption&gt;Họ tên Bệnh nhân&lt;/Caption&gt;&lt;DataMember&gt;ten_benhnhan&lt;/DataMember&gt;&lt;Key&gt;ten_benhnhan&lt;/Key&gt;&lt;Position&gt;1&lt;/Position&gt;&lt;Width&gt;193&lt;/Width&gt;&lt;/Column1&gt;&lt;Column2 ID="nam_sinh"&gt;&lt;Caption&gt;Tuổi&lt;/Caption&gt;&lt;DataMember&gt;nam_sinh&lt;/DataMember&gt;&lt;EditType&gt;NoEdit&lt;/EditType&gt;&lt;Key&gt;nam_sinh&lt;/Key&gt;&lt;Position&gt;2&lt;/Position&gt;&lt;Width&gt;52&lt;/Width&gt;&lt;/Column2&gt;&lt;Column3 ID="gioi_tinh"&gt;&lt;Caption&gt;giới tính&lt;/Caption&gt;&lt;DataMember&gt;gioi_tinh&lt;/DataMember&gt;&lt;EditType&gt;NoEdit&lt;/EditType&gt;&lt;Key&gt;gioi_tinh&lt;/Key&gt;&lt;Position&gt;3&lt;/Position&gt;&lt;Width&gt;59&lt;/Width&gt;&lt;/Column3&gt;&lt;Column4 ID="ten_doituong_kcb"&gt;&lt;Caption&gt;Đối tượng&lt;/Caption&gt;&lt;DataMember&gt;ten_doituong_kcb&lt;/DataMember&gt;&lt;Key&gt;ten_doituong_kcb&lt;/Key&gt;&lt;Position&gt;4&lt;/Position&gt;&lt;/Column4&gt;&lt;Column5 ID="dia_chi"&gt;&lt;Caption&gt;Địa chỉ&lt;/Caption&gt;&lt;DataMember&gt;dia_chi&lt;/DataMember&gt;&lt;EditType&gt;NoEdit&lt;/EditType&gt;&lt;Key&gt;dia_chi&lt;/Key&gt;&lt;Position&gt;5&lt;/Position&gt;&lt;Width&gt;279&lt;/Width&gt;&lt;/Column5&gt;&lt;Column6 ID="mathe_bhyt"&gt;&lt;Caption&gt;Mã thẻ BHYT&lt;/Caption&gt;&lt;DataMember&gt;mathe_bhyt&lt;/DataMember&gt;&lt;EditType&gt;NoEdit&lt;/EditType&gt;&lt;Key&gt;mathe_bhyt&lt;/Key&gt;&lt;Position&gt;6&lt;/Position&gt;&lt;/Column6&gt;&lt;Column7 ID="mabenh_chinh"&gt;&lt;Caption&gt;Mã bệnh chính&lt;/Caption&gt;&lt;DataMember&gt;mabenh_chinh&lt;/DataMember&gt;&lt;Key&gt;mabenh_chinh&lt;/Key&gt;&lt;Position&gt;7&lt;/Position&gt;&lt;/Column7&gt;&lt;/Columns&gt;&lt;SortKeys Collection="true" ElementName="SortKey"&gt;&lt;SortKey0 ID="SortKey0"&gt;&lt;ColIndex&gt;1&lt;/ColIndex&gt;&lt;/SortKey0&gt;&lt;/SortKeys&gt;&lt;GroupCondition /&gt;&lt;Groups Collection="true" ElementName="Group"&gt;&lt;Group0 ID="Group0"&gt;&lt;ColIndex&gt;4&lt;/ColIndex&gt;&lt;/Group0&gt;&lt;/Groups&gt;&lt;CustomGroups Collection="true" ElementName="CustomGroup"&gt;&lt;CustomGroup0 ID="CustomGroup0"&gt;&lt;CompositeColumnsLength&gt;1&lt;/CompositeColumnsLength&gt;&lt;CompositeColumn0&gt;4&lt;/CompositeColumn0&gt;&lt;CustomGroupType&gt;CompositeColumns&lt;/CustomGroupType&gt;&lt;Key&gt;doituong&lt;/Key&gt;&lt;HeaderCaption&gt;Loại bệnh án: &lt;/HeaderCaption&gt;&lt;/CustomGroup0&gt;&lt;/CustomGroups&gt;&lt;/RootTable&gt;&lt;/GridEXLayoutData&gt;</value>
+  </data>
+  <data name="uiGroupBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAJoBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u
-        ZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0sIG1zY29ybGliLCBWZXJzaW9u
-        PTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUB
-        AAAAMFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLlN0cmluZwMAAAAGX2l0
-        ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgCAAAACQMAAAAAAAAAAAAAABEDAAAAAAAAAAs=
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAANkE3LLaAgAABCxJREFUSEuV
+        VEtMU1kYduGSxSxm4WIWHUII42o0s2DRRHYu0Uw60ZUQDUYYxTBOCQljwcYUgbZQkOdACbQWWiiP0iIv
+        YaxSQaAooAyVl4AOVCjOhVJ6W775T1tdsKB3bvLlnHvOf7/vf94TJ448JtNQksk0qDObh90W6wgsNgda
+        Wwc9Op2tR6u1XjhqL/jdaByKMRoHWo2Wl6h8sg7NmBcl4/som/KhZtqHxhcb0HWNoq6uw1FZaRAJJmaG
+        jLy5uW+uxjYP5dg+6ucOoFvww7DCw7Dsh2mNR/vH8F7/fAHVNR0flcrGOMEiTU221qruOZQ7fSESyyaP
+        Pk8QPdsB2gegdR2gmcS63QHYtgIwvlyGSqV3ymSyk1FFtFpLUkOLHcpRHx4t+dG7E8RoAHgF4K/dIPp3
+        Auijs84NHlZ3EIP/htHQYYdCoc2IKlBb264r632PP98eoOOfABz+Q8wT+QfCG98hec1jgs6GSMy+H8Sz
+        A4QcGFjbQn5+rVOIgFvt2EPD/AGsnwKYCALviXyXMOMNE8/S2Ti9OwkssinC5CGgLDEgK6v422NF6rXd
+        UE/4oF/0o5WKydLyhjye3j/EMO3HyNtFIpwlzBH+jqxvaa1utOL2bdVPxwpU1nShjIr7aIlH12YQBqqD
+        eZ1H/+cgXvDASoR0gVa2XyWwCNl7ldaCmzcLEo8VKCrSecon9kJd0vjOj8eeAOzeIMYp11+8ZRGsETYI
+        bsImYZ0gv1+PtDTZ8SmSy+vaNb2LaFkN93nzMk+tGMRzXzjfTIR5zsh3IrX5TKtr04Pr1xWuqEXOzX14
+        QaHpRCMNVtdGACYSerwdxIg/LOCKpGWL1j0CZQ1eglbfg2vX7mVHFWAGUqlmSNU2GZpWNkg9FMEIpYgJ
+        sJZlOWep4Qj7hPHX7yj3RayDhP2b7twpPJWVpVrVdEyG+n547xDPaAacRMa6ZYnA5uITwfHKhfSMB1Cr
+        DWzQfnOVn46bUZ/+MWok6emFp27cUDjylC0wTC7jKRWazcRMpA7jqxsorW5Dauo9TqNp9gwMjKG/04zZ
+        ikTMl3zPTRXHi6OKnDsnO3nliiwlJSXPnv5rIf97bhWkuRWgPS5dynFKJDmZEkl6jFRa+p25VlXwuvo8
+        tp9chVuXgOliEWeXCxD54oVEIotJTs4WJSdnMnxz1LuR+wlO72weeLcFnOMW3E0JmCwQcUOy/yFyXMi2
+        7HjxROlZLrBSEhLZJZFNEhmVizh2FzVdQgy6suLFjmImoiaR7q8i9rsijt0J4YhqY7wVL36qOMvxX0Uy
+        Q5H054g4Pd1FJRBioE+LFffJmYgqkq5MfND+AENGvEfI94JsqlNjxda7Zzj/sgre9TZY8pJQo8ifFvSx
+        UKPyy7Hi9pwznDnvPJoqKpGdXaYQ+q1gO+UvcYl/XE76+eJFaeg3/h//KKNmdqZjdgAAAABJRU5ErkJg
+        gg==
 </value>
   </data>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>933, 17</value>
-  </metadata>
-  <metadata name="printDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1191, 17</value>
-  </metadata>
-  <metadata name="gridEXExporter1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 56</value>
   </metadata>
 </root>

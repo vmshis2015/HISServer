@@ -25,11 +25,14 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
         {
             InitializeComponent();
             this.KIEU_THUOC_VT = KIEU_THUOC_VT;
-            
+            txtKho.TextChanged += txtKho_TextChanged;
             dtNgayIn.Value = dtFromDate.Value = dtToDate.Value = globalVariables.SysDate;
             
         }
-        
+        private void txtKho_TextChanged(object sender, EventArgs e)
+        {
+            AutocompleteThuoc();
+        }
         /// <summary>
         /// hàm thực hiện việc đống form hiện tại
         /// </summary>
@@ -48,12 +51,14 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
         private void frm_baocao_xuatvacxin_tuyenhuyen_Load(object sender, EventArgs e)
         {
             baocaO_TIEUDE1.Init("thuoc_baocao_xuatvacxin_tuyenhuyen");
-
-            DataBinding.BindDataCombobox(cboKho,
-                                 KIEU_THUOC_VT == "THUOC"
+            txtKho.Init(KIEU_THUOC_VT == "THUOC"
                                      ? CommonLoadDuoc.LAYTHONGTIN_KHOAO_THUOC()
-                                     : CommonLoadDuoc.LAYTHONGTIN_KHOAO_VT(), TDmucKho.Columns.IdKho,
-                                 TDmucKho.Columns.TenKho, "---Chọn huyện nhập vắc xin---", false);
+                                     : CommonLoadDuoc.LAYTHONGTIN_KHOAO_VT(), new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
+            //DataBinding.BindDataCombobox(cboKho,
+            //                     KIEU_THUOC_VT == "THUOC"
+            //                         ? CommonLoadDuoc.LAYTHONGTIN_KHOAO_THUOC()
+            //                         : CommonLoadDuoc.LAYTHONGTIN_KHOAO_VT(), TDmucKho.Columns.IdKho,
+            //                     TDmucKho.Columns.TenKho, "---Chọn huyện nhập vắc xin---", false);
             AutocompleteThuoc();
         }
        
@@ -62,7 +67,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
 
             try
             {
-                DataTable _dataThuoc = SPs.ThuocLayDanhmucThuocTheokho(Utility.Int32Dbnull(cboKho.SelectedValue, -1)).GetDataSet().Tables[0];
+                DataTable _dataThuoc = SPs.ThuocLayDanhmucThuocTheokho(Utility.Int32Dbnull(txtKho.MyID, -1)).GetDataSet().Tables[0];
                 if (_dataThuoc == null)
                 {
                     txtthuoc.dtData = null;
@@ -101,7 +106,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                     BAOCAO_THUOC.ThuocBaocaoTinhhinhxuatvacxintuyenhuyen(
                         chkByDate.Checked ? dtFromDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
                         chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900", trangthai,
-                        Utility.Int32Dbnull(cboKho.SelectedValue), Utility.Int32Dbnull(txtthuoc.MyID, -1),
+                        Utility.Int32Dbnull(txtKho.MyID), Utility.Int32Dbnull(txtthuoc.MyID, -1),
                         (byte) LoaiPhieu.PhieuXuatkhoTuyenXaHuyen, kieungaytimkiem, KIEU_THUOC_VT);
                 THU_VIEN_CHUNG.CreateXML(m_dtReport, "thuoc_baocao_xuatvacxin_tuyenhuyen.xml");
                 Utility.SetDataSourceForDataGridEx(grdList,m_dtReport,true,true,"1=1","");

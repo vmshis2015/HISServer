@@ -60,6 +60,7 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.gridEXExporter1 = new Janus.Windows.GridEX.Export.GridEXExporter(this.components);
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
+            this.txtKho = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
@@ -153,6 +154,7 @@
             this.uiGroupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.uiGroupBox1.Controls.Add(this.txtKho);
             this.uiGroupBox1.Controls.Add(this.chkChanle);
             this.uiGroupBox1.Controls.Add(this.label2);
             this.uiGroupBox1.Controls.Add(this.lblLoaikho);
@@ -197,9 +199,9 @@
             // 
             this.lblLoaikho.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLoaikho.ForeColor = System.Drawing.Color.Navy;
-            this.lblLoaikho.Location = new System.Drawing.Point(601, 28);
+            this.lblLoaikho.Location = new System.Drawing.Point(696, 28);
             this.lblLoaikho.Name = "lblLoaikho";
-            this.lblLoaikho.Size = new System.Drawing.Size(166, 20);
+            this.lblLoaikho.Size = new System.Drawing.Size(76, 20);
             this.lblLoaikho.TabIndex = 40;
             this.lblLoaikho.Text = "(Kho chẵn)";
             this.lblLoaikho.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -283,6 +285,7 @@
             this.txtthuoc.MinTypedCharacters = 2;
             this.txtthuoc.MyCode = "-1";
             this.txtthuoc.MyID = "-1";
+            this.txtthuoc.MyText = "";
             this.txtthuoc.Name = "txtthuoc";
             this.txtthuoc.RaiseEvent = false;
             this.txtthuoc.RaiseEventEnter = false;
@@ -292,6 +295,7 @@
             this.txtthuoc.splitChar = '@';
             this.txtthuoc.splitCharIDAndCode = '#';
             this.txtthuoc.TabIndex = 2;
+            this.txtthuoc.TakeCode = false;
             this.txtthuoc.txtMyCode = null;
             this.txtthuoc.txtMyCode_Edit = null;
             this.txtthuoc.txtMyID = null;
@@ -392,11 +396,12 @@
             // cboKho
             // 
             this.cboKho.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboKho.Location = new System.Drawing.Point(139, 27);
+            this.cboKho.Location = new System.Drawing.Point(680, 29);
             this.cboKho.Name = "cboKho";
-            this.cboKho.Size = new System.Drawing.Size(456, 21);
+            this.cboKho.Size = new System.Drawing.Size(10, 21);
             this.cboKho.TabIndex = 0;
             this.cboKho.Text = "Kho";
+            this.cboKho.Visible = false;
             // 
             // dtToDate
             // 
@@ -464,6 +469,43 @@
             // 
             this.printDialog1.UseEXDialog = true;
             // 
+            // txtKho
+            // 
+            this.txtKho._backcolor = System.Drawing.SystemColors.Control;
+            this.txtKho._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKho._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtKho.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKho.AutoCompleteList")));
+            this.txtKho.CaseSensitive = false;
+            this.txtKho.CompareNoID = true;
+            this.txtKho.DefaultCode = "-1";
+            this.txtKho.DefaultID = "-1";
+            this.txtKho.Drug_ID = null;
+            this.txtKho.ExtraWidth = 0;
+            this.txtKho.FillValueAfterSelect = false;
+            this.txtKho.Location = new System.Drawing.Point(140, 29);
+            this.txtKho.MaxHeight = 250;
+            this.txtKho.MinTypedCharacters = 2;
+            this.txtKho.MyCode = "-1";
+            this.txtKho.MyID = "-1";
+            this.txtKho.MyText = "";
+            this.txtKho.Name = "txtKho";
+            this.txtKho.RaiseEvent = false;
+            this.txtKho.RaiseEventEnter = false;
+            this.txtKho.RaiseEventEnterWhenEmpty = false;
+            this.txtKho.SelectedIndex = -1;
+            this.txtKho.Size = new System.Drawing.Size(546, 21);
+            this.txtKho.splitChar = '@';
+            this.txtKho.splitCharIDAndCode = '#';
+            this.txtKho.TabIndex = 126;
+            this.txtKho.TakeCode = false;
+            this.txtKho.txtMyCode = null;
+            this.txtKho.txtMyCode_Edit = null;
+            this.txtKho.txtMyID = null;
+            this.txtKho.txtMyID_Edit = null;
+            this.txtKho.txtMyName = null;
+            this.txtKho.txtMyName_Edit = null;
+            this.txtKho.txtNext = null;
+            // 
             // frm_baocao_nhapxuaton
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -525,5 +567,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblLoaikho;
         private Janus.Windows.EditControls.UICheckBox chkChanle;
+        private UCs.AutoCompleteTextbox txtKho;
     }
 }
