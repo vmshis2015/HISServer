@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Janus.Windows.GridEX;
 using SubSonic;
 using VNS.Libs;
 using VNS.HIS.DAL;
-using SubSonic;
-using VNS.HIS.UI.THUOC;
 using VNS.Properties;
 using VNS.HIS.NGHIEPVU.THUOC;
 using VNS.HIS.UI.Forms.Cauhinh;
@@ -125,8 +120,8 @@ namespace VNS.HIS.UI.THUOC
             m_dtDataNhapKho =
                 new THUOC_NHAPKHO().Laydanhsachphieunhapkho(chkByDate.Checked ? dtFromdate.Value.ToString("dd/MM/yyyy") :"01/01/1900",
                                              chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",-1, -1,
-                                             Utility.Int32Dbnull(cboKhoNhap.SelectedValue, -1), Utility.Int32Dbnull(cboKhoXuat.SelectedValue, -1),
-                                             Utility.Int32Dbnull(cboNhanVien.SelectedValue, -1),
+                                             Utility.Int32Dbnull(txtKhoNhap.MyID, -1), Utility.Int32Dbnull(txtKhoxuat.MyID, -1),
+                                             Utility.Int32Dbnull(txtNhanvien.MyID, -1),
                                              -1, "-1", Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI,(int) LoaiPhieu.PhieuXuatkhoTuyenXaHuyen, MaKho,(byte)0, KIEU_THUOC_VT);
 
             Utility.SetDataSourceForDataGridEx_Basic(grdList, m_dtDataNhapKho, true, true, "1=1", "");
@@ -234,16 +229,21 @@ namespace VNS.HIS.UI.THUOC
             }
 
             if(m_dtKhoXuat.Rows.Count>1)
-                DataBinding.BindDataCombobox(cboKhoXuat, m_dtKhoXuat,
-                                       TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
-                                       "---Kho xuất---",false);
+                txtKhoxuat.Init(m_dtKhoXuat, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
+                //DataBinding.BindDataCombobox(cboKhoXuat, m_dtKhoXuat,
+                //                       TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
+                //                       "---Kho xuất---",false);
             else
-                DataBinding.BindDataCombobox(cboKhoXuat, m_dtKhoXuat,
-                                       TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho, "---Chọn---", true);
-            DataBinding.BindDataCombobox(cboKhoNhap, m_dtKhoNhap,
-                                      TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
-                                      "---Kho nhập---",false);
-
+                //DataBinding.BindDataCombobox(cboKhoXuat, m_dtKhoXuat,
+                //                       TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho, "---Chọn---", true);
+            //DataBinding.BindDataCombobox(cboKhoNhap, m_dtKhoNhap,
+            //                          TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
+            //                          "---Kho nhập---",false);
+            txtKhoNhap.Init(m_dtKhoNhap, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
+            //DataBinding.BindDataCombobox(cboKhoNhap, m_dtKhoNhap,
+            //                          TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
+            //                          "---Kho nhập---",false);
+            txtNhanvien.Init(CommonLoadDuoc.LAYTHONGTIN_NHANVIEN());
         }
         /// <summary>
         /// hà thực hiện việc in phiêu xuat kho

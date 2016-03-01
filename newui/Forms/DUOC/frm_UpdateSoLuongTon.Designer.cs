@@ -36,6 +36,7 @@
             this.cmdSave = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
+            this.cmdRefresh = new Janus.Windows.EditControls.UIButton();
             this.cmdCauHinh = new Janus.Windows.EditControls.UIButton();
             this.chkTamdung = new Janus.Windows.EditControls.UICheckBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -58,7 +59,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkAutoupdate = new Janus.Windows.EditControls.UICheckBox();
-            this.cmdRefresh = new Janus.Windows.EditControls.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
@@ -108,6 +108,18 @@
             this.uiGroupBox1.Name = "uiGroupBox1";
             this.uiGroupBox1.Size = new System.Drawing.Size(1008, 61);
             this.uiGroupBox1.TabIndex = 2;
+            // 
+            // cmdRefresh
+            // 
+            this.cmdRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdRefresh.Image = ((System.Drawing.Image)(resources.GetObject("cmdRefresh.Image")));
+            this.cmdRefresh.ImageSize = new System.Drawing.Size(20, 20);
+            this.cmdRefresh.Location = new System.Drawing.Point(569, 17);
+            this.cmdRefresh.Name = "cmdRefresh";
+            this.cmdRefresh.Size = new System.Drawing.Size(25, 25);
+            this.cmdRefresh.TabIndex = 463;
+            this.cmdRefresh.TabStop = false;
+            this.toolTip1.SetToolTip(this.cmdRefresh, "Làm mới lại dữ liệu thuốc trong kho");
             // 
             // cmdCauHinh
             // 
@@ -304,6 +316,7 @@
             this.grdDieuchinh.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdDieuchinh.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
             this.grdDieuchinh.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            this.grdDieuchinh.CurrentCellChanged += new System.EventHandler(this.grdDieuchinh_CurrentCellChanged);
             // 
             // pnlNav
             // 
@@ -398,18 +411,6 @@
             this.chkAutoupdate.Text = "Tự động cập nhật không cần nhấn nút Lưu?";
             this.toolTip1.SetToolTip(this.chkAutoupdate, "Nếu chọn mục này thì dữ liệu sẽ được cập nhật ngay sau khi thay đổi giá trị thay " +
         "vì phải nhấn nút Lưu thông tin");
-            // 
-            // cmdRefresh
-            // 
-            this.cmdRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdRefresh.Image = ((System.Drawing.Image)(resources.GetObject("cmdRefresh.Image")));
-            this.cmdRefresh.ImageSize = new System.Drawing.Size(20, 20);
-            this.cmdRefresh.Location = new System.Drawing.Point(569, 17);
-            this.cmdRefresh.Name = "cmdRefresh";
-            this.cmdRefresh.Size = new System.Drawing.Size(25, 25);
-            this.cmdRefresh.TabIndex = 463;
-            this.cmdRefresh.TabStop = false;
-            this.toolTip1.SetToolTip(this.cmdRefresh, "Làm mới lại dữ liệu thuốc trong kho");
             // 
             // frm_UpdateSoLuongTon
             // 

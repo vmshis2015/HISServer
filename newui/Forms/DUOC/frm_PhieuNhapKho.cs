@@ -90,12 +90,18 @@ namespace VNS.HIS.UI.THUOC
                 m_dtKhoThuoc = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_CHAN();
             }
             if (m_dtKhoThuoc.Rows.Count > 1)
-                DataBinding.BindDataCombobox(cboKhoThuoc, m_dtKhoThuoc,
-                                           TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
-                                           "---Chọn kho---",false);
+                  txtKhoNhap.Init(m_dtKhoThuoc, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
+                //DataBinding.BindDataCombobox(cboKhoThuoc, m_dtKhoThuoc,
+                //                           TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
+                //                           "---Chọn kho---",false);
             else
-                DataBinding.BindDataCombobox(cboKhoThuoc, m_dtKhoThuoc,
-                                       TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho, "---Chọn---", true);
+                //DataBinding.BindDataCombobox(cboKhoThuoc, m_dtKhoThuoc,
+                //                       TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho, "---Chọn---", true);
+            txtKhoNhap.Init(m_dtKhoThuoc, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
+            //DataBinding.BindDataCombobox(cboKhoNhap, m_dtKhoNhap,
+            //                          TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
+            //                          "---Kho nhập---",false);
+            txtNhanvien.Init(CommonLoadDuoc.LAYTHONGTIN_NHANVIEN());
 
         }
         private void cmdExit_Click(object sender, EventArgs e)
@@ -151,8 +157,8 @@ namespace VNS.HIS.UI.THUOC
             m_dtDataNhapKho =
                 _NHAPKHO.Laydanhsachphieunhapkho(chkByDate.Checked ? dtFromdate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
                                              chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",-1, -1,
-                                             Utility.Int32Dbnull(cboKhoThuoc.SelectedValue, -1), -1,
-                                             Utility.Int32Dbnull(cboNhanVien.SelectedValue, -1),
+                                             Utility.Int32Dbnull(txtKhoNhap.MyID, -1), -1,
+                                             Utility.Int32Dbnull(txtNhanvien.MyID, -1),
                                              -1, manhacungcap, Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI, (int)LoaiPhieu.PhieuNhapKho, MaKho, 2, KIEU_THUOC_VT);
 
             Utility.SetDataSourceForDataGridEx_Basic(grdList,m_dtDataNhapKho,true,true,"1=1","");

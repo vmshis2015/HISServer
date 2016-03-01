@@ -57,7 +57,9 @@ namespace VNS.HIS.UI.THUOC
                 {
                     int idKho = Utility.Int32Dbnull(grdKho.CurrentRow.Cells[TThuockho.Columns.IdKho].Value);
                     int IdThuoc = Utility.Int32Dbnull(grdList.CurrentRow.Cells[TThuockho.Columns.IdThuoc].Value);
-                    SPs.ThuocCapnhattrangthaikedon(IdThuoc, idKho, (byte)e.Value).Execute();
+                    int idthuockho =
+                        Utility.Int32Dbnull(grdDieuchinh.CurrentRow.Cells[TThuockho.Columns.IdThuockho].Value);
+                    SPs.ThuocCapnhattrangthaikedon(idthuockho, idKho, (byte)e.Value).Execute();
                 }
             }
             catch (Exception ex)
@@ -508,6 +510,22 @@ namespace VNS.HIS.UI.THUOC
             catch
             {
             }
+        }
+
+        private void grdDieuchinh_CurrentCellChanged(object sender, EventArgs e)
+        {
+            //object idthuockho = Utility.getValueOfGridCell(grdDieuchinh, TThuockho.Columns.IdThuockho);
+            //if (idthuockho != null)
+            //{
+            //    m_dtkho = SPs.ThuocKhochuathuoc(Utility.Int32Dbnull(idthuockho, 0), kieu_thuocvattu, globalVariables.gv_intIDNhanvien).GetDataSet().Tables[0];
+            //    Utility.SetDataSourceForDataGridEx(grdKho, m_dtkho, true, true, "1=1", TDmucKho.Columns.TenKho);
+            //    m_dataFull.DefaultView.RowFilter = TThuockho.Columns.IdThuoc + "=" + idthuockho.ToString();
+            //}
+            //else
+            //{
+            //    m_dtkho.Rows.Clear();
+            //    m_dataFull.DefaultView.RowFilter = "1=2";
+            //}
         }
 
 

@@ -125,8 +125,8 @@ namespace VNS.HIS.UI.THUOC
             m_dtDataNhapKho =
                 new THUOC_NHAPKHO().Laydanhsachphieunhapkho(chkByDate.Checked ? dtFromdate.Value.ToString("dd/MM/yyyy") :"01/01/1900",
                                              chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",-1, -1,
-                                             Utility.Int32Dbnull(cboKhoNhap.SelectedValue, -1), Utility.Int32Dbnull(cboKhoXuat.SelectedValue, -1),
-                                             Utility.Int32Dbnull(cboNhanVien.SelectedValue, -1),
+                                             Utility.Int32Dbnull(txtKhoNhap.MyID, -1), Utility.Int32Dbnull(txtKhoXuat.MyID, -1),
+                                             Utility.Int32Dbnull(txtNhanvien.MyID, -1),
                                              -1, "-1", Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI, (int)LoaiPhieu.PhieuXuatKho, MaKho, 2, KIEU_THUOC_VT);
 
             Utility.SetDataSourceForDataGridEx_Basic(grdList, m_dtDataNhapKho, true, true, "1=1", "");
@@ -229,20 +229,26 @@ namespace VNS.HIS.UI.THUOC
             }
             else
             {
+                
                 m_dtKhoXuat = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_CHAN();
                 m_dtKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_LE(new List<string> { "TATCA", "NGOAITRU", "NOITRU" });
             }
 
             if(m_dtKhoXuat.Rows.Count>1)
-                DataBinding.BindDataCombobox(cboKhoXuat, m_dtKhoXuat,
-                                       TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
-                                       "---Kho xuất---",false);
+                txtKhoXuat.Init(m_dtKhoXuat, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
+                //DataBinding.BindDataCombobox(cboKhoXuat, m_dtKhoXuat,
+                //                       TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
+                //                       "---Kho xuất---",false);
             else
-                DataBinding.BindDataCombobox(cboKhoXuat, m_dtKhoXuat,
-                                       TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho, "---Chọn---", true);
-            DataBinding.BindDataCombobox(cboKhoNhap, m_dtKhoNhap,
-                                      TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
-                                      "---Kho nhập---",false);
+                txtKhoXuat.Init(m_dtKhoXuat, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
+                //DataBinding.BindDataCombobox(cboKhoXuat, m_dtKhoXuat,
+                //                       TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho, "---Chọn---", true);
+         //   txtKhonhap.Init(m_dtDataKhoNhap, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
+            txtKhoNhap.Init(m_dtKhoNhap, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
+            //DataBinding.BindDataCombobox(cboKhoNhap, m_dtKhoNhap,
+            //                          TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
+            //                          "---Kho nhập---",false);
+            txtNhanvien.Init(CommonLoadDuoc.LAYTHONGTIN_NHANVIEN());
 
         }
         /// <summary>
