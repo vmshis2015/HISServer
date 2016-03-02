@@ -60,6 +60,10 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.gridEXExporter1 = new Janus.Windows.GridEX.Export.GridEXExporter(this.components);
+            this.uiGroupBox5 = new Janus.Windows.EditControls.UIGroupBox();
+            this.raddmucsau = new System.Windows.Forms.RadioButton();
+            this.raddmuctruoc = new System.Windows.Forms.RadioButton();
+            this.raddmucall = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
             this.uiGroupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox4)).BeginInit();
@@ -75,6 +79,8 @@
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox5)).BeginInit();
+            this.uiGroupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdExportToExcel
@@ -142,7 +148,7 @@
             this.uiGroupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.uiGroupBox2.Location = new System.Drawing.Point(0, 264);
             this.uiGroupBox2.Name = "uiGroupBox2";
-            this.uiGroupBox2.Size = new System.Drawing.Size(912, 65);
+            this.uiGroupBox2.Size = new System.Drawing.Size(939, 65);
             this.uiGroupBox2.TabIndex = 0;
             this.uiGroupBox2.Text = "Chức năng";
             // 
@@ -167,7 +173,7 @@
             this.uiGroupBox4.Controls.Add(this.radTatca);
             this.uiGroupBox4.Location = new System.Drawing.Point(557, 44);
             this.uiGroupBox4.Name = "uiGroupBox4";
-            this.uiGroupBox4.Size = new System.Drawing.Size(344, 34);
+            this.uiGroupBox4.Size = new System.Drawing.Size(355, 34);
             this.uiGroupBox4.TabIndex = 52;
             // 
             // radDathuchien
@@ -216,7 +222,7 @@
             this.grdResult.Name = "grdResult";
             this.grdResult.RecordNavigator = true;
             this.grdResult.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdResult.Size = new System.Drawing.Size(906, 245);
+            this.grdResult.Size = new System.Drawing.Size(933, 245);
             this.grdResult.TabIndex = 22;
             this.grdResult.TabStop = false;
             this.grdResult.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
@@ -228,7 +234,7 @@
             this.uiGroupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiGroupBox3.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox3.Name = "uiGroupBox3";
-            this.uiGroupBox3.Size = new System.Drawing.Size(912, 264);
+            this.uiGroupBox3.Size = new System.Drawing.Size(939, 264);
             this.uiGroupBox3.TabIndex = 1;
             this.uiGroupBox3.Text = "Kết quả tìm kiếm";
             // 
@@ -244,7 +250,7 @@
             this.baocaO_TIEUDE1.ShortcutAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.baocaO_TIEUDE1.ShortcutFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.baocaO_TIEUDE1.showHelp = false;
-            this.baocaO_TIEUDE1.Size = new System.Drawing.Size(912, 47);
+            this.baocaO_TIEUDE1.Size = new System.Drawing.Size(939, 47);
             this.baocaO_TIEUDE1.TabIndex = 123;
             this.baocaO_TIEUDE1.TIEUDE = "DANH SÁCH BỆNH NHÂN THỰC HIỆN SIÊU ÂM";
             this.baocaO_TIEUDE1.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -300,7 +306,7 @@
             this.cboDoituongKCB.Location = new System.Drawing.Point(639, 20);
             this.cboDoituongKCB.Name = "cboDoituongKCB";
             this.cboDoituongKCB.SelectInDataSource = true;
-            this.cboDoituongKCB.Size = new System.Drawing.Size(262, 23);
+            this.cboDoituongKCB.Size = new System.Drawing.Size(273, 23);
             this.cboDoituongKCB.TabIndex = 46;
             this.cboDoituongKCB.Text = "Đối tượng";
             // 
@@ -335,6 +341,7 @@
             // 
             // uiGroupBox1
             // 
+            this.uiGroupBox1.Controls.Add(this.uiGroupBox5);
             this.uiGroupBox1.Controls.Add(this.txtdichvu);
             this.uiGroupBox1.Controls.Add(this.uiGroupBox4);
             this.uiGroupBox1.Controls.Add(this.dtToDate);
@@ -347,7 +354,7 @@
             this.uiGroupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiGroupBox1.Location = new System.Drawing.Point(0, 47);
             this.uiGroupBox1.Name = "uiGroupBox1";
-            this.uiGroupBox1.Size = new System.Drawing.Size(912, 136);
+            this.uiGroupBox1.Size = new System.Drawing.Size(939, 136);
             this.uiGroupBox1.TabIndex = 124;
             this.uiGroupBox1.Text = "Điều kiện tìm kiếm";
             // 
@@ -375,7 +382,7 @@
             this.txtdichvu.RaiseEventEnter = false;
             this.txtdichvu.RaiseEventEnterWhenEmpty = false;
             this.txtdichvu.SelectedIndex = -1;
-            this.txtdichvu.Size = new System.Drawing.Size(774, 20);
+            this.txtdichvu.Size = new System.Drawing.Size(408, 20);
             this.txtdichvu.splitChar = '@';
             this.txtdichvu.splitCharIDAndCode = '#';
             this.txtdichvu.TabIndex = 0;
@@ -405,7 +412,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.uiGroupBox3);
             this.splitContainer1.Panel2.Controls.Add(this.uiGroupBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(912, 516);
+            this.splitContainer1.Size = new System.Drawing.Size(939, 516);
             this.splitContainer1.SplitterDistance = 183;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -415,7 +422,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(912, 516);
+            this.panel1.Size = new System.Drawing.Size(939, 516);
             this.panel1.TabIndex = 3;
             // 
             // toolStripStatusLabel1
@@ -430,7 +437,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 516);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(912, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(939, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -438,11 +445,56 @@
             // 
             this.printDialog1.UseEXDialog = true;
             // 
+            // uiGroupBox5
+            // 
+            this.uiGroupBox5.Controls.Add(this.raddmucsau);
+            this.uiGroupBox5.Controls.Add(this.raddmuctruoc);
+            this.uiGroupBox5.Controls.Add(this.raddmucall);
+            this.uiGroupBox5.Location = new System.Drawing.Point(557, 79);
+            this.uiGroupBox5.Name = "uiGroupBox5";
+            this.uiGroupBox5.Size = new System.Drawing.Size(355, 34);
+            this.uiGroupBox5.TabIndex = 53;
+            // 
+            // raddmucsau
+            // 
+            this.raddmucsau.AutoSize = true;
+            this.raddmucsau.Location = new System.Drawing.Point(250, 12);
+            this.raddmucsau.Name = "raddmucsau";
+            this.raddmucsau.Size = new System.Drawing.Size(105, 17);
+            this.raddmucsau.TabIndex = 2;
+            this.raddmucsau.Text = "Sau 01/03/2016";
+            this.raddmucsau.UseVisualStyleBackColor = true;
+            this.raddmucsau.CheckedChanged += new System.EventHandler(this.raddmucsau_CheckedChanged);
+            // 
+            // raddmuctruoc
+            // 
+            this.raddmuctruoc.AutoSize = true;
+            this.raddmuctruoc.Location = new System.Drawing.Point(124, 12);
+            this.raddmuctruoc.Name = "raddmuctruoc";
+            this.raddmuctruoc.Size = new System.Drawing.Size(114, 17);
+            this.raddmuctruoc.TabIndex = 1;
+            this.raddmuctruoc.Text = "Trước 01/03/2016";
+            this.raddmuctruoc.UseVisualStyleBackColor = true;
+            this.raddmuctruoc.CheckedChanged += new System.EventHandler(this.raddmuctruoc_CheckedChanged);
+            // 
+            // raddmucall
+            // 
+            this.raddmucall.AutoSize = true;
+            this.raddmucall.Checked = true;
+            this.raddmucall.Location = new System.Drawing.Point(31, 12);
+            this.raddmucall.Name = "raddmucall";
+            this.raddmucall.Size = new System.Drawing.Size(56, 17);
+            this.raddmucall.TabIndex = 0;
+            this.raddmucall.TabStop = true;
+            this.raddmucall.Text = "Tất cả";
+            this.raddmucall.UseVisualStyleBackColor = true;
+            this.raddmucall.CheckedChanged += new System.EventHandler(this.raddmucall_CheckedChanged);
+            // 
             // frm_thongke_danhsachbenhnhanh_phongchucnang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(912, 538);
+            this.ClientSize = new System.Drawing.Size(939, 538);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
             this.Name = "frm_thongke_danhsachbenhnhanh_phongchucnang";
@@ -467,6 +519,9 @@
             this.panel1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox5)).EndInit();
+            this.uiGroupBox5.ResumeLayout(false);
+            this.uiGroupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -503,5 +558,9 @@
         private System.Windows.Forms.PrintDialog printDialog1;
         private Janus.Windows.GridEX.Export.GridEXExporter gridEXExporter1;
         private UCs.AutoCompleteTextbox txtdichvu;
+        private Janus.Windows.EditControls.UIGroupBox uiGroupBox5;
+        private System.Windows.Forms.RadioButton raddmucsau;
+        private System.Windows.Forms.RadioButton raddmuctruoc;
+        private System.Windows.Forms.RadioButton raddmucall;
     }
 }

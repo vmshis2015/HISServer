@@ -83,15 +83,7 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
                 }
                 Utility.GetReport(reportcode, ref tieude, ref reportname);
                 baocaO_TIEUDE1.TIEUDE = tieude;
-                txtdichvu.Init(
-                    new Select().From(DmucDichvuclsChitiet.Schema).Where(DmucDichvuclsChitiet.Columns.TrangThai).
-                        IsEqualTo(1).ExecuteDataSet().Tables[0],
-                    new List<string>
-                        {
-                            DmucDichvuclsChitiet.Columns.IdChitietdichvu,
-                            DmucDichvuclsChitiet.Columns.MaChitietdichvu,
-                            DmucDichvuclsChitiet.Columns.TenChitietdichvu
-                        });
+                LoaddanhmucCLS();
                 // txtdichvu.dtData = 
             }
             catch (Exception ex)
@@ -99,7 +91,30 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
                 Utility.ShowMsg(ex.Message);
             }
         }
-
+        private void LoaddanhmucCLS()
+        {
+            DataTable dtdmuc = null;
+            if (raddmucall.Checked)
+            {
+                dtdmuc = new Select().From(DmucDichvuclsChitiet.Schema).ExecuteDataSet().Tables[0];
+            }
+            if (raddmuctruoc.Checked)
+            {
+                dtdmuc = new Select().From(DmucDichvuclsChitiet.Schema).Where(DmucDichvuclsChitiet.Columns.TrangThai).IsEqualTo(0).ExecuteDataSet().Tables[0];
+            }
+            if (raddmucsau.Checked)
+            {
+                dtdmuc = new Select().From(DmucDichvuclsChitiet.Schema).Where(DmucDichvuclsChitiet.Columns.TrangThai).IsEqualTo(1).ExecuteDataSet().Tables[0];
+            }
+            txtdichvu.Init(dtdmuc
+                ,
+                new List<string>
+                        {
+                            DmucDichvuclsChitiet.Columns.IdChitietdichvu,
+                            DmucDichvuclsChitiet.Columns.MaChitietdichvu,
+                            DmucDichvuclsChitiet.Columns.TenChitietdichvu
+                        });
+        }
         private void cmdInPhieu_Click(object sender, EventArgs e)
         {
             int trangthai = -1;
@@ -212,6 +227,21 @@ namespace VNS.HIS.UI.Forms.Baocao.ThongKe
             {
                 Utility.ShowMsg("Lỗi:" + exception.Message);
             }
+        }
+
+        private void raddmucall_CheckedChanged(object sender, EventArgs e)
+        {
+            LoaddanhmucCLS();
+        }
+
+        private void raddmuctruoc_CheckedChanged(object sender, EventArgs e)
+        {
+            LoaddanhmucCLS();
+        }
+
+        private void raddmucsau_CheckedChanged(object sender, EventArgs e)
+        {
+            LoaddanhmucCLS();
         }
     }
 }
