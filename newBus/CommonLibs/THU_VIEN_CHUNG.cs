@@ -1741,6 +1741,36 @@ namespace VNS.Libs
             }
             return BarCode;
         }
+        public static void TinhlaiGiaChiphiKCB(DataTable dtdangkyKCB, ref KcbDangkyKcb objDangky)
+        {
+            try
+            {
+                if (dtdangkyKCB == null || objDangky == null) return;
+                if (!THU_VIEN_CHUNG.IsBaoHiem(objDangky.IdLoaidoituongkcb)) return;
+                DataRow[] arrDr = dtdangkyKCB.Select("1=1", KcbDangkyKcb.Columns.IdKham);
+                decimal totalMoney = Utility.DecimaltoDbnull(dtdangkyKCB.Compute("SUM(don_gia)", "1=1"), 0);
+                if (arrDr.Length > 0)//Đã đăng ký phòng khám-->Lấy giá của phòng đăng ký đầu tiên
+                {
+                    decimal firstPrice=Utility.DecimaltoDbnull(arrDr[0][KcbDangkyKcb.Columns.DonGia],0);
+                    if (totalMoney < firstPrice * 2)//Nếu tổng tiền khám chưa >= 200% tiền khám của phòng đầu tiên thì mới tính tiền khám cho phòng này
+                    {
+                        decimal don_gia_conlai = firstPrice * 2 - totalMoney;
+                        decimal don_gia_30 = firstPrice * 0.3m;//Giá=30% giá khám lần đầu
+                        if (don_gia_30 > don_gia_conlai)
+                            objDangky.DonGia = don_gia_conlai;
+                        else
+                            objDangky.DonGia = don_gia_30;
+                    }
+                    else
+                        objDangky.DonGia = 0;
+
+                }
+            }
+            catch (Exception)
+            {
+                
+            }
+        }
         public static bool IsNgoaiGio()
         {
             try
