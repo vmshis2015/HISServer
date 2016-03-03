@@ -107,6 +107,7 @@
             this.mnuMaDVu = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuUpdateMalankham = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuUpdateMaBenhNhan = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuUpdateMaBenhAn = new System.Windows.Forms.ToolStripMenuItem();
             this.uiStatusBar1 = new Janus.Windows.UI.StatusBar.UIStatusBar();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
             this.cboObjectType = new Janus.Windows.EditControls.UIComboBox();
@@ -127,7 +128,6 @@
             this.grdList = new Janus.Windows.GridEX.GridEX();
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.mnuUpdateMaBenhAn = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabChiDinh)).BeginInit();
             this.tabChiDinh.SuspendLayout();
@@ -1003,7 +1003,7 @@
             this.mnuUpdateMaBenhNhan,
             this.mnuUpdateMaBenhAn});
             this.contextMenuStrip.Name = "contextMenuStrip1";
-            this.contextMenuStrip.Size = new System.Drawing.Size(280, 114);
+            this.contextMenuStrip.Size = new System.Drawing.Size(280, 92);
             // 
             // mnuMaDVu
             // 
@@ -1025,6 +1025,13 @@
             this.mnuUpdateMaBenhNhan.Size = new System.Drawing.Size(279, 22);
             this.mnuUpdateMaBenhNhan.Text = "Update mã bệnh nhân";
             this.mnuUpdateMaBenhNhan.Click += new System.EventHandler(this.mnuUpdateMaBenhNhan_Click);
+            // 
+            // mnuUpdateMaBenhAn
+            // 
+            this.mnuUpdateMaBenhAn.Name = "mnuUpdateMaBenhAn";
+            this.mnuUpdateMaBenhAn.Size = new System.Drawing.Size(279, 22);
+            this.mnuUpdateMaBenhAn.Text = "Update mã  bệnh án";
+            this.mnuUpdateMaBenhAn.Click += new System.EventHandler(this.mnuUpdateMaBenhAn_Click);
             // 
             // uiStatusBar1
             // 
@@ -1303,13 +1310,6 @@
             // 
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp nhanh:";
-            // 
-            // mnuUpdateMaBenhAn
-            // 
-            this.mnuUpdateMaBenhAn.Name = "mnuUpdateMaBenhAn";
-            this.mnuUpdateMaBenhAn.Size = new System.Drawing.Size(279, 22);
-            this.mnuUpdateMaBenhAn.Text = "Update mã  bệnh án";
-            this.mnuUpdateMaBenhAn.Click += new System.EventHandler(this.mnuUpdateMaBenhAn_Click);
             // 
             // frm_KCB_DSACH_BNHAN
             // 

@@ -65,7 +65,7 @@ namespace VNS.HIS.UI.NGOAITRU
         public action m_enAction = action.Insert;
         
         private string m_strDefaultLazerPrinterName = "";
-        private DataTable m_dataDataRegExam = new DataTable();
+        private DataTable m_dtDangkyPhongkham = new DataTable();
         private DataTable mdt_DataQuyenhuyen;
         private frm_ScreenSoKham _QMSScreen;
         public DataTable m_dtPatient = new DataTable();
@@ -930,7 +930,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                 m_enAction = action.Add;
                                 SinhMaLanKham();
                                 //txtTongChiPhiKham.Text = "0";
-                                m_dataDataRegExam.Rows.Clear();
+                                m_dtDangkyPhongkham.Rows.Clear();
                                 txtKieuKham.Select();
                             }
                             else if (kt < SoNgayDieuTri)
@@ -947,7 +947,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                     SinhMaLanKham();
                                     //Reset dịch vụ KCB
                                     //txtTongChiPhiKham.Text = "0";
-                                    m_dataDataRegExam.Rows.Clear();
+                                    m_dtDangkyPhongkham.Rows.Clear();
                                     txtKieuKham.Select();
                                 }
                                 else if (dialogResult == DialogResult.No)
@@ -987,7 +987,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                     SinhMaLanKham();
                                     //Reset dịch vụ KCB
                                     //txtTongChiPhiKham.Text = "0";
-                                    m_dataDataRegExam.Rows.Clear();
+                                    m_dtDangkyPhongkham.Rows.Clear();
                                     txtKieuKham.Select();
                                 }
                             }
@@ -2704,7 +2704,7 @@ namespace VNS.HIS.UI.NGOAITRU
             if (PropertyLib._KCBProperties.SexInput) cboPatientSex.SelectedIndex = -1;
             lnkThem.Visible = false;
            
-            m_dataDataRegExam.Clear();
+            m_dtDangkyPhongkham.Clear();
             if (pnlBHYT.Enabled)
             {
                 lblPtram.Text = "Phần trăm BHYT";
@@ -3054,12 +3054,12 @@ namespace VNS.HIS.UI.NGOAITRU
         /// <param name="m_sPatientCode"></param>
         private void LaydanhsachdangkyKCB()
         {
-            m_dataDataRegExam = _KCB_DANGKY.LayDsachDvuKCB(txtMaLankham.Text, Utility.Int64Dbnull(txtMaBN.Text));
-            Utility.SetDataSourceForDataGridEx(grdRegExam, m_dataDataRegExam, false, true, "", "Id_kham desc");
+            m_dtDangkyPhongkham = _KCB_DANGKY.LayDsachDvuKCB(txtMaLankham.Text, Utility.Int64Dbnull(txtMaBN.Text));
+            Utility.SetDataSourceForDataGridEx(grdRegExam, m_dtDangkyPhongkham, false, true, "", "Id_kham desc");
             //if (grdRegExam.RowCount > 0)
             //{
-            //    txtTongChiPhiKham.Text = (m_dataDataRegExam.Compute("SUM(" + KcbDangkyKcb.Columns.RegFee +  ")","1=1")
-            //        +m_dataDataRegExam.Compute("SUM("  + KcbDangkyKcb.Columns.SurchargePrice + ")","1=1").ToString()).ToString();
+            //    txtTongChiPhiKham.Text = (m_dtDangkyPhongkham.Compute("SUM(" + KcbDangkyKcb.Columns.RegFee +  ")","1=1")
+            //        +m_dtDangkyPhongkham.Compute("SUM("  + KcbDangkyKcb.Columns.SurchargePrice + ")","1=1").ToString()).ToString();
             //}
             //else
             //{
@@ -4576,7 +4576,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     switch (actionResult)
                     {
                         case ActionResult.Success:
-                            DataRow[] arrDr = m_dataDataRegExam.Select("id_kham=" + v_RegId + " OR  " + KcbDangkyKcb.IdChaColumn.ColumnName + "=" + v_RegId);
+                            DataRow[] arrDr = m_dtDangkyPhongkham.Select("id_kham=" + v_RegId + " OR  " + KcbDangkyKcb.IdChaColumn.ColumnName + "=" + v_RegId);
                    
                             
                             if (arrDr.GetLength(0) > 0)
@@ -4587,13 +4587,13 @@ namespace VNS.HIS.UI.NGOAITRU
                                                       ).ToList<string>();                         
                                 for(int i=1;i<=_count;i++)
                                 {
-                                    DataRow[] tempt = m_dataDataRegExam.Select("id_kham="+lstregid[i-1]);
+                                    DataRow[] tempt = m_dtDangkyPhongkham.Select("id_kham="+lstregid[i-1]);
                                     if(tempt.Length>0)
                                         tempt[0].Delete();
-                                    m_dataDataRegExam.AcceptChanges();
+                                    m_dtDangkyPhongkham.AcceptChanges();
                                 }
                             }
-                            m_dataDataRegExam.AcceptChanges();
+                            m_dtDangkyPhongkham.AcceptChanges();
                             break;
                         case ActionResult.Error:
                             Utility.ShowMsg("Bạn thực hiện xóa dịch vụ khám không thành công. Liên hệ đơn vị cung cấp phần mềm để được trợ giúp", "Thông báo");
@@ -4689,7 +4689,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         frm.ShowDialog();
                         if (!frm.m_blnCancel)
                         {
-                            foreach (DataRow _row in m_dataDataRegExam.Rows)
+                            foreach (DataRow _row in m_dtDangkyPhongkham.Rows)
                             {
                                 if (lstRegID.Contains(Utility.Int32Dbnull(_row[KcbDangkyKcb.Columns.IdKham], -1)))
                                 {
@@ -4719,7 +4719,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         switch (actionResult)
                         {
                             case ActionResult.Success:
-                                foreach (DataRow _row in m_dataDataRegExam.Rows)
+                                foreach (DataRow _row in m_dtDangkyPhongkham.Rows)
                                 {
                                     if (lstRegID.Contains(Utility.Int32Dbnull(_row[KcbDangkyKcb.Columns.IdKham], -1)))
                                     {
@@ -4759,9 +4759,9 @@ namespace VNS.HIS.UI.NGOAITRU
             int IdKham = Utility.Int32Dbnull(grdRegExam.CurrentRow.Cells[KcbDangkyKcb.Columns.IdKham].Value, -1);
             DataRow[] arrDr = null;
             if (PropertyLib._KCBProperties.Thanhtoancaphidichvukemtheo)
-                arrDr = m_dataDataRegExam.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString() + " OR " + KcbDangkyKcb.IdChaColumn.ColumnName + "=" + IdKham.ToString());
+                arrDr = m_dtDangkyPhongkham.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString() + " OR " + KcbDangkyKcb.IdChaColumn.ColumnName + "=" + IdKham.ToString());
             else
-                arrDr = m_dataDataRegExam.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString());
+                arrDr = m_dtDangkyPhongkham.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString());
             foreach (DataRow dr in arrDr)
             {
                 if (Utility.Int32Dbnull(dr[KcbDangkyKcb.Columns.IdThanhtoan], -1) > 0)
@@ -4815,7 +4815,7 @@ namespace VNS.HIS.UI.NGOAITRU
                             Payment_Id = Utility.Int32Dbnull(objPayment.IdThanhtoan);
                         }
                         
-                        foreach (DataRow _row in m_dataDataRegExam.Rows)
+                        foreach (DataRow _row in m_dtDangkyPhongkham.Rows)
                         {
                             if (lstRegID.Contains(Utility.Int32Dbnull(_row[KcbDangkyKcb.Columns.IdKham], -1)))
                             {
@@ -4824,7 +4824,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                 _row[KcbDangkyKcb.Columns.TrangthaiThanhtoan] = 1;
                             }
                         }
-                        m_dataDataRegExam.AcceptChanges();
+                        m_dtDangkyPhongkham.AcceptChanges();
                         Payment_Id = Utility.Int32Dbnull(objPayment.IdThanhtoan);
                         if (PropertyLib._MayInProperties.TudonginhoadonSaukhiThanhtoan && TTBN_Chitrathucsu>0)
                         {
@@ -5018,9 +5018,9 @@ namespace VNS.HIS.UI.NGOAITRU
             int IdKham = Utility.Int32Dbnull(grdRegExam.CurrentRow.Cells[KcbDangkyKcb.Columns.IdKham].Value, -1);
             DataRow[] arrDr = null;
             if (PropertyLib._KCBProperties.Thanhtoancaphidichvukemtheo)
-                arrDr = m_dataDataRegExam.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString() + " OR " + KcbDangkyKcb.IdChaColumn.ColumnName + "=" + IdKham.ToString());
+                arrDr = m_dtDangkyPhongkham.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString() + " OR " + KcbDangkyKcb.IdChaColumn.ColumnName + "=" + IdKham.ToString());
             else
-                arrDr = m_dataDataRegExam.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString());
+                arrDr = m_dtDangkyPhongkham.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString());
             List<KcbThanhtoanChitiet> lstPaymentDetail = new List<KcbThanhtoanChitiet>();
 
             foreach (DataRow dr in arrDr)
@@ -5364,7 +5364,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private KcbDangkyKcb TaoDangkyKCB()
         {
             bool b_HasKham = false;
-            EnumerableRowCollection<DataRow> query = from phong in m_dataDataRegExam.AsEnumerable().Cast<DataRow>()
+            EnumerableRowCollection<DataRow> query = from phong in m_dtDangkyPhongkham.AsEnumerable().Cast<DataRow>()
                                                      where
                                                          Utility.Int32Dbnull(phong[KcbDangkyKcb.Columns.IdDichvuKcb],
                                                                              -100) ==
@@ -5459,6 +5459,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     objRegExam = null;
                 }
+                THU_VIEN_CHUNG.TinhlaiGiaChiphiKCB(m_dtDangkyPhongkham, ref objRegExam);
                 return objRegExam;
             }
 

@@ -248,10 +248,11 @@ namespace VNS.HIS.UI.NGOAITRU
             
             if (PropertyLib._KCBProperties != null)
             {
+
                 cmdThanhToanKham.Enabled = PropertyLib._KCBProperties.Chophepthanhtoan;
                 cmdThanhToanKham.Visible = cmdThanhToanKham.Enabled;
-                
-                grdRegExam.RootTable.Columns["colThanhtoan"].Visible = PropertyLib._KCBProperties.Chophepthanhtoan && (PropertyLib._KCBProperties.Kieuhienthi == Kieuhienthi.Trenluoi || PropertyLib._KCBProperties.Kieuhienthi == Kieuhienthi.Cahai);
+
+                grdRegExam.RootTable.Columns["colThanhtoan"].Visible = false;// PropertyLib._KCBProperties.Chophepthanhtoan && (PropertyLib._KCBProperties.Kieuhienthi == Kieuhienthi.Trenluoi || PropertyLib._KCBProperties.Kieuhienthi == Kieuhienthi.Cahai);
                 grdRegExam.RootTable.Columns["colDelete"].Visible = PropertyLib._KCBProperties.Kieuhienthi == Kieuhienthi.Trenluoi || PropertyLib._KCBProperties.Kieuhienthi == Kieuhienthi.Cahai;
                 grdRegExam.RootTable.Columns["colIn"].Visible = PropertyLib._KCBProperties.Kieuhienthi == Kieuhienthi.Trenluoi || PropertyLib._KCBProperties.Kieuhienthi == Kieuhienthi.Cahai;
                 pnlnutchucnang.Visible = PropertyLib._KCBProperties.Kieuhienthi != Kieuhienthi.Trenluoi;
@@ -289,7 +290,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 Utility.SetDataSourceForDataGridEx(grdList, m_dtPatient, true, true, "1=1", KcbDanhsachBenhnhan.Columns.IdBenhnhan + " desc");
                 //Utility.SetMsg(lblTongSo, string.Format("&Tổng số bản ghi :{0}", m_dtPatient.Rows.Count), true);
                 if (grdList.GetDataRows().Length <= 0)
-                    m_dataDataRegExam.Rows.Clear();
+                    m_dtDangkyPhongkham.Rows.Clear();
                 UpdateGroup();
             }
             catch
@@ -527,13 +528,13 @@ namespace VNS.HIS.UI.NGOAITRU
             UpdateWhanChanged();
             ModifycommandAssignDetail();
         }
-        private DataTable m_dataDataRegExam=new DataTable();
+        private DataTable m_dtDangkyPhongkham=new DataTable();
         private void BindRegExam()
         {
             string MaLuotkham = Utility.sDbnull(grdList.GetValue(KcbLuotkham.Columns.MaLuotkham));
             int Patient_ID = Utility.Int32Dbnull(grdList.GetValue(KcbLuotkham.Columns.IdBenhnhan));
-            m_dataDataRegExam = _KCB_DANGKY.LayDsachDvuKCB(MaLuotkham, Patient_ID);
-            Utility.SetDataSourceForDataGridEx(grdRegExam, m_dataDataRegExam, false, true, "", KcbDangkyKcb.Columns.IdKham+" desc");
+            m_dtDangkyPhongkham = _KCB_DANGKY.LayDsachDvuKCB(MaLuotkham, Patient_ID);
+            Utility.SetDataSourceForDataGridEx(grdRegExam, m_dtDangkyPhongkham, false, true, "", KcbDangkyKcb.Columns.IdKham+" desc");
            
         }
         private void UpdateWhanChanged()
@@ -570,7 +571,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 if (!Utility.isValidGrid(grdList))
                 {
-                    if (m_dataDataRegExam != null) m_dataDataRegExam.Clear();
+                    if (m_dtDangkyPhongkham != null) m_dtDangkyPhongkham.Clear();
                     objLuotkham = null;
                     return;
                 }
@@ -641,7 +642,7 @@ namespace VNS.HIS.UI.NGOAITRU
         private KcbDangkyKcb CreateNewRegExam()
         {
             bool b_HasKham = false;
-            var query = from phong in m_dataDataRegExam.AsEnumerable().Cast<DataRow>()
+            var query = from phong in m_dtDangkyPhongkham.AsEnumerable().Cast<DataRow>()
                         where
                             Utility.Int32Dbnull(phong[KcbDangkyKcb.Columns.IdDichvuKcb], -100) ==
                             Utility.Int32Dbnull(cboKieuKham.Value, -1)
@@ -732,6 +733,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 {
                     objRegExam = null;
                 }
+                THU_VIEN_CHUNG.TinhlaiGiaChiphiKCB(m_dtDangkyPhongkham, ref objRegExam);
                 return objRegExam;
             }
             return null;
@@ -753,7 +755,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     ActionResult actionResult = _KCB_DANGKY.InsertRegExam(objRegExam, objLuotkham, ref v_RegId, Utility.Int32Dbnull(cboKieuKham.Value));
                     if (actionResult == ActionResult.Success)
                     {
-                        if (m_dataDataRegExam != null)
+                        if (m_dtDangkyPhongkham != null)
                         {
                             BindRegExam();
                             Utility.GonewRowJanus(grdRegExam, KcbDangkyKcb.Columns.IdKham, v_RegId.ToString());
@@ -767,7 +769,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         txtIDPkham.Text = "-1";
                         txtIDKieuKham.Text = "-1";
                         txtExamtypeCode.Text = "-1";
-                        m_dataDataRegExam.AcceptChanges();
+                        m_dtDangkyPhongkham.AcceptChanges();
                     }
                     if (actionResult == ActionResult.Error)
                     {
@@ -791,7 +793,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 Utility.SetMsg(lblDonGia, Utility.sDbnull(objDichvuKCB.DonGia), true);
                 Utility.SetMsg(lblPhuThu, Utility.sDbnull(Utility.Int32Dbnull(objLuotkham.DungTuyen.Value, 0) == 1 ? objDichvuKCB.PhuthuDungtuyen : objDichvuKCB.PhuthuTraituyen), true);
-                if ((m_dataDataRegExam.Select(KcbDangkyKcb.Columns.IdPhongkham+ "=" + objDichvuKCB.IdPhongkham + "").GetLength(0) <= 0))
+                if ((m_dtDangkyPhongkham.Select(KcbDangkyKcb.Columns.IdPhongkham+ "=" + objDichvuKCB.IdPhongkham + "").GetLength(0) <= 0))
                 {
                     ProcessData();
                 }
@@ -1228,7 +1230,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     switch (actionResult)
                     {
                         case ActionResult.Success:
-                            DataRow[] arrDr = m_dataDataRegExam.Select(KcbDangkyKcb.Columns.IdKham + "=" + v_RegId + " OR  " + KcbDangkyKcb.IdChaColumn.ColumnName + "=" + v_RegId);
+                            DataRow[] arrDr = m_dtDangkyPhongkham.Select(KcbDangkyKcb.Columns.IdKham + "=" + v_RegId + " OR  " + KcbDangkyKcb.IdChaColumn.ColumnName + "=" + v_RegId);
                             if (arrDr.GetLength(0) > 0)
                             {
                                 int _count = arrDr.Length;
@@ -1237,13 +1239,13 @@ namespace VNS.HIS.UI.NGOAITRU
                                                       ).ToList<string>();
                                 for (int i = 1; i <= _count; i++)
                                 {
-                                    DataRow[] tempt = m_dataDataRegExam.Select(KcbDangkyKcb.Columns.IdKham+ "=" + lstregid[i - 1]);
+                                    DataRow[] tempt = m_dtDangkyPhongkham.Select(KcbDangkyKcb.Columns.IdKham+ "=" + lstregid[i - 1]);
                                     if (tempt.Length > 0)
                                         tempt[0].Delete();
-                                    m_dataDataRegExam.AcceptChanges();
+                                    m_dtDangkyPhongkham.AcceptChanges();
                                 }
                             }
-                            m_dataDataRegExam.AcceptChanges();
+                            m_dtDangkyPhongkham.AcceptChanges();
                             
                             break;
                         case ActionResult.Error:
@@ -1499,9 +1501,9 @@ namespace VNS.HIS.UI.NGOAITRU
             int IdKham = Utility.Int32Dbnull(grdRegExam.CurrentRow.Cells[KcbDangkyKcb.Columns.IdKham].Value, -1);
             DataRow[] arrDr = null;
             if (PropertyLib._KCBProperties.Thanhtoancaphidichvukemtheo)
-                arrDr = m_dataDataRegExam.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString() + " OR " + KcbDangkyKcb.IdChaColumn.ColumnName + "=" + IdKham.ToString());
+                arrDr = m_dtDangkyPhongkham.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString() + " OR " + KcbDangkyKcb.IdChaColumn.ColumnName + "=" + IdKham.ToString());
             else
-                arrDr = m_dataDataRegExam.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString());
+                arrDr = m_dtDangkyPhongkham.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString());
             foreach (DataRow dr in arrDr)
             {
                 if (Utility.Int32Dbnull(dr[KcbDangkyKcb.Columns.IdThanhtoan], -1) >0)
@@ -1521,9 +1523,9 @@ namespace VNS.HIS.UI.NGOAITRU
             int IdKham = Utility.Int32Dbnull(grdRegExam.CurrentRow.Cells[KcbDangkyKcb.Columns.IdKham].Value, -1);
             DataRow[] arrDr = null;
             if (PropertyLib._KCBProperties.Thanhtoancaphidichvukemtheo)
-                arrDr = m_dataDataRegExam.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString() + " OR " + KcbDangkyKcb.IdChaColumn.ColumnName + "=" + IdKham.ToString());
+                arrDr = m_dtDangkyPhongkham.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString() + " OR " + KcbDangkyKcb.IdChaColumn.ColumnName + "=" + IdKham.ToString());
             else
-                arrDr = m_dataDataRegExam.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString());
+                arrDr = m_dtDangkyPhongkham.Select(KcbDangkyKcb.IdKhamColumn.ColumnName + "=" + IdKham.ToString());
             List<KcbThanhtoanChitiet> lstPaymentDetail = new List<KcbThanhtoanChitiet>();
 
             foreach (DataRow dr in arrDr)
@@ -1632,7 +1634,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         frm.ShowDialog();
                         if (!frm.m_blnCancel)
                         {
-                            foreach (DataRow _row in m_dataDataRegExam.Rows)
+                            foreach (DataRow _row in m_dtDangkyPhongkham.Rows)
                             {
                                 if (lstRegID.Contains(Utility.Int32Dbnull(_row[KcbDangkyKcb.Columns.IdKham], -1)))
                                 {
@@ -1662,7 +1664,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         switch (actionResult)
                         {
                             case ActionResult.Success:
-                                foreach (DataRow _row in m_dataDataRegExam.Rows)
+                                foreach (DataRow _row in m_dtDangkyPhongkham.Rows)
                                 {
                                     if (lstRegID.Contains(Utility.Int32Dbnull(_row[KcbDangkyKcb.Columns.IdKham], -1)))
                                     {
@@ -1736,7 +1738,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 switch (actionResult)
                 {
                     case ActionResult.Success:
-                        foreach (DataRow _row in m_dataDataRegExam.Rows)
+                        foreach (DataRow _row in m_dtDangkyPhongkham.Rows)
                         {
                             if (lstRegID.Contains(Utility.Int32Dbnull(_row[KcbDangkyKcb.Columns.IdKham], -1)))
                             {
@@ -1745,7 +1747,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                 _row[KcbDangkyKcb.Columns.TrangthaiThanhtoan] = 1;
                             }
                         }
-                        m_dataDataRegExam.AcceptChanges();
+                        m_dtDangkyPhongkham.AcceptChanges();
                         Payment_Id = Utility.Int32Dbnull(objPayment.IdThanhtoan);
                         if (PropertyLib._MayInProperties.TudonginhoadonSaukhiThanhtoan && TTBN_Chitrathucsu>0)
                         {
