@@ -59,6 +59,7 @@ namespace  VNS.HIS.UI.THANHTOAN
         {
             InitializeComponent();
             this.Args = Args;
+            cmdChuyenCLS.Visible = cmdDungChuyenCLS.Visible = cmdDanhsachinphoi.Visible = cmdHoanung.Visible =cmdChiphithem.Visible= cmdHuyInPhoiBHYT.Visible = cmdChuyenDT.Visible = !this.Args.Contains("KN");
             KeyPreview = true;
             dtFromDate.Value =
                 dtPaymentDate.Value = dtInput_Date.Value = dtToDate.Value = globalVariables.SysDate;
@@ -2897,6 +2898,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 if (!string.IsNullOrEmpty(Maluotkham) && txtMaLanKham.Text.Length < 8)
                 {
                     Maluotkham = Utility.AutoFullPatientCode(txtMaLanKham.Text);
+                    if (this.Args == "KN" && !Maluotkham.Contains("KN")) Maluotkham = "KN" + Maluotkham;
                     txtMaLanKham.Text = Maluotkham;
                     txtMaLanKham.Select(txtMaLanKham.Text.Length, txtMaLanKham.Text.Length);
                 }
