@@ -24,6 +24,10 @@ namespace VNS.HIS.BusRule.Classes
          {
              SPs.ChidinhclsXoaChitiet(IdChitietchidinh).Execute();
          }
+         public void MaukiemnghiemCapnhattrangthai(string IdChitietchidinh, byte trangthaicu, byte trangthaimoi)
+         {
+             SPs.SpMaukiemnghiemCapnhattrangthai(IdChitietchidinh, trangthaicu, trangthaimoi).Execute();
+         }
          public DataTable DmucTimkiemNhomchidinhCls(int? IdNhom, string Manhom, string TenNhom, string MaLoainhom,byte Loainhom, int? IdDichvuChitiet, string username)
          {
              return SPs.DmucTimkiemNhomchidinhCls(IdNhom, Manhom, TenNhom, MaLoainhom,Loainhom, IdDichvuChitiet,username).GetDataSet().Tables[0];
@@ -69,6 +73,10 @@ namespace VNS.HIS.BusRule.Classes
          public DataTable LaythongtinCLS_Thuoc(int ID, string KieuMau)
          {
              return SPs.ChidinhclsLaythongtinChidinhclsTheoid(ID, KieuMau).GetDataSet().Tables[0];
+         }
+         public DataTable MaukiemnghiemLayChitietDangkyKiemnghiem(string FromDate, string ToDate, string PatientName, int? PatientID, string PatientCode, int? idDichvu, int? idDichvuChitiet, byte? trangthai)
+         {
+             return SPs.SpMaukiemnghiemLayChitietDangkyKiemnghiem(FromDate, ToDate, PatientName, PatientID, PatientCode, idDichvu, idDichvuChitiet, trangthai).GetDataSet().Tables[0];
          }
          public DataTable LaythongtininphieuchidinhCLS(string MaChidinh, string PatientCode, int PatientID)
          {
@@ -210,6 +218,7 @@ namespace VNS.HIS.BusRule.Classes
                              );
                          sp.Execute();
                          objChidinhCtiet.IdChitietchidinh = Utility.Int64Dbnull(sp.OutputValues[0]);
+                         objChidinhCtiet.MahoaMau = Utility.sDbnull(sp.OutputValues[1]);
                      }
                      else
                      {

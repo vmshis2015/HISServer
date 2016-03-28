@@ -2533,6 +2533,7 @@ namespace VNS.HIS.BusRule.Classes
                     case 11://Công tiêm chủng
                     case 9://Chi phí thêm
                     case 2://Phí CLS
+                    case 12://Dịch vụ kiểm nghiệm
                         reval = new Update(KcbChidinhclsChitiet.Schema)
                             .Set(KcbChidinhclsChitiet.Columns.IdThanhtoan).EqualTo(objThanhtoan.IdThanhtoan)
                             .Set(KcbChidinhclsChitiet.Columns.TrangthaiThanhtoan).EqualTo(1)
