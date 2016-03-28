@@ -22,7 +22,7 @@ namespace VNS.HIS.UI.DANHMUC
         private DataTable dsTableDetail = new DataTable();
         private string rowFilter = "1=1";
         private DataTable m_dtDichvuCLS = new DataTable();
-
+        NLog.Logger mylog = NLog.LogManager.GetLogger("frm_dmuc_dichvuCLS_chitiet");
     
 
         #endregion
@@ -57,12 +57,11 @@ namespace VNS.HIS.UI.DANHMUC
         {
             try
             {
-                
-                SqlQuery _SqlQuery = new Select().From(VDmucDichvuclsChitiet.Schema);
-                if (Utility.Int32Dbnull(txtLoaiDichvu.MyID, -1) > -1)
-                    _SqlQuery.Where(VDmucDichvuclsChitiet.Columns.IdDichvu).IsEqualTo(Utility.Int32Dbnull(txtLoaiDichvu.MyID, -1));
-                dsTable = _SqlQuery.OrderAsc(VDmucDichvuclsChitiet.Columns.SttHthi).ExecuteDataSet().Tables[0];
-                Utility.SetDataSourceForDataGridEx(grdServiceDetail, dsTable, true, true, "id_cha<=0", DmucDichvuclsChitiet.Columns.SttHthi + "," + DmucDichvuclsChitiet.Columns.TenChitietdichvu);
+                mylog.Trace("SPs.DmucLaydanhmucDichvuclsChitiet....");
+                dsTable = SPs.DmucLaydanhmucDichvuclsChitiet(1,  Utility.Int32Dbnull(txtLoaiDichvu.MyID, 0) ).GetDataSet().Tables[0];
+                mylog.Trace("SetDataSourceForDataGridEx....");
+                Utility.SetDataSourceForDataGridEx(grdServiceDetail, dsTable, true, true, "id_cha<=0", "stt_hthi_loaidvu,stt_hthi_dichvu,stt_hthi,ten_chitietdichvu");
+               
             }
             catch
             {
@@ -71,7 +70,16 @@ namespace VNS.HIS.UI.DANHMUC
 
         void txtLoaiDichvu__OnEnterMe()
         {
-           
+            try
+            {
+                mylog.Trace("SPs.DmucLaydanhmucDichvuclsChitiet....");
+                dsTable = SPs.DmucLaydanhmucDichvuclsChitiet(1,  Utility.Int32Dbnull(txtLoaiDichvu.MyID, 0) ).GetDataSet().Tables[0];
+                mylog.Trace("SetDataSourceForDataGridEx....");
+                Utility.SetDataSourceForDataGridEx(grdServiceDetail, dsTable, true, true, "id_cha<=0", "stt_hthi_loaidvu,stt_hthi_dichvu,stt_hthi,ten_chitietdichvu");
+            }
+            catch
+            {
+            }  
         }
 
         void cmdConfig_Click(object sender, EventArgs e)
@@ -161,6 +169,7 @@ namespace VNS.HIS.UI.DANHMUC
         {
             try
             {
+                mylog.Trace("Load DmucDichvucl....");
                 m_dtDichvuCLS = new Select().From(DmucDichvucl.Schema).ExecuteDataSet().Tables[0];
                 DataTable m_dtDichvuCLS_new = m_dtDichvuCLS.Clone();
                 if (globalVariables.gv_dtQuyenNhanvien_Dmuc.Select(QheNhanvienDanhmuc.Columns.Loai + "= 0").Length <= 0)
@@ -176,6 +185,7 @@ namespace VNS.HIS.UI.DANHMUC
                         }
                     }
                 }
+                
                 txtLoaiDichvu.Init(m_dtDichvuCLS_new, new List<string>() { DmucDichvucl.Columns.IdDichvu, DmucDichvucl.Columns.MaDichvu, DmucDichvucl.Columns.TenDichvu });
             }
             catch (Exception)
@@ -189,9 +199,9 @@ namespace VNS.HIS.UI.DANHMUC
         {
             try
             {
-
-                dsTable = SPs.DmucLaydanhmucDichvuclsChitiet(1, hanchequyendanhmuc ? Utility.Int32Dbnull(txtLoaiDichvu.MyID, 0) : -1).GetDataSet().Tables[0];
-
+                mylog.Trace("SPs.DmucLaydanhmucDichvuclsChitiet....");
+                dsTable = SPs.DmucLaydanhmucDichvuclsChitiet(1,hanchequyendanhmuc?  Utility.Int32Dbnull(txtLoaiDichvu.MyID, 0):-1 ).GetDataSet().Tables[0];
+                mylog.Trace("SetDataSourceForDataGridEx....");
                 Utility.SetDataSourceForDataGridEx(grdServiceDetail, dsTable, true, true, "id_cha<=0", "stt_hthi_loaidvu,stt_hthi_dichvu,stt_hthi,ten_chitietdichvu");
                 _currentGRd = grdServiceDetail;
                 ModifyCommand();
@@ -481,6 +491,7 @@ namespace VNS.HIS.UI.DANHMUC
         /// <param name="e"></param>
         private void frm_dmuc_dichvuCLS_chitiet_Load(object sender, EventArgs e)
         {
+            mylog.Trace("Load danh muc dung chung");
             DataTable dt = new Select().From(DmucChung.Schema).ExecuteDataSet().Tables[0];
             dt = new Select(DmucChung.Columns.Ten).From(DmucChung.Schema).ExecuteDataSet().Tables[0];
             InitData();

@@ -352,7 +352,7 @@
             this.txtLoaiDichvu.MyID = "-1";
             this.txtLoaiDichvu.MyText = "";
             this.txtLoaiDichvu.Name = "txtLoaiDichvu";
-            this.txtLoaiDichvu.RaiseEvent = true;
+            this.txtLoaiDichvu.RaiseEvent = false;
             this.txtLoaiDichvu.RaiseEventEnter = true;
             this.txtLoaiDichvu.RaiseEventEnterWhenEmpty = true;
             this.txtLoaiDichvu.SelectedIndex = -1;

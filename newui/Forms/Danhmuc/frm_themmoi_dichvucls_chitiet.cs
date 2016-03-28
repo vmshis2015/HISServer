@@ -360,6 +360,7 @@ namespace VNS.HIS.UI.DANHMUC
                 chkCochitiet.Checked = Utility.Byte2Bool(objDichVuChitiet.CoChitiet);
                 chkSingle.Checked = Utility.Byte2Bool(objDichVuChitiet.SingleService);
 
+                chkKiemnghiem.Checked = Utility.Byte2Bool(objDichVuChitiet.LaDvuKiemnghiem);
                 chkTrangthai.Checked = Utility.sDbnull(objDichVuChitiet.TrangThai, "0").ToString() == "1";
                 txtLoaiDichvu.SetId(Utility.sDbnull(objDichVuChitiet.IdDichvu, "-1"));
                 txtDichvuCha.SetId(Utility.sDbnull(objDichVuChitiet.IdCha, "-1"));
