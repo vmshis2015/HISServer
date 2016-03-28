@@ -371,7 +371,14 @@ namespace VNS.HIS.Classes
                 return ActionResult.Success;
             }
         }
-
+        public static ActionResult InphieuDangkyKiemnghiem(int v_intIdMauKN)
+        {
+            return ActionResult.Success;
+        }
+        public static ActionResult InphieuBangiaoMauKiemnghiem(int v_intIdMauKN)
+        {
+            return ActionResult.Success;
+        }
         public static ActionResult InphieuChidinhCLS(int id_benhnhan, string ma_luotkham, int v_AssignId,
                                                      string v_AssignCode, string nhomincls, int selectedIndex,
                                                      bool inTach, ref string mayin)
