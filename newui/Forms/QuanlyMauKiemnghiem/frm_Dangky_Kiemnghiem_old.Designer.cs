@@ -643,6 +643,7 @@
             // 
             this.txtLoaikham._backcolor = System.Drawing.Color.WhiteSmoke;
             this.txtLoaikham._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoaikham._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtLoaikham.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtLoaikham.AutoCompleteList")));
             this.txtLoaikham.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLoaikham.CaseSensitive = false;
@@ -867,6 +868,7 @@
             // 
             this.txtTinhtrangmau._backcolor = System.Drawing.SystemColors.Control;
             this.txtTinhtrangmau._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTinhtrangmau._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtTinhtrangmau.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtTinhtrangmau.AutoCompleteList")));
             this.txtTinhtrangmau.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTinhtrangmau.CaseSensitive = false;
