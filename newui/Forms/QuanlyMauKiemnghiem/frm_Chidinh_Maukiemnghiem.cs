@@ -125,7 +125,9 @@ namespace VNS.HIS.UI.NGOAITRU
                 objDichvu = null;
             if (objDichvu != null)
             {
-                dtpNgaytraKQ.Value.AddDays(Utility.ByteDbnull(objDichvu.SongayTraketqua, 7));
+                int songay = Utility.Int32Dbnull(objDichvu.SongayTraketqua, 7);
+                if (songay <= 0) songay = 7;
+               dtpNgaytraKQ.Value= dtpNgaytraKQ.Value.AddDays(songay);
             }
         }
 
