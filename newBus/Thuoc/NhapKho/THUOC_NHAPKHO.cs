@@ -285,6 +285,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             objXuatNhap.NgayBiendong = objPhieuNhap.NgayXacnhan;
                             objXuatNhap.NgayHoadon = objPhieuNhap.NgayHoadon;
                             objXuatNhap.IdThuockho = idthuockho;
+                            objXuatNhap.MotaThem = objPhieuNhap.MotaThem;
 
                             objXuatNhap.GiaBhyt = objPhieuNhapCt.GiaBhyt;
                             objXuatNhap.GiaBhytCu =objPhieuNhapCt.GiaBhytCu;

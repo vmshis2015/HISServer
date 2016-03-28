@@ -1046,6 +1046,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
                             objXuatNhap.NgayBiendong = objPhieuNhap.NgayXacnhan;
                             objXuatNhap.NgayHoadon = objPhieuNhap.NgayHoadon;
                             objXuatNhap.KieuThuocvattu = objPhieuNhapCt.KieuThuocvattu;
+                            objXuatNhap.MotaThem = objPhieuNhap.MotaThem;
                             objXuatNhap.IsNew = true;
                             objXuatNhap.Save();
 
@@ -1273,88 +1274,7 @@ namespace VNS.HIS.NGHIEPVU.THUOC
             }
         }
 
-        public ActionResult XacnhanPhieuTrathuocNhacungcap(TPhieuNhapxuatthuoc objPhieuNhap)
-        {
-            HisDuocProperties objHisDuocProperties = PropertyLib._HisDuocProperties;
-            string errorMessage = "";
-            try
-            {
-                using (var Scope = new TransactionScope())
-                {
-                    using (var dbScope = new SharedDbConnectionScope())
-                    {
-                        SqlQuery sqlQuery = new Select().From(TPhieuNhapxuatthuocChitiet.Schema)
-                            .Where(TPhieuNhapxuatthuocChitiet.Columns.IdPhieu).IsEqualTo(objPhieuNhap.IdPhieu);
-                        TPhieuNhapxuatthuocChitietCollection objPhieuNhapCtCollection =
-                            sqlQuery.ExecuteAsCollection<TPhieuNhapxuatthuocChitietCollection>();
-                        foreach (TPhieuNhapxuatthuocChitiet objPhieuNhapCt in objPhieuNhapCtCollection)
-                        {
-                            //Insert dòng hủy vào TBiendongThuoc
-                            TBiendongThuoc objXuatNhap = new TBiendongThuoc();
-                            objXuatNhap.IdPhieu = Utility.Int32Dbnull(objPhieuNhapCt.IdPhieu);
-                            objXuatNhap.IdPhieuChitiet = Utility.Int32Dbnull(objPhieuNhapCt.IdPhieuchitiet);
-                            objXuatNhap.MaPhieu = Utility.sDbnull(objPhieuNhap.MaPhieu);
-                            objXuatNhap.DonGia = Utility.DecimaltoDbnull(objPhieuNhapCt.DonGia);
-                            objXuatNhap.NgayHoadon =objPhieuNhap.NgayHoadon;
-                            objXuatNhap.GiaBan = Utility.DecimaltoDbnull(objPhieuNhapCt.GiaBan);
-                            objXuatNhap.GiaNhap = Utility.DecimaltoDbnull(objPhieuNhapCt.GiaNhap);
-                            objXuatNhap.SoDky = objPhieuNhapCt.SoDky;
-                            objXuatNhap.SoQdinhthau = objPhieuNhapCt.SoQdinhthau;
-                            objXuatNhap.SoLo = objPhieuNhapCt.SoLo;
-                            objXuatNhap.IdThuockho = Utility.Int32Dbnull(objPhieuNhapCt.IdThuockho);
-                            objXuatNhap.KieuThuocvattu = Utility.sDbnull(objPhieuNhapCt.KieuThuocvattu);
-
-                            objXuatNhap.SoChungtuKemtheo = "";
-                            objXuatNhap.Noitru = 0;
-                            objXuatNhap.QuayThuoc = 0;
-                            objXuatNhap.GiaBhyt = 0;
-                            objXuatNhap.GiaBhytCu = 0;
-                            objXuatNhap.GiaPhuthuDungtuyen = 0;
-                            objXuatNhap.GiaPhuthuTraituyen = 0;
-                            objXuatNhap.DuTru = 0;
-
-                            objXuatNhap.SoHoadon = Utility.sDbnull(objPhieuNhap.SoHoadon);
-                            objXuatNhap.PhuThu = 0;
-                            objXuatNhap.SoLuong = Utility.Int32Dbnull(objPhieuNhapCt.SoLuong);
-                            objXuatNhap.NgayTao =  globalVariables.SysDate;
-                            objXuatNhap.NguoiTao = globalVariables.UserName;
-                            objXuatNhap.ThanhTien = Utility.DecimaltoDbnull(objPhieuNhapCt.ThanhTien);
-                            objXuatNhap.IdThuoc = Utility.Int32Dbnull(objPhieuNhapCt.IdThuoc);
-                            objXuatNhap.Vat = Utility.Int32Dbnull(objPhieuNhap.Vat);
-                            objXuatNhap.IdNhanvien = Utility.Int16Dbnull(objPhieuNhap.IdNhanvien);
-                            objXuatNhap.IdKho = Utility.Int16Dbnull(objPhieuNhap.IdKhoxuat);
-                            objXuatNhap.NgayHethan = objPhieuNhapCt.NgayHethan.Date;
-                            objXuatNhap.MaNhacungcap = objPhieuNhap.MaNhacungcap;
-                            objXuatNhap.MaLoaiphieu = objPhieuNhap.LoaiPhieu;
-                            objXuatNhap.TenLoaiphieu = objPhieuNhap.TenLoaiphieu;
-                            objXuatNhap.NgayBiendong = objPhieuNhap.NgayHoadon;
-                            objXuatNhap.IsNew = true;
-                            objXuatNhap.Save();
-                            StoredProcedure sp = SPs.ThuocXuatkho(objPhieuNhap.IdKhoxuat, objPhieuNhapCt.IdThuoc,
-                                                          objPhieuNhapCt.NgayHethan, objPhieuNhapCt.GiaNhap, objPhieuNhapCt.GiaBan,
-                                                          Utility.DecimaltoDbnull(objPhieuNhapCt.Vat),
-                                                          Utility.Int32Dbnull(objXuatNhap.SoLuong), objPhieuNhapCt.IdChuyen, objPhieuNhapCt.MaNhacungcap, objPhieuNhapCt.SoLo, objHisDuocProperties.XoaDulieuKhiThuocDaHet ? 1 : 0, errorMessage);
-
-                            sp.Execute();
-                        }
-                        new Update(TPhieuNhapxuatthuoc.Schema)
-                            .Set(TPhieuNhapxuatthuoc.Columns.IdNhanvien).EqualTo(globalVariables.gv_intIDNhanvien)
-                            .Set(TPhieuNhapxuatthuoc.Columns.NguoiXacnhan).EqualTo(globalVariables.UserName)
-                            .Set(TPhieuNhapxuatthuoc.Columns.NgayXacnhan).EqualTo( globalVariables.SysDate)
-                            .Set(TPhieuNhapxuatthuoc.Columns.TrangThai).EqualTo(1)
-                            .Where(TPhieuNhapxuatthuoc.Columns.IdPhieu).IsEqualTo(objPhieuNhap.IdPhieu).Execute();
-                    }
-                    Scope.Complete();
-                    return ActionResult.Success;
-                }
-            }
-            catch (Exception exception)
-            {
-                log.Error("Loi ban ra tu sp :{0}", errorMessage);
-                log.Error("Loi trong qua trinh xac nhan don thuoc :{0}", exception);
-                return ActionResult.Error;
-            }
-        }
+       
         /// <summary>
         /// Kiểm tra xem thuốc trong kho xuất đã được sử dụng hay chưa?
         /// </summary>
