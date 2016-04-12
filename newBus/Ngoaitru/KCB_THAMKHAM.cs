@@ -9,6 +9,9 @@ using NLog;
 
 namespace VNS.HIS.BusRule.Classes
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class KCB_THAMKHAM
     {
         private NLog.Logger log;
