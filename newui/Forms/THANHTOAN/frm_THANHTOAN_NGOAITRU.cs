@@ -425,8 +425,8 @@ namespace  VNS.HIS.UI.THANHTOAN
             }
             finally
             {
-                txtPatient_Code.Focus();
-                txtPatient_Code.SelectAll();
+                txtMaLanKham.Focus();
+                txtMaLanKham.SelectAll();
             }
         }
         private void CapnhatChiphithem(long idChidinh)
@@ -454,8 +454,8 @@ namespace  VNS.HIS.UI.THANHTOAN
             }
             finally
             {
-                txtPatient_Code.Focus();
-                txtPatient_Code.SelectAll();
+                txtMaLanKham.Focus();
+                txtMaLanKham.SelectAll();
             }
         }
         void txtPttt__OnShowData()
@@ -1372,7 +1372,6 @@ namespace  VNS.HIS.UI.THANHTOAN
                 Utility.SetDataSourceForDataGridEx(grdThongTinChuaThanhToan, m_dtChiPhiThanhtoan, false, true, "trangthai_huy=0" + (PropertyLib._ThanhtoanProperties.Hienthidichvuchuathanhtoan ? " and trangthai_thanhtoan=0" : ""), "");
                 GetChiPhiDaThanhToan();
                 UpdateTuCheckKhiChuaThanhToan();
-               
                 SetSumTotalProperties();
             }
             catch (Exception ex)
@@ -1869,7 +1868,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         }
 
                     //Nếu thanh toán khi in phôi thì không cần hỏi
-                INPHIEU:
+                    INPHIEU:
                     bool IN_HOADON = false;
                     string ErrMsg = "";
                     long IdHdonLog = -1;
@@ -1949,8 +1948,10 @@ namespace  VNS.HIS.UI.THANHTOAN
                             {
                                 grdPayment.MoveFirst();
                             }
-                            txtPatient_Code.Focus();
-                            txtPatient_Code.SelectAll();
+                            txtMaLanKham.Focus();
+                            txtMaLanKham.SelectAll();
+                         //   txtPatient_Code.Focus();
+                           // txtPatient_Code.SelectAll();
                             //Tạm rem phần hóa đơn đỏ lại
                             if (IN_HOADON && PropertyLib._MayInProperties.TudonginhoadonSaukhiThanhtoan)
                             {
@@ -1986,7 +1987,7 @@ namespace  VNS.HIS.UI.THANHTOAN
             }
             catch (Exception exception)
             {
-               
+               Utility.ShowMsg("Lỗi:"+ exception.Message);
             }
             finally
             {
@@ -1995,6 +1996,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 TongtienCK_Hoadon = 0m;
                 ma_ldoCk = "";
                 ModifyCommand();
+                GC.Collect();
             }
         }
         void ShowPaymentDetail(int v_Payment_ID)
@@ -2291,92 +2293,104 @@ namespace  VNS.HIS.UI.THANHTOAN
         string lydo_huy = "";
         private void HuyThanhtoan()
         {
-            ma_lydohuy = "";
-            if (!Utility.isValidGrid(grdPayment)) return;
-            if (grdPayment.CurrentRow != null)
+            try
             {
-                if (objLuotkham == null)
+                ma_lydohuy = "";
+                if (!Utility.isValidGrid(grdPayment)) return;
+                if (grdPayment.CurrentRow != null)
                 {
-                    objLuotkham = CreatePatientExam();
-                }
-                if (objLuotkham.TrangthaiNoitru >= Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_CHAN_THANHTOANNGOAITRU", "2", false), 2))
-                {
-                    Utility.ShowMsg("Bệnh nhân này đã ở trạng thái nội trú nên hệ thống không cho phép hủy thanh toán ngoại trú nữa");
-                    return;
-                }
-                
-                v_Payment_ID = Utility.Int32Dbnull(grdPayment.CurrentRow.Cells[KcbThanhtoan.Columns.IdThanhtoan].Value, -1);
-                KcbThanhtoan objPayment = KcbThanhtoan.FetchByID(v_Payment_ID);
+                    if (objLuotkham == null)
+                    {
+                        objLuotkham = CreatePatientExam();
+                    }
+                    if (objLuotkham.TrangthaiNoitru >= Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_CHAN_THANHTOANNGOAITRU", "2", false), 2))
+                    {
+                        Utility.ShowMsg("Bệnh nhân này đã ở trạng thái nội trú nên hệ thống không cho phép hủy thanh toán ngoại trú nữa");
+                        return;
+                    }
 
-                if (objPayment != null)
-                {
-                    //Kiểm tra ngày hủy
-                    int KCB_THANHTOAN_SONGAY_HUYTHANHTOAN =Utility.Int32Dbnull( THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_SONGAY_HUYTHANHTOAN", "0", true),0);
-                    int Chenhlech = (int)Math.Ceiling((globalVariables.SysDate.Date - objPayment.NgayThanhtoan.Date).TotalDays);
-                    if (Chenhlech > KCB_THANHTOAN_SONGAY_HUYTHANHTOAN)
+                    v_Payment_ID = Utility.Int32Dbnull(grdPayment.CurrentRow.Cells[KcbThanhtoan.Columns.IdThanhtoan].Value, -1);
+                    KcbThanhtoan objPayment = KcbThanhtoan.FetchByID(v_Payment_ID);
+
+                    if (objPayment != null)
                     {
-                        Utility.ShowMsg("Hệ thống không cho phép bạn hủy thanh toán đã quá ngày. Cần liên hệ quản trị hệ thống để được trợ giúp");
-                        return;
-                    }
-                    if (Utility.Byte2Bool( objPayment.TrangthaiChot))
-                    {
-                        Utility.ShowMsg("Thanh toán đang chọn đã được chốt nên bạn không thể hủy thanh toán. Mời bạn xem lại!");
-                        return;
-                    }
-                    if (PropertyLib._ThanhtoanProperties.Hienthihuythanhtoan)
-                    {
-                        frm_HuyThanhtoan frm = new frm_HuyThanhtoan();
-                        frm.objLuotkham = objLuotkham;
-                        frm.v_Payment_Id = Utility.Int32Dbnull(objPayment.IdThanhtoan, -1);
-                        frm.Chuathanhtoan = Chuathanhtoan;
-                        frm.TotalPayment = grdPayment.GetDataRows().Length;
-                        frm.txtSoTienCanNop.Text = txtSoTienCanNop.Text;
-                        frm.ShowCancel = true;
-                        frm.ShowDialog();
-                        if (!frm.m_blnCancel)
+                        //Kiểm tra ngày hủy
+                        int KCB_THANHTOAN_SONGAY_HUYTHANHTOAN = Utility.Int32Dbnull(THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_SONGAY_HUYTHANHTOAN", "0", true), 0);
+                        int Chenhlech = (int)Math.Ceiling((globalVariables.SysDate.Date - objPayment.NgayThanhtoan.Date).TotalDays);
+                        if (Chenhlech > KCB_THANHTOAN_SONGAY_HUYTHANHTOAN)
                         {
-                            getData();
+                            Utility.ShowMsg("Hệ thống không cho phép bạn hủy thanh toán đã quá ngày. Cần liên hệ quản trị hệ thống để được trợ giúp");
+                            return;
                         }
-                    }
-                    else
-                    {
-                        if (PropertyLib._ThanhtoanProperties.Hoitruockhihuythanhtoan)
-                            if (!Utility.AcceptQuestion(string.Format("Bạn có muốn hủy lần thanh toán với Mã thanh toán {0}", objPayment.IdThanhtoan.ToString()), "Thông báo", true))
+                        if (Utility.Byte2Bool(objPayment.TrangthaiChot))
+                        {
+                            Utility.ShowMsg("Thanh toán đang chọn đã được chốt nên bạn không thể hủy thanh toán. Mời bạn xem lại!");
+                            return;
+                        }
+                        if (PropertyLib._ThanhtoanProperties.Hienthihuythanhtoan)
+                        {
+                            frm_HuyThanhtoan frm = new frm_HuyThanhtoan();
+                            frm.objLuotkham = objLuotkham;
+                            frm.v_Payment_Id = Utility.Int32Dbnull(objPayment.IdThanhtoan, -1);
+                            frm.Chuathanhtoan = Chuathanhtoan;
+                            frm.TotalPayment = grdPayment.GetDataRows().Length;
+                            frm.txtSoTienCanNop.Text = txtSoTienCanNop.Text;
+                            frm.ShowCancel = true;
+                            frm.ShowDialog();
+                            if (!frm.m_blnCancel)
                             {
-                                return;
-                            }
-                        if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_BATNHAPLYDO_HUYTHANHTOAN", "1", false) == "1")
-                        {
-                            frm_Chondanhmucdungchung _Nhaplydohuythanhtoan = new frm_Chondanhmucdungchung("LYDOHUYTHANHTOAN", "Hủy thanh toán tiền Bệnh nhân", "Nhập lý do hủy thanh toán trước khi thực hiện...", "Lý do hủy thanh toán");
-                            _Nhaplydohuythanhtoan.ShowDialog();
-                            if (_Nhaplydohuythanhtoan.m_blnCancel) return;
-                            ma_lydohuy = _Nhaplydohuythanhtoan.ma;
-                            lydo_huy = _Nhaplydohuythanhtoan.ten;
-                        }
-                       int IdHdonLog = Utility.Int32Dbnull(grdPayment.CurrentRow.Cells[HoadonLog.Columns.IdHdonLog].Value, -1);
-                       bool HUYTHANHTOAN_HUYBIENLAI = THU_VIEN_CHUNG.Laygiatrithamsohethong("HUYTHANHTOAN_HUYBIENLAI", "1", true) == "1";
-                       ActionResult actionResult = _THANHTOAN.HuyThanhtoan(objPayment, objLuotkham, lydo_huy, IdHdonLog, HUYTHANHTOAN_HUYBIENLAI);
-                        switch (actionResult)
-                        {
-                            case ActionResult.Success:
                                 getData();
-                                THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
-                                string.Format("Hủy thanh toán của bệnh nhân có mã lần khám {0} và mã bệnh nhân là: {1} bởi {2}", objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, globalVariables.UserName), action.Delete);
-                                break;
-                            case ActionResult.ExistedRecord:
-                                break;
-                            case ActionResult.Error:
-                                Utility.ShowMsg("Lỗi trong quá trình hủy thông tin thanh toán", "Thông báo", MessageBoxIcon.Error);
-                                break;
-                            case ActionResult.UNKNOW:
-                                Utility.ShowMsg("Lỗi không xác định", "Thông báo", MessageBoxIcon.Error);
-                                break;
-                            case ActionResult.Cancel:
-                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (PropertyLib._ThanhtoanProperties.Hoitruockhihuythanhtoan)
+                                if (!Utility.AcceptQuestion(string.Format("Bạn có muốn hủy lần thanh toán với Mã thanh toán {0}", objPayment.IdThanhtoan.ToString()), "Thông báo", true))
+                                {
+                                    return;
+                                }
+                            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_THANHTOAN_BATNHAPLYDO_HUYTHANHTOAN", "1", false) == "1")
+                            {
+                                frm_Chondanhmucdungchung _Nhaplydohuythanhtoan = new frm_Chondanhmucdungchung("LYDOHUYTHANHTOAN", "Hủy thanh toán tiền Bệnh nhân", "Nhập lý do hủy thanh toán trước khi thực hiện...", "Lý do hủy thanh toán");
+                                _Nhaplydohuythanhtoan.ShowDialog();
+                                if (_Nhaplydohuythanhtoan.m_blnCancel) return;
+                                ma_lydohuy = _Nhaplydohuythanhtoan.ma;
+                                lydo_huy = _Nhaplydohuythanhtoan.ten;
+                            }
+                            int IdHdonLog = Utility.Int32Dbnull(grdPayment.CurrentRow.Cells[HoadonLog.Columns.IdHdonLog].Value, -1);
+                            bool HUYTHANHTOAN_HUYBIENLAI = THU_VIEN_CHUNG.Laygiatrithamsohethong("HUYTHANHTOAN_HUYBIENLAI", "1", true) == "1";
+                            ActionResult actionResult = _THANHTOAN.HuyThanhtoan(objPayment, objLuotkham, lydo_huy, IdHdonLog, HUYTHANHTOAN_HUYBIENLAI);
+                            switch (actionResult)
+                            {
+                                case ActionResult.Success:
+                                    getData();
+                                    THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                    string.Format("Hủy thanh toán của bệnh nhân có mã lần khám {0} và mã bệnh nhân là: {1} bởi {2}", objLuotkham.MaLuotkham, objLuotkham.IdBenhnhan, globalVariables.UserName), action.Delete);
+                                    break;
+                                case ActionResult.ExistedRecord:
+                                    break;
+                                case ActionResult.Error:
+                                    Utility.ShowMsg("Lỗi trong quá trình hủy thông tin thanh toán", "Thông báo", MessageBoxIcon.Error);
+                                    break;
+                                case ActionResult.UNKNOW:
+                                    Utility.ShowMsg("Lỗi không xác định", "Thông báo", MessageBoxIcon.Error);
+                                    break;
+                                case ActionResult.Cancel:
+                                    break;
+                            }
                         }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
+            }
+            finally
+            {
+                GC.Collect();
+            }
+           
         }
         /// <summary>
         ///     hàm thực hiện việc gọi phiếu thu
@@ -3327,8 +3341,13 @@ namespace  VNS.HIS.UI.THANHTOAN
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
+            }
+            finally
+            {
+                GC.Collect();
             }
         }
 
