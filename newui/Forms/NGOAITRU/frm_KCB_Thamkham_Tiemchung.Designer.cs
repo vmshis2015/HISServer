@@ -85,6 +85,7 @@
             this.cmdLuuChandoan = new Janus.Windows.EditControls.UIButton();
             this.chkKPL3 = new Janus.Windows.EditControls.UICheckBox();
             this.cmdLapphieuhenTC = new Janus.Windows.EditControls.UIButton();
+            this.cmdNewPatient = new Janus.Windows.EditControls.UIButton();
             this.panel3 = new System.Windows.Forms.Panel();
             this.uiGroupBox2 = new Janus.Windows.EditControls.UIGroupBox();
             this.pnlPatientInfor = new System.Windows.Forms.Panel();
@@ -768,6 +769,17 @@
             this.cmdLapphieuhenTC.Text = "Lập phiếu hẹn";
             this.toolTip1.SetToolTip(this.cmdLapphieuhenTC, "Nhấn vào đây để kết thúc khám cho Bệnh nhân(Phím tắt Ctrl+K)");
             // 
+            // cmdNewPatient
+            // 
+            this.cmdNewPatient.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdNewPatient.Location = new System.Drawing.Point(311, 11);
+            this.cmdNewPatient.Name = "cmdNewPatient";
+            this.cmdNewPatient.Size = new System.Drawing.Size(87, 25);
+            this.cmdNewPatient.TabIndex = 5;
+            this.cmdNewPatient.Text = "Thêm";
+            this.toolTip1.SetToolTip(this.cmdNewPatient, "Nhấn vào đây để thêm mới đơn thuốc");
+            this.cmdNewPatient.Click += new System.EventHandler(this.cmdNewPatient_Click);
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.uiGroupBox2);
@@ -793,6 +805,7 @@
             // 
             // pnlPatientInfor
             // 
+            this.pnlPatientInfor.Controls.Add(this.cmdNewPatient);
             this.pnlPatientInfor.Controls.Add(this.lblSOkham);
             this.pnlPatientInfor.Controls.Add(this.label41);
             this.pnlPatientInfor.Controls.Add(this.label40);
@@ -2844,5 +2857,6 @@
         private Janus.Windows.EditControls.UIButton cmdKecongtiem;
         private UCs.AutoCompleteTextbox_Danhmucchung txtChongchidinhkhac;
         private Janus.Windows.EditControls.UIButton cmdLapphieuhenTC;
+        private Janus.Windows.EditControls.UIButton cmdNewPatient;
     }
 }

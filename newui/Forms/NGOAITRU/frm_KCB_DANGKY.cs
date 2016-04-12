@@ -570,30 +570,20 @@ namespace VNS.HIS.UI.NGOAITRU
         private void _LostFocus(object sender, EventArgs e)
         {
             if (isAutoFinding) return;
-            string MA_BHYT = txtMaDtuong_BHYT.Text.Trim() + txtMaQuyenloi_BHYT.Text.Trim() + txtNoiphattheBHYT.Text.Trim() +
-                             txtOthu4.Text.Trim() + txtOthu5.Text.Trim() + txtOthu6.Text.Trim();
-            if (MA_BHYT.Length == 15) FindPatientIDbyBHYT(MA_BHYT);
-        }
-
-        private void txtNoiDKKCBBD_KeyDown(object sender, KeyEventArgs e)
-        {
-            hasjustpressBACKKey = false;
-            if (e.KeyCode == Keys.Enter)
+            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_KIEMTRA20KYTU_BHYT", "0", false) == "1")
             {
-                //string MA_BHYT = txtMaDtuong_BHYT.Text.Trim() + txtMaQuyenloi_BHYT.Text.Trim() + txtNoiDongtrusoKCBBD.Text.Trim() + txtOthu4.Text.Trim() + txtOthu5.Text.Trim() + txtOthu6.Text.Trim();
-                //if (MA_BHYT.Length == 15) FindPatientIDbyBHYT(MA_BHYT);
                 return;
             }
-            if (e.KeyCode == Keys.Back)
+            else
             {
-                hasjustpressBACKKey = true;
-                if (txtNoiDKKCBBD.Text.Length <= 0)
-                {
-                    txtNoiDongtrusoKCBBD.Focus();
-                    txtNoiDongtrusoKCBBD.Select(txtNoiDongtrusoKCBBD.Text.Length, 0);
-                }
+                string MA_BHYT = txtMaDtuong_BHYT.Text.Trim() + txtMaQuyenloi_BHYT.Text.Trim() +
+                                 txtNoiphattheBHYT.Text.Trim() +
+                                 txtOthu4.Text.Trim() + txtOthu5.Text.Trim() + txtOthu6.Text.Trim();
+                if (MA_BHYT.Length == 15) FindPatientIDbyBHYT(MA_BHYT);
             }
         }
+
+       
 
         private void txtNoiphattheBHYT_KeyDown(object sender, KeyEventArgs e)
         {
@@ -628,11 +618,15 @@ namespace VNS.HIS.UI.NGOAITRU
        
         private void txtNoiDKKCBBD_LostFocus(object sender, EventArgs e)
         {
-            //if (lblClinicName.Text.Trim() == "")
-            //{
-            //    txtNoiDKKCBBD.Focus();
-            //    txtNoiDKKCBBD.SelectAll();
-            //}
+            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_KIEMTRA20KYTU_BHYT", "0", false) == "1")
+            {
+
+                string MA_BHYT = txtMaDtuong_BHYT.Text.Trim() + txtMaQuyenloi_BHYT.Text.Trim() +
+                                 txtNoiphattheBHYT.Text.Trim() + txtOthu4.Text.Trim() + txtOthu5.Text.Trim() +
+                                 txtOthu6.Text.Trim();
+                if (MA_BHYT.Length == 15) if (m_enAction != action.Update) FindPatientIDbyBHYT(MA_BHYT);
+                return;
+            }
         }
 
         private void txtMaQuyenloi_BHYT_KeyPress(object sender, KeyPressEventArgs e)
@@ -669,13 +663,17 @@ namespace VNS.HIS.UI.NGOAITRU
                 if (temdt.Rows.Count <= 0) return;
                 if (temdt.Rows.Count == 1)
                 {
+                    if (!KT_20_Ky_Tu_BHYT(temdt.Rows[0]["id_benhnhan"].ToString(), Insurance_Num)) return;
                     AutoFindLastExamandFetchIntoControls(temdt.Rows[0][KcbDanhsachBenhnhan.Columns.IdBenhnhan].ToString(), Insurance_Num);
                 }
                 else //Show dialog for select
                 {
                     DataRow[] arrDr = temdt.Select(KcbLuotkham.Columns.MatheBhyt+ "='" + Insurance_Num + "'");
                     if (arrDr.Length == 1)
+                    {
+                        if (!KT_20_Ky_Tu_BHYT(temdt.Rows[0]["id_benhnhan"].ToString(), Insurance_Num)) return;
                         AutoFindLastExamandFetchIntoControls(arrDr[0][KcbDanhsachBenhnhan.Columns.IdBenhnhan].ToString(), Insurance_Num);
+                    }
                     else
                     {
                         var _ChonBN = new frm_CHON_BENHNHAN();
@@ -683,6 +681,7 @@ namespace VNS.HIS.UI.NGOAITRU
                         _ChonBN.ShowDialog();
                         if (!_ChonBN.mv_bCancel)
                         {
+                            if (!KT_20_Ky_Tu_BHYT(temdt.Rows[0]["id_benhnhan"].ToString(), Insurance_Num)) return;
                             AutoFindLastExamandFetchIntoControls(_ChonBN.Patient_ID, Insurance_Num);
                         }
                     }
@@ -842,6 +841,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
                 if (temdt.Rows.Count == 1)
                 {
+
                     AutoFindLastExamandFetchIntoControls(temdt.Rows[0][KcbDanhsachBenhnhan.Columns.IdBenhnhan].ToString(), string.Empty);
                 }
                 else //Show dialog for select
@@ -872,6 +872,36 @@ namespace VNS.HIS.UI.NGOAITRU
                       .And(KcbDmucLuotkham.Columns.TrangThai).IsEqualTo(1)
                       .And(KcbDmucLuotkham.Columns.UsedBy).IsEqualTo(globalVariables.UserName)
                       .And(KcbDmucLuotkham.Columns.Nam).IsEqualTo(globalVariables.SysDate.Year).Execute();
+        }
+        private bool KT_20_Ky_Tu_BHYT(string patientID, string sobhyt)
+        {
+
+            if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_KIEMTRA20KYTU_BHYT", "0", false) == "1")
+            {
+                    SqlQuery sqlQuery = new Select().From(KcbLuotkham.Schema)
+                        .Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(patientID);
+                    if (!string.IsNullOrEmpty(sobhyt))
+                    {
+                        sqlQuery.And(KcbLuotkham.Columns.MatheBhyt).IsEqualTo(sobhyt);
+                    }
+                    sqlQuery.OrderDesc(KcbLuotkham.Columns.NgayTiepdon);
+                    var objPatientExam = sqlQuery.ExecuteSingle<KcbLuotkham>();
+
+                    if (objPatientExam != null)
+                    {
+                        txtMaBN.Text = patientID;
+                        txtMaLankham.Text = Utility.sDbnull(objPatientExam.MaLuotkham);
+                        if (txtNoiDongtrusoKCBBD.Text.ToUpper() !=
+                            Utility.sDbnull(objPatientExam.NoiDongtrusoKcbbd).ToUpper() ||
+                            txtNoiDKKCBBD.Text.ToUpper() != Utility.sDbnull(objPatientExam.MaKcbbd).ToUpper())
+                        { return false; }
+                            
+                    }
+                    return true;
+                }
+                else
+                    return true;
+
         }
         private void AutoFindLastExamandFetchIntoControls(string patientID, string sobhyt)
         {
@@ -1259,7 +1289,19 @@ namespace VNS.HIS.UI.NGOAITRU
                 txtNgheNghiep._Text = Utility.sDbnull(objBenhnhan.NgheNghiep);
                 cboPatientSex.SelectedIndex = Utility.GetSelectedIndex(cboPatientSex, Utility.sDbnull(objBenhnhan.IdGioitinh));
                 if (Utility.Int32Dbnull(objBenhnhan.DanToc) > 0)
-                    txtDantoc._Text = objBenhnhan.DanToc;
+                {
+                    DmucChung objdantoc =
+                        new Select().From(DmucChung.Schema).Where(DmucChung.Columns.Loai).IsEqualTo("DAN_TOC").And(
+                            DmucChung.Columns.Ma).IsEqualTo(objBenhnhan.DanToc).ExecuteSingle<DmucChung>();
+                  //  txtDantoc.myCode = objBenhnhan.DanToc;
+                    if(objdantoc != null)
+                    {
+                        txtDantoc.SetCode(objBenhnhan.DanToc);
+                        txtDantoc._Text = Utility.sDbnull(objdantoc.Ten,"Kinh");
+                    }
+                }
+                 
+
                 txtEmail.Text = Utility.sDbnull(objBenhnhan.Email);
                 txtCMT.Text = Utility.sDbnull(objBenhnhan.Cmt);
                 objLuotkham = new Select().From(KcbLuotkham.Schema)
@@ -1346,13 +1388,16 @@ namespace VNS.HIS.UI.NGOAITRU
                         txtMaQuyenloi_BHYT.Text = Utility.sDbnull(objLuotkham.MaQuyenloi);
                         txtNoiDongtrusoKCBBD.Text = Utility.sDbnull(objLuotkham.NoiDongtrusoKcbbd);
                         txtOthu4.Text = Utility.sDbnull(objLuotkham.MatheBhyt).Substring(5, 2);
+                      //  txtOthu4.TextChanged -= new EventHandler(txtOthu4_TextChanged);
                         txtOthu5.Text = Utility.sDbnull(objLuotkham.MatheBhyt).Substring(7, 3);
+                       // txtOthu5.TextChanged -= new EventHandler(txtOthu5_TextChanged);
                         txtOthu6.Text = Utility.sDbnull(objLuotkham.MatheBhyt).Substring(10, 5);
+                        //txtOthu6.TextChanged -= new EventHandler(txtOthu6_TextChanged);
                         txtDiachi_bhyt._Text = Utility.sDbnull(objBenhnhan.DiachiBhyt);
                         txtMaDTsinhsong.SetCode(objLuotkham.MadtuongSinhsong);
                         chkGiayBHYT.Checked = Utility.Byte2Bool(objLuotkham.GiayBhyt);
-
                         txtNoiphattheBHYT.Text = Utility.sDbnull(objLuotkham.MaNoicapBhyt);
+                        
                         txtNoiDKKCBBD.Text = Utility.sDbnull(objLuotkham.MaKcbbd);
                         pnlBHYT.Enabled = true;
                     }
@@ -2210,16 +2255,16 @@ namespace VNS.HIS.UI.NGOAITRU
         private void txtOthu6_TextChanged(object sender, EventArgs e)
         {
             if (_MaDoituongKcb == "DV") return;
-            if (hasjustpressBACKKey && txtOthu6.Text.Length <= 0)
-            {
-                txtOthu5.Focus();
-                if (txtOthu5.Text.Length > 0) txtOthu5.Select(txtOthu5.Text.Length, 0);
-                return;
-            }
-            if (txtOthu6.Text.Length < 5) return;
-            if (!IsValidTheBHYT()) return;
-            txtNoiDongtrusoKCBBD.Focus();
-            txtNoiDongtrusoKCBBD.SelectAll();
+                if (hasjustpressBACKKey && txtOthu6.Text.Length <= 0)
+                {
+                    txtOthu5.Focus();
+                    if (txtOthu5.Text.Length > 0) txtOthu5.Select(txtOthu5.Text.Length, 0);
+                    return;
+                }
+                if (txtOthu6.Text.Length < 5) return;
+                if (!IsValidTheBHYT()) return;
+                txtNoiDongtrusoKCBBD.Focus();
+                txtNoiDongtrusoKCBBD.SelectAll();
         }
 
         private void txtNoiphattheBHYT_TextChanged(object sender, EventArgs e)
@@ -3419,7 +3464,7 @@ namespace VNS.HIS.UI.NGOAITRU
         {
             if (e.KeyCode == Keys.Enter)
             {
-                string MA_BHYT = txtMaDtuong_BHYT.Text.Trim() + txtMaQuyenloi_BHYT.Text.Trim() + txtNoiDongtrusoKCBBD.Text.Trim() +
+                string MA_BHYT = txtMaDtuong_BHYT.Text.Trim() + txtMaQuyenloi_BHYT.Text.Trim() + txtNoiphattheBHYT.Text.Trim() +
                                  txtOthu4.Text.Trim() + txtOthu5.Text.Trim() + txtOthu6.Text.Trim();
                 if (MA_BHYT.Length == 15) FindPatientIDbyBHYT(MA_BHYT);
             }
@@ -3524,12 +3569,21 @@ namespace VNS.HIS.UI.NGOAITRU
         private void txtOthu6_KeyDown(object sender, KeyEventArgs e)
         {
             hasjustpressBACKKey = false;
+
             if (e.KeyCode == Keys.Enter)
             {
-                string MA_BHYT = txtMaDtuong_BHYT.Text.Trim() + txtMaQuyenloi_BHYT.Text.Trim() + txtNoiphattheBHYT.Text.Trim() +
-                                 txtOthu4.Text.Trim() + txtOthu5.Text.Trim() + txtOthu6.Text.Trim();
-                if (MA_BHYT.Length == 15) FindPatientIDbyBHYT(MA_BHYT);
-                return;
+                if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_KIEMTRA20KYTU_BHYT", "0", false) == "1")
+                {
+                    return;
+                }
+                else
+                {
+                    string MA_BHYT = txtMaDtuong_BHYT.Text.Trim() + txtMaQuyenloi_BHYT.Text.Trim() +
+                                     txtNoiphattheBHYT.Text.Trim() +
+                                     txtOthu4.Text.Trim() + txtOthu5.Text.Trim() + txtOthu6.Text.Trim();
+                    if (MA_BHYT.Length == 15) FindPatientIDbyBHYT(MA_BHYT);
+                    return;
+                }
             }
             else if (e.KeyCode == Keys.Back)
             {
@@ -3541,7 +3595,32 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
             }
         }
+        private void txtNoiDKKCBBD_KeyDown(object sender, KeyEventArgs e)
+        {
+            hasjustpressBACKKey = false;
+            if (e.KeyCode == Keys.Enter)
+            {
 
+                if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_TIEPDON_KIEMTRA20KYTU_BHYT", "0", false) == "1")
+                {
+
+                    string MA_BHYT = txtMaDtuong_BHYT.Text.Trim() + txtMaQuyenloi_BHYT.Text.Trim() +
+                                     txtNoiphattheBHYT.Text.Trim() + txtOthu4.Text.Trim() + txtOthu5.Text.Trim() +
+                                     txtOthu6.Text.Trim();
+                    if (MA_BHYT.Length == 15) FindPatientIDbyBHYT(MA_BHYT);
+                    return;
+                }
+            }
+            if (e.KeyCode == Keys.Back)
+            {
+                hasjustpressBACKKey = true;
+                if (txtNoiDKKCBBD.Text.Length <= 0)
+                {
+                    txtNoiDongtrusoKCBBD.Focus();
+                    txtNoiDongtrusoKCBBD.Select(txtNoiDongtrusoKCBBD.Text.Length, 0);
+                }
+            }
+        }
         private void lnkThem_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var newItem = new frm_ThemnoiKCBBD();
@@ -5835,6 +5914,7 @@ namespace VNS.HIS.UI.NGOAITRU
             objBenhnhan.IdGioitinh = Utility.ByteDbnull(cboPatientSex.SelectedValue, 0);
             objBenhnhan.NamSinh =  Utility.Int16Dbnull(dtpBOD.Value.Year);
             objBenhnhan.KieuBenhnhan = 0;//0= Bệnh nhân thường đến khám chữa bệnh;1= Người gửi mẫu kiểm nghiệm cá nhân;2= Tổ chức gửi mẫu kiểm nghiệm
+            objBenhnhan.DanToc = Utility.sDbnull(txtDantoc.myCode, "01");
                 objBenhnhan.NgaySinh = dtpBOD.Value;
 
             if (m_enAction == action.Insert)
@@ -5853,7 +5933,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 objBenhnhan.IpMaysua = globalVariables.gv_strIPAddress;
                 objBenhnhan.TenMaysua = globalVariables.gv_strComputerName;
             }
-            objBenhnhan.DanToc = txtDantoc.Text;
+          
             return objBenhnhan;
         }
 

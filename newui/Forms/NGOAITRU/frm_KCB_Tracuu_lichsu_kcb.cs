@@ -396,9 +396,7 @@ namespace VNS.HIS.UI.NGOAITRU
             {
                 AllowTextChanged = false;
                 Get_DanhmucChung();
-
-             
-
+                lstVisibleColumns = Utility.GetVisibleColumns(grdAssignDetail);
                 Load_DSach_ICD();
                 LoadPhongkhamngoaitru();
                 txtBacsikham.Init(THU_VIEN_CHUNG.LaydanhsachBacsi(-1, -1));
@@ -1493,6 +1491,40 @@ namespace VNS.HIS.UI.NGOAITRU
             else
             {
                 txtKhoaNoiTru.Text = string.Empty;
+            }
+        }
+        private readonly List<string> lstResultColumns = new List<string>
+                                                             {
+                                                                 "ten_chitietdichvu",
+                                                                 "ketqua_cls",
+                                                                 "binhthuong_nam",
+                                                                 "binhthuong_nu"
+                                                             };
+        private List<string> lstVisibleColumns = new List<string>();
+        private void mnuxemketqua_Click(object sender, EventArgs e)
+        {
+            mnuxemketqua.Tag = mnuxemketqua.Checked ? "1" : "0";
+            if (PropertyLib._ThamKhamProperties.HienthiKetquaCLSTrongluoiChidinh)
+            {
+                Utility.ShowColumns(grdAssignDetail, mnuxemketqua.Checked ? lstResultColumns : lstVisibleColumns);
+            }
+            else
+                grdAssignDetail_SelectionChanged(grdAssignDetail, e);
+        }
+
+        private void cmdInphieuhen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable dtphienhen =
+                    SPs.KcbThamkhamInphieuhenBenhnhan(Utility.sDbnull(txtPatient_Code.Text,""), Utility.Int16Dbnull(txtPatient_ID.Text, -1)).
+                        GetDataSet().Tables[0];
+                THU_VIEN_CHUNG.CreateXML(dtphienhen, "thamkham_inphieuhen_benhnhan.xml");
+                KCB_INPHIEU.INPHIEU_HEN(dtphienhen, "PHIẾU HẸN KHÁM");
+            }
+            catch (Exception ex)
+            {
+                Utility.ShowMsg(ex.Message);
             }
         }
 

@@ -37,13 +37,14 @@
             Janus.Windows.UI.StatusBar.UIStatusBarPanel uiStatusBarPanel6 = new Janus.Windows.UI.StatusBar.UIStatusBarPanel();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_KCB_Tracuu_lichsu_kcb));
             Janus.Windows.GridEX.GridEXLayout grdAssignDetail_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.GridEX.GridEXLayout grdLuotkham_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdRegExam_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grd_ICD_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdKetQua_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdKetQuaCLS_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdPresDetail_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout grdLuotkham_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.Common.Layouts.JanusLayoutReference grdList_DesignTimeLayout_Reference_0 = new Janus.Windows.Common.Layouts.JanusLayoutReference("GridEXLayoutData.RootTable.Columns.Column0.ButtonImage");
             this.uiStatusBar1 = new Janus.Windows.UI.StatusBar.UIStatusBar();
             this.grpSearch = new Janus.Windows.EditControls.UIGroupBox();
             this.label26 = new System.Windows.Forms.Label();
@@ -72,9 +73,6 @@
             this.lblMessage = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.uiGroupBox2 = new Janus.Windows.EditControls.UIGroupBox();
-            this.grdList = new Janus.Windows.GridEX.GridEX();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.grdLuotkham = new Janus.Windows.GridEX.GridEX();
             this.grbRegs = new System.Windows.Forms.GroupBox();
             this.grdRegExam = new Janus.Windows.GridEX.GridEX();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -192,6 +190,11 @@
             this.label30 = new System.Windows.Forms.Label();
             this.txtSoBHYT = new Janus.Windows.GridEX.EditControls.EditBox();
             this.vbLine4 = new VNS.UCs.VBLine();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grdLuotkham = new Janus.Windows.GridEX.GridEX();
+            this.grdList = new Janus.Windows.GridEX.GridEX();
+            this.mnuxemketqua = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmdInphieuhen = new Janus.Windows.EditControls.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.grpSearch)).BeginInit();
             this.grpSearch.SuspendLayout();
             this.ctxDelCLS.SuspendLayout();
@@ -200,9 +203,6 @@
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
             this.uiGroupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdLuotkham)).BeginInit();
             this.grbRegs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdRegExam)).BeginInit();
             this.panel4.SuspendLayout();
@@ -235,6 +235,9 @@
             this.pnltabkedon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdPresDetail)).BeginInit();
             this.pnlThongtinBNKCB.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdLuotkham)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
             // 
             // uiStatusBar1
@@ -453,6 +456,8 @@
             // 
             // chkByDate
             // 
+            this.chkByDate.Checked = true;
+            this.chkByDate.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkByDate.Font = new System.Drawing.Font("Arial", 9F);
             this.chkByDate.Location = new System.Drawing.Point(15, 19);
             this.chkByDate.Name = "chkByDate";
@@ -517,12 +522,14 @@
             // ctxDelCLS
             // 
             this.ctxDelCLS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuDeleteCLS});
+            this.mnuDeleteCLS,
+            this.mnuxemketqua});
             this.ctxDelCLS.Name = "ctxDelCLS";
-            this.ctxDelCLS.Size = new System.Drawing.Size(224, 26);
+            this.ctxDelCLS.Size = new System.Drawing.Size(224, 48);
             // 
             // mnuDeleteCLS
             // 
+            this.mnuDeleteCLS.CheckOnClick = true;
             this.mnuDeleteCLS.Name = "mnuDeleteCLS";
             this.mnuDeleteCLS.Size = new System.Drawing.Size(223, 22);
             this.mnuDeleteCLS.Text = "Xóa chỉ định CLS đang chọn";
@@ -643,87 +650,6 @@
             this.uiGroupBox2.TabIndex = 11;
             this.uiGroupBox2.Text = "Danh sách Bệnh nhân KCB";
             // 
-            // grdList
-            // 
-            this.grdList.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
-            this.grdList.BackColor = System.Drawing.Color.Silver;
-            this.grdList.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
-    " thông tin bệnh nhân đưa vào phòng khám</FilterRowInfoText></LocalizableData>";
-            grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
-            this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
-            this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdList.DynamicFiltering = true;
-            this.grdList.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None;
-            this.grdList.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
-            this.grdList.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown;
-            this.grdList.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.grdList.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
-            this.grdList.FocusCellFormatStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.grdList.FocusCellFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
-            this.grdList.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdList.FrozenColumns = -1;
-            this.grdList.GroupByBoxVisible = false;
-            this.grdList.LinkFormatStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.grdList.Location = new System.Drawing.Point(0, 17);
-            this.grdList.Name = "grdList";
-            this.grdList.RecordNavigator = true;
-            this.grdList.SelectedFormatStyle.Alpha = 2;
-            this.grdList.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
-            this.grdList.SelectedFormatStyle.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            this.grdList.SelectedFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
-            this.grdList.SelectedFormatStyle.ForeColor = System.Drawing.Color.White;
-            this.grdList.SelectedInactiveFormatStyle.ForeColor = System.Drawing.Color.Black;
-            this.grdList.Size = new System.Drawing.Size(365, 216);
-            this.grdList.TabIndex = 602;
-            this.grdList.TabStop = false;
-            this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.grdLuotkham);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox2.Location = new System.Drawing.Point(0, 233);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(365, 188);
-            this.groupBox2.TabIndex = 601;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Lịch sử khám chữa bệnh";
-            // 
-            // grdLuotkham
-            // 
-            this.grdLuotkham.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
-            this.grdLuotkham.BackColor = System.Drawing.Color.Silver;
-            this.grdLuotkham.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
-    " thông tin bệnh nhân đưa vào phòng khám</FilterRowInfoText></LocalizableData>";
-            grdLuotkham_DesignTimeLayout.LayoutString = resources.GetString("grdLuotkham_DesignTimeLayout.LayoutString");
-            this.grdLuotkham.DesignTimeLayout = grdLuotkham_DesignTimeLayout;
-            this.grdLuotkham.Dock = System.Windows.Forms.DockStyle.Top;
-            this.grdLuotkham.DynamicFiltering = true;
-            this.grdLuotkham.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None;
-            this.grdLuotkham.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
-            this.grdLuotkham.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown;
-            this.grdLuotkham.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.grdLuotkham.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
-            this.grdLuotkham.FocusCellFormatStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.grdLuotkham.FocusCellFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
-            this.grdLuotkham.Font = new System.Drawing.Font("Arial", 8.75F);
-            this.grdLuotkham.FrozenColumns = -1;
-            this.grdLuotkham.GroupByBoxVisible = false;
-            this.grdLuotkham.LinkFormatStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.grdLuotkham.Location = new System.Drawing.Point(3, 17);
-            this.grdLuotkham.Name = "grdLuotkham";
-            this.grdLuotkham.RecordNavigator = true;
-            this.grdLuotkham.SelectedFormatStyle.Alpha = 2;
-            this.grdLuotkham.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
-            this.grdLuotkham.SelectedFormatStyle.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            this.grdLuotkham.SelectedFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
-            this.grdLuotkham.SelectedFormatStyle.ForeColor = System.Drawing.Color.White;
-            this.grdLuotkham.SelectedInactiveFormatStyle.ForeColor = System.Drawing.Color.Black;
-            this.grdLuotkham.Size = new System.Drawing.Size(359, 170);
-            this.grdLuotkham.TabIndex = 600;
-            this.grdLuotkham.TabStop = false;
-            this.grdLuotkham.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
-            // 
             // grbRegs
             // 
             this.grbRegs.Controls.Add(this.grdRegExam);
@@ -794,6 +720,7 @@
             // 
             // pnlKetluan
             // 
+            this.pnlKetluan.Controls.Add(this.cmdInphieuhen);
             this.pnlKetluan.Controls.Add(this.txtHuongdieutri);
             this.pnlKetluan.Controls.Add(this.txtKet_Luan);
             this.pnlKetluan.Controls.Add(this.txtChanDoan);
@@ -828,6 +755,7 @@
             // 
             this.txtHuongdieutri._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtHuongdieutri._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHuongdieutri._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtHuongdieutri.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtHuongdieutri.AutoCompleteList")));
             this.txtHuongdieutri.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtHuongdieutri.CaseSensitive = false;
@@ -867,6 +795,7 @@
             // 
             this.txtKet_Luan._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtKet_Luan._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKet_Luan._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtKet_Luan.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKet_Luan.AutoCompleteList")));
             this.txtKet_Luan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtKet_Luan.CaseSensitive = false;
@@ -906,6 +835,7 @@
             // 
             this.txtChanDoan._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtChanDoan._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChanDoan._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtChanDoan.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtChanDoan.AutoCompleteList")));
             this.txtChanDoan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtChanDoan.CaseSensitive = false;
@@ -1241,6 +1171,7 @@
             // 
             this.txtNhommau._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtNhommau._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNhommau._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtNhommau.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNhommau.AutoCompleteList")));
             this.txtNhommau.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNhommau.CaseSensitive = false;
@@ -2292,6 +2223,114 @@
             this.vbLine4.TabStop = false;
             this.vbLine4.YourText = "Thông tin khám";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.grdLuotkham);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox2.Location = new System.Drawing.Point(0, 233);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(365, 188);
+            this.groupBox2.TabIndex = 601;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Lịch sử khám chữa bệnh";
+            // 
+            // grdLuotkham
+            // 
+            this.grdLuotkham.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
+            this.grdLuotkham.BackColor = System.Drawing.Color.Silver;
+            this.grdLuotkham.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
+    " thông tin bệnh nhân đưa vào phòng khám</FilterRowInfoText></LocalizableData>";
+            grdLuotkham_DesignTimeLayout.LayoutString = resources.GetString("grdLuotkham_DesignTimeLayout.LayoutString");
+            this.grdLuotkham.DesignTimeLayout = grdLuotkham_DesignTimeLayout;
+            this.grdLuotkham.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grdLuotkham.DynamicFiltering = true;
+            this.grdLuotkham.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None;
+            this.grdLuotkham.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdLuotkham.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown;
+            this.grdLuotkham.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.grdLuotkham.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdLuotkham.FocusCellFormatStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.grdLuotkham.FocusCellFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
+            this.grdLuotkham.Font = new System.Drawing.Font("Arial", 8.75F);
+            this.grdLuotkham.FrozenColumns = -1;
+            this.grdLuotkham.GroupByBoxVisible = false;
+            this.grdLuotkham.LinkFormatStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.grdLuotkham.Location = new System.Drawing.Point(3, 17);
+            this.grdLuotkham.Name = "grdLuotkham";
+            this.grdLuotkham.RecordNavigator = true;
+            this.grdLuotkham.SelectedFormatStyle.Alpha = 2;
+            this.grdLuotkham.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
+            this.grdLuotkham.SelectedFormatStyle.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            this.grdLuotkham.SelectedFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
+            this.grdLuotkham.SelectedFormatStyle.ForeColor = System.Drawing.Color.White;
+            this.grdLuotkham.SelectedInactiveFormatStyle.ForeColor = System.Drawing.Color.Black;
+            this.grdLuotkham.Size = new System.Drawing.Size(359, 170);
+            this.grdLuotkham.TabIndex = 600;
+            this.grdLuotkham.TabStop = false;
+            this.grdLuotkham.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // grdList
+            // 
+            this.grdList.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
+            this.grdList.BackColor = System.Drawing.Color.Silver;
+            this.grdList.BuiltInTextsData = "<LocalizableData ID=\"LocalizableStrings\" Collection=\"true\"><FilterRowInfoText>Lọc" +
+    " thông tin bệnh nhân đưa vào phòng khám</FilterRowInfoText></LocalizableData>";
+            grdList_DesignTimeLayout_Reference_0.Instance = ((object)(resources.GetObject("grdList_DesignTimeLayout_Reference_0.Instance")));
+            grdList_DesignTimeLayout.LayoutReferences.AddRange(new Janus.Windows.Common.Layouts.JanusLayoutReference[] {
+            grdList_DesignTimeLayout_Reference_0});
+            grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
+            this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
+            this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdList.DynamicFiltering = true;
+            this.grdList.EnterKeyBehavior = Janus.Windows.GridEX.EnterKeyBehavior.None;
+            this.grdList.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.grdList.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown;
+            this.grdList.FilterRowFormatStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.grdList.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges;
+            this.grdList.FocusCellFormatStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.grdList.FocusCellFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
+            this.grdList.Font = new System.Drawing.Font("Arial", 9F);
+            this.grdList.FrozenColumns = -1;
+            this.grdList.GroupByBoxVisible = false;
+            this.grdList.LinkFormatStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.grdList.Location = new System.Drawing.Point(0, 17);
+            this.grdList.Name = "grdList";
+            this.grdList.RecordNavigator = true;
+            this.grdList.SelectedFormatStyle.Alpha = 2;
+            this.grdList.SelectedFormatStyle.BackColor = System.Drawing.Color.SteelBlue;
+            this.grdList.SelectedFormatStyle.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            this.grdList.SelectedFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
+            this.grdList.SelectedFormatStyle.ForeColor = System.Drawing.Color.White;
+            this.grdList.SelectedInactiveFormatStyle.ForeColor = System.Drawing.Color.Black;
+            this.grdList.Size = new System.Drawing.Size(365, 216);
+            this.grdList.TabIndex = 602;
+            this.grdList.TabStop = false;
+            this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            this.grdList.ColumnButtonClick += new Janus.Windows.GridEX.ColumnActionEventHandler(this.grdList_ColumnButtonClick);
+            // 
+            // mnuxemketqua
+            // 
+            this.mnuxemketqua.CheckOnClick = true;
+            this.mnuxemketqua.Name = "mnuxemketqua";
+            this.mnuxemketqua.Size = new System.Drawing.Size(223, 22);
+            this.mnuxemketqua.Text = "Xem kết quả CLS";
+            this.mnuxemketqua.Click += new System.EventHandler(this.mnuxemketqua_Click);
+            // 
+            // cmdInphieuhen
+            // 
+            this.cmdInphieuhen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cmdInphieuhen.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdInphieuhen.Image = ((System.Drawing.Image)(resources.GetObject("cmdInphieuhen.Image")));
+            this.cmdInphieuhen.ImageSize = new System.Drawing.Size(20, 20);
+            this.cmdInphieuhen.Location = new System.Drawing.Point(10, 367);
+            this.cmdInphieuhen.Name = "cmdInphieuhen";
+            this.cmdInphieuhen.Size = new System.Drawing.Size(133, 30);
+            this.cmdInphieuhen.TabIndex = 455;
+            this.cmdInphieuhen.TabStop = false;
+            this.cmdInphieuhen.Text = "Phiếu hẹn khám";
+            this.toolTip1.SetToolTip(this.cmdInphieuhen, "Nhấn vào đây để in tóm tắt điều trị ngoại trú(Ctrl+P)");
+            this.cmdInphieuhen.Click += new System.EventHandler(this.cmdInphieuhen_Click);
+            // 
             // frm_KCB_Tracuu_lichsu_kcb
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -2315,9 +2354,6 @@
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).EndInit();
             this.uiGroupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdLuotkham)).EndInit();
             this.grbRegs.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdRegExam)).EndInit();
             this.panel4.ResumeLayout(false);
@@ -2355,6 +2391,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdPresDetail)).EndInit();
             this.pnlThongtinBNKCB.ResumeLayout(false);
             this.pnlThongtinBNKCB.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdLuotkham)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2500,14 +2539,16 @@
         private Janus.Windows.GridEX.EditControls.EditBox txtBuong;
         private Janus.Windows.GridEX.EditControls.EditBox txtKhoaDieuTri;
         private System.Windows.Forms.Label label11;
-        private Janus.Windows.GridEX.GridEX grdList;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private Janus.Windows.GridEX.GridEX grdLuotkham;
         private Janus.Windows.GridEX.EditControls.EditBox editBox1;
         private System.Windows.Forms.Label label22;
         private Janus.Windows.GridEX.EditControls.EditBox editBox2;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label26;
         private UCs.AutoCompleteTextbox_Nhanvien txtBacsikham;
+        private Janus.Windows.GridEX.GridEX grdList;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private Janus.Windows.GridEX.GridEX grdLuotkham;
+        private System.Windows.Forms.ToolStripMenuItem mnuxemketqua;
+        private Janus.Windows.EditControls.UIButton cmdInphieuhen;
     }
 }

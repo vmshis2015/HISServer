@@ -2967,6 +2967,9 @@ namespace VNS.HIS.UI.NGOAITRU
                     this.txtDrug_Name.Text = rowArray[0][DmucThuoc.Columns.TenThuoc].ToString();
                     this.txtBietduoc.Text = rowArray[0][DmucThuoc.Columns.HoatChat].ToString();
                     this.txtTinhchat.Text = rowArray[0][DmucThuoc.Columns.TinhChat].ToString();
+                    if (Utility.Int64Dbnull(txtTonKho.Text)<=500)
+                    this.txtTonKho.BackColor = Color.OrangeRed;
+                    else this.txtTonKho.BackColor = Color.SteelBlue;
                     this.txtGioihanke.Text = Utility.sDbnull(rowArray[0][DmucThuoc.Columns.GioihanKedon], "");
                     this.txtMotathem.Text = rowArray[0][DmucThuoc.Columns.MotaThem].ToString();
                     this.dtExpire_Date.Value = Convert .ToDateTime(rowArray[0]["ngay_hethan"]);

@@ -3452,5 +3452,11 @@ namespace VNS.HIS.UI.NGOAITRU
                 
         }
 
+        private void cmdNewPatient_Click(object sender, EventArgs e)
+        {
+            frm_KCB_DANGKY frm = new frm_KCB_DANGKY("KTC");
+            frm.ShowDialog();
+        }
+
     }
 }

@@ -2007,7 +2007,7 @@ namespace VNS.HIS.UI.NGOAITRU
             }
             finally
             {
-               
+                GC.Collect();
             }
         }
         private bool IsValidDeleteData()

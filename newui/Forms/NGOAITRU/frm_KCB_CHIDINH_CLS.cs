@@ -479,6 +479,7 @@ namespace VNS.HIS.UI.NGOAITRU
             finally
             {
                 cmdSave.Enabled = true;
+                GC.Collect();
             }
           
         }
@@ -1108,8 +1109,20 @@ namespace VNS.HIS.UI.NGOAITRU
                         else//Tự túc
                         {
                             newDr[KcbChidinhclsChitiet.Columns.BhytChitra] = 0;
-                            newDr[KcbChidinhclsChitiet.Columns.BnhanChitra] =
-                                Utility.DecimaltoDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.DonGia].Value, 0);
+                            QheDoituongDichvucl objQheDtuongGia = TinhCLS.LayGiaTheoDoiTuong("DV",
+                                                                                             Utility.Int32Dbnull(
+                                                                                                 gridExRow.Cells[
+                                                                                                     DmucDichvuclsChitiet
+                                                                                                         .Columns.
+                                                                                                         IdChitietdichvu
+                                                                                                     ].Value, -1),
+                                                                                             objLuotkham.MaKhoaThuchien);
+                            //newDr[KcbChidinhclsChitiet.Columns.BnhanChitra] =
+                            //    Utility.DecimaltoDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.DonGia].Value, 0);
+                            newDr[KcbChidinhclsChitiet.Columns.BnhanChitra] = Utility.DecimaltoDbnull(objQheDtuongGia.DonGia,0);
+                            newDr[KcbChidinhclsChitiet.Columns.MadoituongGia] = "DV";
+                               newDr[KcbChidinhclsChitiet.Columns.GiaDanhmuc] =  Utility.DecimaltoDbnull(objQheDtuongGia.DonGia,0);
+                             newDr[KcbChidinhclsChitiet.Columns.DonGia] =  Utility.DecimaltoDbnull(objQheDtuongGia.DonGia,0);
                             newDr[KcbChidinhclsChitiet.Columns.TuTuc] = Utility.Int32Dbnull(chkTutuc.Checked);
                         }
                         newDr["TT_BHYT"] = (Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.BhytChitra], 0)) * Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
@@ -1632,10 +1645,28 @@ namespace VNS.HIS.UI.NGOAITRU
                     }
                     else//Tự túc
                     {
-                        newDr[KcbChidinhclsChitiet.Columns.BhytChitra] = 0;
-                        newDr[KcbChidinhclsChitiet.Columns.BnhanChitra] =
-                            Utility.DecimaltoDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.DonGia].Value, 0);
-                        newDr[KcbChidinhclsChitiet.Columns.TuTuc] = chkTutuc.Checked;
+                        
+                            newDr[KcbChidinhclsChitiet.Columns.BhytChitra] = 0;
+                            QheDoituongDichvucl objQheDtuongGia = TinhCLS.LayGiaTheoDoiTuong("DV",
+                                                                                             Utility.Int32Dbnull(
+                                                                                                 gridExRow.Cells[
+                                                                                                     DmucDichvuclsChitiet
+                                                                                                         .Columns.
+                                                                                                         IdChitietdichvu
+                                                                                                     ].Value, -1),
+                                                                                             objLuotkham.MaKhoaThuchien);
+                            //newDr[KcbChidinhclsChitiet.Columns.BnhanChitra] =
+                            //    Utility.DecimaltoDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.DonGia].Value, 0);
+                            newDr[KcbChidinhclsChitiet.Columns.BnhanChitra] = Utility.DecimaltoDbnull(objQheDtuongGia.DonGia,0);
+                            newDr[KcbChidinhclsChitiet.Columns.MadoituongGia] = Utility.sDbnull(objQheDtuongGia.MaDoituongKcb);
+                               newDr[KcbChidinhclsChitiet.Columns.GiaDanhmuc] =  Utility.DecimaltoDbnull(objQheDtuongGia.DonGia,0);
+                             newDr[KcbChidinhclsChitiet.Columns.DonGia] =  Utility.DecimaltoDbnull(objQheDtuongGia.DonGia,0);
+                            newDr[KcbChidinhclsChitiet.Columns.TuTuc] = Utility.Int32Dbnull(chkTutuc.Checked);
+                      //  }
+                    //    newDr[KcbChidinhclsChitiet.Columns.BhytChitra] = 0;
+                       // newDr[KcbChidinhclsChitiet.Columns.BnhanChitra] =
+                         //   Utility.DecimaltoDbnull(gridExRow.Cells[KcbChidinhclsChitiet.Columns.DonGia].Value, 0);
+                        //newDr[KcbChidinhclsChitiet.Columns.TuTuc] = chkTutuc.Checked;
                     }
                     newDr["TT_BHYT"] = (Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.BhytChitra], 0)) * Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
                     newDr["TT_BN"] = (Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.BnhanChitra], 0) + Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.PhuThu], 0)) * Utility.Int32Dbnull(newDr[KcbChidinhclsChitiet.Columns.SoLuong], 0);
