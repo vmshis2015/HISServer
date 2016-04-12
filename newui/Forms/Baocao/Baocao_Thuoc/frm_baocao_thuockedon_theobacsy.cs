@@ -111,7 +111,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                                                  ? Utility.sDbnull(cboDoiTuong.SelectedValue)
                                                  : "Tất cả",
                                              cboStock.SelectedIndex > 0
-                                                 ? Utility.sDbnull(cboStock.SelectedValue)
+                                                 ? Utility.sDbnull(cboStock.Text)
                                                  : "Tất cả",
                                                  string.IsNullOrEmpty(cboBacSyChiDinh.Text) ? "Tất cả" : cboBacSyChiDinh.Text);
 
@@ -141,10 +141,13 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 objForm.crptViewer.ReportSource = crpt;
                 objForm.ShowDialog();
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-
-
+                Utility.ShowMsg("Lỗi:" + ex.Message);
+            }
+            finally
+            {
+                Utility.FreeMemory(crpt);
             }
         }
         /// <summary>
@@ -189,9 +192,9 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 saveFileDialog1.Dispose();
                 saveFileDialog1.Reset();
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
           
         }
@@ -234,8 +237,9 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 txtthuoc.dtData = _dataThuoc;
                 txtthuoc.ChangeDataSource();
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:" + ex.Message);
             }
         }
         private void frm_baocao_thuockedon_theobacsy_Load(object sender, EventArgs e)
@@ -253,10 +257,11 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                 cboBacSyChiDinh.DropDownDataSource = dtBacsi;
                 cboBacSyChiDinh.DropDownDataMember = DmucNhanvien.Columns.IdNhanvien;
                 cboBacSyChiDinh.DropDownDisplayMember = DmucNhanvien.Columns.TenNhanvien;
-                cboBacSyChiDinh.DropDownValueMember = DmucNhanvien.Columns.IdNhanvien;
+                cboBacSyChiDinh.DropDownValueMember = DmucNhanvien.Columns.UserName;
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
         }
     }

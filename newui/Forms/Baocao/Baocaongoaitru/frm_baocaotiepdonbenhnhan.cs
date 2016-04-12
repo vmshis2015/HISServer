@@ -80,6 +80,11 @@ namespace VNS.HIS.UI.Baocao
                     cboKhoa.SelectedValue = globalVariables.MA_KHOA_THIEN;
                 }
                 txtLoaikham.Init();
+                DataTable dtphongkham =
+                    new Select().From(DmucKhoaphong.Schema).ExecuteDataSet().Tables[0];
+                txtPhongkham.Init(dtphongkham, new List<string>() {  DmucDichvuclsChitiet.Columns.IdChitietdichvu,
+                            DmucDichvuclsChitiet.Columns.MaChitietdichvu,
+                            DmucDichvuclsChitiet.Columns.TenChitietdichvu});
             }
             catch (Exception ex)
             {
@@ -247,7 +252,8 @@ namespace VNS.HIS.UI.Baocao
                                                                      : globalVariables.SysDate,
                                                                  txtNhanvientiepdon.MyCode,
                                                                  Utility.sDbnull(cboKhoa.SelectedValue, -1),
-                                                                 txtLoaikham.myCode == "-1" ? "ALL" : txtLoaikham.myCode);
+                                                                 txtLoaikham.myCode == "-1" ? "ALL" : txtLoaikham.myCode,
+                                                                 Utility.Int32Dbnull(txtPhongkham.MyID,-1));
 
                 Utility.SetDataSourceForDataGridEx(grdChitiet, _dtData, false, true, "1=1", "");
                
@@ -274,13 +280,13 @@ namespace VNS.HIS.UI.Baocao
             Utility.UpdateLogotoDatatable(ref _dtData);
            
            
-            string Condition = string.Format("Từ ngày {0} đến {1} - Đối tượng : {2} - Khoa KCB :{3} - Người tiếp đón: {4}", dtFromDate.Text, dtToDate.Text,
+            string Condition = string.Format("Từ ngày {0} đến {1} - Đối tượng : {2} - Khoa KCB :{3} - Người tiếp đón: {4} - Phòng khám: {5}" , dtFromDate.Text, dtToDate.Text,
                                           cboDoituongKCB.SelectedIndex >= 0
                                               ? Utility.sDbnull(cboDoituongKCB.Text)
                                               : "Tất cả",
                                           cboKhoa.SelectedIndex > 0
                                               ? Utility.sDbnull(cboKhoa.Text)
-                                              : "Tất cả",txtNhanvientiepdon.MyCode=="-1"?"Tất cả":txtNhanvientiepdon.Text);
+                                              : "Tất cả",txtNhanvientiepdon.MyCode=="-1"?"Tất cả":txtNhanvientiepdon.Text,Utility.sDbnull(txtPhongkham.Text,"Tất cả"));
             var crpt = Utility.GetReport(chkChitiet.Checked ? "baocao_tiepdonbenhnhan_chitiet" : "baocao_tiepdonbenhnhan_tonghop", ref tieude, ref reportname);
             if (crpt == null) return;
 

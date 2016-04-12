@@ -121,7 +121,7 @@
   <data name="cmdExportToExcel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADdMAAA3TAb3VHGoAAAAHdElNRQfeBhsIKCn9RJW/AAAAB3RFWHRBdXRob3IAqa7M
+        YQUAAAAJcEhZcwAADdIAAA3SAW+S/o4AAAAHdElNRQfeBhsIKCn9RJW/AAAAB3RFWHRBdXRob3IAqa7M
         SAAAAAx0RVh0RGVzY3JpcHRpb24AEwkhIwAAAAp0RVh0Q29weXJpZ2h0AKwPzDoAAAAOdEVYdENyZWF0
         aW9uIHRpbWUANfcPCQAAAAl0RVh0U29mdHdhcmUAXXD/OgAAAAt0RVh0RGlzY2xhaW1lcgC3wLSPAAAA
         CHRFWHRXYXJuaW5nAMAb5ocAAAAHdEVYdFNvdXJjZQD1/4PrAAAACHRFWHRDb21tZW50APbMlr8AAAAG
@@ -327,6 +327,15 @@
         z4zkhFp27Swd0O2IYmh3scq6h7iIMcKIcsS7YuVwIwWDu4nFH3U5dLlbu7/W+h7s+zw3O/LDgXPiPrqz
         KGWQeGnGkHpxTv9MPC/hY6F9bF/Hnyu+Oe9/8i/RaptX3+Pa72/O//fsM88ceObAMweeOfDMgZ/pwH8B
         34o70CBz3moAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="txtPhongkham.AutoCompleteList" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAJoBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u
+        ZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0sIG1zY29ybGliLCBWZXJzaW9u
+        PTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUB
+        AAAAMFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLlN0cmluZwMAAAAGX2l0
+        ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgCAAAACQMAAAAAAAAAAAAAABEDAAAAAAAAAAs=
 </value>
   </data>
   <data name="txtLoaikham.AutoCompleteList" mimetype="application/x-microsoft.net.object.binary.base64">

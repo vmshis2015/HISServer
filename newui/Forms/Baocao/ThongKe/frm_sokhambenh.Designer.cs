@@ -1,4 +1,4 @@
-﻿namespace VNS.HIS.UI.Baocao
+﻿namespace VNS.HIS.UI.Forms.Baocao.ThongKe
 {
     partial class frm_sokhambenh
     {
@@ -222,7 +222,7 @@
             this.txtNhanvientiepdon.txtMyName = null;
             this.txtNhanvientiepdon.txtMyName_Edit = null;
             this.txtNhanvientiepdon.txtNext = null;
-            this.txtNhanvientiepdon.TextChanged += new System.EventHandler(this.txtNhanvientiepdon_TextChanged);
+          //  this.txtNhanvientiepdon.TextChanged += new System.EventHandler(this.txtNhanvientiepdon_TextChanged);
             // 
             // panel1
             // 

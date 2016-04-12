@@ -218,6 +218,8 @@
             // 
             // chkDate
             // 
+            this.chkDate.Checked = true;
+            this.chkDate.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDate.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDate.ForeColor = System.Drawing.Color.Black;
             this.chkDate.Location = new System.Drawing.Point(9, 15);
@@ -433,6 +435,7 @@
             this.dtpFromDate.Size = new System.Drawing.Size(133, 21);
             this.dtpFromDate.TabIndex = 1;
             this.dtpFromDate.Value = new System.DateTime(2014, 5, 5, 0, 0, 0, 0);
+           // this.dtpFromDate.ValueChanged += new System.EventHandler(this.dtpFromDate_ValueChanged_1);
             // 
             // pnlfunctions
             // 
@@ -544,6 +547,8 @@
             this.grdList.Location = new System.Drawing.Point(0, 135);
             this.grdList.Name = "grdList";
             this.grdList.RecordNavigator = true;
+            this.grdList.RowHeaderContent = Janus.Windows.GridEX.RowHeaderContent.RowIndex;
+            this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdList.Size = new System.Drawing.Size(1024, 378);
             this.grdList.TabIndex = 49;
             this.grdList.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;

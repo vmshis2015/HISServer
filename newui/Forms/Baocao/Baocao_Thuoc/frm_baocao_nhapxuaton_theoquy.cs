@@ -349,7 +349,7 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                     todate = dtToDate.Value.ToString("dd/MM/yyyy");
                 }
                 DataTable m_dtReport = null;
-              if(chkBangCanDoi.Checked)
+              if(radCandoikho.Checked)
               {
                   m_dtReport = BAOCAO_THUOC.ThuocBaocaonhapxuattontheokho(fromdate,
                                    todate,
@@ -365,7 +365,8 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                                                                                       dtNgayIn.Value, FromDateToDate,
                                                                                       Utility.sDbnull(cboKho.Text), chkTheoNhomThuoc.Checked);
               }
-              else
+
+              if(radXuatnhapton.Checked)
               {
                   m_dtReport = BAOCAO_THUOC.ThuocBaocaonhapxuatton(fromdate,
                                     todate,
@@ -379,18 +380,36 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
                       Utility.ShowMsg("Không tìm thấy dữ liệu", "Thông báo", MessageBoxIcon.Warning);
                       return;
                   }
-
-
+                 
                   thuoc_baocao.BaocaoNhapxuattonTheoquy(m_dtReport, cboReportType.SelectedValue.ToString(), KIEU_THUOC_VT, baocaO_TIEUDE1.TIEUDE, _tondau, _toncuoi,
                                                                                         dtNgayIn.Value, FromDateToDate,
                                                                                         Utility.sDbnull(cboKho.Text), chkTheoNhomThuoc.Checked);
               }
+               if(radBienbankiemke.Checked)
+               {
+                   m_dtReport = BAOCAO_THUOC.ThuocBaocaonhapxuatton(fromdate,
+                                   todate,
+                                  lstStockID, nhomthuoc, Utility.Int32Dbnull(txtthuoc.MyID, -1), chkBiendong.Checked ? 1 : 0);
+
+
+                   Utility.SetDataSourceForDataGridEx(grdList, m_dtReport, true, true, "1=1", "");
+                   THU_VIEN_CHUNG.CreateXML(m_dtReport, "thuoc_bienban_kiemkethuoc.xml");
+                   if (m_dtReport.Rows.Count <= 0)
+                   {
+                       Utility.ShowMsg("Không tìm thấy dữ liệu", "Thông báo", MessageBoxIcon.Warning);
+                       return;
+                   }
+                   string Condition = string.Format("Thuộc kho :{0} - Thuốc: {1}", string.IsNullOrEmpty(cboKho.Text) ? "Tất cả" : cboKho.Text,
+                                           string.IsNullOrEmpty(txtthuoc.Text) ? "Tất cả" : txtthuoc.Text);
+
+                   thuoc_baocao.Bienbankiemkethuoc(m_dtReport, KIEU_THUOC_VT,
+                                                   baocaO_TIEUDE1.TIEUDE, dtNgayIn.Value, Condition, cboKho.Text, 30);
+               }
               
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
         }
         /// <summary>

@@ -36,15 +36,18 @@
             this.gridEXExporter1 = new Janus.Windows.GridEX.Export.GridEXExporter(this.components);
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.chkChitiet = new Janus.Windows.EditControls.UICheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.uiGroupBox2 = new Janus.Windows.EditControls.UIGroupBox();
             this.cmdAdd = new Janus.Windows.EditControls.UIButton();
             this.txtListICD = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtMaBenhICD10 = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.cboDoituongKCB = new Janus.Windows.EditControls.UIComboBox();
-            this.chkChitiet = new Janus.Windows.EditControls.UICheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.grdChitiet = new Janus.Windows.GridEX.GridEX();
             this.grdList = new Janus.Windows.GridEX.GridEX();
@@ -59,10 +62,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cmdInPhieuXN = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.txtMaBenhICD10 = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.baocaO_TIEUDE1 = new VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -82,6 +82,19 @@
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp";
             // 
+            // chkChitiet
+            // 
+            this.chkChitiet.Checked = true;
+            this.chkChitiet.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkChitiet.Location = new System.Drawing.Point(587, 54);
+            this.chkChitiet.Name = "chkChitiet";
+            this.chkChitiet.Size = new System.Drawing.Size(209, 23);
+            this.chkChitiet.TabIndex = 7;
+            this.chkChitiet.TabStop = false;
+            this.chkChitiet.Text = "Chi tiết theo từng Bệnh nhân?";
+            this.toolTip1.SetToolTip(this.chkChitiet, "Bỏ chọn mục này để báo cáo theo số lượng tổng hợp");
+            this.chkChitiet.Visible = false;
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -94,6 +107,30 @@
             this.statusStrip1.Size = new System.Drawing.Size(909, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "Nhấn F3 (In Báo Cáo)";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(114, 17);
+            this.toolStripStatusLabel1.Text = "Nhấn F3(In báo cáo)";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(112, 17);
+            this.toolStripStatusLabel2.Text = "Nhấn F4(Xuất Excel)";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(95, 17);
+            this.toolStripStatusLabel3.Text = "Nhấn Esc(Thoát)";
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(224, 17);
+            this.toolStripStatusLabel4.Text = "Nhấn Crtl+A (Thêm mã ICD để tìm kiếm)";
             // 
             // panel1
             // 
@@ -151,7 +188,7 @@
             this.txtListICD.Location = new System.Drawing.Point(587, 82);
             this.txtListICD.Name = "txtListICD";
             this.txtListICD.Size = new System.Drawing.Size(310, 27);
-            this.txtListICD.TabIndex = 63;
+            this.txtListICD.TabIndex = 2;
             this.txtListICD.Text = "";
             // 
             // label2
@@ -163,49 +200,6 @@
             this.label2.Text = "ICD-10";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txtMaBenhICD10
-            // 
-            this.txtMaBenhICD10._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.txtMaBenhICD10._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaBenhICD10._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtMaBenhICD10.AutoCompleteList = null;
-            this.txtMaBenhICD10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMaBenhICD10.CaseSensitive = false;
-            this.txtMaBenhICD10.CompareNoID = true;
-            this.txtMaBenhICD10.DefaultCode = "-1";
-            this.txtMaBenhICD10.DefaultID = "-1";
-            this.txtMaBenhICD10.Drug_ID = null;
-            this.txtMaBenhICD10.ExtraWidth = 0;
-            this.txtMaBenhICD10.FillValueAfterSelect = false;
-            this.txtMaBenhICD10.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaBenhICD10.Location = new System.Drawing.Point(123, 82);
-            this.txtMaBenhICD10.MaxHeight = 289;
-            this.txtMaBenhICD10.MaxLength = 100;
-            this.txtMaBenhICD10.MinTypedCharacters = 2;
-            this.txtMaBenhICD10.Multiline = true;
-            this.txtMaBenhICD10.MyCode = "-1";
-            this.txtMaBenhICD10.MyID = "-1";
-            this.txtMaBenhICD10.MyText = "";
-            this.txtMaBenhICD10.Name = "txtMaBenhICD10";
-            this.txtMaBenhICD10.RaiseEvent = true;
-            this.txtMaBenhICD10.RaiseEventEnter = false;
-            this.txtMaBenhICD10.RaiseEventEnterWhenEmpty = true;
-            this.txtMaBenhICD10.SelectedIndex = -1;
-            this.txtMaBenhICD10.Size = new System.Drawing.Size(408, 27);
-            this.txtMaBenhICD10.splitChar = '@';
-            this.txtMaBenhICD10.splitCharIDAndCode = '#';
-            this.txtMaBenhICD10.TabIndex = 0;
-            this.txtMaBenhICD10.TabStop = false;
-            this.txtMaBenhICD10.TakeCode = false;
-            this.txtMaBenhICD10.txtMyCode = null;
-            this.txtMaBenhICD10.txtMyCode_Edit = null;
-            this.txtMaBenhICD10.txtMyID = null;
-            this.txtMaBenhICD10.txtMyID_Edit = null;
-            this.txtMaBenhICD10.txtMyName = null;
-            this.txtMaBenhICD10.txtMyName_Edit = null;
-            this.txtMaBenhICD10.txtNext = null;
-            this.txtMaBenhICD10.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMaBenhICD10_KeyDown);
-            // 
             // cboDoituongKCB
             // 
             this.cboDoituongKCB.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -215,18 +209,8 @@
             this.cboDoituongKCB.SelectInDataSource = true;
             this.cboDoituongKCB.Size = new System.Drawing.Size(310, 23);
             this.cboDoituongKCB.TabIndex = 1;
+            this.cboDoituongKCB.TabStop = false;
             this.cboDoituongKCB.Text = "Đối tượng";
-            // 
-            // chkChitiet
-            // 
-            this.chkChitiet.Checked = true;
-            this.chkChitiet.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkChitiet.Location = new System.Drawing.Point(587, 54);
-            this.chkChitiet.Name = "chkChitiet";
-            this.chkChitiet.Size = new System.Drawing.Size(209, 23);
-            this.chkChitiet.TabIndex = 7;
-            this.chkChitiet.Text = "Chi tiết theo từng Bệnh nhân?";
-            this.toolTip1.SetToolTip(this.chkChitiet, "Bỏ chọn mục này để báo cáo theo số lượng tổng hợp");
             // 
             // panel2
             // 
@@ -286,6 +270,7 @@
             this.cboKhoa.SelectInDataSource = true;
             this.cboKhoa.Size = new System.Drawing.Size(358, 23);
             this.cboKhoa.TabIndex = 0;
+            this.cboKhoa.TabStop = false;
             this.cboKhoa.Text = "Khoa thực hiện";
             // 
             // label4
@@ -321,6 +306,7 @@
             this.dtToDate.ShowUpDown = true;
             this.dtToDate.Size = new System.Drawing.Size(200, 23);
             this.dtToDate.TabIndex = 6;
+            this.dtToDate.TabStop = false;
             this.dtToDate.Value = new System.DateTime(2014, 9, 28, 0, 0, 0, 0);
             // 
             // dtFromDate
@@ -338,6 +324,7 @@
             this.dtFromDate.ShowUpDown = true;
             this.dtFromDate.Size = new System.Drawing.Size(200, 23);
             this.dtFromDate.TabIndex = 5;
+            this.dtFromDate.TabStop = false;
             this.dtFromDate.Value = new System.DateTime(2014, 9, 28, 0, 0, 0, 0);
             // 
             // chkByDate
@@ -360,6 +347,7 @@
             this.cmdExportToExcel.Name = "cmdExportToExcel";
             this.cmdExportToExcel.Size = new System.Drawing.Size(133, 30);
             this.cmdExportToExcel.TabIndex = 118;
+            this.cmdExportToExcel.TabStop = false;
             this.cmdExportToExcel.Text = "Xuất Excel";
             this.cmdExportToExcel.ToolTipText = "Bạn nhấn nút in phiếu để thực hiện in phiếu xét nghiệm cho bệnh nhân";
             this.cmdExportToExcel.Click += new System.EventHandler(this.cmdExportToExcel_Click);
@@ -403,6 +391,7 @@
             this.cmdInPhieuXN.Name = "cmdInPhieuXN";
             this.cmdInPhieuXN.Size = new System.Drawing.Size(133, 30);
             this.cmdInPhieuXN.TabIndex = 117;
+            this.cmdInPhieuXN.TabStop = false;
             this.cmdInPhieuXN.Text = "In báo cáo";
             this.cmdInPhieuXN.ToolTipText = "Bạn nhấn nút in phiếu để thực hiện in phiếu xét nghiệm cho bệnh nhân";
             this.cmdInPhieuXN.Click += new System.EventHandler(this.cmdInPhieuXN_Click);
@@ -417,32 +406,50 @@
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(133, 30);
             this.cmdExit.TabIndex = 119;
+            this.cmdExit.TabStop = false;
             this.cmdExit.Text = "Thoát (Esc)";
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
             // 
-            // toolStripStatusLabel1
+            // txtMaBenhICD10
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(114, 17);
-            this.toolStripStatusLabel1.Text = "Nhấn F3(In báo cáo)";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(112, 17);
-            this.toolStripStatusLabel2.Text = "Nhấn F4(Xuất Excel)";
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(95, 17);
-            this.toolStripStatusLabel3.Text = "Nhấn Esc(Thoát)";
-            // 
-            // toolStripStatusLabel4
-            // 
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(224, 17);
-            this.toolStripStatusLabel4.Text = "Nhấn Crtl+A (Thêm mã ICD để tìm kiếm)";
+            this.txtMaBenhICD10._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtMaBenhICD10._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaBenhICD10._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtMaBenhICD10.AutoCompleteList = null;
+            this.txtMaBenhICD10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMaBenhICD10.CaseSensitive = false;
+            this.txtMaBenhICD10.CompareNoID = true;
+            this.txtMaBenhICD10.DefaultCode = "-1";
+            this.txtMaBenhICD10.DefaultID = "-1";
+            this.txtMaBenhICD10.Drug_ID = null;
+            this.txtMaBenhICD10.ExtraWidth = 0;
+            this.txtMaBenhICD10.FillValueAfterSelect = false;
+            this.txtMaBenhICD10.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaBenhICD10.Location = new System.Drawing.Point(123, 85);
+            this.txtMaBenhICD10.MaxHeight = 289;
+            this.txtMaBenhICD10.MaxLength = 100;
+            this.txtMaBenhICD10.MinTypedCharacters = 2;
+            this.txtMaBenhICD10.MyCode = "-1";
+            this.txtMaBenhICD10.MyID = "-1";
+            this.txtMaBenhICD10.MyText = "";
+            this.txtMaBenhICD10.Name = "txtMaBenhICD10";
+            this.txtMaBenhICD10.RaiseEvent = true;
+            this.txtMaBenhICD10.RaiseEventEnter = false;
+            this.txtMaBenhICD10.RaiseEventEnterWhenEmpty = true;
+            this.txtMaBenhICD10.SelectedIndex = -1;
+            this.txtMaBenhICD10.Size = new System.Drawing.Size(408, 21);
+            this.txtMaBenhICD10.splitChar = '@';
+            this.txtMaBenhICD10.splitCharIDAndCode = '#';
+            this.txtMaBenhICD10.TabIndex = 0;
+            this.txtMaBenhICD10.TakeCode = false;
+            this.txtMaBenhICD10.txtMyCode = null;
+            this.txtMaBenhICD10.txtMyCode_Edit = null;
+            this.txtMaBenhICD10.txtMyID = null;
+            this.txtMaBenhICD10.txtMyID_Edit = null;
+            this.txtMaBenhICD10.txtMyName = null;
+            this.txtMaBenhICD10.txtMyName_Edit = null;
+            this.txtMaBenhICD10.txtNext = null;
+            this.txtMaBenhICD10.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMaBenhICD10_KeyDown);
             // 
             // baocaO_TIEUDE1
             // 

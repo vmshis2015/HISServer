@@ -27,6 +27,7 @@ namespace VNS.HIS.UI.Baocao
             Initevents();
             dtNgayInPhieu.Value = globalVariables.SysDate;
             dtToDate.Value = dtNgayInPhieu.Value = dtFromDate.Value = globalVariables.SysDate;
+            
         }
 
         private void Initevents()
@@ -267,10 +268,8 @@ namespace VNS.HIS.UI.Baocao
             if (e.KeyCode == Keys.Enter)
             {
                 cmdAdd.PerformClick();
-                txtMaBenhICD10.Clear();
             }
         }
-
         private void cmdAdd_Click(object sender, EventArgs e)
         {
             if (_list == null)
@@ -284,6 +283,7 @@ namespace VNS.HIS.UI.Baocao
                 txtListICD.Text = Utility.sDbnull(_list);
             }
             txtMaBenhICD10.Clear();
+            txtMaBenhICD10.Focus();
         }
 
         private void frm_thongketheoma_ICD10_KeyDown(object sender, KeyEventArgs e)
@@ -293,5 +293,6 @@ namespace VNS.HIS.UI.Baocao
             if (e.KeyCode == Keys.Escape) cmdExit.PerformClick();
             if (e.Control && e.KeyCode == Keys.A) cmdAdd.PerformClick();
         }
+
     }
 }

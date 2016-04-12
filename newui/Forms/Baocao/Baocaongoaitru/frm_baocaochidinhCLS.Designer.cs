@@ -30,12 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_baocaochidinhCLS));
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
-            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem7 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem8 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem9 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.GridEX.GridEXLayout cboNhomdichvuCLS_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdChitiet_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout cboBacSyChiDinh_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.gridEXExporter1 = new Janus.Windows.GridEX.Export.GridEXExporter(this.components);
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -53,8 +54,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.chkChitiet = new Janus.Windows.EditControls.UICheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.grdList = new Janus.Windows.GridEX.GridEX();
             this.grdChitiet = new Janus.Windows.GridEX.GridEX();
+            this.grdList = new Janus.Windows.GridEX.GridEX();
             this.cboDoituongKCB = new Janus.Windows.EditControls.UIComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.cbokhoa = new Janus.Windows.EditControls.UIComboBox();
@@ -65,11 +66,15 @@
             this.chkByDate = new Janus.Windows.EditControls.UICheckBox();
             this.baocaO_TIEUDE1 = new VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.cboBacSyChiDinh = new Janus.Windows.GridEX.EditControls.CheckedComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtchitietdichvu = new VNS.HIS.UCs.AutoCompleteTextbox();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
             this.uiGroupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdChitiet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.SuspendLayout();
             // 
             // printDialog1
@@ -147,6 +152,10 @@
             this.uiGroupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.uiGroupBox2.Controls.Add(this.txtchitietdichvu);
+            this.uiGroupBox2.Controls.Add(this.label6);
+            this.uiGroupBox2.Controls.Add(this.label5);
+            this.uiGroupBox2.Controls.Add(this.cboBacSyChiDinh);
             this.uiGroupBox2.Controls.Add(this.chkKieuchidinh);
             this.uiGroupBox2.Controls.Add(this.label1);
             this.uiGroupBox2.Controls.Add(this.txtNhanvien);
@@ -166,39 +175,39 @@
             this.uiGroupBox2.Font = new System.Drawing.Font("Arial", 9F);
             this.uiGroupBox2.Location = new System.Drawing.Point(0, 59);
             this.uiGroupBox2.Name = "uiGroupBox2";
-            this.uiGroupBox2.Size = new System.Drawing.Size(776, 466);
+            this.uiGroupBox2.Size = new System.Drawing.Size(771, 466);
             this.uiGroupBox2.TabIndex = 115;
             this.uiGroupBox2.Text = "Thông tin tìm kiếm";
             // 
             // chkKieuchidinh
             // 
             this.chkKieuchidinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            uiComboBoxItem1.FormatStyle.Alpha = 0;
-            uiComboBoxItem1.IsSeparator = false;
-            uiComboBoxItem1.Text = "Tất cả";
-            uiComboBoxItem1.Value = ((short)(-1));
-            uiComboBoxItem2.FormatStyle.Alpha = 0;
-            uiComboBoxItem2.IsSeparator = false;
-            uiComboBoxItem2.Text = "Từ phòng khám";
-            uiComboBoxItem2.Value = ((short)(1));
-            uiComboBoxItem3.FormatStyle.Alpha = 0;
-            uiComboBoxItem3.IsSeparator = false;
-            uiComboBoxItem3.Text = "Không qua khám";
-            uiComboBoxItem3.Value = ((short)(0));
+            uiComboBoxItem7.FormatStyle.Alpha = 0;
+            uiComboBoxItem7.IsSeparator = false;
+            uiComboBoxItem7.Text = "Tất cả";
+            uiComboBoxItem7.Value = ((short)(-1));
+            uiComboBoxItem8.FormatStyle.Alpha = 0;
+            uiComboBoxItem8.IsSeparator = false;
+            uiComboBoxItem8.Text = "Từ phòng khám";
+            uiComboBoxItem8.Value = ((short)(1));
+            uiComboBoxItem9.FormatStyle.Alpha = 0;
+            uiComboBoxItem9.IsSeparator = false;
+            uiComboBoxItem9.Text = "Không qua khám";
+            uiComboBoxItem9.Value = ((short)(0));
             this.chkKieuchidinh.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem1,
-            uiComboBoxItem2,
-            uiComboBoxItem3});
+            uiComboBoxItem7,
+            uiComboBoxItem8,
+            uiComboBoxItem9});
             this.chkKieuchidinh.ItemsFormatStyle.FontBold = Janus.Windows.UI.TriState.True;
-            this.chkKieuchidinh.Location = new System.Drawing.Point(556, 76);
+            this.chkKieuchidinh.Location = new System.Drawing.Point(507, 74);
             this.chkKieuchidinh.Name = "chkKieuchidinh";
             this.chkKieuchidinh.SelectInDataSource = true;
-            this.chkKieuchidinh.Size = new System.Drawing.Size(186, 21);
+            this.chkKieuchidinh.Size = new System.Drawing.Size(235, 21);
             this.chkKieuchidinh.TabIndex = 61;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(456, 79);
+            this.label1.Location = new System.Drawing.Point(407, 77);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 15);
             this.label1.TabIndex = 60;
@@ -219,7 +228,7 @@
             this.txtNhanvien.ExtraWidth = 0;
             this.txtNhanvien.FillValueAfterSelect = false;
             this.txtNhanvien.LOAI_NHANVIEN = null;
-            this.txtNhanvien.Location = new System.Drawing.Point(138, 74);
+            this.txtNhanvien.Location = new System.Drawing.Point(507, 101);
             this.txtNhanvien.MaxHeight = -1;
             this.txtNhanvien.MinTypedCharacters = 2;
             this.txtNhanvien.MyCode = "-1";
@@ -229,7 +238,7 @@
             this.txtNhanvien.RaiseEventEnter = false;
             this.txtNhanvien.RaiseEventEnterWhenEmpty = false;
             this.txtNhanvien.SelectedIndex = -1;
-            this.txtNhanvien.Size = new System.Drawing.Size(315, 21);
+            this.txtNhanvien.Size = new System.Drawing.Size(235, 21);
             this.txtNhanvien.splitChar = '@';
             this.txtNhanvien.splitCharIDAndCode = '#';
             this.txtNhanvien.TabIndex = 2;
@@ -249,21 +258,21 @@
             this.cboNhomdichvuCLS.DropDownDisplayMember = "TEN_KHO";
             this.cboNhomdichvuCLS.DropDownValueMember = "ID_KHO";
             this.cboNhomdichvuCLS.Font = new System.Drawing.Font("Arial", 9F);
-            this.cboNhomdichvuCLS.Location = new System.Drawing.Point(138, 102);
+            this.cboNhomdichvuCLS.Location = new System.Drawing.Point(138, 101);
             this.cboNhomdichvuCLS.Name = "cboNhomdichvuCLS";
             this.cboNhomdichvuCLS.SaveSettings = false;
-            this.cboNhomdichvuCLS.Size = new System.Drawing.Size(315, 21);
+            this.cboNhomdichvuCLS.Size = new System.Drawing.Size(258, 21);
             this.cboNhomdichvuCLS.TabIndex = 3;
             this.cboNhomdichvuCLS.ValueItemDataMember = "(None)";
             this.cboNhomdichvuCLS.ValuesDataMember = null;
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(11, 107);
+            this.label4.Location = new System.Drawing.Point(11, 104);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(121, 15);
             this.label4.TabIndex = 59;
-            this.label4.Text = "Chọn dịch vụ CLS";
+            this.label4.Text = "Chọn dịch vụ CLS:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
@@ -279,7 +288,7 @@
             // 
             this.chkChitiet.Checked = true;
             this.chkChitiet.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkChitiet.Location = new System.Drawing.Point(459, 128);
+            this.chkChitiet.Location = new System.Drawing.Point(510, 130);
             this.chkChitiet.Name = "chkChitiet";
             this.chkChitiet.Size = new System.Drawing.Size(209, 23);
             this.chkChitiet.TabIndex = 7;
@@ -293,34 +302,10 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.Controls.Add(this.grdChitiet);
             this.panel1.Controls.Add(this.grdList);
-            this.panel1.Location = new System.Drawing.Point(6, 160);
+            this.panel1.Location = new System.Drawing.Point(6, 189);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(758, 300);
+            this.panel1.Size = new System.Drawing.Size(758, 271);
             this.panel1.TabIndex = 56;
-            // 
-            // grdList
-            // 
-            this.grdList.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
-            this.grdList.ColumnAutoResize = true;
-            grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
-            this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
-            this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdList.Font = new System.Drawing.Font("Arial", 9F);
-            this.grdList.GroupByBoxVisible = false;
-            this.grdList.GroupRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
-            this.grdList.GroupTotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
-            this.grdList.GroupTotals = Janus.Windows.GridEX.GroupTotals.Always;
-            this.grdList.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
-            this.grdList.Location = new System.Drawing.Point(0, 0);
-            this.grdList.Name = "grdList";
-            this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdList.Size = new System.Drawing.Size(758, 300);
-            this.grdList.TabIndex = 13;
-            this.grdList.TabStop = false;
-            this.grdList.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdList.TotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
-            this.grdList.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
-            this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // grdChitiet
             // 
@@ -339,13 +324,37 @@
             this.grdChitiet.Location = new System.Drawing.Point(0, 0);
             this.grdChitiet.Name = "grdChitiet";
             this.grdChitiet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdChitiet.Size = new System.Drawing.Size(758, 300);
+            this.grdChitiet.Size = new System.Drawing.Size(758, 271);
             this.grdChitiet.TabIndex = 13;
             this.grdChitiet.TabStop = false;
             this.grdChitiet.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdChitiet.TotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
             this.grdChitiet.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
             this.grdChitiet.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // grdList
+            // 
+            this.grdList.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
+            this.grdList.ColumnAutoResize = true;
+            grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
+            this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
+            this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdList.Font = new System.Drawing.Font("Arial", 9F);
+            this.grdList.GroupByBoxVisible = false;
+            this.grdList.GroupRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
+            this.grdList.GroupTotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
+            this.grdList.GroupTotals = Janus.Windows.GridEX.GroupTotals.Always;
+            this.grdList.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight;
+            this.grdList.Location = new System.Drawing.Point(0, 0);
+            this.grdList.Name = "grdList";
+            this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdList.Size = new System.Drawing.Size(758, 271);
+            this.grdList.TabIndex = 13;
+            this.grdList.TabStop = false;
+            this.grdList.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.grdList.TotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.True;
+            this.grdList.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
+            this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
             // cboDoituongKCB
             // 
@@ -389,11 +398,11 @@
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(11, 79);
+            this.label8.Location = new System.Drawing.Point(11, 77);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(121, 15);
             this.label8.TabIndex = 36;
-            this.label8.Text = "Thu ngân viên:";
+            this.label8.Text = "Bác sỹ chỉ định:";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // dtToDate
@@ -430,7 +439,7 @@
             // 
             this.chkByDate.Checked = true;
             this.chkByDate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkByDate.Location = new System.Drawing.Point(67, 131);
+            this.chkByDate.Location = new System.Drawing.Point(67, 130);
             this.chkByDate.Name = "chkByDate";
             this.chkByDate.Size = new System.Drawing.Size(65, 23);
             this.chkByDate.TabIndex = 4;
@@ -448,7 +457,7 @@
             this.baocaO_TIEUDE1.ShortcutAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.baocaO_TIEUDE1.ShortcutFont = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.baocaO_TIEUDE1.showHelp = false;
-            this.baocaO_TIEUDE1.Size = new System.Drawing.Size(776, 53);
+            this.baocaO_TIEUDE1.Size = new System.Drawing.Size(771, 53);
             this.baocaO_TIEUDE1.TabIndex = 114;
             this.baocaO_TIEUDE1.TIEUDE = "BÁO CÁO THU TIỀN BỆNH NHÂN THEO KHOA PHÒNG";
             this.baocaO_TIEUDE1.TitleFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -458,11 +467,81 @@
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp";
             // 
+            // cboBacSyChiDinh
+            // 
+            cboBacSyChiDinh_DesignTimeLayout.LayoutString = resources.GetString("cboBacSyChiDinh_DesignTimeLayout.LayoutString");
+            this.cboBacSyChiDinh.DesignTimeLayout = cboBacSyChiDinh_DesignTimeLayout;
+            this.cboBacSyChiDinh.DropDownDisplayMember = "ten_nhanvien";
+            this.cboBacSyChiDinh.DropDownValueMember = "id_nhanvien";
+            this.cboBacSyChiDinh.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboBacSyChiDinh.Location = new System.Drawing.Point(138, 74);
+            this.cboBacSyChiDinh.Name = "cboBacSyChiDinh";
+            this.cboBacSyChiDinh.SaveSettings = false;
+            this.cboBacSyChiDinh.Size = new System.Drawing.Size(258, 21);
+            this.cboBacSyChiDinh.TabIndex = 62;
+            this.cboBacSyChiDinh.ValuesDataMember = null;
+            this.cboBacSyChiDinh.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(402, 103);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(99, 16);
+            this.label5.TabIndex = 63;
+            this.label5.Text = "Nhân viên:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(12, 160);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(121, 15);
+            this.label6.TabIndex = 65;
+            this.label6.Text = "Chi tiết dịch vụ:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtchitietdichvu
+            // 
+            this.txtchitietdichvu._backcolor = System.Drawing.SystemColors.Control;
+            this.txtchitietdichvu._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtchitietdichvu._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtchitietdichvu.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtchitietdichvu.AutoCompleteList")));
+            this.txtchitietdichvu.CaseSensitive = false;
+            this.txtchitietdichvu.CompareNoID = true;
+            this.txtchitietdichvu.DefaultCode = "-1";
+            this.txtchitietdichvu.DefaultID = "-1";
+            this.txtchitietdichvu.Drug_ID = null;
+            this.txtchitietdichvu.ExtraWidth = 0;
+            this.txtchitietdichvu.FillValueAfterSelect = false;
+            this.txtchitietdichvu.Location = new System.Drawing.Point(138, 158);
+            this.txtchitietdichvu.MaxHeight = -1;
+            this.txtchitietdichvu.MinTypedCharacters = 2;
+            this.txtchitietdichvu.MyCode = "-1";
+            this.txtchitietdichvu.MyID = "-1";
+            this.txtchitietdichvu.MyText = "";
+            this.txtchitietdichvu.Name = "txtchitietdichvu";
+            this.txtchitietdichvu.RaiseEvent = false;
+            this.txtchitietdichvu.RaiseEventEnter = false;
+            this.txtchitietdichvu.RaiseEventEnterWhenEmpty = false;
+            this.txtchitietdichvu.SelectedIndex = -1;
+            this.txtchitietdichvu.Size = new System.Drawing.Size(604, 21);
+            this.txtchitietdichvu.splitChar = '@';
+            this.txtchitietdichvu.splitCharIDAndCode = '#';
+            this.txtchitietdichvu.TabIndex = 66;
+            this.txtchitietdichvu.TakeCode = false;
+            this.txtchitietdichvu.txtMyCode = null;
+            this.txtchitietdichvu.txtMyCode_Edit = null;
+            this.txtchitietdichvu.txtMyID = null;
+            this.txtchitietdichvu.txtMyID_Edit = null;
+            this.txtchitietdichvu.txtMyName = null;
+            this.txtchitietdichvu.txtMyName_Edit = null;
+            this.txtchitietdichvu.txtNext = null;
+            // 
             // frm_baocaochidinhCLS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(776, 573);
+            this.ClientSize = new System.Drawing.Size(771, 573);
             this.Controls.Add(this.uiGroupBox2);
             this.Controls.Add(this.baocaO_TIEUDE1);
             this.Controls.Add(this.cmdExportToExcel);
@@ -481,8 +560,8 @@
             this.uiGroupBox2.ResumeLayout(false);
             this.uiGroupBox2.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdChitiet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -519,5 +598,9 @@
         private UCs.AutoCompleteTextbox_Nhanvien txtNhanvien;
         private Janus.Windows.EditControls.UIComboBox chkKieuchidinh;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
+        private Janus.Windows.GridEX.EditControls.CheckedComboBox cboBacSyChiDinh;
+        private UCs.AutoCompleteTextbox txtchitietdichvu;
+        private System.Windows.Forms.Label label6;
     }
 }

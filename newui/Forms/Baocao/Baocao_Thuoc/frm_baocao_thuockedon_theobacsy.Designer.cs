@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_baocao_thuockedon_theobacsy));
-            Janus.Windows.GridEX.GridEXLayout cboBacSyChiDinh_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem1 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem2 = new Janus.Windows.EditControls.UIComboBoxItem();
             Janus.Windows.EditControls.UIComboBoxItem uiComboBoxItem3 = new Janus.Windows.EditControls.UIComboBoxItem();
+            Janus.Windows.GridEX.GridEXLayout cboBacSyChiDinh_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout grdList_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.cmdExportToExcel = new Janus.Windows.EditControls.UIButton();
             this.dtNgayInPhieu = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.label3 = new System.Windows.Forms.Label();
@@ -46,6 +46,8 @@
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.baocaO_TIEUDE1 = new VNS.HIS.UI.FORMs.BAOCAO.BHYT.UserControls.BAOCAO_TIEUDE();
             this.uiGroupBox2 = new Janus.Windows.EditControls.UIGroupBox();
+            this.cboTrangthai = new Janus.Windows.EditControls.UIComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.txtthuoc = new VNS.HIS.UCs.AutoCompleteTextbox_Thuoc();
             this.label11 = new System.Windows.Forms.Label();
             this.cboBacSyChiDinh = new Janus.Windows.GridEX.EditControls.CheckedComboBox();
@@ -58,8 +60,6 @@
             this.dtToDate = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.dtFromDate = new Janus.Windows.CalendarCombo.CalendarCombo();
             this.chkByDate = new Janus.Windows.EditControls.UICheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cboTrangthai = new Janus.Windows.EditControls.UIComboBox();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
             this.uiGroupBox2.SuspendLayout();
@@ -184,10 +184,49 @@
             this.uiGroupBox2.TabIndex = 121;
             this.uiGroupBox2.Text = "Thông tin tìm kiếm";
             // 
+            // cboTrangthai
+            // 
+            this.cboTrangthai.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            uiComboBoxItem1.FormatStyle.Alpha = 0;
+            uiComboBoxItem1.IsSeparator = false;
+            uiComboBoxItem1.Text = "Đã cấp phát";
+            uiComboBoxItem1.Value = ((short)(1));
+            uiComboBoxItem2.FormatStyle.Alpha = 0;
+            uiComboBoxItem2.IsSeparator = false;
+            uiComboBoxItem2.Text = "Chưa cấp phát";
+            uiComboBoxItem2.Value = ((short)(0));
+            uiComboBoxItem3.FormatStyle.Alpha = 0;
+            uiComboBoxItem3.IsSeparator = false;
+            uiComboBoxItem3.Text = "Tất cả";
+            uiComboBoxItem3.Value = ((short)(-1));
+            this.cboTrangthai.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
+            uiComboBoxItem1,
+            uiComboBoxItem2,
+            uiComboBoxItem3});
+            this.cboTrangthai.ItemsFormatStyle.FontBold = Janus.Windows.UI.TriState.True;
+            this.cboTrangthai.Location = new System.Drawing.Point(543, 71);
+            this.cboTrangthai.Name = "cboTrangthai";
+            this.cboTrangthai.SelectedIndex = 0;
+            this.cboTrangthai.SelectInDataSource = true;
+            this.cboTrangthai.Size = new System.Drawing.Size(214, 21);
+            this.cboTrangthai.TabIndex = 3;
+            this.cboTrangthai.Text = "Đã cấp phát";
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(406, 74);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(131, 15);
+            this.label4.TabIndex = 40;
+            this.label4.Text = "Trạng thái đơn thuốc:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // txtthuoc
             // 
             this.txtthuoc._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtthuoc._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtthuoc.AllowedSelectPrice = false;
             this.txtthuoc.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtthuoc.AutoCompleteList")));
             this.txtthuoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtthuoc.CaseSensitive = false;
@@ -196,6 +235,7 @@
             this.txtthuoc.DefaultID = "-1";
             this.txtthuoc.Drug_ID = null;
             this.txtthuoc.ExtraWidth = 0;
+            this.txtthuoc.ExtraWidth_Pre = 0;
             this.txtthuoc.FillValueAfterSelect = true;
             this.txtthuoc.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtthuoc.GridView = false;
@@ -204,6 +244,7 @@
             this.txtthuoc.MinTypedCharacters = 2;
             this.txtthuoc.MyCode = "-1";
             this.txtthuoc.MyID = "-1";
+            this.txtthuoc.MyText = "";
             this.txtthuoc.Name = "txtthuoc";
             this.txtthuoc.RaiseEvent = false;
             this.txtthuoc.RaiseEventEnter = false;
@@ -213,6 +254,7 @@
             this.txtthuoc.splitChar = '@';
             this.txtthuoc.splitCharIDAndCode = '#';
             this.txtthuoc.TabIndex = 4;
+            this.txtthuoc.TakeCode = false;
             this.txtthuoc.txtMyCode = null;
             this.txtthuoc.txtMyCode_Edit = null;
             this.txtthuoc.txtMyID = null;
@@ -291,9 +333,9 @@
             // grdList
             // 
             this.grdList.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
-            this.grdList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.grdList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grdList.ColumnAutoResize = true;
             grdList_DesignTimeLayout.LayoutString = resources.GetString("grdList_DesignTimeLayout.LayoutString");
             this.grdList.DesignTimeLayout = grdList_DesignTimeLayout;
@@ -364,43 +406,6 @@
             this.chkByDate.Size = new System.Drawing.Size(71, 23);
             this.chkByDate.TabIndex = 5;
             this.chkByDate.Text = "Từ ngày";
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(406, 74);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(131, 15);
-            this.label4.TabIndex = 40;
-            this.label4.Text = "Trạng thái đơn thuốc:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cboTrangthai
-            // 
-            this.cboTrangthai.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            uiComboBoxItem1.FormatStyle.Alpha = 0;
-            uiComboBoxItem1.IsSeparator = false;
-            uiComboBoxItem1.Text = "Đã cấp phát";
-            uiComboBoxItem1.Value = ((short)(1));
-            uiComboBoxItem2.FormatStyle.Alpha = 0;
-            uiComboBoxItem2.IsSeparator = false;
-            uiComboBoxItem2.Text = "Chưa cấp phát";
-            uiComboBoxItem2.Value = ((short)(0));
-            uiComboBoxItem3.FormatStyle.Alpha = 0;
-            uiComboBoxItem3.IsSeparator = false;
-            uiComboBoxItem3.Text = "Tất cả";
-            uiComboBoxItem3.Value = ((short)(-1));
-            this.cboTrangthai.Items.AddRange(new Janus.Windows.EditControls.UIComboBoxItem[] {
-            uiComboBoxItem1,
-            uiComboBoxItem2,
-            uiComboBoxItem3});
-            this.cboTrangthai.ItemsFormatStyle.FontBold = Janus.Windows.UI.TriState.True;
-            this.cboTrangthai.Location = new System.Drawing.Point(543, 71);
-            this.cboTrangthai.Name = "cboTrangthai";
-            this.cboTrangthai.SelectInDataSource = true;
-            this.cboTrangthai.Size = new System.Drawing.Size(214, 21);
-            this.cboTrangthai.TabIndex = 3;
-            this.cboTrangthai.Text = "Đã cấp phát";
             // 
             // frm_baocao_thuockedon_theobacsy
             // 

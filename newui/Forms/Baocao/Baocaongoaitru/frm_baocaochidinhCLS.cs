@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace VNS.HIS.UI.Baocao
         private DataTable m_dtKhoathucHien = new DataTable();
         private string reportname = "";
         private string tieude = "";
+        private int _iddichvuchitiet = new int();
+        private string _mabschidinh = "-1";
         private decimal tong_tien;
 
         public frm_baocaochidinhCLS(string args)
@@ -91,7 +94,7 @@ namespace VNS.HIS.UI.Baocao
                                              DmucDoituongkcb.Columns.MaDoituongKcb,
                                              DmucDoituongkcb.Columns.TenDoituongKcb, "Chọn đối tượng KCB", true);
 
-                txtNhanvien.Init(args);
+                txtNhanvien.Init(CommonLoadDuoc.LAYTHONGTIN_NHANVIEN());
                 m_dtKhoathucHien = THU_VIEN_CHUNG.Laydanhmuckhoa("NGOAI", 0);
                 DataBinding.BindDataCombobox(cbokhoa, m_dtKhoathucHien,
                                              DmucKhoaphong.Columns.MaKhoaphong, DmucKhoaphong.Columns.TenKhoaphong,
@@ -105,6 +108,20 @@ namespace VNS.HIS.UI.Baocao
                 {
                     cbokhoa.SelectedValue = globalVariables.MA_KHOA_THIEN;
                 }
+                DataTable dtdmuc = new Select().From(DmucDichvuclsChitiet.Schema).Where(DmucDichvuclsChitiet.Columns.TrangThai).IsEqualTo(1).ExecuteDataSet().Tables[0];
+                txtchitietdichvu.Init(dtdmuc
+              ,
+              new List<string>
+                        {
+                            DmucDichvuclsChitiet.Columns.IdChitietdichvu,
+                            DmucDichvuclsChitiet.Columns.MaChitietdichvu,
+                            DmucDichvuclsChitiet.Columns.TenChitietdichvu
+                        });
+                DataTable dtBacsi = THU_VIEN_CHUNG.LaydanhsachBacsi(-1, -1);
+                cboBacSyChiDinh.DropDownDataSource = dtBacsi;
+                cboBacSyChiDinh.DropDownDataMember = DmucNhanvien.Columns.IdNhanvien;
+                cboBacSyChiDinh.DropDownDisplayMember = DmucNhanvien.Columns.TenNhanvien;
+                cboBacSyChiDinh.DropDownValueMember = DmucNhanvien.Columns.UserName;
                 m_blnhasLoaded = true;
             }
             catch (Exception ex)
@@ -123,6 +140,19 @@ namespace VNS.HIS.UI.Baocao
         {
             try
             {
+                _mabschidinh = "-1";
+                _iddichvuchitiet = -1;
+                // Lấy Id Bác sỹ
+                if (!string.IsNullOrEmpty(cboBacSyChiDinh.Text))
+                {
+                    var query = (from chk in cboBacSyChiDinh.CheckedValues.AsEnumerable()
+                                 let x = Utility.sDbnull(chk)
+                                 select x).ToArray();
+                    if (query.Count() > 0)
+                    {
+                        _mabschidinh = string.Join(",", query);
+                    }
+                }
                 string nhomdichvu = "-1";
                 if (!string.IsNullOrEmpty(cboNhomdichvuCLS.Text) && cboNhomdichvuCLS.CheckedValues != null)
                 {
@@ -142,7 +172,7 @@ namespace VNS.HIS.UI.Baocao
                             chkByDate.Checked ? dtToDate.Value : globalVariables.SysDate,
                             Utility.sDbnull(cboDoituongKCB.SelectedValue, -1), nhomdichvu,
                             txtNhanvien.myCode, Utility.sDbnull(cbokhoa.SelectedValue, -1),
-                            Utility.Int32Dbnull(chkKieuchidinh.SelectedValue, -1), args);
+                            Utility.Int32Dbnull(chkKieuchidinh.SelectedValue, -1), args,_mabschidinh,Utility.Int32Dbnull(txtchitietdichvu.MyID,-1));
                     THU_VIEN_CHUNG.CreateXML(_reportTable, "baocao_chidinhcls_chitiet");
                     Utility.SetDataSourceForDataGridEx(grdChitiet, _reportTable, false, true, "1=1", "");
                     GridEXColumn gridExColumnTientong = grdChitiet.RootTable.Columns["Thanh_Tien"];
