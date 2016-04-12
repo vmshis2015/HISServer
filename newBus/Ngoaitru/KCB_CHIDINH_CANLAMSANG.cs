@@ -185,6 +185,10 @@ namespace VNS.HIS.BusRule.Classes
                  log.Error(string.Format( "Loi khi them moi chi dinh dich vu CLS {0}", exception.Message));
                  return ActionResult.Error;
              }
+             finally
+             {
+                 GC.Collect();
+             }
          }
          public void InsertAssignDetail(KcbChidinhcl objChidinh, KcbLuotkham objLuotkham, KcbChidinhclsChitiet[] assignDetail)
          {
@@ -267,6 +271,10 @@ namespace VNS.HIS.BusRule.Classes
              {
                  log.InfoException("Loi thong tin ", exception);
                  return ActionResult.Error;
+             }
+             finally
+             {
+                 GC.Collect();
              }
          }
          public ActionResult CapnhatnhomchidinhCLS(DmucNhomcanlamsang objNhom, List<DmucNhomcanlamsangChitiet> lstChitiet)

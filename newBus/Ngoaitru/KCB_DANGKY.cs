@@ -350,27 +350,27 @@ namespace VNS.HIS.BusRule.Classes
 
                         if (objKcbDangkyKcb != null)
                         {
-                            new Delete().From(KcbDangkyKcb.Schema).Where(KcbDangkyKcb.Columns.IdKham).IsEqualTo(objKcbDangkyKcb.IdKham)
-                                .Or(KcbDangkyKcb.Columns.IdCha).IsEqualTo(objKcbDangkyKcb.IdKham).Execute();
-                           
+                            //new Delete().From(KcbDangkyKcb.Schema).Where(KcbDangkyKcb.Columns.IdKham).IsEqualTo(objKcbDangkyKcb.IdKham)
+                            //    .Or(KcbDangkyKcb.Columns.IdCha).IsEqualTo(objKcbDangkyKcb.IdKham).Execute();
+                            //new Delete().From(KcbChandoanKetluan.Schema).Where(KcbChandoanKetluan.Columns.IdKham).IsEqualTo(
+                            //    objKcbDangkyKcb.IdKham).Execute();
+                            //new Delete().From(NoitruPhanbuonggiuong.Schema).Where(NoitruPhanbuonggiuong.Columns.IdKham).IsEqualTo(
+                            //   objKcbDangkyKcb.IdKham).Execute();
+                            //new Delete().From(KcbChidinhcl.Schema).Where(KcbChidinhcl.Columns.IdKham).IsEqualTo(
+                            //   objKcbDangkyKcb.IdKham).Execute();
+                            //new Delete().From(KcbChidinhclsChitiet.Schema).Where(KcbChidinhclsChitiet.Columns.IdKham).IsEqualTo(
+                            //   objKcbDangkyKcb.IdKham).Execute();
+                            //new Delete().From(KcbDonthuoc.Schema).Where(KcbDonthuoc.Columns.IdKham).IsEqualTo(
+                            //   objKcbDangkyKcb.IdKham).Execute();
+                            //new Delete().From(KcbDonthuocChitiet.Schema).Where(KcbDonthuocChitiet.Columns.IdKham).IsEqualTo(
+                            //   objKcbDangkyKcb.IdKham).Execute();
 
-                            new Delete().From(KcbChandoanKetluan.Schema).Where(KcbChandoanKetluan.Columns.IdKham).IsEqualTo(
-                                objKcbDangkyKcb.IdKham).Execute();
-                            new Delete().From(NoitruPhanbuonggiuong.Schema).Where(NoitruPhanbuonggiuong.Columns.IdKham).IsEqualTo(
-                               objKcbDangkyKcb.IdKham).Execute();
-                            new Delete().From(KcbChidinhcl.Schema).Where(KcbChidinhcl.Columns.IdKham).IsEqualTo(
-                               objKcbDangkyKcb.IdKham).Execute();
-                            new Delete().From(KcbChidinhclsChitiet.Schema).Where(KcbChidinhclsChitiet.Columns.IdKham).IsEqualTo(
-                               objKcbDangkyKcb.IdKham).Execute();
-                            new Delete().From(KcbDonthuoc.Schema).Where(KcbDonthuoc.Columns.IdKham).IsEqualTo(
-                               objKcbDangkyKcb.IdKham).Execute();
-                            new Delete().From(KcbDonthuocChitiet.Schema).Where(KcbDonthuocChitiet.Columns.IdKham).IsEqualTo(
-                               objKcbDangkyKcb.IdKham).Execute();
-
-                            KcbDangkyKcbCollection lstKham =new Select().From(KcbDangkyKcb.Schema).Where(KcbDangkyKcb.Columns.IdBenhnhan).IsEqualTo(objKcbDangkyKcb.IdBenhnhan)
-                                .And(KcbDangkyKcb.Columns.MaLuotkham).IsEqualTo(objKcbDangkyKcb.MaLuotkham).ExecuteAsCollection<KcbDangkyKcbCollection>();
-                            if (lstKham.Count <= 0)
+                            SPs.SpKcbDeleteRegExam(IdKham).Execute();
+                            SqlQuery lstKham =new Select().From(KcbDangkyKcb.Schema).Where(KcbDangkyKcb.Columns.IdBenhnhan).IsEqualTo(objKcbDangkyKcb.IdBenhnhan)
+                                .And(KcbDangkyKcb.Columns.MaLuotkham).IsEqualTo(objKcbDangkyKcb.MaLuotkham);
+                            if (lstKham.GetRecordCount() <= 0)
                             {
+                             //   KcbDangkyKcb objKcbDangkyKcb = lstKham.ExecuteSingle<KcbDangkyKcb>();
                                 KcbLuotkham objluotkham=new Select().From(KcbLuotkham.Schema).Where(KcbLuotkham.Columns.IdBenhnhan).IsEqualTo(objKcbDangkyKcb.IdBenhnhan)
                                 .And(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(objKcbDangkyKcb.MaLuotkham).ExecuteSingle<KcbLuotkham>();
                                 objluotkham.IdKhoanoitru = -1;
@@ -1004,39 +1004,41 @@ namespace VNS.HIS.BusRule.Classes
                             ErrMsg = "Bệnh nhân đã nộp tiền tạm ứng nên bạn không thể xóa thông tin. Đề nghị hủy thông tin tạm ứng trước khi xóa";
                             return ActionResult.Exception;
                         }
-                        // XÓA chi định tự động
-                        new Delete().From(KcbChidinhcl.Schema).Where(KcbChidinhcl.Columns.MaLuotkham).IsEqualTo(
-                            v_MaLuotkham)
-                            .And(KcbChidinhcl.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID).Execute();
+
+                        SPs.SpKcbDeleteLuotkham(Utility.sDbnull(v_MaLuotkham), Utility.Int64Dbnull(v_Patient_ID)).Execute();
+                        //// XÓA chi định tự động
+                        //new Delete().From(KcbChidinhcl.Schema).Where(KcbChidinhcl.Columns.MaLuotkham).IsEqualTo(
+                        //    v_MaLuotkham)
+                        //    .And(KcbChidinhcl.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID).Execute();
 
 
-                        //XÓA THÔNG TIN ĐĂNG KÝ KHÁM
-                        new Delete().From(KcbDangkyKcb.Schema).Where(KcbDangkyKcb.Columns.MaLuotkham).IsEqualTo(v_MaLuotkham)
-                            .And(KcbDangkyKcb.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID)
-                            .Execute();
+                        ////XÓA THÔNG TIN ĐĂNG KÝ KHÁM
+                        //new Delete().From(KcbDangkyKcb.Schema).Where(KcbDangkyKcb.Columns.MaLuotkham).IsEqualTo(v_MaLuotkham)
+                        //    .And(KcbDangkyKcb.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID)
+                        //    .Execute();
 
-                        //XÓA THÔNG TIN ĐĂNG KÝ KHÁM
-                        new Delete().From(KcbDangkySokham.Schema).Where(KcbDangkySokham.Columns.MaLuotkham).IsEqualTo(v_MaLuotkham)
-                            .And(KcbDangkySokham.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID)
-                            .Execute();
+                        ////XÓA THÔNG TIN ĐĂNG KÝ KHÁM
+                        //new Delete().From(KcbDangkySokham.Schema).Where(KcbDangkySokham.Columns.MaLuotkham).IsEqualTo(v_MaLuotkham)
+                        //    .And(KcbDangkySokham.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID)
+                        //    .Execute();
 
-                        //XÓA THÔNG TIN ĐĂNG KÝ KHÁM
-                        new Delete().From(KcbLichsuDoituongKcb.Schema).Where(KcbLichsuDoituongKcb.Columns.MaLuotkham).IsEqualTo(v_MaLuotkham)
-                            .And(KcbLichsuDoituongKcb.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID)
-                            .Execute();
+                        ////XÓA THÔNG TIN ĐĂNG KÝ KHÁM
+                        //new Delete().From(KcbLichsuDoituongKcb.Schema).Where(KcbLichsuDoituongKcb.Columns.MaLuotkham).IsEqualTo(v_MaLuotkham)
+                        //    .And(KcbLichsuDoituongKcb.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID)
+                        //    .Execute();
 
-                        new Delete().From(NoitruPhanbuonggiuong.Schema).Where(NoitruPhanbuonggiuong.Columns.MaLuotkham).IsEqualTo(v_MaLuotkham)
-                            .And(NoitruPhanbuonggiuong.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID)
-                            //.And(NoitruPhanbuonggiuong.Columns.NoiTru).IsEqualTo(0)
-                           .Execute();
+                        //new Delete().From(NoitruPhanbuonggiuong.Schema).Where(NoitruPhanbuonggiuong.Columns.MaLuotkham).IsEqualTo(v_MaLuotkham)
+                        //    .And(NoitruPhanbuonggiuong.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID)
+                        //    //.And(NoitruPhanbuonggiuong.Columns.NoiTru).IsEqualTo(0)
+                        //   .Execute();
 
-                        new Delete().From(NoitruPhieudieutri.Schema).Where(NoitruPhieudieutri.Columns.MaLuotkham).IsEqualTo(v_MaLuotkham)
-                           .And(NoitruPhieudieutri.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID)
-                          .Execute();
+                        //new Delete().From(NoitruPhieudieutri.Schema).Where(NoitruPhieudieutri.Columns.MaLuotkham).IsEqualTo(v_MaLuotkham)
+                        //   .And(NoitruPhieudieutri.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID)
+                        //  .Execute();
 
-                        new Delete().From(NoitruTamung.Schema).Where(NoitruTamung.Columns.MaLuotkham).IsEqualTo(v_MaLuotkham)
-                            .And(NoitruTamung.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID)
-                           .Execute();
+                        //new Delete().From(NoitruTamung.Schema).Where(NoitruTamung.Columns.MaLuotkham).IsEqualTo(v_MaLuotkham)
+                        //    .And(NoitruTamung.Columns.IdBenhnhan).IsEqualTo(v_Patient_ID)
+                        //   .Execute();
                         //LẤY VỀ CÁC THÔNG TIN LẦN KHÁM CỦA BỆNH NHÂN
                         KcbLuotkhamCollection tPatientExamCollection =
                             new KcbLuotkhamController().FetchByQuery(
@@ -1044,8 +1046,8 @@ namespace VNS.HIS.BusRule.Classes
                                                                     v_Patient_ID));
 
                         //XÓA LẦN ĐĂNG KÝ KHÁM CỦA BỆNH NHÂN
-                        new Delete().From(KcbLuotkham.Schema).Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(
-                            v_MaLuotkham).Execute();
+                        //new Delete().From(KcbLuotkham.Schema).Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(
+                        //    v_MaLuotkham).Execute();
                         if (THU_VIEN_CHUNG.Laygiatrithamsohethong("KCB_SUDUNGLAI_MALUOTKHAM_DAXOA", "0", false) == "1")
                         {
                             KcbDanhsachBenhnhan objBN = KcbDanhsachBenhnhan.FetchByID(v_Patient_ID);
@@ -1894,6 +1896,10 @@ namespace VNS.HIS.BusRule.Classes
             {
                 log.Error("Lỗi khi thêm mới Bệnh nhân {0}", ex.Message);
                 return ActionResult.Error;
+            }
+            finally
+            {
+                GC.Collect();
             }
         }
 
