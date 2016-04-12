@@ -143,6 +143,22 @@ namespace VNS.Libs
                
            }
        }
+       /// <summary>
+       /// Hàm thực hiện lấy giá theo đối tượng
+       /// </summary>
+       /// <param name="madoituong"> Mã đối tượng giá</param>
+       /// <param name="id_chitiet_dichvu"> Id chi tiết dịch vụ</param>
+       /// <param name="makhoathuchien"> Mã Khoa thực hiện</param>
+       /// <returns></returns>
+       public static QheDoituongDichvucl LayGiaTheoDoiTuong(string madoituong, int id_chitiet_dichvu,string makhoathuchien)
+       {
+           QheDoituongDichvucl objQheDtuongGia =
+               new Select().From(QheDoituongDichvucl.Schema).Where(QheDoituongDichvucl.Columns.MaDoituongKcb).IsEqualTo(
+                   madoituong).And(QheDoituongDichvucl.Columns.IdChitietdichvu).IsEqualTo(id_chitiet_dichvu).And(
+                       QheDoituongDichvucl.Columns.MaKhoaThuchien).IsEqualTo(makhoathuchien).ExecuteSingle<QheDoituongDichvucl>();
+           return objQheDtuongGia;
+
+       }
        public static bool CapnhatTrangthaiTutuc(KcbChidinhclsChitiet objChidinhChitiet, KcbLuotkham objLuotkham, bool noitru,byte tu_tuc, decimal PTramBHYT)
        {
            try
@@ -157,13 +173,38 @@ namespace VNS.Libs
                    objChidinhChitiet.TuTuc = 0;
                }
                else
-                   TrangthaiBhyt = (byte)(globalVariables.gv_blnApdungChedoDuyetBHYT ? 0 : 1);
-               if (Utility.Int32Dbnull(objChidinhChitiet.TrangthaiHuy, -1) == -1) objChidinhChitiet.TrangthaiHuy = 0;
+               {
+                     TrangthaiBhyt = (byte)(globalVariables.gv_blnApdungChedoDuyetBHYT ? 0 : 1);
+               }
+                 
+               if (Utility.Int32Dbnull(objChidinhChitiet.TrangthaiHuy, -1) == -1)
+               {
+                   objChidinhChitiet.TrangthaiHuy = 0;
+               }
+
                DmucDichvuclsChitiet obServiceDetail =
                    DmucDichvuclsChitiet.FetchByID(Utility.Int32Dbnull(objChidinhChitiet.IdChitietdichvu));
+              QheDoituongDichvucl objqhedoituong = new QheDoituongDichvucl();
                if (obServiceDetail != null)
                {
-                   objChidinhChitiet.GiaDanhmuc = Utility.DecimaltoDbnull(obServiceDetail.DonGia);
+                   if (Utility.Int32Dbnull(objChidinhChitiet.TuTuc,0) ==1)
+                   {
+                       objqhedoituong = LayGiaTheoDoiTuong("DV", objChidinhChitiet.IdChitietdichvu,
+                                                                        objLuotkham.MaKhoaThuchien);
+                   }
+                   else
+                   {
+                       objqhedoituong = LayGiaTheoDoiTuong(objLuotkham.MaDoituongKcb, objChidinhChitiet.IdChitietdichvu,
+                                                                       objLuotkham.MaKhoaThuchien);
+                   }
+                  // objChidinhChitiet.GiaDanhmuc = Utility.DecimaltoDbnull(obServiceDetail.DonGia);
+                    if (objqhedoituong !=null)
+                    {
+                        objChidinhChitiet.GiaDanhmuc = Utility.DecimaltoDbnull(objqhedoituong.DonGia, 0);
+                        objChidinhChitiet.DonGia = Utility.DecimaltoDbnull(objqhedoituong.DonGia, 0);
+                        objChidinhChitiet.MadoituongGia = Utility.sDbnull(objqhedoituong.MaDoituongKcb);
+                    }
+                   
                }
                objChidinhChitiet.PtramBhyt = PTramBHYT;
                objChidinhChitiet.PtramBhytGoc = objLuotkham.PtramBhytGoc;
@@ -173,7 +214,11 @@ namespace VNS.Libs
                if (Utility.Int32Dbnull(objChidinhChitiet.TuTuc, 0) == 1)
                {
                    objChidinhChitiet.BhytChitra = 0;
-                   objChidinhChitiet.BnhanChitra = Utility.DecimaltoDbnull(objChidinhChitiet.DonGia, 0);
+                   if(objqhedoituong !=null)
+                   {
+                       objChidinhChitiet.BnhanChitra = Utility.DecimaltoDbnull(objqhedoituong.DonGia, 0);
+                       
+                   }
                    objChidinhChitiet.PtramBhyt = 0;
                }
                else
