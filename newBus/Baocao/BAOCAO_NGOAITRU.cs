@@ -33,9 +33,9 @@ namespace VNS.HIS.BusRule.Classes
             return SPs.BaocaoSoluongbenhnhanTheobacsy(FromDate, ToDate,iddoituongkcb,idKhoaPhong,idBsThuchien, DeparmentCODE).GetDataSet().Tables[0];
         }
         
-        public static DataTable BaocaoTiepdonbenhnhanChitiet(int? ObjectType, DateTime? FromDate, DateTime? ToDate, string nguoitao, string DeparmentCODE,string loaiBN)
+        public static DataTable BaocaoTiepdonbenhnhanChitiet(int? ObjectType, DateTime? FromDate, DateTime? ToDate, string nguoitao, string DeparmentCODE,string loaiBN,int?IdPhongKham)
         {
-            return SPs.BaocaoTiepdonbenhnhanChitiet(ObjectType, FromDate, ToDate, nguoitao, DeparmentCODE, loaiBN).GetDataSet().Tables[0];
+            return SPs.BaocaoTiepdonbenhnhanChitiet(ObjectType, FromDate, ToDate, nguoitao, DeparmentCODE, loaiBN,IdPhongKham).GetDataSet().Tables[0];
             
         }
         public static DataTable BaocaoMiengiam(int idnhanvienthanhtoan, string tungay, string denngay)
@@ -68,9 +68,9 @@ namespace VNS.HIS.BusRule.Classes
         }
 
 
-        public static DataTable BaocaoChidinhclsChitiet(DateTime? FromDate, DateTime? ToDate, string MaDoiTuong, string nhomdichvu, string CreateBy, string MAKHOATHIEN, int? NoExam, string KieuBenhNhan)
+        public static DataTable BaocaoChidinhclsChitiet(DateTime? FromDate, DateTime? ToDate, string MaDoiTuong, string nhomdichvu, string CreateBy, string MAKHOATHIEN, int? NoExam, string KieuBenhNhan, string BacSyChiDinh, int? IdChitietDichVu)
         {
-            return SPs.BaocaoChidinhclsChitiet(FromDate, ToDate, MaDoiTuong, nhomdichvu, CreateBy, MAKHOATHIEN, NoExam, KieuBenhNhan).GetDataSet().Tables[0];
+            return SPs.BaocaoChidinhclsChitiet(FromDate, ToDate, MaDoiTuong, nhomdichvu, CreateBy, MAKHOATHIEN, NoExam, KieuBenhNhan,BacSyChiDinh,IdChitietDichVu).GetDataSet().Tables[0];
         }
         public static DataTable BaocaoChidinhclsTonghop(DateTime? FromDate, DateTime? ToDate, string MaDoiTuong, string nhomdichvu, string CreateBy, string MAKHOATHIEN, int? NoExam, string KieuBenhNhan)
         {
