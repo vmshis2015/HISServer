@@ -309,8 +309,6 @@ namespace VNS.HIS.Classes
                                     var objForm = new frmPrintPreview("IN PHIẾU CHỈ ĐỊNH", crpt, true, true);
                                     objForm.mv_sReportFileName = Path.GetFileName(manhomcls);
                                     objForm.mv_sReportCode = manhomcls;
-
-
                                     crpt.SetDataSource(dt);
                                     //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "    Nhân viên        Bác sĩ chỉ định     ".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
                                     Utility.SetParameterValue(crpt, "ParentBranchName",
@@ -354,6 +352,10 @@ namespace VNS.HIS.Classes
                                 {
                                     // Utility.DefaultNow(this);
                                 }
+                                finally
+                                {
+                                    Utility.FreeMemory(crpt);
+                                }
                             }
                         }
                     }
@@ -362,10 +364,7 @@ namespace VNS.HIS.Classes
                         return ActionResult.Error;
                         //Utility.ShowMsg("Lỗi:" + ex.Message);
                     }
-                    finally
-                    {
-                        GC.Collect();
-                    }
+                  
                 }
                 Scope.Complete();
                 return ActionResult.Success;
@@ -565,6 +564,10 @@ namespace VNS.HIS.Classes
                         {
                             return ActionResult.Error;
                             // Utility.DefaultNow(this);
+                        }
+                        finally
+                        {
+                            Utility.FreeMemory(crpt);
                         }
                     }
                     catch (Exception ex)

@@ -1354,7 +1354,47 @@ namespace VNS.HIS.UI.Baocao
                 Utility.CatchException(ex);
             }
         }
+        public static void Bienbankiemkethuoc(DataTable m_dtReport, string kieuthuoc_vt, string sTitleReport, 
+            DateTime NgayIn, string FromDateToDate, string tenkho, int songayhethan)
+        {
+              string tieude = "", reportname = "";
+            ReportDocument crpt =
+                Utility.GetReport(kieuthuoc_vt == "THUOC" ? "thuoc_bienban_kiemkethuoc" : "thuoc_bienban_kiemkevattu", ref tieude,
+                                  ref reportname);
+            if (crpt == null) return;
 
+
+            var _moneyByLetter = new MoneyByLetter();
+            var objForm = new frmPrintPreview(tieude, crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+            Utility.UpdateLogotoDatatable(ref m_dtReport);
+            try
+            {
+                m_dtReport.AcceptChanges();
+                crpt.SetDataSource(m_dtReport);
+                objForm.mv_sReportFileName = Path.GetFileName(reportname);
+                objForm.mv_sReportCode = reportname;
+                //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
+                Utility.SetParameterValue(crpt, "ReportCondition", FromDateToDate);
+                Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt, "ParentBranchName", globalVariables.ParentBranch_Name);
+                Utility.SetParameterValue(crpt, "ReportTitle", tieude);
+                Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
+                Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                Utility.SetParameterValue(crpt, "DayOfWarning", songayhethan);
+                Utility.SetParameterValue(crpt, "ngay_in", NgayIn.ToString("dd/MM/yyyy"));
+                Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
+                objForm.crptViewer.ReportSource = crpt;
+                objForm.ShowDialog();
+            }
+            catch(Exception ex)
+            {
+                Utility.CatchException(ex);
+            }
+            finally
+            {
+                Utility.FreeMemory(crpt);
+            }
+        }
         public static void Thethuoctutruc(DataTable m_dtReport, string kieuthuoc_vt, string sTitleReport,
                                           DateTime NgayIn, string FromDateToDate, string tenkho)
         {
