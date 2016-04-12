@@ -727,6 +727,13 @@ namespace VNS.HIS.UI.THUOC
                             break;
                         case ActionResult.Success:
                             UpdateHuyHasConfirm();
+                            THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                               string.Format(
+                                                   "Hủy phát thuốc của bệnh nhân có mã lần khám {0} và mã bệnh nhân là: {1}. Đơn thuốc {2} bởi {3}",
+                                                   Utility.sDbnull(grdPres.CurrentRow.Cells["ma_luotkham"].Value),
+                                                   Utility.sDbnull(grdPres.CurrentRow.Cells["id_benhnhan"].Value),
+                                                   Utility.sDbnull(grdPres.CurrentRow.Cells["id_donthuoc"].Value),
+                                                   globalVariables.UserName), action.Delete);
                             Utility.ShowMsg("Bạn thực hiện việc hủy phát thuốc thành công", "thông báo", MessageBoxIcon.Information);
                             break;
                         case ActionResult.Error:

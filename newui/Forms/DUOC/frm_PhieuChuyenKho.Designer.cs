@@ -48,9 +48,9 @@
             this.cmdCauhinh = new System.Windows.Forms.ToolStripButton();
             this.cmdExit = new System.Windows.Forms.ToolStripButton();
             this.uiGroupBox1 = new Janus.Windows.EditControls.UIGroupBox();
-            this.txtNhanvien = new VNS.HIS.UCs.AutoCompleteTextbox_Nhanvien();
             this.txtKhoXuat = new VNS.HIS.UCs.AutoCompleteTextbox();
             this.txtKhoNhap = new VNS.HIS.UCs.AutoCompleteTextbox();
+            this.txtNhanvien = new VNS.HIS.UCs.AutoCompleteTextbox_Nhanvien();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cboKhoXuat = new Janus.Windows.EditControls.UIComboBox();
@@ -74,6 +74,8 @@
             this.grdPhieuNhapChiTiet = new Janus.Windows.GridEX.GridEX();
             this.cmdConfig = new Janus.Windows.EditControls.UIButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtTenthuoc = new VNS.HIS.UCs.AutoCompleteTextbox();
+            this.label6 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
@@ -239,9 +241,11 @@
             // 
             // uiGroupBox1
             // 
-            this.uiGroupBox1.Controls.Add(this.txtNhanvien);
+            this.uiGroupBox1.Controls.Add(this.txtTenthuoc);
+            this.uiGroupBox1.Controls.Add(this.label6);
             this.uiGroupBox1.Controls.Add(this.txtKhoXuat);
             this.uiGroupBox1.Controls.Add(this.txtKhoNhap);
+            this.uiGroupBox1.Controls.Add(this.txtNhanvien);
             this.uiGroupBox1.Controls.Add(this.label5);
             this.uiGroupBox1.Controls.Add(this.label4);
             this.uiGroupBox1.Controls.Add(this.cboKhoXuat);
@@ -263,9 +267,83 @@
             this.uiGroupBox1.Location = new System.Drawing.Point(0, 31);
             this.uiGroupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.uiGroupBox1.Name = "uiGroupBox1";
-            this.uiGroupBox1.Size = new System.Drawing.Size(1008, 111);
+            this.uiGroupBox1.Size = new System.Drawing.Size(1008, 139);
             this.uiGroupBox1.TabIndex = 6;
             this.uiGroupBox1.Text = "Tìm kiếm thông tin ";
+            // 
+            // txtKhoXuat
+            // 
+            this.txtKhoXuat._backcolor = System.Drawing.SystemColors.Control;
+            this.txtKhoXuat._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKhoXuat._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtKhoXuat.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKhoXuat.AutoCompleteList")));
+            this.txtKhoXuat.CaseSensitive = false;
+            this.txtKhoXuat.CompareNoID = true;
+            this.txtKhoXuat.DefaultCode = "-1";
+            this.txtKhoXuat.DefaultID = "-1";
+            this.txtKhoXuat.Drug_ID = null;
+            this.txtKhoXuat.ExtraWidth = 0;
+            this.txtKhoXuat.FillValueAfterSelect = false;
+            this.txtKhoXuat.Location = new System.Drawing.Point(470, 51);
+            this.txtKhoXuat.MaxHeight = -1;
+            this.txtKhoXuat.MinTypedCharacters = 2;
+            this.txtKhoXuat.MyCode = "-1";
+            this.txtKhoXuat.MyID = "-1";
+            this.txtKhoXuat.MyText = "";
+            this.txtKhoXuat.Name = "txtKhoXuat";
+            this.txtKhoXuat.RaiseEvent = false;
+            this.txtKhoXuat.RaiseEventEnter = false;
+            this.txtKhoXuat.RaiseEventEnterWhenEmpty = false;
+            this.txtKhoXuat.SelectedIndex = -1;
+            this.txtKhoXuat.Size = new System.Drawing.Size(367, 21);
+            this.txtKhoXuat.splitChar = '@';
+            this.txtKhoXuat.splitCharIDAndCode = '#';
+            this.txtKhoXuat.TabIndex = 20;
+            this.txtKhoXuat.TakeCode = false;
+            this.txtKhoXuat.txtMyCode = null;
+            this.txtKhoXuat.txtMyCode_Edit = null;
+            this.txtKhoXuat.txtMyID = null;
+            this.txtKhoXuat.txtMyID_Edit = null;
+            this.txtKhoXuat.txtMyName = null;
+            this.txtKhoXuat.txtMyName_Edit = null;
+            this.txtKhoXuat.txtNext = null;
+            // 
+            // txtKhoNhap
+            // 
+            this.txtKhoNhap._backcolor = System.Drawing.SystemColors.Control;
+            this.txtKhoNhap._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKhoNhap._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtKhoNhap.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKhoNhap.AutoCompleteList")));
+            this.txtKhoNhap.CaseSensitive = false;
+            this.txtKhoNhap.CompareNoID = true;
+            this.txtKhoNhap.DefaultCode = "-1";
+            this.txtKhoNhap.DefaultID = "-1";
+            this.txtKhoNhap.Drug_ID = null;
+            this.txtKhoNhap.ExtraWidth = 0;
+            this.txtKhoNhap.FillValueAfterSelect = false;
+            this.txtKhoNhap.Location = new System.Drawing.Point(94, 52);
+            this.txtKhoNhap.MaxHeight = -1;
+            this.txtKhoNhap.MinTypedCharacters = 2;
+            this.txtKhoNhap.MyCode = "-1";
+            this.txtKhoNhap.MyID = "-1";
+            this.txtKhoNhap.MyText = "";
+            this.txtKhoNhap.Name = "txtKhoNhap";
+            this.txtKhoNhap.RaiseEvent = false;
+            this.txtKhoNhap.RaiseEventEnter = false;
+            this.txtKhoNhap.RaiseEventEnterWhenEmpty = false;
+            this.txtKhoNhap.SelectedIndex = -1;
+            this.txtKhoNhap.Size = new System.Drawing.Size(291, 21);
+            this.txtKhoNhap.splitChar = '@';
+            this.txtKhoNhap.splitCharIDAndCode = '#';
+            this.txtKhoNhap.TabIndex = 19;
+            this.txtKhoNhap.TakeCode = false;
+            this.txtKhoNhap.txtMyCode = null;
+            this.txtKhoNhap.txtMyCode_Edit = null;
+            this.txtKhoNhap.txtMyID = null;
+            this.txtKhoNhap.txtMyID_Edit = null;
+            this.txtKhoNhap.txtMyName = null;
+            this.txtKhoNhap.txtMyName_Edit = null;
+            this.txtKhoNhap.txtNext = null;
             // 
             // txtNhanvien
             // 
@@ -304,82 +382,6 @@
             this.txtNhanvien.txtMyName = null;
             this.txtNhanvien.txtMyName_Edit = null;
             this.txtNhanvien.txtNext = null;
-            // 
-            // txtKhoXuat
-            // 
-            this.txtKhoXuat._backcolor = System.Drawing.SystemColors.Control;
-            this.txtKhoXuat._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKhoXuat._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtKhoXuat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtKhoXuat.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKhoXuat.AutoCompleteList")));
-            this.txtKhoXuat.CaseSensitive = false;
-            this.txtKhoXuat.CompareNoID = true;
-            this.txtKhoXuat.DefaultCode = "-1";
-            this.txtKhoXuat.DefaultID = "-1";
-            this.txtKhoXuat.Drug_ID = null;
-            this.txtKhoXuat.ExtraWidth = 0;
-            this.txtKhoXuat.FillValueAfterSelect = false;
-            this.txtKhoXuat.Location = new System.Drawing.Point(470, 52);
-            this.txtKhoXuat.MaxHeight = 150;
-            this.txtKhoXuat.MinTypedCharacters = 2;
-            this.txtKhoXuat.MyCode = "-1";
-            this.txtKhoXuat.MyID = "-1";
-            this.txtKhoXuat.MyText = "";
-            this.txtKhoXuat.Name = "txtKhoXuat";
-            this.txtKhoXuat.RaiseEvent = false;
-            this.txtKhoXuat.RaiseEventEnter = false;
-            this.txtKhoXuat.RaiseEventEnterWhenEmpty = false;
-            this.txtKhoXuat.SelectedIndex = -1;
-            this.txtKhoXuat.Size = new System.Drawing.Size(367, 21);
-            this.txtKhoXuat.splitChar = '@';
-            this.txtKhoXuat.splitCharIDAndCode = '#';
-            this.txtKhoXuat.TabIndex = 17;
-            this.txtKhoXuat.TakeCode = false;
-            this.txtKhoXuat.txtMyCode = null;
-            this.txtKhoXuat.txtMyCode_Edit = null;
-            this.txtKhoXuat.txtMyID = null;
-            this.txtKhoXuat.txtMyID_Edit = null;
-            this.txtKhoXuat.txtMyName = null;
-            this.txtKhoXuat.txtMyName_Edit = null;
-            this.txtKhoXuat.txtNext = null;
-            // 
-            // txtKhoNhap
-            // 
-            this.txtKhoNhap._backcolor = System.Drawing.SystemColors.Control;
-            this.txtKhoNhap._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKhoNhap._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtKhoNhap.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtKhoNhap.AutoCompleteList")));
-            this.txtKhoNhap.CaseSensitive = false;
-            this.txtKhoNhap.CompareNoID = true;
-            this.txtKhoNhap.DefaultCode = "-1";
-            this.txtKhoNhap.DefaultID = "-1";
-            this.txtKhoNhap.Drug_ID = null;
-            this.txtKhoNhap.ExtraWidth = 0;
-            this.txtKhoNhap.FillValueAfterSelect = false;
-            this.txtKhoNhap.Location = new System.Drawing.Point(94, 50);
-            this.txtKhoNhap.MaxHeight = 350;
-            this.txtKhoNhap.MinTypedCharacters = 2;
-            this.txtKhoNhap.MyCode = "-1";
-            this.txtKhoNhap.MyID = "-1";
-            this.txtKhoNhap.MyText = "";
-            this.txtKhoNhap.Name = "txtKhoNhap";
-            this.txtKhoNhap.RaiseEvent = false;
-            this.txtKhoNhap.RaiseEventEnter = false;
-            this.txtKhoNhap.RaiseEventEnterWhenEmpty = false;
-            this.txtKhoNhap.SelectedIndex = -1;
-            this.txtKhoNhap.Size = new System.Drawing.Size(291, 21);
-            this.txtKhoNhap.splitChar = '@';
-            this.txtKhoNhap.splitCharIDAndCode = '#';
-            this.txtKhoNhap.TabIndex = 16;
-            this.txtKhoNhap.TakeCode = false;
-            this.txtKhoNhap.txtMyCode = null;
-            this.txtKhoNhap.txtMyCode_Edit = null;
-            this.txtKhoNhap.txtMyID = null;
-            this.txtKhoNhap.txtMyID_Edit = null;
-            this.txtKhoNhap.txtMyName = null;
-            this.txtKhoNhap.txtMyName_Edit = null;
-            this.txtKhoNhap.txtNext = null;
             // 
             // label5
             // 
@@ -552,7 +554,7 @@
             // 
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 142);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 170);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -563,7 +565,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.uiGroupBox4);
-            this.splitContainer1.Size = new System.Drawing.Size(1008, 516);
+            this.splitContainer1.Size = new System.Drawing.Size(1008, 488);
             this.splitContainer1.SplitterDistance = 549;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 7;
@@ -576,7 +578,7 @@
             this.uiGroupBox2.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.uiGroupBox2.Name = "uiGroupBox2";
-            this.uiGroupBox2.Size = new System.Drawing.Size(547, 514);
+            this.uiGroupBox2.Size = new System.Drawing.Size(547, 486);
             this.uiGroupBox2.TabIndex = 1;
             this.uiGroupBox2.Text = "Thông tin phiếu chuyển kho";
             // 
@@ -601,7 +603,7 @@
             this.grdList.Name = "grdList";
             this.grdList.RecordNavigator = true;
             this.grdList.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdList.Size = new System.Drawing.Size(541, 494);
+            this.grdList.Size = new System.Drawing.Size(541, 466);
             this.grdList.TabIndex = 2;
             this.grdList.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2005;
             // 
@@ -613,7 +615,7 @@
             this.uiGroupBox4.Location = new System.Drawing.Point(0, 0);
             this.uiGroupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.uiGroupBox4.Name = "uiGroupBox4";
-            this.uiGroupBox4.Size = new System.Drawing.Size(452, 514);
+            this.uiGroupBox4.Size = new System.Drawing.Size(452, 486);
             this.uiGroupBox4.TabIndex = 2;
             this.uiGroupBox4.Text = "Chi tiết phiếu chuyển kho đang chọn";
             // 
@@ -635,7 +637,7 @@
             this.grdPhieuNhapChiTiet.Name = "grdPhieuNhapChiTiet";
             this.grdPhieuNhapChiTiet.RecordNavigator = true;
             this.grdPhieuNhapChiTiet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
-            this.grdPhieuNhapChiTiet.Size = new System.Drawing.Size(446, 494);
+            this.grdPhieuNhapChiTiet.Size = new System.Drawing.Size(446, 466);
             this.grdPhieuNhapChiTiet.TabIndex = 2;
             this.grdPhieuNhapChiTiet.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True;
             this.grdPhieuNhapChiTiet.TotalRowPosition = Janus.Windows.GridEX.TotalRowPosition.BottomFixed;
@@ -655,6 +657,53 @@
             // 
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Trợ giúp";
+            // 
+            // txtTenthuoc
+            // 
+            this.txtTenthuoc._backcolor = System.Drawing.SystemColors.Control;
+            this.txtTenthuoc._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTenthuoc._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtTenthuoc.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtTenthuoc.AutoCompleteList")));
+            this.txtTenthuoc.CaseSensitive = false;
+            this.txtTenthuoc.CompareNoID = true;
+            this.txtTenthuoc.DefaultCode = "-1";
+            this.txtTenthuoc.DefaultID = "-1";
+            this.txtTenthuoc.Drug_ID = null;
+            this.txtTenthuoc.ExtraWidth = 0;
+            this.txtTenthuoc.FillValueAfterSelect = false;
+            this.txtTenthuoc.Location = new System.Drawing.Point(94, 108);
+            this.txtTenthuoc.MaxHeight = -1;
+            this.txtTenthuoc.MinTypedCharacters = 2;
+            this.txtTenthuoc.MyCode = "-1";
+            this.txtTenthuoc.MyID = "-1";
+            this.txtTenthuoc.MyText = "";
+            this.txtTenthuoc.Name = "txtTenthuoc";
+            this.txtTenthuoc.RaiseEvent = false;
+            this.txtTenthuoc.RaiseEventEnter = false;
+            this.txtTenthuoc.RaiseEventEnterWhenEmpty = false;
+            this.txtTenthuoc.SelectedIndex = -1;
+            this.txtTenthuoc.Size = new System.Drawing.Size(454, 21);
+            this.txtTenthuoc.splitChar = '@';
+            this.txtTenthuoc.splitCharIDAndCode = '#';
+            this.txtTenthuoc.TabIndex = 132;
+            this.txtTenthuoc.TakeCode = false;
+            this.txtTenthuoc.txtMyCode = null;
+            this.txtTenthuoc.txtMyCode_Edit = null;
+            this.txtTenthuoc.txtMyID = null;
+            this.txtTenthuoc.txtMyID_Edit = null;
+            this.txtTenthuoc.txtMyName = null;
+            this.txtTenthuoc.txtMyName_Edit = null;
+            this.txtTenthuoc.txtNext = null;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(12, 111);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(64, 15);
+            this.label6.TabIndex = 131;
+            this.label6.Text = "Tên thuốc:";
             // 
             // frm_PhieuChuyenKho
             // 
@@ -730,8 +779,10 @@
         private System.Windows.Forms.ToolStripButton cmdCauhinh;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label5;
-        private UCs.AutoCompleteTextbox txtKhoNhap;
-        private UCs.AutoCompleteTextbox txtKhoXuat;
         private UCs.AutoCompleteTextbox_Nhanvien txtNhanvien;
+        private UCs.AutoCompleteTextbox txtKhoXuat;
+        private UCs.AutoCompleteTextbox txtKhoNhap;
+        private UCs.AutoCompleteTextbox txtTenthuoc;
+        private System.Windows.Forms.Label label6;
     }
 }

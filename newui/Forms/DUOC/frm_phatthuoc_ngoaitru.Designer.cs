@@ -529,7 +529,7 @@
             this.label5.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(6, 8);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(127, 15);
+            this.label5.Size = new System.Drawing.Size(128, 15);
             this.label5.TabIndex = 17;
             this.label5.Text = "Trạng thái đơn thuốc:";
             // 

@@ -80,7 +80,6 @@ namespace VNS.HIS.UI.THUOC
         private void InitData()
         {
             txtNhacungcap.Init();
-
             if (KIEU_THUOC_VT == "THUOC")
             {
                 m_dtKhoThuoc = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_CHAN();
@@ -90,18 +89,24 @@ namespace VNS.HIS.UI.THUOC
                 m_dtKhoThuoc = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_CHAN();
             }
             if (m_dtKhoThuoc.Rows.Count > 1)
-                  txtKhoNhap.Init(m_dtKhoThuoc, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
-                //DataBinding.BindDataCombobox(cboKhoThuoc, m_dtKhoThuoc,
-                //                           TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
-                //                           "---Chọn kho---",false);
+                txtkhonhap.Init(m_dtKhoThuoc,
+                                          new List<string>()
+                                              {TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho});
+            //DataBinding.BindDataCombobox(cboKhoThuoc, m_dtKhoThuoc,
+            //                           TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
+            //                           "---Chọn kho---",false);
             else
                 //DataBinding.BindDataCombobox(cboKhoThuoc, m_dtKhoThuoc,
                 //                       TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho, "---Chọn---", true);
-            txtKhoNhap.Init(m_dtKhoThuoc, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
+                txtkhonhap.Init(m_dtKhoThuoc,
+                                          new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
             //DataBinding.BindDataCombobox(cboKhoNhap, m_dtKhoNhap,
             //                          TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
             //                          "---Kho nhập---",false);
             txtNhanvien.Init(CommonLoadDuoc.LAYTHONGTIN_NHANVIEN());
+            txtTenthuoc.Init(CommonLoadDuoc.LayThongTinThuoc(KIEU_THUOC_VT),
+                             new List<string>()
+                                 {DmucThuoc.Columns.IdThuoc, DmucThuoc.Columns.MaThuoc, DmucThuoc.Columns.TenThuoc});
 
         }
         private void cmdExit_Click(object sender, EventArgs e)
@@ -131,6 +136,10 @@ namespace VNS.HIS.UI.THUOC
             if (e.KeyCode == Keys.F3 || (e.KeyCode == Keys.F && e.Control)) cmdSearch.PerformClick();
             if(e.KeyCode==Keys.Escape)cmdExit.PerformClick();
         }
+        private void LoadAuCompleteThuoc()
+        {
+          
+        }
         /// <summary>
         /// hàm thực hiện việc tim kiem thong tin 
         /// </summary>
@@ -156,10 +165,12 @@ namespace VNS.HIS.UI.THUOC
             
             m_dtDataNhapKho =
                 _NHAPKHO.Laydanhsachphieunhapkho(chkByDate.Checked ? dtFromdate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
-                                             chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",-1, -1,
-                                             Utility.Int32Dbnull(txtKhoNhap.MyID, -1), -1,
+                                             chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",
+                                             Utility.Int32Dbnull(txtTenthuoc.MyID,-1),-1,
+                                             Utility.Int32Dbnull(txtkhonhap.MyID, -1), -1,
                                              Utility.Int32Dbnull(txtNhanvien.MyID, -1),
-                                             -1, manhacungcap, Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI, (int)LoaiPhieu.PhieuNhapKho, MaKho, 2, KIEU_THUOC_VT);
+                                             -1, manhacungcap, Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI, 
+                                             (int)LoaiPhieu.PhieuNhapKho, MaKho, 2, KIEU_THUOC_VT);
 
             Utility.SetDataSourceForDataGridEx_Basic(grdList,m_dtDataNhapKho,true,true,"1=1","");
             if (!Utility.isValidGrid(grdList)) if (m_dtDataPhieuChiTiet != null) m_dtDataPhieuChiTiet.Clear();
@@ -487,6 +498,31 @@ namespace VNS.HIS.UI.THUOC
             {
 
             }
+        }
+
+        private void radTatCa_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radDaNhap_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radChuaNhapKho_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtToDate_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtFromdate_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

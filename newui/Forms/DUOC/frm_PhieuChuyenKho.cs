@@ -124,7 +124,7 @@ namespace VNS.HIS.UI.THUOC
 
             m_dtDataNhapKho =
                 new THUOC_NHAPKHO().Laydanhsachphieunhapkho(chkByDate.Checked ? dtFromdate.Value.ToString("dd/MM/yyyy") :"01/01/1900",
-                                             chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",-1, -1,
+                                             chkByDate.Checked ? dtToDate.Value.ToString("dd/MM/yyyy") : "01/01/1900",Utility.Int32Dbnull(txtTenthuoc.MyID,-1), -1,
                                              Utility.Int32Dbnull(txtKhoNhap.MyID, -1), Utility.Int32Dbnull(txtKhoXuat.MyID, -1),
                                              Utility.Int32Dbnull(txtNhanvien.MyID, -1),
                                              -1, "-1", Utility.sDbnull(txtSoPhieu.Text), TRANG_THAI, (int)LoaiPhieu.PhieuXuatKho, MaKho, 2, KIEU_THUOC_VT);
@@ -249,7 +249,8 @@ namespace VNS.HIS.UI.THUOC
             //                          TDmucKho.Columns.IdKho, TDmucKho.Columns.TenKho,
             //                          "---Kho nhập---",false);
             txtNhanvien.Init(CommonLoadDuoc.LAYTHONGTIN_NHANVIEN());
-
+            txtTenthuoc.Init(CommonLoadDuoc.LayThongTinThuoc(KIEU_THUOC_VT),
+                             new List<string>() { DmucThuoc.Columns.IdThuoc, DmucThuoc.Columns.MaThuoc, DmucThuoc.Columns.TenThuoc });
         }
         /// <summary>
         /// hà thực hiện việc in phiêu xuat kho
