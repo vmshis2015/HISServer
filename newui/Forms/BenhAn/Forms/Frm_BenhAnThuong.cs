@@ -399,8 +399,7 @@ namespace VNS.HIS.UI.BENH_AN
 
                 QueryCommand cmd = KcbLuotkham.CreateQuery().BuildCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandSql = "Select max(ma_luotkham) as ma_luotkham from Kcb_Luotkham where id_benhnhan = " +
-                                 id_benhnhan;
+                cmd.CommandSql = "Select max(ma_luotkham) as ma_luotkham from Kcb_Luotkham where id_benhnhan = " + id_benhnhan ;
                 DataTable temdt = DataService.GetDataSet(cmd).Tables[0];
                 if (temdt.Rows.Count > 0)
                 {
@@ -410,10 +409,18 @@ namespace VNS.HIS.UI.BENH_AN
 
                     QueryCommand cmd1 = KcbLuotkham.CreateQuery().BuildCommand();
                     cmd1.CommandType = CommandType.Text;
-                    cmd1.CommandSql = "Select *  from Kcb_Luotkham where ma_luotkham ='" +
-                                      malankham + "'";
+                    cmd1.CommandSql = "Select *," +
+                                                  "(STUFF((SELECT ', ' + dbo.TRIM(" +
+                                                                    "( SELECT TOP 1 (CASE dmuc_dichvucls_chitiet.co_chitiet WHEN 0 THEN dmuc_dichvucls_chitiet.mota_them  ELSE kcb_ketqua_cls.ten_thongso END)  + ': ' + kcb_ketqua_cls.ket_qua " +
+                                                                    "FROM   dmuc_dichvucls_chitiet  " +
+                                                                    " WHERE  kcb_ketqua_cls.id_dichvuchitiet = dmuc_dichvucls_chitiet.id_chitietdichvu)) " +
+                                                  "FROM   kcb_ketqua_cls  " +
+                                                  "WHERE  kcb_ketqua_cls.ma_luotkham = Kcb_Luotkham.ma_luotkham FOR XML PATH('')),1,1,'')) AS ketqua_cls, " +  
+                                                  "(STUFF((SELECT ', ' + dbo.TRIM((SELECT TOP 1 dmuc_dichvucls_chitiet.mota_them FROM   dmuc_dichvucls_chitiet WHERE  kcb_chidinhcls_chitiet.id_chitietdichvu =  dmuc_dichvucls_chitiet.id_chitietdichvu) "+
+                          ") FROM   kcb_chidinhcls_chitiet WHERE  kcb_chidinhcls_chitiet.ma_luotkham = Kcb_Luotkham.ma_luotkham AND kcb_chidinhcls_chitiet.id_dichvu IN (SELECT dd.id_dichvu FROM dmuc_dichvucls dd WHERE  dd.nhom_in_cls != 'XN')FOR XML PATH('')), 1,  1, '')) AS chidinh "+
+                                      "from Kcb_Luotkham where Kcb_Luotkham.ma_luotkham ='" + malankham + "'";
                     DataTable temdt1 = DataService.GetDataSet(cmd1).Tables[0];
-
+                    txtBAT_TTLQCLSC.Text = Utility.sDbnull(temdt1.Rows[0]["ketqua_cls"].ToString()) + " - " + Utility.sDbnull(temdt1.Rows[0]["chidinh"].ToString());
                     txtDoiTuong.Text = Utility.sDbnull(temdt1.Rows[0]["ma_doituong_kcb"].ToString());
                     dtInsToDate.Text = temdt1.Rows[0]["ngayketthuc_bhyt"].ToString();
                     txtSoBaoHiemYte.Text = Utility.sDbnull(temdt1.Rows[0]["mathe_bhyt"].ToString());
