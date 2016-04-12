@@ -30,10 +30,14 @@ namespace VNS.HIS.UI.DANHMUC
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_dichvucls_chitiet));
             Janus.Windows.GridEX.GridEXLayout grdMauKQ_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout grdDanhsachCamChidinhChungphieu_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_themmoi_dichvucls_chitiet));
             this.grpControl = new System.Windows.Forms.GroupBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txtmaqd = new System.Windows.Forms.TextBox();
+            this.txtmatt = new System.Windows.Forms.TextBox();
+            this.txtNhominphoiBHYT = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
             this.uiTab1 = new Janus.Windows.UI.Tab.UITab();
             this.uiTabPage3 = new Janus.Windows.UI.Tab.UITabPage();
             this.txtMauKQ = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
@@ -99,12 +103,11 @@ namespace VNS.HIS.UI.DANHMUC
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.btnNew = new Janus.Windows.EditControls.UIButton();
             this.cmdExit = new Janus.Windows.EditControls.UIButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkThemmoilientuc = new Janus.Windows.EditControls.UICheckBox();
-            this.txtNhominphoiBHYT = new VNS.HIS.UCs.AutoCompleteTextbox_Danhmucchung();
-            this.label23 = new System.Windows.Forms.Label();
             this.grpControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiTab1)).BeginInit();
             this.uiTab1.SuspendLayout();
@@ -118,6 +121,9 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             // grpControl
             // 
+            this.grpControl.Controls.Add(this.label24);
+            this.grpControl.Controls.Add(this.txtmaqd);
+            this.grpControl.Controls.Add(this.txtmatt);
             this.grpControl.Controls.Add(this.txtNhominphoiBHYT);
             this.grpControl.Controls.Add(this.uiTab1);
             this.grpControl.Controls.Add(this.txtServiceDetailName);
@@ -184,6 +190,75 @@ namespace VNS.HIS.UI.DANHMUC
             this.grpControl.TabIndex = 0;
             this.grpControl.TabStop = false;
             this.grpControl.Text = "Thông tin chi tiết";
+            // 
+            // label24
+            // 
+            this.label24.ForeColor = System.Drawing.Color.Red;
+            this.label24.Location = new System.Drawing.Point(558, 33);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(60, 23);
+            this.label24.TabIndex = 1654;
+            this.label24.Text = "Mã QĐ";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtmaqd
+            // 
+            this.txtmaqd.BackColor = System.Drawing.Color.White;
+            this.txtmaqd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtmaqd.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtmaqd.Location = new System.Drawing.Point(620, 35);
+            this.txtmaqd.Name = "txtmaqd";
+            this.txtmaqd.Size = new System.Drawing.Size(99, 21);
+            this.txtmaqd.TabIndex = 3;
+            // 
+            // txtmatt
+            // 
+            this.txtmatt.BackColor = System.Drawing.Color.White;
+            this.txtmatt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtmatt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtmatt.Location = new System.Drawing.Point(288, 35);
+            this.txtmatt.Name = "txtmatt";
+            this.txtmatt.Size = new System.Drawing.Size(104, 21);
+            this.txtmatt.TabIndex = 1;
+            // 
+            // txtNhominphoiBHYT
+            // 
+            this.txtNhominphoiBHYT._backcolor = System.Drawing.SystemColors.Control;
+            this.txtNhominphoiBHYT._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNhominphoiBHYT._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtNhominphoiBHYT.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNhominphoiBHYT.AutoCompleteList")));
+            this.txtNhominphoiBHYT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNhominphoiBHYT.CaseSensitive = false;
+            this.txtNhominphoiBHYT.CompareNoID = true;
+            this.txtNhominphoiBHYT.DefaultCode = "-1";
+            this.txtNhominphoiBHYT.DefaultID = "-1";
+            this.txtNhominphoiBHYT.Drug_ID = null;
+            this.txtNhominphoiBHYT.ExtraWidth = 0;
+            this.txtNhominphoiBHYT.FillValueAfterSelect = false;
+            this.txtNhominphoiBHYT.Font = new System.Drawing.Font("Arial", 9F);
+            this.txtNhominphoiBHYT.LOAI_DANHMUC = "NHOMINPHOIBHYT";
+            this.txtNhominphoiBHYT.Location = new System.Drawing.Point(454, 236);
+            this.txtNhominphoiBHYT.MaxHeight = -1;
+            this.txtNhominphoiBHYT.MinTypedCharacters = 2;
+            this.txtNhominphoiBHYT.MyCode = "-1";
+            this.txtNhominphoiBHYT.MyID = "-1";
+            this.txtNhominphoiBHYT.Name = "txtNhominphoiBHYT";
+            this.txtNhominphoiBHYT.RaiseEvent = false;
+            this.txtNhominphoiBHYT.RaiseEventEnter = false;
+            this.txtNhominphoiBHYT.RaiseEventEnterWhenEmpty = false;
+            this.txtNhominphoiBHYT.SelectedIndex = -1;
+            this.txtNhominphoiBHYT.Size = new System.Drawing.Size(265, 21);
+            this.txtNhominphoiBHYT.splitChar = '@';
+            this.txtNhominphoiBHYT.splitCharIDAndCode = '#';
+            this.txtNhominphoiBHYT.TabIndex = 17;
+            this.txtNhominphoiBHYT.TakeCode = false;
+            this.txtNhominphoiBHYT.txtMyCode = null;
+            this.txtNhominphoiBHYT.txtMyCode_Edit = null;
+            this.txtNhominphoiBHYT.txtMyID = null;
+            this.txtNhominphoiBHYT.txtMyID_Edit = null;
+            this.txtNhominphoiBHYT.txtMyName = null;
+            this.txtNhominphoiBHYT.txtMyName_Edit = null;
+            this.txtNhominphoiBHYT.txtNext = null;
             // 
             // uiTab1
             // 
@@ -370,7 +445,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtServiceDetailName.Location = new System.Drawing.Point(131, 109);
             this.txtServiceDetailName.Name = "txtServiceDetailName";
             this.txtServiceDetailName.Size = new System.Drawing.Size(588, 21);
-            this.txtServiceDetailName.TabIndex = 4;
+            this.txtServiceDetailName.TabIndex = 7;
             // 
             // lblServiceDetail
             // 
@@ -387,15 +462,15 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtServiceDetailCode.BackColor = System.Drawing.Color.White;
             this.txtServiceDetailCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtServiceDetailCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtServiceDetailCode.Location = new System.Drawing.Point(309, 34);
+            this.txtServiceDetailCode.Location = new System.Drawing.Point(131, 35);
             this.txtServiceDetailCode.Name = "txtServiceDetailCode";
-            this.txtServiceDetailCode.Size = new System.Drawing.Size(95, 21);
+            this.txtServiceDetailCode.Size = new System.Drawing.Size(100, 21);
             this.txtServiceDetailCode.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(227, 32);
+            this.label1.Location = new System.Drawing.Point(44, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 23);
             this.label1.TabIndex = 1646;
@@ -410,6 +485,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.chkKiemnghiem.Name = "chkKiemnghiem";
             this.chkKiemnghiem.Size = new System.Drawing.Size(312, 19);
             this.chkKiemnghiem.TabIndex = 17;
+            this.chkKiemnghiem.TabStop = false;
             this.chkKiemnghiem.Text = "Thông tin kiểm nghiệm(Nếu là dịch vụ kiểm nghiệm)";
             this.chkKiemnghiem.UseVisualStyleBackColor = true;
             // 
@@ -418,19 +494,19 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtMaBhyt.BackColor = System.Drawing.Color.White;
             this.txtMaBhyt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMaBhyt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtMaBhyt.Location = new System.Drawing.Point(482, 35);
+            this.txtMaBhyt.Location = new System.Drawing.Point(454, 35);
             this.txtMaBhyt.Name = "txtMaBhyt";
-            this.txtMaBhyt.Size = new System.Drawing.Size(95, 21);
-            this.txtMaBhyt.TabIndex = 0;
+            this.txtMaBhyt.Size = new System.Drawing.Size(98, 21);
+            this.txtMaBhyt.TabIndex = 2;
             // 
             // label22
             // 
             this.label22.ForeColor = System.Drawing.Color.Red;
-            this.label22.Location = new System.Drawing.Point(405, 34);
+            this.label22.Location = new System.Drawing.Point(393, 33);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(72, 23);
+            this.label22.Size = new System.Drawing.Size(59, 23);
             this.label22.TabIndex = 1644;
-            this.label22.Text = "Mã QĐ 29";
+            this.label22.Text = "Mã BHYT";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtLoaiDichvu
@@ -461,10 +537,10 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtLoaiDichvu.RaiseEventEnter = true;
             this.txtLoaiDichvu.RaiseEventEnterWhenEmpty = true;
             this.txtLoaiDichvu.SelectedIndex = -1;
-            this.txtLoaiDichvu.Size = new System.Drawing.Size(588, 21);
+            this.txtLoaiDichvu.Size = new System.Drawing.Size(421, 21);
             this.txtLoaiDichvu.splitChar = '@';
             this.txtLoaiDichvu.splitCharIDAndCode = '#';
-            this.txtLoaiDichvu.TabIndex = 2;
+            this.txtLoaiDichvu.TabIndex = 4;
             this.txtLoaiDichvu.TakeCode = false;
             this.txtLoaiDichvu.txtMyCode = null;
             this.txtLoaiDichvu.txtMyCode_Edit = null;
@@ -505,7 +581,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtDichvuCha.Size = new System.Drawing.Size(588, 21);
             this.txtDichvuCha.splitChar = '@';
             this.txtDichvuCha.splitCharIDAndCode = '#';
-            this.txtDichvuCha.TabIndex = 3;
+            this.txtDichvuCha.TabIndex = 6;
             this.txtDichvuCha.TakeCode = false;
             this.txtDichvuCha.txtMyCode = null;
             this.txtDichvuCha.txtMyCode_Edit = null;
@@ -654,7 +730,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.cboDepartment.Location = new System.Drawing.Point(131, 264);
             this.cboDepartment.Name = "cboDepartment";
             this.cboDepartment.Size = new System.Drawing.Size(211, 24);
-            this.cboDepartment.TabIndex = 13;
+            this.cboDepartment.TabIndex = 18;
             // 
             // cboPhongthuchien
             // 
@@ -664,7 +740,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.cboPhongthuchien.Location = new System.Drawing.Point(454, 263);
             this.cboPhongthuchien.Name = "cboPhongthuchien";
             this.cboPhongthuchien.Size = new System.Drawing.Size(265, 24);
-            this.cboPhongthuchien.TabIndex = 14;
+            this.cboPhongthuchien.TabIndex = 19;
             // 
             // label16
             // 
@@ -695,7 +771,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtGiaBHYT.Masked = MaskedTextBox.Mask.Decimal;
             this.txtGiaBHYT.Name = "txtGiaBHYT";
             this.txtGiaBHYT.Size = new System.Drawing.Size(265, 21);
-            this.txtGiaBHYT.TabIndex = 9;
+            this.txtGiaBHYT.TabIndex = 13;
             this.txtGiaBHYT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label15
@@ -716,7 +792,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtDongia.Masked = MaskedTextBox.Mask.Decimal;
             this.txtDongia.Name = "txtDongia";
             this.txtDongia.Size = new System.Drawing.Size(211, 21);
-            this.txtDongia.TabIndex = 8;
+            this.txtDongia.TabIndex = 12;
             this.txtDongia.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtPTDT
@@ -727,7 +803,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtPTDT.Masked = MaskedTextBox.Mask.Decimal;
             this.txtPTDT.Name = "txtPTDT";
             this.txtPTDT.Size = new System.Drawing.Size(211, 21);
-            this.txtPTDT.TabIndex = 10;
+            this.txtPTDT.TabIndex = 14;
             this.txtPTDT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtPTTT
@@ -738,7 +814,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtPTTT.Masked = MaskedTextBox.Mask.Decimal;
             this.txtPTTT.Name = "txtPTTT";
             this.txtPTTT.Size = new System.Drawing.Size(265, 21);
-            this.txtPTTT.TabIndex = 11;
+            this.txtPTTT.TabIndex = 15;
             this.txtPTTT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label17
@@ -790,7 +866,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtTenBHYT.Location = new System.Drawing.Point(131, 133);
             this.txtTenBHYT.Name = "txtTenBHYT";
             this.txtTenBHYT.Size = new System.Drawing.Size(588, 21);
-            this.txtTenBHYT.TabIndex = 4;
+            this.txtTenBHYT.TabIndex = 8;
             // 
             // label13
             // 
@@ -832,7 +908,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtBTNam.Location = new System.Drawing.Point(454, 161);
             this.txtBTNam.Name = "txtBTNam";
             this.txtBTNam.Size = new System.Drawing.Size(95, 21);
-            this.txtBTNam.TabIndex = 6;
+            this.txtBTNam.TabIndex = 10;
             // 
             // txtBTNu
             // 
@@ -842,7 +918,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtBTNu.Location = new System.Drawing.Point(620, 161);
             this.txtBTNu.Name = "txtBTNu";
             this.txtBTNu.Size = new System.Drawing.Size(99, 21);
-            this.txtBTNu.TabIndex = 7;
+            this.txtBTNu.TabIndex = 11;
             // 
             // txtMotathem
             // 
@@ -852,7 +928,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtMotathem.Multiline = true;
             this.txtMotathem.Name = "txtMotathem";
             this.txtMotathem.Size = new System.Drawing.Size(588, 34);
-            this.txtMotathem.TabIndex = 16;
+            this.txtMotathem.TabIndex = 21;
             // 
             // txtDonvitinh
             // 
@@ -883,7 +959,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtDonvitinh.Size = new System.Drawing.Size(211, 22);
             this.txtDonvitinh.splitChar = '@';
             this.txtDonvitinh.splitCharIDAndCode = '#';
-            this.txtDonvitinh.TabIndex = 5;
+            this.txtDonvitinh.TabIndex = 9;
             this.txtDonvitinh.TakeCode = false;
             this.txtDonvitinh.txtMyCode = null;
             this.txtDonvitinh.txtMyCode_Edit = null;
@@ -901,7 +977,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.txtchidan.Multiline = true;
             this.txtchidan.Name = "txtchidan";
             this.txtchidan.Size = new System.Drawing.Size(588, 34);
-            this.txtchidan.TabIndex = 15;
+            this.txtchidan.TabIndex = 20;
             // 
             // label10
             // 
@@ -941,7 +1017,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.cbonhombaocao.Location = new System.Drawing.Point(131, 237);
             this.cbonhombaocao.Name = "cbonhombaocao";
             this.cbonhombaocao.Size = new System.Drawing.Size(211, 24);
-            this.cbonhombaocao.TabIndex = 12;
+            this.cbonhombaocao.TabIndex = 16;
             // 
             // label4
             // 
@@ -966,42 +1042,42 @@ namespace VNS.HIS.UI.DANHMUC
             // 
             this.txtID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtID.Enabled = false;
-            this.txtID.Location = new System.Drawing.Point(131, 35);
+            this.txtID.Location = new System.Drawing.Point(131, 9);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(87, 21);
             this.txtID.TabIndex = 0;
             this.txtID.TabStop = false;
+            this.txtID.Visible = false;
             // 
             // label14
             // 
             this.label14.ForeColor = System.Drawing.Color.Red;
-            this.label14.Location = new System.Drawing.Point(12, 33);
+            this.label14.Location = new System.Drawing.Point(234, 33);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(113, 23);
+            this.label14.Size = new System.Drawing.Size(48, 23);
             this.label14.TabIndex = 58;
-            this.label14.Text = "ID";
+            this.label14.Text = "Mã TT";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtIntOrder
             // 
-            this.txtIntOrder.Location = new System.Drawing.Point(635, 36);
+            this.txtIntOrder.Location = new System.Drawing.Point(620, 61);
             this.txtIntOrder.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.txtIntOrder.Name = "txtIntOrder";
-            this.txtIntOrder.Size = new System.Drawing.Size(84, 21);
-            this.txtIntOrder.TabIndex = 1;
-            this.txtIntOrder.TabStop = false;
+            this.txtIntOrder.Size = new System.Drawing.Size(99, 21);
+            this.txtIntOrder.TabIndex = 5;
             this.txtIntOrder.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(598, 38);
+            this.label9.Location = new System.Drawing.Point(585, 63);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(31, 15);
+            this.label9.Size = new System.Drawing.Size(32, 15);
             this.label9.TabIndex = 51;
             this.label9.Text = "STT:";
             // 
@@ -1057,6 +1133,17 @@ namespace VNS.HIS.UI.DANHMUC
             this.label8.Text = "Phòng thực hiện";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // label23
+            // 
+            this.label23.Font = new System.Drawing.Font("Arial", 9F);
+            this.label23.ForeColor = System.Drawing.Color.Red;
+            this.label23.Location = new System.Drawing.Point(352, 234);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(96, 23);
+            this.label23.TabIndex = 1651;
+            this.label23.Text = "Nhóm in phơi";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // btnNew
             // 
             this.btnNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1065,7 +1152,7 @@ namespace VNS.HIS.UI.DANHMUC
             this.btnNew.Location = new System.Drawing.Point(386, 523);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(138, 35);
-            this.btnNew.TabIndex = 26;
+            this.btnNew.TabIndex = 0;
             this.btnNew.Text = "Ghi (Ctrl+S)";
             // 
             // cmdExit
@@ -1095,56 +1182,6 @@ namespace VNS.HIS.UI.DANHMUC
             this.chkThemmoilientuc.Text = "Thêm mới liên tục?";
             this.toolTip1.SetToolTip(this.chkThemmoilientuc, "Chọn mục này nếu muốn đánh dấu chi tiết CLS này luôn coi là tự túc đối với đối tư" +
         "ợng BHYT cho dù có được áp quan hệ giá hay không!");
-            // 
-            // txtNhominphoiBHYT
-            // 
-            this.txtNhominphoiBHYT._backcolor = System.Drawing.SystemColors.Control;
-            this.txtNhominphoiBHYT._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNhominphoiBHYT._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtNhominphoiBHYT.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtNhominphoiBHYT.AutoCompleteList")));
-            this.txtNhominphoiBHYT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNhominphoiBHYT.CaseSensitive = false;
-            this.txtNhominphoiBHYT.CompareNoID = true;
-            this.txtNhominphoiBHYT.DefaultCode = "-1";
-            this.txtNhominphoiBHYT.DefaultID = "-1";
-            this.txtNhominphoiBHYT.Drug_ID = null;
-            this.txtNhominphoiBHYT.ExtraWidth = 0;
-            this.txtNhominphoiBHYT.FillValueAfterSelect = false;
-            this.txtNhominphoiBHYT.Font = new System.Drawing.Font("Arial", 9F);
-            this.txtNhominphoiBHYT.LOAI_DANHMUC = "NHOMINPHOIBHYT";
-            this.txtNhominphoiBHYT.Location = new System.Drawing.Point(454, 236);
-            this.txtNhominphoiBHYT.MaxHeight = -1;
-            this.txtNhominphoiBHYT.MinTypedCharacters = 2;
-            this.txtNhominphoiBHYT.MyCode = "-1";
-            this.txtNhominphoiBHYT.MyID = "-1";
-            this.txtNhominphoiBHYT.Name = "txtNhominphoiBHYT";
-            this.txtNhominphoiBHYT.RaiseEvent = false;
-            this.txtNhominphoiBHYT.RaiseEventEnter = false;
-            this.txtNhominphoiBHYT.RaiseEventEnterWhenEmpty = false;
-            this.txtNhominphoiBHYT.SelectedIndex = -1;
-            this.txtNhominphoiBHYT.Size = new System.Drawing.Size(265, 21);
-            this.txtNhominphoiBHYT.splitChar = '@';
-            this.txtNhominphoiBHYT.splitCharIDAndCode = '#';
-            this.txtNhominphoiBHYT.TabIndex = 12;
-            this.txtNhominphoiBHYT.TakeCode = false;
-            this.txtNhominphoiBHYT.txtMyCode = null;
-            this.txtNhominphoiBHYT.txtMyCode_Edit = null;
-            this.txtNhominphoiBHYT.txtMyID = null;
-            this.txtNhominphoiBHYT.txtMyID_Edit = null;
-            this.txtNhominphoiBHYT.txtMyName = null;
-            this.txtNhominphoiBHYT.txtMyName_Edit = null;
-            this.txtNhominphoiBHYT.txtNext = null;
-            // 
-            // label23
-            // 
-            this.label23.Font = new System.Drawing.Font("Arial", 9F);
-            this.label23.ForeColor = System.Drawing.Color.Red;
-            this.label23.Location = new System.Drawing.Point(352, 234);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(96, 23);
-            this.label23.TabIndex = 1651;
-            this.label23.Text = "Nhóm in phơi";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frm_themmoi_dichvucls_chitiet
             // 
@@ -1257,5 +1294,8 @@ namespace VNS.HIS.UI.DANHMUC
         private UCs.AutoCompleteTextbox_Danhmucchung txtMauKQ;
         private UCs.AutoCompleteTextbox_Danhmucchung txtNhominphoiBHYT;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox txtmaqd;
+        private System.Windows.Forms.TextBox txtmatt;
     }
 }

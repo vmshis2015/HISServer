@@ -215,6 +215,7 @@ namespace VNS.HIS.UI.DANHMUC
             txtMauKQ.Init(dtMauQK, new List<string>() { DmucChung.Columns.Ma, DmucChung.Columns.Ma, DmucChung.Columns.Ten });
             Utility.SetDataSourceForDataGridEx_Basic(grdMauKQ, dtMauQK, true, true, "1=1", "mac_dinh desc," + DmucChung.Columns.SttHthi + "," + DmucChung.Columns.Ten);
             m_blnLoaded = true;
+            txtID.Visible = globalVariables.IsAdmin;
             SetControlStatus();
         }
         void ClearControl()
@@ -343,6 +344,8 @@ namespace VNS.HIS.UI.DANHMUC
                 txtTenBHYT.Text = Utility.sDbnull(objDichVuChitiet.TenChitietdichvuBhyt, "");
                 txtServiceDetailCode.Text = Utility.sDbnull(objDichVuChitiet.MaChitietdichvu, "");
                 txtMaBhyt.Text = Utility.sDbnull(objDichVuChitiet.MaChitietdichvuBhyt, "");
+                txtmaqd.Text = Utility.sDbnull(objDichVuChitiet.MaQd, "");
+                txtmatt.Text = Utility.sDbnull(objDichVuChitiet.SttDmbhyt, "");
                 txtDongia.Text = Utility.sDbnull(objDichVuChitiet.DonGia, "0");
                 txtGiaBHYT.Text = Utility.sDbnull(objDichVuChitiet.GiaBhyt, "0");
                 txtPTDT.Text = Utility.sDbnull(objDichVuChitiet.PhuthuDungtuyen, "0");
@@ -358,9 +361,14 @@ namespace VNS.HIS.UI.DANHMUC
                 txtLoaiDichvu.MyID = Utility.sDbnull(objDichVuChitiet.IdDichvu, "-1");
                 chkHienThi.Checked = Utility.sDbnull(objDichVuChitiet.HienThi, "0").ToString() == "1";
                 chkCochitiet.Checked = Utility.Byte2Bool(objDichVuChitiet.CoChitiet);
+<<<<<<< .mine
+                chkSingle.Checked = Utility.Byte2Bool(objDichVuChitiet.SingleService);
+                chkKiemnghiem.Checked = Utility.Byte2Bool(objDichVuChitiet.LaDvuKiemnghiem);
+=======
                 chkSingle.Checked = Utility.Byte2Bool(objDichVuChitiet.SingleService);
 
                 chkKiemnghiem.Checked = Utility.Byte2Bool(objDichVuChitiet.LaDvuKiemnghiem);
+>>>>>>> .r618
                 chkTrangthai.Checked = Utility.sDbnull(objDichVuChitiet.TrangThai, "0").ToString() == "1";
                 txtLoaiDichvu.SetId(Utility.sDbnull(objDichVuChitiet.IdDichvu, "-1"));
                 txtDichvuCha.SetId(Utility.sDbnull(objDichVuChitiet.IdCha, "-1"));
@@ -571,8 +579,9 @@ namespace VNS.HIS.UI.DANHMUC
                 {
                     ProcessData(actionResult);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Utility.ShowMsg("Lỗi:" +ex.Message);
                 }
             }
             else
@@ -593,13 +602,14 @@ namespace VNS.HIS.UI.DANHMUC
                 objDichVuChitiet.GiaBhyt = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
                 objDichVuChitiet.PhuthuDungtuyen = Utility.DecimaltoDbnull(txtPTDT.Text, 0);
                 objDichVuChitiet.PhuthuTraituyen = Utility.DecimaltoDbnull(txtPTTT.Text, 0);
-
                 objDichVuChitiet.IdChitietdichvu = Utility.Int32Dbnull(txtID.Text, -1);
                 objDichVuChitiet.IdDichvu = Utility.Int16Dbnull(txtLoaiDichvu.MyID, -1);
                 objDichVuChitiet.TenChitietdichvu = Utility.DoTrim(txtServiceDetailName.Text);
                 objDichVuChitiet.TenChitietdichvuBhyt = Utility.DoTrim(txtTenBHYT.Text);
                 objDichVuChitiet.MaChitietdichvu = Utility.sDbnull(txtServiceDetailCode.Text, "");
                 objDichVuChitiet.MaChitietdichvuBhyt = Utility.sDbnull(txtMaBhyt.Text, "");
+                objDichVuChitiet.MaQd = Utility.sDbnull(txtmaqd.Text, "");
+                objDichVuChitiet.SttDmbhyt = Utility.sDbnull(txtmatt.Text, "");
                 objDichVuChitiet.SttHthi = Utility.Int32Dbnull(txtIntOrder.Value);
                 objDichVuChitiet.MaDonvitinh = txtDonvitinh.myCode;
                 objDichVuChitiet.NgayTao = globalVariables.SysDate;
@@ -667,9 +677,10 @@ namespace VNS.HIS.UI.DANHMUC
             dr[DmucDichvuclsChitiet.Columns.TenChitietdichvu] = Utility.sDbnull(txtServiceDetailName.Text, "");
             dr[DmucDichvuclsChitiet.Columns.MaChitietdichvu] = Utility.sDbnull(txtServiceDetailCode.Text, "");
             dr[DmucDichvuclsChitiet.Columns.MaChitietdichvuBhyt] = Utility.sDbnull(txtMaBhyt.Text, "");
+            dr[DmucDichvuclsChitiet.Columns.MaQd] = Utility.sDbnull(txtmaqd.Text, "");
+            dr[DmucDichvuclsChitiet.Columns.SttDmbhyt] = Utility.sDbnull(txtmatt.Text, "");
             dr[DmucDichvuclsChitiet.Columns.NgayTao] = globalVariables.SysDate;
             dr[DmucDichvuclsChitiet.Columns.NguoiTao] = globalVariables.UserName;
-
             dr[DmucDichvuclsChitiet.Columns.DonGia] = Utility.DecimaltoDbnull(txtDongia.Text,0);
             dr[DmucDichvuclsChitiet.Columns.GiaBhyt] = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
             dr[DmucDichvuclsChitiet.Columns.PhuthuDungtuyen] = Utility.DecimaltoDbnull(txtPTDT.Text, 0);
@@ -740,6 +751,8 @@ namespace VNS.HIS.UI.DANHMUC
                 objDichVuChitiet = DmucDichvuclsChitiet.FetchByID(Utility.Int32Dbnull(txtID.Text, 0));
                 objDichVuChitiet.MarkOld();
                 objDichVuChitiet.DonGia = Utility.DecimaltoDbnull(txtDongia.Text, 0);
+                objDichVuChitiet.MaQd = Utility.sDbnull(txtmaqd.Text);
+                objDichVuChitiet.SttDmbhyt = Utility.sDbnull(txtmatt.Text);
                 objDichVuChitiet.GiaBhyt = Utility.DecimaltoDbnull(txtGiaBHYT.Text, 0);
                 objDichVuChitiet.PhuthuDungtuyen = Utility.DecimaltoDbnull(txtPTDT.Text, 0);
                 objDichVuChitiet.PhuthuTraituyen = Utility.DecimaltoDbnull(txtPTTT.Text, 0);
@@ -806,6 +819,8 @@ namespace VNS.HIS.UI.DANHMUC
                         dr[DmucDichvuclsChitiet.Columns.TenChitietdichvu] = Utility.sDbnull(txtServiceDetailName.Text, "");
                         dr[DmucDichvuclsChitiet.Columns.MaChitietdichvu] = Utility.sDbnull(txtServiceDetailCode.Text, "");
                         dr[DmucDichvuclsChitiet.Columns.MaChitietdichvuBhyt] = Utility.sDbnull(txtMaBhyt.Text, "");
+                        dr[DmucDichvuclsChitiet.Columns.MaQd] = Utility.sDbnull(txtmaqd.Text, "");
+                        dr[DmucDichvuclsChitiet.Columns.SttDmbhyt] = Utility.sDbnull(txtmatt.Text, "");
                         dr[DmucDichvuclsChitiet.Columns.NgaySua] = globalVariables.SysDate;
                         dr[DmucDichvuclsChitiet.Columns.NguoiSua] = globalVariables.UserName;
                         dr[DmucDichvuclsChitiet.Columns.DonGia] = Utility.DecimaltoDbnull(txtDongia.Text, 0);
