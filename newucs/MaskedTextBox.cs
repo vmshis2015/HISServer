@@ -14,7 +14,7 @@ namespace MaskedTextBox
 	public class MaskedTextBox : System.Windows.Forms.TextBox
 	{
 		private Mask m_mask=Mask.None;
-
+        private int DecimalNumber = 2;
 		public Mask Masked
 		{
 			get { return m_mask;}
@@ -31,7 +31,11 @@ namespace MaskedTextBox
         public event OnTextChanged _OnTextChanged;
 		private System.Windows.Forms.ErrorProvider errorProvider1;
 		private System.ComponentModel.Container components = null;
-
+        public int DecimalNum
+        {
+            get { return DecimalNumber; }
+            set { DecimalNumber = value; }
+        }
 		public MaskedTextBox()
 		{
 			InitializeComponent();
@@ -86,7 +90,7 @@ namespace MaskedTextBox
                         {
                             AllowedChanged = false;
                             if (txtBox.Text.StartsWith(",")) txtBox.Text = txtBox.Text.Substring(1);
-                            string _text= String.Format (Utility.FormatDecimal(), Convert.ToDecimal(txtBox.Text));
+                            string _text = String.Format(Utility.FormatDecimal(DecimalNumber), Convert.ToDecimal(txtBox.Text));
                             if (_endWithdot && !_text.Contains(".")) _text += ".";
                             txtBox.Text = _text;
                             AllowedChanged = true;
