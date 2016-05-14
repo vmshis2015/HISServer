@@ -896,15 +896,16 @@ namespace VNS.Libs
             try
             {
                 String tempFolder = Environment.ExpandEnvironmentVariables("%TEMP%");
+                String tempFolder1 = Path.GetTempPath();
                 // String recent = Environment.ExpandEnvironmentVariables("%USERPROFILE%") + "\\Recent";
                 // String prefetch = Environment.ExpandEnvironmentVariables("%SYSTEMROOT%") + "\\Prefetch";
                 EmptyFolderContents(tempFolder);
+                EmptyFolderContents(tempFolder1);
                 //  EmptyFolderContents(recent);
                 //  EmptyFolderContents(prefetch);
             }
             catch (Exception)
             {
-
 
             }
 
