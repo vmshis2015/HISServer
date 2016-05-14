@@ -1227,7 +1227,6 @@ namespace VNS.HIS.UI.Baocao
                 Utility.SetParameterValue(crpt, "BranchName", globalVariables.Branch_Name);
                 Utility.SetParameterValue(crpt, "Address", globalVariables.Branch_Address);
                 Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
-
                 Utility.SetParameterValue(crpt, "FromDateToDate", FromDateToDate);
                 Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(NgayIn));
                 Utility.SetParameterValue(crpt, "sTitleReport", tieude);

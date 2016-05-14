@@ -289,7 +289,7 @@ namespace VNS.HIS.Classes
                             }
                             else
                             {
-                                THU_VIEN_CHUNG.CreateXML(dt, "Thamkham_InTachToanBophieuCLS.XML");
+                             //   THU_VIEN_CHUNG.CreateXML(dt, "Thamkham_InTachToanBophieuCLS.XML");
                                 Utility.UpdateLogotoDatatable(ref dt);
                                 string v_machidinh = v_AssignCode;
                                 if (THU_VIEN_CHUNG.Laygiatrithamsohethong("CHIDINH_BODAUCHAM_TRENMAVACH", "0", true) ==
@@ -401,7 +401,7 @@ namespace VNS.HIS.Classes
                             // Utility.ShowMsg("Không có dữ liệu in. Mời bạn kiểm tra lại");
                             return ActionResult.Error;
                         }
-                        THU_VIEN_CHUNG.CreateXML(dt, "Thamkham_InphieuCLS.XML");
+                     //   THU_VIEN_CHUNG.CreateXML(dt, "Thamkham_InphieuCLS.XML");
                         Utility.UpdateLogotoDatatable(ref dt);
                         string v_machidinh = v_AssignCode;
                         if (THU_VIEN_CHUNG.Laygiatrithamsohethong("CHIDINH_BODAUCHAM_TRENMAVACH", "0", true) == "1")
