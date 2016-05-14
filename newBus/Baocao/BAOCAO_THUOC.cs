@@ -62,6 +62,10 @@ namespace VNS.HIS.BusRule.Classes
         {
             return SPs.ThuocBaocaoSoluongtonthuoctheokho(IDKHOLIST, IDTHUOC, idloaithuoc, HETHAN, kieu_thuocvattu).GetDataSet().Tables[0];
         }
+        public static DataTable ThuocBaocaoInTonKhoThuoc(int IDKHO, int? IDTHUOC, int idloaithuoc, short? HETHAN, string kieu_thuocvattu)
+        {
+            return SPs.ThuocBaocaoInTonKhoThuoc(IDKHO, IDTHUOC, idloaithuoc, HETHAN, kieu_thuocvattu).GetDataSet().Tables[0];
+        }
         public static DataTable ThuocBaocaoThuoctheonhacungcap(DateTime? FromDate, DateTime? ToDate, int? IDKHO, string ma_nhacungcap,string kieu_thuocvattu,byte laphieuvay)
         {
             return SPs.ThuocBaocaoThuoctheonhacungcap(FromDate, ToDate, IDKHO, ma_nhacungcap, kieu_thuocvattu, laphieuvay).GetDataSet().Tables[0];
@@ -133,13 +137,13 @@ namespace VNS.HIS.BusRule.Classes
         {
             return SPs.ThuocSovatlieuchitiet(FromDate, ToDate, IDKHO, NhomThuoc, IDTHUOC, Cobiendong).GetDataSet().Tables[0];
         }
-        public static DataTable ThuocBaocaophatsinhTonghop(string FromDate, string ToDate, int? IDKHO, int? IDTHUOC,byte kieubiendong, string NhomThuoc, int? Cobiendong)
+        public static DataTable ThuocBaocaophatsinhTonghop(string FromDate, string ToDate, int? IDKHO, int? IDTHUOC, byte kieubiendong, string NhomThuoc, int? Cobiendong, int? id_khonhan)
         {
-            return SPs.ThuocBaocaophatsinhTonghop(FromDate, ToDate, IDKHO, NhomThuoc,kieubiendong, IDTHUOC, Cobiendong).GetDataSet().Tables[0];
+            return SPs.ThuocBaocaophatsinhTonghop(FromDate, ToDate, IDKHO, NhomThuoc,kieubiendong,id_khonhan, IDTHUOC, Cobiendong).GetDataSet().Tables[0];
         }
-        public static DataTable ThuocBaocaophatsinhChitiet(string FromDate, string ToDate, int? IDKHO, int? IDTHUOC, byte kieubiendong, string NhomThuoc, int? Cobiendong)
+        public static DataTable ThuocBaocaophatsinhChitiet(string FromDate, string ToDate, int? IDKHO, int? IDTHUOC, byte kieubiendong, string NhomThuoc, int? Cobiendong, int? id_khonhan)
         {
-            return SPs.ThuocBaocaophatsinhChitiet(FromDate, ToDate, IDKHO, NhomThuoc, kieubiendong, IDTHUOC, Cobiendong).GetDataSet().Tables[0];
+            return SPs.ThuocBaocaophatsinhChitiet(FromDate, ToDate, IDKHO, NhomThuoc, kieubiendong,id_khonhan, IDTHUOC, Cobiendong).GetDataSet().Tables[0];
         }
         public static DataTable ThuocThethuocChitiet(string FromDate, string ToDate, int? IDKHO, int? IDTHUOC, string NhomThuoc, int? Cobiendong)
         {
