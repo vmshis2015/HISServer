@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using CrystalDecisions.CrystalReports.Engine;
 using Janus.Windows.GridEX;
 using SubSonic;
 using VNS.HIS.DAL;
@@ -14,13 +13,11 @@ using AggregateFunction = Janus.Windows.GridEX.AggregateFunction;
 using System.IO;
 using VNS.Libs;
 using VNS.Properties;
-using CrystalDecisions.CrystalReports.Engine;
 using VNS.HIS.BusRule.Classes;
 using System.Drawing.Printing;
 using VNS.HIS.Classes;
 using VNS.HIS.UI.Baocao;
 using VNS.HIS.UI.THANHTOAN;
-using VNS.HIS.UI.Forms.NGOAITRU;
 using VNS.HIS.UI.Forms.Cauhinh;
 namespace VNS.HIS.UI.NGOAITRU
 {
@@ -2229,7 +2226,6 @@ namespace VNS.HIS.UI.NGOAITRU
             frm.txtmabenhnhancu.Text = Utility.sDbnull(grdList.CurrentRow.Cells[KcbLuotkham.Columns.IdBenhnhan].Value);
             frm.ShowDialog();
         }
-
        
  }
 }

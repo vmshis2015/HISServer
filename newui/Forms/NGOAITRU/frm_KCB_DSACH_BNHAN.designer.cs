@@ -220,6 +220,7 @@
             this.cmdXoaBenhNhan.Size = new System.Drawing.Size(110, 28);
             this.cmdXoaBenhNhan.Text = "Xóa lần khám";
             this.cmdXoaBenhNhan.ToolTipText = "Nhấn nút này để xóa lần khám của Bệnh nhân đang chọn trên lưới";
+          //  this.cmdXoaBenhNhan.Click += new System.EventHandler(this.cmdXoaBenhNhan_Click_1);
             // 
             // cmdExit
             // 

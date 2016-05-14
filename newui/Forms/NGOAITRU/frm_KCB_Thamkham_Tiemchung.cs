@@ -365,7 +365,7 @@ namespace VNS.HIS.UI.NGOAITRU
             if (_KcbChandoanKetluan != null && objLuotkham != null && objkcbdangky != null)
             {
                 DataTable _dtData = _KCB_THAMKHAM.KcbTiemchungInbangketruocTiemchung(objLuotkham.IdBenhnhan, objLuotkham.MaLuotkham, _KcbChandoanKetluan.IdKham, -1, -1);
-                THU_VIEN_CHUNG.CreateXML(_dtData, "thamkham_tiemchung_bangketruoctiemchung.xml");
+            //    THU_VIEN_CHUNG.CreateXML(_dtData, "thamkham_tiemchung_bangketruoctiemchung.xml");
                 if (_dtData.Rows.Count <= 0)
                 {
                     Utility.ShowMsg("Không tìm thấy dữ liệu báo cáo theo điều kiện bạn chọn", "Thông báo", MessageBoxIcon.Information);
@@ -3091,7 +3091,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                     : Utility.sDbnull(drv["chan_doan"]) + ";" + ICD_Name;
                 drv["ma_icd"] = ICD_Code;
             }
-            THU_VIEN_CHUNG.CreateXML(v_dtData, "thamkham_InDonthuocA4.xml");
+        //    THU_VIEN_CHUNG.CreateXML(v_dtData, "thamkham_InDonthuocA4.xml");
             v_dtData.AcceptChanges();
             // log.Info("Thuc hien in don thuoc");
             Utility.UpdateLogotoDatatable(ref v_dtData);

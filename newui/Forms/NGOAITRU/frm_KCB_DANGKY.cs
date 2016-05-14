@@ -5962,6 +5962,19 @@ namespace VNS.HIS.UI.NGOAITRU
                 }
 
                 objLuotkham.KieuKham = txtLoaikham.myCode;
+                //switch (objLuotkham.KieuKham)
+                //{
+                //    case "KSK":
+                //        objLuotkham.NhomBenhnhan = "KSK";
+                //        break;
+                //    case "KTC":
+                //        objLuotkham.NhomBenhnhan = "KTC";
+                //        break;
+                //    default: 
+                //        break;
+
+                //}
+                objLuotkham.NhomBenhnhan = objLuotkham.KieuKham;
                 objLuotkham.MaKhoaThuchien = globalVariables.MA_KHOA_THIEN;
                 objLuotkham.Noitru = 0;
                 objLuotkham.IdDoituongKcb = _IdDoituongKcb;

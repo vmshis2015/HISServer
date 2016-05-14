@@ -726,6 +726,8 @@ namespace VNS.HIS.UI.NGOAITRU
                                 txtNgheNghiep.Text = Utility.sDbnull(dr[KcbDanhsachBenhnhan.Columns.NgheNghiep], "");
                                 txtHanTheBHYT.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.NgayketthucBhyt], "");
                                 dtpNgayhethanBHYT.Text = Utility.sDbnull(dr[KcbLuotkham.Columns.NgayketthucBhyt], globalVariables.SysDate.ToString("dd/MM/yyyy"));
+                                KcbBenhAn sqlbenhan = new Select().From(KcbBenhAn.Schema).Where(KcbBenhAn.Columns.IdBnhan).IsEqualTo(objLuotkham.IdBenhnhan).ExecuteSingle<KcbBenhAn>();
+                                txtSoBa.Text = string.Format("{0}-{1}", sqlbenhan.LoaiBa, sqlbenhan.SoBenhAn);
                                 txtTuoi.Text = Utility.sDbnull(Utility.Int32Dbnull(globalVariables.SysDate.Year) -
                                                                objBenhnhan.NgaySinh.Value.Year);
                                 //ThongBaoBenhAn(txtPatient_ID.Text);

@@ -3225,7 +3225,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 string ICD_Name = "";
                 string ICD_Code = "";
                 DataSet dsData = _KCB_THAMKHAM.LaythongtinInphieuTtatDtriNgoaitru(objkcbdangky.IdKham);
-                THU_VIEN_CHUNG.CreateXML(dsData);
+              //  THU_VIEN_CHUNG.CreateXML(dsData);
                 string NGAY_KEDON = "";
                 string[] arrDate =
                     Utility.sDbnull(
@@ -3240,7 +3240,7 @@ namespace VNS.HIS.UI.NGOAITRU
                     v_dtData = SPs.KcbThamkhamLaythongtinInphieutomtat(objkcbdangky.IdKham).GetDataSet().Tables[0];
                 }
                 DataTable sub_dtData = getChitietCLS();
-                THU_VIEN_CHUNG.CreateXML(sub_dtData, "sub_report.xml");
+            //    THU_VIEN_CHUNG.CreateXML(sub_dtData, "sub_report.xml");
                 // new DataTable("Temp");
                 if (v_dtData != null && v_dtData.Rows.Count > 0)
                     GetChanDoan(Utility.sDbnull(v_dtData.Rows[0]["ICD_CHINH"], ""),
@@ -3884,7 +3884,7 @@ namespace VNS.HIS.UI.NGOAITRU
                 DataTable dtphienhen =
                     SPs.KcbThamkhamInphieuhenBenhnhan(m_strMaLuotkham, Utility.Int16Dbnull(txtPatient_ID.Text, -1)).
                         GetDataSet().Tables[0];
-                THU_VIEN_CHUNG.CreateXML(dtphienhen, "thamkham_inphieuhen_benhnhan.xml");
+                //THU_VIEN_CHUNG.CreateXML(dtphienhen, "thamkham_inphieuhen_benhnhan.xml");
                 KCB_INPHIEU.INPHIEU_HEN(dtphienhen, "PHIẾU HẸN KHÁM");
             }
             catch (Exception ex)
@@ -5284,7 +5284,7 @@ namespace VNS.HIS.UI.NGOAITRU
                                        : Utility.sDbnull(drv["chan_doan"]) + ";" + ICD_Name;
                 drv["ma_icd"] = ICD_Code;
             }
-            THU_VIEN_CHUNG.CreateXML(v_dtData, "thamkham_InDonthuocA4.xml");
+          //  THU_VIEN_CHUNG.CreateXML(v_dtData, "thamkham_InDonthuocA4.xml");
             v_dtData.AcceptChanges();
             // log.Info("Thuc hien in don thuoc");
             Utility.UpdateLogotoDatatable(ref v_dtData);
