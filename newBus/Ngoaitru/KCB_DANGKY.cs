@@ -1005,7 +1005,7 @@ namespace VNS.HIS.BusRule.Classes
                             return ActionResult.Exception;
                         }
 
-                        SPs.SpKcbDeleteLuotkham(Utility.sDbnull(v_MaLuotkham), Utility.Int64Dbnull(v_Patient_ID)).Execute();
+                     
                         //// XÓA chi định tự động
                         //new Delete().From(KcbChidinhcl.Schema).Where(KcbChidinhcl.Columns.MaLuotkham).IsEqualTo(
                         //    v_MaLuotkham)
@@ -1044,7 +1044,7 @@ namespace VNS.HIS.BusRule.Classes
                             new KcbLuotkhamController().FetchByQuery(
                                 KcbLuotkham.CreateQuery().AddWhere(KcbLuotkham.Columns.IdBenhnhan, Comparison.Equals,
                                                                     v_Patient_ID));
-
+                        SPs.SpKcbDeleteLuotkham(Utility.sDbnull(v_MaLuotkham), Utility.Int64Dbnull(v_Patient_ID)).Execute();
                         //XÓA LẦN ĐĂNG KÝ KHÁM CỦA BỆNH NHÂN
                         //new Delete().From(KcbLuotkham.Schema).Where(KcbLuotkham.Columns.MaLuotkham).IsEqualTo(
                         //    v_MaLuotkham).Execute();
