@@ -176,7 +176,7 @@ namespace VNS.HIS.UI.Baocao
                     THU_VIEN_CHUNG.CreateXML(_reportTable, "baocao_chidinhcls_chitiet");
                     Utility.SetDataSourceForDataGridEx(grdChitiet, _reportTable, false, true, "1=1", "");
                     GridEXColumn gridExColumnTientong = grdChitiet.RootTable.Columns["Thanh_Tien"];
-                    tong_tien = Utility.Int32Dbnull(grdChitiet.GetTotal(gridExColumnTientong, AggregateFunction.Sum));
+                    tong_tien = Utility.DecimaltoDbnull(grdChitiet.GetTotal(gridExColumnTientong, AggregateFunction.Sum));
                 }
                 else
                 {
@@ -190,7 +190,7 @@ namespace VNS.HIS.UI.Baocao
                     THU_VIEN_CHUNG.CreateXML(_reportTable, "baocao_chidinhcls_tonghop");
                     Utility.SetDataSourceForDataGridEx(grdList, _reportTable, false, true, "1=1", "");
                     GridEXColumn gridExColumnTientong = grdList.RootTable.Columns["Thanh_Tien"];
-                    tong_tien = Utility.Int32Dbnull(grdList.GetTotal(gridExColumnTientong, AggregateFunction.Sum));
+                    tong_tien = Utility.DecimaltoDbnull(grdList.GetTotal(gridExColumnTientong, AggregateFunction.Sum));
                 }
 
                 if (_reportTable.Rows.Count <= 0)
@@ -227,6 +227,7 @@ namespace VNS.HIS.UI.Baocao
                 Utility.SetParameterValue(crpt, "Phone", globalVariables.Branch_Phone);
                 Utility.SetParameterValue(crpt, "FromDateToDate", Condition);
                 Utility.SetParameterValue(crpt, "sTitleReport", tieude);
+              
                 Utility.SetParameterValue(crpt, "Tongtien_chu", new MoneyByLetter().sMoneyToLetter(tong_tien.ToString()));
                 Utility.SetParameterValue(crpt, "sCurrentDate", Utility.FormatDateTimeWithThanhPho(dtNgayInPhieu.Value));
                 Utility.SetParameterValue(crpt, "BottomCondition", THU_VIEN_CHUNG.BottomCondition());
