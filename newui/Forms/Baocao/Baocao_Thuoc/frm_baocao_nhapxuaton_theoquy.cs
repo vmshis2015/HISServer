@@ -425,10 +425,6 @@ namespace VNS.HIS.UI.BaoCao.Form_BaoCao
             if (e.KeyCode == Keys.F5) cmdExportToExcel.PerformClick();
         }
 
-       
-
-       
-
         private void cmdBaoCao_Click_1(object sender, EventArgs e)
         {
 
