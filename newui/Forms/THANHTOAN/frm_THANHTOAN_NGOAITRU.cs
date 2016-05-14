@@ -1016,7 +1016,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                 cmdChuyenDT.Enabled = Utility.isValidGrid(grdList) && objLuotkham != null;
                 cmdHuyThanhToan.Enabled =Utility.isValidGrid(grdList) && Utility.isValidGrid(grdPayment)  && objLuotkham != null;
                 cmdThanhToan.Enabled = Utility.isValidGrid(grdList) && grdThongTinChuaThanhToan.GetCheckedRows().Length > 0 && objLuotkham != null;
-                
+                cmdHuyThanhToan.Enabled = Utility.Coquyen("quyen_huythanhtoan_tatca");
                 cmdTraLaiTien.Enabled = Utility.isValidGrid(grdList) && grdThongTinDaThanhToan.GetCheckedRows().Length > 0 && objLuotkham != null;
                 cmdInPhieuChi.Enabled = Utility.isValidGrid(grdList) && grdPhieuChi.GetDataRows().Length > 0 && objLuotkham != null;
                 cmdInhoadon.Enabled = Utility.isValidGrid(grdList) && Utility.isValidGrid(grdPayment) && objLuotkham != null;
@@ -2308,6 +2308,7 @@ namespace  VNS.HIS.UI.THANHTOAN
                         Utility.ShowMsg("Bệnh nhân này đã ở trạng thái nội trú nên hệ thống không cho phép hủy thanh toán ngoại trú nữa");
                         return;
                     }
+                  
 
                     v_Payment_ID = Utility.Int32Dbnull(grdPayment.CurrentRow.Cells[KcbThanhtoan.Columns.IdThanhtoan].Value, -1);
                     KcbThanhtoan objPayment = KcbThanhtoan.FetchByID(v_Payment_ID);
