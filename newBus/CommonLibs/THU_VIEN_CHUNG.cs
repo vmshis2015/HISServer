@@ -1723,7 +1723,22 @@ namespace VNS.Libs
         {
             string BarCode = "";
             DataTable dataTable = new DataTable();
-            dataTable = SPs.KcbThamkhamSinhmachidinhcls(globalVariables.SysDate, globalVariables.MA_KHOA_THIEN, globalVariables.MIN_STT, globalVariables.MAX_STT).GetDataSet().Tables[0];
+            dataTable =
+                SPs.KcbThamkhamSinhmachidinhcls(globalVariables.SysDate, globalVariables.MA_KHOA_THIEN,
+                    globalVariables.MIN_STT, globalVariables.MAX_STT).GetDataSet().Tables[0];
+            if (dataTable.Rows.Count > 0)
+            {
+                BarCode = Utility.sDbnull(dataTable.Rows[0]["BARCODE"], "");
+            }
+            return BarCode;
+        }
+        public static string SinhMaChidinhCLSKSK()
+        {
+            string BarCode = "";
+            DataTable dataTable = new DataTable();
+            dataTable =
+                SPs.KcbThamkhamSinhmachidinhclsKsk(globalVariables.SysDate, globalVariables.MA_KHOA_THIEN,
+                    globalVariables.MIN_STT, globalVariables.MAX_STT).GetDataSet().Tables[0];
             if (dataTable.Rows.Count > 0)
             {
                 BarCode = Utility.sDbnull(dataTable.Rows[0]["BARCODE"], "");
