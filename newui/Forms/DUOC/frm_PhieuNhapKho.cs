@@ -281,6 +281,8 @@ namespace VNS.HIS.UI.THUOC
         {
             Utility.SetMsg(uiStatusBar1.Panels["MSG"], "", false);
             int ITPhieuNhapxuatthuoc = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
+            string khoxuat = Utility.sDbnull(grdList.CurrentRow.Cells["ten_khoxuat"].Value, "");
+            string khonhap = Utility.sDbnull(grdList.CurrentRow.Cells["ten_khonhap"].Value, "");
             if (!InValiUpdateXoa())return;
             if (Utility.AcceptQuestion(string.Format("Bạn có chắc chắn muốn xóa thông tin phiếu nhập kho với mã phiếu {0} hay không?", ITPhieuNhapxuatthuoc),"Thông báo",true))
             {
@@ -291,6 +293,11 @@ namespace VNS.HIS.UI.THUOC
                         grdList.CurrentRow.Delete();
                         grdList.UpdateData();
                         m_dtDataNhapKho.AcceptChanges();
+                         m_dtDataNhapKho.AcceptChanges();
+                        THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                           string.Format(
+                                               "Xóa phiếu nhập kho với số phiếu là :{0} -Tại kho {1}}",
+                                               ITPhieuNhapxuatthuoc, khoxuat), action.Delete);
                         Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Bạn xóa thông tin phiếu nhập kho thành công", false);
                         break;
                     case ActionResult.Error:
@@ -440,6 +447,7 @@ namespace VNS.HIS.UI.THUOC
                 if (Utility.AcceptQuestion("Bạn có muốn hủy xác nhận phiếu nhập kho đang chọn hay không?\nSau khi hủy, thuốc sẽ được trừ ra khỏi kho nhập", "Thông báo", true))
                 {
                     int ITPhieuNhapxuatthuoc = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
+                    string khonhap = Utility.sDbnull(grdList.CurrentRow.Cells["ten_khonhap"].Value, "");
                     TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc = TPhieuNhapxuatthuoc.FetchByID(ITPhieuNhapxuatthuoc);
                     if (objTPhieuNhapxuatthuoc != null)
                     {
@@ -459,6 +467,10 @@ namespace VNS.HIS.UI.THUOC
                                 grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.NgayXacnhan].Value = DBNull.Value;
                                 grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.NguoiXacnhan].Value = DBNull.Value;
                                 grdList.CurrentRow.EndEdit();
+                                THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                     string.Format(
+                                         "Hủy phiếu nhập kho với số phiếu là :{0} - Tại kho {1}",
+                                         ITPhieuNhapxuatthuoc, khonhap), action.Update);
                                 break;
                             case ActionResult.Exceed:
                                 Utility.ShowMsg("Thuốc nhập đã được sử dụng hết nên bạn không thể hủy phiếu nhập", "Thông báo lỗi", MessageBoxIcon.Error);

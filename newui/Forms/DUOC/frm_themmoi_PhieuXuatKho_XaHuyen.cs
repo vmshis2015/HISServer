@@ -676,6 +676,10 @@ namespace VNS.HIS.UI.THUOC
                     p_mDataPhieuNhapKho.Rows.Add(newDr);
 
                     Utility.GonewRowJanus(grdList, TPhieuNhapxuatthuoc.Columns.IdPhieu, Utility.sDbnull(txtIDPhieuNhapKho.Text));
+                    THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                          string.Format(
+                                              "Sửa phiếu chuyển kho tuyến huyện với số phiếu là :{0} - Từ kho {1} đến kho {2}",
+                                              objPhieuNhap.IdPhieu, objPhieuNhap.IdKhoxuat, objPhieuNhap.IdKhonhap), action.Update);
                     //Utility.ShowMsg("Bạn sửa  phiếu thành công", "Thông báo");
                     m_enAction = action.Insert;
                     this.Close();

@@ -262,6 +262,7 @@ namespace VNS.HIS.UI.THUOC
                     int _daphat = m_dtDataPresDetail.Select(KcbDonthuocChitiet.Columns.TrangThai + "=1").Length;// Utility.Int32Dbnull(grdPres.GetValue(KcbDonthuoc.Columns.TrangThai));
                     cmdPhatThuoc.Enabled = _daphat <= 0;
                     cmdHuyDonThuoc.Enabled = !cmdPhatThuoc.Enabled;
+                    cmdHuyDonThuoc.Enabled = Utility.Coquyen("quyen_huycapphatthuoc_ngoaitru");
                     cmdKiemTraSoLuong.Enabled = _daphat <= 0;
                 }
             }

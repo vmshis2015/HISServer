@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Excel.Log;
 using Janus.Windows.GridEX;
 using VNS.Libs;
 using VNS.HIS.DAL;
@@ -286,16 +287,10 @@ namespace VNS.HIS.UI.THUOC
         }
         void InitStocks()
         {
-            if (KIEU_THUOC_VT == "THUOC")
-            {
-                m_dtDataKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_CHAN();
-            }
-            else
-            {
-                m_dtDataKhoNhap = CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_CHAN();
-            }
+            m_dtDataKhoNhap = KIEU_THUOC_VT == "THUOC" ? CommonLoadDuoc.LAYTHONGTIN_KHOTHUOC_CHAN() : CommonLoadDuoc.LAYTHONGTIN_KHOVATTU_CHAN();
             txtKhonhap.Init(m_dtDataKhoNhap, new List<string>() { TDmucKho.Columns.IdKho, TDmucKho.Columns.MaKho, TDmucKho.Columns.TenKho });
         }
+
         void LoadData()
         {
             try
@@ -635,15 +630,17 @@ namespace VNS.HIS.UI.THUOC
                 txtSoluong.Focus();
                 return false;
             }
-            if (Utility.DecimaltoDbnull(txtDongia.Text) < 0)
+            if (txtDongia.Text.Length == 0) txtDongia.Text = "0";
+            if (txtGiaban.Text.Length == 0) txtGiaban.Text = "0";
+            if (Utility.DecimaltoDbnull(txtDongia.Text,0) < 0)
             {
-                Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Đơn giá phải >0", true);
+                Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Đơn giá phải >=0", true);
                 txtDongia.Focus();
                 return false;
             }
-            if (Utility.DecimaltoDbnull(txtGiaban.Text) < 0)
+            if (Utility.DecimaltoDbnull(txtGiaban.Text,0) <0)
             {
-                Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Giá bán phải >0", true);
+                Utility.SetMsg(uiStatusBar1.Panels["MSG"], "Giá bán phải >=0", true);
                 txtGiaban.Focus();
                 return false;
             }
@@ -727,7 +724,7 @@ namespace VNS.HIS.UI.THUOC
                     {
                         drv[DmucThuoc.Columns.TenThuoc] = Utility.sDbnull(objLDrug.TenThuoc);
                     }
-
+                    
                     drv[TPhieuNhapxuatthuocChitiet.Columns.GiaPhuthuDungtuyen] = Utility.DecimaltoDbnull(txtPhuthuDT.Text) ;
                     drv[TPhieuNhapxuatthuocChitiet.Columns.GiaPhuthuTraituyen] = Utility.DecimaltoDbnull(txtPhuthuTT.Text);
 
@@ -751,8 +748,9 @@ namespace VNS.HIS.UI.THUOC
                     m_dtDataPhieuChiTiet.Rows.Add(drv);
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:"+ex.Message);
             }
         }
         private void SetStatusControl()
@@ -1142,6 +1140,10 @@ namespace VNS.HIS.UI.THUOC
                     if (!_Autosave)
                         this.Close();
                     _Autosave = false;
+                    THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                        string.Format(
+                                            "Sửa phiếu nhập kho với số phiếu là :{0} - Tại kho {1} ",
+                                            objPhieuNhap.IdPhieu, objPhieuNhap.IdKhonhap), action.Update);
                     break;
                 case ActionResult.Error:
                     Utility.ShowMsg("Lỗi trong quá trình sửa phiếu", "Thông báo lỗi", MessageBoxIcon.Error);
@@ -1425,21 +1427,21 @@ namespace VNS.HIS.UI.THUOC
             try
             {
                 decimal GIA_BAn = GiaNhap;
-                decimal GiaThangDu = 0;
-                decimal GiaVAT = 0;
+                decimal giaThangDu = 0;
+                decimal giaVat = 0;
                 if (PHUONGPHAP_TINHGIABAN == "0")
                 {
-                    GiaVAT = GiaNhap;
-                    GiaThangDu = (decimal)(GiaVAT * ThangDu / 100);
-                    GIA_BAn = GiaThangDu + GiaVAT;
+                    giaVat = GiaNhap;
+                    giaThangDu = (decimal)(giaVat * ThangDu / 100);
+                    GIA_BAn = giaThangDu + giaVat;
                 }
                 else if (PHUONGPHAP_TINHGIABAN == "1")
                 {
                     //Giá VAT
-                    GiaVAT = GiaNhap + (decimal)(GiaNhap * VAT / 100);
+                    giaVat = GiaNhap + (decimal)(GiaNhap * VAT / 100);
                     //Thặng dư so với giá VAT
-                    GiaThangDu = (decimal)(GiaVAT * ThangDu / 100);
-                    GIA_BAn = GiaThangDu + GiaVAT;
+                    giaThangDu = (decimal)(giaVat * ThangDu / 100);
+                    GIA_BAn = giaThangDu + giaVat;
                 }
                 else
                 {
@@ -1499,13 +1501,14 @@ namespace VNS.HIS.UI.THUOC
         {
             try
             {
-                frm_Properties frm = new frm_Properties( PropertyLib._NhapkhoProperties);
+                var frm = new frm_Properties( PropertyLib._NhapkhoProperties);
                 
                 frm.ShowDialog();
                 CauHinh();
             }
             catch (Exception exception)
             {
+                Utility.ShowMsg("Lỗi:"+ exception.Message);
             }
         }
 

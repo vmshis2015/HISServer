@@ -709,6 +709,10 @@ namespace VNS.HIS.UI.THUOC
 
                     Utility.GonewRowJanus(grdList, TPhieuNhapxuatthuoc.Columns.IdPhieu, Utility.sDbnull(txtIDPhieuNhapKho.Text));
                     //Utility.ShowMsg("Bạn sửa  phiếu thành công", "Thông báo");
+                    THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                      string.Format(
+                                          "Sửa phiếu chuyển kho với số phiếu là :{0} - Từ kho {1} đến kho {2}",
+                                          objPhieuNhap.IdPhieu, objPhieuNhap.IdKhoxuat, objPhieuNhap.IdKhonhap), action.Delete);
                     m_enAction = action.Insert;
                     this.Close();
                     b_Cancel = true;

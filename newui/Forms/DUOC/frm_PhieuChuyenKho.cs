@@ -188,6 +188,8 @@ namespace VNS.HIS.UI.THUOC
         private void cmdXoaPhieuNhap_Click(object sender, EventArgs e)
         {
             int IdPhieu = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
+            string khoxuat = Utility.sDbnull(grdList.CurrentRow.Cells["ten_khoxuat"].Value, "");
+            string khonhap = Utility.sDbnull(grdList.CurrentRow.Cells["ten_khonhap"].Value, "");
             if (!IsValid4UpdateDelete()) return;
             if (Utility.AcceptQuestion(string.Format("Bạn có chắc chắn muốn xóa thông tin phiếu chuyển kho với mã phiếu {0} hay không?", IdPhieu), "Thông báo", true))
             {
@@ -199,6 +201,10 @@ namespace VNS.HIS.UI.THUOC
                         grdList.UpdateData();
                         m_dtDataNhapKho.AcceptChanges();
                         Utility.ShowMsg("Bạn xóa thông tin phiếu chuyển kho thành công", "Thông báo", MessageBoxIcon.Information);
+                        THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                        string.Format(
+                                            "Xóa phiếu chuyển kho với số phiếu là :{0} - Từ kho {1} đến kho {2}",
+                                            id_PhieuNhap, khoxuat, khonhap), action.Delete);
                         break;
                     case ActionResult.Error:
                         break;
@@ -504,6 +510,8 @@ namespace VNS.HIS.UI.THUOC
                 if (Utility.AcceptQuestion("Bạn có chắc chắn muốn hủy xác nhận phiếu chuyển kho đang chọn hay không?", "Thông báo", true))
                 {
                     int IdPhieu = Utility.Int32Dbnull(grdList.GetValue(TPhieuNhapxuatthuoc.Columns.IdPhieu), -1);
+                    string khoxuat = Utility.sDbnull(grdList.CurrentRow.Cells["ten_khoxuat"].Value, "");
+                    string khonhap = Utility.sDbnull(grdList.CurrentRow.Cells["ten_khonhap"].Value, "");
                     TPhieuNhapxuatthuoc objTPhieuNhapxuatthuoc = TPhieuNhapxuatthuoc.FetchByID(IdPhieu);
                     if (objTPhieuNhapxuatthuoc != null)
                     {
@@ -523,6 +531,10 @@ namespace VNS.HIS.UI.THUOC
                                 grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.NgayXacnhan].Value = DBNull.Value;
                                 grdList.CurrentRow.Cells[TPhieuNhapxuatthuoc.Columns.NguoiXacnhan].Value = DBNull.Value;
                                 grdList.CurrentRow.EndEdit();
+                                THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                        string.Format(
+                                            "Xóa phiếu chuyển kho với số phiếu là :{0} - Từ kho {1} đến kho {2}",
+                                            id_PhieuNhap, khoxuat, khonhap), action.Update);
                                 break;
                             case ActionResult.Exceed:
                                 Utility.ShowMsg("" + ten_kieuthuoc_vt + " nhập từ phiếu này đã được sử dụng hết nên bạn không thể hủy xác nhận phiếu\n" + errMsg, "Thông báo lỗi", MessageBoxIcon.Error);

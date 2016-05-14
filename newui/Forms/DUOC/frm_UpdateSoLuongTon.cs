@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SubSonic;
+using VNS.HIS.BusRule.Classes;
 using VNS.HIS.DAL;
 using VNS.Libs;
 
@@ -294,6 +296,8 @@ namespace VNS.HIS.UI.THUOC
                     }
                     int SoLuong = Utility.Int32Dbnull(e.Value);
                     int IdThuockho = Utility.Int32Dbnull(grdDieuchinh.CurrentRow.Cells[TThuockho.Columns.IdThuockho].Value);
+                    string tenthuoc = Utility.sDbnull(grdList.CurrentRow.Cells[DmucThuoc.Columns.TenThuoc].Value);
+
                     if (chkAutoupdate.Checked)
                     {
                         new Update(TThuockho.Schema)
@@ -304,11 +308,17 @@ namespace VNS.HIS.UI.THUOC
                     m_dataFull.AcceptChanges();
                     grdDieuchinh.Refetch();
                     Utility.GotoNewRowJanus(grdDieuchinh, TThuockho.Columns.IdThuockho, IdThuockho.ToString());
+                    THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                       string.Format(
+                                           "Sửa số lượng tồn của thuốc: {0} thành số lượng là {1} tại kho {2} bởi {3}",
+                                           tenthuoc, SoLuong, cboKho.Text, globalVariables.UserName), action.Update);
                 }
                 if (e.Column.Key.ToUpper() == TThuockho.Columns.GiaBan.ToUpper())
                 {
                     decimal GiaBan = Utility.DecimaltoDbnull(e.Value);
                     int IdThuockho = Utility.Int32Dbnull(grdDieuchinh.CurrentRow.Cells[TThuockho.Columns.IdThuockho].Value);
+                    string tenthuoc = Utility.sDbnull(grdList.CurrentRow.Cells[DmucThuoc.Columns.TenThuoc].Value);
+
                     if (chkAutoupdate.Checked)
                     {
                         new Update(TThuockho.Schema)
@@ -319,10 +329,15 @@ namespace VNS.HIS.UI.THUOC
                     m_dataFull.AcceptChanges();
                     grdDieuchinh.Refetch();
                     Utility.GotoNewRowJanus(grdDieuchinh, TThuockho.Columns.IdThuockho, IdThuockho.ToString());
+                    THU_VIEN_CHUNG.Log(this.Name, globalVariables.UserName,
+                                       string.Format(
+                                           "Sửa giá bán của thuốc: {0} thành giá bán là {1} tại kho {2} bởi {3}",
+                                           tenthuoc, GiaBan, cboKho.Text, globalVariables.UserName), action.Update);
                 }
             }
             catch (Exception ex)
             {
+                Utility.ShowMsg("Lỗi:"+ ex.Message);
             }
         }
 
@@ -527,10 +542,71 @@ namespace VNS.HIS.UI.THUOC
             //    m_dataFull.DefaultView.RowFilter = "1=2";
             //}
         }
+        string KIEU_THUOC_VT = "THUOC";
+        private void cmdInTonKho_Click(object sender, EventArgs e)
+        {
+            try
+            {
 
+             DataTable m_dtReport = BAOCAO_THUOC.ThuocBaocaoInTonKhoThuoc(Utility.Int32Dbnull(cboKho.SelectedValue), 
+                 Utility.Int32Dbnull(-1), Utility.Int32Dbnull(-1), -1, KIEU_THUOC_VT);
+                THU_VIEN_CHUNG.CreateXML(m_dtReport, "thuoc_baocaothuocton_theokho.xml");
+                //Truyền dữ liệu vào datagrid-view
+                //Utility.SetDataSourceForDataGridEx(grdList, m_dtReport, false, true, "1=1", "");
+                if (m_dtReport.Rows.Count <= 0)
+                {
+                    Utility.ShowMsg("Không tìm thấy dữ liệu cho báo cáo", "Thông báo", MessageBoxIcon.Warning);
+                    return;
+                }
+                //Add stt vào datatable
+                Utility.AddColumToDataTable(ref m_dtReport, "STT", typeof(Int32));
+                int idx = 1;
+                foreach (DataRow drv in m_dtReport.Rows)
+                {
+                    drv["STT"] = idx;
+                    idx++;
+                }
+                m_dtReport.AcceptChanges();
+                //Add logo vào datatable
+                Utility.UpdateLogotoDatatable(ref m_dtReport);
 
+               
 
+                //Lấy chuỗi condition truyền vào biến ?FromDateToDate trên crpt
+                string Condition = string.Format("Thuộc kho :{0}", string.IsNullOrEmpty(cboKho.Text));
+              
+                //Lấy tên người tạo báo cáo và gọi crpt
+                string StaffName = globalVariables.gv_strTenNhanvien;
+                string tieude = "", reportname = "";
+                string _reportCode = "thuoc_baocao_intonkhothuoc";
+                var crpt = Utility.GetReport(_reportCode, ref tieude, ref reportname);
+                if (crpt == null) return;
 
+                if (string.IsNullOrEmpty(globalVariables.gv_strTenNhanvien)) StaffName = globalVariables.UserName;
 
+                frmPrintPreview objForm = new frmPrintPreview("BÁO CÁO THUỐC TỒN KHO", crpt, true, m_dtReport.Rows.Count <= 0 ? false : true);
+                crpt.SetDataSource(m_dtReport);
+               
+                objForm.mv_sReportFileName = Path.GetFileName(reportname);
+                objForm.mv_sReportCode = _reportCode;
+                //crpt.DataDefinition.FormulaFields["Formula_1"].Text = Strings.Chr(34) + "".Replace("#$X$#", Strings.Chr(34) + "&Chr(13)&" + Strings.Chr(34)) + Strings.Chr(34);
+                Utility.SetParameterValue(crpt,"ReportCondition", Condition);
+                Utility.SetParameterValue(crpt,"BranchName", globalVariables.Branch_Name);
+                Utility.SetParameterValue(crpt,"ParentBranchName", globalVariables.ParentBranch_Name);
+                Utility.SetParameterValue(crpt, "ReportTitle", tieude);
+                Utility.SetParameterValue(crpt,"sCurrentDate", Utility.FormatDateTimeWithThanhPho(dtNgayInPhieu.Value));
+                Utility.SetParameterValue(crpt,"BottomCondition", THU_VIEN_CHUNG.BottomCondition());
+                Utility.SetParameterValue(crpt,"ngay_in", dtNgayInPhieu.Value.ToString("dd/MM/yyyy"));
+                Utility.SetParameterValue(crpt, "txtTrinhky", Utility.getTrinhky(objForm.mv_sReportFileName, globalVariables.SysDate));
+                objForm.crptViewer.ReportSource = crpt;
+                objForm.ShowDialog();
+            }
+            catch (Exception exception)
+            {
+                Utility.ShowMsg("Lỗi:"+ exception.Message
+                    );
+            }
+        }
+        
     }
 }

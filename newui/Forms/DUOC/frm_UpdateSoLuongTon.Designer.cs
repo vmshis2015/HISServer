@@ -59,6 +59,9 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkAutoupdate = new Janus.Windows.EditControls.UICheckBox();
+            this.cmdInTonKho = new Janus.Windows.EditControls.UIButton();
+            this.dtNgayInPhieu = new Janus.Windows.CalendarCombo.CalendarCombo();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox1)).BeginInit();
             this.uiGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiGroupBox2)).BeginInit();
@@ -88,7 +91,7 @@
             this.cmdExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdExit.Image = ((System.Drawing.Image)(resources.GetObject("cmdExit.Image")));
             this.cmdExit.ImageSize = new System.Drawing.Size(24, 24);
-            this.cmdExit.Location = new System.Drawing.Point(509, 694);
+            this.cmdExit.Location = new System.Drawing.Point(645, 694);
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(115, 31);
             this.cmdExit.TabIndex = 1;
@@ -412,10 +415,53 @@
             this.toolTip1.SetToolTip(this.chkAutoupdate, "Nếu chọn mục này thì dữ liệu sẽ được cập nhật ngay sau khi thay đổi giá trị thay " +
         "vì phải nhấn nút Lưu thông tin");
             // 
+            // cmdInTonKho
+            // 
+            this.cmdInTonKho.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdInTonKho.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdInTonKho.Image = ((System.Drawing.Image)(resources.GetObject("cmdInTonKho.Image")));
+            this.cmdInTonKho.ImageSize = new System.Drawing.Size(24, 24);
+            this.cmdInTonKho.Location = new System.Drawing.Point(504, 694);
+            this.cmdInTonKho.Name = "cmdInTonKho";
+            this.cmdInTonKho.Size = new System.Drawing.Size(135, 31);
+            this.cmdInTonKho.TabIndex = 7;
+            this.cmdInTonKho.Text = "In tồn kho";
+            this.cmdInTonKho.Click += new System.EventHandler(this.cmdInTonKho_Click);
+            // 
+            // dtNgayInPhieu
+            // 
+            this.dtNgayInPhieu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.dtNgayInPhieu.CustomFormat = "dd/MM/yyyy";
+            this.dtNgayInPhieu.DateFormat = Janus.Windows.CalendarCombo.DateFormat.Custom;
+            // 
+            // 
+            // 
+            this.dtNgayInPhieu.DropDownCalendar.Name = "";
+            this.dtNgayInPhieu.Font = new System.Drawing.Font("Arial", 9F);
+            this.dtNgayInPhieu.Location = new System.Drawing.Point(893, 700);
+            this.dtNgayInPhieu.Name = "dtNgayInPhieu";
+            this.dtNgayInPhieu.ShowUpDown = true;
+            this.dtNgayInPhieu.Size = new System.Drawing.Size(103, 21);
+            this.dtNgayInPhieu.TabIndex = 123;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial", 9F);
+            this.label3.Location = new System.Drawing.Point(839, 703);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(51, 15);
+            this.label3.TabIndex = 124;
+            this.label3.Text = "Ngày in:";
+            // 
             // frm_UpdateSoLuongTon
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.Controls.Add(this.dtNgayInPhieu);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cmdInTonKho);
             this.Controls.Add(this.chkAutoupdate);
             this.Controls.Add(this.uiGroupBox2);
             this.Controls.Add(this.uiGroupBox1);
@@ -441,6 +487,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdDieuchinh)).EndInit();
             this.pnlNav.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -472,5 +519,8 @@
         private Janus.Windows.GridEX.GridEX grdList;
         private Janus.Windows.GridEX.GridEX grdKho;
         private Janus.Windows.EditControls.UIButton cmdRefresh;
+        private Janus.Windows.EditControls.UIButton cmdInTonKho;
+        private Janus.Windows.CalendarCombo.CalendarCombo dtNgayInPhieu;
+        private System.Windows.Forms.Label label3;
     }
 }
