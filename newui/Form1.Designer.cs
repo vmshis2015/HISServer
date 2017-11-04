@@ -146,6 +146,7 @@
             // 
             this.txtDonvitinh._backcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtDonvitinh._Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDonvitinh._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtDonvitinh.AutoCompleteList = ((System.Collections.Generic.List<string>)(resources.GetObject("txtDonvitinh.AutoCompleteList")));
             this.txtDonvitinh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDonvitinh.CaseSensitive = false;
@@ -185,7 +186,7 @@
             this.chkNgaytiem.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkNgaytiem.Enabled = false;
             this.chkNgaytiem.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkNgaytiem.Location = new System.Drawing.Point(134, 227);
+            this.chkNgaytiem.Location = new System.Drawing.Point(188, 421);
             this.chkNgaytiem.Name = "chkNgaytiem";
             this.chkNgaytiem.Size = new System.Drawing.Size(89, 23);
             this.chkNgaytiem.TabIndex = 584;
