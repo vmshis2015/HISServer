@@ -29,6 +29,9 @@ using VNS.HIS.UI.Forms.Cauhinh;
 
 namespace  VNS.HIS.UI.THANHTOAN
 {
+    /// <summary>
+    /// Conflict
+    /// </summary>
     public partial class frm_THANHTOAN_NGOAITRU : Form
     {
         KCB_THANHTOAN _THANHTOAN = new KCB_THANHTOAN();
